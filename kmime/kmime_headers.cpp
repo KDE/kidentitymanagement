@@ -1170,7 +1170,7 @@ bool GAddress::parseAngleAddr( char* & scursor, const char * send,
 
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send || *scursor != '>' ) return false;
-  *scursor++;
+  scursor++;
   
   result = maybeAddrSpec;
   return true;
