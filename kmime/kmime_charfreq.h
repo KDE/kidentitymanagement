@@ -17,6 +17,7 @@
 #define __KMIME_CHARFREQ_H__
 
 #include <qcstring.h>
+#undef None
 
 namespace KMime {
 
