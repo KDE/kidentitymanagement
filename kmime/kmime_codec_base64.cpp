@@ -102,15 +102,15 @@ public:
 };
 
 
-Encoder * Base64Codec::makeEncoder( bool withCRLF=false ) const {
+Encoder * Base64Codec::makeEncoder( bool withCRLF ) const {
   return new Base64Encoder( withCRLF );
 }
 
-Decoder * Base64Codec::makeDecoder( bool withCRLF=false ) const {
+Decoder * Base64Codec::makeDecoder( bool withCRLF ) const {
   return new Base64Decoder( withCRLF );
 }
 
-Encoder * Rfc2047BEncodingCodec::makeEncoder( bool withCRLF=false ) const {
+Encoder * Rfc2047BEncodingCodec::makeEncoder( bool withCRLF ) const {
   return new Rfc2047BEncodingEncoder( withCRLF );
 }
 

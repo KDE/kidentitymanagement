@@ -153,27 +153,27 @@ public:
 };
 
 
-Encoder * QuotedPrintableCodec::makeEncoder( bool withCRLF=false ) const {
+Encoder * QuotedPrintableCodec::makeEncoder( bool withCRLF ) const {
   return new QuotedPrintableEncoder( withCRLF );
 }
 
-Decoder * QuotedPrintableCodec::makeDecoder( bool withCRLF=false ) const {
+Decoder * QuotedPrintableCodec::makeDecoder( bool withCRLF ) const {
   return new QuotedPrintableDecoder( withCRLF );
 }
 
-Encoder * Rfc2047QEncodingCodec::makeEncoder( bool withCRLF=false ) const {
+Encoder * Rfc2047QEncodingCodec::makeEncoder( bool withCRLF ) const {
   return new Rfc2047QEncodingEncoder( withCRLF );
 }
 
-Decoder * Rfc2047QEncodingCodec::makeDecoder( bool withCRLF=false ) const {
+Decoder * Rfc2047QEncodingCodec::makeDecoder( bool withCRLF ) const {
   return new QuotedPrintableDecoder( withCRLF, true );
 }
 
-Encoder * Rfc2231EncodingCodec::makeEncoder( bool withCRLF=false ) const {
+Encoder * Rfc2231EncodingCodec::makeEncoder( bool withCRLF ) const {
   return new Rfc2047QEncodingEncoder( withCRLF, '%' );
 }
 
-Decoder * Rfc2231EncodingCodec::makeDecoder( bool withCRLF=false ) const {
+Decoder * Rfc2231EncodingCodec::makeDecoder( bool withCRLF ) const {
   return new QuotedPrintableDecoder( withCRLF, true, '%' );
 }
 
@@ -481,7 +481,7 @@ bool QuotedPrintableEncoder::encode( const char* & scursor, const char * const s
 
   if ( i && i < mOutputBufferCursor ) {
     // adjust output buffer:
-    std::memmove( mOutputBuffer, &mOutputBuffer[i], mOutputBufferCursor - i );
+    memmove( mOutputBuffer, &mOutputBuffer[i], mOutputBufferCursor - i );
     mOutputBufferCursor -= i;
   } else if ( i == mOutputBufferCursor ) {
     mOutputBufferCursor = i = 0;
