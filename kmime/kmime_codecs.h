@@ -21,7 +21,7 @@
 #  include <qmutex.h>
 #endif
 
-#include <qcstring.h> // funny: can't forward decl QByteArray :-(
+#include <qcstring.h> // QByteArray
 
 #include <kdebug.h> // for kdFatal()
 
@@ -60,12 +60,12 @@ public:
   virtual Decoder * makeDecoder( bool withCRLF=false ) const = 0;
 
   /**
-   * Convencience wrapper that can be used for small chunks of data
+   * Convenience wrapper that can be used for small chunks of data
    * when you can provide a large enough buffer. The default
-   * implementation creates an Encoder and uses it.
+   * implementation creates an @ref Encoder and uses it.
    *
-   * Encodes a chunk of bytes starting at @p scursor and to @p send
-   * into the buffer described by @p dcursor and @p dend, respectively.
+   * Encodes a chunk of bytes starting at @p scursor and extending to
+   * @p send into the buffer described by @p dcursor and @p dend.
    *
    * This function doesn't support chaining of blocks. The returned
    * block cannot be added to, but you don't need to finalize it, too.
@@ -96,12 +96,12 @@ public:
 		       bool withCRLF=false ) const;
   
   /**
-   * Convencience wrapper that can be used for small chunks of data
+   * Convenience wrapper that can be used for small chunks of data
    * when you can provide a large enough buffer. The default
-   * implementation creates a Decoder and uses it.
+   * implementation creates a @ref Decoder and uses it.
    *
-   * Decodes a chunk of bytes starting at @p scursor and to @p send
-   * into the buffer described by @p dcursor and @p dend, respectively.
+   * Decodes a chunk of bytes starting at @p scursor and extending to
+   * @p send into the buffer described by @p dcursor and @p dend.
    *
    * This function doesn't support chaining of blocks. The returned
    * block cannot be added to, but you don't need to finalize it, too.
