@@ -1,4 +1,4 @@
-/*
+/*  -*- c++ -*-
     kmime_util.h
 
     KMime, the KDE internet mail/usenet news message library.
@@ -36,11 +36,7 @@ namespace KMime {
   extern bool isUsAscii(const QString &s);
 
   inline bool isOfSet(uchar map[16], unsigned char ch) {
-#ifndef Q_ASSERT
-    ASSERT( ch < 127 );
-#else
-    Q_ASSERT( ch < 127 );
-#endif
+    Q_ASSERT( ch < 128 );
     return ( map[ ch/8 ] & 0x80 >> ch%8 );
   }
 
