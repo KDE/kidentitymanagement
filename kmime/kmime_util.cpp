@@ -289,7 +289,7 @@ QCString encodeRFC2047String(const QString &src, const char *charset,
 
   if(!ok) {
     //no codec available => try local8Bit and hope the best ;-)
-    usedCS=KGlobal::locale()->charset().latin1();
+    usedCS=KGlobal::locale()->encoding();
     codec=KGlobal::charsets()->codecForName(usedCS, ok);
   }
 

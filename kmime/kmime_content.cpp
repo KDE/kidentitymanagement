@@ -406,12 +406,12 @@ void Content::fromUnicodeString(const QString &s)
   QTextCodec *codec=KGlobal::charsets()->codecForName(contentType()->charset(),ok);
 
   if(!ok) { // no suitable codec found => try local settings and hope the best ;-)
-    codec=KGlobal::charsets()->codecForName(KGlobal::locale()->charset(),ok);
+    codec=KGlobal::locale()->codecForEncoding();
 #if 0 // dependance on KNode
     QCString chset=knGlobals.cfgManager->postNewsTechnical()->findComposerCharset(KGlobal::locale()->charset().latin1());
     if (chset.isEmpty())
 #endif
-    QCString chset=KGlobal::locale()->charset().latin1();
+    QCString chset=KGlobal::locale()->encoding();
     contentType()->setCharset(chset);
   }
 
