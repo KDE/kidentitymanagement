@@ -1725,7 +1725,7 @@ bool GParametrized::parseParameterList( char* & scursor, const char * send,
   QTextCodec * textcodec = 0;
   QString attribute;
   QString value;
-  enum { NoMode = 0x0, Continued = 0x1, Encoded = 0x2 } mode;
+  enum Modes { NoMode = 0x0, Continued = 0x1, Encoded = 0x2 } mode;
 
   QMapIterator<QString,QStringOrQPair> it, end = rawParameterList.end();
 
@@ -1744,12 +1744,12 @@ bool GParametrized::parseParameterList( char* & scursor, const char * send,
       // is the value encoded?
       if ( attribute.endsWith( asterisk ) ) {
 	attribute.truncate( attribute.length() - 1 );
-	(int)mode |= Encoded;
+	mode = (Modes) ((int) mode | Encoded);
       }
       // is the value continued?
       if ( attribute.endsWith( asteriskZero ) ) {
 	attribute.truncate( attribute.length() - 2 );
-	(int)mode |= Continued;
+	mode = (Modes) ((int) mode | Continued);
       }
       //
       // decode if necessary:
