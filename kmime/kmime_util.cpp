@@ -19,6 +19,7 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kcharsets.h>
+#include <kcalendarsystem.h>
 
 #include <qtextcodec.h>
 #include <qstrlist.h> // for QStrIList
@@ -729,7 +730,7 @@ DateFormatter::fancy(time_t otime) const
 	if ( old.date().year() == weekday.date().year() &&
 	     old.date().dayOfYear() == weekday.date().dayOfYear() )
 	  return i18n( "1. weekday, 2. time", "%1 %2" ).
-	    arg( locale->weekDayName( old.date().dayOfWeek() ) ).
+	    arg( locale->calendar()->weekDayName( old.date() ) ).
 	    arg( locale->formatTime( old.time(), true) );
       }
   }
