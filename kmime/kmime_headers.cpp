@@ -162,7 +162,7 @@ bool SingleMailbox::parse( const char* & scursor, const char * const send,
 			   bool isCRLF ) {
   if ( !MailboxList::parse( scursor, send, isCRLF ) ) return false;
 
-  if ( mMailboxList.count() != 1 ) {
+  if ( mMailboxList.count() > 1 ) {
     KMIME_WARN << "multiple mailboxes in header allowing only a single one!"
 	       << endl;
   }
