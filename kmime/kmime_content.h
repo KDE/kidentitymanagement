@@ -117,7 +117,7 @@ class Content : public Base {
     // this charset is used for all headers and the body
     // if the charset is not declared explictly
     QCString defaultCharset()                  { return QCString(d_efaultCS); }
-    void setDefaultCharset(const QCString &cs) { d_efaultCS = KMime::cachedCharset(cs); }
+    void setDefaultCharset(const QCString &cs);
 
     // use the default charset even if a different charset is
     // declared in the article

@@ -101,6 +101,17 @@ void Content::parse()
   //qDebug("void Content::parse() : start");
   delete h_eaders;
   h_eaders=0;
+  
+  // check this part has already been partioned into subparts.
+  // if this is the case, we will not try to reparse the body
+  // of this part.
+  if ((b_ody.size() == 0) && (c_ontents != 0) && !c_ontents->isEmpty()) {
+    // reparse all sub parts
+    for(Content *c=c_ontents->first(); c; c=c_ontents->next())
+      c->parse();
+    return;
+  }    
+  
   delete c_ontents;
   c_ontents=0;
 
@@ -806,11 +817,30 @@ bool Content::decodeText()
 }
 
 
+void Content::setDefaultCharset(const QCString &cs)
+{ 
+  d_efaultCS = KMime::cachedCharset(cs); 
+  
+  if(c_ontents && !c_ontents->isEmpty())
+    for(Content *c=c_ontents->first(); c; c=c_ontents->next())
+      c->setDefaultCharset(cs);
+      
+  // reparse the part and its sub-parts in order
+  // to clear cached header values
+  parse();      
+}
+
+
 void Content::setForceDefaultCS(bool b)
 {
   f_orceDefaultCS=b;
-  if (h_eaders)
-    h_eaders->clear();
+  
+  if(c_ontents && !c_ontents->isEmpty())
+    for(Content *c=c_ontents->first(); c; c=c_ontents->next())
+      c->setForceDefaultCS(b);
+  
+  // reparse the part and its sub-parts in order
+  // to clear cached header values    
   parse();
 }
 
