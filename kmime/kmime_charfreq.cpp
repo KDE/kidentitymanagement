@@ -111,13 +111,13 @@ CharFreq::Type CharFreq::type() const {
   // doesn't contain NUL's:
   if ( eightBit ) {
     if ( lineMax > 988 ) return EightBitData; // not allowed in 8bit
-    if ( CR != CRLF || controlCodesRatio() > 0.3 ) return EightBitData;
+    if ( CR != CRLF || controlCodesRatio() > 0.2 ) return EightBitData;
     return EightBitText;
   }
 
   // doesn't contain NUL's, nor 8bit chars:
   if ( lineMax > 988 ) return SevenBitData;
-  if ( CR != CRLF || controlCodesRatio() > 0.3 ) return SevenBitData;
+  if ( CR != CRLF || controlCodesRatio() > 0.2 ) return SevenBitData;
   
   // no NUL, no 8bit chars, no excessive CTLs and no lines > 998 chars:
   return SevenBitText;
