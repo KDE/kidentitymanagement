@@ -427,7 +427,8 @@ bool parseComment( const char* & scursor, const char * const send,
 	  // add the chunk that's now surely inside the comment.
 	  result += maybeCmnt;
 	  result += cmntPart;
-	  result += QChar(')');
+	  if ( commentNestingDepth > 1 ) // don't add the outermost ')'...
+	    result += QChar(')');
 	  maybeCmnt = QString::null;
 	}
 	afterLastClosingParenPos = scursor;
@@ -862,7 +863,11 @@ bool parseAngleAddr( const char* & scursor, const char * const send,
 bool parseMailbox( const char* & scursor, const char * const send,
 		   Mailbox & result, bool isCRLF ) {
 
+  // rfc:
   // mailbox := addr-spec / ([ display-name ] angle-addr)
+  // us:
+  // mailbox := addr-spec / ([ display-name ] angle-addr)
+  //                      / (angle-addr "(" display-name ")")
 
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send ) return false;
@@ -893,6 +898,16 @@ bool parseMailbox( const char* & scursor, const char * const send,
   // third, parse the angle-addr:
   if ( !parseAngleAddr( scursor, send, maybeAddrSpec, isCRLF ) )
     return false;
+
+  if ( maybeDisplayName.isNull() ) {
+    // check for the obsolete form of display-name (as comment):
+    eatWhiteSpace( scursor, send );
+    if ( scursor != send && *scursor == '(' ) {
+      scursor++;
+      if ( !parseComment( scursor, send, maybeDisplayName, isCRLF, true /*keep*/ ) )
+	return false;
+    }
+  }
 
   result.displayName = maybeDisplayName;
   result.addrSpec = maybeAddrSpec;
