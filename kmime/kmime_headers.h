@@ -132,6 +132,20 @@ class Base {
     bool isXHeader()  { return (strncmp(type(), "X-", 2)==0); }
 
   protected:
+    /** Parse the encoded word in @p str pointed to by @p pos
+        (actually, @p pos-2, see below).
+
+	@param str the source string
+	@param pos in: the starting position (must already point to the
+                   character following the initial '=?';
+		   out: the new postion
+	@param ok  only out: if true, the encoded-word was correct up
+	           to and including the encoding specifier. The
+		   encoded-text is quite generously parsed and @p ok
+		   is still set to @p true when e.g. the encoded-word
+		   appears to be truncated or contains whitespace.
+	@return the decoded string the encoded word represented.
+    */
     QString parseEncodedWord( const QCString & str, int & pos, bool & ok );
     
     QCString typeIntro()  { return (QCString(type())+": "); }

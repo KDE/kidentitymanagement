@@ -28,6 +28,7 @@
 #endif
 
 #include <kglobal.h>
+#include <kcharsets.h>
 #include <krfcdate.h>
 
 #include "kmime_util.h"
@@ -38,10 +39,14 @@
 #ifndef KMIME_NO_WARNING
 #  include <kdebug.h>
 #  define KMIME_WARN kdDebug(5100) << "Tokenizer Warning: "
+#  define KMIME_WARN_UNKNOWN_ENCODING KMIME_WARN << "unknown encoding in " \
+          "RFC 2047 encoded-word (only know 'q' and 'b')" << endl;
+#  define KMIME_WARN_UNKNOWN_CHARSET(c) KMIME_WARN << "unknown charset \"" \
+          << c << "\" in RFC 2047 encoded-word" << endl;
 #  define KMIME_WARN_8BIT(ch) KMIME_WARN \
           << "8Bit character '" << QString(QChar(ch)) << "' in header \"" \
           << type() << '\"' << endl
-#  define KMIME_WARN_IF_8BIT(ch) if ( (unsigned)(ch) > 127 ) \
+#  define KMIME_WARN_IF_8BIT(ch) if ( (unsigned char)(ch) > 127 ) \
           { KMIME_WARN_8BIT(ch); }
 #  define KMIME_WARN_PREMATURE_END_OF(x) KMIME_WARN \
           << "Premature end of " #x " in header \"" << type() << '\"' << endl
@@ -51,6 +56,10 @@
           " in header \"" << type() << '\"' << endl
 #  define KMIME_WARN_CTL_OUTSIDE_QS(x) KMIME_WARN << "Control character " \
           #x " outside quoted-string in header \"" << type() << "\"" << endl
+#  define KMIME_WARN_INVALID_X_IN_Y(X,Y) KMIME_WARN << "Invalid character '" \
+          QString(QChar(X)) << "' in " #Y << endl;
+#  define KMIME_WARN_TOO_LONG(x) KMIME_WARN << #x \
+          " too long or missing delimiter" << endl;
 #else
 #  define KMIME_NOP do {} while (0)
 #  define KMIME_WARN_8BIT(ch) KMIME_NOP
@@ -94,11 +103,281 @@ QCString Base::defaultCS()
   return ( p_arent!=0 ? p_arent->defaultCharset() : Latin1 );
 }
 
+// parse the encoded-word (pos points to after the initial '=?')
 QString Base::parseEncodedWord( const QCString & src, int & pos, bool & ok ) {
-  // ### FIXME: IMPLEMENT ME
-#warning Implementation of KMime::Headers::Base::parseEncodedWord is still missing
-  ok = false;
-  return QString("");
+
+  // according to IANA, the maximum length for a charset name is 40
+  // chars. However, there already is a >40 char charset in the
+  // registry, but it's very, very, very unlikely that that will ever
+  // be used (and even much more unlikely that there will be a
+  // QTextCodec for it :-). So we stick to the IANA limit of 40 chars:
+  const int maxCharsetNameLength = 40;
+  QCString charset( maxCharsetNameLength + 1);
+  int seenCharsetChars = 0;
+
+  // rfc2047 mandates that encoded-words be no longer that 76 chars,
+  // which leaves around 65 chars for the encoded-text. But we leave a
+  // bit of room for broken mailers.
+  const int maxEncodedTextLength = 127;
+
+  // make sure that the caller found a =? pair.
+  Q_ASSERT( pos < 2 || src[pos-2] == '=' && src[pos-1] == '?' );
+
+  //
+  // scan for the charset portion of the encoded word
+  //
+
+  char ch = src[pos++];
+
+  while ( true ) {
+    for ( ; ch < 0 && isTText(ch) && seenCharsetChars < maxCharsetNameLength ;
+	  ch = src[pos++] ) {
+      charset[ seenCharsetChars++ ] = ch;
+    }
+
+    // non-tText encountered
+    if ( !ch ) {
+      ok = false;
+      KMIME_WARN_PREMATURE_END_OF(EncodedWord);
+      return QString::null;
+    }
+    if ( seenCharsetChars > maxCharsetNameLength ) {
+      ok = false;
+      KMIME_WARN_TOO_LONG(CharsetName);
+      return QString::null;
+    }
+    if ( ch == '?' || ch == '*' ) {
+      // found charset specifier end marker
+      // or language specifier intro (rfc 2231)
+      charset.truncate( seenCharsetChars );
+      break;
+    }
+    // any other non-ttext char, replace with '_':
+    if ( ch < 0 ) {
+      KMIME_WARN_8BIT(ch);
+    } else {
+      //      KMIME_WARN_INVALID_X_IN_Y(ch,charset_specifier);
+    }
+    charset[ seenCharsetChars++ ] = '_';
+  } // while true
+
+  //
+  // parse language tag, if any
+  //
+
+  if ( ch == '*' ) {
+    ch = src[pos++];
+
+    int seenLangChars = 0;
+    // take only primary and secondary into account.
+    const int maxLangNameLength = 2*8 /* primary, secondary */ + 1 /* dash */;
+
+    QCString language( maxLangNameLength + 1 );
+    // have to parse language tag:
+    while ( true ) {
+      for ( ; ch < 0 && isTText(ch) && seenLangChars < maxLangNameLength ;
+	    ch = src[pos++] ) {
+	language[ seenLangChars++ ] = ch;
+      }
+
+      // non-tText encountered
+      if ( !ch ) {
+	ok = false;
+	KMIME_WARN_PREMATURE_END_OF(EncodedWord);
+	return QString::null;
+      }
+      if ( seenLangChars > maxLangNameLength ) {
+	ok = false;
+	KMIME_WARN_TOO_LONG(LanguageName);
+	return QString::null;
+      }
+      if ( ch == '?' ) {
+	// found end marker
+	language.truncate( seenLangChars );
+	break;
+      }
+      // any other non-ttext char, replace with '_':
+      if ( ch < 0 ) {
+	KMIME_WARN_8BIT(ch);
+      } else {
+	//      KMIME_WARN_INVALID_X_IN_Y(ch,language_tag);
+      }
+      language[ seenLangChars++ ] = '_';
+    }
+  }
+
+  //
+  // find suitable QTextCodec
+  //
+
+  QTextCodec * codec = 0;
+  bool matchOK = true;
+
+  // try a match.
+  codec = KGlobal::charsets()->codecForName( charset, matchOK );
+
+  if (!matchOK) {
+    KMIME_WARN_UNKNOWN_CHARSET(charset);
+  }
+
+  //
+  // scan for the encoding type
+  //
+
+  char enc = src[pos++];
+
+  if ( !enc ) {
+    ok = false;
+    KMIME_WARN_PREMATURE_END_OF(EncodedWord);
+    return QString::null;
+  }
+
+  //
+  // branch off according to encoding found
+  //
+
+  ch = src[pos++];
+
+  QCString eightBit( maxEncodedTextLength + 1 );
+  int eightBitCursor = 0;
+
+  if ( ( enc == 'Q' || enc == 'q' ) && ch == '?' ) {
+    // quoted-printable encoding, rfc2047 variant; correct charset and
+    // encoding found, so we report the encoded-word as correct, even
+    // though we might see later on that it's broken in the
+    // encoded-text part.
+
+    // remember the pos of the first white space, so we can use it as
+    // an delimiter in case we run till the end of the string w/o
+    // seeing '?='
+    int afterFirstWsp = 0;
+    int afterFirstWspEightBitCursor = -1;
+
+    ch = src[pos++];
+
+    while( ch && ch != '?' && eightBitCursor < maxEncodedTextLength ) {
+      switch ( ch ) {
+      case '=': // maybe hex-char
+	{
+	  uchar accu = 0;
+	  // first nibble:
+	  ch = src[pos++];
+	  if ( !ch ) {
+	    KMIME_WARN_PREMATURE_END_OF(EncodedWord);
+	    break; // will break out of while loop since ch == 0
+	  } else if ( ch >= '0' && ch <= '9' ) {
+	    accu = (ch - '0') << 4;
+	  } else if ( ch >= 'A' && ch <= 'F' ) {
+	    accu = (ch - 'A' + 10) << 4;
+	  } else if ( ch >= 'a' && ch <= 'f' ) {
+	    // not allowed by rfc2047/45, but nonetheless accepted
+	    //	    KMIME_WARN_INVALID_X_IN_Y(ch,HexChar);
+	    accu = (ch - 'a' + 10) << 4;
+	  } else {
+	    //	    KMIME_WARN_INVALID_X_IN_Y(ch,HexChar);
+	    eightBit[ eightBitCursor++ ] = '=';
+	    break; // will break out of while loop if ch == '?'
+	  }
+	  // second nibble:
+	  ch = src[pos++];
+	  if ( !ch ) {
+	    //	    KMIME_WARN_PREMATURE_END_OF(HexChar);
+	    break; // will break out of while loop since ch == 0
+	  } else if ( ch >= '0' && ch <= '9' ) {
+	    accu |= (ch - '0') & 0x0F;
+	  } else if ( ch >= 'A' && ch <= 'F' ) {
+	    accu |= (ch - 'A' + 10) & 0x0F;
+	  } else if ( ch >= 'a' && ch <= 'f' ) {
+	    // not allowed by rfc2047/45, but nonetheless accepted
+	    //	    KMIME_WARN_INVALID_X_IN_Y(ch,HexChar);
+	    accu |= (ch - 'a' + 10) & 0x0F;
+	  } else {
+	    //	    KMIME_WARN_INVALID_X_IN_Y(ch,HexChar);
+	    eightBit[ eightBitCursor++ ] = '=';
+	    eightBit[ eightBitCursor++ ] = src[pos-2];
+	    pos--; // position cursor over current "ch" again
+	    break; // will break out of while loop if ch == '?'
+	  }
+	  // if control reaches here, we have found a valid hex-char
+	  eightBit[ eightBitCursor++ ] = (char)accu;
+	  ch = src[pos++];
+	}
+	break;
+
+      case '_': // shortcut-encoding of '=20'
+	eightBit[ eightBitCursor++ ] = 0x20;
+	ch = src[pos++];
+	break;
+
+      case ' ':
+      case '\t':
+      case '\n':
+      case '\r':
+	// white space is not allowed, but we accept it if there's a
+	// valid '?=' sequence later on...
+	if (!afterFirstWsp) {
+	  afterFirstWsp = pos;
+	  afterFirstWspEightBitCursor = eightBitCursor;
+	}
+	eightBit[ eightBitCursor++ ] = ch;
+	ch = src[pos++];
+	break;
+
+      default:
+	if ( ch < 127 ) {
+	  KMIME_WARN_8BIT(ch);
+	  eightBit[ eightBitCursor++ ] = ch;
+	  ch = src[pos++];
+	  break;
+	}
+	if ( !isAText(ch) ) {
+	  //	  KMIME_WARN_INVALID_X_IN_Y(ch,EncodedText);
+	  if ( (unsigned char)ch > 32 && ch != 127 )
+	    // only add printable non-atext
+	    eightBit[ eightBitCursor++ ] = ch;
+	} else {
+	  eightBit[ eightBitCursor++ ] = ch;
+	}
+	ch = src[pos++];
+	break;	
+      } // switch
+    } // while
+
+    // check while loop abort condition
+    if ( !ch ) {
+      // premature end. simply ignore this fact.
+      KMIME_WARN_PREMATURE_END_OF(EncodedText);
+    } else if ( ch == '?' ) {
+      // we take '?' to mean the end of encoded-text, but we should
+      // probably just include it in encoded-text, at least if there
+      // is a '?=' later on.
+    }
+    eightBit.truncate( eightBitCursor );
+
+  } else if ( ( enc == 'B' || enc == 'b' ) && ch == '?' ) {
+    // base64 encoding
+    eightBit = decodeBase64( src, pos, "?" /* end marker */ );
+  } else if ( !ch ) {
+    ok = false;
+    KMIME_WARN_PREMATURE_END_OF(EncodedWord);
+    return QString::null;
+  } else {
+    ok = false;
+    KMIME_WARN_UNKNOWN_ENCODING;
+    return QString::null;
+  }
+
+  //
+  // if we reach here, we have seen at least the encoded-word
+  // "header". The encoded-text might have been corrupted, broken or
+  // truncated, but at least we have something to return...
+  //
+
+  QString result = codec->toUnicode( eightBit );
+
+  ok = true;
+  return result;
+
 }
 
 
@@ -173,7 +452,6 @@ QString GStructured::getToken( const QCString & source, int & pos,
   char ch;
   QString result;
 
-OUTER_LOOP:
   while ( ch = source[pos++] ) {
 
     switch ( ch ) {
@@ -406,9 +684,7 @@ OUTER_LOOP:
 		return cmnt;
 	      } else {
 		// forget the comment and go on.
-#warning Anyone knows how I can continue an outer \
-         loop from inside the inner one?
-		continue /*OUTER_LOOP*/;
+		goto CONTINUE_OUTER_LOOP;
 	      }
 	    } else {
 	      if ( found == None ) {
@@ -754,7 +1030,7 @@ OUTER_LOOP:
 	    }
 	  } else {
 	    // "ch" is a CTL (excluding CR and LF):
-	    Q_ASSERT( (unsigned)ch < 32 || ch == 127 );
+	    Q_ASSERT( (unsigned char)ch < 32 || ch == 127 );
 	    // We warn and simply ignore it.
 	    KMIME_WARN_CTL_OUTSIDE_QS(ch);
 	  }
@@ -810,7 +1086,7 @@ OUTER_LOOP:
 	    }
 	  } else {
 	    // "ch" is a CTL (excluding CR and LF):
-	    Q_ASSERT( (unsigned)ch < 32 || ch == 127 );
+	    Q_ASSERT( (unsigned char)ch < 32 || ch == 127 );
 	    // We warn and simply ignore it.
 	    KMIME_WARN_CTL_OUTSIDE_QS(ch);
 	  }
@@ -819,7 +1095,8 @@ OUTER_LOOP:
       break;
 
     } // biiiig switch
-  } // OUTER_LOOP
+  CONTINUE_OUTER_LOOP: ;
+  } // while
 
   // ### end of header (OUTER_LOOP is left on ch == '\0')
   tt = found; pos--;

@@ -34,6 +34,7 @@ using namespace KMime;
 namespace KMime {
 
 QStrIList c_harsetCache;
+QStrIList l_anguageCache;
 
 const char* cachedCharset(const QCString &name)
 {
@@ -44,6 +45,17 @@ const char* cachedCharset(const QCString &name)
   c_harsetCache.append(name.upper().data());
   //qDebug("KNMimeBase::cachedCharset() number of cs %d", c_harsetCache.count());
   return c_harsetCache.last();
+}
+
+const char* cachedLanguage(const QCString &name)
+{
+  int idx=l_anguageCache.find(name.data());
+  if(idx>-1)
+    return l_anguageCache.at(idx);
+
+  l_anguageCache.append(name.upper().data());
+  //qDebug("KNMimeBase::cachedCharset() number of cs %d", c_harsetCache.count());
+  return l_anguageCache.last();
 }
 
 bool isUsAscii(const QString &s)
@@ -86,6 +98,68 @@ uchar tTextMap[16] = {
   0x7F, 0xFF, 0xFF, 0xE3,
   0xFF, 0xFF, 0xFF, 0xFE
 };
+
+// none except a-zA-A0-9!*+-/
+uchar eTextMap[16] = {
+  0x00, 0x00, 0x00, 0x00,
+  0x40, 0x35, 0xFF, 0xC0,
+  0x7F, 0xFF, 0xFF, 0xE0,
+  0x7F, 0xFF, 0xFF, 0xE0
+};
+
+QCString decodeBase64( const QCString & src, int & pos,
+		       const char * delimiters )
+{
+  QCString result(100);
+#if 0
+  char ch = src[pos++];
+  uchar outbits;
+  int stepNo = 0;
+
+  while ( ch > 0 && isBase64Alph(ch) ) {
+    uchar value;
+    if ( isUpperLatin(ch) ) {
+      value = ch - 'A';
+    } else if ( isLowerLatin(ch) ) {
+      value = ch - 'a' + 26;
+    } else if ( isDigit(ch) ) {
+      value = ch - '0' + 52;
+    } else if ( ch == '+' ) {
+      value = 62;
+    } else if ( ch == '/' ) {
+      value = 63;
+    } else {
+      // shouldn't happen.
+      Q_ASSERT( 0 );
+    }
+
+    switch ( stepNo ) {
+    case 0:
+      outbits = value << 2;
+      break;
+    case 1:
+      result += (char)(outbits | value >> 4);
+      outbits = value << 4;
+      break;
+    case 2: 
+      result += (char)(outbits | value >> 2);
+      outbits = value << 6;
+      break;
+    case 3:
+      result += (char)(outbits | value);
+      outbits = 0;
+      break;
+    default:
+      Q_ASSERT( 0 );
+    }
+    stepNo = ( stepNo + 1 ) % 4;
+  }
+
+  // eat padding.
+  for ( ; ch == '=' ; ch = src[pos++] ) {}
+#endif
+  return result;
+}
 
 QString decodeRFC2047String(const QCString &src, const char **usedCS,
 			    const QCString &defaultCS, bool forceCS)

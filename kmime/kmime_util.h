@@ -24,8 +24,13 @@ typedef QValueList<QCString> QCStringList;
 
 namespace KMime {
 
-  /** Consult the charset cache. Only used for */
+  /** Consult the charset cache. Only used for reducing mem usage by
+      keeping strings in a common repository.*/
   extern const char* cachedCharset(const QCString &name);
+
+  /** Consult the language cache. Only used for reducing mem usage by
+      keeping strings in a common repository.*/
+  extern const char* cachedLanguage(const QCString &name);
 
   /** checks whether @p s contains any non-us-ascii characters */
   extern bool isUsAscii(const QString &s);
@@ -43,6 +48,7 @@ namespace KMime {
   extern uchar tSpecialsMap[16];
   extern uchar aTextMap[16];
   extern uchar tTextMap[16];
+  extern uchar eTextMap[16];
 
   inline bool isSpecial(char ch) {
     return isOfSet( specialsMap, ch );
@@ -56,6 +62,12 @@ namespace KMime {
   inline bool isTText(char ch) {
     return isOfSet( tTextMap, ch );
   }
+  inline bool isEText(char ch) {
+    return isOfSet( eTextMap, ch );
+  }
+
+  extern QCString decodeBase64( const QCString & src, int & pos,
+				const char * delimiters = 0 );
 
   /** Decode string @p src according to RFC2047 (ie. the
       =?charset?[qb]?encoded?= construct).
