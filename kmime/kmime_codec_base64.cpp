@@ -37,8 +37,8 @@ namespace KMime {
 
 
 class Base64Decoder : public Decoder {
+  uint mStepNo;
   uchar mOutbits;
-  uint mStepNo : 2;
   bool mSawPadding : 1;
   const bool mWithCRLF : 1;
 
@@ -60,11 +60,11 @@ public:
 
 
 class Base64Encoder : public Encoder {
-  uchar mNextbits;
-  uint mStepNo : 2;
-  bool mInsideFinishing : 1;
+  uint mStepNo;
   /** number of already written base64-quartets on current line */
-  uint mWrittenPacketsOnThisLine : 5;
+  uint mWrittenPacketsOnThisLine;
+  uchar mNextbits;
+  bool mInsideFinishing : 1;
   const bool mWithCRLF : 1;
 
 protected:
@@ -72,8 +72,8 @@ protected:
   friend class Rfc2047BEncodingEncoder;
   friend class Base64Codec;
   Base64Encoder( bool withCRLF=false )
-    : Encoder(), mNextbits(0), mStepNo(0),
-      mInsideFinishing(false), mWrittenPacketsOnThisLine(0),
+    : Encoder(), mStepNo(0), mWrittenPacketsOnThisLine(0),
+      mNextbits(0), mInsideFinishing(false),
       mWithCRLF( withCRLF ) {}
 
   bool generic_finish( char* & dcursor, const char * const dend,
@@ -96,6 +96,8 @@ protected:
   Rfc2047BEncodingEncoder( bool withCRLF=false )
     : Base64Encoder( withCRLF ) {};
 public:
+  bool encode( const char* & scursor, const char * const send,
+	       char* & dcursor, const char * const send );
   bool finish( char* & dcursor, const char * const dend );
 };
 
@@ -278,27 +280,66 @@ bool Base64Encoder::encode( const char* & scursor, const char * const send,
       value = 0; // prevent compiler warning
       assert( 0 );
     }
-    mStepNo++; // by definition calculated mod 4 !
+    mStepNo = ( mStepNo + 1 ) % 4;
 
     assert( value < 64 );
 
     // now map the value to the corresponding base64 character:
-#if defined(KMIME_CODEC_USE_CODEMAPS)
     *dcursor++ = base64EncodeMap[ value ];
-#else
-    // ( 26 * 1 + 26 * 2 + 10 * 3 + 2 * 4 ) / 64 = 1.8125 comp./char
-    if ( value < 26 )
-      value += 'A';
-    else if ( value < 52 )
-      value += 'a' - 26;
-    else if ( value < 62 )
-      value += '0' - 52;
-    else if ( value < 63 )
-      value = '+';
-    else
-      value = '/';
-    *dcursor++ = char(value);
-#endif
+  }
+  
+  return !(scursor != send);
+}
+
+bool Rfc2047BEncodingEncoder::encode( const char* & scursor, const char * const send,
+				      char* & dcursor, const char * const dend ) {
+  // detect when the caller doesn't adhere to our rules:
+  assert( !mInsideFinishing );
+
+  while ( scursor != send && dcursor != dend ) {
+    uchar ch;
+    uchar value; // value of the current sextet
+    // mNextbits   // (part of) value of next sextet
+
+    // depending on mStepNo, extract value and mNextbits from the
+    // octet stream:
+    switch ( mStepNo ) {
+    case 0:
+      assert( mNextbits == 0 );
+      ch = *scursor++;
+      value = ch >> 2; // top-most 6 bits -> value
+      mNextbits = (ch & 0x3) << 4; // 0..1 bits -> 4..5 in mNextbits
+      break;
+    case 1:
+      assert( (mNextbits & ~0x30) == 0 );
+      ch = *scursor++;
+      value = mNextbits | ch >> 4; // 4..7 bits -> 0..3 in value
+      mNextbits = (ch & 0xf) << 2; // 0..3 bits -> 2..5 in mNextbits
+      break;
+    case 2:
+      assert( (mNextbits & ~0x3C) == 0 );
+      ch = *scursor++;
+      value = mNextbits | ch >> 6; // 6..7 bits -> 0..1 in value
+      mNextbits = ch & 0x3F;       // 0..6 bits -> mNextbits
+      break;
+    case 3:
+      // this case is needed in order to not output more than one
+      // character per round; we could write past dend else!
+      assert( (mNextbits & ~0x3F) == 0 );
+      value = mNextbits;
+      mNextbits = 0;
+      mWrittenPacketsOnThisLine++;
+      break;
+    default:
+      value = 0; // prevent compiler warning
+      assert( 0 );
+    }
+    mStepNo = ( mStepNo + 1 ) % 4;
+
+    assert( value < 64 );
+
+    // now map the value to the corresponding base64 character:
+    *dcursor++ = base64EncodeMap[ value ];
   }
   
   return !(scursor != send);
@@ -353,24 +394,10 @@ bool Base64Encoder::generic_finish( char* & dcursor, const char * const dend,
     if ( !(dcursor != dend) ) // don't force operator== on iterators
       return false;
 
-#if defined(KMIME_CODEC_USE_CODEMAPS)
     *dcursor++ = base64EncodeMap[ mNextbits ];
-#else
-    if ( mNextbits < 26 )
-      mNextbits += 'A';
-    else if ( mNextbits < 52 )
-      mNextbits += 'a' - 26;
-    else if ( mNextbits < 62 )
-      mNextbits += '0' - 52;
-    else if ( mNextbits < 63 )
-      mNextbits = '+';
-    else
-      mNextbits = '/';
-    *dcursor++ = char(mNextbits);
-#endif
     mNextbits = 0;
     
-    mStepNo++; // by definition calculated mod 4 !
+    mStepNo = ( mStepNo + 1 ) % 4;
     mInsideFinishing = true;
   }
 
@@ -393,7 +420,7 @@ bool Base64Encoder::generic_finish( char* & dcursor, const char * const dend,
       *dcursor++ = '=';
       break;
     }
-    mStepNo++; // by definition calculated mod 4 !
+    mStepNo = ( mStepNo + 1 ) % 4;
   }
 
   return false; // output buffer full
