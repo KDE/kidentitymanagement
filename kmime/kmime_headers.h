@@ -22,7 +22,7 @@
 // - incompatible, GStructured-based field classes
 // - compatible, GUnstructured-based field classes
 
-#include <time.h>
+#include "kmime_header_parsing.h"
 
 #include <qstring.h>
 #include <qstrlist.h>
@@ -33,20 +33,14 @@
 #include <qmap.h>
 #include <qptrlist.h>
 
+#include <time.h>
+
 namespace KMime {
 
 //forward declaration
 class Content;
 
-
 namespace Headers {
-
-// for when we can't make up our mind what to use...
-struct QStringOrQPair {
-  QStringOrQPair() : qstring(), qpair(0,0) {}
-  QString qstring;
-  QPair<const char*,int> qpair;
-};
 
 
 enum contentCategory    { CCsingle,
@@ -67,7 +61,6 @@ enum contentDisposition { CDinline,
 
 //often used charset
 static const QCString Latin1("ISO-8859-1");
-
 
 #define mk_trivial_subclass_with_name( subclass, subclassName, baseclass ) \
 class subclass : public Generics::baseclass { \
@@ -104,7 +97,6 @@ protected: \
 
 #define mk_parsing_subclass( subclass, baseclass ) \
 mk_parsing_subclass_with_name( subclass, subclass, baseclass )
-
 
 //
 //
@@ -181,23 +173,6 @@ class Base {
     bool isXHeader()  { return (strncmp(type(), "X-", 2)==0); }
 
   protected:
-    /** Parse the encoded word in @p str pointed to by @p pos
-        (actually, @p pos-2, see below).
-
-	@param str the source string
-	@param pos in: the starting position (must already point to the
-                   character following the initial '=?';
-		   out: the new postion
-	@param ok  only out: if true, the encoded-word was correct up
-	           to and including the encoding specifier. The
-		   encoded-text is quite generously parsed and @p ok
-		   is still set to @p true when e.g. the encoded-word
-		   appears to be truncated or contains whitespace.
-	@return the decoded string the encoded word represented.
-    */
-    bool parseEncodedWord( const char* & scursor, const char * const send,
-			   QString & result, QCString & language );
-    
     QCString typeIntro()  { return (QCString(type())+": "); }
 
     const char *e_ncCS;
@@ -301,53 +276,6 @@ public:
 
   
 protected:
-  //
-  // The parsing squad:
-  //
-
-  /** You may or may not have already started parsing into the
-      atom. This function will go on where you left off. */
-  bool parseAtom( const char* & scursor, const char * const send,
-		  QString & result, bool allow8Bit=false );
-  bool parseAtom( const char* & scursor, const char * const send,
-		  QPair<const char*,int> & result, bool allow8Bit=false );
-  /** You may or may not have already started parsing into the
-      token. This function will go on where you left off. */
-  bool parseToken( const char* & scursor, const char * const send,
-		   QString & result, bool allow8Bit=false );
-  bool parseToken( const char* & scursor, const char * const send,
-		   QPair<const char*,int> & result, bool allow8Bit=false );
-  /** @p scursor must be positioned after the opening openChar. */
-  bool parseGenericQuotedString( const char* & scursor, const char* const send,
-				 QString & result, bool isCRLF,
-				 const char openChar='"',
-				 const char closeChar='"' );
-  /** @p scursor must be positioned right after the opening '(' */
-  bool parseComment( const char* & scursor, const char * const send,
-		     QString & result, bool isCRLF=false, bool reallySave=true );
-  /** You may or may not have already started parsing into the phrase,
-      but only if it starts with atext. If you setup this function to
-      parse a phrase starting with an encoded-word or quoted-string,
-      @p scursor has to point to the char introducing the encoded-word
-      or quoted-string, resp. */
-  bool parsePhrase( const char* & scursor, const char * const send,
-		    QString & result, bool isCRLF=false );
-  /** You may or may not have already started parsing into the initial
-      atom, but not up to it's end. */
-  bool parseDotAtom( const char* & scursor, const char * const send,
-		     QString & result, bool isCRLF=false );
-
-  /** Eats comment-folding-white-space, skips whitespace, folding and
-      comments (even nested ones) and stops at the next non-CFWS
-      character. After calling this function, you should check whether
-      @p scursor == @p send (end of header reached).
-
-      If a comment with unbalanced parantheses is encountered, @p
-      scursor is being positioned on the opening '(' of the outmost
-      comment.
-  */
-  void eatCFWS( const char* & scursor, const char * const send, bool isCRLF );
-
 #if 0
   // the assembly squad:
 
@@ -380,40 +308,7 @@ public:
     : GStructured( p )  { fromUnicodeString( s, cs ); }
   ~GAddress()  {}
 
-  struct AddrSpec {
-    QString localPart;
-    QString domain;
-  };
-
-  struct Mailbox {
-    QString displayName;
-    AddrSpec addrSpec;
-  };
-
-  struct Address {
-    QString displayName;
-    QValueList<Mailbox> mailboxList;
-  };
-
 protected:
-  bool parseDomain( const char* & scursor, const char * const send,
-		    QString & result, bool isCRLF=false );
-  bool parseObsRoute( const char* & scursor, const char * const send,
-		      QStringList & result,
-		      bool isCRLF=false, bool save=false );
-  bool parseAddrSpec( const char* & scursor, const char * const send,
-		      AddrSpec & result, bool isCRLF=false );
-  bool parseAngleAddr( const char* & scursor, const char * const send,
-		       AddrSpec & result, bool isCRLF=false );
-  bool parseMailbox( const char* & scursor, const char * const send,
-		     Mailbox & result, bool isCRLF=false );
-  bool parseGroup( const char* & scursor, const char * const send,
-		   Address & result, bool isCRLF=false );
-  bool parseAddress( const char* & scursor, const char * const send,
-		     Address & result, bool isCRLF=false );
-  bool parseAddressList( const char* & scursor, const char * const send,
-			 QValueList<Address> & result, bool isCRLF=false );
-
 };
 
 
@@ -433,7 +328,7 @@ protected:
   bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   /** The list of mailboxes */
-  QValueList<Mailbox> mMailboxList;
+  QValueList<Types::Mailbox> mMailboxList;
 };
 
 
@@ -457,7 +352,7 @@ protected:
   bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   /** The list of addresses */
-  QValueList<Address> mAddressList;
+  QValueList<Types::Address> mAddressList;
 };
 
 /** Base class for headers which deal with a list of msg-id's */
@@ -475,7 +370,7 @@ protected:
   bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   /** The list of msg-id's */
-  QValueList<AddrSpec> mMsgIdList;
+  QValueList<Types::AddrSpec> mMsgIdList;
 };
 
 /** Base class for headers which deal with a list of msg-id's */
@@ -542,18 +437,9 @@ public:
   ~GParametrized()  {}
 
 protected:
-  bool parseParameter( const char* & scursor, const char * const send,
-		       QPair<QString,QStringOrQPair> & result,
-		       bool isCRLF=false );
-  bool parseParameterList( const char* & scursor, const char * const send,
-			   QMap<QString,QString> & result, bool isCRLF=false );
-
   QMap<QString,QString> mParameterHash;
 
 private:
-  bool parseRawParameterList( const char* & scursor, const char * const send,
-			      QMap<QString,QStringOrQPair> & result,
-			      bool isCRLF=false );
 };
 
 class GContentType : public GParametrized {
