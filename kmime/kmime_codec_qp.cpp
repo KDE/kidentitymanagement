@@ -77,6 +77,12 @@ protected:
   bool needsEncoding( uchar ch ) {
     return ( ch > '~' || ch < ' ' && ch != '\t' || ch == '=' );
   }
+  bool needsEncodingAtEOL( uchar ch ) {
+    return ( ch == ' ' || ch == '\t' );
+  }
+  bool needsEncodingAtBOL( uchar ch ) {
+    return ( ch == 'F' || ch == '.' || ch == '-' );
+  }
   bool fillInputBuffer( const char* & scursor, const char * const send );
   bool processNextChar();
   void createOutputBuffer( char* & dcursor, const char * const dend );
@@ -392,12 +398,13 @@ bool QuotedPrintableEncoder::processNextChar() {
 
   // Real processing goes here:
   mAccu = mInputBuffer[ mInputBufferReadCursor++ ];
-  if ( needsEncoding( mAccu ) || // always needs encoding or
-       mSawLineEnd && bufferFill == 1 // needs encoding at end of line
-       && ( mAccu == ' ' || mAccu == '\t' ) )
+  if ( needsEncoding( mAccu ) ) // always needs encoding or
     mAccuNeedsEncoding = Definitely;
-  else if ( mAccu == '-' || mAccu == 'F' || mAccu == '.' )
-    // needs encoding at beginning of line
+  else if ( ( mSawLineEnd || mFinishing )  // needs encoding at end of line
+	    && bufferFill == 1             // or end of buffer
+	    && needsEncodingAtEOL( mAccu ) )
+    mAccuNeedsEncoding = Definitely;
+  else if ( needsEncodingAtBOL( mAccu ) )
     mAccuNeedsEncoding = AtBOL;
   else
     // never needs encoding
