@@ -24,6 +24,10 @@
  * false, where it signifies an error, thus doesn't need to call error() itself.
  */
 
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
+
 #include "sieve.h"
 
 #include <kdebug.h>
@@ -38,6 +42,16 @@
 using std::exit;
 #include <sys/stat.h>
 
+static const int debugArea = 7122;
+
+static inline
+#ifdef NDEBUG
+  kndbgstream ksDebug() { return kdDebug( debugArea ); }
+  kndbgstream ksDebug( bool cond ) { return kdDebug( cond, debugArea ); }
+#else
+  kdbgstream ksDebug() { return kdDebug( debugArea ); }
+  kdbgstream ksDebug( bool cond ) { return kdDebug( cond, debugArea ); }
+#endif
 
 static const unsigned int SIEVE_DEFAULT_RECIEVE_BUFFER = 512;
 
@@ -48,17 +62,17 @@ extern "C"
 	{
 		KInstance instance("kio_sieve" );
 		
-		kdDebug(71227101) << "*** Starting kio_sieve " << endl;
+		ksDebug() << "*** Starting kio_sieve " << endl;
 
 		if (argc != 4) {
-			kdDebug(71227101) << "Usage: kio_sieve protocol domain-socket1 domain-socket2" << endl;
+			ksDebug() << "Usage: kio_sieve protocol domain-socket1 domain-socket2" << endl;
 			exit(-1);
 		}
 
 		kio_sieveProtocol slave(argv[2], argv[3]);
 		slave.dispatchLoop();
 
-		kdDebug(71227101) << "*** kio_sieve Done" << endl;
+		ksDebug() << "*** kio_sieve Done" << endl;
 		return 0;
 	}
 }
@@ -188,7 +202,7 @@ void kio_sieveProtocol::openConnection()
 
 bool kio_sieveProtocol::parseCapabilities(bool requestCapabilities/* = false*/)
 {
-	kdDebug(7122) << k_funcinfo << endl;
+	ksDebug() << k_funcinfo << endl;
 	
 	// Setup...
 	bool ret = false;
@@ -198,18 +212,18 @@ bool kio_sieveProtocol::parseCapabilities(bool requestCapabilities/* = false*/)
 	}
 
 	while (receiveData()) {
-		kdDebug() << "Looping receive" << endl;
+		ksDebug() << "Looping receive" << endl;
 		
 		if (r.getType() == kio_sieveResponse::ACTION) {
 			if ( r.getAction().contains("ok", false) != -1 ) {
-				kdDebug(7122) << "Sieve server ready & awaiting authentication." << endl;
+				ksDebug() << "Sieve server ready & awaiting authentication." << endl;
 				break;
 			} else
-				kdDebug(7122) << "Unknown action " << r.getAction() << "." << endl;
+				ksDebug() << "Unknown action " << r.getAction() << "." << endl;
 
 		} else if (r.getKey() == "IMPLEMENTATION") {
 			if (r.getVal().contains("sieve", false) != -1) {
-				kdDebug(7122) << "Connected to Sieve server: " << r.getVal() << endl;
+				ksDebug() << "Connected to Sieve server: " << r.getVal() << endl;
 				ret = true;
 				setMetaData("implementation", r.getVal());
 			}
@@ -217,22 +231,22 @@ bool kio_sieveProtocol::parseCapabilities(bool requestCapabilities/* = false*/)
 		} else if (r.getKey() == "SASL") {
 			// Save list of available SASL methods
 			m_sasl_caps = QStringList::split(' ', r.getVal());
-			kdDebug(7122) << "Server SASL authentication methods: " << m_sasl_caps.join(", ") << endl;
+			ksDebug() << "Server SASL authentication methods: " << m_sasl_caps.join(", ") << endl;
 			setMetaData("saslMethods", r.getVal());
 
 		} else if (r.getKey() == "SIEVE") {
 			// Save script capabilities; report back as meta data:
-			kdDebug(7122) << "Server script capabilities: " << QStringList::split(' ', r.getVal()).join(", ") << endl;
+			ksDebug() << "Server script capabilities: " << QStringList::split(' ', r.getVal()).join(", ") << endl;
 			setMetaData("sieveExtensions", r.getVal());
 
 		} else if (r.getKey() == "STARTTLS") {
 			// The server supports TLS
-			kdDebug(7122) << "Server supports TLS" << endl;
+			ksDebug() << "Server supports TLS" << endl;
 			m_supportsTLS = true;
 			setMetaData("tlsSupported", "true");
 			
 		} else {
-			kdDebug(7122) << "Unrecognised key." << endl;
+			ksDebug() << "Unrecognised key." << endl;
 		}
 	}
 	
@@ -250,7 +264,7 @@ bool kio_sieveProtocol::parseCapabilities(bool requestCapabilities/* = false*/)
  */
 bool kio_sieveProtocol::connect(bool useTLSIfAvailable)
 {
-	kdDebug(7122) << k_funcinfo << endl;
+	ksDebug() << k_funcinfo << endl;
 	
 	if (isConnectionValid()) return true;
 
@@ -278,23 +292,23 @@ bool kio_sieveProtocol::connect(bool useTLSIfAvailable)
 	if (useTLSIfAvailable && m_supportsTLS && canUseTLS()) {
 		sendData("STARTTLS");
 		if (operationSuccessful()) {
-			kdDebug(7122) << "TLS has been accepted. Starting TLS..." << endl
+			ksDebug() << "TLS has been accepted. Starting TLS..." << endl
 				  << "WARNING this is untested and may fail." << endl;
 			int retval = startTLS();
 			if (retval == 1) {
-				kdDebug(7122) << "TLS enabled successfully." << endl;
+				ksDebug() << "TLS enabled successfully." << endl;
 				// reparse capabilities:
 				parseCapabilities();
 			} else {
-				kdDebug(7122) << "TLS initiation failed, code " << retval << endl;
+				ksDebug() << "TLS initiation failed, code " << retval << endl;
 				disconnect(true);
 				return connect(false);
 				// error(ERR_INTERNAL, i18n("TLS initiation failed."));
 			}
 		} else
-			kdDebug(7122) << "Server incapable of TLS. Transmitted documents will be unencrypted." << endl;
+			ksDebug() << "Server incapable of TLS. Transmitted documents will be unencrypted." << endl;
 	} else
-		kdDebug(7122) << "We are incapable of TLS. Transmitted documents will be unencrypted." << endl;
+		ksDebug() << "We are incapable of TLS. Transmitted documents will be unencrypted." << endl;
 
 	infoMessage(i18n("Authenticating user..."));
 	if (!authenticate()) {
@@ -321,7 +335,7 @@ void kio_sieveProtocol::disconnect(bool forcibly)
 		sendData("LOGOUT");
 
 		if (!operationSuccessful())
-			kdDebug(7122) << "Server did not logout cleanly." << endl;
+			ksDebug() << "Server did not logout cleanly." << endl;
 	}
 
 	closeDescriptor();
@@ -384,7 +398,7 @@ bool kio_sieveProtocol::activate(const KURL& url)
 		return false;
 
 	if (operationSuccessful()) {
-		kdDebug(7122) << "Script activation complete." << endl;
+		ksDebug() << "Script activation complete." << endl;
 		return true;
 	} else {
 		error(ERR_INTERNAL_SERVER, i18n("There was an error activating the script."));
@@ -402,7 +416,7 @@ bool kio_sieveProtocol::deactivate()
 		return false;
 
 	if (operationSuccessful()) {
-		kdDebug(7122) << "Script activation complete." << endl;
+		ksDebug() << "Script activation complete." << endl;
 		return true;
 	} else {
 		error(ERR_INTERNAL_SERVER, i18n("There was an error activating the script."));
@@ -460,7 +474,7 @@ void kio_sieveProtocol::put(const KURL& url, int /*permissions*/, bool /*overwri
 	// C: NO "Number expected"
 	// => broken, we can't use it :-(
 	// (will be fixed in Cryrus 2.1.10)
-#if 0
+#ifndef 0
 	// first, check quota (it's a SHOULD in draft std)
 	if (!sendData("HAVESPACE \"" + filename.utf8() + "\" "
 		      + QCString().setNum( bufLen )))
@@ -482,11 +496,11 @@ void kio_sieveProtocol::put(const KURL& url, int /*permissions*/, bool /*overwri
 		// with anything but OK we treat it as an error.
 		char * buf = new char[2];
 		while (!atEnd()) {
-			kdDebug(7122) << "Reading..." << endl;
+			ksDebug() << "Reading..." << endl;
 			read(buf, 1);
-			kdDebug(7122) << "Trailing [" << buf[0] << "]" << endl;
+			ksDebug() << "Trailing [" << buf[0] << "]" << endl;
 		}
-		kdDebug(7122) << "End of data." << endl;
+		ksDebug() << "End of data." << endl;
 		delete[] buf;
 
 		if (!operationSuccessful()) {
@@ -514,7 +528,7 @@ void kio_sieveProtocol::put(const KURL& url, int /*permissions*/, bool /*overwri
 	infoMessage(i18n("Verifying upload completion..."));
 
 	if (operationSuccessful())
-		kdDebug(7122) << "Script upload complete." << endl;
+		ksDebug() << "Script upload complete." << endl;
 	
 	else {
 		/* The managesieve server parses received scripts and rejects
@@ -603,9 +617,9 @@ void kio_sieveProtocol::get(const KURL& url)
 		infoMessage(i18n("Finishing up...") );
 
 		if (operationSuccessful())
-			kdDebug(7122) << "Script retrieval complete." << endl;
+			ksDebug() << "Script retrieval complete." << endl;
 		else
-			kdDebug(7122) << "Script retrieval failed." << endl;
+			ksDebug() << "Script retrieval failed." << endl;
 	} else {
 		error(ERR_UNSUPPORTED_PROTOCOL, i18n("A protocol error occurred "
 							"while trying to negotiate script downloading."));
@@ -639,7 +653,7 @@ void kio_sieveProtocol::del(const KURL &url, bool isfile)
 		return;
 
 	if (operationSuccessful())
-		kdDebug(7122) << "Script deletion successful." << endl;
+		ksDebug() << "Script deletion successful." << endl;
 	else {
 		error(ERR_INTERNAL_SERVER, i18n("The server would not delete the file."));
 		return;
@@ -779,7 +793,7 @@ void kio_sieveProtocol::listDir(const KURL& /*url*/)
 
 			//asetMetaData("active", (r.getExtra() == "ACTIVE") ? "true" : "false");
 
-			kdDebug() << "Listing script " << r.getKey() << endl;
+			ksDebug() << "Listing script " << r.getKey() << endl;
 			listEntry(entry , false);
 		}
 	}
@@ -825,10 +839,10 @@ bool kio_sieveProtocol::authenticate()
 		for (uint i = 0; i < m_sasl_caps.count(); ++i) strList.append(m_sasl_caps[i].latin1());
 
 	m_auth_method = sasl.chooseMethod(strList);
-	kdDebug(7122) << "Preferred authentication method is " << m_auth_method << "." << endl;
+	ksDebug() << "Preferred authentication method is " << m_auth_method << "." << endl;
 
 	if (m_auth_method.isEmpty()) {
-		kdDebug(7122) << "No authentication available." << endl;
+		ksDebug() << "No authentication available." << endl;
 		error(ERR_COULD_NOT_AUTHENTICATE, i18n("No compatible authentication methods found."));
 		return false;
 	}
@@ -844,7 +858,7 @@ bool kio_sieveProtocol::authenticate()
 		if (operationResult() != OTHER)
 			break;
 		
-		kdDebug(7122) << "Challenge len  " << r.getQuantity() << endl;
+		ksDebug() << "Challenge len  " << r.getQuantity() << endl;
 
 		if (r.getType() != kio_sieveResponse::QUANTITY) {
 			error(ERR_UNSUPPORTED_PROTOCOL,
@@ -856,7 +870,7 @@ bool kio_sieveProtocol::authenticate()
 		uint qty = r.getQuantity();
 
 		receiveData();
-		kdDebug(7122) << "Challenge:  [" << r.getAction() << "]." << endl;
+		ksDebug() << "Challenge:  [" << r.getAction() << "]." << endl;
 
 		if (r.getType() != kio_sieveResponse::ACTION && r.getAction().length() != qty) {
 			error(ERR_UNSUPPORTED_PROTOCOL,
@@ -879,7 +893,7 @@ bool kio_sieveProtocol::authenticate()
 
 	} while (!command.isEmpty());
 
-	kdDebug() << "Challenges finished." << endl;
+	ksDebug() << "Challenges finished." << endl;
 	if (operationResult() == OK) {
 		// Authentication succeeded.
 		if (!cachePositive) cacheAuthentication(ai);
@@ -894,7 +908,7 @@ bool kio_sieveProtocol::authenticate()
 /* --------------------------------------------------------------------------- */
 void kio_sieveProtocol::mimetype(const KURL & url)
 {
-	kdDebug(7122) << "Requesting mimetype for " << url.prettyURL() << endl;
+	ksDebug() << "Requesting mimetype for " << url.prettyURL() << endl;
 
 	if (url.fileName(false).isEmpty())
 		mimeType( "inode/directory" );
@@ -910,7 +924,7 @@ bool kio_sieveProtocol::sendData(const QCString &data)
 {
 	QCString write_buf = data + "\r\n";
 
-	kdDebug(7122) << "C: " << data << endl;
+	ksDebug() << "C: " << data << endl;
 
 	// Write the command
 	ssize_t write_buf_len = write_buf.length();
@@ -947,7 +961,7 @@ bool kio_sieveProtocol::receiveData(bool waitForData, QCString *reparse)
 
 	r.clear();
 
-	kdDebug(7122) << "S: " << interpret << endl;
+	ksDebug() << "S: " << interpret << endl;
 
 	switch(interpret[0]) {
 		case '{':
@@ -978,7 +992,7 @@ bool kio_sieveProtocol::receiveData(bool waitForData, QCString *reparse)
 
 	end = interpret.find(34, start + 1);
 	if (end == -1) {
-		kdDebug(7122) << "Possible insufficient buffer size." << endl;
+		ksDebug() << "Possible insufficient buffer size." << endl;
 		r.setKey(interpret.right(interpret.length() - start));
 		return true;
 	}
@@ -996,7 +1010,7 @@ bool kio_sieveProtocol::receiveData(bool waitForData, QCString *reparse)
 
 	end = interpret.find(34, start + 1);
 	if (end == -1) {
-		kdDebug(7122) << "Possible insufficient buffer size." << endl;
+		ksDebug() << "Possible insufficient buffer size." << endl;
 		r.setVal(interpret.right(interpret.length() - start));
 		return true;
 	}
