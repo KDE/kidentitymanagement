@@ -35,6 +35,31 @@ namespace KMime {
   //class Rfc2047BEncodingDecoder;
 
 
+static const uchar base64DecodeMap[128] = {
+  64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+  64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+  
+  64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 62, 64, 64, 64, 63,
+  52, 53, 54, 55, 56, 57, 58, 59,  60, 61, 64, 64, 64, 64, 64, 64,
+  
+  64,  0,  1,  2,  3,  4,  5,  6,   7,  8,  9, 10, 11, 12, 13, 14,
+  15, 16, 17, 18, 19, 20, 21, 22,  23, 24, 25, 64, 64, 64, 64, 64,
+  
+  64, 26, 27, 28, 29, 30, 31, 32,  33, 34, 35, 36, 37, 38, 39, 40,
+  41, 42, 43, 44, 45, 46, 47, 48,  49, 50, 51, 64, 64, 64, 64, 64
+};
+
+static const char base64EncodeMap[64] = {
+  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+  'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+  'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+  'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+  'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+  'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+  'w', 'x', 'y', 'z', '0', '1', '2', '3',
+  '4', '5', '6', '7', '8', '9', '+', '/'
+};
+
 
 class Base64Decoder : public Decoder {
   uint mStepNo;
@@ -83,6 +108,11 @@ public:
 	       char* & dcursor, const char * const dend );
 
   bool finish( char* & dcursor, const char * const dend );
+
+protected:
+  bool writeBase64( uchar ch, char* & dcursor, const char * const dend ) {
+    return write( base64EncodeMap[ ch ], dcursor, dend );
+  }
 };
 
 
@@ -114,32 +144,6 @@ Encoder * Rfc2047BEncodingCodec::makeEncoder( bool withCRLF ) const {
   /********************************************************/
   /********************************************************/
   /********************************************************/
-
-
-static const uchar base64DecodeMap[128] = {
-  64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
-  64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
-  
-  64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 62, 64, 64, 64, 63,
-  52, 53, 54, 55, 56, 57, 58, 59,  60, 61, 64, 64, 64, 64, 64, 64,
-  
-  64,  0,  1,  2,  3,  4,  5,  6,   7,  8,  9, 10, 11, 12, 13, 14,
-  15, 16, 17, 18, 19, 20, 21, 22,  23, 24, 25, 64, 64, 64, 64, 64,
-  
-  64, 26, 27, 28, 29, 30, 31, 32,  33, 34, 35, 36, 37, 38, 39, 40,
-  41, 42, 43, 44, 45, 46, 47, 48,  49, 50, 51, 64, 64, 64, 64, 64
-};
-
-static const char base64EncodeMap[64] = {
-  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-  'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-  'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-  'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
-  'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-  'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-  'w', 'x', 'y', 'z', '0', '1', '2', '3',
-  '4', '5', '6', '7', '8', '9', '+', '/'
-};
 
 
 bool Base64Decoder::decode( const char* & scursor, const char * const send,
@@ -223,25 +227,22 @@ bool Base64Encoder::encode( const char* & scursor, const char * const send,
   const uint maxPacketsPerLine = 76 / 4;
 
   // detect when the caller doesn't adhere to our rules:
-  if( mInsideFinishing ) return true;
+  if ( mInsideFinishing ) return true;
 
   while ( scursor != send && dcursor != dend ) {
-    uchar ch;
-    uchar value; // value of the current sextet
+    // properly empty the output buffer before starting something new:
+    // ### fixme: we can optimize this away, since the buffer isn't
+    // written to anyway (most of the time)
+    if ( mOutputBufferCursor && !flushOutputBuffer( dcursor, dend ) )
+      return (scursor == send);
+
+    uchar ch = *scursor++;
     // mNextbits   // (part of) value of next sextet
 
     // check for line length;
     if ( mStepNo == 0 && mWrittenPacketsOnThisLine >= maxPacketsPerLine ) {
-      if ( mWithCRLF ) {
-	*dcursor++ = '\r';
-	// ### FIXME: when this return is taken, don't we then write
-	// _two_ \r's?
-	if ( dcursor == dend )
-	  return false;
-      }
-      *dcursor++ = '\n';
+      writeCRLF( dcursor, dend );
       mWrittenPacketsOnThisLine = 0;
-      continue;
     }
 
     // depending on mStepNo, extract value and mNextbits from the
@@ -249,53 +250,49 @@ bool Base64Encoder::encode( const char* & scursor, const char * const send,
     switch ( mStepNo ) {
     case 0:
       assert( mNextbits == 0 );
-      ch = *scursor++;
-      value = ch >> 2; // top-most 6 bits -> value
+      writeBase64( ch >> 2, dcursor, dend ); // top-most 6 bits -> output
       mNextbits = (ch & 0x3) << 4; // 0..1 bits -> 4..5 in mNextbits
       break;
     case 1:
       assert( (mNextbits & ~0x30) == 0 );
-      ch = *scursor++;
-      value = mNextbits | ch >> 4; // 4..7 bits -> 0..3 in value
+      writeBase64( mNextbits | ch >> 4, dcursor, dend ); // 4..7 bits -> 0..3 in value
       mNextbits = (ch & 0xf) << 2; // 0..3 bits -> 2..5 in mNextbits
       break;
     case 2:
       assert( (mNextbits & ~0x3C) == 0 );
-      ch = *scursor++;
-      value = mNextbits | ch >> 6; // 6..7 bits -> 0..1 in value
-      mNextbits = ch & 0x3F;       // 0..6 bits -> mNextbits
-      break;
-    case 3:
-      // this case is needed in order to not output more than one
-      // character per round; we could write past dend else!
-      assert( (mNextbits & ~0x3F) == 0 );
-      value = mNextbits;
+      writeBase64( mNextbits | ch >> 6, dcursor, dend ); // 6..7 bits -> 0..1 in value
+      writeBase64( ch & 0x3F, dcursor, dend ); // 0..5 bits -> output
       mNextbits = 0;
       mWrittenPacketsOnThisLine++;
       break;
     default:
-      value = 0; // prevent compiler warning
       assert( 0 );
     }
-    mStepNo = ( mStepNo + 1 ) % 4;
-
-    assert( value < 64 );
-
-    // now map the value to the corresponding base64 character:
-    *dcursor++ = base64EncodeMap[ value ];
+    mStepNo = ( mStepNo + 1 ) % 3;
   }
-  
+
+  if ( mOutputBufferCursor ) flushOutputBuffer( dcursor, dend );
+
   return (scursor == send);
 }
 
-bool Rfc2047BEncodingEncoder::encode( const char* & scursor, const char * const send,
-				      char* & dcursor, const char * const dend ) {
+
+bool Rfc2047BEncodingEncoder::encode( const char* & scursor,
+				      const char * const send,
+				      char* & dcursor,
+				      const char * const dend )
+{
   // detect when the caller doesn't adhere to our rules:
   if ( mInsideFinishing ) return true;
 
   while ( scursor != send && dcursor != dend ) {
-    uchar ch;
-    uchar value; // value of the current sextet
+    // properly empty the output buffer before starting something new:
+    // ### fixme: we can optimize this away, since the buffer isn't
+    // written to anyway (most of the time)
+    if ( mOutputBufferCursor && !flushOutputBuffer( dcursor, dend ) )
+      return (scursor == send);
+
+    uchar ch = *scursor++;
     // mNextbits   // (part of) value of next sextet
 
     // depending on mStepNo, extract value and mNextbits from the
@@ -303,44 +300,31 @@ bool Rfc2047BEncodingEncoder::encode( const char* & scursor, const char * const 
     switch ( mStepNo ) {
     case 0:
       assert( mNextbits == 0 );
-      ch = *scursor++;
-      value = ch >> 2; // top-most 6 bits -> value
+      writeBase64( ch >> 2, dcursor, dend ); // top-most 6 bits -> output
       mNextbits = (ch & 0x3) << 4; // 0..1 bits -> 4..5 in mNextbits
       break;
     case 1:
       assert( (mNextbits & ~0x30) == 0 );
-      ch = *scursor++;
-      value = mNextbits | ch >> 4; // 4..7 bits -> 0..3 in value
+      writeBase64( mNextbits | ch >> 4, dcursor, dend ); // 4..7 bits -> 0..3 in value
       mNextbits = (ch & 0xf) << 2; // 0..3 bits -> 2..5 in mNextbits
       break;
     case 2:
       assert( (mNextbits & ~0x3C) == 0 );
-      ch = *scursor++;
-      value = mNextbits | ch >> 6; // 6..7 bits -> 0..1 in value
-      mNextbits = ch & 0x3F;       // 0..6 bits -> mNextbits
-      break;
-    case 3:
-      // this case is needed in order to not output more than one
-      // character per round; we could write past dend else!
-      assert( (mNextbits & ~0x3F) == 0 );
-      value = mNextbits;
+      writeBase64( mNextbits | ch >> 6, dcursor, dend ); // 6..7 bits -> 0..1 in value
+      writeBase64( ch & 0x3F, dcursor, dend ); // 0..5 bits -> output
       mNextbits = 0;
-      mWrittenPacketsOnThisLine++;
       break;
     default:
-      value = 0; // prevent compiler warning
       assert( 0 );
     }
-    mStepNo = ( mStepNo + 1 ) % 4;
-
-    assert( value < 64 );
-
-    // now map the value to the corresponding base64 character:
-    *dcursor++ = base64EncodeMap[ value ];
+    mStepNo = ( mStepNo + 1 ) % 3;
   }
-  
+
+  if ( mOutputBufferCursor ) flushOutputBuffer( dcursor, dend );
+
   return (scursor == send);
 }
+
 
 bool Base64Encoder::finish( char* & dcursor, const char * const dend ) {
   return generic_finish( dcursor, dend, true );
@@ -352,79 +336,49 @@ bool Rfc2047BEncodingEncoder::finish( char* & dcursor,
 }
 
 bool Base64Encoder::generic_finish( char* & dcursor, const char * const dend,
-				    bool withLFatEnd ) {
+				    bool withLFatEnd )
+{
+  if ( mInsideFinishing )
+    return flushOutputBuffer( dcursor, dend );
 
-  if ( !mInsideFinishing ) {
+  if ( mOutputBufferCursor && !flushOutputBuffer( dcursor, dend ) )
+    return false;
 
-    //
-    // writing out the last mNextbits...
-    //
-    kdDebug() << "mInsideFinishing with mStepNo == " << mStepNo << endl;
-    switch ( mStepNo ) {
-    case 0: // no mNextbits waiting to be written.
-      assert( mNextbits == 0 );
-      if ( withLFatEnd ) {
-	if ( dcursor == dend ) {
-	  *dcursor++ = '\n';
-	  return true;
-	} else
-	  return false;
-      } else
-	return true;
+  mInsideFinishing = true;
 
-    case 1: // 2 mNextbits waiting to be written.
-      assert( (mNextbits & ~0x30) == 0 );
-      break;
-      
-    case 2: // 4 mNextbits waiting to be written.
-      assert( (mNextbits & ~0x3C) == 0 );
-      break;
-      
-    case 3: // 6 mNextbits waiting to be written.
-      assert( (mNextbits & ~0x3F) == 0 );
-      break;
-    default:
-      assert( 0 );
-    }
-
-    // abort write if buffer full:    
-    if ( dcursor == dend )
-      return false;
-
-    *dcursor++ = base64EncodeMap[ mNextbits ];
+  //
+  // writing out the last mNextbits...
+  //
+  switch ( mStepNo ) {
+  case 1: // 2 mNextbits waiting to be written. Needs two padding chars:
+  case 2: // 4 or 6 mNextbits waiting to be written. Completes a block
+    writeBase64( mNextbits, dcursor, dend );
     mNextbits = 0;
-    
-    mStepNo = ( mStepNo + 1 ) % 4;
-    mInsideFinishing = true;
+    break;
+  case 0: // no padding, nothing to be written, except possibly the CRLF
+    assert( mNextbits == 0 );
+    break;
+  default:
+    assert( 0 );
   }
 
   //
   // adding padding...
   //
-  while ( dcursor != dend ) {
-    switch ( mStepNo ) {
-    case 0:
-      if ( withLFatEnd )
-	*dcursor++ = '\n';
-      return true; // finished
-      
-    case 1:
-    default:
-      assert( 0 );
-      break;
-
-    case 2:
-    case 3:
-      *dcursor++ = '=';
-      break;
-    }
-    mStepNo = ( mStepNo + 1 ) % 4;
+  switch( mStepNo ) {
+  case 1:
+    write( '=', dcursor, dend );
+    // fall through:
+  case 2:
+    write( '=', dcursor, dend );
+    // fall through:
+  case 0: // completed an quartet - add CRLF
+    if ( withLFatEnd )
+      writeCRLF( dcursor, dend );
+    return flushOutputBuffer( dcursor, dend );
+  default:
+    assert( 0 );
   }
-
-  if ( mStepNo == 0 && !withLFatEnd )
-    return true; // just fits into output buffer
-  else
-    return false; // output buffer full
 }
 
 
