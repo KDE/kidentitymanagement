@@ -1506,7 +1506,15 @@ bool parseTime( const char* & scursor, const char * send,
 		int & hour, int & min, int & sec, long int & secsEastOfGMT,
 		bool & timeZoneKnown, bool isCRLF )
 {
-  // time := time-of-day CFWS zone
+  // time := time-of-day CFWS ( zone / obs-zone )
+  //
+  // obs-zone    := "UT" / "GMT" /
+  //                "EST" / "EDT" / ; -0500 / -0400
+  //                "CST" / "CDT" / ; -0600 / -0500
+  //                "MST" / "MDT" / ; -0700 / -0600
+  //                "PST" / "PDT" / ; -0800 / -0700
+  //                "A"-"I" / "a"-"i" /
+  //                "K"-"Z" / "k"-"z"
 
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send ) return false;
@@ -1549,20 +1557,11 @@ bool parseDateTime( const char* & scursor, const char * const send,
   //
   // date-time   := [ [CFWS] day-name [CFWS] "," ]                      ; wday
   // (expanded)     [CFWS] 1*2DIGIT CFWS month-name CFWS 2*DIGIT [CFWS] ; date
-  //                [CFWS] 2DIGIT [CFWS] ":" [CFWS] 2DIGIT
-  //                [ [CFWS] ":" [CFWS] 2DIGIT ]                        ; time
-  //                [CFWS] ( "+" / "-" 4DIGIT ) / obs-zone [CFWS]       ; zone
+  //                time
   //
   // day-name    := "Mon" / "Tue" / "Wed" / "Thu" / "Fri" / "Sat" / "Sun"
   // month-name  := "Jan" / "Feb" / "Mar" / "Apr" / "May" / "Jun" /
   //                "Jul" / "Aug" / "Sep" / "Oct" / "Nov" / "Dez"
-  // obs-zone    := "UT" / "GMT" /
-  //                "EST" / "EDT" / ; -0500 / -0400
-  //                "CST" / "CDT" / ; -0600 / -0500
-  //                "MST" / "MDT" / ; -0700 / -0600
-  //                "PST" / "PDT" / ; -0800 / -0700
-  //                "A"-"I" / "a"-"i" /
-  //                "K"-"Z" / "k"-"z"
 
   struct tm maybeDateTime = {
 #ifdef HAVE_TM_GMTOFF
@@ -1650,15 +1649,11 @@ bool parseDateTime( const char* & scursor, const char * const send,
   maybeDateTime.tm_sec = maybeSecond;
 
   // now put everything together and check if mktime(3) likes it:
-  //#ifdef HAVE_TM_GMTOFF
-  //  maybeDateTime.tm_gmtoff = secsEastOfGMT;
-  //#endif
   result = mktime( &maybeDateTime );
   if ( result == (time_t)(-1) ) return false;
+
+  // adjust to UTC/GMT:
   result -= secsEastOfGMT;
-  //#ifndef HAVE_TM_GMTOFF
-  //  result -= secsEastOfGMT; // ### hmmmm....
-  //#endif
 
   return true;
 }
