@@ -1,4 +1,4 @@
-b/*
+/*
     kmime_charfreq.cpp
 
     KMime, the KDE internet mail/usenet news message library.
