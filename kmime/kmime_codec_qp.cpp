@@ -129,7 +129,20 @@ protected:
   Rfc2047QEncodingEncoder( bool withCRLF=false, char aEscapeChar='=' )
     : Encoder(),
       mAccu(0), mStepNo(0), mEscapeChar( aEscapeChar ),
-      mWithCRLF( withCRLF ), mInsideFinishing( false ) {}
+      mWithCRLF( withCRLF ), mInsideFinishing( false )
+  {
+    // else an optimization in ::encode might break.
+    assert( aEscapeChar == '=' || aEscapeChar == '%' );
+  }
+
+  // this code assumes that isEText( mEscapeChar ) == false!
+  bool needsEncoding( uchar ch ) {
+    if ( ch > 'z' ) return true; // {|}~ DEL and 8bit chars need
+    if ( !isEText( ch ) ) return true; // all but a-zA-Z0-9!/*+- need, too
+    if ( mEscapeChar == '%' && ( ch == '*' || ch == '/' ) )
+      return true; // not allowed in rfc2231 encoding
+    return false;
+  }
 
 public:
   virtual ~Rfc2047QEncodingEncoder() {}
@@ -304,7 +317,7 @@ bool QuotedPrintableDecoder::decode( const char* & scursor, const char * const s
     }
   }
 
-  return !(scursor != send);
+  return (scursor == send);
 }
 
 bool QuotedPrintableEncoder::fillInputBuffer( const char* & scursor,
@@ -474,7 +487,7 @@ bool QuotedPrintableEncoder::encode( const char* & scursor, const char * const s
     mOutputBufferCursor = i = 0;
   }
 
-  return !(scursor != send);
+  return (scursor == send);
    
 } // encode
 
@@ -536,11 +549,9 @@ bool Rfc2047QEncodingEncoder::encode( const char* & scursor, const char * const 
     uchar value;
     switch ( mStepNo ) {
     case 0:
+      // read the next char and decide if and how do encode:
       mAccu = *scursor++;
-      // <= 'z' is an optimization, since we know that {|}~ are not
-      // etext:
-      if ( mAccu <= 'z' && isEText( mAccu )
-	   && mAccu != (unsigned char)mEscapeChar ) {
+      if ( !needsEncoding( mAccu ) ) {
 	*dcursor++ = char(mAccu);
       } else if ( mEscapeChar == '=' && mAccu == 0x20 ) {
 	// shortcut encoding for 0x20 (latin-1/us-ascii SPACE)
@@ -574,7 +585,7 @@ bool Rfc2047QEncodingEncoder::encode( const char* & scursor, const char * const 
     *dcursor++ = char(value);
   }
 
-  return !(scursor != send);
+  return (scursor == send);
 } // encode
 
 #include <qstring.h>
