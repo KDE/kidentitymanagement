@@ -7,12 +7,12 @@
 
 Network Working Group                                         Tim Martin
 Document: draft-ietf-managesieve-03.txt                   Mirapoint Inc.
-Expires November 6, 2001                                      1 May 2001
+Expires January 21, 2003                                    16 July 2002
 
 
                A Protocol for Remotely Managing Sieve Scripts
 
-                      <draft-ietf-managesieve-03.txt>
+                      <draft-martin-managesieve-04.txt>
 
 Status of this Memo
 
@@ -36,11 +36,11 @@ Status of this Memo
 Abstract
 
     Sieve scripts allow users to filter incoming email. Message stores
-    are commonly sealed servers so users cannot log into them , yet
-    users must be able to update their scripts on them.  This document
-    describes a protocol for securely managing Sieve scripts on a remote
-    server.  This protocol allows a user to have multiple scripts, and
-    also alerts a user to syntactically flawed scripts.
+    are commonly sealed servers so users cannot log into them, yet users
+    must be able to update their scripts on them.  This document
+    describes a protocol "sieve" for securely managing Sieve scripts on
+    a remote server.  This protocol allows a user to have multiple
+    scripts, and also alerts a user to syntactically flawed scripts.
 
     This an interim measure as it is hoped that eventually Sieve scripts
     will be stored on ACAP. This document is intended to proceed on the
@@ -56,9 +56,9 @@ Abstract
 
 
 
-Expires November 6, 2001        Martin                          [Page 1]
+Expires January 21, 2003        Martin                          [Page 1]
 
-Internet Draft           Managing Sieve Scripts              May 1, 2001
+Internet Draft           Managing Sieve Scripts            July 16, 2002
 
 
                            Table of Contents
@@ -75,46 +75,102 @@ Abstract . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1
 1.3.   Syntax  . . . . . . . . . . . . . . . . . . . . . . . . . . .   4
 1.4.   Response Codes  . . . . . . . . . . . . . . . . . . . . . . .   5
 1.5.   Active Script . . . . . . . . . . . . . . . . . . . . . . . .   6
-1.6.   Quotas  . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
-1.7.   Script Names  . . . . . . . . . . . . . . . . . . . . . . . .   6
+1.6.   Quotas  . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+1.7.   Script Names  . . . . . . . . . . . . . . . . . . . . . . . .   7
 1.8.   Capabilities  . . . . . . . . . . . . . . . . . . . . . . . .   7
 
-2.     Commands  . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+2.     Commands  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
 2.1.   AUTHENTICATE Command  . . . . . . . . . . . . . . . . . . . .   8
-2.2.   STARTTLS Command  . . . . . . . . . . . . . . . . . . . . . .   9
+2.2.   STARTTLS Command  . . . . . . . . . . . . . . . . . . . . . .  10
 2.3.   LOGOUT Command  . . . . . . . . . . . . . . . . . . . . . . .  10
-2.4.   CAPABILITY Command  . . . . . . . . . . . . . . . . . . . . .  10
+2.4.   CAPABILITY Command  . . . . . . . . . . . . . . . . . . . . .  11
 2.5.   HAVESPACE Command . . . . . . . . . . . . . . . . . . . . . .  11
 2.6.   PUTSCRIPT Command . . . . . . . . . . . . . . . . . . . . . .  11
-2.7.   LISTSCRIPTS command . . . . . . . . . . . . . . . . . . . . .  12
-2.8.   SETACTIVE command . . . . . . . . . . . . . . . . . . . . . .  13
-2.9.   GETSCRIPT command . . . . . . . . . . . . . . . . . . . . . .  13
-2.10.   DELETESCRIPT command . . . . . . . . . . . . . . . . . . . .  14
+2.7.   LISTSCRIPTS Command . . . . . . . . . . . . . . . . . . . . .  13
+2.8.   SETACTIVE Command . . . . . . . . . . . . . . . . . . . . . .  13
+2.9.   GETSCRIPT Command . . . . . . . . . . . . . . . . . . . . . .  13
+2.10.   DELETESCRIPT Command . . . . . . . . . . . . . . . . . . . .  14
 
-3.     Formal Syntax . . . . . . . . . . . . . . . . . . . . . . . .  14
+3.     Sieve URL Scheme  . . . . . . . . . . . . . . . . . . . . . .  14
 
-4.     Security Considerations . . . . . . . . . . . . . . . . . . .  17
+4.     Formal Syntax . . . . . . . . . . . . . . . . . . . . . . . .  15
 
-5.     Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  17
+5.     Security Considerations . . . . . . . . . . . . . . . . . . .  18
 
-6.     Copyright . . . . . . . . . . . . . . . . . . . . . . . . . .  17
+6.     Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  18
 
-7.     References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+7.     Copyright . . . . . . . . . . . . . . . . . . . . . . . . . .  18
 
-8.     Author's Address  . . . . . . . . . . . . . . . . . . . . . .  18
+8.     References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
 
-
-
-
+9.     Author's Address  . . . . . . . . . . . . . . . . . . . . . .  19
 
 
 
 
 
 
-Expires November 6, 2001        Martin                          [Page 2]
+
+
+Expires January 21, 2003        Martin                          [Page 2]
 
-Internet Draft           Managing Sieve Scripts              May 1, 2001
+Internet Draft             Managing Sieve Scripts            July 16, 2002
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Expires January 21, 2003        Martin                          [Page 3]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
 
 
 1.  Introduction
@@ -122,6 +178,20 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 1.1.  Changes
+
+    Changes since 03
+
+    -Add referals and Sieve URLs
+
+    -Lots of spelling/grammer fixes
+
+    -Don't give capabilities after successful STARTTLS. This is because
+    it isn't consistant with AUTHENTICATE. There is language specifying
+    that a client should re-issue a CAPABILITY command after
+    AUTHENTICATE/STARTTLS.
+
+    -Putting a script of length 0 doesn't remove the script. If this
+    functionality is desired, the DELETESCRIPT command should be used.
 
     Changes since 02
 
@@ -153,6 +223,12 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     -Eliminated lame PLAIN paragraph
 
 
+
+Expires January 21, 2003        Martin                          [Page 3]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
     Changes since PRE
 
     -dropped synchronized literals. added HAVESPACE command
@@ -164,14 +240,6 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     - "sieve" -> "Sieve". Other minor fixes
 
     -made script names more flexible
-
-
-
-
-Expires November 6, 2001        Martin                          [Page 3]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
 
     -added starttls support
 
@@ -193,9 +261,9 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 1.3.  Syntax
 
-    This a line oriented protocol much like [IMAP] or [ACAP]. There are
-    three types: ATOMS, numbers and strings. Strings may be quoted or
-    literal. See [ACAP] for detailed descriptions of these types.
+    This a line oriented protocol much like [IMAP4rev1] or [ACAP]. There
+    are three types: ATOMS, numbers and strings. Strings may be quoted
+    or literal. See [ACAP] for detailed descriptions of these types.
 
     Each command consists of an atom followed by zero or more strings
     and numbers terminated by a newline.
@@ -209,6 +277,14 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
     The BYE command may be used if the server wishes to close the
     connection. A server may wish to do this because the client was idle
+
+
+
+Expires January 21, 2003        Martin                          [Page 4]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
     too long or there were too many failed authentication attempts. This
     command can be issued at any time and should be immediately followed
     by a server hang-up of the connection. If a server has a inactivity
@@ -218,15 +294,6 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     IANA registration is pending. Current implementations generally use
     port number 2000.
 
-
-
-
-
-
-
-Expires November 6, 2001        Martin                          [Page 4]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 1.4.  Response Codes
@@ -263,11 +330,29 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     The command would have placed the user above the site-defined quota
     constraints.
 
+    REFERRAL
+
+    This response code may be returned with a BYE result from any
+
+
+
+Expires January 21, 2003        Martin                          [Page 5]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
+    command, and includes a mandatory parameter that indicates what
+    server to access to manage this user's sieve scripts.  The server
+    will be specified by a Sieve URL (see "Sieve URL Scheme" section).
+    The scriptname portion of the URL MUST NOT be specified. The client
+    should authenticate to the specified server and use it for all
+    further commands in the current session.
+
     SASL
 
     This response code can occur in the OK response to a successful
     AUTHENTICATE command and includes the optional final server response
-    data from the server as specified by SASL [SASL].
+    data from the server as specified by [SASL].
 
     TRANSITION-NEEDED
 
@@ -277,14 +362,6 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     authentication with the specified mechanism. This can happen if a
     user has an entry in a system authentication database such as Unix
     /etc/passwd, but does not have credentials suitable for use by the
-
-
-
-Expires November 6, 2001        Martin                          [Page 5]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
-
     specified mechanism.
 
 
@@ -315,6 +392,11 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
+Expires January 21, 2003        Martin                          [Page 6]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
 1.6.  Quotas
 
     Servers SHOULD impose quotas to prevent malicious users from
@@ -335,19 +417,13 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-
-Expires November 6, 2001        Martin                          [Page 6]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
-
 1.8.  Capabilities
 
     Server capabilities are sent by the server upon a client connection.
     Clients may request the capabilities at a later time by issuing the
     CAPABILITY command described later. The capabilities consist of a
-    series lines each with one or two strings. The first string is the
-    name of the capability. The second optional string is the value
+    series of lines each with one or two strings. The first string is
+    the name of the capability. The second optional string is the value
     associated with that capability.
 
     The following capabilities are defined here:
@@ -369,6 +445,14 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     S: "IMPLEMENTATION" "CMU Cyrus Sieved v001"
     S: "SASL" "KERBEROS_V4 GSSAPI"
     S: "SIEVE" "FILEINTO VACATION"
+
+
+
+Expires January 21, 2003        Martin                          [Page 7]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
     S: "STARTTLS"
     S: OK
 
@@ -384,17 +468,6 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     group of commands sent together MUST NOT have a HAVESPACE command
     anywhere but the last command in the list.
 
-
-
-
-
-
-
-
-
-Expires November 6, 2001        Martin                          [Page 7]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 2.1.  AUTHENTICATE Command
@@ -428,12 +501,20 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     empty challenge is not sent to the client and the server uses the
     data in the initial-response argument as if it were sent in response
     to the empty challenge.  If the initial-response argument to the
+
+
+
+Expires January 21, 2003        Martin                          [Page 8]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
     AUTHENTICATE command is used with a mechanism that sends data in the
     initial challenge, the server rejects the AUTHENTICATE command by
     sending a tagged NO response.
 
     The service name specified by this protocol's profile of SASL is
-    "sieve."
+    "sieve"
 
     If a security layer is negotiated through the SASL authentication
     exchange, it takes effect immediately following the CRLF that
@@ -442,19 +523,12 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
     Implementations MAY advertise the ANONYMOUS SASL mechanism [SASL-
     ANON]. This indicates that the server supports ANONYMOUS sieve
-    script syntax verification. Only the PUTSCRIPT and LOGOUT commands
-    are available to the anonymous user. All other commands MUST give NO
-    responses. Furthermore the PUTSCRIPT command SHOULD NOT store any
-
-
-
-Expires November 6, 2001        Martin                          [Page 8]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
-
-    data. In this mode a positive response to the PUTSCRIPT command
-    indicates that the given script does not have any syntax errors.
+    script syntax verification. Only the CAPABILITY, PUTSCRIPT and
+    LOGOUT commands are available to the anonymous user. All other
+    commands MUST give NO responses. Furthermore the PUTSCRIPT command
+    SHOULD NOT store any data. In this mode a positive response to the
+    PUTSCRIPT command indicates that the given script does not have any
+    syntax errors.
 
     Server implementations SHOULD support authorization so that an
     administrator can administer a user's scripts. Authorization is when
@@ -483,6 +557,14 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     C: "kjuaMkUeg2okQh+we2uiJw=="
     S: OK
 
+
+
+
+Expires January 21, 2003        Martin                          [Page 9]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
     C: Authenticate "PLAIN" "QJIrweAPyo6Q1T9xu"
     S: BYE "Too many failed authentication attempts"
     Server closes connection
@@ -501,14 +583,6 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     server remains in non-authenticated state, even if client
     credentials are supplied during the TLS negotiation. The SASL [SASL]
     EXTERNAL mechanism MAY be used to authenticate once TLS clie nt
-
-
-
-Expires November 6, 2001        Martin                          [Page 9]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
-
     credentials are successfully exchanged, but servers supporting the
     STARTTLS command are not required to support the EXTERNAL mechanism.
 
@@ -524,10 +598,6 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     C: STARTTLS
     S: OK
     <TLS negotiation, further commands are under TLS layer>
-    S: "IMPLEMENTATION" "CMU Cyrus Sieved v001"
-    S: "SASL" "EXTERNAL PLAIN KERBEROS_V4 GSSAPI"
-    S: "SIEVE" "FILEINTO VACATION"
-    S: OK
 
 
 
@@ -546,25 +616,23 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
+Expires January 21, 2003        Martin                         [Page 10]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
 2.4.  CAPABILITY Command
 
     The CAPABILITY command requests the server capabilities as described
     earlier in this document. While the capabilities are sent upon
-    connection, they may change during authentication. Client SHOULD
-    issue a CAPABILITY command after successful authentication.
+    connection, they may change during authentication. The client SHOULD
+    issue a CAPABILITY command after successful authentication or after
+    negotiating a security layer using STARTTLS.
 
 
     Example:
 
     S: "IMPLEMENTATION" "CMU Cyrus Sieved v001"
-
-
-
-Expires November 6, 2001        Martin                         [Page 10]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
-
     S: "SASL" "PLAIN KERBEROS_V4 GSSAPI"
     S: "SIEVE" "FILEINTO VACATION"
     S: "STARTTLS"
@@ -580,7 +648,7 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
          Number - size
 
     The HAVESPACE command is used to query the server for available
-    space. Clients specify the name wished to save the script as and
+    space. Clients specify the name they wish to save the script as and
     it's size in octets. Servers respond with an NO if storing a script
     with that name and size would fail or OK otherwise. Clients should
     issue this command before attempting to place a script on the
@@ -601,6 +669,14 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
     Arguments:
          String - Script name
+
+
+
+Expires January 21, 2003        Martin                         [Page 11]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
          String - Script content
 
     The PUTSCRIPT command is used by the client to submit a Sieve script
@@ -608,19 +684,10 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
     If the script already exists upon success the old script will be
     overwritten. The old script MUST NOT be overwritten if PUTSCRIPT
-    fails in any way. A script of the empty length erases the script
-    from the server.
+    fails in any way. A script of zero length SHOULD be disallowed.
 
     This command places the script on the server. It does not affect
     whether the script is processed on incoming mail. The SETACTIVE
-
-
-
-Expires November 6, 2001        Martin                         [Page 11]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
-
     command is used to mark a script as active.
 
     When submitting large scripts clients SHOULD use the HAVESPACE
@@ -658,7 +725,15 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-2.7.  LISTSCRIPTS command
+
+
+
+Expires January 21, 2003        Martin                         [Page 12]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
+2.7.  LISTSCRIPTS Command
 
     This command lists the scripts the user has on the server. Upon
     success a list of linebreak separated script names is returned
@@ -669,14 +744,6 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     Example:
 
     C: Listscripts
-
-
-
-Expires November 6, 2001        Martin                         [Page 12]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
-
     S: "summer_script"
     S: "vacation_script"
     S: "main_script" ACTIVE
@@ -684,7 +751,7 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-2.8.  SETACTIVE command
+2.8.  SETACTIVE Command
 
     Arguments:
          String - script name
@@ -707,13 +774,21 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-2.9.  GETSCRIPT command
+2.9.  GETSCRIPT Command
 
     Arguments:
          String - Script name
 
     This command gets the contents of the specified script. If the
     script does not exist the server MUST reply with a NO response. Upon
+
+
+
+Expires January 21, 2003        Martin                         [Page 13]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
     success a string with the contents of the script is returned
     followed by a OK response.
 
@@ -728,12 +803,8 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-Expires November 6, 2001        Martin                         [Page 13]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
 
-
-2.10.  DELETESCRIPT command
+2.10.  DELETESCRIPT Command
 
     Parameters:
          sieve-name - Script name
@@ -755,7 +826,50 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-3.  Formal Syntax
+3.  Sieve URL Scheme
+
+    URL scheme name: "sieve"
+
+    URL scheme syntax:
+
+      Described using ABNF [RFC 2234] and ABNF entities from RFC 2396.
+
+      sieveurl = "sieve://" [ hostport ] "/" scriptname
+
+      scriptname = *pchar
+
+
+
+Expires January 21, 2003        Martin                         [Page 14]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
+      Character encoding considerations: The script name, if present,
+      is in UTF-8.  Non-ASCII characters must be escaped as described
+      in RFC 2396.
+
+    Intended usage: A sieve URL identifies a sieve server or a sieve
+      script on a sieve server.  The latter always have the
+      application/sieve MIME type.
+
+    Applications and/or protocols which use this URL scheme name:
+      The protocol is described in this document.
+
+    Interoperability considerations:  None.
+
+    Security considerations:  None.
+
+    Relevant publications:  This document and RFC 3028.
+
+    Person & email address to contact for further information:
+      Author of this document.
+
+    Author/Change controller:  Author of this document.
+
+
+
+4.  Formal Syntax
 
     The following syntax specification uses the augmented Backus-Naur
     Form (BNF) notation as specified in [ABNF]. This uses the ABNF core
@@ -770,24 +884,24 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     SAFE-CHAR             = %x01-09 / %x0B-0C / %x0E-21 / %x23-5B / %x5D-7F
                             ;; any TEXT-CHAR except QUOTED-SPECIALS
 
-    QUOTED-CHAR           = SAFE-UTF8-CHAR / "
+    QUOTED-CHAR           = SAFE-UTF8-CHAR / "\" QUOTED-SPECIALS
 
-    QUOTED-SPECIALS       = <"> / "
+    QUOTED-SPECIALS       = <"> / "\"
 
     SAFE-UTF8-CHAR        = SAFE-CHAR / UTF8-2 / UTF8-3 / UTF8-4 /
                             UTF8-5 / UTF8-6
 
     UTF8-1                = %x80-BF
 
-    UTF8-2                = %xC0-DF UTF8-1
 
 
 
-
-Expires November 6, 2001        Martin                         [Page 14]
+Expires January 21, 2003        Martin                         [Page 15]
 
-Internet Draft           Managing Sieve Scripts              May 1, 2001
+Internet Draft           Managing Sieve Scripts            July 16, 2002
 
+
+    UTF8-2                = %xC0-DF UTF8-1
 
     UTF8-3                = %xE0-EF 2UTF8-1
 
@@ -835,20 +949,23 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
                             ;; A 32-bit unsigned number.
                             ;; (0 <= n < 4,294,967,296)
 
+
+
+
+Expires January 21, 2003        Martin                         [Page 16]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
+
     quoted                = <"> *QUOTED-CHAR <">
                             ;; limited to 1024 octets between the <">s
 
-
-
-Expires November 6, 2001        Martin                         [Page 15]
-
-Internet Draft           Managing Sieve Scripts              May 1, 2001
-
-
     resp-code             = "AUTH-TOO-WEAK" / "ENCRYPT-NEEDED" /
-                            "QUOTA" / resp-code-sasl /
+                            "QUOTA" / resp-code-sasl / resp-code-referral
                             "TRANSITION-NEEDED" / "TRYLATER" /
                             resp-code-ext
+
+    resp-code-referral   = "REFERRAL" SP sieveurl
 
     resp-code-sasl        = "SASL" SP string
 
@@ -891,17 +1008,12 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-
-
-
-
-
-Expires November 6, 2001        Martin                         [Page 16]
+Expires January 21, 2003        Martin                         [Page 17]
 
-Internet Draft           Managing Sieve Scripts              May 1, 2001
+Internet Draft           Managing Sieve Scripts            July 16, 2002
 
 
-4.  Security Considerations
+5.  Security Considerations
 
     The AUTHENTICATE command uses SASL [SASL] and TLS [TLS] to provide
     basic authentication, authorization, integrity and privacy services.
@@ -917,7 +1029,7 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
     encryption.
 
 
-5.  Acknowledgments
+6.  Acknowledgments
 
     Thanks to Simon Josefsson, Larry Greenfield, Allen Johnson, Chris
     Newman, Lyndon Nerenberg, Alexey Melnikov, Tim Showalter, Sarah
@@ -925,7 +1037,7 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-6.  Copyright
+7.  Copyright
 
     Copyright (C) The Internet Society 1999. All Rights Reserved.
 
@@ -952,16 +1064,16 @@ Internet Draft           Managing Sieve Scripts              May 1, 2001
 
 
 
-Expires November 6, 2001        Martin                         [Page 17]
+Expires January 21, 2003        Martin                         [Page 18]
 
-Internet Draft           Managing Sieve Scripts              May 1, 2001
+Internet Draft           Managing Sieve Scripts            July 16, 2002
 
 
     BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
     HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
     MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
 
-7.  References
+8.  References
 
      [KEYWORDS] S. Bradner, "Key words for use in RFCs to Indicate
          Requirement Levels", RFC 2119, March 1997
@@ -976,6 +1088,12 @@ ABNF", RFC 2234, Internet Mail Consortium, Demon Internet Ltd, November
 [ACAP] Newman, Myers, "ACAP -- Application Configuration Access Proto-
 col", RFC 2244, Innosoft, Netscape, November 1997.
 
+[IMAP4rev1] Crispin, M., "Internet Message Access Protocol - Version
+4rev1", RFC 2060, October 1996.
+
+[IMAP-URL] Newman, C.; "IMAP URL Scheme"; RFC 2192; Innosoft; September,
+1997
+
 [PLAIN] Newman, C. "Using TLS with IMAP, POP3 and ACAP", RFC 2595,
 Innosoft, June 1999.
 
@@ -985,19 +1103,27 @@ Innosoft, June 1999.
 [SASL-ANON] Newman, C., "Anonymous SASL Mechanism", RFC 2245, November
 1997.
 
-[SIEVE]; Showalter, T.; "Sieve: A Mail Filtering Language"; RFC 3028;
+[SIEVE] Showalter, T.; "Sieve: A Mail Filtering Language"; RFC 3028;
 Mirapoint, Inc.; January 2001
 
 [TLS] Dierks, T. and C. Allen, "The TLS Protocol Version 1.0", RFC 2246,
 January 1999.
 
 
-8.  Author's Address
+9.  Author's Address
 
     Tim Martin
     Mirapoint Inc.
     909 Hermosa Court
     Sunnyvale, CA 94085
+
+
+
+
+Expires January 21, 2003        Martin                         [Page 19]
+
+Internet Draft           Managing Sieve Scripts            July 16, 2002
+
 
     Phone: (408) 720-3835
     EMail: tmartin@mirapoint.com
@@ -1008,5 +1134,47 @@ January 1999.
 
 
 
-Expires November 6, 2001        Martin                         [Page 18]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Expires January 21, 2003        Martin                         [Page 20]
 
