@@ -19,6 +19,8 @@
 #include <qpair.h>
 #include <qvaluelist.h>
 
+#include <time.h>
+
 template <typename K, typename V> class QMap;
 class QStringList;
 
@@ -143,7 +145,14 @@ namespace HeaderParsing {
 			      QMap<QString,Types::QStringOrQPair> & result,
 			      bool isCRLF=false );
   
+  bool parseDateTime( const char* & scursor, const char * const send,
+		      time_t & result, bool isCRLF=false );
 
+#if 0
+  bool tryToMakeAnySenseOfDateString( const char* & scursor,
+				      const char * const send,
+				      time_t & result, bool isCRLF=false );
+#endif
 
 }; // namespace HeaderParsing
 

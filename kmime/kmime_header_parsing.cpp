@@ -14,6 +14,10 @@
     Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, US
 */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "kmime_header_parsing.h"
 
 #include "kmime_codecs.h"
@@ -28,6 +32,7 @@
 #include <qcstring.h>
 #include <qstringlist.h>
 
+#include <ctype.h> // for isdigit
 #include <cassert>
 
 using namespace KMime;
@@ -1321,6 +1326,331 @@ bool parseParameterList( const char* & scursor,	const char * const send,
 
   return true;
 }
+
+static const char * stdDayNames[] = {
+  "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+};
+static const int stdDayNamesLen = sizeof stdDayNames / sizeof *stdDayNames;
+
+static bool parseDayName( const char* & scursor, const char * const send )
+{
+  // check bounds:
+  if ( send - scursor < 3 ) return false;
+
+  for ( int i = 0 ; i < stdDayNamesLen ; ++i )
+    if ( qstrnicmp( scursor, stdDayNames[i], 3 ) == 0 ) {
+      scursor += 3;
+      kdDebug() << "found " << stdDayNames[i] << endl;
+      return true;
+    }
+
+  return false;
+}
+
+
+static const char * stdMonthNames[] = {
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dez"
+};
+static const int stdMonthNamesLen =
+  sizeof stdMonthNames / sizeof *stdMonthNames;
+
+static bool parseMonthName( const char* & scursor, const char * const send,
+			    int & result )
+{
+  // check bounds:
+  if ( send - scursor < 3 ) return false;
+
+  for ( result = 0 ; result < stdMonthNamesLen ; ++result )
+    if ( qstrnicmp( scursor, stdMonthNames[result], 3 ) == 0 ) {
+      scursor += 3;
+      return true;
+    }
+
+  // not found:
+  return false;
+}
+
+static const struct {
+  const char * tzName;
+  long int secsEastOfGMT;
+} timeZones[] = {
+  // rfc 822 timezones:
+  { "GMT", 0 },
+  { "UT", 0 },
+  { "EDT", -4*3600 },
+  { "EST", -5*3600 },
+  { "MST", -5*3600 },
+  { "CST", -6*3600 },
+  { "MDT", -6*3600 },
+  { "MST", -7*3600 },
+  { "PDT", -7*3600 },
+  { "PST", -8*3600 },
+  // common, non-rfc-822 zones:
+  { "CET", 1*3600 },
+  { "MET", 1*3600 },
+  { "UTC", 0 },
+  { "CEST", 2*3600 },
+  { "BST", 1*3600 },
+  // rfc 822 military timezones:
+  { "Z", 0 },
+  { "A", -1*3600 },
+  { "B", -2*3600 },
+  { "C", -3*3600 },
+  { "D", -4*3600 },
+  { "E", -5*3600 },
+  { "F", -6*3600 },
+  { "G", -7*3600 },
+  { "H", -8*3600 },
+  { "I", -9*3600 },
+  // J is not used!
+  { "K", -10*3600 },
+  { "L", -11*3600 },
+  { "M", -12*3600 },
+  { "N", 1*3600 },
+  { "O", 2*3600 },
+  { "P", 3*3600 },
+  { "Q", 4*3600 },
+  { "R", 5*3600 },
+  { "S", 6*3600 },
+  { "T", 7*3600 },
+  { "U", 8*3600 },
+  { "V", 9*3600 },
+  { "W", 10*3600 },
+  { "X", 11*3600 },
+  { "Y", 12*3600 },
+};
+static const int timeZonesLen = sizeof timeZones / sizeof *timeZones;
+
+static bool parseAlphaNumericTimeZone( const char* & scursor,
+				       const char * const send,
+				       long int & secsEastOfGMT,
+				       bool & timeZoneKnown )
+{
+  QPair<const char*,int> maybeTimeZone(0,0);
+  if ( !parseToken( scursor, send, maybeTimeZone, false /*no 8bit*/ ) )
+    return false;
+  for ( int i = 0 ; i < timeZonesLen ; ++i )
+    if ( qstrnicmp( timeZones[i].tzName,
+		    maybeTimeZone.first, maybeTimeZone.second ) == 0 ) {
+      scursor += maybeTimeZone.second;
+      secsEastOfGMT = timeZones[i].secsEastOfGMT;
+      timeZoneKnown = true;
+      return true;
+    }
+
+  // don't choke just because we don't happen to know the time zone
+  KMIME_WARN_UNKNOWN(time zone,QCString( maybeTimeZone.first, maybeTimeZone.second+1 ));
+  secsEastOfGMT = 0;
+  timeZoneKnown = false;
+  return true;
+}
+
+// parse a number and return the number of digits parsed:
+static int parseDigits( const char* & scursor, const char * const send,
+			int & result )
+{
+  result = 0;
+  int digits = 0;
+  for ( ; scursor != send && isdigit( *scursor ) ; scursor++, digits++ ) {
+    result *= 10;
+    result += int( *scursor - '0' );
+  }
+  return digits;
+}
+
+bool parseDateTime( const char* & scursor, const char * const send,
+		    time_t & result, bool isCRLF )
+{
+  // Parsing date-time; strict mode:
+  //
+  // date-time   := [ [CFWS] day-name [CFWS] "," ]                      ; wday
+  // (expanded)     [CFWS] 1*2DIGIT CFWS month-name CFWS 2*DIGIT [CFWS] ; date
+  //                [CFWS] 2DIGIT [CFWS] ":" [CFWS] 2DIGIT
+  //                [ [CFWS] ":" [CFWS] 2DIGIT ]                        ; time
+  //                [CFWS] ( "+" / "-" 4DIGIT ) / obs-zone [CFWS]       ; zone
+  //
+  // day-name    := "Mon" / "Tue" / "Wed" / "Thu" / "Fri" / "Sat" / "Sun"
+  // month-name  := "Jan" / "Feb" / "Mar" / "Apr" / "May" / "Jun" /
+  //                "Jul" / "Aug" / "Sep" / "Oct" / "Nov" / "Dez"
+  // obs-zone    := "UT" / "GMT" /
+  //                "EST" / "EDT" / ; -0500 / -0400
+  //                "CST" / "CDT" / ; -0600 / -0500
+  //                "MST" / "MDT" / ; -0700 / -0600
+  //                "PST" / "PDT" / ; -0800 / -0700
+  //                "A"-"I" / "a"-"i" /
+  //                "K"-"Z" / "k"-"z"
+
+  struct tm maybeDateTime = {
+#ifdef HAVE_TM_GMTOFF
+    0, 0, // initializers for members tm_gmtoff and tm_zone
+#endif
+    0, 0, 0, 0, 0, 0, 0, 0, 0
+  };
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) return false;
+
+  //
+  // let's see if there's a day-of-week:
+  //
+  kdDebug() << "day-of-week" << endl;
+  if ( parseDayName( scursor, send ) ) {
+    kdDebug() << "yes" << endl;
+    eatCFWS( scursor, send, isCRLF );
+    if ( scursor == send ) return false;
+    // day-name should be followed by ',' but we treat it as optional:
+    if ( *scursor == ',' ) {
+      kdDebug() << "eating ','" << endl;
+      scursor++; // eat ','
+      eatCFWS( scursor, send, isCRLF );
+    }
+  } else {
+    kdDebug() << "no" << endl;
+  }
+
+  //
+  // 1*2DIGIT representing "day" (of month):
+  //
+  kdDebug() << "day" << endl;
+  int maybeDay;
+  if ( !parseDigits( scursor, send, maybeDay ) ) return false;
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) return false;
+
+  // success: store maybeDay in maybeDateTime:
+  maybeDateTime.tm_mday = maybeDay;
+
+  //
+  // month-name:
+  //
+  kdDebug() << "month-name" << endl;
+  int maybeMonth = 0;
+  if ( !parseMonthName( scursor, send, maybeMonth ) ) return false;
+  if ( scursor == send ) return false;
+  assert( maybeMonth >= 0 ); assert( maybeMonth <= 11 );
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) return false;
+
+  // success: store maybeMonth in maybeDateTime:
+  maybeDateTime.tm_mon = maybeMonth;
+
+  //
+  // 2*DIGIT representing "year":
+  //
+  kdDebug() << "year" << endl;
+  int maybeYear;
+  if ( !parseDigits( scursor, send, maybeYear ) ) return false;
+  // RFC 2822 4.3 processing:
+  if ( maybeYear < 50 )
+    maybeYear += 2000;
+  else if ( maybeYear < 1000 )
+    maybeYear += 1900;
+  // else keep as is
+  if ( maybeYear < 1900 ) return false; // rfc2822, 3.3
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) return false;
+
+  // success: store maybeYear in maybeDateTime:
+  maybeDateTime.tm_year = maybeYear - 1900;
+
+  //
+  // 2DIGIT representing "hour":
+  //
+  kdDebug() << "hour" << endl;
+  int maybeHour;
+  if ( !parseDigits( scursor, send, maybeHour ) ) return false;
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send || *scursor != ':' ) return false;
+  scursor++; // eat ':'
+
+  // success: store maybeHour in maybeDateTime:
+  maybeDateTime.tm_hour = maybeHour;
+
+  //
+  // 2DIGIT representing "minute":
+  //
+  kdDebug() << "minute" << endl;
+  int maybeMinute;
+  if ( !parseDigits( scursor, send, maybeMinute ) ) return false;
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) return false;
+
+  // success: store maybeMinute in maybeDateTime:
+  maybeDateTime.tm_min = maybeMinute;
+
+  //
+  // let's see if we have a 2DIGIT representing "second":
+  //
+  kdDebug() << "second" << endl;
+  if ( *scursor == ':' ) {
+    // yepp, there are seconds:
+    scursor++; // eat ':'
+    eatCFWS( scursor, send, isCRLF );
+    if ( scursor == send ) return false;
+
+    int maybeSeconds;
+    if ( !parseDigits( scursor, send, maybeSeconds ) ) return false;
+
+    eatCFWS( scursor, send, isCRLF );
+    if ( scursor == send ) return false;
+
+    // success: store maybeSeconds in maybeDateTime:
+    maybeDateTime.tm_sec = maybeSeconds;
+  }
+
+  //
+  // zone
+  //
+  kdDebug() << "zone" << endl;
+  long int secsEastOfGMT;
+  bool timeZoneKnown = true;
+  if ( *scursor == '+' || *scursor == '-' ) {
+    // remember and eat '-'/'+':
+    const char sign = *scursor++;
+    // numerical timezone:
+    int maybeTimeZone;
+    if ( parseDigits( scursor, send, maybeTimeZone ) != 4 ) return false;
+    secsEastOfGMT = 60 * ( maybeTimeZone / 100 * 60 + maybeTimeZone % 100 );
+    if ( sign == '-' ) {
+      secsEastOfGMT *= -1;
+      if ( secsEastOfGMT == 0 )
+	timeZoneKnown = false; // -0000 means indetermined tz
+    }
+  } else {
+    // maybe alphanumeric timezone:
+    if ( !parseAlphaNumericTimeZone( scursor, send, secsEastOfGMT, timeZoneKnown ) )
+      return false;
+  }
+
+  kdDebug() << "mktime with secsEastOfGMT == " << secsEastOfGMT << endl;
+  // now put everything together and check if mktime(3) likes it:
+  //#ifdef HAVE_TM_GMTOFF
+  //  maybeDateTime.tm_gmtoff = secsEastOfGMT;
+  //#endif
+  result = mktime( &maybeDateTime );
+  if ( result == (time_t)(-1) ) return false;
+  result -= secsEastOfGMT;
+  //#ifndef HAVE_TM_GMTOFF
+  //  result -= secsEastOfGMT; // ### hmmmm....
+  //#endif
+
+  return true;
+}
+
+#if 0
+bool tryToMakeAnySenseOfDateString( const char* & scursor,
+				    const char * const send,
+				    time_t & result, bool isCRLF )
+{
+  return false;
+}
+#endif
 
 }; // namespace HeaderParsing
 
