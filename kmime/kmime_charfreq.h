@@ -1,9 +1,8 @@
-/*
+/*  -*- c++ -*-
     kmime_charfreq.h
 
     KMime, the KDE internet mail/usenet news message library.
-    Copyright (c) 2001 the KMime authors.
-    See file AUTHORS for details
+    Copyright (c) 2001-2002 Marc Mutz <mutz@kde.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,6 +33,11 @@ public:
   bool isEightBitText() const;
   bool isSevenBitData() const;
   bool isSevenBitText() const;
+  /** Returns true if buf has trailing whitespace, i.e. if any line ends
+      with space (' ') or tab ('\t'). */
+  bool hasTrailingWhitespace() const;
+  /** Returns true if buf contains a line that starts with "From ". */
+  bool hasLeadingFrom() const;
   /** Returns the percentage of printable characters: printable/total.
       If total == 0, the result is undefined. */
   float printableRatio() const;
@@ -42,7 +46,6 @@ public:
   float controlCodesRatio() const;
 
 protected:
-  bool lastWasCR;
   uint NUL;       // count of NUL chars
   uint CTL;       // count of CTLs (incl. DEL, excl. CR, LF, HT)
   uint CR, LF;    // count of CRs and LFs
@@ -52,6 +55,8 @@ protected:
   uint total;
   uint lineMin;
   uint lineMax;
+  bool mTrailingWS;  // does the buffer contain trailing whitespace?
+  bool mLeadingFrom; // does the buffer contain lines starting with "From "?
 
 private:
   void count( const char * buf, size_t len );

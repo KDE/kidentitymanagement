@@ -2,8 +2,7 @@
     kmime_charfreq.cpp
 
     KMime, the KDE internet mail/usenet news message library.
-    Copyright (c) 2001-2002 the KMime authors.
-    See file AUTHORS for details
+    Copyright (c) 2001-2002 Marc Mutz <mutz@kde.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,8 +17,7 @@
 namespace KMime {
 
 CharFreq::CharFreq( const QByteArray & buf )
-  : lastWasCR(false),
-    NUL(0),
+  : NUL(0),
     CTL(0),
     CR(0), LF(0),
     CRLF(0),
@@ -27,15 +25,16 @@ CharFreq::CharFreq( const QByteArray & buf )
     eightBit(0),
     total(0),
     lineMin(0xffffffff),
-    lineMax(0)
+    lineMax(0),
+    mTrailingWS(false),
+    mLeadingFrom(false)
 {
   if ( !buf.isEmpty() )
     count( buf.data(), buf.size() );
 }
 
 CharFreq::CharFreq( const char * buf, size_t len )
-  : lastWasCR(false),
-    NUL(0),
+  : NUL(0),
     CTL(0),
     CR(0), LF(0),
     CRLF(0),
@@ -43,32 +42,47 @@ CharFreq::CharFreq( const char * buf, size_t len )
     eightBit(0),
     total(0),
     lineMin(0xffffffff),
-    lineMax(0)
+    lineMax(0),
+    mTrailingWS(false),
+    mLeadingFrom(false)
 {
   if ( buf && len > 0 )
     count( buf, len );
 }
 
+static inline bool isWS( char ch ) { return ( ch == '\t' || ch == ' ' ); }
+
 void CharFreq::count( const char * it, size_t len ) {
 
   const char * end = it + len;
-  uint currentLine = 0;
+  uint currentLineLength = 0;
+  // initialize the prevChar with LF so that From_ detection works w/o
+  // special-casing:
+  char prevChar = '\n';
+  char prevPrevChar = 0;
 
   for ( ; it != end ; ++it ) {
-    ++currentLine;
+    ++currentLineLength;
     switch ( *it ) {
-    case '\0': ++NUL; lastWasCR = false; break;
-    case '\r': ++CR;  lastWasCR = true;  break;
+    case '\0': ++NUL; break;
+    case '\r': ++CR;  break;
     case '\n': ++LF;
-      if ( lastWasCR ) { --currentLine; ++CRLF; }
-      if ( currentLine >= lineMax ) lineMax = currentLine-1;
-      if ( currentLine <= lineMin ) lineMin = currentLine-1;
-      lastWasCR = false;
-      currentLine = 0;
+      if ( prevChar == '\r' ) { --currentLineLength; ++CRLF; }
+      if ( currentLineLength >= lineMax ) lineMax = currentLineLength-1;
+      if ( currentLineLength <= lineMin ) lineMin = currentLineLength-1;
+      if ( !mTrailingWS )
+	if ( isWS( prevChar ) || ( prevChar == '\r' && isWS( prevPrevChar ) ) )
+	  mTrailingWS = true;
+      currentLineLength = 0;
+      break;
+    case 'F': // check for lines starting with From_ if not found already:
+      if ( !mLeadingFrom )
+	if ( prevChar == '\n' && end - it >= 5 && !qstrncmp( "From ", it, 5 ) )
+	  mLeadingFrom = true;
+      ++printable;
       break;
     default:
       {
-	lastWasCR = false;
 	uchar c = *it;
 	if ( c == '\t' || c >= ' ' && c <= '~' )
 	  ++printable;
@@ -78,7 +92,14 @@ void CharFreq::count( const char * it, size_t len ) {
 	  ++eightBit;
       }
     }
+    prevPrevChar = prevChar;
+    prevChar = *it;
   }
+
+  // check whether the last character is tab or space
+  if ( isWS( prevChar ) )
+    mTrailingWS = true;
+
   total = len;
 }
 
@@ -98,14 +119,25 @@ bool CharFreq::isSevenBitText() const {
   return type() == SevenBitText;
 }
 
+bool CharFreq::hasTrailingWhitespace() const {
+  return mTrailingWS;
+}
+
+bool CharFreq::hasLeadingFrom() const {
+  return mLeadingFrom;
+}
+
 CharFreq::Type CharFreq::type() const {
 #ifndef NDEBUG
   qDebug( "Total: %d; NUL: %d; CTL: %d;\n"
 	  "CR: %d; LF: %d; CRLF: %d;\n"
 	  "lineMin: %d; lineMax: %d;\n"
-	  "printable: %d; eightBit: %d;\n",
+	  "printable: %d; eightBit: %d;\n"
+          "trailing whitespace: %s;\n"
+          "leading 'From ': %s;\n",
 	  total, NUL, CTL, CR, LF, CRLF, lineMin, lineMax,
-	  printable, eightBit );
+	  printable, eightBit,
+	  mTrailingWS ? "yes" : "no" , mLeadingFrom ? "yes" : "no" );
 #endif
   if ( NUL ) // must be binary
     return Binary;
