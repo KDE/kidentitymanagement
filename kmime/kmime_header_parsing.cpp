@@ -675,17 +675,33 @@ bool parseDomain( const char* & scursor, const char * const send,
   if ( *scursor == '[' ) {
     // domain-literal:
     QString maybeDomainLiteral;
+    // eat '[':
+    scursor++;
     while ( parseGenericQuotedString( scursor, send, maybeDomainLiteral,
 				      isCRLF, '[', ']' ) ) {
-      if ( *(scursor-1) == '[' )
+      if ( scursor == send ) {
+	// end of header: check for closing ']':
+	if ( *(scursor-1) == ']' ) {
+	  // OK, last char was ']':
+	  result = maybeDomainLiteral;
+	  return true;
+	} else {
+	  // not OK, domain-literal wasn't closed:
+	  return false;
+	}
+      }
+      // we hit openChar in parseGenericQuotedString.
+      // include it in maybeDomainLiteral and keep on parsing:
+      if ( *(scursor-1) == '[' ) {
+	maybeDomainLiteral += QChar('[');
 	continue;
-      assert( *(scursor-1) == ']' );
+      }
+      // OK, real end of domain-literal:
       result = maybeDomainLiteral;
       return true;
     }
   } else {
     // dot-atom:
-    scursor--;
     QString maybeDotAtom;
     if ( parseDotAtom( scursor, send, maybeDotAtom, isCRLF ) ) {
       result = maybeDotAtom;
