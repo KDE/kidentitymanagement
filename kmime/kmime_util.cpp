@@ -28,6 +28,7 @@
 #include <ctype.h>
 #include <time.h> // for time()
 #include <unistd.h> // for getpid()
+#include "config.h" //for HAVE_TZSET
 
 using namespace KMime;
 
@@ -514,6 +515,274 @@ void addQuotes(QCString &str, bool forceQuotes)
 }
 
 
+DateFormatter::DateFormatter(FormatType fType)
+  : mFormat( fType ), mCurrentTime( 0 )
+{
 
+}
+  
+DateFormatter::~DateFormatter()
+{/*empty*/}
+  
+DateFormatter::FormatType 
+DateFormatter::getFormat() const
+{
+  return mFormat;
+}
+ 
+void       
+DateFormatter::setFormat( FormatType t )
+{
+  mFormat = t;
+}
+
+QString 
+DateFormatter::dateString( time_t otime ) const
+{
+  switch ( mFormat ) {
+  case Fancy:
+    return fancy( otime );
+    break;
+  case Localized:
+    return localized( otime );
+    break;
+  case CTime:
+    return cTime( otime );
+    break;
+  case Iso:
+    return isoDate( otime );
+    break;
+  case Custom:
+    return custom( otime );
+    break;
+  }
+  return QString::null;
+}
+
+QString
+DateFormatter::dateString(const QDateTime& dtime) const
+{
+  return DateFormatter::dateString((qdateToTimeT(dtime)));
+}
+
+QCString 
+DateFormatter::rfc2822(time_t otime) const
+{
+  QDateTime tmp;
+  QCString  ret;
+
+  tmp.setTime_t(otime);
+
+  ret = tmp.toString("ddd, dd MMM yyyy hh:mm:ss ").latin1();
+  ret += zone(otime);
+  
+  return ret;
+}
+
+QString
+DateFormatter::custom(time_t t) const
+{
+  if ( mCustomFormat.isNull() )
+    return QString::null;
+  
+  int z = mCustomFormat.find("Z");
+  QDateTime d;
+  QString ret = mCustomFormat;
+  
+  d.setTime_t(t);
+  if ( z != -1 ) {
+    ret.replace(z,1,zone(t));
+  }
+  
+  ret = d.toString(ret);
+  
+  return ret;
+}
+
+void    
+DateFormatter::setCustomFormat(const QString& format)
+{
+  mCustomFormat = format;
+  mFormat = Custom;
+}
+
+QString 
+DateFormatter::getCustomFormat() const
+{
+  return mCustomFormat;
+}
+
+QCString 
+DateFormatter::zone(time_t otime) const
+{
+  QCString ret;
+
+#ifdef HAVE_TZSET
+
+  static int tzInit = 0;
+  
+  if ( tzInit == 0 ) {
+    tzset();
+    tzInit = 1;
+  }
+  //hmm, could make hours & mins static just as well
+  int secs = abs(timezone);
+  int neg  = (timezone>0)?1:0;
+  int hours = secs/3600;
+  int mins  = (secs - hours*3600)/60;
+  
+  ret.sprintf("%c%.2d%.2d",(neg)?'-':'+', hours, mins);
+  
+#else 
+
+  QDateTime d1 = QDateTime::fromString( asctime(gmtime(&otime)) );
+  QDateTime d2 = QDateTime::fromString( asctime(localtime(&otime)) );
+  int secs = d1.secsTo(d2);
+  int neg = (secs<0)?1:0;
+  secs = abs(secs);
+  int hours = secs/3600;
+  int mins  = (secs - hours*3600)/60;
+
+  ret.sprintf("%c%.2d%.2d",(neg)?'-':'+', hours, mins);
+
+#endif /* HAVE_TZSET */
+
+  return ret;
+}
+
+time_t 
+DateFormatter::qdateToTimeT(const QDateTime& dt) const
+{
+  QDateTime epoch( QDate(1970, 1,1), QTime(00,00,00) );
+  time_t otime;
+  time( &otime );
+
+  QDateTime d1 = QDateTime::fromString( asctime(gmtime(&otime)) );
+  QDateTime d2 = QDateTime::fromString( asctime(localtime(&otime)) );
+  time_t drf = epoch.secsTo( dt ) - d1.secsTo( d2 );
+
+  return drf; 
+}
+
+QString 
+DateFormatter::fancy(time_t otime) const 
+{
+  KLocale *locale = KGlobal::locale();
+  
+  if ( otime <= 0 )
+    return i18n( "unknown" );
+
+  if ( !mCurrentTime ) {
+    time( &mCurrentTime );
+    mDate.setTime_t( mCurrentTime );
+  }
+
+  QDateTime old;
+  old.setTime_t( otime );
+  
+  // not more than an hour in the future
+  if ( mCurrentTime + 60 * 60 >= otime ) {
+    time_t diff = mCurrentTime - otime;
+    
+    if ( diff < 24 * 60 * 60 ) {
+      if ( old.date().year() == mDate.date().year() &&
+	   old.date().dayOfYear() == mDate.date().dayOfYear() )
+	return i18n( "Today %1" ).arg( locale->
+				       formatTime( old.time(), true ) );
+    }
+    if ( diff < 2 * 24 * 60 * 60 ) {
+      QDateTime yesterday( mDate.addDays( -1 ) );
+      if ( old.date().year() == yesterday.date().year() &&
+	   old.date().dayOfYear() == yesterday.date().dayOfYear() )
+	return i18n( "Yesterday %1" ).arg( locale->
+					   formatTime( old.time(), true) );
+    }
+    for ( int i = 3; i < 7; i++ )
+      if ( diff < i * 24 * 60 * 60 ) {
+	QDateTime weekday( mDate.addDays( -i + 1 ) );
+	if ( old.date().year() == weekday.date().year() &&
+	     old.date().dayOfYear() == weekday.date().dayOfYear() )
+	  return i18n( "1. weekday, 2. time", "%1 %2" ).
+	    arg( locale->weekDayName( old.date().dayOfWeek() ) ).
+	    arg( locale->formatTime( old.time(), true) );
+      }
+  }
+  
+  return locale->formatDateTime( old );
+  
+}
+
+QString 
+DateFormatter::localized(time_t otime, bool shortFormat, bool includeSecs, 
+			 const QString& localeLanguage ) const
+{
+  QDateTime tmp;
+  QString ret;
+  KLocale *locale = KGlobal::locale();
+
+  tmp.setTime_t( otime );
+
+
+  if ( !localeLanguage.isNull() ) {
+    QString olang = locale->language();
+    locale->setLanguage( localeLanguage );
+    ret = locale->formatDateTime( tmp, shortFormat, includeSecs );
+    locale->setLanguage( olang );
+  } else {
+    ret = locale->formatDateTime( tmp, shortFormat, includeSecs );
+  }
+  
+  return ret;
+}
+
+QString 
+DateFormatter::cTime(time_t otime) const
+{
+  return QString::fromLatin1( ctime(  &otime ) ).stripWhiteSpace() ;
+}
+
+QString 
+DateFormatter::isoDate(time_t otime) const
+{
+  char cstr[64];
+  strftime( cstr, 63, "%Y-%m-%d %H:%M:%S", localtime(&otime) );
+  return QString( cstr );
+}
+
+
+void 
+DateFormatter::reset()
+{
+  mCurrentTime = 0;
+}
+
+QString 
+DateFormatter::formatDate(DateFormatter::FormatType t, time_t otime,
+			  const QString& format )
+{
+  DateFormatter f( t );
+  if ( t == DateFormatter::Custom ) {
+    f.setCustomFormat( format );
+  }
+  return f.dateString( otime );
+}
+
+QString
+DateFormatter::formatCurrentDate( DateFormatter::FormatType t,
+				  const QString& format )
+{
+  DateFormatter f( t );
+  if ( t == DateFormatter::Custom ) {
+    f.setCustomFormat( format );
+  }
+  return f.dateString( time(0) );
+}
+
+QCString 
+DateFormatter::rfc2822FormatDate( time_t t )
+{
+  DateFormatter f;
+  return f.rfc2822( t );
+}
 
 } // namespace KMime

@@ -16,9 +16,11 @@
 #ifndef __KMIME_UTIL_H__
 #define __KMIME_UTIL_H__
 
+#include "qdatetime.h"
 #include "qstring.h"
 #include "qcstring.h"
 #include "qvaluelist.h"
+#include "time.h"
 
 typedef QValueList<QCString> QCStringList;
 
@@ -168,8 +170,141 @@ namespace KMime {
   extern void addQuotes(QCString &str, bool forceQuotes);
 
 
+  /** 
+   * DateFormatter deals with different kinds of date
+   * display formats. The formats supported by the class include:
+   * <ul>
+   *     <li> fancy "Today 02:08:35"
+   *     <li> ctime "Sun Mar 31 02:08:35 2002"
+   *     <li> localized "2002-03-31 02:08"
+   *     <li> iso  "2002-03-31 02:08:35"
+   *     <li> rfc2822 "Sun, 31 Mar 2002 02:08:35 -0500"
+   *     <li> custom "whatever you like"
+   * </ul>
+   *
+   *
+   * @short class abstracting date formatting 
+   */
+  class DateFormatter {
+  public:
+    enum FormatType {
+      CTime,
+      Localized,
+      Fancy,
+      Iso,
+      Custom
+    };
+    
+    /** 
+     * constructor 
+     * @param fType default format used by the class
+     */
+    DateFormatter(FormatType fType = DateFormatter::Fancy);
+    
+    ~DateFormatter();
+    
+    /**
+     * returns the currently set format
+     */
+    FormatType getFormat() const;
+    /**
+     * sets the currently used format
+     */
+    void setFormat(FormatType t);
+      
+    /**
+     * returns formatted date string in a currently
+     * set format.
+     * @param otime time to format
+     */
+    QString dateString(time_t otime) const;
+    /**
+     * overloaded, does exactly what @ref #dateString does
+     */
+    QString dateString(const QDateTime& dtime) const;    
 
 
+    /**
+     * makes the class use the custom format for 
+     * date to string conversions.
+     * Method accepts the same arguments 
+     * as @ref QDateTime::toString method and adds
+     * "Z" expression which is substituted with the
+     * RFC-822 style numeric timezone (-0500)
+     * @param format the custom format
+     */
+    void    setCustomFormat(const QString& format);
+    QString getCustomFormat() const;
+    
+    /**
+     * returns rfc2822 formatted string
+     * @param otime time to use for formatting
+     */
+    QCString rfc2822(time_t otime) const;
+    /**
+     * resets the internal clock
+     */
+    void reset();
+    
+    //statics
+    /** convenience function @see dateString */
+    static QString  formatDate( DateFormatter::FormatType t, time_t time,
+				const QString& format = QString::null);
+    /** convenience function, same as @ref #formatDate
+     * but returns the current time formatted */
+    static QString  formatCurrentDate( DateFormatter::FormatType t,
+				       const QString& format = QString::null);
+    /** convenience function, same as @ref #rfc2822 */
+    static QCString rfc2822FormatDate( time_t time );
+  protected:
+    /**
+     * returns fancy formatted date string
+     * @param otime time to format
+     * @internal
+     */
+    QString fancy(time_t otime) const ;
+    /**
+     * returns localized formatted date string
+     * @param otime time to format
+     * @param shortFormat 
+     * @param includeSecs
+     * @param localeLanguage language used for formatting
+     * @internal
+     */
+    QString localized(time_t otime, bool shortFormat = true, bool includeSecs = false, 
+		      const QString& localeLanguage=QString::null ) const;
+    /**
+     * returns string as formatted with ctime function
+     * @internal
+     */
+    QString cTime(time_t otime) const;
+    /**
+     * returns a string in the "%Y-%m-%d %H:%M:%S" format
+     * @internal
+     */
+    QString isoDate(time_t otime) const;
+
+    /**
+     * returns date formatted with the earlier
+     * given custom format
+     * @param t time used for formatting
+     * @internal
+     */
+    QString custom(time_t t) const;
+    /**
+     * returns a string identifying the timezone (eg."-0500")
+     * @internal
+     */
+    QCString zone(time_t otime) const;
+
+    time_t qdateToTimeT(const QDateTime& dt) const;
+  private:
+    FormatType 		mFormat;
+    mutable time_t 	mCurrentTime;
+    mutable QDateTime 	mDate;
+    QString 		mCustomFormat;
+  };
+  
 } // namespace KMime
 
 #endif /* __KMIME_UTIL_H__ */
