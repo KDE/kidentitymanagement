@@ -1,3 +1,18 @@
+/*
+    kmime_util.cpp
+
+    KMime, the KDE internet mail/usenet news message library.
+    Copyright (c) 2001 the KMime authors.
+    See file AUTHORS for details
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software Foundation,
+    Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, US
+*/
 #include "kmime_util.h"
 
 #include <kmdcodec.h> // for KCodec::{quotedPrintableDe,base64{En,De}}code
@@ -39,6 +54,38 @@ bool isUsAscii(const QString &s)
 
   return true;
 }
+
+// "(),.:;<>@[\]
+uchar specialsMap[16] = {
+  0x00, 0x00, 0x00, 0x00, // CTLs
+  0x20, 0xCA, 0x00, 0x3A, // SPACE ... '?'
+  0x80, 0x00, 0x00, 0x1C, // '@' ... '_'
+  0x00, 0x00, 0x00, 0x00  // '`' ... DEL
+};
+
+// "(),.:;<>@[\]/=?
+uchar tSpecialsMap[16] = {
+  0x00, 0x00, 0x00, 0x00, // CTLs
+  0x20, 0xCB, 0x00, 0x3F, // SPACE ... '?'
+  0x80, 0x00, 0x00, 0x1C, // '@' ... '_'
+  0x00, 0x00, 0x00, 0x00  // '`' ... DEL
+};
+
+// all except specials, CTLs, SPACE.
+uchar aTextMap[16] = {
+  0x00, 0x00, 0x00, 0x00,
+  0x5F, 0x35, 0xFF, 0xC5,
+  0x7F, 0xFF, 0xFF, 0xE3,
+  0xFF, 0xFF, 0xFF, 0xFE
+};
+
+// all except tspecials, CTLs, SPACE.
+uchar tTextMap[16] = {
+  0x00, 0x00, 0x00, 0x00,
+  0x5F, 0x34, 0xFF, 0xC0,
+  0x7F, 0xFF, 0xFF, 0xE3,
+  0xFF, 0xFF, 0xFF, 0xFE
+};
 
 QString decodeRFC2047String(const QCString &src, const char **usedCS,
 			    const QCString &defaultCS, bool forceCS)

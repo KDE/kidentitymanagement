@@ -1,8 +1,8 @@
 /*
-    knheaders.cpp
+    kmime_headers.cpp
 
-    KNode, the KDE newsreader
-    Copyright (c) 1999-2001 the KNode authors.
+    KMime, the KDE internet mail/usenet news message library.
+    Copyright (c) 2001 the KMime authors.
     See file AUTHORS for details
 
     This program is free software; you can redistribute it and/or modify
@@ -14,8 +14,18 @@
     Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, US
 */
 
+
 #include <qtextcodec.h>
 #include <qstringlist.h>
+
+#ifndef Q_ASSERT
+#  ifdef ASSERT
+#    define Q_ASSERT ASSERT
+#  else
+#    include <assert.h>
+#    define Q_ASSERT assert
+#  endif
+#endif
 
 #include <kglobal.h>
 #include <krfcdate.h>
@@ -24,6 +34,32 @@
 #include "kmime_content.h"
 #include "kmime_headers.h"
 #include "kqcstringsplitter.h"
+
+#ifndef KMIME_NO_WARNING
+#  include <kdebug.h>
+#  define KMIME_WARN kdDebug(5100) << "Tokenizer Warning: "
+#  define KMIME_WARN_8BIT(ch) KMIME_WARN \
+          << "8Bit character '" << QString(QChar(ch)) << "' in header \"" \
+          << type() << '\"' << endl
+#  define KMIME_WARN_IF_8BIT(ch) if ( (unsigned)(ch) > 127 ) \
+          { KMIME_WARN_8BIT(ch); }
+#  define KMIME_WARN_PREMATURE_END_OF(x) KMIME_WARN \
+          << "Premature end of " #x " in header \"" << type() << '\"' << endl
+#  define KMIME_WARN_LONE(x) KMIME_WARN << "Lonely " #x " character in" \
+          " header \"" << type() << '\"' << endl
+#  define KMIME_WARN_NON_FOLDING(x) KMIME_WARN << "Non-folding " #x \
+          " in header \"" << type() << '\"' << endl
+#  define KMIME_WARN_CTL_OUTSIDE_QS(x) KMIME_WARN << "Control character " \
+          #x " outside quoted-string in header \"" << type() << "\"" << endl
+#else
+#  define KMIME_NOP do {} while (0)
+#  define KMIME_WARN_8BIT(ch) KMIME_NOP
+#  define KMIME_WARN_IF_8BIT(ch) KMIME_NOP
+#  define KMIME_WARN_PREMATURE_END_OF(x) KMIME_NOP
+#  define KMIME_WARN_LONE(x) KMIME_NOP
+#  define KMIME_WARN_NON_FOLDING(x) KMIME_NOP
+#  define KMIME_WARN_CTL_OUTSIDE_QS(x) KMIME_NOP
+#endif
 
 using namespace KMime;
 using namespace KMime::Headers;
@@ -58,75 +94,868 @@ QCString Base::defaultCS()
   return ( p_arent!=0 ? p_arent->defaultCharset() : Latin1 );
 }
 
+QString Base::parseEncodedWord( const QCString & src, int & pos, bool & ok ) {
+  // ### FIXME: IMPLEMENT ME
+#warning Implementation of KMime::Headers::Base::parseEncodedWord is still missing
+  ok = false;
+  return QString("");
+}
+
+
 //-----</Base>---------------------------------
 
 
 
+//-----<GUnstructured>-------------------------
+
+void GUnstructured::from7BitString( const QCString & str )
+{
+  d_ecoded = decodeRFC2047String( str, &e_ncCS, defaultCS(), forceCS() );
+}
+
+QCString GUnstructured::as7BitString( bool withHeaderType )
+{
+  QCString result;
+  if ( withHeaderType )
+    result = typeIntro();
+  result += encodeRFC2047String( d_ecoded, e_ncCS ) ;
+
+  return result;
+}
+
+void GUnstructured::fromUnicodeString( const QString & str,
+				       const QCString & suggestedCharset )
+{
+  d_ecoded = str;
+  e_ncCS = cachedCharset( suggestedCharset );
+}
+
+QString GUnstructured::asUnicodeString()
+{
+  return d_ecoded;
+}
+
+//-----</GUnstructured>-------------------------
+
+
+
+//-----<GStructured>-------------------------
+
+// known issues:
+//
+// - EncodedWords parsing not yet implemented
+// - EncodedWords decoding in Comments not handled
+// - 
+
+QString GStructured::getToken( const QCString & source, int & pos,
+			       TokenType & tt, bool isCRLF )
+{
+  // pos must be in range, but may point to the termiating NUL
+  Q_ASSERT( pos >= 0 && pos <= source.length() );
+  // if caller disallows composite types, he must allow the constituends:
+#warning This needs more work.
+#if 0
+  Q_ASSERT( tt & Atom          || tt & Token && tt & TSpecial );
+  Q_ASSERT( tt & Special       || tt & TSpecial );
+  Q_ASSERT( tt & EncodedWord   || tt & Atom || tt & Token && tt & TSpecial );
+  Q_ASSERT( tt & (QuotedString|DomainLiteral)
+	                       || tt & Atom && tt & (TSpecial|Special)
+	                       || tt & Token && tt & TSpecial );
+  Q_ASSERT( tt & DotAtom       || tt & Atom && tt & (Special|TSpecial) );
+  Q_ASSERT( tt & Phrase        || tt & EncodedWord && tt & Atom
+	                            && tt & QuotedString && tt & Token );
+#endif
+  TokenType found = None;
+  bool inPhrase = false;
+  bool lastSawDotInDotAtom = false;
+  bool lastWasEncodedWord = false;
+  int oldpos;
+  char ch;
+  QString result;
+
+OUTER_LOOP:
+  while ( ch = source[pos++] ) {
+
+    switch ( ch ) {
+
+      /* ============================================== */
+
+    case ' ':
+    case '\t':  // skip whitespace
+      //      kdDebug() << "skipping whitespace at pos " << pos-1 << endl;
+      break;
+    
+      /* ============================================== */
+
+    case '\r':      // possible folding
+      //      kdDebug() << "CR: possible folding" << endl;
+      ch = source[pos++];
+      if ( !ch ) {
+	tt = found; pos--; // set cursor to point to NUL
+	return result;
+      }
+      if ( ch != '\n' ) {
+	// CR on it's own: forbidden outside generic quoted strings.
+	ch == source[pos++];
+	if ( ch == ' ' || ch == '\t' ) {
+	  // looks like a broken folded header:
+	  // we take it to mean folding and simply ignore it.
+	  KMIME_WARN_CTL_OUTSIDE_QS(CR);
+	} else if ( ch == '\0' ) {
+	  // ### end of header.
+	  KMIME_WARN_CTL_OUTSIDE_QS(CR);
+	  tt = found; pos--;
+	  return result;
+	} else {
+	  // non-WSP following \r: We ignore the \r, too, but leave
+	  // the processing of "ch" to the next iteration
+	  KMIME_WARN_NON_FOLDING(CR);
+	  pos--;
+	}
+	break;
+      }
+      //
+      // when control reaches here, we found a CRLF, so unfold it:
+      //
+      ch = source[pos++];
+      if ( ch == '\0' ) {
+	// ### end of header
+	tt = found; pos--;
+	return result;
+      } else if ( ch != ' ' && ch != '\t' ) {
+	// non-WSP after CRLF is forbidden. We choose to ignore the
+	// CRLF nontheless.
+	KMIME_WARN_NON_FOLDING(CRLF);
+	pos--; // let the next iteration handle "ch"
+      }
+      break;
+
+      /* ============================================== */
+
+    case '\n':
+      //      kdDebug() << "LF: possible folding" << endl;
+      // for a discussion of what we do here see the comment in
+      // parseGenericQuotedString, case '\n', below.
+      ch = source[pos++];
+      if ( !isCRLF && ( ch == ' ' || ch == '\t' || ch == '\0' ) ) {
+	// folding
+	if ( ch == '\0' ) {
+	  // ### end of header
+	  tt = found; pos--;
+	  return result;
+	}
+	// correct folding, ignore LF WSP
+      } else {
+	KMIME_WARN_NON_FOLDING(LF);
+	pos--;
+      }
+      break;
+
+      /* ============================================== */
+
+    case '"': // introducing a quoted-string
+      //      kdDebug() << "\": maybe quoted-string" << endl;
+      if ( ! (tt & QuotedString) ) {
+	// no quoted-string allowed
+	if ( found != None ) {
+	  // already found something, return it and set the cursor so
+	  // that it points to '"' again:
+	  tt = found; pos--;
+	  return result;
+	} else {
+	  // nothing found up till now, so return the '"' as as
+	  // special:
+	  tt = (tt & Special) ? Special : TSpecial;
+	  result += QChar('"');
+	  return result;
+	}
+      } else {
+	//
+	// QuotedString is allowed.
+	//
+	//	kdDebug() << "quoted-string is allowed" << endl;
+	if ( tt & Phrase ) {
+	  // We are searching for a phrase (among other things)
+	  if ( found != None && !(found & (Word|EncodedWord|Phrase)) ) {
+	    // what we found until now is INcompatible with a
+	    // phrase. Return what we have and wait for the next
+	    // invokation:
+	    tt = found; pos--;
+	    return result;
+	  }
+	  // continue processing below....
+	  //	  kdDebug() << "allowed to return Phrase, and only compat. tokens found yet" << endl;
+	} else {
+	  // Phrase is not allowed
+	  if ( found != None ) {
+	    // already found something, return it and set the cursor
+	    // so that it points to '"' again:
+	    tt = found; pos--;
+	    return result;
+	  }
+	  //	  kdDebug() << "Phrase is not allowed, but we found nothing up till now" << endl;
+	  // continue processing below....
+	}
+	//
+	// if control reaches here, we are in one of two cases:
+	//
+	// 1. We have nothing up till now (found == None), so we try
+	// to parse the quoted string and remember it or the '"' as
+	// special if we fail.
+	// 
+	// 2. We have a Word or Phrase already, so we append the
+	// quoted string (if parsing is successful), or return what we
+	// have and leave the '"' handling as special to the next
+	// invokation
+	//
+	oldpos = pos;
+	QString qs = parseGenericQuotedString( source, pos, '"', '"' );
+	Q_ASSERT( source[pos-1] == '"' || source[pos-1] == '\0' );
+	// see the kdoc for above function for the possible conditions
+	// we have to check:
+	switch ( source[pos-1] ) {
+	case '"':  // normal end of quoted-string
+	  if ( found == None ) {
+	    found = QuotedString;  // case (1) above
+	  } else {
+	    found = Phrase;        // case (2) above
+	    lastWasEncodedWord = false;
+	    result += ' ';         // rfc822, 3.4.4
+	  }
+	  result += qs;
+	  //	KMIME_WARN_IF_INCORRECTLY_DELIMITED(QuotedString,source[pos]);
+	  break;
+	default:
+	case '\0': // premature end of quoted-string.
+	  if ( found == None ) {   // case (1) above
+	    tt = (tt & Special) ? Special : TSpecial;
+	    pos = oldpos;
+	    result += QChar('"');
+	    return result;
+	  } else {                 // case (2) above
+	    // can't return Special yet.
+	    tt = found; pos = oldpos - 1;
+	    return result;
+	  }
+	}
+      }
+      break;
+
+      /* ============================================== */
+
+    case '(': // introducing a comment
+      //      kdDebug() << "(: maybe comment" << endl;
+      if ( found != None && (tt & Comment) ) {
+	// we are asked to return comments, but comments can't be
+	// aggregated (e.g. into a Phrase), so we return what we have:
+	tt = found; pos--;
+	return result;
+      } else {
+	//
+	// if contol reaches here, we have either nothing found yet or
+	// else are going to ignore this commnet anyway.
+	//
+	//
+	// Comments may nest. In case of unbalanced parentheses, this
+	// parser assumes the last ')' to signify the end of the
+	// comment. This behaviour is not canonical, so it is to be seen
+	// if the other approach (ignoring the rest of the header) may
+	// not be better.
+	//
+	int commentNestingDepth = 1;
+	int afterLastClosingParenPos = 0;
+	QString cmnt(QChar('('));
+	QString maybeCmnt;
+	oldpos = pos;
+	
+	while ( commentNestingDepth ) {
+	  QString cmntPart = parseGenericQuotedString( source, pos, '(', ')' );
+	  Q_ASSERT( source[pos-1] == ')' || source[pos-1] == '(' || source[pos-1] == '\0' );
+	  // see the kdoc for above function for the possible conditions
+	  // we have to check:
+	  switch ( source[pos-1] ) {
+	  case ')':
+	    if ( tt & Comment ) {
+	      // add the chunk that's now surely inside the comment.
+	      cmnt += maybeCmnt;
+	      cmnt += cmntPart;
+	      cmnt += QChar(')');
+	      maybeCmnt = QString::null;
+	    }
+	    afterLastClosingParenPos = pos;
+	    --commentNestingDepth;
+	    break;
+	  case '(':
+	    if ( tt & Comment ) {
+	      // don't add to "cmnt" yet, because we might find that we
+	      // are already outside the (broken) comment...
+	      maybeCmnt += cmntPart;
+	      maybeCmnt += QChar('(');
+	    }
+	    ++commentNestingDepth;
+	    break;
+	  default:
+	  case '\0':
+	    // OK, premature end. Now the fun part begins...
+	    // (parseGenericQuotedString has already warned)
+	    if ( afterLastClosingParenPos ) {
+	      // we've seen at least one ')'
+	      pos = afterLastClosingParenPos;
+	      if ( tt & Comment ) {
+		tt = Comment;
+		return cmnt;
+	      } else {
+		// forget the comment and go on.
+#warning Anyone knows how I can continue an outer \
+         loop from inside the inner one?
+		continue /*OUTER_LOOP*/;
+	      }
+	    } else {
+	      if ( found == None ) {
+		// We haven't seen a single ')', so we return the
+		// initial '(' as a Special, regardless of whether we
+		// were asked for Comments, too, or not.
+		tt = (tt & Special) ? Special : TSpecial;
+		pos = oldpos;
+		result += QChar('(');
+		return result;
+	      } else {
+		// we've already had something, so we can't return the
+		// '(' as Special yet.
+		tt = found; pos = oldpos - 1;
+		return result;
+	      }
+	    }
+	  } // switch
+	} // while
+	//
+	// if control reaches here, we have seen a valid (ie. balanced)
+	// comment. Return it if asked for, else forget it.
+	//
+	// ### handle endoded-words in comments.
+	if ( tt & Comment ) {
+	  tt = Comment;
+	  return cmnt;
+	}
+      }
+      break;
+
+      /* ============================================== */
+
+    case '[': // introducing a domain-literal
+      //      kdDebug() << "[: maybe domain-literal" << endl;
+      if ( found != None ) {
+	// domain-literal's can't be aggregated
+	tt = found; pos--;
+	return result;
+      }
+
+      if ( ! (tt & DomainLiteral) ) {
+	// we're not allowed to return a domain-literal, so we return
+	// it's '[' as a Special
+	tt = (tt & Special) ? Special : TSpecial;
+	result += QChar('[');
+	return result;
+      } else {
+
+	//
+	// if control reaches here, we are allowed to parse the
+	// domain-literal and will return it as such if we succeed in
+	// parsing, or it's first '[' as Special if we don't.
+	//
+	
+	QString dl;
+	int oldpos = pos;
+	
+	while (true) {
+	  dl += parseGenericQuotedString( source, pos, '[', ']' );
+	  Q_ASSERT( source[pos-1] == ']' || source[pos-1] == '[' || source[pos-1] == '\0' );
+	  // see the kdoc for above function for the possible conditions
+	  // we have to check:
+	  switch ( source[pos-1] ) {
+	  case ']': // domain-literal end
+	    tt = DomainLiteral;
+	    return dl;
+	  
+	  case '[': // allow in domain-lieral, but warn
+	    KMIME_WARN_LONE('[');
+	    dl += QChar('[');
+	    break;
+	    
+	  default:
+	  case '\0': // premature end.
+	    // return the initial '[' as Special and reset the cursor to
+	    // after that '['
+	    pos = oldpos;
+	    tt = (tt & Special) ? Special : TSpecial;
+	    result += QChar('[');
+	    return result;
+	  }
+	}
+      }
+      break;
+
+      /* ============================================== */
+
+    case '.': // continuing a dot-atom
+      //      kdDebug() << ".: maybe continuing a dot-atom" << endl;
+      if ( tt & DotAtom ) {
+	if ( found == None ) {
+	  // dot-atom can't begin with '.'! Return as Special or
+	  // TSpecial:
+	  tt = (tt & Special) ? Special : TSpecial;
+	  result += QChar('.');
+	  return result;
+	} else if ( found & Atom ) {
+	  // this is what we want.
+	  found = DotAtom;
+	  lastSawDotInDotAtom = true;
+	  result += QChar('.');
+	} else if ( found & DotAtom ) {
+	  if ( lastSawDotInDotAtom ) {
+	    // no, we can't have '..' in DotAtom's
+	    tt = DotAtom; pos--;
+	    return result;
+	  } else {
+	    // this fits, we have a dot following an Atom:
+	    lastSawDotInDotAtom = true;
+	    result += QChar('.');
+	  }
+	} else {
+	  // INcompatible tokens found, return them first.
+	  tt = found; pos--;
+	  return result;
+	}
+      } else {
+	// no dot-atom allowed
+	if ( found == None ) {
+	  tt = ( tt & Special ) ? Special : TSpecial;
+	  result += QChar('.');
+	  return result;
+	} else {
+	  // return other found stuff first
+	  tt = found; pos--;
+	  return result;
+	}
+      }
+      break;
+
+      /* ============================================== */
+
+    case '=': // introducing an encoded word.
+      //      kdDebug() << "=: maybe introducing an encoded-word" << endl;
+      oldpos = pos;
+
+      if ( found != None &&
+	   ( !(tt & Phrase) || !(found & (Word|Phrase|EncodedWord)) ) ) {
+	// we're not allowed to return phrases, but we already found
+	// something
+	// -or-
+	// we found something incompatible before:
+	// return that first
+	tt = found; pos--;
+	return result;
+      }
+      //
+      // if control reaches here, we either have compatible tokens in
+      // "result" (and are allowed to aggregate them into a Phrase),
+      // or nothing.
+      //
+      if ( tt & EncodedWord ) {
+	// allowed to return encoded words
+	ch = source[pos++];
+	if ( ch == '?' ) {
+	  // next char == '?', so we might have a chance to see a
+	  // valid encoded-word:
+	  bool ok = false;
+	  QString ew = parseEncodedWord( source, pos, ok );
+	  if ( ok ) {
+	    Q_ASSERT( source[pos-1] == '=' || source[pos-1] == '\0' );
+	    // ### check what else can happen when parseEncodedWord is
+	    // implemented, and insert it into the assertion ....
+	    if ( found == None ) {
+	      // label our find
+	      found == EncodedWord;
+	    } else {
+	      // found something already (we can be sure that tt &
+	      // Phrase == true, since we eliminated all other cases
+	      // above, so we assert that:)
+	      Q_ASSERT( tt & Phrase && found & (EncodedWord|Word|Phrase) );
+	      if ( found != EncodedWord ) {
+		// found something compatible to form a Phrase
+		// of. We exclude the case of EncodedWord, because
+		// we don't re-label consecutive encoded-words, but
+		// simply concatenate them under the EncodedWord
+		// label
+		found = Phrase;
+		if ( !lastWasEncodedWord ) {
+		  // in case it's a phrase, and the last token
+		  // appended to it wasn't an encoded-word, we have
+		  // to add a space (rfc822, 3.4.4)
+		  result += QChar(' ');
+		}
+	      }
+	    }
+	    // always set the bool flag and append the encoded word.
+	    lastWasEncodedWord = true;
+	    result += ew;
+	    break;
+	  } // fi ( ok )
+	} // fi ( ch == '?' )
+	// ch != '?' or encoded-word not ok, so fall through to the
+	// token/atom parser...
+      }
+      //
+      // if control reaches here, we're not allowed to return
+      // EncodedWord's (or failed to parse it correctly), so we
+      // restore the cursor and "ch" and fall through to the
+      // token/atom parser:
+      // 
+      pos = oldpos;
+      ch = source[pos-1];
+
+      // fall through
+
+      /* ============================================== */
+
+    default: // token/atom/special/tspecial
+
+      //      kdDebug() << "default branch hit with ch == " << QString(QChar(ch))
+      //		<< " at pos == " << pos-1 << endl;
+      // introducing tokens or tspecials, which may end up being atoms
+      // or specials
+      
+      // first, collect chars that make up tokens (TText, though
+      // rfc2045 doesn't call it like that)
+
+      if ( tt & Atom ) {
+	// we may return Atoms, so collect chars that make up atoms
+	// (AText, see rfc2822, which agrees on rfc822 on this), but
+	// first check whether we need to return something:
+	if ( !( found == None ||
+		tt & Phrase && found & (Word|EncodedWord|Phrase) ||
+		tt & DotAtom && found & DotAtom && lastSawDotInDotAtom ) ) {
+	  // inompatible tokens found, return what we have. Note that
+	  // the case found == None is already contained in the above
+	  // branch.
+	  tt = found; pos--;
+	  return result;
+	}
+	//
+	// if control reaches here, we have either permission to
+	// return Phrases (and have only seen compatible tokens up
+	// till now), or DotAtoms (and have only seen DotAtom with
+	// lastSawDotInDotAtom), or we've found nothing.
+	//
+	QString maybeAtom;
+	for ( ; true ; ch = source[pos++] ) {
+	  // short-cut collect AText
+	  for ( ; ch > 0 && isAText(ch) ; ch = source[pos++] )
+	    maybeAtom += QChar(ch);
+	  //
+	  // no AText, so let's see what we got...
+	  //
+	  //	  kdDebug() << "hit non-atext '" << QString(QChar(ch))
+	  //		    << "' in default branch at pos " << pos-1 << endl;
+	  if ( !ch ) {
+	    // ### end of header
+	    //
+	    // it shouldn't happen that the first thing we saw (and
+	    // what thus could've made maybeAtom be empty) was NUL,
+	    // because this should have been catched by the outer loop
+	    // earlier on...
+	    Q_ASSERT( !maybeAtom.isEmpty() );
+	    if ( found == None ) {
+	      tt = Atom; pos--;
+	      return maybeAtom;
+	    } else if ( found == DotAtom ) {
+	      Q_ASSERT( lastSawDotInDotAtom );
+	      tt = DotAtom; pos--;
+	      result += maybeAtom;
+	      return result;
+	    } else {
+	      // already found something. Note, we can be sure that
+	      // that is compatible with a phrase, see the beginning
+	      // of this case.
+	      Q_ASSERT( tt & Phrase );
+	      Q_ASSERT( found & (Phrase|Word|EncodedWord) );
+	      result += QChar(' '); // rfc822, 3.4.4
+	      result += maybeAtom;
+	      tt = Phrase; pos--;
+	      return result;
+	    }
+	  } else if ( ch == ' ' || ch == '.' || ch == '(' || ch == '=' ||
+		      ch == '\n' || ch == '\r' || ch == '\t' ) {
+	    // it shouldn't happen that the first thing we saw (and
+	    // what thus could've made maybeAtom be empty) was WSP /
+	    // CR / LF / "." / "(", because this should have been
+	    // catched by the outer loop earlier on...
+	    Q_ASSERT( !maybeAtom.isEmpty() );
+	    //
+	    // " \n\r\t.(=" also end our Atom, but if we're searching
+	    // for a Phrase or DotAtom, other Words or Specials ('.')
+	    // may come after this non-atext, so we add our maybeAtom
+	    // to the result and break out into the outer loop:
+	    if ( found == None ) {
+	      found = Atom;
+	    } else if ( found == DotAtom ) {
+	      Q_ASSERT( lastSawDotInDotAtom );
+	      lastSawDotInDotAtom = false;
+	    } else {
+	      Q_ASSERT( tt & Phrase );
+	      Q_ASSERT( found & (Phrase|Word|EncodedWord) );
+	      result += QChar(' '); // rfc822, 3.4.4
+	      lastWasEncodedWord = false;
+	      found = Phrase;
+	    }
+	    // in any case: add maybeAtom, adjust cursor to point to
+	    // "ch" again, and (effectively) break into OUTER_LOOP:
+	    result += maybeAtom; pos--;
+	    break;
+	  } else if ( ch < 0 ) {
+	    // seems to be an 8Bit char: warn, but add it nonetheless.
+	    KMIME_WARN_8BIT(ch);
+	    maybeAtom += QChar(ch);
+	  } else if ( isSpecial(ch) ) {
+	    // "ch" is a Special (excluding ".", which is handled
+	    // above). This definitely ends any Phrase or DotAtom that
+	    // we may have found earlier: return what we have, or "ch"
+	    // as Special or TSpecial, if there wasn't anything yet:
+	    if ( !maybeAtom.isEmpty() ) {
+	      if ( found == None ) {
+		tt = Atom; pos--;
+		return maybeAtom;
+	      } else if ( found == DotAtom ) {
+		Q_ASSERT( lastSawDotInDotAtom );
+		result += maybeAtom;
+		tt = DotAtom; pos--;
+		return result;
+	      } else {
+		Q_ASSERT( tt & Phrase );
+		Q_ASSERT( found & (Phrase|Word|EncodedWord) );
+		result += QChar(' '); // rfc822, 3.4.4
+		result += maybeAtom;
+		tt = Phrase; pos--;
+		return result;
+	      }
+	    } else {
+	      // maybeAtom is empty
+	      if ( found == None ) {
+		tt = (tt & Special) ? Special : TSpecial;
+		result += QChar(ch);
+		return result;
+	      } else {
+		// already found something (either DotAtom or part of
+		// Phrase):
+		Q_ASSERT( found & (DotAtom|Phrase|Word|EncodedWord) );
+		tt = found; pos--;
+		return result;
+	      }
+	    }
+	  } else {
+	    // "ch" is a CTL (excluding CR and LF):
+	    Q_ASSERT( (unsigned)ch < 32 || ch == 127 );
+	    // We warn and simply ignore it.
+	    KMIME_WARN_CTL_OUTSIDE_QS(ch);
+	  }
+	} // for true
+      } else {
+	// we may not return Atoms, but then we must have been allowed
+	// to return Tokens and TSpecials, of which Atoms consist.
+	Q_ASSERT( tt & Token && tt & TSpecial );
+
+	// Note that we don't need to consider Phrases here, since
+	// they mandate that Atoms be allowed, and thus we wouldn't
+	// end up here in the first place.
+	if ( found != None ) {
+	  // found something already: return that first.
+	  tt = found; pos--;
+	  return result;
+	}
+
+	QString maybeToken;
+	for ( ; true ; ch = source[pos++] ) {
+	  // short-cut collect tText:
+	  for ( ; ch > 0 && isTText(ch) ; ch = source[pos++] )
+	    maybeToken += QChar(ch);
+	  
+	  // non-ttext-char encountered.
+	  
+	  if ( ch == ' ' || ch == '\n' ||
+	       ch == '\0' || ch == '\r' || ch == '\n' ) {
+	    // NUL, SPACE, HTAB, '(', CR or LF encoutered; see in the (tt &
+	    // Atom) branch for why this assert is here
+	    Q_ASSERT( !maybeToken.isEmpty() );
+	    tt = Token; pos--;
+	    return maybeToken;
+	  } else if ( ch < 0 ) {
+	    // seems to be an 8Bit char: warn, but add it nonetheless.
+	    KMIME_WARN_8BIT(ch);
+	    maybeToken += QChar(ch);
+	  } else if ( isTSpecial(ch) ) {
+	    // TSpecials definitely end our Token
+	    if ( maybeToken.isEmpty() ) {
+	      // no Token found: return the (T)Special
+	      if ( tt & Special && ch != '/' && ch != '=' && ch != '?' )
+		// allowed to return Special and isSpecial(ch)
+		tt = Special;
+	      else
+		tt = TSpecial;
+	      result += QChar(ch);
+	      return result;
+	    } else {
+	      // Token was found
+	      tt = Token; pos--;
+	      return maybeToken;
+	    }
+	  } else {
+	    // "ch" is a CTL (excluding CR and LF):
+	    Q_ASSERT( (unsigned)ch < 32 || ch == 127 );
+	    // We warn and simply ignore it.
+	    KMIME_WARN_CTL_OUTSIDE_QS(ch);
+	  }
+	} // for true
+      }
+      break;
+
+    } // biiiig switch
+  } // OUTER_LOOP
+
+  // ### end of header (OUTER_LOOP is left on ch == '\0')
+  tt = found; pos--;
+  return result;
+
+} // getToken
+
+
+
+
+
+
+QString GStructured::parseGenericQuotedString( const QCString & src, int & pos,
+		      const char openChar, const char closeChar, bool isCRLF )
+{
+  QString result = "";
+  char ch;
+  // We are in a quoted-string or domain-literal or comment and the
+  // cursor (pos) points to the first char after the openChar.
+  // We will apply unfolding and quoted-pair removal.
+  // We return when we either encounter \0 or unescaped openChar or closeChar.
+
+  while ( ch = src[pos++] ) {
+
+    if ( ch == closeChar     // end of quoted-string
+	 || ch == openChar ) // another opening char: let caller decide what to do.
+      return result;
+
+    switch( ch ) {
+    case '\\':      // quoted-pair
+      // misses "\" CRLF LWSP-char handling, see rfc822, 3.4.5
+      if ( ch = src[pos++] ) {
+	// not NULL, \x -> x
+	KMIME_WARN_IF_8BIT(ch);
+	result += QChar(ch);
+      } else {
+	// NULL, panic!
+	KMIME_WARN_PREMATURE_END_OF(GenericQuotedString);
+	return result;
+	// ### how should we handle '\0' chars,
+	// which are allowed in rfc822, but not 2822?
+	// This problem will go away when we use QByteArrays.
+      }
+      break;
+    case '\r':
+      // ###
+      // The case of lonely '\r' is easy to solve, as they're
+      // not part of Unix Line-ending conventions.
+      // But I see a problem if we are given Unix-native
+      // line-ending-mails, where we cannot determine anymore
+      // whether a given '\n' was part of a CRLF or was occuring
+      // on it's own.
+      ch = src[pos++];
+      if ( !ch ) {
+	// ### ASCII NULL encountered inside quoted-string!
+	// NOTE: here we violate the rfc. We should just skip it.
+	// pos points to NULL now
+	KMIME_WARN_PREMATURE_END_OF(GenericQuotedString);
+	return result;
+      }
+      if ( ch != '\n' ) {
+	// CR on it's own...
+	KMIME_WARN_LONE(CR);
+	result += QChar('\r');
+	pos--; // points to after the '\r' again
+      } else {
+	// CRLF encountered.
+	// lookahead: check for folding
+	ch = src[pos++];
+	if ( ch == ' ' || ch == '\t' ) {
+	  // correct folding;
+	  // position cursor behind the CRLF WSP (unfolding)
+	  // and add the WSP to the result
+	  result += QChar(ch);
+	} else if ( !ch ) {
+	  // ###
+	  // ASCII NULL encountered inside quoted-string!
+	  // NOTE: here we violate the rfc. We should just skip it.
+	  // pos points to after NULL now
+	  KMIME_WARN_PREMATURE_END_OF(GenericQuotedString);
+	  return result;
+	} else {
+	  // this is the "shouldn't happen"-case. There is a CRLF
+	  // inside a quoted-string without it being part of FWS.
+	  // We take it verbatim.
+	  KMIME_WARN_NON_FOLDING(CRLF);
+	  result += "\r\n";
+	  // "pos" is decremented agian, so's we need not duplicate
+	  // the whole switch here. "ch" could've been everything
+	  // (incl. <">, "\").
+	  pos--;
+	}
+      }
+      break;
+    case '\n':
+      // Note: CRLF has been handled above already!
+      // ### LF needs special treatment, depending on whether isCRLF
+      // is true (we can be sure a lonely '\n' was meant this way) or
+      // false ('\n' alone could have meant LF or CRLF in the original
+      // message. This parser assumes CRLF iff the LF is followed by
+      // either WSP (folding) or NULL (premature end of quoted-string;
+      // Should be fixed, since NULL is allowed as per rfc822).
+      ch = src[pos++];
+      if ( !isCRLF && ( ch == ' ' || ch == '\t' || ch == '\0' ) ) {
+	// folding
+	if ( ch == '\0' ) {
+	  // ### end of header
+	  KMIME_WARN_PREMATURE_END_OF(GenericQuotedString);
+	  return result;
+	}
+	// correct folding
+	result += QChar(ch);
+      } else {
+	// non-folding
+	KMIME_WARN_LONE(LF);
+	result += QChar('\n');
+	// pos is decremented, so's we need not duplicate the whole
+	// switch here. ch could've been everything (incl. <">, "\").
+	pos--;
+      }
+      break;
+    default:
+      KMIME_WARN_IF_8BIT(ch);
+      result += QChar(ch);
+    }
+  }
+
+  return result;
+}
+
+//-----</GStructured>-------------------------
+
+
+
+
 //-----<Generic>-------------------------------
-
-Generic::Generic(const char *t)
-  : Base(), t_ype(0)
-{
-  setType(t);
-}
-
-
-Generic::Generic(const char *t, Content *p)
-  : Base(p), t_ype(0)
-{
-  setType(t);
-}
-
-
-Generic::Generic(const char *t, Content *p, const QCString &s)
-  : Base(p), t_ype(0)
-{
-  setType(t);
-  from7BitString(s);
-}
-
-
-Generic::Generic(const char *t, Content *p, const QString &s, const QCString &cs)
-  : Base(p), t_ype(0)
-{
-  setType(t);
-  fromUnicodeString(s, cs);
-}
-
-
-Generic::~Generic()
-{
-  delete[] t_ype;
-}
-
-
-void Generic::from7BitString(const QCString &s)
-{
-  u_nicode=decodeRFC2047String(s, &e_ncCS, defaultCS(), forceCS());
-}
-
-
-QCString Generic::as7BitString(bool incType)
-{
-  if(incType)
-    return ( typeIntro()+encodeRFC2047String(u_nicode, e_ncCS) );
-  else
-    return encodeRFC2047String(u_nicode, e_ncCS);
-}
-
-
-void Generic::fromUnicodeString(const QString &s, const QCString &cs)
-{
-  u_nicode=s;
-  e_ncCS=cachedCharset(cs);
-}
-
-
-QString Generic::asUnicodeString()
-{
-  return u_nicode;
-}
-
 
 void Generic::setType(const char *type)
 {
@@ -211,39 +1040,6 @@ QString Control::asUnicodeString()
 }
 
 //-----</Control>------------------------------
-
-
-
-//-----<Subject>-------------------------------
-
-void Subject::from7BitString(const QCString &s)
-{
-  s_ubject=decodeRFC2047String(s, &e_ncCS, defaultCS(), forceCS());
-}
-
-
-QCString Subject::as7BitString(bool incType)
-{
-  if(incType)
-    return (typeIntro()+encodeRFC2047String(s_ubject, e_ncCS));
-  else
-    return encodeRFC2047String(s_ubject, e_ncCS);
-}
-
-
-void Subject::fromUnicodeString(const QString &s, const QCString &cs)
-{
-  s_ubject=s;
-  e_ncCS=cachedCharset(cs);
-}
-
-
-QString Subject::asUnicodeString()
-{
-  return s_ubject;
-}
-
-//-----</Subject>------------------------------
 
 
 
@@ -440,37 +1236,6 @@ bool MailCopiesTo::neverCopy()
 
 //-----</MailCopiesTo>-------------------------
 
-
-//-----<Organization>--------------------------
-
-void Organization::from7BitString(const QCString &s)
-{
-  o_rga=decodeRFC2047String(s, &e_ncCS, defaultCS(), forceCS());
-}
-
-
-QCString Organization::as7BitString(bool incType)
-{
-  if(incType)
-    return ( typeIntro()+encodeRFC2047String(o_rga, e_ncCS) );
-  else
-    return encodeRFC2047String(o_rga, e_ncCS);
-}
-
-
-void Organization::fromUnicodeString(const QString &s, const QCString &cs)
-{
-  o_rga=s;
-  e_ncCS=cachedCharset(cs);
-}
-
-
-QString Organization::asUnicodeString()
-{
-  return o_rga;
-}
-
-//-----</Organization>-------------------------
 
 
 
@@ -1311,38 +2076,6 @@ QString CDisposition::asUnicodeString()
 
 //-----</CDisposition>-------------------------
 
-
-
-//-----<CDescription>--------------------------
-
-void CDescription::from7BitString(const QCString &s)
-{
-  d_esc=decodeRFC2047String(s, &e_ncCS, defaultCS(), forceCS());
-}
-
-
-QCString CDescription::as7BitString(bool incType)
-{
-  if(incType)
-    return ( typeIntro()+encodeRFC2047String(d_esc, e_ncCS) );
-  else
-    return encodeRFC2047String(d_esc, e_ncCS);
-}
-
-
-void CDescription::fromUnicodeString(const QString &s, const QCString &cs)
-{
-  d_esc=s;
-  e_ncCS=cachedCharset(cs);
-}
-
-
-QString CDescription::asUnicodeString()
-{
-  return d_esc;
-}
-
-//-----</CDescription>-------------------------
-
 }; // namespace Headers
+
 }; // namespace KMime

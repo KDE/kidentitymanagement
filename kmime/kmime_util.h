@@ -1,3 +1,18 @@
+/*
+    kmime_util.h
+
+    KMime, the KDE internet mail/usenet news message library.
+    Copyright (c) 2001 the KMime authors.
+    See file AUTHORS for details
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software Foundation,
+    Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, US
+*/
 #ifndef __KMIME_UTIL_H__
 #define __KMIME_UTIL_H__
 
@@ -14,6 +29,33 @@ namespace KMime {
 
   /** checks whether @p s contains any non-us-ascii characters */
   extern bool isUsAscii(const QString &s);
+
+  inline bool isOfSet(uchar map[16], unsigned char ch) {
+#ifndef Q_ASSERT
+    ASSERT( ch < 127 );
+#else
+    Q_ASSERT( ch < 127 );
+#endif
+    return ( map[ ch/8 ] & 0x80 >> ch%8 );
+  }
+
+  extern uchar specialsMap[16];
+  extern uchar tSpecialsMap[16];
+  extern uchar aTextMap[16];
+  extern uchar tTextMap[16];
+
+  inline bool isSpecial(char ch) {
+    return isOfSet( specialsMap, ch );
+  }
+  inline bool isTSpecial(char ch) {
+    return isOfSet( tSpecialsMap, ch );
+  }
+  inline bool isAText(char ch) {
+    return isOfSet( aTextMap, ch );
+  }
+  inline bool isTText(char ch) {
+    return isOfSet( tTextMap, ch );
+  }
 
   /** Decode string @p src according to RFC2047 (ie. the
       =?charset?[qb]?encoded?= construct).
