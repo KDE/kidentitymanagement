@@ -620,7 +620,7 @@ DateFormatter::zone(time_t otime) const
 {
   QCString ret;
 
-#ifdef HAVE_TZSET
+#if defined(HAVE_TZSET) && !defined(__FreeBSD__)
 
   static int tzInit = 0;
   
