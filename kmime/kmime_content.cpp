@@ -199,9 +199,53 @@ void Content::parse()
           c_ontents->first()->contentType()->setMimeType("text/plain");
         }
       }
-    }
-    else { //no, this doesn't look like uuencoded stuff => we treat it as "text/plain"
-      ct->setMimeType("text/plain");
+    } else {
+      Parser::YENCEncoded yenc(b_ody);
+ 
+      if ( yenc.parse()) {
+        /* If it is partial, just assume there is exactly one decoded part,
+         * and make this that part */
+        if (yenc.isPartial()) {
+          ct->setMimeType("message/partial");
+          //ct->setId(uniqueString()); not needed yet
+          ct->setPartialParams(yenc.partialCount(), yenc.partialNumber());
+          contentTransferEncoding()->setCte(Headers::CEbinary);
+        }
+        else { //it's a complete message => treat as "multipart/mixed"
+          //the whole content is now split into single parts, so it's safe to delete the message-body
+          b_ody.resize(0);
+
+          //binary parts
+          for (unsigned int i=0;i<yenc.binaryParts().count();i++) {
+            c=new Content();
+            //generate content with mime-compliant headers
+            tmp="Content-Type: ";
+            tmp += yenc.mimeTypes().at(i);
+            tmp += "; name=\"";
+            tmp += yenc.filenames().at(i);
+            tmp += "\"\nContent-Transfer-Encoding: binary\nContent-Disposition: attachment; filename=\"";
+            tmp += yenc.filenames().at(i);
+            tmp += "\"\n\n";
+            c->setContent(tmp);
+            
+            // the bodies of yenc message parts are binary data, not null-terminated strings:            
+            QByteArray body = yenc.binaryParts()[i];
+            QCString body_string(body.size());
+            memcpy(body_string.data(), body.data(), body.size());
+            c->setBody(body_string);            
+    
+            addContent(c);
+          }
+
+          if(c_ontents && c_ontents->first()) { //readd the plain text before the uuencoded part
+            c_ontents->first()->setContent("Content-Type: text/plain\nContent-Transfer-Encoding: 7Bit\n\n"+yenc.textPart());
+            c_ontents->first()->contentType()->setMimeType("text/plain");
+          }
+        }
+      }    
+      else { //no, this doesn't look like uuencoded stuff => we treat it as "text/plain"        
+        ct->setMimeType("text/plain");
+      }
     }
   }
 
@@ -248,15 +292,16 @@ QCString Content::encodedContent(bool useCrLf)
 {
   QCString e;
 
-  // hack to convert articles with uuencoded binaries into
+  // hack to convert articles with uuencoded or yencoded binaries into
   // proper mime-compliant articles
   if(c_ontents && !c_ontents->isEmpty()) {
-    bool convertFromUunec=false;
+    bool convertNonMimeBinaries=false;
 
-    // reencode uuencoded binaries...
+    // reencode non-mime binaries...
     for(Content *c=c_ontents->first(); c; c=c_ontents->next()) {
-      if (c->contentTransferEncoding(true)->cte()==Headers::CEuuenc) {
-        convertFromUunec=true;
+      if ((c->contentTransferEncoding(true)->cte()==Headers::CEuuenc) ||
+          (c->contentTransferEncoding(true)->cte()==Headers::CEbinary)) {
+        convertNonMimeBinaries=true;
         c->b_ody = KCodecs::base64Encode(c->decodedContent(), true);
         c->b_ody.append("\n");
         c->contentTransferEncoding(true)->setCte(Headers::CEbase64);
@@ -267,7 +312,7 @@ QCString Content::encodedContent(bool useCrLf)
     }
 
     // add proper mime headers...
-    if (convertFromUunec) {
+    if (convertNonMimeBinaries) {
       h_ead.replace(QRegExp("MIME-Version: .*\\n"),"");
       h_ead.replace(QRegExp("Content-Type: .*\\n"),"");
       h_ead.replace(QRegExp("Content-Transfer-Encoding: .*\\n"),"");
@@ -323,12 +368,13 @@ QByteArray Content::decodedContent()
   QByteArray temp, ret;
   Headers::CTEncoding *ec=contentTransferEncoding();
   bool removeTrailingNewline=false;
-
-  if (b_ody.length()==0)
+  int size=ec->cte()==Headers::CEbinary ? b_ody.size() : b_ody.length();
+  
+  if (size==0)
     return ret;
 
-  temp.resize(b_ody.length());
-  memcpy(temp.data(), b_ody.data(), b_ody.length());
+  temp.resize(size);
+  memcpy(temp.data(), b_ody.data(), size);
 
   if(ec->decoded()) {
     ret = temp;
@@ -346,6 +392,9 @@ QByteArray Content::decodedContent()
       case Headers::CEuuenc :
         KCodecs::uudecode(temp, ret);
       break;
+      case Headers::CEbinary :
+        ret = temp;
+        removeTrailingNewline=false;
       default :
         ret = temp;
         removeTrailingNewline=true;
@@ -418,10 +467,6 @@ void Content::fromUnicodeString(const QString &s)
 
   if(!ok) { // no suitable codec found => try local settings and hope the best ;-)
     codec=KGlobal::locale()->codecForEncoding();
-#if 0 // dependance on KNode
-    QCString chset=knGlobals.cfgManager->postNewsTechnical()->findComposerCharset(KGlobal::locale()->charset().latin1());
-    if (chset.isEmpty())
-#endif
     QCString chset=KGlobal::locale()->encoding();
     contentType()->setCharset(chset);
   }
@@ -753,10 +798,10 @@ int Content::size()
 
 int Content::storageSize()
 {
-  int s=h_ead.length();
+  int s=h_ead.size();
 
   if(!c_ontents)
-    s+=b_ody.length();
+    s+=b_ody.size();
   else {
     for(Content *c=c_ontents->first(); c; c=c_ontents->next())
       s+=c->storageSize();
@@ -791,10 +836,10 @@ bool Content::decodeText()
 {
   Headers::CTEncoding *enc=contentTransferEncoding();
 
-  if(enc->decoded())
-    return true; //nothing to do
   if(!contentType()->isText())
     return false; //non textual data cannot be decoded here => use decodedContent() instead
+  if(enc->decoded())
+    return true; //nothing to do
 
   switch(enc->cte()) {
     case Headers::CEbase64 :
@@ -808,6 +853,9 @@ bool Content::decodeText()
       b_ody=KCodecs::uudecode(b_ody);
       b_ody.append("\n");
     break;
+    case Headers::CEbinary :
+      b_ody=QCString(b_ody.data(), b_ody.size()+1);
+      b_ody.append("\n");
     default :
     break;
   }

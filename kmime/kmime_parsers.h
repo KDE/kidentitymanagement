@@ -45,19 +45,17 @@ protected:
 };
 
 
-
-/** Helper-class: tries to extract the data from a possibly
-    uuencoded message
+/** Helper-class: abstract base class of all parsers for
+    non-mime binary data (uuencoded, yenc)
     @internal
 */
-class UUEncoded {
+class NonMimeParser {
 
 public:
-  UUEncoded(const QCString &src, const QCString &subject);
-  ~UUEncoded() {};
-
-  bool parse();
-  bool isPartial()            { return (p_artNr>-1 && t_otalNr>-1); }
+  NonMimeParser(const QCString &src);
+  virtual ~NonMimeParser() {};
+  virtual bool parse() = 0;
+  bool isPartial()            { return (p_artNr>-1 && t_otalNr>-1 && t_otalNr!=1); }
   int partialNumber()         { return p_artNr; }
   int partialCount()          { return t_otalNr; }
   bool hasTextPart()          { return (t_ext.length()>1); }
@@ -67,11 +65,47 @@ public:
   QStrList mimeTypes()         { return m_imeTypes; }
 
 protected:
-  QCString s_rc, t_ext, s_ubject;
+  static QCString guessMimeType(const QCString& fileName);
+
+  QCString s_rc, t_ext;
   QStrList b_ins, f_ilenames, m_imeTypes;
   int p_artNr, t_otalNr;
 };
 
+
+/** Helper-class: tries to extract the data from a possibly
+    uuencoded message
+    @internal
+*/
+class UUEncoded : public NonMimeParser {
+
+public:
+  UUEncoded(const QCString &src, const QCString &subject);  
+
+  virtual bool parse();
+
+protected:
+  QCString s_ubject;  
+};
+
+
+
+/** Helper-class: tries to extract the data from a possibly
+    yenc encoded message
+    @internal
+*/
+class YENCEncoded : public NonMimeParser {
+
+public:
+  YENCEncoded(const QCString &src);  
+
+  virtual bool parse();      
+  QValueList<QByteArray> binaryParts()       { return b_ins; }
+    
+protected:
+  QValueList<QByteArray> b_ins;
+  static bool yencMeta( QCString& src, const QCString& name, int* value);
+};
 
 
 }; // namespace Parser

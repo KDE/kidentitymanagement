@@ -22,6 +22,7 @@ using namespace KMime::Parser;
 namespace KMime {
 namespace Parser {
 
+
 MultiPart::MultiPart(const QCString &src, const QCString &boundary)
 {
   s_rc=src;
@@ -91,12 +92,53 @@ bool MultiPart::parse()
   return (!p_arts.isEmpty());
 }
 
+//============================================================================================
+
+
+NonMimeParser::NonMimeParser(const QCString &src) :
+  s_rc(src), p_artNr(-1), t_otalNr(-1)
+{}
+
+/**
+ * try to guess the mimetype from the file-extension
+ */
+QCString NonMimeParser::guessMimeType(const QCString& fileName)
+{
+  QCString tmp, mimeType;
+  int pos;
+
+  if(!fileName.isEmpty()) {
+    pos=fileName.findRev('.');
+    if(pos++ != -1) {
+      tmp=fileName.mid(pos, fileName.length()-pos).upper();
+      if(tmp=="JPG" || tmp=="JPEG")       mimeType="image/jpeg";
+      else if(tmp=="GIF")                 mimeType="image/gif";
+      else if(tmp=="PNG")                 mimeType="image/png";
+      else if(tmp=="TIFF" || tmp=="TIF")  mimeType="image/tiff";
+      else if(tmp=="XPM")                 mimeType="image/x-xpm";
+      else if(tmp=="XBM")                 mimeType="image/x-xbm";
+      else if(tmp=="BMP")                 mimeType="image/x-bmp";
+      else if(tmp=="TXT" ||
+              tmp=="ASC" ||
+              tmp=="H" ||
+              tmp=="C" ||
+              tmp=="CC" ||
+              tmp=="CPP")                 mimeType="text/plain";
+      else if(tmp=="HTML" || tmp=="HTM")  mimeType="text/html";
+      else                                mimeType="application/octet-stream";
+    }
+    else mimeType="application/octet-stream";
+  }
+  else mimeType="application/octet-stream";
+
+  return mimeType;
+}
 
 //============================================================================================
 
 
 UUEncoded::UUEncoded(const QCString &src, const QCString &subject) :
-  s_rc(src), s_ubject(subject), p_artNr(-1), t_otalNr(-1)
+  NonMimeParser(src), s_ubject(subject)
 {}
 
 
@@ -108,7 +150,7 @@ bool UUEncoded::parse()
   while (success) {
     int beginPos=currentPos, uuStart=currentPos, endPos=0, lineCount=0, MCount=0, pos=0, len=0;
     bool containsBegin=false, containsEnd=false;
-    QCString tmp,fileName,mimeType;
+    QCString tmp,fileName;
 
     if( (beginPos=s_rc.find(QRegExp("begin [0-9][0-9][0-9]"),currentPos))>-1 && (beginPos==0 || s_rc.at(beginPos-1)=='\n') ) {
       containsBegin=true;
@@ -170,31 +212,8 @@ bool UUEncoded::parse()
       else
         fileName = "";
       f_ilenames.append(fileName);
-      b_ins.append(s_rc.mid(uuStart, endPos-uuStart+1)); //everything beetween "begin" and "end" is uuencoded
-
-      //try to guess the mimetype from the file-extension
-      if(!fileName.isEmpty()) {
-        pos=fileName.findRev('.');
-        if(pos++ != -1) {
-          tmp=fileName.mid(pos, fileName.length()-pos).upper();
-          if(tmp=="JPG" || tmp=="JPEG")       mimeType="image/jpeg";
-          else if(tmp=="GIF")                 mimeType="image/gif";
-          else if(tmp=="PNG")                 mimeType="image/png";
-          else if(tmp=="TIFF" || tmp=="TIF")  mimeType="image/tiff";
-          else if(tmp=="XPM")                 mimeType="image/x-xpm";
-          else if(tmp=="XBM")                 mimeType="image/x-xbm";
-          else if(tmp=="BMP")                 mimeType="image/x-bmp";
-          else if(tmp=="TXT" ||
-                  tmp=="ASC" ||
-                  tmp=="H" ||
-                  tmp=="C" ||
-                  tmp=="CC" ||
-                  tmp=="CPP")                 mimeType="text/plain";
-          else if(tmp=="HTML" || tmp=="HTM")  mimeType="text/html";
-          else                                mimeType="application/octet-stream";
-        }
-      }
-      m_imeTypes.append(mimeType);
+      b_ins.append(s_rc.mid(uuStart, endPos-uuStart+1)); //everything beetween "begin" and "end" is uuencoded     
+      m_imeTypes.append(guessMimeType(fileName));
       firstIteration=false;
 
       int next = s_rc.find('\n', endPos+1);
@@ -216,6 +235,232 @@ bool UUEncoded::parse()
   return ((b_ins.count()>0) || isPartial());
 }
 
+
+//============================================================================================
+
+
+YENCEncoded::YENCEncoded(const QCString &src) :
+  NonMimeParser(src)
+{}
+
+
+bool YENCEncoded::yencMeta(QCString& src, const QCString& name, int* value)
+{
+  bool found = false;
+  QCString sought=name + "=";
+
+  int iPos=src.find( sought);
+  if (iPos>-1) {
+    int pos1=src.find(' ', iPos);
+    int pos2=src.find('\r', iPos);
+    int pos3=src.find('\t', iPos);
+    int pos4=src.find('\n', iPos);
+    if (pos2>=0 && (pos1<0 || pos1>pos2))
+      pos1=pos2;
+    if (pos3>=0 && (pos1<0 || pos1>pos3))
+      pos1=pos3;
+    if (pos4>=0 && (pos1<0 || pos1>pos4))
+      pos1=pos4;
+    iPos=src.findRev( '=', pos1)+1;
+    if (iPos<pos1) {
+      char c=src.at( iPos);
+      if ( c>='0' && c<='9') {
+        found=true;
+        *value=src.mid( iPos, pos1-iPos).toInt();
+      }
+    }
+  }
+  return found;
+}
+
+
+bool YENCEncoded::parse()
+{
+  int currentPos=0;
+  bool success=true;
+
+  while (success) {
+    int beginPos=currentPos, yencStart=currentPos;
+    bool containsPart=false;
+    QCString fileName,mimeType;
+
+    if ((beginPos=s_rc.find("=ybegin ", currentPos))>-1 && ( beginPos==0 || s_rc.at( beginPos-1)=='\n') ) {
+      yencStart=s_rc.find( '\n', beginPos);
+      if (yencStart==-1) { // no more line breaks found, give up
+        success = false;
+        break;
+      } else {
+        yencStart++;
+        if (s_rc.find("=ypart", yencStart)==yencStart) {
+          containsPart=true;
+          yencStart=s_rc.find( '\n', yencStart);
+          if ( yencStart== -1) {
+            success=false;
+            break;
+          }
+          yencStart++;
+        }
+      }
+      // Try to identify yenc meta data
+
+      // Filenames can contain any embedded chars until end of line
+      QCString meta=s_rc.mid(beginPos, yencStart-beginPos);
+      int namePos=meta.find("name=");
+      if (namePos== -1) {
+        success=false;
+        break;
+      }
+      int eolPos=meta.find('\r', namePos);
+      if (eolPos== -1)
+      eolPos=meta.find('\n', namePos);    
+      if (eolPos== -1) {
+        success=false;
+        break;
+      }
+      fileName=meta.mid(namePos+5, eolPos-(namePos+5));
+
+      // Other metadata is integer
+      int yencLine;
+      if (!yencMeta(meta, "line", &yencLine)) {
+        success=false;
+        break;
+      }
+      int yencSize;
+      if (!yencMeta( meta, "size", &yencSize)) {
+        success=false;
+        break;
+      }
+
+      int partBegin, partEnd;
+      if (containsPart) {
+        if (!yencMeta(meta, "part", &p_artNr)) {
+          success=false;
+          break;
+        }
+        if (!yencMeta(meta, "begin", &partBegin) || !
+             yencMeta(meta, "end", &partEnd)) {
+          success=false;
+          break;
+        }
+        if (!yencMeta(meta, "total", &t_otalNr))
+          t_otalNr=p_artNr+1;
+        if (yencSize==partEnd-partBegin+1)
+          t_otalNr=1; else
+        yencSize=partEnd-partBegin+1;
+      }
+
+      // We have a valid yenc header; now we extract the binary data
+      int totalSize=0;
+      int pos=yencStart;
+      int len=s_rc.length();
+      bool lineStart=true;
+      int lineLength=0;
+      bool containsEnd=false;
+      QByteArray binary = QByteArray(yencSize);
+      while (pos<len) {
+        int ch=s_rc.at(pos);
+        if (ch<0)
+          ch+=256;
+        if (ch=='\r')
+        {
+          if (lineLength!=yencLine && totalSize!=yencSize)          
+            break;          
+          pos++;
+        }
+        else if (ch=='\n')
+        {
+          lineStart=true;
+          lineLength=0;
+          pos++;
+        }
+        else
+        {
+          if (ch=='=')
+          {
+            if (pos+1<len)
+            {
+              ch=s_rc.at( pos+1);
+              if (lineStart && ch=='y')
+              {
+                containsEnd=true;
+                break;
+              }
+              pos+=2;
+              ch-=64+42;
+              if (ch<0)
+                ch+=256;
+              if (totalSize>=yencSize)            
+                break;            
+              binary.at(totalSize++)=ch;
+              lineLength++;
+            }
+            else            
+              break;            
+          }
+          else
+          {
+            ch-=42;
+            if (ch<0)
+              ch+=256;
+            if (totalSize>=yencSize)            
+              break;
+            binary.at(totalSize++)=ch;
+            lineLength++;
+            pos++;
+          }
+          lineStart=false;
+        }
+      }
+      
+      if (!containsEnd)
+      {
+        success=false;
+        break;
+      }
+      if (totalSize!=yencSize)
+      {        
+        success=false;
+        break;
+      }
+
+      // pos now points to =yend; get end data
+      eolPos=s_rc.find('\n', pos);
+      if (eolPos== -1)
+      {
+        success=false;
+        break;
+      }
+      meta=s_rc.mid(pos, eolPos-pos);
+      if (!yencMeta(meta, "size", &totalSize))
+      {        
+        success=false;
+        break;
+      }
+      if (totalSize!=yencSize)
+      {        
+        success=false;
+        break;
+      }
+
+      f_ilenames.append(fileName);
+      m_imeTypes.append(guessMimeType( fileName));
+      b_ins.append(binary);
+
+      //everything before "begin" is text
+      if(beginPos>0)
+        t_ext.append(s_rc.mid(currentPos,beginPos-currentPos));
+      currentPos = eolPos+1;
+
+    } else {
+      success = false;
+    }
+  }
+
+  // append trailing text part of the article
+  t_ext.append(s_rc.right(s_rc.length()-currentPos));
+
+  return b_ins.count()>0;
+}
 
 }; // namespace Parser
 }; // namespace KMime
