@@ -239,7 +239,7 @@ bool Base64Encoder::encode( const char* & scursor, const char * const send,
 	*dcursor++ = '\r';
 	// ### FIXME: when this return is taken, don't we then write
 	// _two_ \r's?
-	if ( !(dcursor != dend) )
+	if ( dcursor == dend )
 	  return false;
       }
       *dcursor++ = '\n';
@@ -288,7 +288,7 @@ bool Base64Encoder::encode( const char* & scursor, const char * const send,
     *dcursor++ = base64EncodeMap[ value ];
   }
   
-  return !(scursor != send);
+  return (scursor == send);
 }
 
 bool Rfc2047BEncodingEncoder::encode( const char* & scursor, const char * const send,
@@ -342,7 +342,7 @@ bool Rfc2047BEncodingEncoder::encode( const char* & scursor, const char * const 
     *dcursor++ = base64EncodeMap[ value ];
   }
   
-  return !(scursor != send);
+  return (scursor == send);
 }
 
 bool Base64Encoder::finish( char* & dcursor, const char * const dend ) {
@@ -367,7 +367,7 @@ bool Base64Encoder::generic_finish( char* & dcursor, const char * const dend,
     case 0: // no mNextbits waiting to be written.
       assert( mNextbits == 0 );
       if ( withLFatEnd ) {
-	if ( !(dcursor != dend) ) {
+	if ( dcursor == dend ) {
 	  *dcursor++ = '\n';
 	  return true;
 	} else
@@ -391,7 +391,7 @@ bool Base64Encoder::generic_finish( char* & dcursor, const char * const dend,
     }
 
     // abort write if buffer full:    
-    if ( !(dcursor != dend) ) // don't force operator== on iterators
+    if ( dcursor == dend )
       return false;
 
     *dcursor++ = base64EncodeMap[ mNextbits ];
