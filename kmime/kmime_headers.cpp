@@ -220,14 +220,14 @@ bool Base::parseEncodedWord( char* & scursor, const char * send,
 
 
   // try if there's a codec for the encoding found:
-  Codec<> * codec = Codec<>::codecForName( maybeEncoding );
+  Codec * codec = Codec::codecForName( maybeEncoding );
   if ( !codec ) {
     KMIME_WARN_UNKNOWN(Encoding,maybeEncoding);
     return false;
   }
 
   // get an instance of a corresponding decoder:
-  Decoder<> * dec = codec->makeDecoder();
+  Decoder * dec = codec->makeDecoder();
   assert( dec );
 
   // try if there's a (text)codec for the charset found:
@@ -260,7 +260,8 @@ bool Base::parseEncodedWord( char* & scursor, const char * send,
     bit = buffer.begin();
     bend = buffer.end();
     // decode a chunk:
-    dec->decode( encodedTextStart, encodedTextEnd, bit, bend );
+#warning decode call commented out.
+    //dec->decode( encodedTextStart, encodedTextEnd, bit, bend );
     // and transform that chunk to Unicode:
     if ( bit - buffer.begin() ) {
       kdDebug() << "chunk: \"" << QCString( buffer.begin(), bit-buffer.begin()+1 ) << "\"" << endl;
@@ -1599,7 +1600,7 @@ bool GParametrized::parseRawParameterList( char* & scursor, const char * send,
 }
 
 
-static void decodeRFC2231Value( Codec<>* & rfc2231Codec,
+static void decodeRFC2231Value( Codec* & rfc2231Codec,
 				QTextCodec* & textcodec,
 				bool isContinuation, QString & value,
 				QPair<char*,int> & source ) {
@@ -1659,7 +1660,7 @@ static void decodeRFC2231Value( Codec<>* & rfc2231Codec,
   }
 
   if ( !rfc2231Codec ) {
-    rfc2231Codec = Codec<>::codecForName("x-kmime-rfc2231");
+    rfc2231Codec = Codec::codecForName("x-kmime-rfc2231");
     assert( rfc2231Codec );
   }
 
@@ -1671,7 +1672,7 @@ static void decodeRFC2231Value( Codec<>* & rfc2231Codec,
   QTextDecoder * textDec = textcodec->makeDecoder();
   assert( textDec );
   
-  Decoder<> * dec = rfc2231Codec->makeDecoder();
+  Decoder * dec = rfc2231Codec->makeDecoder();
   assert( dec );
   
   //  
@@ -1685,7 +1686,8 @@ static void decodeRFC2231Value( Codec<>* & rfc2231Codec,
     bit = buffer.begin();
     bend = buffer.end();
     // decode a chunk:
-    dec->decode( decCursor, decEnd, bit, bend );
+#warning decode call commented out
+    //dec->decode( decCursor, decEnd, bit, bend );
     // and transform that chunk to Unicode:
     if ( bit - buffer.begin() ) {
       kdDebug() << "chunk: \"" << QCString( buffer.begin(), bit-buffer.begin()+1 ) << "\"" << endl;
@@ -1721,7 +1723,7 @@ bool GParametrized::parseParameterList( char* & scursor, const char * send,
   // NOTE: this code assumes that what QMapIterator delivers is sorted
   // by the key!
 
-  Codec<> * rfc2231Codec = 0;
+  Codec * rfc2231Codec = 0;
   QTextCodec * textcodec = 0;
   QString attribute;
   QString value;
