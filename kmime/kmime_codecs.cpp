@@ -198,7 +198,7 @@ class QuotedPrintableEncoder : public Encoder<S,D> {
   uchar mAccu;
   uint mInputBufferReadCursor  : 4; // 0..15
   uint mInputBufferWriteCursor : 4; // 0..15
-  uint mOutputBufferCursor     : 3; // 0..15
+  uint mOutputBufferCursor     : 3; // 0..8
   enum {
     Never, AtBOL, Definitely
   } mAccuNeedsEncoding    : 2;
@@ -380,7 +380,7 @@ static char base64EncodeMap[64] = {
 template <typename S, typename D>
 void Base64Decoder<S,D>::decode( S & scursor, const S & send,
 				  D & dcursor, const D & dend ) {
-  Q_ASSERT( !sawEnd() );
+  if ( sawEnd() ) return;
 
   while ( dcursor != dend && scursor != send ) {
     uchar ch = *scursor++;
@@ -591,15 +591,16 @@ void Base64Encoder<S,D>::encode( S & scursor, const S & send,
 #else
     // ( 26 * 1 + 26 * 2 + 10 * 3 + 2 * 4 ) / 64 = 1.8125 comp./char
     if ( value < 26 )
-      *dcursor++ = value + 'A';
+      value += 'A';
     else if ( value < 52 )
-      *dcursor++ = value + 'a';
+      value += 'a' - 26;
     else if ( value < 62 )
-      *dcursor++ = value + '0';
+      value += '0' - 52;
     else if ( value < 63 )
-      *dcursor++ = '+';
+      value = '+';
     else
-      *dcursor++ = '/';
+      value = '/';
+    *dcursor++ = char(value);
 #endif
   }
 }
@@ -607,13 +608,18 @@ void Base64Encoder<S,D>::encode( S & scursor, const S & send,
 template <typename S, typename D>
 void Base64Encoder<S,D>::finish( D & dcursor, const D & dend, bool ) {
 
+  kdDebug() << "entering Base64Encoder::finish()" << endl;
+
   if ( dcursor == dend )
     return;
+
+  kdDebug() << "dcursor != dend" << endl;
 
   if ( !insideFinishing ) {
     //
     // writing out the last nextbits...
     //
+    kdDebug() << "insideFinishing with stepNo == " << stepNo << endl;
     switch ( stepNo ) {
     case 0: // no nextbits waiting to be written.
       Q_ASSERT ( nextbits == 0 );
@@ -638,15 +644,16 @@ void Base64Encoder<S,D>::finish( D & dcursor, const D & dend, bool ) {
     *dcursor++ = base64EncodeMap[ nextbits ];
 #else
     if ( nextbits < 26 )
-      *dcursor++ = nextbits + 'A';
+      nextbits += 'A';
     else if ( nextbits < 52 )
-      *dcursor++ = nextbits + 'a';
+      nextbits += 'a' - 26;
     else if ( nextbits < 62 )
-      *dcursor++ = nextbits + '0';
+      nextbits += '0' - 52;
     else if ( nextbits < 63 )
-      *dcursor++ = '+';
+      nextbits = '+';
     else
-      *dcursor++ = '/';
+      nextbits = '/';
+    *dcursor++ = char(nextbits);
 #endif
     nextbits = 0;
     
