@@ -20,12 +20,6 @@
 #include "kmime_headers.h"
 #include "boolflags.h"
 
-#if QT_VERSION >= 290
-#else
-#  define QPtrList QList
-#  define QPtrListIterator QListIterator
-#endif
-
 namespace KMime {
 
 class Message : public Content {

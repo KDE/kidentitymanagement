@@ -31,11 +31,6 @@ class KMime::Headers::List;
 
 #include <qtextstream.h>
 
-#if QT_VERSION >= 290
-#else
-#  define QPtrList QList
-#endif
-
 namespace KMime {
 
 

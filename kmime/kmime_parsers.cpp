@@ -148,12 +148,8 @@ bool UUEncoded::parse()
 
       if( (!containsBegin || !containsEnd) && s_ubject) {  // message may be split up => parse subject
 	QRegExp rx("[0-9]+/[0-9]+");
-#if QT_VERSION >= 290
 	pos=rx.search(QString(s_ubject), 0);
 	len=rx.matchedLength();
-#else
-        pos=rx.match(QString(s_ubject), 0, &len);
-#endif // Qt2 workaround.
         if(pos!=-1) {
           tmp=s_ubject.mid(pos, len);
           pos=tmp.find('/');
