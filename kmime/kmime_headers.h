@@ -6,21 +6,15 @@
     See file AUTHORS for details
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License version 2.0 as
-    published by the Free Software Foundation.
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software Foundation,
     Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, US
 */
 #ifndef __KMIME_HEADERS_H__
 #define __KMIME_HEADERS_H__
-
-// Content:
-//
-// - header's base class defining the common interface
-// - generic base classes for different types of fields
-// - incompatible, GStructured-based field classes
-// - compatible, GUnstructured-based field classes
 
 #include <time.h>
 
@@ -30,8 +24,14 @@
 #include <qregexp.h>
 #include <qdatetime.h>
 #include <qasciidict.h>
-#include <qmap.h>
-#include <qptrlist.h>
+#if QT_VERSION >= 290
+#  include <qptrlist.h>
+#else
+// remove once Qt3 becomes mandatory
+#  include <qlist.h>
+#  define QPtrList QList
+#  define QPtrListIterator QListIterator
+#endif
 
 namespace KMime {
 
@@ -40,14 +40,6 @@ class Content;
 
 
 namespace Headers {
-
-// for when we can't make up our mind what to use...
-struct QStringOrQPair {
-  QStringOrQPair() : qstring(), qpair(0,0) {}
-  QString qstring;
-  QPair<char*,int> qpair;
-};
-
 
 enum contentCategory    { CCsingle,
                           CCcontainer,
@@ -69,48 +61,7 @@ enum contentDisposition { CDinline,
 static const QCString Latin1("ISO-8859-1");
 
 
-#define mk_trivial_subclass_with_name( subclass, subclassName, baseclass ) \
-class subclass : public Generics::baseclass { \
-public: \
-  subclass() : Generics::baseclass() {} \
-  subclass( Content * p ) : Generics::baseclass( p ) {} \
-  subclass( Content * p, const QCString & s ) \
-    : Generics::baseclass( p ) { from7BitString( s ); } \
-  subclass( Content * p, const QString & s, const QCString & cs ) \
-    : Generics::baseclass( p ) { fromUnicodeString( s, cs ); } \
-  ~subclass() {} \
-  \
-  const char * type() const { return #subclassName; } \
-}
- 
-#define mk_trivial_subclass( subclass, baseclass ) \
-mk_trivial_subclass_with_name( subclass, subclass, baseclass )
 
-#define mk_parsing_subclass_with_name( subclass, subclassName, baseclass ) \
-class subclass : public Generics::baseclass { \
-public: \
-  subclass() : Generics::baseclass() {} \
-  subclass( Content * p ) : Generics::baseclass( p ) {} \
-  subclass( Content * p, const QCString & s ) \
-    : Generics::baseclass( p ) { from7BitString( s ); } \
-  subclass( Content * p, const QString & s, const QCString & cs ) \
-    : Generics::baseclass( p ) { fromUnicodeString( s, cs ); } \
-  ~subclass() {} \
-  \
-  const char * type() const { return #subclassName; } \
-protected: \
-  bool parse( char* & scursor, const char * send, bool isCRLF=false ); \
-}
-
-#define mk_parsing_subclass( subclass, baseclass ) \
-mk_parsing_subclass_with_name( subclass, subclass, baseclass )
-
-
-//
-//
-// HEADER'S BASE CLASS. DEFINES THE COMMON INTERFACE
-//
-//
 
 /** Baseclass of all header-classes. It represents a
     header-field as described in RFC-822.  */
@@ -195,8 +146,7 @@ class Base {
 		   appears to be truncated or contains whitespace.
 	@return the decoded string the encoded word represented.
     */
-    bool parseEncodedWord( char* & scursor, const char * send,
-			   QString & result, QCString & language );
+    QString parseEncodedWord( const QCString & str, int & pos, bool & ok );
     
     QCString typeIntro()  { return (QCString(type())+": "); }
 
@@ -204,15 +154,6 @@ class Base {
     Content *p_arent;
 
 };
-
-
-//
-//
-// GENERIC BASE CLASSES FOR DIFFERENT TYPES OF FIELDS
-//
-//
-
-namespace Generics {
 
 /** Abstract base class for unstructured header fields
     (e.g. "Subject", "Comment", "Content-description").
@@ -232,9 +173,6 @@ namespace Generics {
     MK_TRIVIAL_GUnstructured_SUBCLASS(ContentDescription,Content-Description);
     </pre>
 */
-
-  // known issues:
-  // - uses old decodeRFC2047String function, instead of our own...
 
 class GUnstructured : public Base {
 
@@ -260,34 +198,6 @@ public:
 private:
   QString d_ecoded;
 };
-
-/** This is the base class for all structured header fields. It
-    contains parsing methods for all basic token types found in
-    rfc2822.
-
-    @sect Parsing
-
-    At the basic level, there are tokens & tspecials (rfc2045),
-    atoms & specials, quoted-strings, domain-literals (all rfc822) and
-    encoded-words (rfc2047).
-
-    As a special token, we have the comment. It is one of the basic
-    tokens defined in rfc822, but it's parsing relies in part on the
-    basic token parsers (e.g. comments may contain encoded-words).
-    Also, most upper-level parsers (notably those for phrase and
-    dot-atom) choose to ignore any comment when parsing.
-
-    Then there are the real composite tokens, which are made up of one
-    or more of the basic tokens (and semantically invisible comments):
-    phrases (rfc822 with rfc2047) and dot-atoms (rfc2822).
-    
-    This finishes the list of supported token types. Subclasses will
-    provide support for more higher-level tokens, where necessary,
-    using these parsers.
-
-    @short Base class for structured header fields.
-    @author Marc Mutz <mutz@kde.org>
-*/
 
 class GStructured : public Base {
 public:
@@ -330,8 +240,8 @@ protected:
 		   QuotedString = 0x008, DomainLiteral = 0x010,
 		   EncodedWord = 0x020, Phrase = 0x040,
 		   Token = 0x080, TSpecial = 0x100, DotAtom = 0x200,
-		   EightBit = 0x400, Word = Token|Atom|QuotedString,
-		   All = Word|Special|Comment|DomainLiteral|EncodedWord|Phrase|TSpecial|DotAtom|EightBit};
+		   Word = Token|Atom|QuotedString,
+		   All = Word|Special|Comment|DomainLiteral|EncodedWord|Phrase|TSpecial|DotAtom};
   /** Starting at index @p pos in @p source, return the next token of
       a type specified by @p tt (can be or'ed).
 
@@ -376,396 +286,64 @@ protected:
       @return the decoded token or @ref QString::null if there are no
               more tokens
       @see tokenType */
-  virtual QString getToken( char* & scursor, const char * send,
-			    TokenType & tt, bool isCRLF=false );
+  QString getToken( const QCString & source, int & pos,
+		    TokenType & tt, bool CRLF=false );
 
-  //
-  // The parsing squad:
-  //
+  /** Used by @ref getToken to parse a @p QuotedString, a
+      @p DomainLiteral or a Comment.
 
-  /** You may or may not have already started parsing into the
-      atom. This function will go on where you left off. */
-  bool parseAtom( char* & scursor, const char * send, QString & result,
-		  bool allow8Bit=false );
-  bool parseAtom( char* & scursor, const char * send,
-		  QPair<char*,int> & result, bool allow8Bit=false );
-  /** You may or may not have already started parsing into the
-      token. This function will go on where you left off. */
-  bool parseToken( char* & scursor, const char * send, QString & result,
-		   bool allow8Bit=false );
-  bool parseToken( char* & scursor, const char * send,
-		   QPair<char*,int> & result, bool allow8Bit=false );
-  /** @p scursor must be positioned after the opening openChar. */
-  bool parseGenericQuotedString( char* & scursor, const char* send,
-				 QString & result, bool isCRLF,
-				 const char openChar='"',
-				 const char closeChar='"' );
-  /** @p scursor must be positioned right after the opening '(' */
-  bool parseComment( char* & scursor, const char * send, QString & result,
-		     bool isCRLF=false, bool reallySave=true );
-  /** You may or may not have already started parsing into the phrase,
-      but only if it starts with atext. If you setup this function to
-      parse a phrase starting with an encoded-word or quoted-string,
-      @p scursor has to point to the char introducing the encoded-word
-      or quoted-string, resp. */
-  bool parsePhrase( char* & scursor, const char * send, QString & result,
-		    bool isCRLF=false );
-  /** You may or may not have already started parsing into the initial
-      atom, but not up to it's end. */
-  bool parseDotAtom( char* & scursor, const char * send, QString & result,
-		     bool isCRLF=false );
+      This function parses a generic quoted string, ie. one that is
+      begun (@p openChar) and ended (@p closeChar) by a single char
+      each and may contain FWS and quoted-pairs.
 
-  /** Eats comment-folding-white-space, skips whitespace, folding and
-      comments (even nested ones) and stops at the next non-CFWS
-      character. After calling this function, you should check whether
-      @p scursor == @p send (end of header reached).
+      If it returns, you should check for the following conditions:
+      @li @p src[pos-1] == @p closeChar
+          OK, the element was parsed to it's end. Depending on whether
+	  you want nesting or not, you can restart the function at
+	  @p pos or stop.
+      @li @p src[pos-1] == @p openChar
+          The parser encountered another opening char. Depending on
+	  whether you want nesting or not, you can restart the function
+	  at @p pos or create an error.
+      @li @p src[pos-1] == 0
+          ### Premature end of the generic quoted string. You should
+	  perhaps scan the whole thing again as an atom.
 
-      If a comment with unbalanced parantheses is encountered, @p
-      scursor is being positioned on the opening '(' of the outmost
-      comment.
+      @param source    source string
+      @param pos       in: starting position (assumed to be after
+                       the opening <">); out: new position (after
+		       the closing <">).
+      @param openChar  The character that begins a new generic
+                       QuotedString (<"> for quoted-string, "[" for
+		       domain-literal and "(" for comment).
+      @param closeChar The character that closes a generic
+                       QuotedString (<"> for quoted-string, "]" for
+		       domain-literal and ")" for comment).
+      @param isCRLF    see the parameter to @ref getToken of the same name 
+      @return the decoded part of @p src.
+      @see getToken
+      @internal
   */
-  void eatCFWS( char* & scursor, const char * send, bool isCRLF );
-
-#if 0
-  // the assembly squad:
-
-  bool writeAtom( char* & dcursor, const char * dend, const QString & input );
-  bool writeAtom( char* & dcursor, const char * dend,
-		  const QPair<char*,int> & input );
-  bool writeToken( char* & dcursor, const char * dend, const QString & input );
-  bool writeToken( char* & dcursor, const char * dend,
-		   const QPair<char*int> & input );
-
-  bool writeGenericQuotedString( char* & dcursor, const char * dend,
-				 const QString & input, bool withCRLF=false );
-  bool writeComment( char* & dcursor, const char * dend,
-		     const QString & input, bool withCRLF=false );
-  bool writePhrase( char* & dcursor, const char * dend, const QString & input,
-		    bool withCRLF=false );
-  bool writeDotAtom( char* & dcursor, const char * dend, const QString & input,
-		     bool withCRLF=false );
-#endif
-};
-
-
-class GAddress : public GStructured {
-public:
-  GAddress() : GStructured()  {}
-  GAddress( Content * p ) : GStructured( p ) {}
-  GAddress( Content * p, const QCString & s )
-    : GStructured( p ) { from7BitString(s); }
-  GAddress( Content * p, const QString & s, const QCString & cs )
-    : GStructured( p )  { fromUnicodeString( s, cs ); }
-  ~GAddress()  {}
-
-  struct AddrSpec {
-    QString localPart;
-    QString domain;
-  };
-
-  struct Mailbox {
-    QString displayName;
-    AddrSpec addrSpec;
-  };
-
-  struct Address {
-    QString displayName;
-    QValueList<Mailbox> mailboxList;
-  };
-
-protected:
-  bool parseDomain( char* & scursor, const char * send,
-		    QString & result, bool isCRLF=false );
-  bool parseObsRoute( char* & scursor, const char * send, QStringList & result,
-		      bool isCRLF=false, bool save=false );
-  bool parseAddrSpec( char* & scursor, const char * send,
-		      AddrSpec & result, bool isCRLF=false );
-  bool parseAngleAddr( char* & scursor, const char * send,
-		       AddrSpec & result, bool isCRLF=false );
-  bool parseMailbox( char* & scursor, const char * send,
-		     Mailbox & result, bool isCRLF=false );
-  bool parseGroup( char* & scursor, const char * send,
-		   Address & result, bool isCRLF=false );
-  bool parseAddress( char* & scursor, const char * send,
-		     Address & result, bool isCRLF=false );
-  bool parseAddressList( char* & scursor, const char * send,
-			 QValueList<Address> & result, bool isCRLF=false );
+  QString parseGenericQuotedString( const QCString & src, int & pos,
+		const char openChar, const char closeChar, bool CRLF=false );
 
 };
-
-
-/** Base class for headers that deal with (possibly multiple)
-    addresses, but don't allow groups: */
-class MailboxList : public GAddress {
-public:
-  MailboxList() : GAddress()  {}
-  MailboxList( Content * p ) : GAddress( p ) {}
-  MailboxList( Content * p, const QCString & s )
-    : GAddress( p ) { from7BitString(s); }
-  MailboxList( Content * p, const QString & s, const QCString & cs )
-    : GAddress( p )  { fromUnicodeString( s, cs ); }
-  ~MailboxList()  {}
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-
-  /** The list of mailboxes */
-  QValueList<Mailbox> mMailboxList;
-};
-
-
-/** Base class for headers that deal with exactly one mailbox
-    (e.g. Sender) */
-mk_parsing_subclass(SingleMailbox,MailboxList);
-
-/** Base class for headers that deal with (possibly multiple)
-    addresses, allowing groups. */
-class AddressList : public GAddress {
-public:
-  AddressList() : GAddress()  {}
-  AddressList( Content * p ) : GAddress( p ) {}
-  AddressList( Content * p, const QCString & s )
-    : GAddress( p ) { from7BitString(s); }
-  AddressList( Content * p, const QString & s, const QCString & cs )
-    : GAddress( p )  { fromUnicodeString( s, cs ); }
-  ~AddressList()  {}
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-
-  /** The list of addresses */
-  QValueList<Address> mAddressList;
-};
-
-/** Base class for headers which deal with a list of msg-id's */
-class GIdent : public GAddress {
-public:
-  GIdent() : GAddress()  {}
-  GIdent( Content * p ) : GAddress( p ) {}
-  GIdent( Content * p, const QCString & s )
-    : GAddress( p ) { from7BitString(s); }
-  GIdent( Content * p, const QString & s, const QCString & cs )
-    : GAddress( p )  { fromUnicodeString( s, cs ); }
-  ~GIdent()  {}
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-
-  /** The list of msg-id's */
-  QValueList<AddrSpec> mMsgIdList;
-};
-
-/** Base class for headers which deal with a list of msg-id's */
-mk_parsing_subclass(GSingleIdent,GIdent);
-
-/** Base class for headers which deal with a single atom. */
-class GToken : public GStructured {
-public:
-  GToken() : GStructured()  {}
-  GToken( Content * p ) : GStructured( p ) {}
-  GToken( Content * p, const QCString & s )
-    : GStructured( p ) { from7BitString(s); }
-  GToken( Content * p, const QString & s, const QCString & cs )
-    : GStructured( p )  { fromUnicodeString( s, cs ); }
-  ~GToken()  {}
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-
-  QCString mToken;
-};
-
-
-class GPhraseList : public GStructured {
-public:
-  GPhraseList() : GStructured()  {}
-  GPhraseList( Content * p ) : GStructured( p ) {}
-  GPhraseList( Content * p, const QCString & s )
-    : GStructured( p ) { from7BitString(s); }
-  GPhraseList( Content * p, const QString & s, const QCString & cs )
-    : GStructured( p )  { fromUnicodeString( s, cs ); }
-  ~GPhraseList()  {}
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-
-  QStringList mPhraseList;
-};
-
-class GDotAtom : public GStructured {
-public:
-  GDotAtom() : GStructured()  {}
-  GDotAtom( Content * p ) : GStructured( p ) {}
-  GDotAtom( Content * p, const QCString & s )
-    : GStructured( p ) { from7BitString(s); }
-  GDotAtom( Content * p, const QString & s, const QCString & cs )
-    : GStructured( p )  { fromUnicodeString( s, cs ); }
-  ~GDotAtom()  {}
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-
-  QString mDotAtom;
-};
-
-class GParametrized : public GStructured {
-public:
-  GParametrized() : GStructured()  {}
-  GParametrized( Content * p ) : GStructured( p ) {}
-  GParametrized( Content * p, const QCString & s )
-    : GStructured( p ) { from7BitString(s); }
-  GParametrized( Content * p, const QString & s, const QCString & cs )
-    : GStructured( p )  { fromUnicodeString( s, cs ); }
-  ~GParametrized()  {}
-
-protected:
-  bool parseParameter( char* & scursor, const char * send,
-		       QPair<QString,QStringOrQPair> & result,
-		       bool isCRLF=false );
-  bool parseParameterList( char* & scursor, const char * send,
-			   QMap<QString,QString> & result, bool isCRLF=false );
-
-  QMap<QString,QString> mParameterHash;
-
-private:
-  bool parseRawParameterList( char* & scursor, const char * send,
-			      QMap<QString,QStringOrQPair> & result,
-			      bool isCRLF=false );
-};
-
-class GContentType : public GParametrized {
-public:
-  GContentType() : GParametrized()  {}
-  GContentType( Content * p ) : GParametrized( p ) {}
-  GContentType( Content * p, const QCString & s )
-    : GParametrized( p ) { from7BitString(s); }
-  GContentType( Content * p, const QString & s, const QCString & cs )
-    : GParametrized( p )  { fromUnicodeString( s, cs ); }
-  ~GContentType()  {}
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-
-  QCString mMimeType;
-  QCString mMimeSubType;
-};
-
-
-class GCISTokenWithParameterList : public GParametrized {
-public:
-  GCISTokenWithParameterList() : GParametrized()  {}
-  GCISTokenWithParameterList( Content * p ) : GParametrized( p ) {}
-  GCISTokenWithParameterList( Content * p, const QCString & s )
-    : GParametrized( p ) { from7BitString(s); }
-  GCISTokenWithParameterList( Content * p, const QString & s, const QCString & cs )
-    : GParametrized( p )  { fromUnicodeString( s, cs ); }
-  ~GCISTokenWithParameterList()  {}
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-
-  QCString mToken;
-};
-
-
-}; // namespace Generics
-
-//
-//
-// INCOMPATIBLE, GSTRUCTURED-BASED FIELDS:
-//
-//
-
-
-/** Represents the Return-Path header field. */
-class ReturnPath : public Generics::GAddress {
-public:
-  ReturnPath() : Generics::GAddress()  {}
-  ReturnPath( Content * p ) : Generics::GAddress( p ) {}
-  ReturnPath( Content * p, const QCString & s )
-    : Generics::GAddress( p ) { from7BitString(s); }
-  ReturnPath( Content * p, const QString & s, const QCString & cs )
-    : Generics::GAddress( p )  { fromUnicodeString( s, cs ); }
-  ~ReturnPath()  {}
-
-  const char * type() const { return "Return-Path"; }
-
-protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
-};
-
-#if defined(KMIME_NEW_STYLE_CLASSTREE)
-// classes whose names collide with earlier ones:
-
-// GAddress et al.:
-
-// rfc(2)822 headers:
-mk_trivial_subclass(From,MailboxList);
-mk_trivial_subclass(Sender,SingleMailbox);
-mk_trivial_subclass_with_name(ReplyTo,Reply-To,AddressList);
-mk_trivial_subclass(Cc,AddressList);
-mk_trivial_subclass(Bcc,AddressList);
-// usefor headers:
-mk_trivial_subclass_with_name(MailCopiesTo,Mail-Copies-To,AddressList);
-
-// GToken:
-
-mk_trivial_subclass_with_name(ContentTransferEncoding,
-			      Content-Transfer-Encoding,GToken);
-
-// GPhraseList:
-
-mk_trivial_subclass(Keywords,GPhraseList);
-
-// GDotAtom:
-
-mk_trivial_subclass_with_name(MIMEVersion,MIME-Version,GDotAtom);
-
-// GIdent:
-
-mk_trivial_subclass_with_name(MessageID,Message-ID,GSingleIdent);
-mk_trivial_subclass_with_name(ContentID,Content-ID,GSingleIdent);
-mk_trivial_subclass(Supersedes,GSingleIdent);
-mk_trivial_subclass_with_name(InReplyTo,In-Reply-To,GIdent);
-mk_trivial_subclass(References,GIdent);
-
-// GContentType:
-
-mk_trivial_subclass_with_name(ContentType,ContentType,GContentType);
-
-// GCISTokenWithParameterList:
-
-mk_trivial_subclass_with_name(ContentDisposition,Content-Disposition,
-			      GCISTokenWithParameterList);
-
-
-#endif
-
-
-//
-//
-// COMPATIBLE GUNSTRUCTURED-BASED FIELDS:
-//
-//
-
 
 /** Represents an arbitrary header, that can contain
     any header-field.
     Adds a type over @ref GUnstructured.
     @see GUnstructured
 */
-class Generic : public Generics::GUnstructured {
+class Generic : public GUnstructured {
 
   public:
-    Generic() : Generics::GUnstructured(), t_ype(0) {}
-    Generic(const char *t)
-      : Generics::GUnstructured(), t_ype(0) { setType(t); }
-    Generic(const char *t, Content *p)
-      : Generics::GUnstructured( p ), t_ype(0) { setType(t); }
+    Generic() : GUnstructured(), t_ype(0) {}
+    Generic(const char *t) : GUnstructured(), t_ype(0) { setType(t); }
+    Generic(const char *t, Content *p) : GUnstructured( p ), t_ype(0) { setType(t); }
     Generic(const char *t, Content *p, const QCString &s)
-      : Generics::GUnstructured( p, s ), t_ype(0) { setType(t); }
+      : GUnstructured( p, s ), t_ype(0) { setType(t); }
     Generic(const char *t, Content *p, const QString &s, const QCString &cs)
-      : Generics::GUnstructured( p, s, cs ), t_ype(0) { setType(t); }
+      : GUnstructured( p, s, cs ), t_ype(0) { setType(t); }
     ~Generic() { delete[] t_ype; }
 
     virtual void clear()            { delete[] t_ype; GUnstructured::clear(); }
@@ -779,47 +357,30 @@ class Generic : public Generics::GUnstructured {
 };
 
 
-/** Represents a "Subject" header */
-class Subject : public Generics::GUnstructured {
+/** Represents a "Message-Id" header */
+class MessageID : public Base {
 
   public:
-    Subject() : Generics::GUnstructured()  {}
-    Subject( Content * p ) : Generics::GUnstructured( p )  {}
-    Subject( Content * p, const QCString & s )
-      : Generics::GUnstructured( p, s ) {}
-    Subject( Content * p, const QString & s, const QCString & cs )
-      : Generics::GUnstructured( p, s, cs ) {}
-    ~Subject()  {}
+    MessageID() : Base()  {}
+    MessageID(Content *p) : Base(p) {}
+    MessageID(Content *p, const QCString &s) : Base(p) { from7BitString(s); }
+    MessageID(Content *p, const QString &s) : Base(p)  { fromUnicodeString(s, Latin1); }
+    ~MessageID()  {}
 
-    virtual const char* type() { return "Subject"; }
+    virtual void from7BitString(const QCString &s);
+    virtual QCString as7BitString(bool incType=true);
+    virtual void fromUnicodeString(const QString &s, const QCString&);
+    virtual QString asUnicodeString();
+    virtual void clear()            { m_id.resize(0); }
+    virtual bool isEmpty()          { return (m_id.isEmpty()); }
+    virtual const char* type()      { return "Message-Id"; }
 
-    bool isReply() {
-      return ( asUnicodeString().find( QString("Re:"), 0, false ) == 0 );
-    }
-};
+    void generate(const QCString &fqdn);
 
-/** Represents a "Organization" header */
-class Organization : public Generics::GUnstructured {
-
-  public:
-    Organization() : Generics::GUnstructured() {}
-    Organization( Content * p ) : Generics::GUnstructured( p ) {}
-    Organization( Content * p, const QCString & s )
-      : Generics::GUnstructured( p, s ) {};
-    Organization( Content * p, const QString & s, const QCString & cs)
-      : Generics::GUnstructured( p, s, cs ) {}
-    ~Organization()  {}
-
-    virtual const char* type()      { return "Organization"; }
+  protected:
+    QCString m_id;
 
 };
-
-//
-//
-// NOT YET CONVERTED STUFF BELOW:
-//
-//
-
 
 
 /** Represents a "Control" header */
@@ -846,6 +407,144 @@ class Control : public Base {
     QCString c_trlMsg;
 
 };
+
+
+/** Represents a "Supersedes" header */
+class Supersedes : public MessageID {
+
+  public:
+    Supersedes() : MessageID()  {}
+    Supersedes(Content *p) : MessageID(p)  {}
+    Supersedes(Content *p, const QCString &s) : MessageID(p,s)  {}
+    Supersedes(Content *p, const QString &s)  : MessageID(p,s)  {}
+    ~Supersedes()                   {}
+
+    virtual const char* type()      { return "Supersedes"; }
+
+};
+
+
+/** Represents a "Subject" header */
+class Subject : public GUnstructured {
+
+  public:
+    Subject() : GUnstructured()  {}
+    Subject( Content * p ) : GUnstructured( p )  {}
+    Subject( Content * p, const QCString & s ) : GUnstructured( p, s ) {}
+    Subject( Content * p, const QString & s, const QCString & cs )
+      : GUnstructured( p, s, cs ) {}
+    ~Subject()  {}
+
+    virtual const char* type() { return "Subject"; }
+
+    bool isReply() {
+      return ( asUnicodeString().find( QString("Re:"), 0, false ) == 0 );
+    }
+};
+
+
+/** This class encapsulates an address-field, containing
+    an email-adress and a real name */
+class AddressField : public Base {
+
+  public:
+    AddressField() : Base()  {}
+    AddressField(Content *p) : Base(p)  {}
+    AddressField(Content *p, const QCString &s) : Base(p)  { from7BitString(s); }
+    AddressField(Content *p, const QString &s, const QCString &cs) : Base(p)  { fromUnicodeString(s, cs); }
+    AddressField(const AddressField &a):  Base(a.p_arent)  { n_ame=a.n_ame; e_mail=a.e_mail.copy(); e_ncCS=a.e_ncCS; }
+    ~AddressField()  {}
+
+    AddressField& operator=(const AddressField &a)  { n_ame=a.n_ame; e_mail=a.e_mail.copy(); e_ncCS=a.e_ncCS; return (*this); }
+
+    virtual void from7BitString(const QCString &s);
+    virtual QCString as7BitString(bool incType=true);
+    virtual void fromUnicodeString(const QString &s, const QCString &cs);
+    virtual QString asUnicodeString();
+    virtual void clear()              { n_ame.truncate(0); e_mail.resize(0); }
+    virtual bool isEmpty()            { return (e_mail.isEmpty() && n_ame.isEmpty()); }
+
+    bool hasName()                    { return ( !n_ame.isEmpty() ); }
+    bool hasEmail()                   { return ( !e_mail.isEmpty() ); }
+    QString name()                    { return n_ame; }
+    QCString nameAs7Bit();
+    QCString email()                  { return e_mail; }
+    void setName(const QString &s)    { n_ame=s; }
+    void setNameFrom7Bit(const QCString &s);
+    void setEmail(const QCString &s)  { e_mail=s; }
+
+  protected:
+    QString n_ame;
+    QCString e_mail;
+};
+typedef QPtrList<AddressField> AddressList;
+
+
+/** Represent a "From" header */
+class From : public AddressField {
+
+  public:
+    From() : AddressField()  {}
+    From(Content *p) : AddressField(p)  {}
+    From(Content *p, const QCString &s) : AddressField(p,s)  {}
+    From(Content *p, const QString &s, const QCString &cs) : AddressField(p,s,cs)  {}
+    ~From()  {}
+
+    virtual const char* type()      { return "From"; }
+};
+
+
+/** Represents a "Reply-To" header */
+class ReplyTo : public AddressField {
+
+  public:
+    ReplyTo() : AddressField()  {}
+    ReplyTo(Content *p) : AddressField(p)  {}
+    ReplyTo(Content *p, const QCString &s) : AddressField(p,s)  {}
+    ReplyTo(Content *p, const QString &s, const QCString &cs) : AddressField(p,s,cs)  {}
+    ~ReplyTo()  {}
+
+    virtual const char* type()      { return "Reply-To"; }
+
+};
+
+
+/** Represents a "Mail-Copies-To" header
+    http://www.newsreaders.com/misc/mail-copies-to.html */
+class MailCopiesTo : public AddressField {
+
+  public:
+    MailCopiesTo() : AddressField()  {}
+    MailCopiesTo(Content *p) : AddressField(p)  {}
+    MailCopiesTo(Content *p, const QCString &s) : AddressField(p,s)  {}
+    MailCopiesTo(Content *p, const QString &s, const QCString &cs) : AddressField(p,s,cs)  {}
+    ~MailCopiesTo()  {}
+
+    bool isValid();
+    bool alwaysCopy();
+    bool neverCopy();
+
+    virtual const char* type()      { return "Mail-Copies-To"; }
+
+};
+
+
+/** Represents a "Organization" header */
+class Organization : public GUnstructured {
+
+  public:
+    Organization() : GUnstructured() {}
+    Organization( Content * p ) : GUnstructured( p ) {}
+    Organization( Content * p, const QCString & s )
+      : GUnstructured( p, s ) {};
+    Organization( Content * p, const QString & s, const QCString & cs)
+      : GUnstructured( p, s, cs ) {}
+    ~Organization()  {}
+
+    virtual const char* type()      { return "Organization"; }
+
+};
+
 
 /** Represents a "Date" header */
 class Date : public Base {
@@ -874,6 +573,64 @@ class Date : public Base {
     
   protected:
     time_t t_ime;
+
+};
+
+
+/** Represents a "To" header */
+class To : public Base {
+
+  public:
+    To() : Base(),a_ddrList(0)  {}
+    To(Content *p) : Base(p),a_ddrList(0)  {}
+    To(Content *p, const QCString &s) : Base(p),a_ddrList(0)  { from7BitString(s); }
+    To(Content *p, const QString &s, const QCString &cs) : Base(p),a_ddrList(0)  { fromUnicodeString(s,cs); }
+    ~To()  { delete a_ddrList; }
+
+    virtual void from7BitString(const QCString &s);
+    virtual QCString as7BitString(bool incType=true);
+    virtual void fromUnicodeString(const QString &s, const QCString &cs);
+    virtual QString asUnicodeString();
+    virtual void clear()            { delete a_ddrList; a_ddrList=0; }
+    virtual bool isEmpty()          { return (!a_ddrList || a_ddrList->isEmpty()
+                                              || a_ddrList->first()->isEmpty()); }
+    virtual const char* type()      { return "To"; }
+
+    void addAddress(const AddressField &a);
+    void emails(QStrList *l);
+
+  protected:
+    AddressList *a_ddrList;
+
+};
+
+
+/** Represents a "CC" header */
+class CC : public To {
+
+  public:
+    CC() : To()  {}
+    CC(Content *p) : To(p)  {}
+    CC(Content *p, const QCString &s) : To(p,s)  {}
+    CC(Content *p, const QString &s, const QCString &cs) : To(p,s,cs)  {}
+    ~CC()  {}
+
+    virtual const char* type()      { return "CC"; }
+
+};
+
+
+/** Represents a "BCC" header */
+class BCC : public To {
+
+  public:
+    BCC() : To()  {}
+    BCC(Content *p) : To(p)  {}
+    BCC(Content *p, const QCString &s) : To(p,s)  {}
+    BCC(Content *p, const QString &s, const QCString &cs) : To(p,s,cs)  {}
+    ~BCC()  {}
+
+    virtual const char* type()      { return "BCC"; }
 
 };
 
@@ -949,6 +706,36 @@ class Lines : public Base {
 };
 
 
+/** Represents a "References" header */
+class References : public Base {
+
+  public:
+    References() : Base(),p_os(-1)  {}
+    References(Content *p) : Base(p),p_os(-1)  {}
+    References(Content *p, const QCString &s) : Base(p),p_os(-1)  { from7BitString(s); }
+    References(Content *p, const QString &s) : Base(p),p_os(-1)  { fromUnicodeString(s, Latin1); }
+    ~References()                 {}
+
+    virtual void from7BitString(const QCString &s);
+    virtual QCString as7BitString(bool incType=true);
+    virtual void fromUnicodeString(const QString &s, const QCString&);
+    virtual QString asUnicodeString();
+    virtual void clear()            { r_ef.resize(0); p_os=0; }
+    virtual bool isEmpty()          { return (r_ef.isEmpty()); }
+    virtual const char* type()      { return "References"; }
+
+    int count();
+    QCString first();
+    QCString next();
+    QCString at(unsigned int i);
+    void append(const QCString &s);
+
+  protected:
+    QCString r_ef;
+    int p_os;
+
+};
+
 
 /** Represents a "User-Agent" header */
 class UserAgent : public Base {
@@ -974,9 +761,141 @@ class UserAgent : public Base {
 };
 
 
-#if !defined(KMIME_NEW_STYLE_CLASSTREE)
-#include "kmime_headers_obs.h"
-#endif
+/** Represents a "Content-Type" header */
+class ContentType : public Base {
+
+  public:
+    ContentType() : Base(),m_imeType("invalid/invalid"),c_ategory(CCsingle)  {}
+    ContentType(Content *p) : Base(p),m_imeType("invalid/invalid"),c_ategory(CCsingle)  {}
+    ContentType(Content *p, const QCString &s) : Base(p)  { from7BitString(s); }
+    ContentType(Content *p, const QString &s) : Base(p)  { fromUnicodeString(s, Latin1); }
+    ~ContentType()  {}
+
+    virtual void from7BitString(const QCString &s);
+    virtual QCString as7BitString(bool incType=true);
+    virtual void fromUnicodeString(const QString &s, const QCString&);
+    virtual QString asUnicodeString();
+    virtual void clear()            { m_imeType.resize(0); p_arams.resize(0); }
+    virtual bool isEmpty()          { return (m_imeType.isEmpty()); }
+    virtual const char* type()      { return "Content-Type"; }
+
+
+    //mime-type handling
+    QCString mimeType()                     { return m_imeType; }
+    QCString mediaType();
+    QCString subType();
+    void setMimeType(const QCString &s);
+    bool isMediatype(const char *s);
+    bool isSubtype(const char *s);
+    bool isText();
+    bool isPlainText();
+    bool isHTMLText();
+    bool isImage();
+    bool isMultipart();
+    bool isPartial();
+
+    //parameter handling
+    QCString charset();
+    void setCharset(const QCString &s);
+    QCString boundary();
+    void setBoundary(const QCString &s);
+    QString name();
+    void setName(const QString &s, const QCString &cs);
+    QCString id();
+    void setId(const QCString &s);
+    int partialNumber();
+    int partialCount();
+    void setPartialParams(int total, int number);
+
+    //category
+    contentCategory category()            { return c_ategory; }
+    void setCategory(contentCategory c)   { c_ategory=c; }
+
+  protected:
+    QCString getParameter(const char *name);
+    void setParameter(const QCString &name, const QCString &value, bool doubleQuotes=false);
+    QCString m_imeType, p_arams;
+    contentCategory c_ategory;
+
+};
+
+
+/** Represents a "Content-Transfer-Encoding" header */
+class CTEncoding : public Base {
+
+  public:
+    CTEncoding() : Base(),c_te(CE7Bit),d_ecoded(true)  {}
+    CTEncoding(Content *p) : Base(p),c_te(CE7Bit),d_ecoded(true)  {}
+    CTEncoding(Content *p, const QCString &s) : Base(p)  { from7BitString(s); }
+    CTEncoding(Content *p, const QString &s) : Base(p)  { fromUnicodeString(s, Latin1); }
+    ~CTEncoding()  {}
+
+    virtual void from7BitString(const QCString &s);
+    virtual QCString as7BitString(bool incType=true);
+    virtual void fromUnicodeString(const QString &s, const QCString&);
+    virtual QString asUnicodeString();
+    virtual void clear()            { d_ecoded=true; c_te=CE7Bit; }
+    virtual const char* type()      { return "Content-Transfer-Encoding"; }
+
+    contentEncoding cte()                   { return c_te; }
+    void setCte(contentEncoding e)          { c_te=e; }
+    bool decoded()                          { return d_ecoded; }
+    void setDecoded(bool d=true)            { d_ecoded=d; }
+    bool needToEncode()                     { return (d_ecoded && (c_te==CEquPr || c_te==CEbase64)); }
+
+  protected:
+    contentEncoding c_te;
+    bool d_ecoded;
+
+};
+
+
+/** Represents a "Content-Disposition" header */
+class CDisposition : public Base {
+
+  public:
+    CDisposition() : Base(),d_isp(CDinline)  {}
+    CDisposition(Content *p) : Base(p),d_isp(CDinline)  {}
+    CDisposition(Content *p, const QCString &s) : Base(p)  { from7BitString(s); }
+    CDisposition(Content *p, const QString &s, const QCString &cs) : Base(p)  { fromUnicodeString(s, cs); }
+    ~CDisposition()  {}
+
+    virtual void from7BitString(const QCString &s);
+    virtual QCString as7BitString(bool incType=true);
+    virtual void fromUnicodeString(const QString &s, const QCString &cs);
+    virtual QString asUnicodeString();
+    virtual void clear()            { f_ilename.truncate(0); d_isp=CDinline; }
+    virtual const char* type()      { return "Content-Disposition"; }
+
+    contentDisposition disposition()          { return d_isp; }
+    void setDisposition(contentDisposition d) { d_isp=d; }
+    bool isAttachment()                       { return (d_isp==CDattachment); }
+
+    QString filename()                        { return f_ilename; }
+    void setFilename(const QString &s)        { f_ilename=s; }
+
+  protected:
+    contentDisposition d_isp;
+    QString f_ilename;
+
+};
+
+
+/** Represents a "Content-Description" header */
+class CDescription : public GUnstructured {
+
+  public:
+    CDescription() : GUnstructured()  {}
+    CDescription( Content * p ) : GUnstructured( p )  {}
+    CDescription( Content * p, const QCString & s )
+      : GUnstructured( p, s ) {};
+    CDescription( Content * p, const QString & s, const QCString & cs )
+      : GUnstructured( p, s, cs ) {}
+    ~CDescription()  {}
+    
+    virtual const char* type()      { return "Content-Description"; }
+};
+
 };  //namespace Headers
 
 #if 0
