@@ -71,10 +71,10 @@ class Base {
     typedef QPtrList<Base> List;
 
     /** Create an empty header. */
-    Base() : p_arent(0), e_ncCS(0) {}
+    Base() : e_ncCS(0), p_arent(0) {}
 
     /** Create an empty header with a parent-content. */
-    Base(KMime::Content *parent) : p_arent(parent), e_ncCS(0) {}
+    Base(KMime::Content *parent) : e_ncCS(0), p_arent(parent) {}
 
     /** Destructor */
     virtual ~Base()  {}
