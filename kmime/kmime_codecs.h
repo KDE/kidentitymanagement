@@ -290,7 +290,7 @@ public:
 
 protected:
   /** Space in the output buffer */
-  static const int maxBufferedChars = 8;
+  enum { maxBufferedChars = 8 };
 
   /** Writes @p ch to the output stream or the output buffer,
       depending on whether or not the output stream has space left.
