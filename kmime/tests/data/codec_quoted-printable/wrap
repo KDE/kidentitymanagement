@@ -40,3 +40,5 @@ Just long enough:  This is a line with an umlaut and a tab at the end.ä
 Just too long: xxxx This is a line with an umlaut and a tab at the end.ä	
 xxxxxxxxxxxxxxxxxxxx This is a line with an umlaut and a tab at the end.ä	
 xxxxxxxxxxxxxxxxxxxxx This is a line with an umlaut and a tab at the end.ä	
+
+This line has a space at the end and ends the buffer 
