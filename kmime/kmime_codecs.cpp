@@ -164,6 +164,9 @@ public:
 }; // class Base64Decoder
 
 template <typename S, typename D>
+class Rfc2047BEncodingEncoder; // forward decl.
+
+template <typename S, typename D>
 class Base64Encoder : public Encoder<S,D> {
   uchar mNextbits;
   uint mStepNo : 2;
@@ -174,11 +177,14 @@ class Base64Encoder : public Encoder<S,D> {
 
 protected:
   friend class Rfc2047BEncodingCodec<S,D>;
+  friend class Rfc2047BEncodingEncoder<S,D>;
   friend class Base64Codec<S,D>;
   Base64Encoder( bool withCRLF=false )
     : Encoder<S,D>(), mNextbits(0), mStepNo(0),
       mInsideFinishing(false), mWrittenPacketsOnThisLine(0),
       mWithCRLF( withCRLF ) {}
+
+  bool generic_finish( D & dcursor, const D & dend, bool withLFatEnd );
 
 public:
   virtual ~Base64Encoder() {}
@@ -213,6 +219,16 @@ public:
 };
 
 template <typename S, typename D>
+class Rfc2047BEncodingEncoder : public Base64Encoder<S,D> {
+protected:
+  friend class Rfc2047BEncodingCodec<S,D>;
+  Rfc2047BEncodingEncoder( bool withCRLF=false )
+    : Base64Encoder<S,D>( withCRLF ) {};
+public:
+  bool finish( D & dcursor, const D & dend );
+}; // class Rfc2047BEncodingEncoder
+
+template <typename S, typename D>
 class Rfc2047BEncodingCodec : public Base64Codec<S,D> {
 protected:
   friend class Codec<S,D>;
@@ -223,6 +239,10 @@ public:
   virtual ~Rfc2047BEncodingCodec() {}
 
   const char * name() const { return "B"; }
+
+  Encoder<S,D> * makeEncoder( bool withCRLF=false ) const {
+    return new Rfc2047BEncodingEncoder<S,D>( withCRLF );
+  }
 };
 
 
@@ -678,6 +698,17 @@ bool Base64Encoder<S,D>::encode( S & scursor, const S & send,
 
 template <typename S, typename D>
 bool Base64Encoder<S,D>::finish( D & dcursor, const D & dend ) {
+  return generic_finish( dcursor, dend, true );
+}
+
+template <typename S, typename D>
+bool Rfc2047BEncodingEncoder<S,D>::finish( D & dcursor, const D & dend ) {
+  return generic_finish( dcursor, dend, false );
+}
+
+template <typename S, typename D>
+bool Base64Encoder<S,D>::generic_finish( D & dcursor, const D & dend,
+					 bool withLFatEnd ) {
 
   if ( !mInsideFinishing ) {
 
@@ -688,8 +719,15 @@ bool Base64Encoder<S,D>::finish( D & dcursor, const D & dend ) {
     switch ( mStepNo ) {
     case 0: // no mNextbits waiting to be written.
       assert( mNextbits == 0 );
-      return true;
-      
+      if ( withLFatEnd ) {
+	if ( !(dcursor != dend) ) {
+	  *dcursor++ = '\n';
+	  return true;
+	} else
+	  return false;
+      } else
+	return true;
+
     case 1: // 2 mNextbits waiting to be written.
       assert( (mNextbits & ~0x30) == 0 );
       break;
@@ -736,6 +774,7 @@ bool Base64Encoder<S,D>::finish( D & dcursor, const D & dend ) {
   while ( dcursor != dend ) {
     switch ( mStepNo ) {
     case 0:
+      *dcursor++ = '\n';
       return true; // finished
       
     case 1:
