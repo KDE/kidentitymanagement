@@ -639,8 +639,8 @@ DateFormatter::zone(time_t otime) const
 
 #elif defined(HAVE_TM_GMTOFF)
 
-  int secs = abs( tm->tm_gmtoff );
-  int neg  = (tm->tm_gmtoff<0)?1:0; //no, I don't know why it's backwards :o
+  int secs = abs( local->tm_gmtoff );
+  int neg  = (local->tm_gmtoff<0)?1:0; //no, I don't know why it's backwards :o
   int hours = secs/3600;
   int mins  = (secs - hours*3600)/60;
   
