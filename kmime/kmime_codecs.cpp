@@ -18,7 +18,6 @@
 
 #include <kdebug.h>
 
-#include <qcstring.h>
 #include <cassert>
 #include <cstring>
 

@@ -16,7 +16,6 @@
 
 
 #include <qtextcodec.h>
-#include <qstringlist.h>
 
 #ifndef Q_ASSERT
 #  ifdef ASSERT
@@ -31,7 +30,6 @@
 #include <kcharsets.h>
 #include <krfcdate.h>
 
-#include "kmime_util.h"
 #include "kmime_content.h"
 #include "kmime_headers.h"
 #include "kqcstringsplitter.h"
