@@ -100,7 +100,7 @@ public:
 
   /** Call this method to finalize the output stream. Writes all
       remaining data and resets the encoder. */
-  virtual void finish( D & dcursor, const D & dend, bool withCRLF=false ) {}
+  virtual void finish( D &, const D &, bool=false ) {}
 };
 
 }; // namespace KMime

@@ -107,8 +107,8 @@ uchar eTextMap[16] = {
   0x7F, 0xFF, 0xFF, 0xE0
 };
 
-QCString decodeBase64( const QCString & src, int & pos,
-		       const char * delimiters )
+QCString decodeBase64( const QCString & /*src*/, int & /*pos*/,
+		       const char * /*delimiters*/ )
 {
   QCString result(100);
 #if 0
@@ -166,8 +166,8 @@ QString decodeRFC2047String(const QCString &src, const char **usedCS,
 {
   QCString result, str;
   QCString declaredCS;
-  char *pos, *dest, *beg, *end, *mid, *endOfLastEncWord=0;
-  char encoding;
+  char *pos, *dest, *beg, *end, *mid=0, *endOfLastEncWord=0;
+  char encoding='q';
   bool valid, onlySpacesSinceLastWord=false;
   const int maxLen=400;
   int i;

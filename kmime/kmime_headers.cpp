@@ -430,9 +430,8 @@ QString GStructured::getToken( const QCString & source, int & pos,
 			       TokenType & tt, bool isCRLF )
 {
   // pos must be in range, but may point to the termiating NUL
-  Q_ASSERT( pos >= 0 && pos <= source.length() );
+  Q_ASSERT( pos >= 0 && pos <= (int)source.length() );
   // if caller disallows composite types, he must allow the constituends:
-#warning This needs more work.
 #if 0
   Q_ASSERT( tt & Atom          || tt & Token && tt & TSpecial );
   Q_ASSERT( tt & Special       || tt & TSpecial );
@@ -445,14 +444,13 @@ QString GStructured::getToken( const QCString & source, int & pos,
 	                            && tt & QuotedString && tt & Token );
 #endif
   TokenType found = None;
-  bool inPhrase = false;
   bool lastSawDotInDotAtom = false;
   bool lastWasEncodedWord = false;
   int oldpos;
   char ch;
   QString result;
 
-  while ( ch = source[pos++] ) {
+  while ( (ch = source[pos++]) ) {
 
     switch ( ch ) {
 
@@ -474,7 +472,7 @@ QString GStructured::getToken( const QCString & source, int & pos,
       }
       if ( ch != '\n' ) {
 	// CR on it's own: forbidden outside generic quoted strings.
-	ch == source[pos++];
+	ch = source[pos++];
 	if ( ch == ' ' || ch == '\t' ) {
 	  // looks like a broken folded header:
 	  // we take it to mean folding and simply ignore it.
@@ -851,7 +849,7 @@ QString GStructured::getToken( const QCString & source, int & pos,
 	    // implemented, and insert it into the assertion ....
 	    if ( found == None ) {
 	      // label our find
-	      found == EncodedWord;
+	      found = EncodedWord;
 	    } else {
 	      // found something already (we can be sure that tt &
 	      // Phrase == true, since we eliminated all other cases
@@ -1119,7 +1117,7 @@ QString GStructured::parseGenericQuotedString( const QCString & src, int & pos,
   // We will apply unfolding and quoted-pair removal.
   // We return when we either encounter \0 or unescaped openChar or closeChar.
 
-  while ( ch = src[pos++] ) {
+  while ( (ch = src[pos++]) ) {
 
     if ( ch == closeChar     // end of quoted-string
 	 || ch == openChar ) // another opening char: let caller decide what to do.
@@ -1128,7 +1126,7 @@ QString GStructured::parseGenericQuotedString( const QCString & src, int & pos,
     switch( ch ) {
     case '\\':      // quoted-pair
       // misses "\" CRLF LWSP-char handling, see rfc822, 3.4.5
-      if ( ch = src[pos++] ) {
+      if ( (ch = src[pos++]) ) {
 	// not NULL, \x -> x
 	KMIME_WARN_IF_8BIT(ch);
 	result += QChar(ch);
