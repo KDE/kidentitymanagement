@@ -584,7 +584,7 @@ DateFormatter::rfc2822(time_t otime) const
 QString
 DateFormatter::custom(time_t t) const
 {
-  if ( mCustomFormat.isNull() )
+  if ( mCustomFormat.isEmpty() )
     return QString::null;
   
   int z = mCustomFormat.find("Z");
@@ -736,7 +736,7 @@ DateFormatter::localized(time_t otime, bool shortFormat, bool includeSecs,
   tmp.setTime_t( otime );
 
 
-  if ( !localeLanguage.isNull() ) {
+  if ( !localeLanguage.isEmpty() ) {
     QString olang = locale->language();
     locale->setLanguage( localeLanguage );
     ret = locale->formatDateTime( tmp, shortFormat, includeSecs );
