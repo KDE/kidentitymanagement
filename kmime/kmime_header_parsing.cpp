@@ -227,7 +227,7 @@ bool parseAtom( const char * & scursor, const char * const send,
   const char * start = scursor;
 
   while ( scursor != send ) {
-    char ch = *scursor++;
+    signed char ch = *scursor++;
     if ( ch > 0 && isAText(ch) ) {
       // AText: OK
       success = true;
@@ -589,64 +589,46 @@ bool parsePhrase( const char* & scursor, const char * const send,
 bool parseDotAtom( const char* & scursor, const char * const send,
 		   QString & result, bool isCRLF )
 {
-  bool sawInitialAtom = false;
-  const char * successfullyParsed = 0;
-  bool lastSawDot = false;
+  // always points to just after the last atom parsed:
+  const char * successfullyParsed;
+
   QString tmp;
+  if ( !parseAtom( scursor, send, tmp, false /* no 8bit */ ) )
+    return false;
+  result += tmp;
+  successfullyParsed = scursor;
 
   while ( scursor != send ) {
-    char ch = *scursor++;
-    switch ( ch ) {
-    case '.': // dot in DotAtom
-      if ( !sawInitialAtom ) // can't start with a dot!
-	return false;
-      if ( lastSawDot ) { // ".." is forbidden!
-	scursor = successfullyParsed;
-	return true;
-      }
-      lastSawDot = true;
-      break;
-    case '(': // comment
-      // parse it, but ignore content:
-      tmp = QString::null;
-      if ( !parseComment( scursor, send, tmp, isCRLF,
-			 false /*don't bother with the content*/ ) ) {
-	if ( !sawInitialAtom )
-	  return false;
-	else {
-	  scursor = successfullyParsed;
-	  return true;
-	}
-      }
-      break;
-    default: // atom in DotAtom
-      if ( !lastSawDot ) {
-	if ( sawInitialAtom ) {
-	  scursor = successfullyParsed;
-	  return true;
-	} else
-	  return false;
-      }
-      tmp = QString::null;
-      if ( parseAtom( scursor, send, tmp, false /*don't allow 8 bit chars*/ ) ) {
-	if ( sawInitialAtom )
-	  result += QChar('.');
-	sawInitialAtom = true;
-	lastSawDot = false;
-	result += tmp;
-      } else {
-	if ( !sawInitialAtom ) {
-	  return false;
-	} else {
-	  scursor = successfullyParsed;
-	  return true;
-	}
-      }
+    eatCFWS( scursor, send, isCRLF );
+
+    // end of header or no '.' -> return
+    if ( scursor == send || *scursor != '.' ) return true;
+    scursor++; // eat '.'
+
+    eatCFWS( scursor, send, isCRLF );
+
+    if ( scursor == send || !isAText( *scursor ) ) {
+      // end of header or no AText, but this time following a '.'!:
+      // reset cursor to just after last successfully parsed char and
+      // return:
+      scursor = successfullyParsed;
+      return true;
     }
-    eatWhiteSpace( scursor, send );
+
+    // try to parse the next atom:
+    QString maybeAtom;
+    if ( !parseAtom( scursor, send, maybeAtom, false /*no 8bit*/ ) ) {
+      scursor = successfullyParsed;
+      return true;
+    }
+
+    result += QChar('.');
+    result += maybeAtom;
+    successfullyParsed = scursor;
   }
 
-  return sawInitialAtom;
+  scursor = successfullyParsed;
+  return true;
 }
 
 
