@@ -537,14 +537,15 @@ DateFormatter::setFormat( FormatType t )
 }
 
 QString 
-DateFormatter::dateString( time_t otime ) const
+DateFormatter::dateString( time_t otime , const QString& lang ,
+		       bool shortFormat, bool includeSecs ) const
 {
   switch ( mFormat ) {
   case Fancy:
     return fancy( otime );
     break;
   case Localized:
-    return localized( otime );
+    return localized( otime, shortFormat, includeSecs, lang );
     break;
   case CTime:
     return cTime( otime );
@@ -560,9 +561,10 @@ DateFormatter::dateString( time_t otime ) const
 }
 
 QString
-DateFormatter::dateString(const QDateTime& dtime) const
+DateFormatter::dateString(const QDateTime& dtime, const QString& lang,
+		       bool shortFormat, bool includeSecs ) const
 {
-  return DateFormatter::dateString((qdateToTimeT(dtime)));
+  return DateFormatter::dateString( qdateToTimeT(dtime), lang, shortFormat, includeSecs );
 }
 
 QCString 
@@ -611,6 +613,7 @@ DateFormatter::getCustomFormat() const
 {
   return mCustomFormat;
 }
+
 
 QCString 
 DateFormatter::zone(time_t otime) const
@@ -758,24 +761,24 @@ DateFormatter::reset()
 
 QString 
 DateFormatter::formatDate(DateFormatter::FormatType t, time_t otime,
-			  const QString& format )
+			  const QString& data, bool shortFormat, bool includeSecs )
 {
   DateFormatter f( t );
   if ( t == DateFormatter::Custom ) {
-    f.setCustomFormat( format );
+    f.setCustomFormat( data );
   }
-  return f.dateString( otime );
+  return f.dateString( otime, data, shortFormat, includeSecs );
 }
 
 QString
-DateFormatter::formatCurrentDate( DateFormatter::FormatType t,
-				  const QString& format )
+DateFormatter::formatCurrentDate( DateFormatter::FormatType t, const QString& data, 
+				  bool shortFormat, bool includeSecs )
 {
   DateFormatter f( t );
   if ( t == DateFormatter::Custom ) {
-    f.setCustomFormat( format );
+    f.setCustomFormat( data );
   }
-  return f.dateString( time(0) );
+  return f.dateString( time(0), data, shortFormat, includeSecs );
 }
 
 QCString 

@@ -216,12 +216,17 @@ namespace KMime {
      * returns formatted date string in a currently
      * set format.
      * @param otime time to format
+     * @param lang used  <em>only</em> by the Localized format, sets the used language
+     * @param shortFormat used <em>only</em> by the Localized format, is passed to KLocale::formatDateTime
+     * @param includeSecs used <em>only</em> by the Localized format, is passed to KLocale::formatDateTime
      */
-    QString dateString(time_t otime) const;
+    QString dateString(time_t otime, const QString& lang = QString::null,
+		       bool shortFormat = true, bool includeSecs=false) const;
     /**
-     * overloaded, does exactly what @ref #dateString does
+     * overloaded, does exactly what @ref #dateString does (it's slower)
      */
-    QString dateString(const QDateTime& dtime) const;    
+    QString dateString(const QDateTime& dtime, const QString& lang = QString::null,
+		       bool shortFormat = true, bool includeSecs=false) const;    
 
 
     /**
@@ -247,13 +252,21 @@ namespace KMime {
     void reset();
     
     //statics
-    /** convenience function @see dateString */
+    /** convenience function @see dateString 
+     * @param data is either the format when FormatType is Custom, or language 
+     * when FormatType is Localized
+     */
     static QString  formatDate( DateFormatter::FormatType t, time_t time,
-				const QString& format = QString::null);
+				const QString& data = QString::null, 
+				bool shortFormat = true, bool includeSecs=false);
     /** convenience function, same as @ref #formatDate
-     * but returns the current time formatted */
+     * but returns the current time formatted 
+     * @param data is either the format when FormatType is Custom, or language 
+     * when FormatType is Localized
+     */
     static QString  formatCurrentDate( DateFormatter::FormatType t,
-				       const QString& format = QString::null);
+				       const QString& data = QString::null,
+				       bool shortFormat = true, bool includeSecs=false);
     /** convenience function, same as @ref #rfc2822 */
     static QCString rfc2822FormatDate( time_t time );
   protected:
