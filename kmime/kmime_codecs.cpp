@@ -11,7 +11,8 @@
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software Foundation,
-    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, US */
+    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, US
+*/
 
 #include "kmime_codecs.h"
 #include "kmime_util.h"
@@ -25,6 +26,7 @@ using namespace KMime;
 
 namespace KMime {
 
+// forward declarations:
 template <typename S, typename D>
 class Base64Codec;
 template <typename S, typename D>
@@ -33,13 +35,15 @@ template <typename S, typename D>
 class QuotedPrintableCodec;
 template <typename S, typename D>
 class Rfc2047QEncodingCodec;
+template <typename S, typename D>
+class Rfc2231EncodingCodec;
 
 // global list of KMime::Codec's
 template <typename S, typename D>
-QAsciiDict< Codec<S,D> > Codec<S,D>::all( 7, false /* case-insensitive */);
-#if defined(QT_THREAD_SUPPORT) && defined(KMIME_REALLY_USE_THREADS)
-  template <typename S, typename D>
-  QMutex Codec<S,D>::dictLock;
+QAsciiDict< Codec<S,D> > Codec<S,D>::all( 11, false /* case-insensitive */);
+#if defined(QT_THREAD_SUPPORT)
+template <typename S, typename D>
+QMutex Codec<S,D>::dictLock;
 #endif
 
 template <typename S, typename D>
@@ -51,24 +55,24 @@ void Codec<S,D>::fillDictionary() {
   all.insert( "quoted-printable", new QuotedPrintableCodec<S,D>() );
   all.insert( "b", new Rfc2047BEncodingCodec<S,D>() );
   all.insert( "q", new Rfc2047QEncodingCodec<S,D>() );
+  all.insert( "x-kmime-rfc2231", new Rfc2231EncodingCodec<S,D>() );
 
 }
 
 template <typename S, typename D>
 Codec<S,D> * Codec<S,D>::codecForName( const char * name ) {
-#if defined(QT_THREAD_SUPPORT) && defined(KMIME_REALLY_USE_THREADS)
-  dictLock.lock();
+#if defined(QT_THREAD_SUPPORT)
+  dictLock.lock(); // protect "all"
 #endif
   if ( all.isEmpty() )
     fillDictionary();
-
-#if defined(QT_THREAD_SUPPORT) && defined(KMIME_REALLY_USE_THREADS)
+  Codec<S,D> * codec = all[ name ];
+#if defined(QT_THREAD_SUPPORT)
   dictLock.unlock();
 #endif
 
-  Codec<S,D> * codec = all[ name ];
   if ( !codec )
-    kdDebug() << "Unknown codec name \"" << name << "\"" << endl;
+    kdWarning() << "Unknown codec \"" << name << "\" requested!" << endl;
 
   return codec;
 }
@@ -79,24 +83,57 @@ Codec<S,D> * Codec<S,D>::codecForName( const QCString & name ) {
 }
 
 template <typename S, typename D>
-void Codec<S,D>::encode( S & scursor, const S & send,
+bool Codec<S,D>::encode( S & scursor, const S & send,
 			 D & dcursor, const D & dend, bool withCRLF ) const
 {
-  Encoder<S,D> * enc = makeEncoder();
-  Q_ASSERT( enc );
-  enc->encode( scursor, send, dcursor, dend, withCRLF );
-  enc->finish( dcursor, dend, withCRLF );
+  // get an encoder:
+  Encoder<S,D> * enc = makeEncoder( withCRLF );
+  assert( enc );
+
+  // encode and check for output buffer overflow:
+  while ( !enc->encode( scursor, send, dcursor, dend ) )
+    if ( !(dcursor != dend) ) { // don't force operator== on iterators
+      delete enc;
+      return false; // not enough space in output buffer
+    }
+
+  // finish and check for output buffer overflow:
+  while ( !enc->finish( dcursor, dend ) )
+    if ( !(dcursor != dend) ) { // don't force operator== on iterators
+      delete enc;
+      return false; // not enough space in output buffer
+    }
+
+  // cleanup and return:
   delete enc;
+  return true; // successfully encoded.
 }
 
 template <typename S, typename D>
-void Codec<S,D>::decode( S & scursor, const S & send,
-			 D & dcursor, const D & dend ) const
+bool Codec<S,D>::decode( S & scursor, const S & send,
+			 D & dcursor, const D & dend, bool withCRLF ) const
 {
-  Decoder<S,D> * dec = makeDecoder();
-  Q_ASSERT( dec );
-  dec->decode( scursor, send, dcursor, dend );
+  // get a decoder:
+  Decoder<S,D> * dec = makeDecoder( withCRLF );
+  assert( dec );
+
+  // decode and check for output buffer overflow:
+  while ( !dec->decode( scursor, send, dcursor, dend ) )
+    if ( !(dcursor != dend) ) { // don't force operator== on iterators
+      delete dec;
+      return false; // not enough space in output buffer
+    }
+
+  // finish and check for output buffer overflow:
+  while ( !dec->finish( dcursor, dend ) )
+    if ( !(dcursor != dend) ) { // don't force operator== on iterators
+      delete dec;
+      return false; // not enough space in output buffer
+    }
+
+  // cleanup and return:
   delete dec;
+  return true; // successfully encoded.
 }
 
 
@@ -106,47 +143,50 @@ void Codec<S,D>::decode( S & scursor, const S & send,
 
 template <typename S, typename D>
 class Base64Decoder : public Decoder<S,D> {
-  uchar outbits;
-  uint stepNo : 2;
-  bool sawPadding : 1;
+  uchar mOutbits;
+  uint mStepNo : 2;
+  bool mSawPadding : 1;
+  const bool mWithCRLF : 1;
 
 protected:
   friend class Base64Codec<S,D>;
-  Base64Decoder() : Decoder<S,D>(), outbits(0), stepNo(0),
-    sawPadding(false) {}
+  Base64Decoder( bool withCRLF=false )
+    : Decoder<S,D>( withCRLF ), mOutbits(0), mStepNo(0),
+      mSawPadding(false), mWithCRLF( withCRLF ) {}
 
 public:
   virtual ~Base64Decoder() {}
 
-  bool sawEnd() const { return sawPadding; }
-
-  void decode( S & scursor, const S & send,
+  bool decode( S & scursor, const S & send,
 	       D & dcursor, const D & dend );
-
+  // ### really needs no finishing???
+  bool finish( D & /*dcursor*/, const D & /*dend*/ ) { return true; }
 }; // class Base64Decoder
 
 template <typename S, typename D>
 class Base64Encoder : public Encoder<S,D> {
-  uchar nextbits;
-  uint stepNo : 2;
-  bool insideFinishing : 1;
+  uchar mNextbits;
+  uint mStepNo : 2;
+  bool mInsideFinishing : 1;
   /** number of already written base64-quartets on current line */
-  uint writtenPacketsOnThisLine : 5;
+  uint mWrittenPacketsOnThisLine : 5;
+  const bool mWithCRLF : 1;
 
 protected:
   friend class Rfc2047BEncodingCodec<S,D>;
   friend class Base64Codec<S,D>;
-  Base64Encoder() : Encoder<S,D>(), nextbits(0), stepNo(0),
-    insideFinishing(false), writtenPacketsOnThisLine(0) {}
+  Base64Encoder( bool withCRLF=false )
+    : Encoder<S,D>(), mNextbits(0), mStepNo(0),
+      mInsideFinishing(false), mWrittenPacketsOnThisLine(0),
+      mWithCRLF( withCRLF ) {}
 
 public:
   virtual ~Base64Encoder() {}
 
-  void encode( S & scursor, const S & send,
-	       D & dcursor, const D & dend, bool withCRLF=false );
+  bool encode( S & scursor, const S & send,
+	       D & dcursor, const D & dend );
 
-  void finish( D & dcursor, const D & dend, bool withCRLF=false );
-
+  bool finish( D & dcursor, const D & dend );
 }; // class Base64Encoder
 
 template <typename S, typename D>
@@ -162,12 +202,12 @@ public:
     return "base64";
   }
 
-  Encoder<S,D> * makeEncoder() const {
-    return new Base64Encoder<S,D>();
+  Encoder<S,D> * makeEncoder( bool withCRLF=false ) const {
+    return new Base64Encoder<S,D>( withCRLF );
   }
 
-  Decoder<S,D> * makeDecoder() const {
-    return new Base64Decoder<S,D>();
+  Decoder<S,D> * makeDecoder( bool withCRLF=false ) const {
+    return new Base64Decoder<S,D>( withCRLF );
   }
 
 };
@@ -176,7 +216,8 @@ template <typename S, typename D>
 class Rfc2047BEncodingCodec : public Base64Codec<S,D> {
 protected:
   friend class Codec<S,D>;
-  Rfc2047BEncodingCodec() : Base64Codec<S,D>() {}
+  Rfc2047BEncodingCodec()
+    : Base64Codec<S,D>() {}
   
 public:
   virtual ~Rfc2047BEncodingCodec() {}
@@ -204,64 +245,75 @@ class QuotedPrintableEncoder : public Encoder<S,D> {
   bool mSawLineEnd        : 1;
   bool mSawCR             : 1;
   bool mFinishing         : 1;
+  const bool mWithCRLF    : 1;
 protected:
   friend class QuotedPrintableCodec<S,D>;
-  QuotedPrintableEncoder<S,D>()
-    : mCurrentLineLength(0), mAccu(0),
+  QuotedPrintableEncoder<S,D>( bool withCRLF=false )
+    : Encoder<S,D>(), mCurrentLineLength(0), mAccu(0),
       mInputBufferReadCursor(0), mInputBufferWriteCursor(0),
       mOutputBufferCursor(0), mAccuNeedsEncoding(Never),
-      mSawLineEnd(false), mSawCR(false), mFinishing(false) {}
+      mSawLineEnd(false), mSawCR(false), mFinishing(false),
+      mWithCRLF( withCRLF ) {}
 
   bool needsEncoding( uchar ch ) {
     return ( ch > '~' || ch < ' ' && ch != '\t' || ch == '=' );
   }
   bool fillInputBuffer( S & scursor, const S & send );
   bool processNextChar();
-  void createOutputBuffer( bool withCRLF );
+  void createOutputBuffer();
 public:
   virtual ~QuotedPrintableEncoder() {}
 
-  void encode( S & scursor, const S & send,
-	       D & dcursor, const D & dend, bool withCRLF=false );
+  bool encode( S & scursor, const S & send,
+	       D & dcursor, const D & dend );
 
-  void finish( D & dcursor, const D & dend, bool withCRLF=false );
+  bool finish( D & dcursor, const D & dend );
 };
 
 template <typename S, typename D>
 class QuotedPrintableDecoder : public Decoder<S,D> {
-  char badChar;
+  const char mEscapeChar;
+  char mBadChar;
   /** @p accu holds the msb nibble of the hexchar or zero. */
-  uchar accu;
+  uchar mAccu;
   /** @p insideHexChar is true iff we're inside an hexchar (=XY).
-      Together with @ref accu, we can build this states:
+      Together with @ref mAccu, we can build this states:
       @li @p insideHexChar == @p false:
           normal text
-      @li @p insideHexChar == @p true, @p accu == 0:
+      @li @p insideHexChar == @p true, @p mAccu == 0:
           saw the leading '='
-      @li @p insideHexChar == @p true, @p accu != 0:
+      @li @p insideHexChar == @p true, @p mAccu != 0:
           saw the first nibble '=X'
    */
-  bool insideHexChar : 1;
-  bool flushing  : 1;
-  bool expectLF  : 1;
-  bool haveAccu  : 1;
-  bool qEncoding : 1;
+  bool mInsideHexChar   : 1;
+  bool mFlushing        : 1;
+  bool mExpectLF        : 1;
+  bool mHaveAccu        : 1;
+  const bool mQEncoding : 1;
+  const bool mWithCRLF  : 1;
 protected:
   friend class QuotedPrintableCodec<S,D>;
   friend class Rfc2047QEncodingCodec<S,D>;
-  QuotedPrintableDecoder( bool aQEncoding=false ) : Decoder<S,D>(),
-    badChar(0),
-    accu(0),
-    insideHexChar(false),
-    flushing(false),
-    expectLF(false),
-    haveAccu(false),
-    qEncoding(aQEncoding) {}
+  friend class Rfc2231EncodingCodec<S,D>;
+  QuotedPrintableDecoder( bool withCRLF=false,
+			  bool aQEncoding=false, char aEscapeChar='=' )
+    : Decoder<S,D>(),
+    mEscapeChar(aEscapeChar),
+    mBadChar(0),
+    mAccu(0),
+    mInsideHexChar(false),
+    mFlushing(false),
+    mExpectLF(false),
+    mHaveAccu(false),
+    mQEncoding(aQEncoding),
+    mWithCRLF( withCRLF ) {}
 public:
   virtual ~QuotedPrintableDecoder() {}
 
-  void decode( S & scursor, const S & send,
+  bool decode( S & scursor, const S & send,
 	       D & dcursor, const D & dend );
+  // ### really no finishing needed???
+  bool finish( D &, const D & ) { return true; }
 };
 
 template <typename S, typename D>
@@ -277,12 +329,12 @@ public:
     return "quoted-printable";
   }
 
-  Encoder<S,D> * makeEncoder() const {
-    return new QuotedPrintableEncoder<S,D>();
+  Encoder<S,D> * makeEncoder( bool withCRLF=false ) const {
+    return new QuotedPrintableEncoder<S,D>( withCRLF );
   }
 
-  Decoder<S,D> * makeDecoder() const {
-    return new QuotedPrintableDecoder<S,D>();
+  Decoder<S,D> * makeDecoder( bool withCRLF=false ) const {
+    return new QuotedPrintableDecoder<S,D>( withCRLF );
   }
 };
 
@@ -290,34 +342,24 @@ template <typename S, typename D>
 class Rfc2047QEncodingEncoder : public Encoder<S,D> {
   uchar mAccu;
   uchar mStepNo;
+  const char  mEscapeChar;
+  const bool  mWithCRLF;
 protected:
   friend class Rfc2047QEncodingCodec<S,D>;
-  Rfc2047QEncodingEncoder() : Encoder<S,D>(),
-  mAccu(0), mStepNo(0) {}
+  friend class Rfc2231EncodingCodec<S,D>;
+  Rfc2047QEncodingEncoder( bool withCRLF=false, char aEscapeChar='=' )
+    : Encoder<S,D>(),
+      mAccu(0), mStepNo(0), mEscapeChar( aEscapeChar ),
+      mWithCRLF( withCRLF ) {}
 
 public:
   virtual ~Rfc2047QEncodingEncoder() {}
 
-  void encode( S & scursor, const S & send,
-	       D & dcursor, const D & dend, bool withCRLF=false );
-
-  void finish( D & dcursor, const D & dend, bool withCRLF=false );
-};
-
-#if 0
-template <typename S, typename D>
-class Rfc2047QEncodingDecoder : public Decoder<S,D> {
-protected:
-  friend class Rfc2047QEncodingCodec<S,D>;
-  Rfc2047QEncodingDecoder() : Decoder<S,D>() {}
-
-public:
-  virtual ~Rfc2047QEncodingDecoder() {}
-
-  void decode( S & scursor, const S & send,
+  bool encode( S & scursor, const S & send,
 	       D & dcursor, const D & dend );
+  bool finish( D & dcursor, const D & dend );
 };
-#endif
+
 
 template <typename S, typename D>
 class Rfc2047QEncodingCodec : public Codec<S,D> {
@@ -332,12 +374,35 @@ public:
     return "Q";
   }
 
-  Encoder<S,D> * makeEncoder() const {
-    return new Rfc2047QEncodingEncoder<S,D>();
+  Encoder<S,D> * makeEncoder( bool withCRLF=false ) const {
+    return new Rfc2047QEncodingEncoder<S,D>( withCRLF );
   }
 
-  Decoder<S,D> * makeDecoder() const {
-    return new QuotedPrintableDecoder<S,D>( true );
+  Decoder<S,D> * makeDecoder( bool withCRLF=false ) const {
+    return new QuotedPrintableDecoder<S,D>( withCRLF, true );
+  }
+};
+
+
+template <typename S, typename D>
+class Rfc2231EncodingCodec : public Codec<S,D> {
+protected:
+  friend class Codec<S,D>;
+  Rfc2231EncodingCodec() : Codec<S,D>() {}
+
+public:
+  virtual ~Rfc2231EncodingCodec() {}
+
+  const char * name() const {
+    return "x-kmime-rfc2231";
+  }
+
+  Encoder<S,D> * makeEncoder( bool withCRLF=false ) const {
+    return new Rfc2047QEncodingEncoder<S,D>( withCRLF, '%' );
+  }
+
+  Decoder<S,D> * makeDecoder( bool withCRLF=false ) const {
+    return new QuotedPrintableDecoder<S,D>( withCRLF, true, '%' );
   }
 };
 
@@ -349,7 +414,7 @@ public:
 
 
 #if defined(KMIME_CODEC_USE_CODEMAPS)
-static uchar base64DecodeMap[128] = {
+static const uchar base64DecodeMap[128] = {
   64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
   64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
   
@@ -363,7 +428,7 @@ static uchar base64DecodeMap[128] = {
   41, 42, 43, 44, 45, 46, 47, 48,  49, 50, 51, 64, 64, 64, 64, 64
 };
 
-static char base64EncodeMap[64] = {
+static const char base64EncodeMap[64] = {
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
   'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
   'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -377,41 +442,41 @@ static char base64EncodeMap[64] = {
 
 
 template <typename S, typename D>
-void Base64Decoder<S,D>::decode( S & scursor, const S & send,
-				  D & dcursor, const D & dend ) {
-  if ( sawEnd() ) return;
-
+bool Base64Decoder<S,D>::decode( S & scursor, const S & send,
+				 D & dcursor, const D & dend )
+{
   while ( dcursor != dend && scursor != send ) {
     uchar ch = *scursor++;
     uchar value;
 
 #if defined(KMIME_CODEC_USE_CODEMAPS)
-    if ( (signed char)ch >= 0 )
+    // try converting ch to a 6-bit value:
+    if ( ch < 128 )
       value = base64DecodeMap[ ch ];
     else
       value = 64;
 
+    // ch isn't of the base64 alphabet, check for other significant chars:
     if ( value >= 64 ) {
       if ( ch == '=' ) {
-	// padding
-	Q_ASSERT( stepNo <= 3 );
-	if ( stepNo == 0 || stepNo == 1) {
-	  if (!sawPadding) {
+	// padding:
+	if ( mStepNo == 0 || mStepNo == 1) {
+	  if (!mSawPadding) {
 	    // malformed
 	    kdWarning() << "Base64Decoder: unexpected padding "
 	      "character in input stream" << endl;
 	  }
-	  sawPadding = true;
+	  mSawPadding = true;
 	  break;
-	} else if ( stepNo == 2 ) {
+	} else if ( mStepNo == 2 ) {
 	  // ok, there should be another one
-	} else if ( stepNo == 3 ) {
+	} else if ( mStepNo == 3 ) {
 	  // ok, end of encoded stream
-	  sawPadding = true;
+	  mSawPadding = true;
 	  break;
 	}
-	sawPadding = true;
-	stepNo = ( stepNo + 1 ) % 4;
+	mSawPadding = true;
+	mStepNo++; // by definition calculated mod 4 !
 	continue;
       } else {
 	// non-base64 alphabet
@@ -452,24 +517,23 @@ void Base64Decoder<S,D>::decode( S & scursor, const S & send,
 	  value = ch - '0' + 52;
 	} else if ( ch == '=' ) {
 	  // padding
-	  Q_ASSERT( stepNo <= 3 );
-	  if ( stepNo == 0 || stepNo == 1) {
-	    if (!sawPadding) {
+	  if ( mStepNo == 0 || mStepNo == 1) {
+	    if (!mSawPadding) {
 	      // malformed
 	      kdWarning() << "Base64Decoder: unexpected padding "
 		"character in input stream" << endl;
 	    }
-	    sawPadding = true;
-	    break;
-	  } else if ( stepNo == 2 ) {
+	    mSawPadding = true;
+	    return true;
+	  } else if ( mStepNo == 2 ) {
 	    // ok, there should be another one
-	  } else if ( stepNo == 3 ) {
+	  } else if ( mStepNo == 3 ) {
 	    // ok, end of encoded stream
-	    sawPadding = true;
-	    break;
+	    mSawPadding = true;
+	    return true;
 	  }
-	  sawPadding = true;
-	  stepNo = ( stepNo + 1 ) % 4;
+	  mSawPadding = true;
+	  mStepNo++; // by definition calculated mod 4 !
 	  continue;
 	} else {
 	  // non-base64 alphabet.
@@ -492,97 +556,103 @@ void Base64Decoder<S,D>::decode( S & scursor, const S & send,
     }
 #endif // KMIME_CODEC_USE_CODEMAPS
 
-    if (sawPadding) {
+    if ( mSawPadding ) {
       kdWarning() << "Base64Decoder: Embedded padding character "
 	"encountered!" << endl;
-      break;
+      return true;
     }
     
-    switch ( stepNo ) {
+    switch ( mStepNo ) {
     case 0:
-      outbits = value << 2;
+      mOutbits = value << 2;
       break;
     case 1:
-      *dcursor++ = (char)(outbits | value >> 4);
-      outbits = value << 4;
+      *dcursor++ = (char)(mOutbits | value >> 4);
+      mOutbits = value << 4;
       break;
     case 2:
-      *dcursor++ = (char)(outbits | value >> 2);
-      outbits = value << 6;
+      *dcursor++ = (char)(mOutbits | value >> 2);
+      mOutbits = value << 6;
       break;
     case 3:
-      *dcursor++ = (char)(outbits | value);
-      outbits = 0;
+      *dcursor++ = (char)(mOutbits | value);
+      mOutbits = 0;
       break;
     default:
-      Q_ASSERT( 0 );
+      assert( 0 );
     }
-    stepNo++; // by definition calculated mod 4 !
+    mStepNo++; // by definition calculated mod 4 !
   }
+
+  // return false when caller should call us again:
+  return !(scursor != send);
 } // Base64Decoder<S,D>::decode()
 
 
 
 template <typename S, typename D>
-void Base64Encoder<S,D>::encode( S & scursor, const S & send,
-				 D & dcursor, const D & dend, bool withCRLF ) {
+bool Base64Encoder<S,D>::encode( S & scursor, const S & send,
+				 D & dcursor, const D & dend ) {
   const uint maxPacketsPerLine = 76 / 4;
 
-  Q_ASSERT( !insideFinishing );
+  // detect when the caller doesn't adhere to our rules:
+  assert( !mInsideFinishing );
 
   while ( scursor != send && dcursor != dend ) {
     uchar ch;
     uchar value; // value of the current sextet
-    // nextbits   // (part of) value of next sextet
+    // mNextbits   // (part of) value of next sextet
 
     // check for line length;
-    if ( stepNo == 0 && writtenPacketsOnThisLine >= maxPacketsPerLine ) {
-      if ( withCRLF ) {
+    if ( mStepNo == 0 && mWrittenPacketsOnThisLine >= maxPacketsPerLine ) {
+      if ( mWithCRLF ) {
 	*dcursor++ = '\r';
-	if ( dcursor == dend )
-	  return;
+	// ### FIXME: when this return is taken, don't we then write
+	// _two_ \r's?
+	if ( !(dcursor != dend) )
+	  return false;
       }
       *dcursor++ = '\n';
-      writtenPacketsOnThisLine = 0;
+      mWrittenPacketsOnThisLine = 0;
       continue;
     }
 
-    // depending on the stepNo, extract value and nextbits from the
-    // octet-stream:
-    switch ( stepNo ) {
+    // depending on mStepNo, extract value and mNextbits from the
+    // octet stream:
+    switch ( mStepNo ) {
     case 0:
-      Q_ASSERT( nextbits == 0 );
+      assert( mNextbits == 0 );
       ch = *scursor++;
       value = ch >> 2; // top-most 6 bits -> value
-      nextbits = (ch & 0x3) << 4; // 0..1 bits -> 4..5 in nextbits
+      mNextbits = (ch & 0x3) << 4; // 0..1 bits -> 4..5 in mNextbits
       break;
     case 1:
-      Q_ASSERT( (nextbits & ~0x30) == 0 );
+      assert( (mNextbits & ~0x30) == 0 );
       ch = *scursor++;
-      value = nextbits | ch >> 4; // 4..7 bits -> 0..3 in value
-      nextbits = (ch & 0xf) << 2; // 0..3 bits -> 2..5 in nextbits
+      value = mNextbits | ch >> 4; // 4..7 bits -> 0..3 in value
+      mNextbits = (ch & 0xf) << 2; // 0..3 bits -> 2..5 in mNextbits
       break;
     case 2:
-      Q_ASSERT( (nextbits & ~0x3C) == 0 );
+      assert( (mNextbits & ~0x3C) == 0 );
       ch = *scursor++;
-      value = nextbits | ch >> 6; // 6..7 bits -> 0..1 in value
-      nextbits = ch & 0x3F;       // 0..6 bits -> nextbits
+      value = mNextbits | ch >> 6; // 6..7 bits -> 0..1 in value
+      mNextbits = ch & 0x3F;       // 0..6 bits -> mNextbits
       break;
     case 3:
       // this case is needed in order to not output more than one
       // character per round; we could write past dend else!
-      Q_ASSERT( (nextbits & ~0x3F) == 0 );
-      value = nextbits;
-      nextbits = 0;
-      writtenPacketsOnThisLine++;
+      assert( (mNextbits & ~0x3F) == 0 );
+      value = mNextbits;
+      mNextbits = 0;
+      mWrittenPacketsOnThisLine++;
       break;
     default:
       value = 0; // prevent compiler warning
-      Q_ASSERT( 0 );
+      assert( 0 );
     }
-    stepNo++; // by definition calculated mod 4 !
+    mStepNo++; // by definition calculated mod 4 !
 
-    Q_ASSERT( value <= 63 );
+    assert( value < 64 );
 
     // now map the value to the corresponding base64 character:
 #if defined(KMIME_CODEC_USE_CODEMAPS)
@@ -602,75 +672,75 @@ void Base64Encoder<S,D>::encode( S & scursor, const S & send,
     *dcursor++ = char(value);
 #endif
   }
+  
+  return !(scursor != send);
 }
 
 template <typename S, typename D>
-void Base64Encoder<S,D>::finish( D & dcursor, const D & dend, bool ) {
+bool Base64Encoder<S,D>::finish( D & dcursor, const D & dend ) {
 
-  kdDebug() << "entering Base64Encoder::finish()" << endl;
+  if ( !mInsideFinishing ) {
 
-  if ( dcursor == dend )
-    return;
-
-  kdDebug() << "dcursor != dend" << endl;
-
-  if ( !insideFinishing ) {
     //
-    // writing out the last nextbits...
+    // writing out the last mNextbits...
     //
-    kdDebug() << "insideFinishing with stepNo == " << stepNo << endl;
-    switch ( stepNo ) {
-    case 0: // no nextbits waiting to be written.
-      Q_ASSERT ( nextbits == 0 );
-      return;
+    kdDebug() << "mInsideFinishing with mStepNo == " << mStepNo << endl;
+    switch ( mStepNo ) {
+    case 0: // no mNextbits waiting to be written.
+      assert( mNextbits == 0 );
+      return true;
       
-    case 1: // 2 nextbits waiting to be written.
-      Q_ASSERT( (nextbits & ~0x30) == 0 );
+    case 1: // 2 mNextbits waiting to be written.
+      assert( (mNextbits & ~0x30) == 0 );
       break;
       
-    case 2: // 4 nextbits waiting to be written.
-      Q_ASSERT( (nextbits & ~0x3C) == 0 );
+    case 2: // 4 mNextbits waiting to be written.
+      assert( (mNextbits & ~0x3C) == 0 );
       break;
       
-    case 3: // 6 nextbits waiting to be written.
-      Q_ASSERT( (nextbits & ~0x3F) == 0 );
+    case 3: // 6 mNextbits waiting to be written.
+      assert( (mNextbits & ~0x3F) == 0 );
       break;
     default:
-      Q_ASSERT ( 0 );
+      assert( 0 );
     }
-    
+
+    // abort write if buffer full:    
+    if ( !(dcursor != dend) ) // don't force operator== on iterators
+      return false;
+
 #if defined(KMIME_CODEC_USE_CODEMAPS)
-    *dcursor++ = base64EncodeMap[ nextbits ];
+    *dcursor++ = base64EncodeMap[ mNextbits ];
 #else
-    if ( nextbits < 26 )
-      nextbits += 'A';
-    else if ( nextbits < 52 )
-      nextbits += 'a' - 26;
-    else if ( nextbits < 62 )
-      nextbits += '0' - 52;
-    else if ( nextbits < 63 )
-      nextbits = '+';
+    if ( mNextbits < 26 )
+      mNextbits += 'A';
+    else if ( mNextbits < 52 )
+      mNextbits += 'a' - 26;
+    else if ( mNextbits < 62 )
+      mNextbits += '0' - 52;
+    else if ( mNextbits < 63 )
+      mNextbits = '+';
     else
-      nextbits = '/';
-    *dcursor++ = char(nextbits);
+      mNextbits = '/';
+    *dcursor++ = char(mNextbits);
 #endif
-    nextbits = 0;
+    mNextbits = 0;
     
-    stepNo++; // by definition calculated mod 4 !
-    insideFinishing = true;
+    mStepNo++; // by definition calculated mod 4 !
+    mInsideFinishing = true;
   }
 
   //
   // adding padding...
   //
   while ( dcursor != dend ) {
-    switch ( stepNo ) {
+    switch ( mStepNo ) {
     case 0:
-      return;
+      return true; // finished
       
     case 1:
     default:
-      Q_ASSERT( 0 );
+      assert( 0 );
       break;
 
     case 2:
@@ -678,65 +748,72 @@ void Base64Encoder<S,D>::finish( D & dcursor, const D & dend, bool ) {
       *dcursor++ = '=';
       break;
     }
-    stepNo++; // by definition calculated mod 4 !
+    mStepNo++; // by definition calculated mod 4 !
   }
+
+  return false; // output buffer full
 }
 
 
 
+
+
 template <typename S, typename D>
-void QuotedPrintableDecoder<S,D>::decode( S & scursor, const S & send,
+bool QuotedPrintableDecoder<S,D>::decode( S & scursor, const S & send,
 					  D & dcursor, const D & dend ) {
+  if ( mWithCRLF )
+    kdWarning() << "CRLF output for decoders isn't yet supported!" << endl;
+
   while ( scursor != send && dcursor != dend ) {
-    if ( flushing ) {
+    if ( mFlushing ) {
       // we have to flush chars in the aftermath of an decoding
       // error. The way to request a flush is to
-      // - store the offending character in badChar and
-      // - set flushing to true.
+      // - store the offending character in mBadChar and
+      // - set mFlushing to true.
       // The supported cases are (H: hexchar, X: bad char):
       // =X, =HX, CR
-      // badChar is only written out if it is not by itself illegal in
+      // mBadChar is only written out if it is not by itself illegal in
       // quoted-printable (e.g. CTLs, 8Bits).
-      // A fast way to suppress badChar output is to set it to NUL.
-      if ( insideHexChar ) {
+      // A fast way to suppress mBadChar output is to set it to NUL.
+      if ( mInsideHexChar ) {
 	// output '='
-	*dcursor++ = '=';
-	insideHexChar = false;
-      } else if ( haveAccu ) {
+	*dcursor++ = mEscapeChar;
+	mInsideHexChar = false;
+      } else if ( mHaveAccu ) {
 	// output the high nibble of the accumulator:
-	uchar value = accu >> 4;
+	uchar value = mAccu >> 4;
 	if ( value > 9 )
 	  value += 7;
 	*dcursor++ = char( value + '0' );
-	haveAccu = false;
-	accu = 0;
+	mHaveAccu = false;
+	mAccu = 0;
       } else {
-	// output badChar
-	Q_ASSERT( accu == 0 );
-	if ( badChar ) {
-	  if ( badChar >= '>' && badChar <= '~' ||
-	       badChar >= '!' && badChar <= '<' )
-	    *dcursor++ = badChar;
-	  badChar = 0;
+	// output mBadChar
+	assert( mAccu == 0 );
+	if ( mBadChar ) {
+	  if ( mBadChar >= '>' && mBadChar <= '~' ||
+	       mBadChar >= '!' && mBadChar <= '<' )
+	    *dcursor++ = mBadChar;
+	  mBadChar = 0;
 	}
-	flushing = false;
+	mFlushing = false;
       }
       continue;
     }
-    Q_ASSERT( badChar == 0 );
+    assert( mBadChar == 0 );
 
     uchar ch = *scursor++;
     uchar value = 255;
 
-    if ( expectLF && ch != '\n' ) {
+    if ( mExpectLF && ch != '\n' ) {
       kdWarning() << "QuotedPrintableDecoder: "
 	"illegally formed soft linebreak or lonely CR!" << endl;
-      insideHexChar = false;
-      expectLF = false;
-      Q_ASSERT( accu == 0 );
+      mInsideHexChar = false;
+      mExpectLF = false;
+      assert( mAccu == 0 );
     }
 
-    if ( insideHexChar ) {
+    if ( mInsideHexChar ) {
       // next char(s) represent nibble instead of itself:
       if ( ch <= '9' ) {
 	if ( ch >= '0' ) {
@@ -744,21 +821,21 @@ void QuotedPrintableDecoder<S,D>::decode( S & scursor, const S & send,
 	} else {
 	  switch ( ch ) {
 	  case '\r':
-	    expectLF = true;
+	    mExpectLF = true;
 	    break;
 	  case '\n':
-	    // soft line break, but only if accu is NUL.
-	    if ( !haveAccu ) {
-	      expectLF = false;
-	      insideHexChar = false;
+	    // soft line break, but only if mAccu is NUL.
+	    if ( !mHaveAccu ) {
+	      mExpectLF = false;
+	      mInsideHexChar = false;
 	      break;
 	    }
 	    // else fall through
 	  default:
 	    kdWarning() << "QuotedPrintableDecoder: "
 	      "illegally formed hex char! Outputting verbatim." << endl;
-	    badChar = ch;
-	    flushing = true;
+	    mBadChar = ch;
+	    mFlushing = true;
 	  }
 	  continue;
 	}
@@ -767,54 +844,56 @@ void QuotedPrintableDecoder<S,D>::decode( S & scursor, const S & send,
 	  if ( ch >= 'A' ) {
 	    value = 10 + ch - 'A';
 	  } else { // [:-@]
-	    badChar = ch;
-	    flushing = true;
+	    mBadChar = ch;
+	    mFlushing = true;
 	    continue;
 	  }
 	} else { // ch > 'F'
 	  if ( ch <= 'f' && ch >= 'a' ) {
 	    value = 10 + ch - 'a';
 	  } else {
-	    badChar = ch;
-	    flushing = true;
+	    mBadChar = ch;
+	    mFlushing = true;
 	    continue;
 	  }
 	}
       }
 
-      Q_ASSERT( value < 16 );
-      Q_ASSERT( badChar == 0 );
-      Q_ASSERT( !expectLF );
+      assert( value < 16 );
+      assert( mBadChar == 0 );
+      assert( !mExpectLF );
 
-      if ( haveAccu ) {
-	*dcursor++ = char( accu | value );
-	accu = 0;
-	haveAccu = false;
-	insideHexChar = false;
+      if ( mHaveAccu ) {
+	*dcursor++ = char( mAccu | value );
+	mAccu = 0;
+	mHaveAccu = false;
+	mInsideHexChar = false;
       } else {
-	haveAccu = true;
-	accu = value << 4;
+	mHaveAccu = true;
+	mAccu = value << 4;
       }
-    } else { // not insideHexChar
+    } else { // not mInsideHexChar
       if ( ch <= '~' && ch >= ' ' || ch == '\t' ) {
-	if ( ch == '=' ) {
-	  insideHexChar = true;
-	} else if ( qEncoding && ch == '_' ) {
+	if ( ch == mEscapeChar ) {
+	  mInsideHexChar = true;
+	} else if ( mQEncoding && ch == '_' ) {
 	  *dcursor++ = char(0x20);
 	} else {
 	  *dcursor++ = char(ch);
 	}
       } else if ( ch == '\n' ) {
 	*dcursor++ = '\n';
-	expectLF = false;
+	mExpectLF = false;
       } else if ( ch == '\r' ) {
-	expectLF = true;
+	mExpectLF = true;
       } else {
 	kdWarning() << "QuotedPrintableDecoder: " << ch <<
 	  " illegal character in input stream! Ignoring." << endl;
       }
     }
   }
+
+  return !(scursor != send);
 }
 
 template <typename S, typename D>
@@ -895,7 +974,7 @@ bool QuotedPrintableEncoder<S,D>::processNextChar() {
 // on whether or not to encode the current char, and whether or not
 // the current char is the last one in it's input line:
 template <typename S, typename D>
-void QuotedPrintableEncoder<S,D>::createOutputBuffer( bool withCRLF ) {
+void QuotedPrintableEncoder<S,D>::createOutputBuffer() {
   const int maxLineLength = 76; // rfc 2045
 
   assert( mOutputBufferCursor == 0 );
@@ -914,7 +993,7 @@ void QuotedPrintableEncoder<S,D>::createOutputBuffer( bool withCRLF ) {
   if ( mCurrentLineLength > maxLineLength - neededSpace ) {
       // current line too short, insert soft line break:
       mOutputBuffer[ mOutputBufferCursor++ ] = '=';
-      if ( withCRLF )
+      if ( mWithCRLF )
 	mOutputBuffer[ mOutputBufferCursor++ ] = '\r';
       mOutputBuffer[ mOutputBufferCursor++ ] = '\n';
       mCurrentLineLength = 0;
@@ -944,9 +1023,8 @@ void QuotedPrintableEncoder<S,D>::createOutputBuffer( bool withCRLF ) {
 }
 
 template <typename S, typename D>
-void QuotedPrintableEncoder<S,D>::encode( S & scursor, const S & send,
-					  D & dcursor, const D & dend,
-					  bool withCRLF ) {
+bool QuotedPrintableEncoder<S,D>::encode( S & scursor, const S & send,
+					  D & dcursor, const D & dend ) {
   assert ( !mFinishing );
 
   uint i = 0;
@@ -968,11 +1046,11 @@ void QuotedPrintableEncoder<S,D>::encode( S & scursor, const S & send,
     
     if ( processNextChar() )
       // there was one...
-      createOutputBuffer( withCRLF );
+      createOutputBuffer();
     else if ( mSawLineEnd &&
 	      mInputBufferWriteCursor == mInputBufferReadCursor ) {
       // load a hard line break into output buffer:
-      if ( withCRLF )
+      if ( mWithCRLF )
 	mOutputBuffer[ mOutputBufferCursor++ ] = '\r';
       mOutputBuffer[ mOutputBufferCursor++ ] = '\n';
       mSawLineEnd = false;
@@ -988,17 +1066,19 @@ void QuotedPrintableEncoder<S,D>::encode( S & scursor, const S & send,
   } else if ( i == mOutputBufferCursor ) {
     mOutputBufferCursor = i = 0;
   }
-    
+
+  return !(scursor != send);
+   
 } // encode
 
 template <typename S, typename D>
-void QuotedPrintableEncoder<S,D>::finish( D & dcursor, const D & dend,
-					  bool withCRLF ) {
+bool QuotedPrintableEncoder<S,D>::finish( D & dcursor, const D & dend ) {
   mFinishing = true;
 
   uint i = 0;
 
   while ( dcursor != dend ) {
+    // empty output buffer:
     if ( mOutputBufferCursor ) {
       assert( mOutputBufferCursor <= 6 );
       if ( i < mOutputBufferCursor ) {
@@ -1013,11 +1093,11 @@ void QuotedPrintableEncoder<S,D>::finish( D & dcursor, const D & dend,
 
     if ( processNextChar() )
       // there was one...
-      createOutputBuffer( withCRLF );
+      createOutputBuffer();
     else if ( mSawLineEnd &&
 	      mInputBufferWriteCursor == mInputBufferReadCursor ) {
       // load a hard line break into output buffer:
-      if ( withCRLF )
+      if ( mWithCRLF )
 	mOutputBuffer[ mOutputBufferCursor++ ] = '\r';
       mOutputBuffer[ mOutputBufferCursor++ ] = '\n';
       mSawLineEnd = false;
@@ -1033,12 +1113,16 @@ void QuotedPrintableEncoder<S,D>::finish( D & dcursor, const D & dend,
   } else if ( i == mOutputBufferCursor ) {
     mOutputBufferCursor = i = 0;
   }
+
+  // ### Most probably not correct...
+  return !mOutputBufferCursor
+    && mInputBufferReadCursor == mInputBufferWriteCursor;
 } // finish
 
 
 template <typename S, typename D>
-void Rfc2047QEncodingEncoder<S,D>::encode( S & scursor, const S & send,
-					   D & dcursor, const D & dend, bool )
+bool Rfc2047QEncodingEncoder<S,D>::encode( S & scursor, const S & send,
+					   D & dcursor, const D & dend )
 {
   while ( scursor != send && dcursor != dend ) {
     uchar value;
@@ -1047,13 +1131,15 @@ void Rfc2047QEncodingEncoder<S,D>::encode( S & scursor, const S & send,
       mAccu = *scursor++;
       // <= 'z' is an optimization, since we know that {|}~ are not
       // etext:
-      if ( mAccu <= 'z' && isEText( mAccu ) ) {
+      if ( mAccu <= 'z' && isEText( mAccu )
+	   && mAccu != (unsigned char)mEscapeChar ) {
 	*dcursor++ = char(mAccu);
-      } else if ( mAccu == 0x20 ) {
+      } else if ( mEscapeChar == '=' && mAccu == 0x20 ) {
 	// shortcut encoding for 0x20 (latin-1/us-ascii SPACE)
+	// (not for rfc2231 encoding)
 	*dcursor++ = '_';
       } else {
-	*dcursor++ = '=';
+	*dcursor++ = mEscapeChar;
 	mStepNo = 1;
       }
       continue;
@@ -1074,11 +1160,12 @@ void Rfc2047QEncodingEncoder<S,D>::encode( S & scursor, const S & send,
       value += '0';
     *dcursor++ = char(value);
   }
+
+  return !(scursor != send);
 } // encode
 
 template <typename S, typename D>
-void Rfc2047QEncodingEncoder<S,D>::finish( D & dcursor,
-					   const D & dend, bool ) {
+bool Rfc2047QEncodingEncoder<S,D>::finish( D & dcursor, const D & dend ) {
 
   while ( !mStepNo && dcursor != dend ) {
     uchar value;
@@ -1100,55 +1187,14 @@ void Rfc2047QEncodingEncoder<S,D>::finish( D & dcursor,
       value += '0';
     *dcursor++ = char(value);
   }
+
+  return mStepNo == 0;
 };
 
 static inline bool keep( uchar ch ) {
   // no CTLs, except HT and not '?'
   return !( ch < ' ' && ch != '\t' || ch == '?' );
 }
-
-#if 0
-template <typename S, typename D>
-void Rfc2047QEncodingDecoder::decode( S & scursor, const S & send,
-				      D & dcursor, const D & dend ) {
-  while ( scursor != send && dcursor != dend ) {
-    uchar ch = *scursor++;
-    uchar value;
-    switch ( mStepNo ) {
-    case 0:
-      if ( ch <= '~' ) {
-	if ( isEText( ch ) )
-	  *dcursor++ = char(ch);
-	else if ( ch == '_' ) 
-	  *dcursor++ = char(0x20);
-	else if ( ch == '=' ) 
-	  mStepNo = 1;
-	else if ( keep( ch ) )
-	  // invalid character, but keep
-	  *dcursor++ = char(ch);
-	else
-	  // invalid character, ignore
-	  kdWarning() << "Rfc2047QEncodingDecoder: Invalid character in "
-	    "input stream. Ignoring." << endl;
-      } else {
-	// invalid character, ignore
-	kdWarning() << "Rfc2047QEncodingDecoder: Invalid character in "
-	  "input stream. Ignoring." << endl;
-      }
-      break;
-    case 1:
-    case 2:
-      if ( ch <= '9' ) {
-	if ( ch >= '0' ) {
-	  mAccu = ( ch - '0' ) << 4;
-	} else 
-      } else if ( ch <= 'F' ) {
-      }
-    default: assert( 0 );
-    }
-  }
-} // decode
-#endif
 
 }; // namespace KMime
 
