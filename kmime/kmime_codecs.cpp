@@ -22,6 +22,8 @@
 
 #include <kdebug.h>
 
+#include <qcstring.h>
+
 #include <cassert>
 #include <cstring>
 
@@ -93,6 +95,50 @@ bool Codec::encode( const char* & scursor, const char * const send,
   // cleanup and return:
   delete enc;
   return true; // successfully encoded.
+}
+
+QByteArray Codec::encode( const QByteArray & src, bool withCRLF )
+{
+  // allocate buffer for the worst case:
+  QByteArray result( maxEncodedSizeFor( src.size(), withCRLF ) );
+
+  // set up iterators:
+  QByteArray::ConstIterator iit = src.begin();
+  QByteArray::ConstIterator iend = src.end();
+  QByteArray::Iterator oit = result.begin();
+  QByteArray::ConstIterator oend = result.end();
+
+  // encode
+  if ( !encode( iit, iend, oit, oend, withCRLF ) )
+    kdFatal() << name() << " codec lies about it's mEncodedSizeFor()"
+	      << endl;
+
+  // shrink result to actual size:
+  result.truncate( oit - result.begin() );
+
+  return result;
+}
+
+QByteArray Codec::decode( const QByteArray & src, bool withCRLF )
+{
+  // allocate buffer for the worst case:
+  QByteArray result( maxDecodedSizeFor( src.size(), withCRLF ) );
+
+  // set up iterators:
+  QByteArray::ConstIterator iit = src.begin();
+  QByteArray::ConstIterator iend = src.end();
+  QByteArray::Iterator oit = result.begin();
+  QByteArray::ConstIterator oend = result.end();
+
+  // decode
+  if ( !decode( iit, iend, oit, oend, withCRLF ) )
+    kdFatal() << name() << " codec lies about it's maxDecodedSizeFor()"
+	      << endl;
+
+  // shrink result to actual size:
+  result.truncate( oit - result.begin() );
+
+  return result;
 }
 
 bool Codec::decode( const char* & scursor, const char * const send,

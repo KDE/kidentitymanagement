@@ -33,6 +33,25 @@ public:
     return "quoted-printable";
   }
 
+  int maxEncodedSizeFor( int insize, bool withCRLF=false ) const {
+    // all chars encoded:
+    int result = 3*insize;
+    // then after 25 hexchars comes a soft linebreak: =(\r)\n
+    result += (withCRLF ? 3 : 2) * (insize/25);
+
+    return result;
+  }
+
+  int maxDecodedSizeFor( int insize, bool withCRLF=false ) const {
+    // all chars unencoded:
+    int result = insize;
+    // but maybe all of them are \n and we need to make them \r\n :-o
+    if ( withCRLF )
+      result += insize;
+
+    return result;
+  }
+
   Encoder * makeEncoder( bool withCRLF=false ) const;
   Decoder * makeDecoder( bool withCRLF=false ) const;
 };
@@ -50,6 +69,19 @@ public:
     return "q";
   }
 
+  int maxEncodedSizeFor( int insize, bool withCRLF=false ) const {
+    (void)withCRLF; // keep compiler happy
+    // this one is simple: We don't do linebreaking, so all that can
+    // happen is that every char needs encoding, so:
+    return 3*insize;
+  }
+
+  int maxDecodedSizeFor( int insize, bool withCRLF=false ) const {
+    (void)withCRLF; // keep compiler happy
+    // equally simple: nothing is encoded at all, so:
+    return insize;
+  }
+
   Encoder * makeEncoder( bool withCRLF=false ) const;
   Decoder * makeDecoder( bool withCRLF=false ) const;
 };
@@ -65,6 +97,18 @@ public:
 
   const char * name() const {
     return "x-kmime-rfc2231";
+  }
+
+  int maxEncodedSizeFor( int insize, bool withCRLF=false ) const {
+    (void)withCRLF; // keep compiler happy
+    // same as for "q" encoding:
+    return 3*insize;
+  }
+
+  int maxDecodedSizeFor( int insize, bool withCRLF=false ) const {
+    (void)withCRLF; // keep compiler happy
+    // same as for "q" encoding:
+    return insize;
   }
 
   Encoder * makeEncoder( bool withCRLF=false ) const;

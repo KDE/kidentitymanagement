@@ -1,4 +1,4 @@
-/*
+/*  -*- c++ -*-
     kmime_codecs.h
 
     KMime, the KDE internet mail/usenet news message library.
@@ -21,7 +21,7 @@
 #  include <qmutex.h>
 #endif
 
-class QCString;
+#include <qcstring.h> // funny: can't forward decl QByteArray :-(
 
 namespace KMime {
 
@@ -50,6 +50,9 @@ private:
 public:
   static Codec * codecForName( const char * name );
   static Codec * codecForName( const QCString & name );
+
+  virtual int maxEncodedSizeFor( int insize, bool withCRLF=false ) const = 0;
+  virtual int maxDecodedSizeFor( int insize, bool withCRLF=false ) const = 0;
   
   virtual Encoder * makeEncoder( bool withCRLF=false ) const = 0;
   virtual Decoder * makeDecoder( bool withCRLF=false ) const = 0;
@@ -125,6 +128,24 @@ public:
   virtual bool decode( const char* & scursor, const char * const send,
 		       char* & dcursor, const char * const dend,
 		       bool withCRLF=false ) const;
+
+  /**
+   * Even more convenient, but also a bit slower and more memory
+   * intensive, since it allocates storage for the worst case and then
+   * shrinks the result QByteArray to the actual size again.
+   *
+   * For use with small @p src.
+   **/
+  virtual QByteArray encode( const QByteArray & src, bool withCRLF=false );
+
+  /**
+   * Even more convenient, but also a bit slower and more memory
+   * intensive, since it allocates storage for the worst case and then
+   * shrinks the result QByteArray to the actual size again.
+   *
+   * For use with small @p src.
+   **/
+  virtual QByteArray decode( const QByteArray & src, bool withCRLF=false );
 
   /**
    * @return the name of the encoding. Guaranteed to be lowercase.

@@ -32,6 +32,29 @@ public:
     return "base64";
   }
 
+  int maxEncodedSizeFor( int insize, bool withCRLF=false ) const {
+    // first, the total number of 4-char packets will be:
+    int totalNumPackets = ( insize + 2 ) / 3;
+    // now, after every 76/4'th packet there needs to be a linebreak:
+    int numLineBreaks = totalNumPackets / (76/4);
+    // putting it all together, we have:
+    return 4 * totalNumPackets + ( withCRLF ? 2 : 1 ) * numLineBreaks;
+  }
+
+  int maxDecodedSizeFor( int insize, bool withCRLF=false ) const {
+    // assuming all characters are part of the base64 stream (which
+    // does almost never hold due to required linebreaking; but
+    // additonal non-base64 chars don't affect the output size), each
+    // 4-tupel of them becomes a 3-tupel in the decoded octet
+    // stream. So:
+    int result = ( ( insize + 3 ) / 4 ) * 3;
+    // but all of them may be \n, so
+    if ( withCRLF )
+      result *= 2; // :-o
+
+    return result;
+  }
+
   Encoder * makeEncoder( bool withCRLF=false ) const;
   Decoder * makeDecoder( bool withCRLF=false ) const;
 };
@@ -48,6 +71,19 @@ public:
   virtual ~Rfc2047BEncodingCodec() {}
 
   const char * name() const { return "b"; }
+
+  int maxEncodedSizeFor( int insize, bool withCRLF=false ) const {
+    (void)withCRLF; // keep compiler happy
+    // Each (begun) 3-octet triple becomes a 4 char quartet, so:
+    return ( insize / 3 ) * 4;
+  }
+
+  int maxDecodedSizeFor( int insize, bool withCRLF=false ) const {
+    (void)withCRLF; // keep compiler happy
+    // Each 4-char quarted becomes a 3-octet triple, the last one
+    // possibly even less. So:
+    return ( ( insize + 3 ) / 4 ) * 3;
+  }
 
   Encoder * makeEncoder( bool withCRLF=false ) const;
 };
