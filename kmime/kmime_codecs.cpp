@@ -1238,4 +1238,4 @@ static inline bool keep( uchar ch ) {
 }; // namespace KMime
 
 // explicit instantation of the most often used instance:
-template KMime::Codec<char*,char*>;
+template class KMime::Codec<char*,char*>;
