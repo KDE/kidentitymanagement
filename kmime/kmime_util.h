@@ -117,7 +117,7 @@ namespace KMime {
   */
   extern QCString extractHeader(const QCString &src, const char *name);
   /** Converts all occurences of "\r\n" (CRLF) in @p s to "\n" (LF).
-      
+
       This function is expensive and should be used only if the mail
       will be stored locally. All decode functions can cope with both
       line endings.
@@ -127,7 +127,7 @@ namespace KMime {
   */
   extern QCString CRLFtoLF(const QCString &s);
   /** Converts all occurences of "\r\n" (CRLF) in @p s to "\n" (LF).
-      
+
       This function is expensive and should be used only if the mail
       will be stored locally. All decode functions can cope with both
       line endings.
@@ -137,7 +137,7 @@ namespace KMime {
   */
   extern QCString CRLFtoLF(const char *s);
   /** Converts all occurences of "\n" (LF) in @p s to "\r\n" (CRLF).
-      
+
       This function is expensive and should be used only if the mail
       will be transmitted as an RFC822 message later. All decode
       functions can cope with and all encode functions can optionally
@@ -170,7 +170,7 @@ namespace KMime {
   extern void addQuotes(QCString &str, bool forceQuotes);
 
 
-  /** 
+  /**
    * DateFormatter deals with different kinds of date
    * display formats. The formats supported by the class include:
    * <ul>
@@ -183,7 +183,7 @@ namespace KMime {
    * </ul>
    *
    *
-   * @short class abstracting date formatting 
+   * @short class abstracting date formatting
    */
   class DateFormatter {
   public:
@@ -194,15 +194,15 @@ namespace KMime {
       Iso,
       Custom
     };
-    
-    /** 
-     * constructor 
+
+    /**
+     * constructor
      * @param fType default format used by the class
      */
     DateFormatter(FormatType fType = DateFormatter::Fancy);
-    
+
     ~DateFormatter();
-    
+
     /**
      * returns the currently set format
      */
@@ -211,7 +211,7 @@ namespace KMime {
      * sets the currently used format
      */
     void setFormat(FormatType t);
-      
+
     /**
      * returns formatted date string in a currently
      * set format.
@@ -226,13 +226,13 @@ namespace KMime {
      * overloaded, does exactly what @ref #dateString does (it's slower)
      */
     QString dateString(const QDateTime& dtime, const QString& lang = QString::null,
-		       bool shortFormat = true, bool includeSecs=false) const;    
+		       bool shortFormat = true, bool includeSecs=false) const;
 
 
     /**
-     * makes the class use the custom format for 
+     * makes the class use the custom format for
      * date to string conversions.
-     * Method accepts the same arguments 
+     * Method accepts the same arguments
      * as @ref QDateTime::toString method and adds
      * "Z" expression which is substituted with the
      * RFC-822 style numeric timezone (-0500)
@@ -240,7 +240,7 @@ namespace KMime {
      */
     void    setCustomFormat(const QString& format);
     QString getCustomFormat() const;
-    
+
     /**
      * returns rfc2822 formatted string
      * @param otime time to use for formatting
@@ -250,18 +250,18 @@ namespace KMime {
      * resets the internal clock
      */
     void reset();
-    
+
     //statics
-    /** convenience function @see dateString 
-     * @param data is either the format when FormatType is Custom, or language 
+    /** convenience function @see dateString
+     * @param data is either the format when FormatType is Custom, or language
      * when FormatType is Localized
      */
     static QString  formatDate( DateFormatter::FormatType t, time_t time,
-				const QString& data = QString::null, 
+				const QString& data = QString::null,
 				bool shortFormat = true, bool includeSecs=false);
     /** convenience function, same as @ref #formatDate
-     * but returns the current time formatted 
-     * @param data is either the format when FormatType is Custom, or language 
+     * but returns the current time formatted
+     * @param data is either the format when FormatType is Custom, or language
      * when FormatType is Localized
      */
     static QString  formatCurrentDate( DateFormatter::FormatType t,
@@ -269,6 +269,7 @@ namespace KMime {
 				       bool shortFormat = true, bool includeSecs=false);
     /** convenience function, same as @ref #rfc2822 */
     static QCString rfc2822FormatDate( time_t time );
+    static bool     isDaylight();
   protected:
     /**
      * returns fancy formatted date string
@@ -279,12 +280,12 @@ namespace KMime {
     /**
      * returns localized formatted date string
      * @param otime time to format
-     * @param shortFormat 
+     * @param shortFormat
      * @param includeSecs
      * @param localeLanguage language used for formatting
      * @internal
      */
-    QString localized(time_t otime, bool shortFormat = true, bool includeSecs = false, 
+    QString localized(time_t otime, bool shortFormat = true, bool includeSecs = false,
 		      const QString& localeLanguage=QString::null ) const;
     /**
      * returns string as formatted with ctime function
@@ -316,8 +317,9 @@ namespace KMime {
     mutable time_t 	mCurrentTime;
     mutable QDateTime 	mDate;
     QString 		mCustomFormat;
+    static int          mDaylight;
   };
-  
+
 } // namespace KMime
 
 #endif /* __KMIME_UTIL_H__ */

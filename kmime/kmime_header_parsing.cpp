@@ -72,7 +72,7 @@ bool parseEncodedWord( const char* & scursor, const char * const send,
   for ( ; scursor != send ; scursor++ )
     if ( *scursor == '?')
       break;
-    else if ( *scursor == '*' && !languageStart ) 
+    else if ( *scursor == '*' && !languageStart )
       languageStart = scursor + 1;
 
   // not found? can't be an encoded-word!
@@ -414,7 +414,7 @@ bool parseComment( const char* & scursor, const char * const send,
   const char * oldscursor = scursor;
 
   assert( *(scursor-1) == '(' );
-  
+
   while ( commentNestingDepth ) {
     QString cmntPart;
     if ( parseGenericQuotedString( scursor, send, cmntPart, isCRLF, '(', ')' ) ) {
@@ -517,7 +517,7 @@ bool parsePhrase( const char* & scursor, const char * const send,
       if ( parseComment( scursor, send, tmp, isCRLF,
 			 false /*don't bother with the content*/ ) ) {
 	successfullyParsed = scursor;
-	lastWasEncodedWord = false; // strictly interpreting rfc2047, 6.2 
+	lastWasEncodedWord = false; // strictly interpreting rfc2047, 6.2
       } else {
 	if ( found == None )
 	  return false;
@@ -658,7 +658,7 @@ void eatCFWS( const char* & scursor, const char * const send, bool isCRLF ) {
 	continue;
       scursor = oldscursor;
       return;
-      
+
     default:
       scursor = oldscursor;
       return;
@@ -671,7 +671,7 @@ bool parseDomain( const char* & scursor, const char * const send,
 		  QString & result, bool isCRLF ) {
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send ) return false;
-  
+
   // domain := dot-atom / domain-literal / atom *("." atom)
   //
   // equivalent to:
@@ -814,11 +814,11 @@ bool parseAddrSpec( const char* & scursor, const char * const send,
 SAW_AT_SIGN:
 
   assert( *(scursor-1) == '@' );
-  
+
   QString maybeDomain;
   if ( !parseDomain( scursor, send, maybeDomain, isCRLF ) )
     return false;
-    
+
   result.localPart = maybeLocalPart;
   result.domain = maybeDomain;
 
@@ -854,7 +854,7 @@ bool parseAngleAddr( const char* & scursor, const char * const send,
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send || *scursor != '>' ) return false;
   scursor++;
-  
+
   result = maybeAddrSpec;
   return true;
 
@@ -940,7 +940,7 @@ bool parseGroup( const char* & scursor, const char * const send,
   while ( scursor != send ) {
     eatCFWS( scursor, send, isCRLF );
     if ( scursor == send ) return false;
-    
+
     // empty entry:
     if ( *scursor == ',' ) { scursor++; continue; }
 
@@ -951,7 +951,7 @@ bool parseGroup( const char* & scursor, const char * const send,
     if ( !parseMailbox( scursor, send, maybeMailbox, isCRLF ) )
       return false;
     result.mailboxList.append( maybeMailbox );
-    
+
     eatCFWS( scursor, send, isCRLF );
     // premature end:
     if ( scursor == send ) return false;
@@ -983,7 +983,7 @@ bool parseAddress( const char* & scursor, const char * const send,
   scursor = oldscursor;
 
   Address maybeAddress;
-  
+
   // no, it's not a single mailbox. Try if it's a group:
   if ( !parseGroup( scursor, send, maybeAddress, isCRLF ) )
     return false;
@@ -1024,7 +1024,7 @@ bool parseParameter( const char* & scursor, const char * const send,
 		     QPair<QString,QStringOrQPair> & result, bool isCRLF ) {
   // parameter = regular-parameter / extended-parameter
   // regular-parameter = regular-parameter-name "=" value
-  // extended-parameter = 
+  // extended-parameter =
   // value = token / quoted-string
   //
   // note that rfc2231 handling is out of the scope of this function.
@@ -1154,9 +1154,9 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
 				bool isContinuation, QString & value,
 				QPair<const char*,int> & source ) {
 
-  // 
+  //
   // parse the raw value into (charset,language,text):
-  // 
+  //
 
   const char * decBegin = source.first;
   const char * decCursor = decBegin;
@@ -1168,7 +1168,7 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
       if ( *decCursor == '\'' ) break;
       else decCursor++;
     }
-    
+
     if ( decCursor == decEnd ) {
       // there wasn't a single single quote at all!
       // take the whole value to be in latin-1:
@@ -1177,9 +1177,9 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
       value += QString::fromLatin1( decBegin, source.second );
       return;
     }
-    
+
     QCString charset( decBegin, decCursor - decBegin + 1 );
-    
+
     const char * oldDecCursor = ++decCursor;
     // find the second single quote (we ignore the language tag):
     while ( decCursor != decEnd ) {
@@ -1217,11 +1217,11 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
     value += QString::fromLatin1( decCursor, decEnd - decCursor );
     return;
   }
-  
+
   Decoder * dec = rfc2231Codec->makeDecoder();
   assert( dec );
-  
-  //  
+
+  //
   // do the decoding:
   //
 
@@ -1235,7 +1235,7 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
       "result may be truncated" << endl;
 
   value += textcodec->toUnicode( buffer.begin(), bit - buffer.begin() );
-  
+
   kdDebug() << "value now: \"" << value << "\"" << endl;
   // cleanup:
   delete dec;
@@ -1318,7 +1318,7 @@ bool parseParameterList( const char* & scursor,	const char * const send,
       //
       // continuation
       //
-      
+
       // ignore the section and trust QMap to have sorted the keys:
       if ( it.key().endsWith( asterisk ) ) {
 	// encoded
@@ -1565,6 +1565,7 @@ bool parseTime( const char* & scursor, const char * send,
   return true;
 }
 
+
 bool parseDateTime( const char* & scursor, const char * const send,
 		    Types::DateTime & result, bool isCRLF )
 {
@@ -1662,13 +1663,13 @@ bool parseDateTime( const char* & scursor, const char * const send,
   maybeDateTime.tm_hour = maybeHour;
   maybeDateTime.tm_min = maybeMinute;
   maybeDateTime.tm_sec = maybeSecond;
-
+  maybeDateTime.tm_isdst = DateFormatter::isDaylight();
   // now put everything together and check if mktime(3) likes it:
   result.time = mktime( &maybeDateTime );
   if ( result.time == (time_t)(-1) ) return false;
 
   // adjust to UTC/GMT:
-  result.time -= secsEastOfGMT;
+  //result.time -= secsEastOfGMT;
   result.secsEastOfGMT = secsEastOfGMT;
   result.timeZoneKnown = timeZoneKnown;
 

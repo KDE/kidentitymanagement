@@ -142,7 +142,7 @@ QCString decodeBase64( const QCString & src, int & pos,
       result += (char)(outbits | value >> 4);
       outbits = value << 4;
       break;
-    case 2: 
+    case 2:
       result += (char)(outbits | value >> 2);
       outbits = value << 6;
       break;
@@ -514,29 +514,29 @@ void addQuotes(QCString &str, bool forceQuotes)
   }
 }
 
-
+int DateFormatter::mDaylight = -1;
 DateFormatter::DateFormatter(FormatType fType)
   : mFormat( fType ), mCurrentTime( 0 )
 {
 
 }
-  
+
 DateFormatter::~DateFormatter()
 {/*empty*/}
-  
-DateFormatter::FormatType 
+
+DateFormatter::FormatType
 DateFormatter::getFormat() const
 {
   return mFormat;
 }
- 
-void       
+
+void
 DateFormatter::setFormat( FormatType t )
 {
   mFormat = t;
 }
 
-QString 
+QString
 DateFormatter::dateString( time_t otime , const QString& lang ,
 		       bool shortFormat, bool includeSecs ) const
 {
@@ -567,7 +567,7 @@ DateFormatter::dateString(const QDateTime& dtime, const QString& lang,
   return DateFormatter::dateString( qdateToTimeT(dtime), lang, shortFormat, includeSecs );
 }
 
-QCString 
+QCString
 DateFormatter::rfc2822(time_t otime) const
 {
   QDateTime tmp;
@@ -577,7 +577,7 @@ DateFormatter::rfc2822(time_t otime) const
 
   ret = tmp.toString("ddd, dd MMM yyyy hh:mm:ss ").latin1();
   ret += zone(otime);
-  
+
   return ret;
 }
 
@@ -586,42 +586,42 @@ DateFormatter::custom(time_t t) const
 {
   if ( mCustomFormat.isEmpty() )
     return QString::null;
-  
+
   int z = mCustomFormat.find("Z");
   QDateTime d;
   QString ret = mCustomFormat;
-  
+
   d.setTime_t(t);
   if ( z != -1 ) {
     ret.replace(z,1,zone(t));
   }
-  
+
   ret = d.toString(ret);
-  
+
   return ret;
 }
 
-void    
+void
 DateFormatter::setCustomFormat(const QString& format)
 {
   mCustomFormat = format;
   mFormat = Custom;
 }
 
-QString 
+QString
 DateFormatter::getCustomFormat() const
 {
   return mCustomFormat;
 }
 
 
-QCString 
+QCString
 DateFormatter::zone(time_t otime) const
 {
   QCString ret;
   struct tm *local = localtime( &otime );
 
-#if defined(HAVE_TIMEZONE) 
+#if defined(HAVE_TIMEZONE)
 
   //hmm, could make hours & mins static
   int secs = abs(timezone);
@@ -629,11 +629,15 @@ DateFormatter::zone(time_t otime) const
   int hours = secs/3600;
   int mins  = (secs - hours*3600)/60;
 
-  //WARNING: This one bothers me a little bit
-  //how many systems include daylight savings in here
-  //and in tm_gmtoff ?
-  /*if ( local->tm_isdst > 0 )
-    ++hours;*/
+  // adjust to daylight
+  if ( local->tm_isdst > 0 ) {
+      mDaylight = 1;
+      if ( neg )
+        --hours;
+      else
+        ++hours;
+  } else
+      mDaylight = 0;
 
   ret.sprintf("%c%.2d%.2d",(neg)?'-':'+', hours, mins);
 
@@ -643,10 +647,19 @@ DateFormatter::zone(time_t otime) const
   int neg  = (local->tm_gmtoff<0)?1:0; //no, I don't know why it's backwards :o
   int hours = secs/3600;
   int mins  = (secs - hours*3600)/60;
-  
+
+  if ( local->tm_isdst > 0 ) {
+      mDaylight = 1;
+      if ( neg )
+        --hours;
+      else
+        ++hours;
+  } else
+      mDaylight = 0;
+
   ret.sprintf("%c%.2d%.2d",(neg)?'-':'+', hours, mins);
 
-#else 
+#else
 
   QDateTime d1 = QDateTime::fromString( asctime(gmtime(&otime)) );
   QDateTime d2 = QDateTime::fromString( asctime(localtime(&otime)) );
@@ -655,7 +668,7 @@ DateFormatter::zone(time_t otime) const
   secs = abs(secs);
   int hours = secs/3600;
   int mins  = (secs - hours*3600)/60;
-
+  // daylight should be already taken care of here
   ret.sprintf("%c%.2d%.2d",(neg)?'-':'+', hours, mins);
 
 #endif /* HAVE_TIMEZONE */
@@ -663,7 +676,7 @@ DateFormatter::zone(time_t otime) const
   return ret;
 }
 
-time_t 
+time_t
 DateFormatter::qdateToTimeT(const QDateTime& dt) const
 {
   QDateTime epoch( QDate(1970, 1,1), QTime(00,00,00) );
@@ -674,14 +687,14 @@ DateFormatter::qdateToTimeT(const QDateTime& dt) const
   QDateTime d2 = QDateTime::fromString( asctime(localtime(&otime)) );
   time_t drf = epoch.secsTo( dt ) - d1.secsTo( d2 );
 
-  return drf; 
+  return drf;
 }
 
-QString 
-DateFormatter::fancy(time_t otime) const 
+QString
+DateFormatter::fancy(time_t otime) const
 {
   KLocale *locale = KGlobal::locale();
-  
+
   if ( otime <= 0 )
     return i18n( "unknown" );
 
@@ -692,11 +705,11 @@ DateFormatter::fancy(time_t otime) const
 
   QDateTime old;
   old.setTime_t( otime );
-  
+
   // not more than an hour in the future
   if ( mCurrentTime + 60 * 60 >= otime ) {
     time_t diff = mCurrentTime - otime;
-    
+
     if ( diff < 24 * 60 * 60 ) {
       if ( old.date().year() == mDate.date().year() &&
 	   old.date().dayOfYear() == mDate.date().dayOfYear() )
@@ -720,13 +733,13 @@ DateFormatter::fancy(time_t otime) const
 	    arg( locale->formatTime( old.time(), true) );
       }
   }
-  
+
   return locale->formatDateTime( old );
-  
+
 }
 
-QString 
-DateFormatter::localized(time_t otime, bool shortFormat, bool includeSecs, 
+QString
+DateFormatter::localized(time_t otime, bool shortFormat, bool includeSecs,
 			 const QString& localeLanguage ) const
 {
   QDateTime tmp;
@@ -744,17 +757,17 @@ DateFormatter::localized(time_t otime, bool shortFormat, bool includeSecs,
   } else {
     ret = locale->formatDateTime( tmp, shortFormat, includeSecs );
   }
-  
+
   return ret;
 }
 
-QString 
+QString
 DateFormatter::cTime(time_t otime) const
 {
   return QString::fromLatin1( ctime(  &otime ) ).stripWhiteSpace() ;
 }
 
-QString 
+QString
 DateFormatter::isoDate(time_t otime) const
 {
   char cstr[64];
@@ -763,13 +776,13 @@ DateFormatter::isoDate(time_t otime) const
 }
 
 
-void 
+void
 DateFormatter::reset()
 {
   mCurrentTime = 0;
 }
 
-QString 
+QString
 DateFormatter::formatDate(DateFormatter::FormatType t, time_t otime,
 			  const QString& data, bool shortFormat, bool includeSecs )
 {
@@ -781,7 +794,7 @@ DateFormatter::formatDate(DateFormatter::FormatType t, time_t otime,
 }
 
 QString
-DateFormatter::formatCurrentDate( DateFormatter::FormatType t, const QString& data, 
+DateFormatter::formatCurrentDate( DateFormatter::FormatType t, const QString& data,
 				  bool shortFormat, bool includeSecs )
 {
   DateFormatter f( t );
@@ -791,11 +804,30 @@ DateFormatter::formatCurrentDate( DateFormatter::FormatType t, const QString& da
   return f.dateString( time(0), data, shortFormat, includeSecs );
 }
 
-QCString 
+QCString
 DateFormatter::rfc2822FormatDate( time_t t )
 {
   DateFormatter f;
   return f.rfc2822( t );
+}
+
+bool
+DateFormatter::isDaylight()
+{
+  if ( mDaylight == -1 ) {
+    time_t ntime = time( 0 );
+    struct tm *local = localtime( &ntime );
+    if ( local->tm_isdst > 0 ) {
+      mDaylight = 1;
+      return true;
+    } else {
+      mDaylight = 0;
+      return false;
+    }
+  } else if ( mDaylight != 0 )
+    return true;
+  else
+    return false;
 }
 
 } // namespace KMime
