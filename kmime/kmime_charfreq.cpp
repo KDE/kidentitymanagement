@@ -110,21 +110,26 @@ CharFreq::Type CharFreq::type() const {
 
   // doesn't contain NUL's:
   if ( eightBit ) {
-    if ( lineMax > 988 ) return Binary; // not allowed in 8bit
-    if ( CTL || CR != CRLF ) return Binary; // dunno if allowed in 8bit, but a bad idea anyway
+    if ( lineMax > 988 ) return EightBitData; // not allowed in 8bit
+    if ( CR != CRLF || controlCodesRatio() > 0.3 ) return EightBitData;
     return EightBitText;
   }
 
   // doesn't contain NUL's, nor 8bit chars:
   if ( lineMax > 988 ) return SevenBitData;
-  if ( CTL || CR != CRLF ) return SevenBitData;
+  if ( CR != CRLF || controlCodesRatio() > 0.3 ) return SevenBitData;
   
-  // no NUL, no 8bit chars, no CTLs and nolines > 988 chars:
+  // no NUL, no 8bit chars, no excessive CTLs and no lines > 998 chars:
   return SevenBitText;
 }
 
 float CharFreq::printableRatio() const {
   if ( total ) return float(printable) / float(total);
+  else         return 0;
+}
+
+float CharFreq::controlCodesRatio() const {
+  if ( total ) return float(CTL) / float(total);
   else         return 0;
 }
 

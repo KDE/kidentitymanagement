@@ -37,6 +37,9 @@ public:
   /** Returns the percentage of printable characters: printable/total.
       If total == 0, the result is undefined. */
   float printableRatio() const;
+  /** Returns the percentage of control code (CTLs): CTL/total.
+      If total == 0, the result is undefined. */
+  float controlCodesRatio() const;
 
 protected:
   bool lastWasCR;
