@@ -1494,25 +1494,19 @@ bool parseDateTime( const char* & scursor, const char * const send,
   //
   // let's see if there's a day-of-week:
   //
-  kdDebug() << "day-of-week" << endl;
   if ( parseDayName( scursor, send ) ) {
-    kdDebug() << "yes" << endl;
     eatCFWS( scursor, send, isCRLF );
     if ( scursor == send ) return false;
     // day-name should be followed by ',' but we treat it as optional:
     if ( *scursor == ',' ) {
-      kdDebug() << "eating ','" << endl;
       scursor++; // eat ','
       eatCFWS( scursor, send, isCRLF );
     }
-  } else {
-    kdDebug() << "no" << endl;
   }
 
   //
   // 1*2DIGIT representing "day" (of month):
   //
-  kdDebug() << "day" << endl;
   int maybeDay;
   if ( !parseDigits( scursor, send, maybeDay ) ) return false;
 
@@ -1525,7 +1519,6 @@ bool parseDateTime( const char* & scursor, const char * const send,
   //
   // month-name:
   //
-  kdDebug() << "month-name" << endl;
   int maybeMonth = 0;
   if ( !parseMonthName( scursor, send, maybeMonth ) ) return false;
   if ( scursor == send ) return false;
@@ -1540,7 +1533,6 @@ bool parseDateTime( const char* & scursor, const char * const send,
   //
   // 2*DIGIT representing "year":
   //
-  kdDebug() << "year" << endl;
   int maybeYear;
   if ( !parseDigits( scursor, send, maybeYear ) ) return false;
   // RFC 2822 4.3 processing:
@@ -1560,7 +1552,6 @@ bool parseDateTime( const char* & scursor, const char * const send,
   //
   // 2DIGIT representing "hour":
   //
-  kdDebug() << "hour" << endl;
   int maybeHour;
   if ( !parseDigits( scursor, send, maybeHour ) ) return false;
 
@@ -1574,7 +1565,6 @@ bool parseDateTime( const char* & scursor, const char * const send,
   //
   // 2DIGIT representing "minute":
   //
-  kdDebug() << "minute" << endl;
   int maybeMinute;
   if ( !parseDigits( scursor, send, maybeMinute ) ) return false;
 
@@ -1587,7 +1577,6 @@ bool parseDateTime( const char* & scursor, const char * const send,
   //
   // let's see if we have a 2DIGIT representing "second":
   //
-  kdDebug() << "second" << endl;
   if ( *scursor == ':' ) {
     // yepp, there are seconds:
     scursor++; // eat ':'
@@ -1607,7 +1596,6 @@ bool parseDateTime( const char* & scursor, const char * const send,
   //
   // zone
   //
-  kdDebug() << "zone" << endl;
   long int secsEastOfGMT;
   bool timeZoneKnown = true;
   if ( *scursor == '+' || *scursor == '-' ) {
@@ -1628,7 +1616,6 @@ bool parseDateTime( const char* & scursor, const char * const send,
       return false;
   }
 
-  kdDebug() << "mktime with secsEastOfGMT == " << secsEastOfGMT << endl;
   // now put everything together and check if mktime(3) likes it:
   //#ifdef HAVE_TM_GMTOFF
   //  maybeDateTime.tm_gmtoff = secsEastOfGMT;
