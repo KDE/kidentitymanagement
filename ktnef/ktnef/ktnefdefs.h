@@ -156,7 +156,7 @@
 #define MAPI_TAG_CONTACT_USERFIELD3                "0x8051"    // UserField3
 #define MAPI_TAG_CONTACT_USERFIELD4                "0x8052"    // UserField4
 
-#define MAPI_TAG_CONTACT_IMADDRESS                 "0x8062"    // IMAddress (only >= Outlook 2002)
+#define MAPI_TAG_CONTACT_IMADDRESS                 "0x8062"    // InternetMailAddress (only >= Outlook 2002)
 
 #define MAPI_TAG_CONTACT_EMAIL1ADDRTYPE            "0x8082"    // EMail1AddressType
 #define MAPI_TAG_CONTACT_EMAIL1EMAILADDRESS        "0x8083"    // EMail1Address
