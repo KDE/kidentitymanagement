@@ -45,7 +45,7 @@ class Base64Decoder : public Decoder {
 protected:
   friend class Base64Codec;
   Base64Decoder( bool withCRLF=false )
-    : Decoder( withCRLF ), mOutbits(0), mStepNo(0),
+    : Decoder( withCRLF ), mStepNo(0), mOutbits(0),
       mSawPadding(false), mWithCRLF( withCRLF ) {}
 
 public:
