@@ -70,6 +70,7 @@ public:
   bool finish( char* & dcursor, const char * const dend );
 };
 
+
 class QuotedPrintableDecoder : public Decoder {
   const char mEscapeChar;
   char mBadChar;
@@ -115,18 +116,20 @@ public:
   bool finish( char* &, const char * const ) { return true; }
 };
 
+
 class Rfc2047QEncodingEncoder : public Encoder {
-  uchar mAccu;
-  uchar mStepNo;
-  const char  mEscapeChar;
-  const bool  mWithCRLF;
+  uchar      mAccu;
+  uchar      mStepNo;
+  const char mEscapeChar;
+  const bool mWithCRLF : 1;
+  bool       mInsideFinishing : 1;
 protected:
   friend class Rfc2047QEncodingCodec;
   friend class Rfc2231EncodingCodec;
   Rfc2047QEncodingEncoder( bool withCRLF=false, char aEscapeChar='=' )
     : Encoder(),
       mAccu(0), mStepNo(0), mEscapeChar( aEscapeChar ),
-      mWithCRLF( withCRLF ) {}
+      mWithCRLF( withCRLF ), mInsideFinishing( false ) {}
 
 public:
   virtual ~Rfc2047QEncodingEncoder() {}
@@ -527,6 +530,8 @@ bool QuotedPrintableEncoder::finish( char* & dcursor,
 bool Rfc2047QEncodingEncoder::encode( const char* & scursor, const char * const send,
 				      char* & dcursor, const char * const dend )
 {
+  assert( !mInsideFinishing );
+
   while ( scursor != send && dcursor != dend ) {
     uchar value;
     switch ( mStepNo ) {
@@ -542,51 +547,67 @@ bool Rfc2047QEncodingEncoder::encode( const char* & scursor, const char * const 
 	// (not for rfc2231 encoding)
 	*dcursor++ = '_';
       } else {
+	// needs =XY encoding - write escape char:
 	*dcursor++ = mEscapeChar;
 	mStepNo = 1;
       }
       continue;
     case 1:
+      // extract hi-nibble:
       value = mAccu >> 4;
       mStepNo = 2;
       break;
     case 2:
+      // extract lo-nibble:
       value = mAccu & 0xF;
       mStepNo = 0;
       break;
     default: assert( 0 );
     }
 
+    // convert value to hexdigit:
     if ( value > 9 )
       value += 'A' - 10;
     else
       value += '0';
+    // and write:
     *dcursor++ = char(value);
   }
 
   return !(scursor != send);
 } // encode
 
-bool Rfc2047QEncodingEncoder::finish( char* & dcursor, const char * const dend ) {
+#include <qstring.h>
 
-  while ( !mStepNo && dcursor != dend ) {
+bool Rfc2047QEncodingEncoder::finish( char* & dcursor, const char * const dend ) {
+  mInsideFinishing = true;
+
+  kdDebug() << "mInsideFinishing with mStepNo = " << mStepNo << " and mAccu = "
+	    << QString(QChar(mAccu)) << endl;
+
+  // write the last bits of mAccu, if any:
+  while ( mStepNo != 0 && dcursor != dend ) {
     uchar value;
     switch ( mStepNo ) {
     case 1:
+      // extract hi-nibble:
       value = mAccu >> 4;
       mStepNo = 2;
       break;
     case 2:
+      // extract lo-nibble:
       value = mAccu & 0xF;
       mStepNo = 0;
       break;
     default: assert( 0 );
     }
 
+    // convert value to hexdigit:
     if ( value > 9 )
       value += 'A' - 10;
     else
       value += '0';
+    // and write:
     *dcursor++ = char(value);
   }
 
