@@ -407,7 +407,8 @@ bool Base64Encoder::generic_finish( char* & dcursor, const char * const dend,
   while ( dcursor != dend ) {
     switch ( mStepNo ) {
     case 0:
-      *dcursor++ = '\n';
+      if ( withLFatEnd )
+	*dcursor++ = '\n';
       return true; // finished
       
     case 1:
@@ -423,7 +424,10 @@ bool Base64Encoder::generic_finish( char* & dcursor, const char * const dend,
     mStepNo = ( mStepNo + 1 ) % 4;
   }
 
-  return false; // output buffer full
+  if ( mStepNo == 0 && !withLFatEnd )
+    return true; // just fits into output buffer
+  else
+    return false; // output buffer full
 }
 
 
