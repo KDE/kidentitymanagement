@@ -44,7 +44,7 @@ const char* cachedCharset(const QCString &name)
     return c_harsetCache.at(idx);
 
   c_harsetCache.append(name.upper().data());
-  //qDebug("KNMimeBase::cachedCharset() number of cs %d", c_harsetCache.count());
+  //kdDebug() << "KNMimeBase::cachedCharset() number of cs " << c_harsetCache.count() << endl;
   return c_harsetCache.last();
 }
 
@@ -55,7 +55,7 @@ const char* cachedLanguage(const QCString &name)
     return l_anguageCache.at(idx);
 
   l_anguageCache.append(name.upper().data());
-  //qDebug("KNMimeBase::cachedCharset() number of cs %d", c_harsetCache.count());
+  //kdDebug() << "KNMimeBase::cachedCharset() number of cs " << c_harsetCache.count() << endl;
   return l_anguageCache.last();
 }
 

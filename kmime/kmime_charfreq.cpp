@@ -1,4 +1,4 @@
-/*
+b/*
     kmime_charfreq.cpp
 
     KMime, the KDE internet mail/usenet news message library.
@@ -74,7 +74,7 @@ void CharFreq::count( const char * it, size_t len ) {
 	  ++printable;
 	else if ( c == 127 || c < ' ' )
 	  ++CTL;
-	else 
+	else
 	  ++eightBit;
       }
     }
@@ -99,12 +99,14 @@ bool CharFreq::isSevenBitText() const {
 }
 
 CharFreq::Type CharFreq::type() const {
+#ifndef NDEBUG
   qDebug( "Total: %d; NUL: %d; CTL: %d;\n"
 	  "CR: %d; LF: %d; CRLF: %d;\n"
 	  "lineMin: %d; lineMax: %d;\n"
 	  "printable: %d; eightBit: %d;\n",
 	  total, NUL, CTL, CR, LF, CRLF, lineMin, lineMax,
 	  printable, eightBit );
+#endif
   if ( NUL ) // must be binary
     return Binary;
 
@@ -118,7 +120,7 @@ CharFreq::Type CharFreq::type() const {
   // doesn't contain NUL's, nor 8bit chars:
   if ( lineMax > 988 ) return SevenBitData;
   if ( CR != CRLF || controlCodesRatio() > 0.2 ) return SevenBitData;
-  
+
   // no NUL, no 8bit chars, no excessive CTLs and no lines > 998 chars:
   return SevenBitText;
 }
