@@ -138,7 +138,7 @@ public:
    *
    * For use with small @p src.
    **/
-  virtual QByteArray encode( const QByteArray & src, bool withCRLF=false );
+  virtual QByteArray encode( const QByteArray & src, bool withCRLF=false ) const;
 
   /**
    * Even more convenient, but also a bit slower and more memory
@@ -147,7 +147,7 @@ public:
    *
    * For use with small @p src.
    **/
-  virtual QByteArray decode( const QByteArray & src, bool withCRLF=false );
+  virtual QByteArray decode( const QByteArray & src, bool withCRLF=false ) const;
 
   /**
    * @return the name of the encoding. Guaranteed to be lowercase.

@@ -97,7 +97,7 @@ bool Codec::encode( const char* & scursor, const char * const send,
   return true; // successfully encoded.
 }
 
-QByteArray Codec::encode( const QByteArray & src, bool withCRLF )
+QByteArray Codec::encode( const QByteArray & src, bool withCRLF ) const
 {
   // allocate buffer for the worst case:
   QByteArray result( maxEncodedSizeFor( src.size(), withCRLF ) );
@@ -119,7 +119,7 @@ QByteArray Codec::encode( const QByteArray & src, bool withCRLF )
   return result;
 }
 
-QByteArray Codec::decode( const QByteArray & src, bool withCRLF )
+QByteArray Codec::decode( const QByteArray & src, bool withCRLF ) const
 {
   // allocate buffer for the worst case:
   QByteArray result( maxDecodedSizeFor( src.size(), withCRLF ) );
