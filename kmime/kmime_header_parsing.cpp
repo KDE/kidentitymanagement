@@ -997,7 +997,7 @@ bool parseAddressList( const char* & scursor, const char * const send,
   while ( scursor != send ) {
     eatCFWS( scursor, send, isCRLF );
     // end of header: this is OK.
-    if ( scursor != send ) return true;
+    if ( scursor == send ) return true;
     // empty entry: ignore:
     if ( *scursor == ',' ) { scursor++; continue; }
 
