@@ -1459,6 +1459,89 @@ static int parseDigits( const char* & scursor, const char * const send,
   return digits;
 }
 
+static bool parseTimeOfDay( const char* & scursor, const char * const send,
+			    int & hour, int & min, int & sec, bool isCRLF=false )
+{
+  // time-of-day := 2DIGIT [CFWS] ":" [CFWS] 2DIGIT [ [CFWS] ":" 2DIGIT ]
+
+  //
+  // 2DIGIT representing "hour":
+  //
+  if ( !parseDigits( scursor, send, hour ) ) return false;
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send || *scursor != ':' ) return false;
+  scursor++; // eat ':'
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) return false;
+
+  //
+  // 2DIGIT representing "minute":
+  //
+  if ( !parseDigits( scursor, send, min ) ) return false;
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) return true; // seconds are optional
+
+  //
+  // let's see if we have a 2DIGIT representing "second":
+  //
+  if ( *scursor == ':' ) {
+    // yepp, there are seconds:
+    scursor++; // eat ':'
+    eatCFWS( scursor, send, isCRLF );
+    if ( scursor == send ) return false;
+
+    if ( !parseDigits( scursor, send, sec ) ) return false;
+  } else {
+    sec = 0;
+  }
+
+  return true;
+}
+
+
+bool parseTime( const char* & scursor, const char * send,
+		int & hour, int & min, int & sec, long int & secsEastOfGMT,
+		bool & timeZoneKnown, bool isCRLF )
+{
+  // time := time-of-day CFWS zone
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) return false;
+
+  if ( !parseTimeOfDay( scursor, send, hour, min, sec, isCRLF ) )
+    return false;
+
+  eatCFWS( scursor, send, isCRLF );
+  if ( scursor == send ) {
+    timeZoneKnown = false;
+    secsEastOfGMT = 0;
+    return true; // allow missing timezone
+  }
+
+  timeZoneKnown = true;
+  if ( *scursor == '+' || *scursor == '-' ) {
+    // remember and eat '-'/'+':
+    const char sign = *scursor++;
+    // numerical timezone:
+    int maybeTimeZone;
+    if ( parseDigits( scursor, send, maybeTimeZone ) != 4 ) return false;
+    secsEastOfGMT = 60 * ( maybeTimeZone / 100 * 60 + maybeTimeZone % 100 );
+    if ( sign == '-' ) {
+      secsEastOfGMT *= -1;
+      if ( secsEastOfGMT == 0 )
+	timeZoneKnown = false; // -0000 means indetermined tz
+    }
+  } else {
+    // maybe alphanumeric timezone:
+    if ( !parseAlphaNumericTimeZone( scursor, send, secsEastOfGMT, timeZoneKnown ) )
+      return false;
+  }
+  return true;
+}
+
 bool parseDateTime( const char* & scursor, const char * const send,
 		    time_t & result, bool isCRLF )
 {
@@ -1550,71 +1633,21 @@ bool parseDateTime( const char* & scursor, const char * const send,
   maybeDateTime.tm_year = maybeYear - 1900;
 
   //
-  // 2DIGIT representing "hour":
+  // time
   //
-  int maybeHour;
-  if ( !parseDigits( scursor, send, maybeHour ) ) return false;
-
-  eatCFWS( scursor, send, isCRLF );
-  if ( scursor == send || *scursor != ':' ) return false;
-  scursor++; // eat ':'
-
-  // success: store maybeHour in maybeDateTime:
-  maybeDateTime.tm_hour = maybeHour;
-
-  //
-  // 2DIGIT representing "minute":
-  //
-  int maybeMinute;
-  if ( !parseDigits( scursor, send, maybeMinute ) ) return false;
-
-  eatCFWS( scursor, send, isCRLF );
-  if ( scursor == send ) return false;
-
-  // success: store maybeMinute in maybeDateTime:
-  maybeDateTime.tm_min = maybeMinute;
-
-  //
-  // let's see if we have a 2DIGIT representing "second":
-  //
-  if ( *scursor == ':' ) {
-    // yepp, there are seconds:
-    scursor++; // eat ':'
-    eatCFWS( scursor, send, isCRLF );
-    if ( scursor == send ) return false;
-
-    int maybeSeconds;
-    if ( !parseDigits( scursor, send, maybeSeconds ) ) return false;
-
-    eatCFWS( scursor, send, isCRLF );
-    if ( scursor == send ) return false;
-
-    // success: store maybeSeconds in maybeDateTime:
-    maybeDateTime.tm_sec = maybeSeconds;
-  }
-
-  //
-  // zone
-  //
+  int maybeHour, maybeMinute, maybeSecond;
   long int secsEastOfGMT;
   bool timeZoneKnown = true;
-  if ( *scursor == '+' || *scursor == '-' ) {
-    // remember and eat '-'/'+':
-    const char sign = *scursor++;
-    // numerical timezone:
-    int maybeTimeZone;
-    if ( parseDigits( scursor, send, maybeTimeZone ) != 4 ) return false;
-    secsEastOfGMT = 60 * ( maybeTimeZone / 100 * 60 + maybeTimeZone % 100 );
-    if ( sign == '-' ) {
-      secsEastOfGMT *= -1;
-      if ( secsEastOfGMT == 0 )
-	timeZoneKnown = false; // -0000 means indetermined tz
-    }
-  } else {
-    // maybe alphanumeric timezone:
-    if ( !parseAlphaNumericTimeZone( scursor, send, secsEastOfGMT, timeZoneKnown ) )
-      return false;
-  }
+
+  if ( !parseTime( scursor, send,
+		   maybeHour, maybeMinute, maybeSecond,
+		   secsEastOfGMT, timeZoneKnown, isCRLF ) )
+    return false;
+
+  // success: store everything in maybeDateTime:
+  maybeDateTime.tm_hour = maybeHour;
+  maybeDateTime.tm_min = maybeMinute;
+  maybeDateTime.tm_sec = maybeSecond;
 
   // now put everything together and check if mktime(3) likes it:
   //#ifdef HAVE_TM_GMTOFF

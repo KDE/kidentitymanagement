@@ -145,6 +145,10 @@ namespace HeaderParsing {
 			      QMap<QString,Types::QStringOrQPair> & result,
 			      bool isCRLF=false );
   
+  bool parseTime( const char* & scursor, const char * const send,
+		  int & hour, int & min, int & sec, long int & secsEastOfGMT,
+		  bool & timeZoneKnown, bool isCRLF=false );
+
   bool parseDateTime( const char* & scursor, const char * const send,
 		      time_t & result, bool isCRLF=false );
 
