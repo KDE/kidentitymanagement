@@ -2,7 +2,7 @@
     kmime_headers.cpp
 
     KMime, the KDE internet mail/usenet news message library.
-    Copyright (c) 2001 the KMime authors.
+    Copyright (c) 2001-2002 the KMime authors.
     See file AUTHORS for details
 
     This program is free software; you can redistribute it and/or modify
@@ -105,7 +105,7 @@ QCString Base::defaultCS()
 }
 
 // parse the encoded-word (scursor points to after the initial '=')
-bool Base::parseEncodedWord( char* & scursor, const char * send,
+bool Base::parseEncodedWord( const char* & scursor, const char * const send,
 			     QString & result, QCString & language ) {
 
   // make sure the caller already did a bit of the work.
@@ -126,8 +126,8 @@ bool Base::parseEncodedWord( char* & scursor, const char * send,
 
   // remember start of charset (ie. just after the initial "=?") and
   // language (just after the first '*') fields:
-  char * charsetStart = scursor;
-  char * languageStart = 0;
+  const char * charsetStart = scursor;
+  const char * languageStart = 0;
 
   // find delimiting '?' (and the '*' separating charset and language
   // tags, if any):
@@ -159,7 +159,7 @@ bool Base::parseEncodedWord( char* & scursor, const char * send,
 
   // remember start of encoding (just _after_ the second '?'):
   scursor++;
-  char * encodingStart = scursor;
+  const char * encodingStart = scursor;
 
   // find next '?' (ending the encoding tag):
   for ( ; scursor != send ; scursor++ )
@@ -188,7 +188,7 @@ bool Base::parseEncodedWord( char* & scursor, const char * send,
 
   // remember start of encoded-text (just after the third '?'):
   scursor++;
-  char * encodedTextStart = scursor;
+  const char * encodedTextStart = scursor;
 
   // find next '?' (ending the encoded-text):
   for ( ; scursor != send ; scursor++ )
@@ -211,7 +211,7 @@ bool Base::parseEncodedWord( char* & scursor, const char * send,
   scursor++;
 
   // set end sentinel for encoded-text:
-  char * encodedTextEnd = scursor - 2;
+  const char * const encodedTextEnd = scursor - 2;
 
   //
   // STEP 4:
@@ -241,42 +241,28 @@ bool Base::parseEncodedWord( char* & scursor, const char * send,
     return false;
   };
 
-  // get an instance of a corresponding (text)decoder:
-  QTextDecoder * textDec = textCodec->makeDecoder();
-  assert( textDec );
-
   kdDebug() << "mimeName(): \"" << textCodec->mimeName() << "\"" << endl;
 
-  // allocate a temporary buffer to store chunks of the 8bit text:
-  QByteArray buffer( 4096 ); // anyone knows a good size?
-  QByteArray::Iterator bit, bend;
-  
+  // allocate a temporary buffer to store the 8bit text:
+  int encodedTextLength = encodedTextEnd - encodedTextStart;
+  QByteArray buffer( codec->maxDecodedSizeFor( encodedTextLength ) );
+  QByteArray::Iterator bit = buffer.begin();
+  QByteArray::ConstIterator bend = buffer.end();
+
   //
   // STEP 5:
   // do the actual decoding
   //
 
-  do {
-    bit = buffer.begin();
-    bend = buffer.end();
-    // decode a chunk:
-#warning decode call commented out.
-    //dec->decode( encodedTextStart, encodedTextEnd, bit, bend );
-    // and transform that chunk to Unicode:
-    if ( bit - buffer.begin() ) {
-      kdDebug() << "chunk: \"" << QCString( buffer.begin(), bit-buffer.begin()+1 ) << "\"" << endl;
-      result += textDec->toUnicode( buffer.begin(), bit - buffer.begin() );
-      kdDebug() << "result now: \"" << result << "\"" << endl;
-    }
-    // until nothing was written into the buffer anymore:
-  } while ( bit != buffer.begin() );
+  if ( !dec->decode( encodedTextStart, encodedTextEnd, bit, bend ) )
+    KMIME_WARN << codec->name() << " codec lies about it's maxDecodedSizeFor( "
+	       << encodedTextLength << " )\nresult may be truncated" << endl;
 
-  result += textDec->toUnicode( 0, 0 ); // flush
+  result = textCodec->toUnicode( buffer.begin(), bit - buffer.begin() );
 
   kdDebug() << "result now: \"" << result << "\"" << endl;
   // cleanup:
   delete dec;
-  delete textDec;
   language = maybeLanguage;
 
   return true;
@@ -321,17 +307,17 @@ QString GUnstructured::asUnicodeString()
 
 //-----<GStructured>-------------------------
 
-static inline void eatWhiteSpace( char* & scursor, const char * send ) {
+static inline void eatWhiteSpace( const char* & scursor, const char * const send ) {
   while ( scursor != send
 	  && ( *scursor == ' ' || *scursor == '\n' ||
 	       *scursor == '\t' || *scursor == '\r' ) )
     scursor++;
 }
 
-bool GStructured::parseAtom( char * & scursor, const char * send,
+bool GStructured::parseAtom( const char * & scursor, const char * const send,
 			     QString & result, bool allow8Bit )
 {
-  QPair<char*,int> maybeResult;
+  QPair<const char*,int> maybeResult;
 
   if ( parseAtom( scursor, send, maybeResult, allow8Bit ) ) {
     result += QString::fromLatin1( maybeResult.first, maybeResult.second );
@@ -341,10 +327,10 @@ bool GStructured::parseAtom( char * & scursor, const char * send,
   return false;
 }
 
-bool GStructured::parseAtom( char * & scursor, const char * send,
-			     QPair<char*,int> & result, bool allow8Bit ) {
+bool GStructured::parseAtom( const char * & scursor, const char * const send,
+			     QPair<const char*,int> & result, bool allow8Bit ) {
   bool success = false;
-  char * start = scursor;
+  const char * start = scursor;
 
   while ( scursor != send ) {
     char ch = *scursor++;
@@ -368,10 +354,10 @@ bool GStructured::parseAtom( char * & scursor, const char * send,
   return success;
 }
 
-bool GStructured::parseToken( char * & scursor, const char * send,
+bool GStructured::parseToken( const char * & scursor, const char * const send,
 			      QString & result, bool allow8Bit )
 {
-  QPair<char*,int> maybeResult;
+  QPair<const char*,int> maybeResult;
 
   if ( parseToken( scursor, send, maybeResult, allow8Bit ) ) {
     result += QString::fromLatin1( maybeResult.first, maybeResult.second );
@@ -381,11 +367,11 @@ bool GStructured::parseToken( char * & scursor, const char * send,
   return false;
 }
 
-bool GStructured::parseToken( char * & scursor, const char * send,
-			      QPair<char*,int> & result, bool allow8Bit )
+bool GStructured::parseToken( const char * & scursor, const char * const send,
+			      QPair<const char*,int> & result, bool allow8Bit )
 {
   bool success = false;
-  char * start = scursor;
+  const char * start = scursor;
 
   while ( scursor != send ) {
     char ch = *scursor++;
@@ -420,7 +406,8 @@ bool GStructured::parseToken( char * & scursor, const char * send,
 //
 // - doesn't handle quoted CRLF
 
-bool GStructured::parseGenericQuotedString( char* & scursor, const char * send,
+bool GStructured::parseGenericQuotedString( const char* & scursor,
+					    const char * const send,
 					    QString & result, bool isCRLF,
 					    const char openChar, const char closeChar )
 {
@@ -520,13 +507,13 @@ bool GStructured::parseGenericQuotedString( char* & scursor, const char * send,
 //
 // - doesn't handle encoded-word inside comments.
 
-bool GStructured::parseComment( char* & scursor, const char * send,
+bool GStructured::parseComment( const char* & scursor, const char * const send,
 				QString & result, bool isCRLF, bool reallySave )
 {
   int commentNestingDepth = 1;
-  char * afterLastClosingParenPos = 0;
+  const char * afterLastClosingParenPos = 0;
   QString maybeCmnt;
-  char * oldscursor = scursor;
+  const char * oldscursor = scursor;
 
   assert( *(scursor-1) == '(' );
   
@@ -575,15 +562,15 @@ bool GStructured::parseComment( char* & scursor, const char * send,
 
 // known issues: none.
 
-bool GStructured::parsePhrase( char* & scursor, const char * send,
+bool GStructured::parsePhrase( const char* & scursor, const char * const send,
 			       QString & result, bool isCRLF )
 {
-  TokenType found = None;
+  enum { None, Phrase, Atom, EncodedWord, QuotedString } found = None;
   QString tmp;
   QCString lang;
-  char * successfullyParsed = 0;
+  const char * successfullyParsed = 0;
   // only used by the encoded-word branch
-  char * oldscursor;
+  const char * oldscursor;
   // used to suppress whitespace between adjacent encoded-words
   // (rfc2047, 6.2):
   bool lastWasEncodedWord = false;
@@ -706,11 +693,11 @@ bool GStructured::parsePhrase( char* & scursor, const char * send,
 }
 
 
-bool GStructured::parseDotAtom( char* & scursor, const char * send,
+bool GStructured::parseDotAtom( const char* & scursor, const char * const send,
 				QString & result, bool isCRLF )
 {
   bool sawInitialAtom = false;
-  char * successfullyParsed = 0;
+  const char * successfullyParsed = 0;
   bool lastSawDot = false;
   QString tmp;
 
@@ -770,210 +757,12 @@ bool GStructured::parseDotAtom( char* & scursor, const char * send,
 }
 
 
-// known issues:
-//
-// 
-
-QString GStructured::getToken( char * & scursor, const char * send,
-			       TokenType & tt, bool isCRLF )
-{
-  while ( scursor != send ) {
-    // first, eat any whitespace:
-    eatWhiteSpace( scursor, send );
-    if ( scursor == send ) break;
-
-    char ch = *scursor++;
-
-    switch ( ch ) {
-
-    case '=': // encoded-word
-      
-      if ( tt & Phrase ) {
-	char * oldscursor = scursor;
-	scursor--; // must include the '=' for parsePhrase().
-	QString tmp;
-	if ( parsePhrase( scursor, send, tmp, isCRLF ) ) {
-	  tt = Phrase;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      } // else try next possibility:
-      if ( tt & EncodedWord ) {
-	char * oldscursor = scursor;
-	QString tmp;
-	QCString lang;
-	if ( parseEncodedWord( scursor, send, tmp, lang ) ) {
-	  tt = EncodedWord;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      } // else try next possibility:
-      if ( tt & DotAtom ) {
-	char * oldscursor = scursor;
-	QString tmp( QChar('=') );
-	if ( parseDotAtom( scursor, send, tmp, isCRLF ) ) {
-	  tt = DotAtom;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      } // else try next possibility:
-      if ( tt & Atom ) {
-	char * oldscursor = scursor;
-	QString tmp( QChar('=') );
-	if ( parseAtom( scursor, send, tmp, false /*no 8bit chars*/ ) ) {
-	  tt = Atom;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      } // else try the last possibility:
-      assert( tt & TSpecial ); // must be allowed if the above aren't.
-      tt = TSpecial;
-      return QString( QChar('=') );
-      
-      /* ============================================ */
-      
-    case '"': // quoted-string
-      
-      if ( tt & Phrase ) {
-	char * oldscursor = scursor;
-	scursor--; // must include the '"' for parsePhrase().
-	QString tmp;
-	if ( parsePhrase( scursor, send, tmp, isCRLF ) ) {
-	  tt = Phrase;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      } // else try next possibility:
-      if ( tt & QuotedString ) {
-	char * oldscursor = scursor;
-	QString tmp;
-	if ( parseGenericQuotedString( scursor, send, tmp,
-				       isCRLF, '"', '"' ) ) {
-	  assert( *(scursor-1) == '"' );
-	  tt = QuotedString;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      } // else try last possibility:
-      assert( tt & (Special|TSpecial) );
-      tt = ( tt & Special ) ? Special : TSpecial ;
-      return QString( QChar('"') );
-      
-      /* ============================================ */
-      
-    case '(': // comment
-
-      {
-	char * oldscursor = scursor;
-	QString tmp;
-	if ( parseComment( scursor, send, tmp, isCRLF, tt & Comment ) ) {
-	  if ( tt & Comment ) {
-	    // return Comment if asked for...:
-	    tt = Comment;
-	    return tmp;
-	    // ...else ignore it: the only reason why this switch is
-	    // wrapped with a while loop:
-	  } else break;
-	}
-	scursor = oldscursor;
-      }
-      // Parsing failed:
-      // return as special or tspecial:
-      assert( tt & (Special|TSpecial) );
-      tt = ( tt & Special ) ? Special : TSpecial ;
-      return QString( QChar('(') );
-      
-      /* ============================================ */
-      
-    case '[': // domain-literal
-      
-      if ( tt & DomainLiteral ) {
-	char * oldscursor = scursor;
-	QString tmp;
-	while ( parseGenericQuotedString( scursor, send,
-					  tmp, isCRLF, '[', ']' ) ) {
-	  if ( *(scursor-1) == '[' )
-	    continue;
-	  assert( *(scursor-1) == ']' );
-	  tt = DomainLiteral;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      }
-      assert( tt & (TSpecial|Special) );
-      tt = ( tt & Special ) ? Special : TSpecial;
-      return QString( QChar('[') );
-      
-      /* ============================================ */
-      
-    default: // atom/token or special/tspecial
-      if ( tt & Phrase &&
-	   ( ch < 0 ||
-	     !isTSpecial( ch ) ||
-	     isTSpecial( ch ) && !isSpecial( ch ) ) ) {
-	char * oldscursor = scursor;
-	scursor--; // make parsePhrase() see ch
-	QString tmp;
-	if ( parsePhrase( scursor, send, tmp, isCRLF ) ) {
-	  tt = Phrase;
-	  return tmp;
-	}
-	oldscursor = scursor;
-      }
-      if ( tt & DotAtom && ch > 0 &&
-	   ( !isTSpecial( ch ) || isTSpecial( ch ) && !isSpecial( ch ) ) ) {
-	char * oldscursor = scursor;
-	scursor--;
-	QString tmp;
-	if ( parseDotAtom( scursor, send, tmp, isCRLF ) ) {
-	  tt = DotAtom;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      }
-      if ( tt & Atom && ch > 0 &&
-	   ( !isTSpecial( ch ) || isTSpecial( ch ) && !isSpecial( ch ) ) ) {
-	char * oldscursor = scursor;
-	scursor--;
-	QString tmp;
-	if ( parseAtom( scursor, send, tmp, false /* no 8bit */ ) ) {
-	  tt = Atom;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      }
-      if ( tt & Token && ch > 0 && !isTSpecial( ch ) ) {
-	char * oldscursor = scursor;
-	QString tmp;
-	if ( parseToken( scursor, send, tmp, false /* no 8bit */ ) ) {
-	  tt = Token;
-	  return tmp;
-	}
-	scursor = oldscursor;
-      }
-      if ( tt & Special && isSpecial( ch ) ) {
-	tt = Special;
-	return QString( QChar(ch) );
-      }
-      if ( ch < 0 ) {
-	tt = EightBit;
-	return QString( QChar(ch) );
-      }
-      assert( isTSpecial( ch ) );
-      tt = TSpecial;
-      return QString( QChar(ch) );
-
-    }
-  }
-  tt = None;
-  return QString::null;
-}
-
-void GStructured::eatCFWS( char* & scursor, const char * send, bool isCRLF ) {
+void GStructured::eatCFWS( const char* & scursor, const char * const send,
+			   bool isCRLF ) {
   QString dummy;
 
   while ( scursor != send ) {
-    char * oldscursor = scursor;
+    const char * oldscursor = scursor;
 
     char ch = *scursor++;
 
@@ -1005,7 +794,7 @@ void GStructured::eatCFWS( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<GAddress>-------------------------
 
-bool GAddress::parseDomain( char* & scursor, const char * send,
+bool GAddress::parseDomain( const char* & scursor, const char * const send,
 			    QString & result, bool isCRLF ) {
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send ) return false;
@@ -1039,7 +828,7 @@ bool GAddress::parseDomain( char* & scursor, const char * send,
   return false;
 }
 
-bool GAddress::parseObsRoute( char* & scursor, const char* send,
+bool GAddress::parseObsRoute( const char* & scursor, const char* const send,
 			      QStringList & result, bool isCRLF, bool save ) {
   while ( scursor != send ) {
     eatCFWS( scursor, send, isCRLF );
@@ -1080,7 +869,7 @@ bool GAddress::parseObsRoute( char* & scursor, const char* send,
   return false;
 }
 
-bool GAddress::parseAddrSpec( char* & scursor, const char * send,
+bool GAddress::parseAddrSpec( const char* & scursor, const char * const send,
 			      AddrSpec & result, bool isCRLF ) {
   //
   // STEP 1:
@@ -1147,7 +936,7 @@ SAW_AT_SIGN:
 }
 
 
-bool GAddress::parseAngleAddr( char* & scursor, const char * send,
+bool GAddress::parseAngleAddr( const char* & scursor, const char * const send,
 			       AddrSpec & result, bool isCRLF ) {
   // first, we need an opening angle bracket:
   eatCFWS( scursor, send, isCRLF );
@@ -1178,7 +967,7 @@ bool GAddress::parseAngleAddr( char* & scursor, const char * send,
 
 }
 
-bool GAddress::parseMailbox( char* & scursor, const char * send,
+bool GAddress::parseMailbox( const char* & scursor, const char * const send,
 			     Mailbox & result, bool isCRLF ) {
 
   // mailbox := addr-spec / ([ display-name ] angle-addr)
@@ -1189,7 +978,7 @@ bool GAddress::parseMailbox( char* & scursor, const char * send,
   AddrSpec maybeAddrSpec;
 
   // first, try if it's a vanilla addr-spec:
-  char * oldscursor = scursor;
+  const char * oldscursor = scursor;
   if ( parseAddrSpec( scursor, send, maybeAddrSpec, isCRLF ) ) {
     result.displayName = QString::null;
     result.addrSpec = maybeAddrSpec;
@@ -1218,7 +1007,7 @@ bool GAddress::parseMailbox( char* & scursor, const char * send,
   return true;
 }
 
-bool GAddress::parseGroup( char* & scursor, const char * send,
+bool GAddress::parseGroup( const char* & scursor, const char * const send,
 			   Address & result, bool isCRLF ) {
   // group         := display-name ":" [ mailbox-list / CFWS ] ";" [CFWS]
   //
@@ -1268,7 +1057,7 @@ bool GAddress::parseGroup( char* & scursor, const char * send,
 }
 
 
-bool GAddress::parseAddress( char* & scursor, const char * send,
+bool GAddress::parseAddress( const char* & scursor, const char * const send,
 			     Address & result, bool isCRLF ) {
   // address       := mailbox / group
 
@@ -1277,7 +1066,7 @@ bool GAddress::parseAddress( char* & scursor, const char * send,
 
   // first try if it's a single mailbox:
   Mailbox maybeMailbox;
-  char * oldscursor = scursor;
+  const char * oldscursor = scursor;
   if ( parseMailbox( scursor, send, maybeMailbox, isCRLF ) ) {
     // yes, it is:
     result.displayName = QString::null;
@@ -1296,7 +1085,7 @@ bool GAddress::parseAddress( char* & scursor, const char * send,
   return true;
 }
 
-bool GAddress::parseAddressList( char* & scursor, const char * send,
+bool GAddress::parseAddressList( const char* & scursor, const char * const send,
 				 QValueList<Address> & result, bool isCRLF ) {
   while ( scursor != send ) {
     eatCFWS( scursor, send, isCRLF );
@@ -1325,7 +1114,8 @@ bool GAddress::parseAddressList( char* & scursor, const char * send,
 
 //-----<MailboxList>-------------------------
 
-bool MailboxList::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool MailboxList::parse( const char* & scursor, const char * const send,
+			 bool isCRLF ) {
   // examples:
   // from := "From:" mailbox-list CRLF
   // sender := "Sender:" mailbox CRLF
@@ -1355,7 +1145,8 @@ bool MailboxList::parse( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<SingleMailbox>-------------------------
 
-bool SingleMailbox::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool SingleMailbox::parse( const char* & scursor, const char * const send,
+			   bool isCRLF ) {
   if ( !MailboxList::parse( scursor, send, isCRLF ) ) return false;
 
   if ( mMailboxList.count() != 1 ) {
@@ -1371,7 +1162,8 @@ bool SingleMailbox::parse( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<AddressList>-------------------------
 
-bool AddressList::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool AddressList::parse( const char* & scursor, const char * const send,
+			 bool isCRLF ) {
 
   QValueList<Address> maybeAddressList;
   if ( !parseAddressList( scursor, send, maybeAddressList, isCRLF ) )
@@ -1387,13 +1179,14 @@ bool AddressList::parse( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<GToken>-------------------------
 
-bool GToken::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool GToken::parse( const char* & scursor, const char * const send,
+		    bool isCRLF ) {
 
   eatCFWS( scursor, send, isCRLF );
   // must not be empty:
   if ( scursor == send ) return false;
 
-  QPair<char*,int> maybeToken;
+  QPair<const char*,int> maybeToken;
   if ( !parseToken( scursor, send, maybeToken, false /* no 8bit chars */ ) )
     return false;
   mToken = QCString( maybeToken.first, maybeToken.second );
@@ -1413,7 +1206,8 @@ bool GToken::parse( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<GPhraseList>-------------------------
 
-bool GPhraseList::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool GPhraseList::parse( const char* & scursor, const char * const send,
+			 bool isCRLF ) {
 
   mPhraseList.clear();
 
@@ -1444,7 +1238,8 @@ bool GPhraseList::parse( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<GDotAtom>-------------------------
 
-bool GDotAtom::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool GDotAtom::parse( const char* & scursor, const char * const send,
+		      bool isCRLF ) {
 
   QString maybeDotAtom;
   if ( !parseDotAtom( scursor, send, maybeDotAtom, isCRLF ) )
@@ -1470,7 +1265,8 @@ static QString asteriskZero = QString::fromLatin1("*0*",2);
 
 //-----<GParametrized>-------------------------
 
-bool GParametrized::parseParameter( char* & scursor, const char * send,
+bool GParametrized::parseParameter( const char* & scursor,
+				    const char * const send,
 				    QPair<QString,QStringOrQPair> & result,
 				    bool isCRLF ) {
   // parameter = regular-parameter / extended-parameter
@@ -1510,7 +1306,7 @@ bool GParametrized::parseParameter( char* & scursor, const char * send,
     return true;
   }
 
-  char * oldscursor = scursor;
+  const char * oldscursor = scursor;
 
   //
   // parse the parameter value:
@@ -1548,7 +1344,8 @@ bool GParametrized::parseParameter( char* & scursor, const char * send,
 
 
 
-bool GParametrized::parseRawParameterList( char* & scursor, const char * send,
+bool GParametrized::parseRawParameterList( const char* & scursor,
+					   const char * const send,
 					   QMap<QString,QStringOrQPair> & result,
 					   bool isCRLF ) {
   // we use parseParameter() consecutively to obtain a map of raw
@@ -1603,15 +1400,15 @@ bool GParametrized::parseRawParameterList( char* & scursor, const char * send,
 static void decodeRFC2231Value( Codec* & rfc2231Codec,
 				QTextCodec* & textcodec,
 				bool isContinuation, QString & value,
-				QPair<char*,int> & source ) {
+				QPair<const char*,int> & source ) {
 
   // 
   // parse the raw value into (charset,language,text):
   // 
 
-  char * decBegin = source.first;
-  char * decCursor = decBegin;
-  char * decEnd = decCursor + source.second;
+  const char * decBegin = source.first;
+  const char * decCursor = decBegin;
+  const char * decEnd = decCursor + source.second;
 
   if ( !isContinuation ) {
     // find the first single quote
@@ -1631,7 +1428,7 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
     
     QCString charset( decBegin, decCursor - decBegin );
     
-    char * oldDecCursor = ++decCursor;
+    const char * oldDecCursor = ++decCursor;
     // find the second single quote (we ignore the language tag):
     while ( decCursor != decEnd ) {
       if ( *decCursor == '\'' ) break;
@@ -1669,9 +1466,6 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
     return;
   }
   
-  QTextDecoder * textDec = textcodec->makeDecoder();
-  assert( textDec );
-  
   Decoder * dec = rfc2231Codec->makeDecoder();
   assert( dec );
   
@@ -1679,36 +1473,26 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
   // do the decoding:
   //
 
-  QByteArray buffer( decEnd - decCursor );
-  QByteArray::Iterator bit, bend;
+  QByteArray buffer( rfc2231Codec->maxDecodedSizeFor( decEnd - decCursor ) );
+  QByteArray::Iterator bit = buffer.begin();
+  QByteArray::ConstIterator bend = buffer.end();
 
-  do {
-    bit = buffer.begin();
-    bend = buffer.end();
-    // decode a chunk:
-#warning decode call commented out
-    //dec->decode( decCursor, decEnd, bit, bend );
-    // and transform that chunk to Unicode:
-    if ( bit - buffer.begin() ) {
-      kdDebug() << "chunk: \"" << QCString( buffer.begin(), bit-buffer.begin()+1 ) << "\"" << endl;
-      value += textDec->toUnicode( buffer.begin(), bit - buffer.begin() );
-      kdDebug() << "value now: \"" << value << "\"" << endl;
-    }
-    // until we reach the end and nothing was written into the buffer
-    // anymore:
-  } while ( decCursor != decEnd || bit != buffer.begin() );
-  
-  value += textDec->toUnicode( 0, 0 ); // flush
+  if ( !dec->decode( decCursor, decEnd, bit, bend ) )
+    KMIME_WARN << rfc2231Codec->name()
+	       << " codec lies about it's maxDecodedSizeFor()\n"
+      "result may be truncated" << endl;
+
+  value += textcodec->toUnicode( buffer.begin(), bit - buffer.begin() );
   
   kdDebug() << "value now: \"" << value << "\"" << endl;
   // cleanup:
   delete dec;
-  delete textDec;
 }
 
 
 
-bool GParametrized::parseParameterList( char* & scursor, const char * send,
+bool GParametrized::parseParameterList( const char* & scursor,
+					const char * const send,
 					QMap<QString,QString> & result,
 					bool isCRLF ) {
   // parse the list into raw attribute-value pairs:
@@ -1802,7 +1586,8 @@ bool GParametrized::parseParameterList( char* & scursor, const char * send,
 
 //-----</GContentType>-------------------------
 
-bool GContentType::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool GContentType::parse( const char* & scursor, const char * const send,
+			  bool isCRLF ) {
 
   // content-type: type "/" subtype *(";" parameter)
 
@@ -1820,7 +1605,7 @@ bool GContentType::parse( char* & scursor, const char * send, bool isCRLF ) {
   // type
   // 
 
-  QPair<char*,int> maybeMimeType;
+  QPair<const char*,int> maybeMimeType;
   if ( !parseToken( scursor, send, maybeMimeType, false /* no 8Bit */ ) )
     return false;
 
@@ -1836,7 +1621,7 @@ bool GContentType::parse( char* & scursor, const char * send, bool isCRLF ) {
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send ) return false;
 
-  QPair<char*,int> maybeSubType;
+  QPair<const char*,int> maybeSubType;
   if ( !parseToken( scursor, send, maybeSubType, false /* no 8bit */ ) )
     return false;
 
@@ -1864,7 +1649,8 @@ bool GContentType::parse( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<GTokenWithParameterList>-------------------------
 
-bool GCISTokenWithParameterList::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool GCISTokenWithParameterList::parse( const char* & scursor,
+					const char * const send, bool isCRLF ) {
 
   mToken = 0;
   mParameterHash.clear();
@@ -1876,7 +1662,7 @@ bool GCISTokenWithParameterList::parse( char* & scursor, const char * send, bool
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send ) return false;
   
-  QPair<char*,int> maybeToken;
+  QPair<const char*,int> maybeToken;
   if ( !parseToken( scursor, send, maybeToken, false /* no 8Bit */ ) )
     return false;
 
@@ -1904,7 +1690,7 @@ bool GCISTokenWithParameterList::parse( char* & scursor, const char * send, bool
 
 //-----<GIdent>-------------------------
 
-bool GIdent::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool GIdent::parse( const char* & scursor, const char * const send, bool isCRLF ) {
 
   // msg-id   := "<" id-left "@" id-right ">"
   // id-left  := dot-atom-text / no-fold-quote / local-part
@@ -1942,7 +1728,7 @@ bool GIdent::parse( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<GSingleIdent>-------------------------
 
-bool GSingleIdent::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool GSingleIdent::parse( const char* & scursor, const char * const send, bool isCRLF ) {
 
   if ( !GIdent::parse( scursor, send, isCRLF ) ) return false;
 
@@ -1963,12 +1749,12 @@ bool GSingleIdent::parse( char* & scursor, const char * send, bool isCRLF ) {
 
 //-----<ReturnPath>-------------------------
 
-bool ReturnPath::parse( char* & scursor, const char * send, bool isCRLF ) {
+bool ReturnPath::parse( const char* & scursor, const char * const send, bool isCRLF ) {
   
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send ) return false;
 
-  char * oldscursor = scursor;
+  const char * oldscursor = scursor;
 
   Mailbox maybeMailbox;
   if ( !parseMailbox( scursor, send, maybeMailbox, isCRLF ) ) {

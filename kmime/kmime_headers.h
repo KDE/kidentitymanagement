@@ -1,8 +1,8 @@
-/*
+/*  -*- c++ -*
     kmime_headers.h
 
     KMime, the KDE internet mail/usenet news message library.
-    Copyright (c) 2001 the KMime authors.
+    Copyright (c) 2001-2002 the KMime authors.
     See file AUTHORS for details
 
     This program is free software; you can redistribute it and/or modify
@@ -45,7 +45,7 @@ namespace Headers {
 struct QStringOrQPair {
   QStringOrQPair() : qstring(), qpair(0,0) {}
   QString qstring;
-  QPair<char*,int> qpair;
+  QPair<const char*,int> qpair;
 };
 
 
@@ -99,7 +99,7 @@ public: \
   \
   const char * type() const { return #subclassName; } \
 protected: \
-  bool parse( char* & scursor, const char * send, bool isCRLF=false ); \
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false ); \
 }
 
 #define mk_parsing_subclass( subclass, baseclass ) \
@@ -195,7 +195,7 @@ class Base {
 		   appears to be truncated or contains whitespace.
 	@return the decoded string the encoded word represented.
     */
-    bool parseEncodedWord( char* & scursor, const char * send,
+    bool parseEncodedWord( const char* & scursor, const char * const send,
 			   QString & result, QCString & language );
     
     QCString typeIntro()  { return (QCString(type())+": "); }
@@ -301,119 +301,41 @@ public:
 
   
 protected:
-  /** Types of tokens to be found in structured header fields:
-      <pre>
-          Type     |def'ed in| ... as
-      -------------+------------------------------------------
-      Token        | rfc2045 | 1*<CHAR w/o SPACE, CTLs and tspecials>
-      TSpecial     | rfc2045 | Special / "/" / "?" / "="
-      Atom         | rfc822  | 1*atext
-                   |         | atext := <CHAR w/o specials, SPACE and CTLs>
-		   | KMime   | 1*(token / "/" / "?" / "=")
-      Special      | rfc822  | "()<>@,;:.[]" / <"> / "\"
-      Comment      | rfc822  | "(" *(ctext / quoted-pair / comment) ")"
-                   |         | ctext := <CHAR w/o "()\", CR, but LWSP>
-      QuotedString | rfc822  | <"> *(qtext/quoted-pair) <">
-                   |         | qtext := <CHAR w/o <">, "\", CR, but LWSP>
-      DomainLiteral| rfc822  | "[" *(dtext / quoted-pair) "]"
-                   |         | dtext := <CHAR w/o "[]\", CR, but LWSP>
-      EncodedWord  | rfc2047 | "=?" charset "?" ( "q" / "b" ) "?" encoded-text "?="
-      Phrase       | rfc822  | 1*word
-                   | rfc2047 | 1*(word / encoded-word)
-      DotAtom      | rfc2822 | 1*atext *("." 1*atext)
-                   | KMime   | atom *("." atom) ["."]
-      Word         | rfc822  | atom / quoted-string
-                   | KMime   | atom / token / quoted-string
-      </pre>
-   */
-  enum TokenType { None = 0x00, Atom = 0x001, Special = 0x002, Comment = 0x004,
-		   QuotedString = 0x008, DomainLiteral = 0x010,
-		   EncodedWord = 0x020, Phrase = 0x040,
-		   Token = 0x080, TSpecial = 0x100, DotAtom = 0x200,
-		   EightBit = 0x400, Word = Token|Atom|QuotedString,
-		   All = Word|Special|Comment|DomainLiteral|EncodedWord|Phrase|TSpecial|DotAtom|EightBit};
-  /** Starting at index @p pos in @p source, return the next token of
-      a type specified by @p tt (can be or'ed).
-
-      Different tokens behave differently when they are disallowed. In
-      particular, Comment is considered part of CFWS and simply
-      ignored (but still parsed correctly!). If you choose to disallow
-      QuotedString or DomainLiteral, you will get them as a list of
-      Atom's and Specials, one per call. Note that this might lead to
-      parse errors when you change the type mask later on to allow
-      them again. Tokens can't be disallowed. If you forbid TSpecials,
-      you must allow Atoms and Specials. The lowest syntactic entities
-      are then Atom and Special (ie. like in rfc822). If you forbid
-      EncodedWords, you'll get them as an Atom, or, if you allowed
-      TSpecials, as a list of TSpecials and Tokens. If you forbit
-      Phrase, getToken doesn't condense consecutive Word's into a
-      Phrase, but returns them one by one.  If you disallow DotAtom,
-      you'll get them as a list of Atoms and Specials.
-
-      NOTE: Due to keeping the tokenizer lookahead (and complexity)
-      under control, you must take into account several issues with
-      some of the token types listed above. In particular, the
-      definition of a dot-atom deviates from the RFC one in that it is
-      allowed to have a trailing dot. The lookahead necessary to make
-      sure that this case does not occur would be unlimited (remember
-      that rfc822 allows arbitrary CFWS in between dot-atoms, though
-      rfc2822 forbids that). You should therefore exclude dot-atoms
-      from the list of requested types unless you really expect one,
-      and check for trailing dots if you get one.
-
-      Also, a sequence of encoded-words is condensed into a single
-      one. This is because there are special rules for when encoded
-      words are adjacent.
-
-      @param source source string
-      @param pos    in: starting position; out: new position
-      @param tt     in: types of tokens requested; out: type of token returned
-      @param CRLF   if true, the mail is in canonical CRLF form, so the parsers
-                    can handle lonely '\n' and '\r' according to rfc822.
-                    If false, the mail is in Unix-native format and the parser
-		    will eat every occurence of unescaped '\n' followed by
-		    SPACE or HTAB as meaning line folding.
-      @return the decoded token or @ref QString::null if there are no
-              more tokens
-      @see tokenType */
-  virtual QString getToken( char* & scursor, const char * send,
-			    TokenType & tt, bool isCRLF=false );
-
   //
   // The parsing squad:
   //
 
   /** You may or may not have already started parsing into the
       atom. This function will go on where you left off. */
-  bool parseAtom( char* & scursor, const char * send, QString & result,
-		  bool allow8Bit=false );
-  bool parseAtom( char* & scursor, const char * send,
-		  QPair<char*,int> & result, bool allow8Bit=false );
+  bool parseAtom( const char* & scursor, const char * const send,
+		  QString & result, bool allow8Bit=false );
+  bool parseAtom( const char* & scursor, const char * const send,
+		  QPair<const char*,int> & result, bool allow8Bit=false );
   /** You may or may not have already started parsing into the
       token. This function will go on where you left off. */
-  bool parseToken( char* & scursor, const char * send, QString & result,
-		   bool allow8Bit=false );
-  bool parseToken( char* & scursor, const char * send,
-		   QPair<char*,int> & result, bool allow8Bit=false );
+  bool parseToken( const char* & scursor, const char * const send,
+		   QString & result, bool allow8Bit=false );
+  bool parseToken( const char* & scursor, const char * const send,
+		   QPair<const char*,int> & result, bool allow8Bit=false );
   /** @p scursor must be positioned after the opening openChar. */
-  bool parseGenericQuotedString( char* & scursor, const char* send,
+  bool parseGenericQuotedString( const char* & scursor, const char* const send,
 				 QString & result, bool isCRLF,
 				 const char openChar='"',
 				 const char closeChar='"' );
   /** @p scursor must be positioned right after the opening '(' */
-  bool parseComment( char* & scursor, const char * send, QString & result,
-		     bool isCRLF=false, bool reallySave=true );
+  bool parseComment( const char* & scursor, const char * const send,
+		     QString & result, bool isCRLF=false, bool reallySave=true );
   /** You may or may not have already started parsing into the phrase,
       but only if it starts with atext. If you setup this function to
       parse a phrase starting with an encoded-word or quoted-string,
       @p scursor has to point to the char introducing the encoded-word
       or quoted-string, resp. */
-  bool parsePhrase( char* & scursor, const char * send, QString & result,
-		    bool isCRLF=false );
+  bool parsePhrase( const char* & scursor, const char * const send,
+		    QString & result, bool isCRLF=false );
   /** You may or may not have already started parsing into the initial
       atom, but not up to it's end. */
-  bool parseDotAtom( char* & scursor, const char * send, QString & result,
-		     bool isCRLF=false );
+  bool parseDotAtom( const char* & scursor, const char * const send,
+		     QString & result, bool isCRLF=false );
 
   /** Eats comment-folding-white-space, skips whitespace, folding and
       comments (even nested ones) and stops at the next non-CFWS
@@ -424,26 +346,26 @@ protected:
       scursor is being positioned on the opening '(' of the outmost
       comment.
   */
-  void eatCFWS( char* & scursor, const char * send, bool isCRLF );
+  void eatCFWS( const char* & scursor, const char * const send, bool isCRLF );
 
 #if 0
   // the assembly squad:
 
-  bool writeAtom( char* & dcursor, const char * dend, const QString & input );
-  bool writeAtom( char* & dcursor, const char * dend,
-		  const QPair<char*,int> & input );
-  bool writeToken( char* & dcursor, const char * dend, const QString & input );
-  bool writeToken( char* & dcursor, const char * dend,
-		   const QPair<char*int> & input );
+  bool writeAtom( char* & dcursor, const char * const dend, const QString & input );
+  bool writeAtom( char* & dcursor, const char * const dend,
+		  const QPair<const char*,int> & input );
+  bool writeToken( char* & dcursor, const char * const dend, const QString & input );
+  bool writeToken( char* & dcursor, const char * const dend,
+		   const QPair<const char*int> & input );
 
-  bool writeGenericQuotedString( char* & dcursor, const char * dend,
+  bool writeGenericQuotedString( char* & dcursor, const char * const dend,
 				 const QString & input, bool withCRLF=false );
-  bool writeComment( char* & dcursor, const char * dend,
+  bool writeComment( char* & dcursor, const char * const dend,
 		     const QString & input, bool withCRLF=false );
-  bool writePhrase( char* & dcursor, const char * dend, const QString & input,
-		    bool withCRLF=false );
-  bool writeDotAtom( char* & dcursor, const char * dend, const QString & input,
-		     bool withCRLF=false );
+  bool writePhrase( char* & dcursor, const char * const dend,
+		    const QString & input, bool withCRLF=false );
+  bool writeDotAtom( char* & dcursor, const char * const dend,
+		     const QString & input, bool withCRLF=false );
 #endif
 };
 
@@ -474,21 +396,22 @@ public:
   };
 
 protected:
-  bool parseDomain( char* & scursor, const char * send,
+  bool parseDomain( const char* & scursor, const char * const send,
 		    QString & result, bool isCRLF=false );
-  bool parseObsRoute( char* & scursor, const char * send, QStringList & result,
+  bool parseObsRoute( const char* & scursor, const char * const send,
+		      QStringList & result,
 		      bool isCRLF=false, bool save=false );
-  bool parseAddrSpec( char* & scursor, const char * send,
+  bool parseAddrSpec( const char* & scursor, const char * const send,
 		      AddrSpec & result, bool isCRLF=false );
-  bool parseAngleAddr( char* & scursor, const char * send,
+  bool parseAngleAddr( const char* & scursor, const char * const send,
 		       AddrSpec & result, bool isCRLF=false );
-  bool parseMailbox( char* & scursor, const char * send,
+  bool parseMailbox( const char* & scursor, const char * const send,
 		     Mailbox & result, bool isCRLF=false );
-  bool parseGroup( char* & scursor, const char * send,
+  bool parseGroup( const char* & scursor, const char * const send,
 		   Address & result, bool isCRLF=false );
-  bool parseAddress( char* & scursor, const char * send,
+  bool parseAddress( const char* & scursor, const char * const send,
 		     Address & result, bool isCRLF=false );
-  bool parseAddressList( char* & scursor, const char * send,
+  bool parseAddressList( const char* & scursor, const char * const send,
 			 QValueList<Address> & result, bool isCRLF=false );
 
 };
@@ -507,7 +430,7 @@ public:
   ~MailboxList()  {}
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   /** The list of mailboxes */
   QValueList<Mailbox> mMailboxList;
@@ -531,7 +454,7 @@ public:
   ~AddressList()  {}
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   /** The list of addresses */
   QValueList<Address> mAddressList;
@@ -549,7 +472,7 @@ public:
   ~GIdent()  {}
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   /** The list of msg-id's */
   QValueList<AddrSpec> mMsgIdList;
@@ -570,7 +493,7 @@ public:
   ~GToken()  {}
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   QCString mToken;
 };
@@ -587,7 +510,7 @@ public:
   ~GPhraseList()  {}
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   QStringList mPhraseList;
 };
@@ -603,7 +526,7 @@ public:
   ~GDotAtom()  {}
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   QString mDotAtom;
 };
@@ -619,16 +542,16 @@ public:
   ~GParametrized()  {}
 
 protected:
-  bool parseParameter( char* & scursor, const char * send,
+  bool parseParameter( const char* & scursor, const char * const send,
 		       QPair<QString,QStringOrQPair> & result,
 		       bool isCRLF=false );
-  bool parseParameterList( char* & scursor, const char * send,
+  bool parseParameterList( const char* & scursor, const char * const send,
 			   QMap<QString,QString> & result, bool isCRLF=false );
 
   QMap<QString,QString> mParameterHash;
 
 private:
-  bool parseRawParameterList( char* & scursor, const char * send,
+  bool parseRawParameterList( const char* & scursor, const char * const send,
 			      QMap<QString,QStringOrQPair> & result,
 			      bool isCRLF=false );
 };
@@ -644,7 +567,7 @@ public:
   ~GContentType()  {}
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   QCString mMimeType;
   QCString mMimeSubType;
@@ -662,7 +585,7 @@ public:
   ~GCISTokenWithParameterList()  {}
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 
   QCString mToken;
 };
@@ -691,7 +614,7 @@ public:
   const char * type() const { return "Return-Path"; }
 
 protected:
-  bool parse( char* & scursor, const char * send, bool isCRLF=false );
+  bool parse( const char* & scursor, const char * const send, bool isCRLF=false );
 };
 
 #if defined(KMIME_NEW_STYLE_CLASSTREE)
