@@ -75,12 +75,12 @@ public:
   int maxEncodedSizeFor( int insize, bool withCRLF=false ) const {
     (void)withCRLF; // keep compiler happy
     // Each (begun) 3-octet triple becomes a 4 char quartet, so:
-    return ( insize / 3 ) * 4;
+    return ( ( insize + 2 ) / 3 ) * 4;
   }
 
   int maxDecodedSizeFor( int insize, bool withCRLF=false ) const {
     (void)withCRLF; // keep compiler happy
-    // Each 4-char quarted becomes a 3-octet triple, the last one
+    // Each 4-char quartet becomes a 3-octet triple, the last one
     // possibly even less. So:
     return ( ( insize + 3 ) / 4 ) * 3;
   }
