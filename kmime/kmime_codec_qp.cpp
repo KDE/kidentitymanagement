@@ -459,19 +459,10 @@ void QuotedPrintableEncoder::createOutputBuffer() {
 // flushing was complete, false if some chars could not be flushed.
 bool QuotedPrintableEncoder::flushOutputBuffer( char* & dcursor,
 						const char * const dend ) {
-  kdDebug() << "flushOutputBuffer with mOBC == "
-	    << mOutputBufferCursor << " and " << dend - dcursor
-	    << " bytes of free output stream space" << endl
-	    << "mOutputBuffer == \""
-	    << QString::fromLatin1( mOutputBuffer, mOutputBufferCursor )
-	    << "\" and mFinished == " << mFinished << endl;
   uint i = 0;
   // copy output buffer to output stream:
   for ( ; dcursor != dend && i < mOutputBufferCursor ; ++i )
     *dcursor++ = mOutputBuffer[i];
-
-  kdDebug() << "  wrote " << i << " chars, "
-	    << mOutputBufferCursor - i << " remaining" << endl;
 
   // calculate the number of missing chars:
   uint numCharsLeft = mOutputBufferCursor - i;
@@ -607,9 +598,6 @@ bool Rfc2047QEncodingEncoder::encode( const char* & scursor, const char * const 
 
 bool Rfc2047QEncodingEncoder::finish( char* & dcursor, const char * const dend ) {
   mInsideFinishing = true;
-
-  kdDebug() << "mInsideFinishing with mStepNo = " << mStepNo << " and mAccu = "
-	    << QString(QChar(mAccu)) << endl;
 
   // write the last bits of mAccu, if any:
   while ( mStepNo != 0 && dcursor != dend ) {
