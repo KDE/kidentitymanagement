@@ -19,6 +19,7 @@
 
 #include "kmime_codec_base64.h"
 #include "kmime_codec_qp.h"
+#include "kmime_codec_uuencode.h"
 
 #include <kdebug.h>
 
@@ -46,6 +47,7 @@ void Codec::fillDictionary() {
   all.insert( "b", new Rfc2047BEncodingCodec() );
   all.insert( "q", new Rfc2047QEncodingCodec() );
   all.insert( "x-kmime-rfc2231", new Rfc2231EncodingCodec() );
+  all.insert( "x-uuencode", new UUCodec() );
 
 }
 
