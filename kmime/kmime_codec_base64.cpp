@@ -124,7 +124,7 @@ protected:
     : Base64Encoder( withCRLF ) {};
 public:
   bool encode( const char* & scursor, const char * const send,
-	       char* & dcursor, const char * const send );
+	       char* & dcursor, const char * const dend );
   bool finish( char* & dcursor, const char * const dend );
 };
 
