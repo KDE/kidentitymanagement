@@ -787,6 +787,7 @@ bool parseAddrSpec( const char* & scursor, const char * const send,
       break;
 
     default: // atom
+      scursor--; // re-set scursor to point to ch again
       tmp = QString::null;
       if ( parseAtom( scursor, send, tmp, false /* no 8bit */ ) )
 	maybeLocalPart += tmp;
