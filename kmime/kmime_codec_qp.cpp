@@ -445,7 +445,7 @@ void QuotedPrintableEncoder::createOutputBuffer() {
 
 bool QuotedPrintableEncoder::encode( const char* & scursor, const char * const send,
 				     char* & dcursor, const char * const dend ) {
-  assert ( !mFinishing );
+  if ( mFinishing ) return true;
 
   uint i = 0;
 
@@ -543,7 +543,7 @@ bool QuotedPrintableEncoder::finish( char* & dcursor,
 bool Rfc2047QEncodingEncoder::encode( const char* & scursor, const char * const send,
 				      char* & dcursor, const char * const dend )
 {
-  assert( !mInsideFinishing );
+  if ( mInsideFinishing ) return true;
 
   while ( scursor != send && dcursor != dend ) {
     uchar value;

@@ -226,7 +226,7 @@ bool Base64Encoder::encode( const char* & scursor, const char * const send,
   const uint maxPacketsPerLine = 76 / 4;
 
   // detect when the caller doesn't adhere to our rules:
-  assert( !mInsideFinishing );
+  if( mInsideFinishing ) return true;
 
   while ( scursor != send && dcursor != dend ) {
     uchar ch;
@@ -294,7 +294,7 @@ bool Base64Encoder::encode( const char* & scursor, const char * const send,
 bool Rfc2047BEncodingEncoder::encode( const char* & scursor, const char * const send,
 				      char* & dcursor, const char * const dend ) {
   // detect when the caller doesn't adhere to our rules:
-  assert( !mInsideFinishing );
+  if ( mInsideFinishing ) return true;
 
   while ( scursor != send && dcursor != dend ) {
     uchar ch;
