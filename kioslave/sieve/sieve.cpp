@@ -473,8 +473,8 @@ void kio_sieveProtocol::put(const KURL& url, int /*permissions*/, bool /*overwri
 	// S: HAVESPACE "rejected" "74"
 	// C: NO "Number expected"
 	// => broken, we can't use it :-(
-	// (will be fixed in Cryrus 2.1.10)
-#ifndef 0
+	// (will be fixed in Cyrus 2.1.10)
+#ifndef HAVE_BROKEN_TIMSIEVED
 	// first, check quota (it's a SHOULD in draft std)
 	if (!sendData("HAVESPACE \"" + filename.utf8() + "\" "
 		      + QCString().setNum( bufLen )))
