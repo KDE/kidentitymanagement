@@ -75,10 +75,10 @@ uchar specialsMap[16] = {
   0x00, 0x00, 0x00, 0x00  // '`' ... DEL
 };
 
-// "(),.:;<>@[\]/=?
+// "(),:;<>@[\]/=?
 uchar tSpecialsMap[16] = {
   0x00, 0x00, 0x00, 0x00, // CTLs
-  0x20, 0xCB, 0x00, 0x3F, // SPACE ... '?'
+  0x20, 0xC9, 0x00, 0x3F, // SPACE ... '?'
   0x80, 0x00, 0x00, 0x1C, // '@' ... '_'
   0x00, 0x00, 0x00, 0x00  // '`' ... DEL
 };
@@ -94,7 +94,7 @@ uchar aTextMap[16] = {
 // all except tspecials, CTLs, SPACE.
 uchar tTextMap[16] = {
   0x00, 0x00, 0x00, 0x00,
-  0x5F, 0x34, 0xFF, 0xC0,
+  0x5F, 0x36, 0xFF, 0xC0,
   0x7F, 0xFF, 0xFF, 0xE3,
   0xFF, 0xFF, 0xFF, 0xFE
 };
@@ -107,8 +107,8 @@ uchar eTextMap[16] = {
   0x7F, 0xFF, 0xFF, 0xE0
 };
 
-QCString decodeBase64( const QCString & /*src*/, int & /*pos*/,
-		       const char * /*delimiters*/ )
+QCString decodeBase64( const QCString & src, int & pos,
+		       const char * delimiters )
 {
   QCString result(100);
 #if 0
@@ -166,8 +166,8 @@ QString decodeRFC2047String(const QCString &src, const char **usedCS,
 {
   QCString result, str;
   QCString declaredCS;
-  char *pos, *dest, *beg, *end, *mid=0, *endOfLastEncWord=0;
-  char encoding='q';
+  char *pos, *dest, *beg, *end, *mid, *endOfLastEncWord=0;
+  char encoding;
   bool valid, onlySpacesSinceLastWord=false;
   const int maxLen=400;
   int i;
