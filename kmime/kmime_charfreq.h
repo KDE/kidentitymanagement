@@ -33,6 +33,9 @@ public:
   bool isEightBitText() const;
   bool isSevenBitData() const;
   bool isSevenBitText() const;
+  /** Returns the percentage of printable characters: printable/total.
+      If total == 0, the result is undefined. */
+  float printableRatio() const;
 
 protected:
   bool lastWasCR;

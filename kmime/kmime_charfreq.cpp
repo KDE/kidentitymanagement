@@ -124,6 +124,11 @@ CharFreq::Type CharFreq::type() const {
   return SevenBitText;
 }
 
+float CharFreq::printableRatio() const {
+  if ( total ) return float(printable) / float(total);
+  else         return 0;
+}
+
 } // namespace KMime
 
 
