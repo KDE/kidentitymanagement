@@ -1158,7 +1158,7 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
       return;
     }
     
-    QCString charset( decBegin, decCursor - decBegin );
+    QCString charset( decBegin, decCursor - decBegin + 1 );
     
     const char * oldDecCursor = ++decCursor;
     // find the second single quote (we ignore the language tag):
@@ -1221,7 +1221,9 @@ static void decodeRFC2231Value( Codec* & rfc2231Codec,
   delete dec;
 }
 
-
+// known issues:
+//  - permutes rfc2231 continuations when the total number of parts
+//    exceeds 10 (other-sections then becomes *xy, ie. two digits)
 
 bool parseParameterList( const char* & scursor,	const char * const send,
 			 QMap<QString,QString> & result, bool isCRLF ) {
@@ -1276,7 +1278,10 @@ bool parseParameterList( const char* & scursor,	const char * const send,
 			    value, (*it).qpair );
       } else {
 	// not encoded.
-	value += (*it).qstring;
+	if ( (*it).qpair.first )
+	  value += QString::fromLatin1( (*it).qpair.first, (*it).qpair.second );
+	else
+	  value += (*it).qstring;
       }
 
       //
@@ -1295,16 +1300,24 @@ bool parseParameterList( const char* & scursor,	const char * const send,
       //
       
       // ignore the section and trust QMap to have sorted the keys:
-      if ( it.key().endsWith( asterisk ) )
+      if ( it.key().endsWith( asterisk ) ) {
 	// encoded
 	decodeRFC2231Value( rfc2231Codec, textcodec,
 			    true, /* is continuation */
 			    value, (*it).qpair );
-      else
+      } else {
 	// not encoded
-	value += (*it).qstring;
+	if ( (*it).qpair.first )
+	  value += QString::fromLatin1( (*it).qpair.first, (*it).qpair.second );
+	else
+	  value += (*it).qstring;
+      }
     }
   }
+
+  // write last attr/value pair:
+  if ( !attribute.isNull() )
+    result.insert( attribute, value );
 
   return true;
 }
