@@ -28,7 +28,7 @@
 #include <ctype.h>
 #include <time.h> // for time()
 #include <unistd.h> // for getpid()
-#include "config.h" //for HAVE_TZSET
+#include "config.h" //for HAVE_TIMEZONE and GMTOFF
 
 using namespace KMime;
 
@@ -619,23 +619,33 @@ QCString
 DateFormatter::zone(time_t otime) const
 {
   QCString ret;
+  struct tm *local = localtime( &otime );
 
-#if defined(HAVE_TZSET) && !defined(__FreeBSD__)
+#if defined(HAVE_TIMEZONE) 
 
-  static int tzInit = 0;
-  
-  if ( tzInit == 0 ) {
-    tzset();
-    tzInit = 1;
-  }
-  //hmm, could make hours & mins static just as well
+  //hmm, could make hours & mins static
   int secs = abs(timezone);
   int neg  = (timezone>0)?1:0;
   int hours = secs/3600;
   int mins  = (secs - hours*3600)/60;
+
+  //WARNING: This one bothers me a little bit
+  //how many systems include daylight savings in here
+  //and in tm_gmtoff ?
+  /*if ( local->tm_isdst > 0 )
+    ++hours;*/
+
+  ret.sprintf("%c%.2d%.2d",(neg)?'-':'+', hours, mins);
+
+#elif defined(HAVE_TM_GMTOFF)
+
+  int secs = abs( tm->tm_gmtoff );
+  int neg  = (tm->tm_gmtoff<0)?1:0; //no, I don't know why it's backwards :o
+  int hours = secs/3600;
+  int mins  = (secs - hours*3600)/60;
   
   ret.sprintf("%c%.2d%.2d",(neg)?'-':'+', hours, mins);
-  
+
 #else 
 
   QDateTime d1 = QDateTime::fromString( asctime(gmtime(&otime)) );
@@ -648,7 +658,7 @@ DateFormatter::zone(time_t otime) const
 
   ret.sprintf("%c%.2d%.2d",(neg)?'-':'+', hours, mins);
 
-#endif /* HAVE_TZSET */
+#endif /* HAVE_TIMEZONE */
 
   return ret;
 }
