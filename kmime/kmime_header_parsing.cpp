@@ -825,17 +825,20 @@ bool parseAngleAddr( const char* & scursor, const char * const send,
   // first, we need an opening angle bracket:
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send || *scursor != '<' ) return false;
+  scursor++; // eat '<'
 
   eatCFWS( scursor, send, isCRLF );
   if ( scursor == send ) return false;
 
   if ( *scursor == '@' || *scursor == ',' ) {
     // obs-route: parse, but ignore:
-    scursor--;
+    KMIME_WARN << "obsolete source route found! ignoring." << endl;
     QStringList dummy;
     if ( !parseObsRoute( scursor, send, dummy,
 			 isCRLF, false /* don't save */ ) )
       return false;
+    // angle-addr isn't complete until after the '>':
+    if ( scursor == send ) return false;
   }
 
   // parse addr-spec:
