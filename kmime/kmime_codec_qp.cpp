@@ -26,6 +26,27 @@ using namespace KMime;
 
 namespace KMime {
 
+// some helpful functions:
+
+static inline char binToHex( uchar value ) {
+  if ( value > 9 )
+    return value + 'A' - 10;
+  else
+    return value + '0';
+}
+
+static inline uchar highNibble( uchar ch ) {
+  return ch >> 4;
+}
+
+static inline uchar lowNibble( uchar ch ) {
+  return ch & 0xF;
+}
+
+static inline bool keep( uchar ch ) {
+  // no CTLs, except HT and not '?'
+  return !( ch < ' ' && ch != '\t' || ch == '?' );
+}
 
 //
 // QuotedPrintableCodec
@@ -45,6 +66,7 @@ class QuotedPrintableEncoder : public Encoder {
   bool mSawLineEnd        : 1;
   bool mSawCR             : 1;
   bool mFinishing         : 1;
+  bool mFinished          : 1;
   const bool mWithCRLF    : 1;
 protected:
   friend class QuotedPrintableCodec;
@@ -53,7 +75,7 @@ protected:
       mInputBufferReadCursor(0), mInputBufferWriteCursor(0),
       mOutputBufferCursor(0), mAccuNeedsEncoding(Never),
       mSawLineEnd(false), mSawCR(false), mFinishing(false),
-      mWithCRLF( withCRLF ) {}
+      mFinished(false), mWithCRLF( withCRLF ) {}
 
   bool needsEncoding( uchar ch ) {
     return ( ch > '~' || ch < ' ' && ch != '\t' || ch == '=' );
@@ -61,6 +83,7 @@ protected:
   bool fillInputBuffer( const char* & scursor, const char * const send );
   bool processNextChar();
   void createOutputBuffer();
+  bool flushOutputBuffer( char* & dcursor, const char * const dend );
 public:
   virtual ~QuotedPrintableEncoder() {}
 
@@ -205,10 +228,7 @@ bool QuotedPrintableDecoder::decode( const char* & scursor, const char * const s
 	mInsideHexChar = false;
       } else if ( mHaveAccu ) {
 	// output the high nibble of the accumulator:
-	uchar value = mAccu >> 4;
-	if ( value > 9 )
-	  value += 7;
-	*dcursor++ = char( value + '0' );
+	*dcursor++ = binToHex( highNibble( mAccu ) );
 	mHaveAccu = false;
 	mAccu = 0;
       } else {
@@ -357,7 +377,8 @@ bool QuotedPrintableEncoder::processNextChar() {
   // If we process a buffer which doesn't end in a line break, we
   // can't process all of it, since the next chars that will be read
   // could be a line break. So we empty the buffer only until a fixed
-  // number of chars is left:
+  // number of chars is left (except when mFinishing, which means that
+  // the data doesn't end in newline):
   const int minBufferFillWithoutLineEnd = 4;
 
   assert( mOutputBufferCursor == 0 );
@@ -368,7 +389,8 @@ bool QuotedPrintableEncoder::processNextChar() {
 
   assert( bufferFill >=0 && bufferFill <= 15 );
   
-  if ( !mSawLineEnd && bufferFill < minBufferFillWithoutLineEnd )
+  if ( !mFinishing && !mSawLineEnd &&
+       bufferFill < minBufferFillWithoutLineEnd )
     return false;
 
   // buffer is empty, return false:
@@ -421,47 +443,61 @@ void QuotedPrintableEncoder::createOutputBuffer() {
   }
 
   if ( Never == mAccuNeedsEncoding ||
-       AtBOL == mAccuNeedsEncoding && mCurrentLineLength ) {
+       AtBOL == mAccuNeedsEncoding && mCurrentLineLength != 0 ) {
     mOutputBuffer[ mOutputBufferCursor++ ] = mAccu;
     mCurrentLineLength++;
   } else {
     mOutputBuffer[ mOutputBufferCursor++ ] = '=';
-    uchar value;
-    value = mAccu >> 4;
-    if ( value > 9 )
-      value += 'A' - 10;
-    else
-      value += '0';
-    mOutputBuffer[ mOutputBufferCursor++ ] = char(value);
-    value = mAccu & 0xF;
-    if ( value > 9 )
-      value += 'A' - 10;
-    else
-      value += '0';
-    mOutputBuffer[ mOutputBufferCursor++ ] = char(value);
+    mOutputBuffer[ mOutputBufferCursor++ ] = binToHex( highNibble( mAccu ) );
+    mOutputBuffer[ mOutputBufferCursor++ ] = binToHex( lowNibble( mAccu ) );
     mCurrentLineLength += 3;
   }
 }
 
+
+// write as much as possible off the output buffer. Return true if
+// flushing was complete, false if some chars could not be flushed.
+bool QuotedPrintableEncoder::flushOutputBuffer( char* & dcursor,
+						const char * const dend ) {
+  kdDebug() << "flushOutputBuffer with mOBC == "
+	    << mOutputBufferCursor << " and " << dend - dcursor
+	    << " bytes of free output stream space" << endl
+	    << "mOutputBuffer == \""
+	    << QString::fromLatin1( mOutputBuffer, mOutputBufferCursor )
+	    << "\" and mFinished == " << mFinished << endl;
+  uint i = 0;
+  // copy output buffer to output stream:
+  for ( ; dcursor != dend && i < mOutputBufferCursor ; ++i )
+    *dcursor++ = mOutputBuffer[i];
+
+  kdDebug() << "  wrote " << i << " chars, "
+	    << mOutputBufferCursor - i << " remaining" << endl;
+
+  // calculate the number of missing chars:
+  uint numCharsLeft = mOutputBufferCursor - i;
+  // push the remaining chars to the begin of the buffer:
+  if ( numCharsLeft )
+    qmemmove( mOutputBuffer, mOutputBuffer + i, numCharsLeft );
+  // adjust cursor:
+  mOutputBufferCursor = numCharsLeft;
+
+  return !numCharsLeft;
+}
+
 bool QuotedPrintableEncoder::encode( const char* & scursor, const char * const send,
-				     char* & dcursor, const char * const dend ) {
+				     char* & dcursor, const char * const dend )
+{
+  // support probing by the caller:
   if ( mFinishing ) return true;
 
-  uint i = 0;
-
   while ( scursor != send && dcursor != dend ) {
-    if ( mOutputBufferCursor ) {
-      assert( mOutputBufferCursor <= 6 );
-      if ( i < mOutputBufferCursor ) {
-	*dcursor++ = mOutputBuffer[i++];
-	continue;
-      } else {
-	mOutputBufferCursor = i = 0;
-      }
-    }
+    if ( mOutputBufferCursor && !flushOutputBuffer( dcursor, dend ) )
+      return (scursor == send);
 
     assert( mOutputBufferCursor == 0 );
 
+    // fill input buffer until eol has been reached or until the
+    // buffer is full, whatever comes first:
     fillInputBuffer( scursor, send );
     
     if ( processNextChar() )
@@ -473,19 +509,17 @@ bool QuotedPrintableEncoder::encode( const char* & scursor, const char * const s
       if ( mWithCRLF )
 	mOutputBuffer[ mOutputBufferCursor++ ] = '\r';
       mOutputBuffer[ mOutputBufferCursor++ ] = '\n';
+      // signal fillInputBuffer() we are ready for the next line:
       mSawLineEnd = false;
       mCurrentLineLength = 0;
-    } else 
+    } else
+      // we are supposedly finished with this input block:
       break;
   }
 
-  if ( i && i < mOutputBufferCursor ) {
-    // adjust output buffer:
-    memmove( mOutputBuffer, &mOutputBuffer[i], mOutputBufferCursor - i );
-    mOutputBufferCursor -= i;
-  } else if ( i == mOutputBufferCursor ) {
-    mOutputBufferCursor = i = 0;
-  }
+  // make sure we write as much as possible and don't stop _writing_
+  // just because we have no more _input_:
+  if ( mOutputBufferCursor ) flushOutputBuffer( dcursor, dend );
 
   return (scursor == send);
    
@@ -495,19 +529,12 @@ bool QuotedPrintableEncoder::finish( char* & dcursor,
 				     const char * const dend ) {
   mFinishing = true;
 
-  uint i = 0;
+  if ( mFinished )
+    return flushOutputBuffer( dcursor, dend );
 
   while ( dcursor != dend ) {
-    // empty output buffer:
-    if ( mOutputBufferCursor ) {
-      assert( mOutputBufferCursor <= 6 );
-      if ( i < mOutputBufferCursor ) {
-	*dcursor++ = mOutputBuffer[i++];
-	continue;
-      } else {
-	mOutputBufferCursor = i = 0;
-      }
-    }
+    if ( mOutputBufferCursor && !flushOutputBuffer( dcursor, dend ) )
+      return false;
 
     assert( mOutputBufferCursor == 0 );
 
@@ -522,21 +549,14 @@ bool QuotedPrintableEncoder::finish( char* & dcursor,
       mOutputBuffer[ mOutputBufferCursor++ ] = '\n';
       mSawLineEnd = false;
       mCurrentLineLength = 0;
-    } else 
-      break;
+    } else {
+      mFinished = true;
+      return flushOutputBuffer( dcursor, dend );
+    }
   }
 
-  if ( i && i < mOutputBufferCursor ) {
-    // adjust output buffer:
-    memmove( mOutputBuffer, &mOutputBuffer[i], mOutputBufferCursor - i );
-    mOutputBufferCursor -= i;
-  } else if ( i == mOutputBufferCursor ) {
-    mOutputBufferCursor = i = 0;
-  }
+  return mFinished && !mOutputBufferCursor;
 
-  // ### Most probably not correct...
-  return !mOutputBufferCursor
-    && mInputBufferReadCursor == mInputBufferWriteCursor;
 } // finish
 
 
@@ -565,24 +585,19 @@ bool Rfc2047QEncodingEncoder::encode( const char* & scursor, const char * const 
       continue;
     case 1:
       // extract hi-nibble:
-      value = mAccu >> 4;
+      value = highNibble(mAccu);
       mStepNo = 2;
       break;
     case 2:
       // extract lo-nibble:
-      value = mAccu & 0xF;
+      value = lowNibble(mAccu);
       mStepNo = 0;
       break;
     default: assert( 0 );
     }
 
-    // convert value to hexdigit:
-    if ( value > 9 )
-      value += 'A' - 10;
-    else
-      value += '0';
     // and write:
-    *dcursor++ = char(value);
+    *dcursor++ = binToHex( value );
   }
 
   return (scursor == send);
@@ -602,33 +617,23 @@ bool Rfc2047QEncodingEncoder::finish( char* & dcursor, const char * const dend )
     switch ( mStepNo ) {
     case 1:
       // extract hi-nibble:
-      value = mAccu >> 4;
+      value = highNibble(mAccu);
       mStepNo = 2;
       break;
     case 2:
       // extract lo-nibble:
-      value = mAccu & 0xF;
+      value = lowNibble(mAccu);
       mStepNo = 0;
       break;
     default: assert( 0 );
     }
 
-    // convert value to hexdigit:
-    if ( value > 9 )
-      value += 'A' - 10;
-    else
-      value += '0';
     // and write:
-    *dcursor++ = char(value);
+    *dcursor++ = binToHex( value );
   }
 
   return mStepNo == 0;
 };
-
-static inline bool keep( uchar ch ) {
-  // no CTLs, except HT and not '?'
-  return !( ch < ' ' && ch != '\t' || ch == '?' );
-}
 
 
 
