@@ -168,5 +168,24 @@ bool Codec::decode( const char* & scursor, const char * const send,
   return true; // successfully encoded.
 }
 
+// write as much as possible off the output buffer. Return true if
+// flushing was complete, false if some chars could not be flushed.
+bool Encoder::flushOutputBuffer( char* & dcursor, const char * const dend ) {
+  int i;
+  // copy output buffer to output stream:
+  for ( i = 0 ; dcursor != dend && i < mOutputBufferCursor ; ++i )
+    *dcursor++ = mOutputBuffer[i];
+
+  // calculate the number of missing chars:
+  int numCharsLeft = mOutputBufferCursor - i;
+  // push the remaining chars to the begin of the buffer:
+  if ( numCharsLeft )
+    qmemmove( mOutputBuffer, mOutputBuffer + i, numCharsLeft );
+  // adjust cursor:
+  mOutputBufferCursor = numCharsLeft;
+
+  return !numCharsLeft;
+}
+
 
 }; // namespace KMime

@@ -23,6 +23,8 @@
 
 #include <qcstring.h> // funny: can't forward decl QByteArray :-(
 
+#include <kdebug.h> // for kdFatal()
+
 namespace KMime {
 
 // forward declarations:
@@ -241,7 +243,8 @@ protected:
    * create an instance. The bool parameter determines whether lines
    * end with CRLF (true) or LF (false, default).
    **/
-  Decoder( bool withCRLF=false ) {}
+  Decoder( bool withCRLF=false )
+    : mWithCRLF( withCRLF ) {}
 public:
   virtual ~Decoder() {}
 
@@ -255,6 +258,9 @@ public:
    *  calling conventions.
    **/
   virtual bool finish( char* & dcursor, const char * const dend ) = 0;
+
+protected:
+  const bool mWithCRLF;
 };
   
 /** Stateful encoder class, modelled after @ref QTextEncoder.
@@ -267,7 +273,8 @@ protected:
   /** Protected constructor. Use @ref KMime::Codec::makeEncoder if you
       want one. The bool parameter determines whether lines end with
       CRLF (true) or LF (false, default). */
-  Encoder( bool withCRLF=false ) {}
+  Encoder( bool withCRLF=false )
+    : mOutputBufferCursor( 0 ), mWithCRLF( withCRLF ) {}
 public:
   virtual ~Encoder() {}
 
@@ -280,6 +287,49 @@ public:
       remaining data and resets the encoder. See @ref KMime::Codec for
       calling conventions. */
   virtual bool finish( char* & dcursor, const char * const dend ) = 0;
+
+protected:
+  /** Space in the output buffer */
+  static const int maxBufferedChars = 8;
+
+  /** Writes @p ch to the output stream or the output buffer,
+      depending on whether or not the output stream has space left.
+      @return true if written to the output stream, false if buffered. */
+  bool write( char ch, char* & dcursor, const char * const dend ) {
+    if ( dcursor != dend ) {
+      // if there's space in the output stream, write there:
+      *dcursor++ = ch;
+      return true;
+    } else {
+      // else buffer the output:
+      kdFatal( mOutputBufferCursor >= maxBufferedChars )
+	<< "KMime::Encoder: internal buffer overflow!" << endl;
+      mOutputBuffer[ mOutputBufferCursor++ ] = ch;
+      return false;
+    }
+  }
+
+  /** Writes characters from the output buffer to the output stream.
+      Implementations of @ref encode and @ref finish should call this
+      at the very beginning and for each iteration of the while loop.
+      @return true if all chars could be written, false otherwise */
+  bool flushOutputBuffer( char* & dcursor, const char * const dend );
+
+  /** Convenience function. Outputs LF or CRLF, based on the state of
+      @ref mWithCRLF */
+  bool writeCRLF( char* & dcursor, const char * const dend ) {
+    if ( mWithCRLF )
+      write( '\r', dcursor, dend );
+    return write( '\n', dcursor, dend );
+  }
+
+private:
+  /** An output buffer to simplyfy some codecs. Use with @ref write
+      and flushOutputBuffer */
+  char mOutputBuffer[ maxBufferedChars ];
+protected:
+  uchar mOutputBufferCursor;
+  const bool mWithCRLF;
 };
 
 }; // namespace KMime

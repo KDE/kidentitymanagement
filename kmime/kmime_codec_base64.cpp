@@ -40,13 +40,12 @@ class Base64Decoder : public Decoder {
   uint mStepNo;
   uchar mOutbits;
   bool mSawPadding : 1;
-  const bool mWithCRLF : 1;
 
 protected:
   friend class Base64Codec;
   Base64Decoder( bool withCRLF=false )
     : Decoder( withCRLF ), mStepNo(0), mOutbits(0),
-      mSawPadding(false), mWithCRLF( withCRLF ) {}
+      mSawPadding(false) {}
 
 public:
   virtual ~Base64Decoder() {}
@@ -65,16 +64,14 @@ class Base64Encoder : public Encoder {
   uint mWrittenPacketsOnThisLine;
   uchar mNextbits;
   bool mInsideFinishing : 1;
-  const bool mWithCRLF : 1;
 
 protected:
   friend class Rfc2047BEncodingCodec;
   friend class Rfc2047BEncodingEncoder;
   friend class Base64Codec;
   Base64Encoder( bool withCRLF=false )
-    : Encoder(), mStepNo(0), mWrittenPacketsOnThisLine(0),
-      mNextbits(0), mInsideFinishing(false),
-      mWithCRLF( withCRLF ) {}
+    : Encoder( withCRLF ), mStepNo(0), mWrittenPacketsOnThisLine(0),
+      mNextbits(0), mInsideFinishing(false) {}
 
   bool generic_finish( char* & dcursor, const char * const dend,
 		       bool withLFatEnd );

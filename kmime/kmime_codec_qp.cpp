@@ -54,12 +54,10 @@ static inline bool keep( uchar ch ) {
 
 class QuotedPrintableEncoder : public Encoder {
   char mInputBuffer[16];
-  char mOutputBuffer[8];
   uchar mCurrentLineLength; // 0..76
   uchar mAccu;
   uint mInputBufferReadCursor  : 4; // 0..15
   uint mInputBufferWriteCursor : 4; // 0..15
-  uint mOutputBufferCursor     : 3; // 0..8
   enum {
     Never, AtBOL, Definitely
   } mAccuNeedsEncoding    : 2;
@@ -67,23 +65,21 @@ class QuotedPrintableEncoder : public Encoder {
   bool mSawCR             : 1;
   bool mFinishing         : 1;
   bool mFinished          : 1;
-  const bool mWithCRLF    : 1;
 protected:
   friend class QuotedPrintableCodec;
   QuotedPrintableEncoder( bool withCRLF=false )
-    : Encoder(), mCurrentLineLength(0), mAccu(0),
+    : Encoder( withCRLF ), mCurrentLineLength(0), mAccu(0),
       mInputBufferReadCursor(0), mInputBufferWriteCursor(0),
-      mOutputBufferCursor(0), mAccuNeedsEncoding(Never),
+      mAccuNeedsEncoding(Never),
       mSawLineEnd(false), mSawCR(false), mFinishing(false),
-      mFinished(false), mWithCRLF( withCRLF ) {}
+      mFinished(false) {}
 
   bool needsEncoding( uchar ch ) {
     return ( ch > '~' || ch < ' ' && ch != '\t' || ch == '=' );
   }
   bool fillInputBuffer( const char* & scursor, const char * const send );
   bool processNextChar();
-  void createOutputBuffer();
-  bool flushOutputBuffer( char* & dcursor, const char * const dend );
+  void createOutputBuffer( char* & dcursor, const char * const dend );
 public:
   virtual ~QuotedPrintableEncoder() {}
 
@@ -113,23 +109,21 @@ class QuotedPrintableDecoder : public Decoder {
   bool mExpectLF        : 1;
   bool mHaveAccu        : 1;
   const bool mQEncoding : 1;
-  const bool mWithCRLF  : 1;
 protected:
   friend class QuotedPrintableCodec;
   friend class Rfc2047QEncodingCodec;
   friend class Rfc2231EncodingCodec;
   QuotedPrintableDecoder( bool withCRLF=false,
 			  bool aQEncoding=false, char aEscapeChar='=' )
-    : Decoder(),
-    mEscapeChar(aEscapeChar),
-    mBadChar(0),
-    mAccu(0),
-    mInsideHexChar(false),
-    mFlushing(false),
-    mExpectLF(false),
-    mHaveAccu(false),
-    mQEncoding(aQEncoding),
-    mWithCRLF( withCRLF ) {}
+    : Decoder( withCRLF ),
+      mEscapeChar(aEscapeChar),
+      mBadChar(0),
+      mAccu(0),
+      mInsideHexChar(false),
+      mFlushing(false),
+      mExpectLF(false),
+      mHaveAccu(false),
+      mQEncoding(aQEncoding) {}
 public:
   virtual ~QuotedPrintableDecoder() {}
 
@@ -144,15 +138,14 @@ class Rfc2047QEncodingEncoder : public Encoder {
   uchar      mAccu;
   uchar      mStepNo;
   const char mEscapeChar;
-  const bool mWithCRLF : 1;
   bool       mInsideFinishing : 1;
 protected:
   friend class Rfc2047QEncodingCodec;
   friend class Rfc2231EncodingCodec;
   Rfc2047QEncodingEncoder( bool withCRLF=false, char aEscapeChar='=' )
-    : Encoder(),
+    : Encoder( withCRLF ),
       mAccu(0), mStepNo(0), mEscapeChar( aEscapeChar ),
-      mWithCRLF( withCRLF ), mInsideFinishing( false )
+      mInsideFinishing( false )
   {
     // else an optimization in ::encode might break.
     assert( aEscapeChar == '=' || aEscapeChar == '%' );
@@ -417,7 +410,9 @@ bool QuotedPrintableEncoder::processNextChar() {
 // line breaks as necessary. Depends on processNextChar's directions
 // on whether or not to encode the current char, and whether or not
 // the current char is the last one in it's input line:
-void QuotedPrintableEncoder::createOutputBuffer() {
+void QuotedPrintableEncoder::createOutputBuffer( char* & dcursor,
+						 const char * const dend )
+{
   const int maxLineLength = 76; // rfc 2045
 
   assert( mOutputBufferCursor == 0 );
@@ -434,46 +429,24 @@ void QuotedPrintableEncoder::createOutputBuffer() {
     neededSpace++;
 
   if ( mCurrentLineLength > maxLineLength - neededSpace ) {
-      // current line too short, insert soft line break:
-      mOutputBuffer[ mOutputBufferCursor++ ] = '=';
-      if ( mWithCRLF )
-	mOutputBuffer[ mOutputBufferCursor++ ] = '\r';
-      mOutputBuffer[ mOutputBufferCursor++ ] = '\n';
-      mCurrentLineLength = 0;
+    // current line too short, insert soft line break:
+    write( '=', dcursor, dend );
+    writeCRLF( dcursor, dend );
+    mCurrentLineLength = 0;
   }
 
   if ( Never == mAccuNeedsEncoding ||
        AtBOL == mAccuNeedsEncoding && mCurrentLineLength != 0 ) {
-    mOutputBuffer[ mOutputBufferCursor++ ] = mAccu;
+    write( mAccu, dcursor, dend );
     mCurrentLineLength++;
   } else {
-    mOutputBuffer[ mOutputBufferCursor++ ] = '=';
-    mOutputBuffer[ mOutputBufferCursor++ ] = binToHex( highNibble( mAccu ) );
-    mOutputBuffer[ mOutputBufferCursor++ ] = binToHex( lowNibble( mAccu ) );
+    write( '=', dcursor, dend );
+    write( binToHex( highNibble( mAccu ) ), dcursor, dend );
+    write( binToHex( lowNibble( mAccu ) ), dcursor, dend );
     mCurrentLineLength += 3;
   }
 }
 
-
-// write as much as possible off the output buffer. Return true if
-// flushing was complete, false if some chars could not be flushed.
-bool QuotedPrintableEncoder::flushOutputBuffer( char* & dcursor,
-						const char * const dend ) {
-  uint i = 0;
-  // copy output buffer to output stream:
-  for ( ; dcursor != dend && i < mOutputBufferCursor ; ++i )
-    *dcursor++ = mOutputBuffer[i];
-
-  // calculate the number of missing chars:
-  uint numCharsLeft = mOutputBufferCursor - i;
-  // push the remaining chars to the begin of the buffer:
-  if ( numCharsLeft )
-    qmemmove( mOutputBuffer, mOutputBuffer + i, numCharsLeft );
-  // adjust cursor:
-  mOutputBufferCursor = numCharsLeft;
-
-  return !numCharsLeft;
-}
 
 bool QuotedPrintableEncoder::encode( const char* & scursor, const char * const send,
 				     char* & dcursor, const char * const dend )
@@ -493,13 +466,11 @@ bool QuotedPrintableEncoder::encode( const char* & scursor, const char * const s
     
     if ( processNextChar() )
       // there was one...
-      createOutputBuffer();
+      createOutputBuffer( dcursor, dend );
     else if ( mSawLineEnd &&
 	      mInputBufferWriteCursor == mInputBufferReadCursor ) {
       // load a hard line break into output buffer:
-      if ( mWithCRLF )
-	mOutputBuffer[ mOutputBufferCursor++ ] = '\r';
-      mOutputBuffer[ mOutputBufferCursor++ ] = '\n';
+      writeCRLF( dcursor, dend );
       // signal fillInputBuffer() we are ready for the next line:
       mSawLineEnd = false;
       mCurrentLineLength = 0;
@@ -531,13 +502,11 @@ bool QuotedPrintableEncoder::finish( char* & dcursor,
 
     if ( processNextChar() )
       // there was one...
-      createOutputBuffer();
+      createOutputBuffer( dcursor, dend );
     else if ( mSawLineEnd &&
 	      mInputBufferWriteCursor == mInputBufferReadCursor ) {
       // load a hard line break into output buffer:
-      if ( mWithCRLF )
-	mOutputBuffer[ mOutputBufferCursor++ ] = '\r';
-      mOutputBuffer[ mOutputBufferCursor++ ] = '\n';
+      writeCRLF( dcursor, dend );
       mSawLineEnd = false;
       mCurrentLineLength = 0;
     } else {
