@@ -1,4 +1,4 @@
-/*  -*- c++ -*
+/*  -*- c++ -*-
     kmime_header_parsing.h
 
     KMime, the KDE internet mail/usenet news message library.
@@ -48,6 +48,12 @@ namespace Types {
   struct Address {
     QString displayName;
     QValueList<Mailbox> mailboxList;
+  };
+
+  struct DateTime {
+    time_t time;            // secs since 1.1.1970, 0:00 UTC/GMT
+    long int secsEastOfGMT; // timezone
+    bool timeZoneKnown;     // do we know the timezone? (e.g. on -0000)
   };
 
 }; // namespace KMime::Types
@@ -150,7 +156,7 @@ namespace HeaderParsing {
 		  bool & timeZoneKnown, bool isCRLF=false );
 
   bool parseDateTime( const char* & scursor, const char * const send,
-		      time_t & result, bool isCRLF=false );
+		      Types::DateTime & result, bool isCRLF=false );
 
 #if 0
   bool tryToMakeAnySenseOfDateString( const char* & scursor,

@@ -1566,7 +1566,7 @@ bool parseTime( const char* & scursor, const char * send,
 }
 
 bool parseDateTime( const char* & scursor, const char * const send,
-		    time_t & result, bool isCRLF )
+		    Types::DateTime & result, bool isCRLF )
 {
   // Parsing date-time; strict mode:
   //
@@ -1664,11 +1664,13 @@ bool parseDateTime( const char* & scursor, const char * const send,
   maybeDateTime.tm_sec = maybeSecond;
 
   // now put everything together and check if mktime(3) likes it:
-  result = mktime( &maybeDateTime );
-  if ( result == (time_t)(-1) ) return false;
+  result.time = mktime( &maybeDateTime );
+  if ( result.time == (time_t)(-1) ) return false;
 
   // adjust to UTC/GMT:
-  result -= secsEastOfGMT;
+  result.time -= secsEastOfGMT;
+  result.secsEastOfGMT = secsEastOfGMT;
+  result.timeZoneKnown = timeZoneKnown;
 
   return true;
 }
