@@ -2682,7 +2682,7 @@ void References::append(const QCString &s)
 
   while (!lst.isEmpty()) {   // now insert the rest, up to 1000 characters
     temp = lst.last();
-    if ((15+r_ef.length()+temp.length())<200) {
+    if ((15+r_ef.length()+temp.length())<1000) {
       r_ef.insert(insPos,(QString(" %1").arg(temp)).latin1());
       lst.remove(temp);
     } else
