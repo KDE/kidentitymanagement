@@ -806,7 +806,7 @@ bool kio_sieveProtocol::authenticate()
 
 	bool cachePositive = checkCachedAuthentication(ai);
 	if (!cachePositive && (m_sUser.isEmpty() || m_sPass.isEmpty())) {
-		ai.caption = i18n("Sieve authentication details");
+		ai.caption = i18n("Sieve Authentication Details");
 		ai.comment = i18n("Please enter your authentication details for your sieve account "
 								"(usually the same as your email password):");
 		if (!openPassDlg(ai)) {
