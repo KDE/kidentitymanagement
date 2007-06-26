@@ -45,7 +45,7 @@ public:
    * This means in particular that if there is no identity configured,
    * the default identity created here will not be saved.
    */
-  IdentityManager( bool readonly = false, QObject * parent=0, const char * name=0 );
+  explicit IdentityManager( bool readonly = false, QObject * parent=0, const char * name=0 );
   virtual ~IdentityManager();
 
 public:

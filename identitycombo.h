@@ -38,7 +38,7 @@ class Identity;
 class KPIMIDENTITIES_EXPORT IdentityCombo : public QComboBox {
   Q_OBJECT
 public:
-  IdentityCombo( IdentityManager* manager, QWidget * parent=0 );
+  explicit IdentityCombo( IdentityManager* manager, QWidget * parent=0 );
 
   QString currentIdentityName() const;
   uint currentIdentity() const;

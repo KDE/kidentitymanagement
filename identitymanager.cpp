@@ -20,11 +20,10 @@
 // config keys:
 static const char configKeyDefaultIdentity[] = "Default Identity";
 
-#include <QList>
 
 #include "identitymanager.h"
-
 #include "identity.h" // for IdentityList::{export,import}Data
+
 #include <kpimutils/email.h> // for static helper functions
 
 #include <kemailsettings.h> // for IdentityEntry::fromControlCenter()
@@ -34,12 +33,12 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <kuser.h>
 #include <kconfiggroup.h>
 
+#include <QList>
 #include <QRegExp>
+#include <QtDBus>
 
 #include <assert.h>
 #include <krandom.h>
-
-#include <QtDBus>
 
 #include "identitymanageradaptor.h"
 

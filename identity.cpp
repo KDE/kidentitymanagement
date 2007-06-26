@@ -658,7 +658,7 @@ QString Identity::signatureText( bool * ok ) const
   return QString();
 
 #if 0 // ### FIXME: error handling
-  if (mSignatureFile.endsWith("|"))
+  if (mSignatureFile.endsWith('|'))
   {
   }
   else
