@@ -20,21 +20,21 @@
 #ifndef _KPIM_IDENTITYMANAGER_H_
 #define _KPIM_IDENTITYMANAGER_H_
 
-#include <libkdepim/configmanager.h>
-#include <libkpimidentities_export.h>
+#include <QObject>
+#include <kpimidentities/libkpimidentities_export.h>
 
 class KConfigBase;
 class KConfig;
 class QStringList;
 
-namespace KPIM {
+namespace KPIMIdentities {
 
 class Identity;
 /**
  * @short Manages the list of identities.
  * @author Marc Mutz <mutz@kde.org>
  **/
-class KPIMIDENTITIES_EXPORT IdentityManager : public ConfigManager
+class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
 {
   Q_OBJECT
 public:
@@ -45,7 +45,8 @@ public:
    * This means in particular that if there is no identity configured,
    * the default identity created here will not be saved.
    */
-  explicit IdentityManager( bool readonly = false, QObject * parent=0, const char * name=0 );
+  explicit IdentityManager( bool readonly = false, QObject * parent=0,
+                            const char * name=0 );
   virtual ~IdentityManager();
 
 public:
@@ -104,7 +105,8 @@ public:
       @return the identity named @p identityName or the default
       identity if not found.
   **/
-  const Identity & identityForNameOrDefault( const QString & identityName ) const;
+  const Identity & identityForNameOrDefault(
+                const QString & identityName ) const;
 
   /** Convenience menthod.
 
@@ -159,10 +161,13 @@ public:
   Identity & newFromExisting( const Identity & other,
 				const QString & name=QString() );
 
-  /** Returns the list of all email addresses (only name@host) from all identities */
+  /** Returns the list of all email addresses (only name@host) from all
+      identities */
   QStringList allEmails() const;
 
 signals:
+  /** Emitted whenever a commit changes any configure option */
+  void changed();
   /** Emitted whenever the identity with Unique Object Identifier
       (UOID) @p uoid changed. Useful for more fine-grained change
       notifications than what is possible with the standard @ref
@@ -171,21 +176,22 @@ signals:
   /** Emitted whenever the identity @p ident changed. Useful for more
       fine-grained change notifications than what is possible with the
       standard @ref changed() signal. */
-  void changed( const KPIM::Identity & ident );
+  void changed( const KPIMIdentities::Identity & ident );
   /** Emitted on @ref commit() for each deleted identity. At the time
       this signal is emitted, the identity does still exist and can be
       retrieved by @ref identityForUoid() if needed */
   void deleted( uint uoid );
   /** Emitted on @ref commit() for each new identity */
-  void added( const KPIM::Identity & ident );
+  void added( const KPIMIdentities::Identity & ident );
 
 protected:
   /**
-   * This is called when no identity has been defined, so we need to create a default one
-   * The parameters are filled with some default values from KUser,
+   * This is called when no identity has been defined, so we need to create a
+   * default one. The parameters are filled with some default values from KUser,
    * but reimplementations of this method can give them another value.
    */
-  virtual void createDefaultIdentity( QString& /*fullName*/, QString& /*emailAddress*/ ) {}
+  virtual void createDefaultIdentity( QString& /*fullName*/,
+                                      QString& /*emailAddress*/ ) {}
 
 protected slots:
   void slotRollback() { rollback(); }

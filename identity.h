@@ -21,8 +21,8 @@
 #ifndef kpim_identity_h
 #define kpim_identity_h
 
-#include <libkpimidentities/config-libkpimidentities.h> // HAVE_GPGME
-#include <libkpimidentities_export.h>
+#include <kpimidentities/config-libkpimidentities.h> // HAVE_GPGME
+#include "libkpimidentities_export.h"
 
 #ifdef HAVE_GPGME
 #include <kleo/enum.h>
@@ -34,7 +34,7 @@
 #include <QStringList>
 #include <QList>
 
-namespace KPIM {
+namespace KPIMIdentities {
   class Identity;
   class Signature;
 }
@@ -42,13 +42,16 @@ class KConfigGroup;
 class QDataStream;
 class QMimeData;
 
-namespace KPIM {
+namespace KPIMIdentities {
 
-KPIMIDENTITIES_EXPORT QDataStream & operator<<( QDataStream & stream, const KPIM::Signature & sig );
-KPIMIDENTITIES_EXPORT QDataStream & operator>>( QDataStream & stream, KPIM::Signature & sig );
-
-KPIMIDENTITIES_EXPORT QDataStream & operator<<( QDataStream & stream, const KPIM::Identity & ident );
-KPIMIDENTITIES_EXPORT QDataStream & operator>>( QDataStream & stream, KPIM::Identity & ident );
+KPIMIDENTITIES_EXPORT QDataStream & operator<<
+        ( QDataStream & stream, const KPIMIdentities::Signature & sig );
+KPIMIDENTITIES_EXPORT QDataStream & operator>>
+        ( QDataStream & stream, KPIMIdentities::Signature & sig );
+KPIMIDENTITIES_EXPORT QDataStream & operator<<
+        ( QDataStream & stream, const KPIMIdentities::Identity & ident );
+KPIMIDENTITIES_EXPORT QDataStream & operator>>
+        ( QDataStream & stream, KPIMIdentities::Identity & ident );
 
 /**
  * @short abstraction of a signature (aka "footer").
@@ -117,8 +120,10 @@ class KPIMIDENTITIES_EXPORT Identity
   // QValueList<Identity> and especially qHeapSort().
   friend class IdentityManager;
 
-  friend QDataStream & operator<<( QDataStream & stream, const KPIM::Identity & ident );
-  friend QDataStream & operator>>( QDataStream & stream, KPIM::Identity & ident );
+  friend QDataStream & operator<<
+          ( QDataStream & stream,  const KPIMIdentities::Identity & ident );
+  friend QDataStream & operator>>
+          ( QDataStream & stream, KPIMIdentities::Identity & ident );
 
 public:
   typedef QList<Identity> List;
@@ -256,11 +261,14 @@ public:
 
 protected:
   /** @return true if the signature is read from the output of a command */
-  bool signatureIsCommand() const { return mSignature.type() == Signature::FromCommand; }
+  bool signatureIsCommand() const {
+      return mSignature.type() == Signature::FromCommand; }
   /** @return true if the signature is read from a text file */
-  bool signatureIsPlainFile() const { return mSignature.type() == Signature::FromFile; }
+  bool signatureIsPlainFile() const {
+      return mSignature.type() == Signature::FromFile; }
   /** @return true if the signature was specified directly */
-  bool signatureIsInline() const { return mSignature.type() == Signature::Inlined; }
+  bool signatureIsInline() const {
+      return mSignature.type() == Signature::Inlined; }
 
   /** name of the signature file (with path) */
   QString signatureFile() const { return mSignature.url(); }
@@ -271,7 +279,8 @@ protected:
   void setSignatureInlineText(const QString&);
 
   /** Inline or signature from a file */
-  bool useSignatureFile() const { return signatureIsPlainFile() || signatureIsCommand(); }
+  bool useSignatureFile() const {
+      return signatureIsPlainFile() || signatureIsCommand(); }
 
 public:
   /** Returns the signature. This method also takes care of special
@@ -329,7 +338,8 @@ protected:
   QString mReplyToAddr;
   QString mBcc;
   QString mVCardFile;
-  QByteArray mPGPEncryptionKey, mPGPSigningKey, mSMIMEEncryptionKey, mSMIMESigningKey;
+  QByteArray mPGPEncryptionKey, mPGPSigningKey, mSMIMEEncryptionKey,
+             mSMIMESigningKey;
   QString mFcc, mDrafts, mTemplates, mTransport;
   QString mDictionary;
   QString mXFace;
@@ -341,6 +351,6 @@ protected:
 #endif
 };
 
-} // namespace KPIM
+}
 
 #endif /*kpim_identity_h*/

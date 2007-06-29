@@ -19,14 +19,13 @@
 
 #include "identity.h"
 
-#include <libkdepim/kfileio.h>
-#include <libkdepim/collectingprocess.h>
-
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kconfig.h>
 #include <kurl.h>
+#include <kprocess.h>
+#include <kpimutils/kfileio.h>
 
 #include <QFileInfo>
 #include <QMimeData>
@@ -38,20 +37,17 @@
 #include <errno.h>
 #include <assert.h>
 
-using namespace KPIM;
-
+using namespace KPIMIdentities;
 
 Signature::Signature()
   : mType( Disabled )
 {
-
 }
 
 Signature::Signature( const QString & text )
   : mText( text ),
     mType( Inlined )
 {
-
 }
 
 Signature::Signature( const QString & url, bool isExecutable )
@@ -100,33 +96,28 @@ QString Signature::textFromCommand( bool * ok ) const
   }
 
   // create a shell process:
-  CollectingProcess proc;
-  proc.setUseShell(true);
-  proc << mUrl;
-
-  // run the process:
-  int rc = 0;
-  if ( !proc.start( K3Process::Block, K3Process::Stdout ) )
-    rc = -1;
-  else
-    rc = ( proc.normalExit() ) ? proc.exitStatus() : -1 ;
+  KProcess proc;
+  proc.setOutputChannelMode( KProcess::SeparateChannels );
+  proc.setShellCommand( mUrl );
+  int rc = proc.execute();
 
   // handle errors, if any:
   if ( rc != 0 ) {
     if ( ok ) *ok = false;
-    QString wmsg = i18n("<qt>Failed to execute signature script<br><b>%1</b>:<br>%2</qt>",
-        mUrl, strerror(rc) );
+    QString wmsg = i18n("<qt>Failed to execute signature script<br><b>%1</b>:"
+            "<br>%2</qt>", mUrl, QString( proc.readAllStandardError() ) );
     KMessageBox::error(0, wmsg);
     return QString();
   }
 
   // no errors:
-  if ( ok ) *ok = true;
+  if ( ok )
+      *ok = true;
 
   // get output:
-  QByteArray output = proc.collectedStdout();
+  QByteArray output = proc.readAllStandardOutput();
 
-  // ### hmm, should we allow other encodings, too?
+  // TODO: hmm, should we allow other encodings, too?
   return QString::fromLocal8Bit( output.data(), output.size() );
 }
 
@@ -134,16 +125,21 @@ QString Signature::textFromFile( bool * ok ) const
 {
   assert( mType == FromFile );
 
-  // ### FIXME: Use KIO::NetAccess to download non-local files!
+  // TODO: Use KIO::NetAccess to download non-local files!
   if ( !KUrl(mUrl).isLocalFile() && !(QFileInfo(mUrl).isRelative()
                                       && QFileInfo(mUrl).exists()) ) {
-    kDebug( 5006 ) << "Signature::textFromFile: non-local URLs are unsupported" << endl;
-    if ( ok ) *ok = false;
+      kDebug( 5006 ) << "Signature::textFromFile: "
+              << "non-local URLs are unsupported" << endl;
+    if ( ok )
+        *ok = false;
     return QString();
   }
-  if ( ok ) *ok = true;
-  // ### hmm, should we allow other encodings, too?
-  const QByteArray ba = kFileToByteArray( mUrl, false );
+
+  if ( ok )
+      *ok = true;
+
+  // TODO: hmm, should we allow other encodings, too?
+  const QByteArray ba = KPIMUtils::kFileToByteArray( mUrl, false );
   return QString::fromLocal8Bit( ba.data(), ba.size() );
 }
 
@@ -152,11 +148,16 @@ QString Signature::withSeparator( bool * ok ) const
   bool internalOK = false;
   QString signature = rawText( &internalOK );
   if ( !internalOK ) {
-    if ( ok ) *ok = false;
+    if ( ok )
+        *ok = false;
     return QString();
   }
-  if ( ok ) *ok = true;
-  if ( signature.isEmpty() ) return signature; // don't add a separator in this case
+  if ( ok )
+      *ok = true;
+
+  if ( signature.isEmpty() )
+      return signature; // don't add a separator in this case
+
   if ( signature.startsWith( QString::fromLatin1("-- \n") ) )
     // already have signature separator at start of sig:
     return QString::fromLatin1("\n") += signature;
@@ -224,31 +225,32 @@ void Signature::writeConfig( KConfigGroup & config ) const
   config.writeEntry( sigTextKey, mText );
 }
 
-QDataStream & KPIM::operator<<( QDataStream & stream, const KPIM::Signature & sig ) {
-  return stream << static_cast<quint8>(sig.mType)
-		<< sig.mUrl
-		<< sig.mText;
+QDataStream & KPIMIdentities::operator<<
+        ( QDataStream & stream, const KPIMIdentities::Signature & sig )
+{
+  return stream << static_cast<quint8>(sig.mType) << sig.mUrl << sig.mText;
 }
 
-QDataStream & KPIM::operator>>( QDataStream & stream, KPIM::Signature & sig ) {
-    quint8 s;
-    stream >> s
-           >> sig.mUrl
-           >> sig.mText;
-    sig.mType = static_cast<Signature::Type>(s);
-    return stream;
+QDataStream & KPIMIdentities::operator>>
+        ( QDataStream & stream, KPIMIdentities::Signature & sig )
+{
+  quint8 s;
+  stream >> s  >> sig.mUrl >> sig.mText;
+  sig.mType = static_cast<Signature::Type>(s);
+  return stream;
 }
 
-// ### should use a kstaticdeleter?
+// TODO: should use a kstaticdeleter?
 static Identity* identityNull = 0;
 const Identity& Identity::null()
 {
-    if ( !identityNull )
-        identityNull = new Identity;
-    return *identityNull;
+  if ( !identityNull )
+    identityNull = new Identity;
+  return *identityNull;
 }
 
-bool Identity::isNull() const {
+bool Identity::isNull() const
+{
   return mIdentity.isEmpty() && mFullName.isEmpty() && mEmailAddr.isEmpty() &&
     mOrganization.isEmpty() && mReplyToAddr.isEmpty() && mBcc.isEmpty() &&
     mVCardFile.isEmpty() &&
@@ -263,7 +265,8 @@ bool Identity::isNull() const {
     mXFace.isEmpty();
 }
 
-bool Identity::operator==( const Identity & other ) const {
+bool Identity::operator==( const Identity & other ) const
+{
   bool same = mUoid == other.mUoid &&
       mIdentity == other.mIdentity && mFullName == other.mFullName &&
       mEmailAddr == other.mEmailAddr && mOrganization == other.mOrganization &&
@@ -285,32 +288,66 @@ bool Identity::operator==( const Identity & other ) const {
 #if 0
   if ( same )
     return true;
-  if ( mUoid != other.mUoid ) kDebug() << "mUoid differs : " << mUoid << " != " << other.mUoid << endl;
-  if ( mIdentity != other.mIdentity ) kDebug() << "mIdentity differs : " << mIdentity << " != " << other.mIdentity << endl;
-  if ( mFullName != other.mFullName ) kDebug() << "mFullName differs : " << mFullName << " != " << other.mFullName << endl;
-  if ( mEmailAddr != other.mEmailAddr ) kDebug() << "mEmailAddr differs : " << mEmailAddr << " != " << other.mEmailAddr << endl;
-  if ( mOrganization != other.mOrganization ) kDebug() << "mOrganization differs : " << mOrganization << " != " << other.mOrganization << endl;
-  if ( mReplyToAddr != other.mReplyToAddr ) kDebug() << "mReplyToAddr differs : " << mReplyToAddr << " != " << other.mReplyToAddr << endl;
-  if ( mBcc != other.mBcc ) kDebug() << "mBcc differs : " << mBcc << " != " << other.mBcc << endl;
-  if ( mVCardFile != other.mVCardFile ) kDebug() << "mVCardFile differs : " << mVCardFile << " != " << other.mVCardFile << endl;
-  if ( mFcc != other.mFcc ) kDebug() << "mFcc differs : " << mFcc << " != " << other.mFcc << endl;
-  if ( mPGPEncryptionKey != other.mPGPEncryptionKey ) kDebug() << "mPGPEncryptionKey differs : " << mPGPEncryptionKey << " != " << other.mPGPEncryptionKey << endl;
-  if ( mPGPSigningKey != other.mPGPSigningKey ) kDebug() << "mPGPSigningKey differs : " << mPGPSigningKey << " != " << other.mPGPSigningKey << endl;
-  if ( mSMIMEEncryptionKey != other.mSMIMEEncryptionKey ) kDebug() << "mSMIMEEncryptionKey differs : '" << mSMIMEEncryptionKey << "' != '" << other.mSMIMEEncryptionKey << "'" << endl;
-  if ( mSMIMESigningKey != other.mSMIMESigningKey ) kDebug() << "mSMIMESigningKey differs : " << mSMIMESigningKey << " != " << other.mSMIMESigningKey << endl;
-  if ( mPreferredCryptoMessageFormat != other.mPreferredCryptoMessageFormat ) kDebug() << "mPreferredCryptoMessageFormat differs : " << mPreferredCryptoMessageFormat << " != " << other.mPreferredCryptoMessageFormat << endl;
-  if ( mDrafts != other.mDrafts ) kDebug() << "mDrafts differs : " << mDrafts << " != " << other.mDrafts << endl;
-  if ( mTemplates != other.mTemplates ) kDebug() << "mTemplates differs : " << mTemplates << " != " << other.mTemplates << endl;
-  if ( mTransport != other.mTransport ) kDebug() << "mTransport differs : " << mTransport << " != " << other.mTransport << endl;
-  if ( mDictionary != other.mDictionary ) kDebug() << "mDictionary differs : " << mDictionary << " != " << other.mDictionary << endl;
-  if ( ! ( mSignature == other.mSignature ) ) kDebug() << "mSignature differs" << endl;
+  if ( mUoid != other.mUoid )
+    kDebug() << "mUoid differs : " << mUoid << " != " << other.mUoid << endl;
+  if ( mIdentity != other.mIdentity )
+    kDebug() << "mIdentity differs : " << mIdentity << " != "
+                        << other.mIdentity << endl;
+  if ( mFullName != other.mFullName )
+    kDebug() << "mFullName differs : " << mFullName << " != "
+                        << other.mFullName << endl;
+  if ( mEmailAddr != other.mEmailAddr )
+    kDebug() << "mEmailAddr differs : " << mEmailAddr << " != "
+                        << other.mEmailAddr << endl;
+  if ( mOrganization != other.mOrganization )
+    kDebug() << "mOrganization differs : " << mOrganization << " != "
+                        << other.mOrganization << endl;
+  if ( mReplyToAddr != other.mReplyToAddr )
+    kDebug() << "mReplyToAddr differs : " << mReplyToAddr << " != "
+                        << other.mReplyToAddr << endl;
+  if ( mBcc != other.mBcc )
+    kDebug() << "mBcc differs : " << mBcc << " != " << other.mBcc << endl;
+  if ( mVCardFile != other.mVCardFile )
+    kDebug() << "mVCardFile differs : " << mVCardFile << " != "
+                        << other.mVCardFile << endl;
+  if ( mFcc != other.mFcc )
+    kDebug() << "mFcc differs : " << mFcc << " != " << other.mFcc << endl;
+  if ( mPGPEncryptionKey != other.mPGPEncryptionKey )
+    kDebug() << "mPGPEncryptionKey differs : " << mPGPEncryptionKey << " != "
+                        << other.mPGPEncryptionKey << endl;
+  if ( mPGPSigningKey != other.mPGPSigningKey )
+    kDebug() << "mPGPSigningKey differs : " << mPGPSigningKey << " != "
+                        << other.mPGPSigningKey << endl;
+  if ( mSMIMEEncryptionKey != other.mSMIMEEncryptionKey )
+    kDebug() << "mSMIMEEncryptionKey differs : '" << mSMIMEEncryptionKey
+                        << "' != '" << other.mSMIMEEncryptionKey << "'" << endl;
+  if ( mSMIMESigningKey != other.mSMIMESigningKey )
+    kDebug() << "mSMIMESigningKey differs : " << mSMIMESigningKey << " != " << other.mSMIMESigningKey << endl;
+  if ( mPreferredCryptoMessageFormat != other.mPreferredCryptoMessageFormat )
+    kDebug() << "mPreferredCryptoMessageFormat differs : "
+                        << mPreferredCryptoMessageFormat << " != "
+                        << other.mPreferredCryptoMessageFormat << endl;
+  if ( mDrafts != other.mDrafts )
+    kDebug() << "mDrafts differs : " << mDrafts << " != "
+                        << other.mDrafts << endl;
+  if ( mTemplates != other.mTemplates )
+    kDebug() << "mTemplates differs : " << mTemplates << " != "
+                        << other.mTemplates << endl;
+  if ( mTransport != other.mTransport )
+    kDebug() << "mTransport differs : " << mTransport << " != "
+                        << other.mTransport << endl;
+  if ( mDictionary != other.mDictionary )
+    kDebug() << "mDictionary differs : " << mDictionary << " != "
+                        << other.mDictionary << endl;
+  if ( ! ( mSignature == other.mSignature ) )
+    kDebug() << "mSignature differs" << endl;
 #endif
   return same;
 }
 
 Identity::Identity( const QString & id, const QString & fullName,
-			const QString & emailAddr, const QString & organization,
-			const QString & replyToAddr )
+			        const QString & emailAddr, const QString & organization,
+			        const QString & replyToAddr )
   : mUoid( 0 ), mIdentity( id ), mFullName( fullName ),
     mEmailAddr( emailAddr ), mOrganization( organization ),
     mReplyToAddr( replyToAddr ),
@@ -318,10 +355,8 @@ Identity::Identity( const QString & id, const QString & fullName,
     // (readConfig returns "")
     mBcc( "" ), mVCardFile( "" ), mPGPEncryptionKey( "" ), mPGPSigningKey( "" ),
     mSMIMEEncryptionKey( "" ), mSMIMESigningKey( "" ), mFcc( "" ),
-    mDrafts( "" ), mTemplates( "" ), mTransport( "" ),
-    mDictionary( "" ),
-    mXFace( "" ), mXFaceEnabled( false ),
-    mIsDefault( false )
+    mDrafts( "" ), mTemplates( "" ), mTransport( "" ), mDictionary( "" ),
+    mXFace( "" ), mXFaceEnabled( false ), mIsDefault( false )
 #ifdef HAVE_GPGME
     , mPreferredCryptoMessageFormat( Kleo::AutoFormat )
 #endif
@@ -347,7 +382,8 @@ void Identity::readConfig( const KConfigGroup & config )
   mSMIMESigningKey = config.readEntry("SMIME Signing Key").toLatin1();
   mSMIMEEncryptionKey = config.readEntry("SMIME Encryption Key").toLatin1();
 #ifdef HAVE_GPGME
-  mPreferredCryptoMessageFormat = Kleo::stringToCryptoMessageFormat( config.readEntry("Preferred Crypto Message Format", "none" ) );
+  mPreferredCryptoMessageFormat = Kleo::stringToCryptoMessageFormat(
+          config.readEntry("Preferred Crypto Message Format", "none" ) );
 #endif
   mReplyToAddr = config.readEntry("Reply-To Address");
   mBcc = config.readEntry("Bcc");
@@ -383,7 +419,8 @@ void Identity::writeConfig( KConfigGroup & config ) const
   config.writeEntry("SMIME Signing Key", mSMIMESigningKey.data());
   config.writeEntry("SMIME Encryption Key", mSMIMEEncryptionKey.data());
 #ifdef HAVE_GPGME
-  config.writeEntry("Preferred Crypto Message Format", Kleo::cryptoMessageFormatToString( mPreferredCryptoMessageFormat ) );
+  config.writeEntry("Preferred Crypto Message Format",
+        Kleo::cryptoMessageFormatToString( mPreferredCryptoMessageFormat ) );
 #else
   config.writeEntry("Preferred Crypto Message Format", QString() );
 #endif
@@ -402,7 +439,9 @@ void Identity::writeConfig( KConfigGroup & config ) const
   mSignature.writeConfig( config );
 }
 
-QDataStream & KPIM::operator<<( QDataStream & stream, const KPIM::Identity & i ) {
+QDataStream & KPIMIdentities::operator<<
+        ( QDataStream & stream, const KPIMIdentities::Identity & i )
+{
   return stream << static_cast<quint32>(i.uoid())
 		<< i.identityName()
 		<< i.fullName()
@@ -420,19 +459,23 @@ QDataStream & KPIM::operator<<( QDataStream & stream, const KPIM::Identity & i )
 		<< i.drafts()
 		<< i.templates()
 		<< i.mSignature
-                << i.dictionary()
-                << i.xface()
+        << i.dictionary()
+        << i.xface()
 #ifdef HAVE_GPGME
-                << QString( Kleo::cryptoMessageFormatToString( i.mPreferredCryptoMessageFormat ) );
+        << QString( Kleo::cryptoMessageFormatToString(
+                    i.mPreferredCryptoMessageFormat ) );
 #else
-                << QString();
+        << QString();
 #endif
 }
 
-QDataStream & KPIM::operator>>( QDataStream & stream, KPIM::Identity & i ) {
+QDataStream & KPIMIdentities::operator>>
+        ( QDataStream & stream, KPIMIdentities::Identity & i )
+{
   quint32 uoid;
   QString format;
-  stream        >> uoid
+  stream
+        >> uoid
 		>> i.mIdentity
 		>> i.mFullName
 		>> i.mOrganization
@@ -449,12 +492,13 @@ QDataStream & KPIM::operator>>( QDataStream & stream, KPIM::Identity & i ) {
 		>> i.mDrafts
 		>> i.mTemplates
 		>> i.mSignature
-                >> i.mDictionary
-                >> i.mXFace
+        >> i.mDictionary
+        >> i.mXFace
 		>> format;
   i.mUoid = uoid;
 #ifdef HAVE_GPGME
-  i.mPreferredCryptoMessageFormat = Kleo::stringToCryptoMessageFormat( format.toLatin1() );
+  i.mPreferredCryptoMessageFormat =
+          Kleo::stringToCryptoMessageFormat( format.toLatin1() );
 #endif
 
   return stream;
@@ -467,11 +511,13 @@ bool Identity::mailingAllowed() const
 }
 
 
-void Identity::setIsDefault( bool flag ) {
+void Identity::setIsDefault( bool flag )
+{
   mIsDefault = flag;
 }
 
-void Identity::setIdentityName( const QString & name ) {
+void Identity::setIdentityName( const QString & name )
+{
   mIdentity = name;
 }
 
@@ -480,8 +526,6 @@ void Identity::setFullName(const QString &str)
   mFullName = str;
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setOrganization(const QString &str)
 {
   mOrganization = str;
@@ -515,21 +559,16 @@ void Identity::setSMIMEEncryptionKey(const QByteArray &str)
     mSMIMEEncryptionKey = "";
 }
 
-//-----------------------------------------------------------------------------
 void Identity::setEmailAddr(const QString &str)
 {
   mEmailAddr = str;
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setVCardFile(const QString &str)
 {
   mVCardFile = str;
 }
 
-
-//-----------------------------------------------------------------------------
 QString Identity::fullEmailAddr(void) const
 {
   if (mFullName.isEmpty()) return mEmailAddr;
@@ -560,28 +599,21 @@ QString Identity::fullEmailAddr(void) const
   return result;
 }
 
-//-----------------------------------------------------------------------------
 void Identity::setReplyToAddr(const QString& str)
 {
   mReplyToAddr = str;
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setSignatureFile(const QString &str)
 {
   mSignature.setUrl( str, signatureIsCommand() );
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setSignatureInlineText(const QString &str )
 {
   mSignature.setText( str );
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setTransport(const QString &str)
 {
   mTransport = str;
@@ -589,7 +621,6 @@ void Identity::setTransport(const QString &str)
     mTransport = "";
 }
 
-//-----------------------------------------------------------------------------
 void Identity::setFcc(const QString &str)
 {
   mFcc = str;
@@ -597,7 +628,6 @@ void Identity::setFcc(const QString &str)
     mFcc = "";
 }
 
-//-----------------------------------------------------------------------------
 void Identity::setDrafts(const QString &str)
 {
   mDrafts = str;
@@ -605,8 +635,6 @@ void Identity::setDrafts(const QString &str)
     mDrafts = "";
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setTemplates(const QString &str)
 {
   mTemplates = str;
@@ -614,8 +642,6 @@ void Identity::setTemplates(const QString &str)
     mTemplates = "";
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setDictionary( const QString &str )
 {
   mDictionary = str;
@@ -623,8 +649,6 @@ void Identity::setDictionary( const QString &str )
     mDictionary = "";
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setXFace( const QString &str )
 {
   mXFace = str;
@@ -633,31 +657,29 @@ void Identity::setXFace( const QString &str )
   mXFace.remove( "\r" );
 }
 
-
-//-----------------------------------------------------------------------------
 void Identity::setXFaceEnabled( const bool on )
 {
   mXFaceEnabled = on;
 }
 
-
-//-----------------------------------------------------------------------------
 QString Identity::signatureText( bool * ok ) const
 {
   bool internalOK = false;
   QString signatureText = mSignature.withSeparator( &internalOK );
   if ( internalOK ) {
-    if ( ok ) *ok=true;
+    if ( ok )
+        *ok=true;
     return signatureText;
   }
 
   // OK, here comes the funny part. The call to
   // Signature::withSeparator() failed, so we should probably fix the
   // cause:
-  if ( ok ) *ok = false;
+  if ( ok )
+      *ok = false;
   return QString();
 
-#if 0 // ### FIXME: error handling
+#if 0 // TODO: error handling
   if (mSignatureFile.endsWith('|'))
   {
   }

@@ -26,7 +26,7 @@
 
 #include <assert.h>
 
-using namespace KPIM;
+using namespace KPIMIdentities;
 
 IdentityCombo::IdentityCombo( IdentityManager* manager, QWidget * parent )
   : QComboBox( parent ), mIdentityManager( manager )
@@ -38,19 +38,23 @@ IdentityCombo::IdentityCombo( IdentityManager* manager, QWidget * parent )
 	   SLOT(slotIdentityManagerChanged()) );
 }
 
-QString IdentityCombo::currentIdentityName() const {
+QString IdentityCombo::currentIdentityName() const
+{
   return mIdentityManager->identities()[ currentIndex() ];
 }
 
-uint IdentityCombo::currentIdentity() const {
+uint IdentityCombo::currentIdentity() const
+{
   return mUoidList[ currentIndex() ];
 }
 
-void IdentityCombo::setCurrentIdentity( const Identity & identity ) {
+void IdentityCombo::setCurrentIdentity( const Identity & identity )
+{
   setCurrentIdentity( identity.uoid() );
 }
 
-void IdentityCombo::setCurrentIdentity( const QString & name ) {
+void IdentityCombo::setCurrentIdentity( const QString & name )
+{
   int idx = mIdentityManager->identities().indexOf( name );
   if ( idx < 0 ) return;
   if ( idx == currentIndex() ) return;
@@ -62,7 +66,8 @@ void IdentityCombo::setCurrentIdentity( const QString & name ) {
   slotEmitChanged( idx );
 }
 
-void IdentityCombo::setCurrentIdentity( uint uoid ) {
+void IdentityCombo::setCurrentIdentity( uint uoid )
+{
   int idx = mUoidList.indexOf( uoid );
   if ( idx < 0 ) return;
   if ( idx == currentIndex() ) return;
@@ -74,7 +79,8 @@ void IdentityCombo::setCurrentIdentity( uint uoid ) {
   slotEmitChanged( idx );
 }
 
-void IdentityCombo::reloadCombo() {
+void IdentityCombo::reloadCombo()
+{
   QStringList identities = mIdentityManager->identities();
   // the IM should prevent this from happening:
   assert( !identities.isEmpty() );
@@ -83,14 +89,16 @@ void IdentityCombo::reloadCombo() {
   addItems( identities );
 }
 
-void IdentityCombo::reloadUoidList() {
+void IdentityCombo::reloadUoidList()
+{
   mUoidList.clear();
   IdentityManager::ConstIterator it;
   for ( it = mIdentityManager->begin() ; it != mIdentityManager->end() ; ++it )
     mUoidList << (*it).uoid();
 }
 
-void IdentityCombo::slotIdentityManagerChanged() {
+void IdentityCombo::slotIdentityManagerChanged()
+{
   uint oldIdentity = mUoidList[ currentIndex() ];
 
   reloadUoidList();
@@ -106,7 +114,8 @@ void IdentityCombo::slotIdentityManagerChanged() {
     slotEmitChanged( currentIndex() );
 }
 
-void IdentityCombo::slotEmitChanged( int idx ) {
+void IdentityCombo::slotEmitChanged( int idx )
+{
   emit identityChanged( mIdentityManager->identities()[idx] );
   emit identityChanged( mUoidList[idx] );
 }

@@ -21,11 +21,11 @@
 #define _KPIM_IDENTITYCOMBO_H_
 
 #include <QComboBox>
-#include <libkpimidentities_export.h>
+#include <kpimidentities/libkpimidentities_export.h>
 
 class QString;
 
-namespace KPIM {
+namespace KPIMIdentities {
 
 class IdentityManager;
 class Identity;
