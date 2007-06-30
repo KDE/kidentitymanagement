@@ -71,7 +71,7 @@ IdentityManager::IdentityManager( bool readonly, QObject * parent,
   mConfig = new KConfig( "emailidentities" );
   readConfig(mConfig);
   if ( mIdentities.isEmpty() ) {
-    kDebug(5006) << "emailidentities is empty -> convert from kmailrc" << endl;
+    kDebug( 5325 ) << "emailidentities is empty -> convert from kmailrc" << endl;
     // No emailidentities file, or an empty one due to broken conversion
     // (kconf_update bug in kdelibs <= 3.2.2)
     // => convert it, i.e. read settings from kmailrc
@@ -80,7 +80,7 @@ IdentityManager::IdentityManager( bool readonly, QObject * parent,
   }
   // we need at least a default identity:
   if ( mIdentities.isEmpty() ) {
-    kDebug( 5006 ) << "IdentityManager: No identity found. Creating default."
+    kDebug( 5325 ) << "IdentityManager: No identity found. Creating default."
             << endl;
     createDefaultIdentity();
     commit();
@@ -93,7 +93,7 @@ IdentityManager::IdentityManager( bool readonly, QObject * parent,
 
 IdentityManager::~IdentityManager()
 {
-  kWarning( hasPendingChanges(), 5006 )
+  kWarning( hasPendingChanges(), 5325 )
     << "IdentityManager: There were uncommitted changes!" << endl;
   delete mConfig;
 }
@@ -118,14 +118,14 @@ void IdentityManager::commit()
       const Identity & orig = identityForUoid( uoid ); // look up in mIdentities
       if ( *it != orig ) {
         // changed identity
-        kDebug( 5006 ) << "emitting changed() for identity " << uoid << endl;
+        kDebug( 5325 ) << "emitting changed() for identity " << uoid << endl;
         emit changed( *it );
         changedUOIDs << uoid;
       }
       seenUOIDs.removeAll( uoid );
     } else {
       // new identity
-      kDebug( 5006 ) << "emitting added() for identity " << (*it).uoid() << endl;
+      kDebug( 5325 ) << "emitting added() for identity " << (*it).uoid() << endl;
       emit added( *it );
     }
   }
@@ -133,7 +133,7 @@ void IdentityManager::commit()
   // what's left are deleted identities:
   for ( QList<uint>::ConstIterator it = seenUOIDs.begin() ;
 	it != seenUOIDs.end() ; ++it ) {
-    kDebug( 5006 ) << "emitting deleted() for identity " << (*it) << endl;
+    kDebug( 5325 ) << "emitting deleted() for identity " << (*it) << endl;
     emit deleted( *it );
   }
 
@@ -235,7 +235,7 @@ void IdentityManager::readConfig(KConfigBase* config) {
     }
   }
   if ( !haveDefault ) {
-    kWarning( 5006 ) << "IdentityManager: There was no default identity. Marking first one as default." << endl;
+    kWarning( 5325 ) << "IdentityManager: There was no default identity. Marking first one as default." << endl;
     mIdentities.first().setIsDefault( true );
   }
   qSort( mIdentities );
@@ -270,7 +270,7 @@ IdentityManager::Iterator IdentityManager::modifyEnd()
 
 const Identity & IdentityManager::identityForName( const QString & name ) const
 {
-  kWarning( 5006 )
+  kWarning( 5325 )
     << "deprecated method IdentityManager::identityForName() called!" << endl;
   for ( ConstIterator it = begin() ; it != end() ; ++it )
     if ( (*it).identityName() == name ) return (*it);
@@ -326,7 +326,7 @@ Identity & IdentityManager::modifyIdentityForName( const QString & name )
 {
   for ( Iterator it = modifyBegin() ; it != modifyEnd() ; ++it )
     if ( (*it).identityName() == name ) return (*it);
-      kWarning( 5006 ) << "IdentityManager::identityForName() used as "
+      kWarning( 5325 ) << "IdentityManager::identityForName() used as "
               << "newFromScratch() replacement!"
 		      << "\n  name == \"" << name << "\"" << endl;
   return newFromScratch( name );
@@ -336,7 +336,7 @@ Identity & IdentityManager::modifyIdentityForUoid( uint uoid )
 {
   for ( Iterator it = modifyBegin() ; it != modifyEnd() ; ++it )
     if ( (*it).uoid() == uoid ) return (*it);
-      kWarning( 5006 ) << "IdentityManager::identityForUoid() used as "
+      kWarning( 5325 ) << "IdentityManager::identityForUoid() used as "
               << "newFromScratch() replacement!"
 		      << "\n  uoid == \"" << uoid << "\"" << endl;
   return newFromScratch( i18n("Unnamed") );
@@ -346,7 +346,7 @@ const Identity & IdentityManager::defaultIdentity() const
 {
   for ( ConstIterator it = begin() ; it != end() ; ++it )
     if ( (*it).isDefault() ) return (*it);
-      (mIdentities.isEmpty() ? kFatal( 5006 ) : kWarning( 5006 ) )
+      (mIdentities.isEmpty() ? kFatal( 5325 ) : kWarning( 5325 ) )
               << "IdentityManager: No default identity found!" << endl;
   return *begin();
 }
@@ -517,7 +517,7 @@ QStringList KPIMIdentities::IdentityManager::allEmails() const
 
 void KPIMIdentities::IdentityManager::slotIdentitiesChanged( const QString &id )
 {
-  kDebug()<<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :"
+  kDebug( 5325 )<<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :"
           << id << endl;
   if ( id != QDBusConnection::sessionBus().baseService() ) {
     mConfig->reparseConfiguration();

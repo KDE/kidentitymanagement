@@ -82,7 +82,7 @@ QString Signature::rawText( bool * ok ) const
   case FromCommand:
     return textFromCommand( ok );
   };
-  kFatal( 5006 ) << "Signature::type() returned unknown value!" << endl;
+  kFatal( 5325 ) << "Signature::type() returned unknown value!" << endl;
   return QString(); // make compiler happy
 }
 
@@ -129,7 +129,7 @@ QString Signature::textFromFile( bool * ok ) const
   // TODO: Use KIO::NetAccess to download non-local files!
   if ( !KUrl(mUrl).isLocalFile() && !(QFileInfo(mUrl).isRelative()
                                       && QFileInfo(mUrl).exists()) ) {
-      kDebug( 5006 ) << "Signature::textFromFile: "
+      kDebug( 5325 ) << "Signature::textFromFile: "
               << "non-local URLs are unsupported" << endl;
     if ( ok )
         *ok = false;
@@ -301,7 +301,7 @@ void Identity::writeConfig( KConfigGroup & config ) const
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
   while (i != mPropertiesMap.constEnd()) {
       config.writeEntry( i.key(), i.value() );
-      kDebug(5006) << "Store: " << i.key() << ": " << i.value() << endl;
+      kDebug( 5325 ) << "Store: " << i.key() << ": " << i.value() << endl;
       ++i;
   }
   mSignature.writeConfig( config );
