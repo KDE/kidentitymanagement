@@ -1,5 +1,6 @@
 /*
     Copyright (c) 2002-2004 Marc Mutz <mutz@kde.org>
+    Copyright (c) 2007 Tom Albers <tomalbers@kde.nl>
     Author: Stefan Taferner <taferner@kde.org>
 
     This library is free software; you can redistribute it and/or modify it
@@ -21,18 +22,15 @@
 #ifndef kpim_identity_h
 #define kpim_identity_h
 
-#include <kpimidentities/config-libkpimidentities.h> // HAVE_GPGME
 #include "libkpimidentities_export.h"
-
-#ifdef HAVE_GPGME
-#include <kleo/enum.h>
-#endif
 
 #include <kdemacros.h>
 
 #include <QString>
 #include <QStringList>
 #include <QList>
+#include <QHash>
+#include <QVariant>
 
 namespace KPIMIdentities {
   class Identity;
@@ -43,6 +41,28 @@ class QDataStream;
 class QMimeData;
 
 namespace KPIMIdentities {
+
+static const char s_uoid[] = "uoid";
+static const char s_identity[] = "Identity";
+static const char s_name[] = "Name";
+static const char s_organization[] = "Organization";
+static const char s_pgps[] = "PGP Signing Key";
+static const char s_pgpe[] = "PGP Encryption Key";
+static const char s_smimes[] = "SMIME Signing Key";
+static const char s_smimee[] = "SMIME Encryption Key";
+static const char s_prefcrypt[] = "Preferred Crypto Message Format";
+static const char s_email[] = "Email Address";
+static const char s_replyto[] = "Reply-To Address";
+static const char s_bcc[] = "Bcc";
+static const char s_vcard[] = "VCardFile";
+static const char s_transport[] = "Transport";
+static const char s_fcc[] = "Fcc";
+static const char s_drafts[] = "Drafts";
+static const char s_templates[] = "Templates";
+static const char s_dict[] =  "Dictionary";
+static const char s_xface[] =  "X-Face";
+static const char s_xfaceenabled[] =  "X-FaceEnabled";
+static const char s_signature[] =  "Signature";
 
 KPIMIDENTITIES_EXPORT QDataStream & operator<<
         ( QDataStream & stream, const KPIMIdentities::Signature & sig );
@@ -177,14 +197,15 @@ public:
   bool mailingAllowed() const;
 
   /** Identity/nickname for this collection */
-  QString identityName() const { return mIdentity; }
+  QString identityName() const
+        { return property(s_identity).toString(); }
   void setIdentityName( const QString & name );
 
   /** @return whether this identity is the default identity */
   bool isDefault() const { return mIsDefault; }
 
   /// Unique Object Identifier for this identity
-  uint uoid() const { return mUoid; }
+  uint uoid() const { return property(s_uoid).toInt(); }
 
 protected:
   /** Set whether this identity is the default identity. Since this
@@ -198,50 +219,49 @@ protected:
   **/
   void setIsDefault( bool flag );
 
-  void setUoid( uint aUoid ) { mUoid = aUoid; }
+  void setUoid( uint aUoid ) { setProperty(s_uoid, aUoid); }
 
 public:
   /** Full name of the user */
-  QString fullName() const { return mFullName; }
+    QString fullName() const { return property(s_name).toString(); }
   void setFullName(const QString&);
 
   /** The user's organization (optional) */
-  QString organization() const { return mOrganization; }
+  QString organization() const { return property(s_organization).toString(); }
   void setOrganization(const QString&);
 
-  KDE_DEPRECATED QByteArray pgpIdentity() const { return pgpEncryptionKey(); }
-  KDE_DEPRECATED void setPgpIdentity( const QByteArray & key ) {
-    setPGPEncryptionKey( key );
-    setPGPSigningKey( key );
-  }
-
   /** The user's OpenPGP encryption key */
-  QByteArray pgpEncryptionKey() const { return mPGPEncryptionKey; }
+  QByteArray pgpEncryptionKey() const
+        { return property(s_pgpe).toByteArray(); }
   void setPGPEncryptionKey( const QByteArray & key );
 
   /** The user's OpenPGP signing key */
-  QByteArray pgpSigningKey() const { return mPGPSigningKey; }
+  QByteArray pgpSigningKey() const
+        { return property(s_pgps).toByteArray(); }
   void setPGPSigningKey( const QByteArray & key );
 
   /** The user's S/MIME encryption key */
-  QByteArray smimeEncryptionKey() const { return mSMIMEEncryptionKey; }
+  QByteArray smimeEncryptionKey() const
+        { return property(s_smimee).toByteArray(); }
   void setSMIMEEncryptionKey( const QByteArray & key );
 
   /** The user's S/MIME signing key */
-  QByteArray smimeSigningKey() const { return mSMIMESigningKey; }
+  QByteArray smimeSigningKey() const
+        { return property(s_smimes).toByteArray(); }
   void setSMIMESigningKey( const QByteArray & key );
 
-#ifdef HAVE_GPGME
-  Kleo::CryptoMessageFormat preferredCryptoMessageFormat() const { return mPreferredCryptoMessageFormat; }
-  void setPreferredCryptoMessageFormat( Kleo::CryptoMessageFormat format ) { mPreferredCryptoMessageFormat = format; }
-#endif
+  QString preferredCryptoMessageFormat() const
+        { return property(s_prefcrypt).toString(); }
+  void setPreferredCryptoMessageFormat(const QString&);
 
   /** email address (without the user name - only name\@host) */
-  QString emailAddr() const { return mEmailAddr; }
+  QString emailAddr() const
+        { return property(s_email).toString(); }
   void setEmailAddr(const QString&);
 
   /** vCard to attach to outgoing emails */
-  QString vCardFile() const { return mVCardFile; }
+  QString vCardFile() const
+        { return property(s_vcard).toString(); }
   void setVCardFile(const QString&);
 
   /** email address in the format "username <name@host>" suitable
@@ -249,12 +269,14 @@ public:
   QString fullEmailAddr() const;
 
   /** email address for the ReplyTo: field */
-  QString replyToAddr() const { return mReplyToAddr; }
+  QString replyToAddr() const
+        { return property(s_replyto).toString(); }
   void setReplyToAddr(const QString&);
 
   /** email addresses for the BCC: field */
-  QString bcc() const { return mBcc; }
-  void setBcc(const QString& aBcc) { mBcc = aBcc; }
+  QString bcc() const
+        { return property(s_bcc).toString(); }
+  void setBcc(const QString&);
 
   void setSignature( const Signature & sig ) { mSignature = sig; }
   Signature & signature() /* _not_ const! */ { return mSignature; }
@@ -292,35 +314,43 @@ public:
 
   /** The transport that is set for this identity. Used to link a
       transport with an identity. */
-  QString transport() const { return mTransport; }
+  QString transport() const { return property(s_transport).toString(); }
   void setTransport(const QString&);
 
   /** The folder where sent messages from this identity will be
       stored by default. */
-  QString fcc() const { return mFcc; }
+  QString fcc() const { return property(s_fcc).toString(); }
   void setFcc(const QString&);
 
   /** The folder where draft messages from this identity will be
       stored by default. */
-  QString drafts() const { return mDrafts; }
+  QString drafts() const { return property(s_drafts).toString(); }
   void setDrafts(const QString&);
 
   /** The folder where template messages from this identity will be
       stored by default. */
-  QString templates() const { return mTemplates; }
+  QString templates() const { return property(s_templates).toString(); }
   void setTemplates( const QString& );
 
   /** dictionary which should be used for spell checking */
-  QString dictionary() const { return mDictionary; }
+  QString dictionary() const { return property(s_dict).toString(); }
   void setDictionary( const QString& );
 
   /** a X-Face header for this identity */
-  QString xface() const { return mXFace; }
+  QString xface() const { return property(s_xface).toString(); }
   void setXFace( const QString& );
-  bool isXFaceEnabled() const { return mXFaceEnabled; }
+  bool isXFaceEnabled() const { return property(s_xfaceenabled).toBool(); }
   void setXFaceEnabled( const bool );
 
+  /** Get random properties */
+  QVariant property( const QString & key ) const;
+  /** Set random properties, when @p value is empty (for QStrings) or null,
+      the property is deleted. */
+  void setProperty( const QString & key, const QVariant & value );
+          
   static const Identity& null();
+  /** Returns true when the identity contains no values, all null values or
+      only empty values */
   bool isNull() const;
 
   static QString mimeDataType();
@@ -329,26 +359,9 @@ public:
   static Identity fromMimeData( const QMimeData* );
 
 protected:
-  // if you add new members, make sure they have an operator= (or the
-  // compiler can synthesize one) and amend Identity::operator==,
-  // isNull(), readConfig() and writeConfig() as well as operator<<
-  // and operator>> accordingly:
-  uint mUoid;
-  QString mIdentity, mFullName, mEmailAddr, mOrganization;
-  QString mReplyToAddr;
-  QString mBcc;
-  QString mVCardFile;
-  QByteArray mPGPEncryptionKey, mPGPSigningKey, mSMIMEEncryptionKey,
-             mSMIMESigningKey;
-  QString mFcc, mDrafts, mTemplates, mTransport;
-  QString mDictionary;
-  QString mXFace;
-  bool mXFaceEnabled;
   Signature mSignature;
   bool      mIsDefault;
-#ifdef HAVE_GPGME
-  Kleo::CryptoMessageFormat mPreferredCryptoMessageFormat;
-#endif
+  QHash<QString,QVariant>   mPropertiesMap;
 };
 
 }

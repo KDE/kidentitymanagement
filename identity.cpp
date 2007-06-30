@@ -1,5 +1,6 @@
 /*
     Copyright (c) 2002-2004 Marc Mutz <mutz@kde.org>
+    Copyright (c) 2007 Tom Albers <tomalbers@kde.nl>
 
     This library is free software; you can redistribute it and/or modify it
     under the terms of the GNU Library General Public License as published by
@@ -251,116 +252,31 @@ const Identity& Identity::null()
 
 bool Identity::isNull() const
 {
-  return mIdentity.isEmpty() && mFullName.isEmpty() && mEmailAddr.isEmpty() &&
-    mOrganization.isEmpty() && mReplyToAddr.isEmpty() && mBcc.isEmpty() &&
-    mVCardFile.isEmpty() &&
-    mFcc.isEmpty() && mDrafts.isEmpty() && mTemplates.isEmpty() &&
-    mPGPEncryptionKey.isEmpty() && mPGPSigningKey.isEmpty() &&
-    mSMIMEEncryptionKey.isEmpty() && mSMIMESigningKey.isEmpty() &&
-    mTransport.isEmpty() && mDictionary.isEmpty() &&
-#ifdef HAVE_GPGME
-    mPreferredCryptoMessageFormat == Kleo::AutoFormat &&
-#endif
-    mSignature.type() == Signature::Disabled &&
-    mXFace.isEmpty();
+  bool empty = true;
+  QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
+  while (i != mPropertiesMap.constEnd()) {
+      if ( !i.value().isNull() ||
+           ( i.value().type() == QVariant::String && !i.value().toString().isEmpty() ) )
+          empty = false;
+      ++i;
+  }
+  return empty;
 }
 
 bool Identity::operator==( const Identity & other ) const
 {
-  bool same = mUoid == other.mUoid &&
-      mIdentity == other.mIdentity && mFullName == other.mFullName &&
-      mEmailAddr == other.mEmailAddr && mOrganization == other.mOrganization &&
-      mReplyToAddr == other.mReplyToAddr && mBcc == other.mBcc &&
-      mVCardFile == other.mVCardFile &&
-      mFcc == other.mFcc &&
-      mPGPEncryptionKey == other.mPGPEncryptionKey &&
-      mPGPSigningKey == other.mPGPSigningKey &&
-      mSMIMEEncryptionKey == other.mSMIMEEncryptionKey &&
-      mSMIMESigningKey == other.mSMIMESigningKey &&
-#ifdef HAVE_GPGME
-      mPreferredCryptoMessageFormat == other.mPreferredCryptoMessageFormat &&
-#endif
-      mDrafts == other.mDrafts && mTemplates == other.mTemplates &&
-      mTransport == other.mTransport &&
-      mDictionary == other.mDictionary && mSignature == other.mSignature &&
-      mXFace == other.mXFace && mXFaceEnabled == other.mXFaceEnabled;
-
-#if 0
-  if ( same )
-    return true;
-  if ( mUoid != other.mUoid )
-    kDebug() << "mUoid differs : " << mUoid << " != " << other.mUoid << endl;
-  if ( mIdentity != other.mIdentity )
-    kDebug() << "mIdentity differs : " << mIdentity << " != "
-                        << other.mIdentity << endl;
-  if ( mFullName != other.mFullName )
-    kDebug() << "mFullName differs : " << mFullName << " != "
-                        << other.mFullName << endl;
-  if ( mEmailAddr != other.mEmailAddr )
-    kDebug() << "mEmailAddr differs : " << mEmailAddr << " != "
-                        << other.mEmailAddr << endl;
-  if ( mOrganization != other.mOrganization )
-    kDebug() << "mOrganization differs : " << mOrganization << " != "
-                        << other.mOrganization << endl;
-  if ( mReplyToAddr != other.mReplyToAddr )
-    kDebug() << "mReplyToAddr differs : " << mReplyToAddr << " != "
-                        << other.mReplyToAddr << endl;
-  if ( mBcc != other.mBcc )
-    kDebug() << "mBcc differs : " << mBcc << " != " << other.mBcc << endl;
-  if ( mVCardFile != other.mVCardFile )
-    kDebug() << "mVCardFile differs : " << mVCardFile << " != "
-                        << other.mVCardFile << endl;
-  if ( mFcc != other.mFcc )
-    kDebug() << "mFcc differs : " << mFcc << " != " << other.mFcc << endl;
-  if ( mPGPEncryptionKey != other.mPGPEncryptionKey )
-    kDebug() << "mPGPEncryptionKey differs : " << mPGPEncryptionKey << " != "
-                        << other.mPGPEncryptionKey << endl;
-  if ( mPGPSigningKey != other.mPGPSigningKey )
-    kDebug() << "mPGPSigningKey differs : " << mPGPSigningKey << " != "
-                        << other.mPGPSigningKey << endl;
-  if ( mSMIMEEncryptionKey != other.mSMIMEEncryptionKey )
-    kDebug() << "mSMIMEEncryptionKey differs : '" << mSMIMEEncryptionKey
-                        << "' != '" << other.mSMIMEEncryptionKey << "'" << endl;
-  if ( mSMIMESigningKey != other.mSMIMESigningKey )
-    kDebug() << "mSMIMESigningKey differs : " << mSMIMESigningKey << " != " << other.mSMIMESigningKey << endl;
-  if ( mPreferredCryptoMessageFormat != other.mPreferredCryptoMessageFormat )
-    kDebug() << "mPreferredCryptoMessageFormat differs : "
-                        << mPreferredCryptoMessageFormat << " != "
-                        << other.mPreferredCryptoMessageFormat << endl;
-  if ( mDrafts != other.mDrafts )
-    kDebug() << "mDrafts differs : " << mDrafts << " != "
-                        << other.mDrafts << endl;
-  if ( mTemplates != other.mTemplates )
-    kDebug() << "mTemplates differs : " << mTemplates << " != "
-                        << other.mTemplates << endl;
-  if ( mTransport != other.mTransport )
-    kDebug() << "mTransport differs : " << mTransport << " != "
-                        << other.mTransport << endl;
-  if ( mDictionary != other.mDictionary )
-    kDebug() << "mDictionary differs : " << mDictionary << " != "
-                        << other.mDictionary << endl;
-  if ( ! ( mSignature == other.mSignature ) )
-    kDebug() << "mSignature differs" << endl;
-#endif
-  return same;
+  return mPropertiesMap == other.mPropertiesMap;
 }
 
 Identity::Identity( const QString & id, const QString & fullName,
 			        const QString & emailAddr, const QString & organization,
 			        const QString & replyToAddr )
-  : mUoid( 0 ), mIdentity( id ), mFullName( fullName ),
-    mEmailAddr( emailAddr ), mOrganization( organization ),
-    mReplyToAddr( replyToAddr ),
-    // Using "" instead of null to make operator==() not fail
-    // (readConfig returns "")
-    mBcc( "" ), mVCardFile( "" ), mPGPEncryptionKey( "" ), mPGPSigningKey( "" ),
-    mSMIMEEncryptionKey( "" ), mSMIMESigningKey( "" ), mFcc( "" ),
-    mDrafts( "" ), mTemplates( "" ), mTransport( "" ), mDictionary( "" ),
-    mXFace( "" ), mXFaceEnabled( false ), mIsDefault( false )
-#ifdef HAVE_GPGME
-    , mPreferredCryptoMessageFormat( Kleo::AutoFormat )
-#endif
 {
+    setProperty(s_uoid, id);
+    setProperty(s_name, fullName);
+    setProperty(s_email, emailAddr);
+    setProperty(s_organization, organization);
+    setProperty(s_replyto, replyToAddr);
 }
 
 Identity::~Identity()
@@ -370,72 +286,24 @@ Identity::~Identity()
 
 void Identity::readConfig( const KConfigGroup & config )
 {
-  mUoid = config.readEntry("uoid",QVariant(0)).toUInt();
-
-  mIdentity = config.readEntry("Identity");
-  mFullName = config.readEntry("Name");
-  mEmailAddr = config.readEntry("Email Address");
-  mVCardFile = config.readPathEntry("VCardFile");
-  mOrganization = config.readEntry("Organization");
-  mPGPSigningKey = config.readEntry("PGP Signing Key").toLatin1();
-  mPGPEncryptionKey = config.readEntry("PGP Encryption Key").toLatin1();
-  mSMIMESigningKey = config.readEntry("SMIME Signing Key").toLatin1();
-  mSMIMEEncryptionKey = config.readEntry("SMIME Encryption Key").toLatin1();
-#ifdef HAVE_GPGME
-  mPreferredCryptoMessageFormat = Kleo::stringToCryptoMessageFormat(
-          config.readEntry("Preferred Crypto Message Format", "none" ) );
-#endif
-  mReplyToAddr = config.readEntry("Reply-To Address");
-  mBcc = config.readEntry("Bcc");
-  mFcc = config.readEntry("Fcc", "sent-mail");
-  if( mFcc.isEmpty() )
-    mFcc = "sent-mail";
-  mDrafts = config.readEntry("Drafts", "drafts");
-  if( mDrafts.isEmpty() )
-    mDrafts = "drafts";
-  mTemplates = config.readEntry("Templates", "templates");
-  if( mTemplates.isEmpty() )
-    mTemplates = "templates";
-  mTransport = config.readEntry("Transport");
-  mDictionary = config.readEntry( "Dictionary" );
-  mXFace = config.readEntry( "X-Face" );
-  mXFaceEnabled = config.readEntry( "X-FaceEnabled", QVariant(false) ).toBool();
-
-  mSignature.readConfig( config );
-  kDebug(5006) << "Identity::readConfig(): UOID = " << mUoid
-	    << " for identity named \"" << mIdentity << "\"" << endl;
+  // get all keys and convert them to our QHash.
+  QMap<QString,QString> entries = config.entryMap();
+  QMap<QString,QString>::const_iterator i = entries.constBegin();
+  while (i != entries.constEnd()) {
+    mPropertiesMap.insert(i.key(), i.value());
+    ++i;
+  }
 }
 
 
 void Identity::writeConfig( KConfigGroup & config ) const
 {
-  config.writeEntry("uoid", mUoid);
-
-  config.writeEntry("Identity", mIdentity);
-  config.writeEntry("Name", mFullName);
-  config.writeEntry("Organization", mOrganization);
-  config.writeEntry("PGP Signing Key", mPGPSigningKey.data());
-  config.writeEntry("PGP Encryption Key", mPGPEncryptionKey.data());
-  config.writeEntry("SMIME Signing Key", mSMIMESigningKey.data());
-  config.writeEntry("SMIME Encryption Key", mSMIMEEncryptionKey.data());
-#ifdef HAVE_GPGME
-  config.writeEntry("Preferred Crypto Message Format",
-        Kleo::cryptoMessageFormatToString( mPreferredCryptoMessageFormat ) );
-#else
-  config.writeEntry("Preferred Crypto Message Format", QString() );
-#endif
-  config.writeEntry("Email Address", mEmailAddr);
-  config.writeEntry("Reply-To Address", mReplyToAddr);
-  config.writeEntry("Bcc", mBcc);
-  config.writePathEntry("VCardFile", mVCardFile);
-  config.writeEntry("Transport", mTransport);
-  config.writeEntry("Fcc", mFcc);
-  config.writeEntry("Drafts", mDrafts);
-  config.writeEntry("Templates", mTemplates);
-  config.writeEntry( "Dictionary", mDictionary );
-  config.writeEntry( "X-Face", mXFace );
-  config.writeEntry( "X-FaceEnabled", mXFaceEnabled );
-
+  QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
+  while (i != mPropertiesMap.constEnd()) {
+      config.writeEntry( i.key(), i.value() );
+      kDebug(5006) << "Store: " << i.key() << ": " << i.value() << endl;
+      ++i;
+  }
   mSignature.writeConfig( config );
 }
 
@@ -458,15 +326,10 @@ QDataStream & KPIMIdentities::operator<<
 		<< i.fcc()
 		<< i.drafts()
 		<< i.templates()
-		<< i.mSignature
+        << i.mPropertiesMap[s_signature]
         << i.dictionary()
         << i.xface()
-#ifdef HAVE_GPGME
-        << QString( Kleo::cryptoMessageFormatToString(
-                    i.mPreferredCryptoMessageFormat ) );
-#else
-        << QString();
-#endif
+        << i.preferredCryptoMessageFormat();
 }
 
 QDataStream & KPIMIdentities::operator>>
@@ -476,40 +339,33 @@ QDataStream & KPIMIdentities::operator>>
   QString format;
   stream
         >> uoid
-		>> i.mIdentity
-		>> i.mFullName
-		>> i.mOrganization
-		>> i.mPGPSigningKey
-		>> i.mPGPEncryptionKey
-		>> i.mSMIMESigningKey
-		>> i.mSMIMEEncryptionKey
-		>> i.mEmailAddr
-		>> i.mReplyToAddr
-		>> i.mBcc
-		>> i.mVCardFile
-		>> i.mTransport
-		>> i.mFcc
-		>> i.mDrafts
-		>> i.mTemplates
-		>> i.mSignature
-        >> i.mDictionary
-        >> i.mXFace
-		>> format;
-  i.mUoid = uoid;
-#ifdef HAVE_GPGME
-  i.mPreferredCryptoMessageFormat =
-          Kleo::stringToCryptoMessageFormat( format.toLatin1() );
-#endif
-
+        >> i.mPropertiesMap[s_identity]
+        >> i.mPropertiesMap[s_name]
+        >> i.mPropertiesMap[s_organization]
+        >> i.mPropertiesMap[s_pgps]
+        >> i.mPropertiesMap[s_pgpe]
+        >> i.mPropertiesMap[s_smimes]
+        >> i.mPropertiesMap[s_smimee]
+        >> i.mPropertiesMap[s_email]
+        >> i.mPropertiesMap[s_replyto]
+        >> i.mPropertiesMap[s_bcc]
+        >> i.mPropertiesMap[s_vcard]
+        >> i.mPropertiesMap[s_transport]
+        >> i.mPropertiesMap[s_fcc]
+        >> i.mPropertiesMap[s_drafts]
+        >> i.mPropertiesMap[s_templates]
+        >> i.mPropertiesMap[s_signature]
+        >> i.mPropertiesMap[s_dict]
+        >> i.mPropertiesMap[s_xface]
+        >> i.mPropertiesMap[s_prefcrypt];
+   i.setProperty(s_uoid, uoid);
   return stream;
 }
 
-//-----------------------------------------------------------------------------
 bool Identity::mailingAllowed() const
 {
-  return !mEmailAddr.isEmpty();
+  return !property(s_email).toString().isEmpty();
 }
-
 
 void Identity::setIsDefault( bool flag )
 {
@@ -518,60 +374,56 @@ void Identity::setIsDefault( bool flag )
 
 void Identity::setIdentityName( const QString & name )
 {
-  mIdentity = name;
+  setProperty(s_identity, name);
 }
 
 void Identity::setFullName(const QString &str)
 {
-  mFullName = str;
+  setProperty(s_name, str);
 }
 
 void Identity::setOrganization(const QString &str)
 {
-  mOrganization = str;
+  setProperty(s_organization, str);
 }
 
 void Identity::setPGPSigningKey(const QByteArray &str)
 {
-  mPGPSigningKey = str;
-  if ( mPGPSigningKey.isNull() )
-    mPGPSigningKey = "";
+  setProperty(s_pgps, QString( str ));
 }
 
 void Identity::setPGPEncryptionKey(const QByteArray &str)
 {
-  mPGPEncryptionKey = str;
-  if ( mPGPEncryptionKey.isNull() )
-    mPGPEncryptionKey = "";
+  setProperty(s_pgpe, QString( str ));
 }
 
 void Identity::setSMIMESigningKey(const QByteArray &str)
 {
-  mSMIMESigningKey = str;
-  if ( mSMIMESigningKey.isNull() )
-    mSMIMESigningKey = "";
+  setProperty(s_smimes, QString( str ));
 }
 
 void Identity::setSMIMEEncryptionKey(const QByteArray &str)
 {
-  mSMIMEEncryptionKey = str;
-  if ( mSMIMEEncryptionKey.isNull() )
-    mSMIMEEncryptionKey = "";
+  setProperty(s_smimee,  QString( str ) );
 }
 
 void Identity::setEmailAddr(const QString &str)
 {
-  mEmailAddr = str;
+  setProperty(s_email, str);
 }
 
 void Identity::setVCardFile(const QString &str)
 {
-  mVCardFile = str;
+  setProperty(s_vcard, str);
 }
 
 QString Identity::fullEmailAddr(void) const
 {
-  if (mFullName.isEmpty()) return mEmailAddr;
+  const QString name = mPropertiesMap.value(s_name).toString();
+  const QString mail = mPropertiesMap.value(s_email).toString();
+
+  if (name.isEmpty())
+      return mail;
 
   const QString specials("()<>@,.;:[]");
 
@@ -579,14 +431,14 @@ QString Identity::fullEmailAddr(void) const
 
   // add DQUOTE's if necessary:
   bool needsQuotes=false;
-  for (int i=0; i < mFullName.length(); i++) {
-    if ( specials.contains( mFullName[i] ) )
+  for (int i=0; i < name.length(); i++) {
+    if ( specials.contains( name[i] ) )
       needsQuotes = true;
-    else if ( mFullName[i] == '\\' || mFullName[i] == '"' ) {
+    else if ( name[i] == '\\' || name[i] == '"' ) {
       needsQuotes = true;
       result += '\\';
     }
-    result += mFullName[i];
+    result += name[i];
   }
 
   if (needsQuotes) {
@@ -594,14 +446,14 @@ QString Identity::fullEmailAddr(void) const
     result += '"';
   }
 
-  result += " <" + mEmailAddr + '>';
+  result += " <" + mail + '>';
 
   return result;
 }
 
 void Identity::setReplyToAddr(const QString& str)
 {
-  mReplyToAddr = str;
+  setProperty(s_replyto, str);
 }
 
 void Identity::setSignatureFile(const QString &str)
@@ -616,50 +468,52 @@ void Identity::setSignatureInlineText(const QString &str )
 
 void Identity::setTransport(const QString &str)
 {
-  mTransport = str;
-  if ( mTransport.isNull() )
-    mTransport = "";
+  setProperty(s_transport, str);
 }
 
 void Identity::setFcc(const QString &str)
 {
-  mFcc = str;
-  if ( mFcc.isNull() )
-    mFcc = "";
+  setProperty(s_fcc, str);
 }
 
 void Identity::setDrafts(const QString &str)
 {
-  mDrafts = str;
-  if ( mDrafts.isNull() )
-    mDrafts = "";
+  setProperty(s_drafts, str);
 }
 
 void Identity::setTemplates(const QString &str)
 {
-  mTemplates = str;
-  if ( mTemplates.isNull() )
-    mTemplates = "";
+  setProperty(s_templates, str);
 }
 
 void Identity::setDictionary( const QString &str )
 {
-  mDictionary = str;
-  if ( mDictionary.isNull() )
-    mDictionary = "";
+  setProperty(s_dict, str);
+}
+
+void Identity::setBcc(const QString& str)
+{
+  setProperty(s_bcc, str);
+}
+
+void Identity::setPreferredCryptoMessageFormat( const QString& str)
+{
+  setProperty(s_prefcrypt, str);
 }
 
 void Identity::setXFace( const QString &str )
 {
-  mXFace = str;
-  mXFace.remove( " " );
-  mXFace.remove( "\n" );
-  mXFace.remove( "\r" );
+  // TODO: maybe make this non const, to indicate we actually are changing str
+  QString strNew = str;
+  strNew.remove( " " );
+  strNew.remove( "\n" );
+  strNew.remove( "\r" );
+  setProperty(s_xface, strNew);
 }
 
 void Identity::setXFaceEnabled( const bool on )
 {
-  mXFaceEnabled = on;
+  setProperty(s_xfaceenabled, on);
 }
 
 QString Identity::signatureText( bool * ok ) const
@@ -721,4 +575,18 @@ Identity Identity::fromMimeData( const QMimeData*md )
     s >> i;
   }
   return i;
+}
+
+QVariant Identity::property( const QString & key ) const
+{
+  return mPropertiesMap.value(key);
+}
+
+void Identity::setProperty( const QString & key, const QVariant & value )
+{
+    if ( value.isNull() ||
+         ( value.type() == QVariant::String && value.toString().isEmpty() ) )
+      mPropertiesMap.remove( key );
+  else
+      mPropertiesMap.insert( key, value );    
 }
