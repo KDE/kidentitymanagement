@@ -1,7 +1,4 @@
 TODO:
 - test the rewritten 'output from commandline'.
-
-TODO after move:
-- delete libkpimidentities
-- libkdepim/configmanager.h/cpp can be removed, as there are no dependencies on it anymore.
-- libkdepim/collectingprocess can be removed, as there are no dependecies on it anymore.
+- d-pointers
+- unit tests
