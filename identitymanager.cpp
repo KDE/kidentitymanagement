@@ -277,20 +277,24 @@ const Identity & IdentityManager::identityForName( const QString & name ) const
   return Identity::null();
 }
 
-const Identity & IdentityManager::identityForUoid( uint uoid ) const {
-  for ( ConstIterator it = begin() ; it != end() ; ++it )
-    if ( (*it).uoid() == uoid ) return (*it);
+const Identity &IdentityManager::identityForUoid( uint uoid ) const
+{
+  for ( ConstIterator it = begin() ; it != end() ; ++it ) {
+    if ( (*it).uoid() == uoid ) {
+      return (*it);
+    }
+  }
   return Identity::null();
 }
 
-const Identity & IdentityManager::identityForNameOrDefault(
-        const QString & name ) const
+const Identity &IdentityManager::identityForNameOrDefault( const QString &name ) const
 {
   const Identity & ident = identityForName( name );
-  if ( ident.isNull() )
+  if ( ident.isNull() ) {
     return defaultIdentity();
-  else
+  } else {
     return ident;
+  }
 }
 
 const Identity & IdentityManager::identityForUoidOrDefault( uint uoid ) const
@@ -375,7 +379,7 @@ bool IdentityManager::setAsDefault( uint uoid )
       found = true;
       break;
     }
-    
+
   if ( !found )
       return false;
 

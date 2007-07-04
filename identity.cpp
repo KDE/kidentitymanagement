@@ -242,11 +242,12 @@ QDataStream & KPIMIdentities::operator>>
 }
 
 // TODO: should use a kstaticdeleter?
-static Identity* identityNull = 0;
-const Identity& Identity::null()
+static Identity *identityNull = 0;
+const Identity &Identity::null()
 {
-  if ( !identityNull )
+  if ( !identityNull ) {
     identityNull = new Identity;
+  }
   return *identityNull;
 }
 
@@ -588,5 +589,5 @@ void Identity::setProperty( const QString & key, const QVariant & value )
          ( value.type() == QVariant::String && value.toString().isEmpty() ) )
       mPropertiesMap.remove( key );
   else
-      mPropertiesMap.insert( key, value );    
+      mPropertiesMap.insert( key, value );
 }

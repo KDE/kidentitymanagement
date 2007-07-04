@@ -26,11 +26,11 @@
 
 #include <kdemacros.h>
 
-#include <QString>
-#include <QStringList>
-#include <QList>
-#include <QHash>
-#include <QVariant>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QList>
+#include <QtCore/QHash>
+#include <QtCore/QVariant>
 
 namespace KPIMIdentities {
   class Identity;
@@ -347,8 +347,8 @@ public:
   /** Set random properties, when @p value is empty (for QStrings) or null,
       the property is deleted. */
   void setProperty( const QString & key, const QVariant & value );
-          
-  static const Identity& null();
+
+  static const Identity &null();
   /** Returns true when the identity contains no values, all null values or
       only empty values */
   bool isNull() const;

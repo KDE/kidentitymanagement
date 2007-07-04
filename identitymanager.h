@@ -20,8 +20,8 @@
 #ifndef _KPIM_IDENTITYMANAGER_H_
 #define _KPIM_IDENTITYMANAGER_H_
 
-#include <QObject>
 #include <kpimidentities/kpimidentities_export.h>
+#include <QtCore/QObject>
 
 class KConfigBase;
 class KConfig;
@@ -165,7 +165,7 @@ public:
       identities */
   QStringList allEmails() const;
 
-signals:
+Q_SIGNALS:
   /** Emitted whenever a commit changes any configure option */
   void changed();
   /** Emitted whenever the identity with Unique Object Identifier
@@ -193,7 +193,7 @@ protected:
   virtual void createDefaultIdentity( QString& /*fullName*/,
                                       QString& /*emailAddress*/ ) {}
 
-protected slots:
+protected Q_SLOTS:
   void slotRollback() { rollback(); }
 
 protected:
@@ -202,10 +202,10 @@ protected:
   /** The list that will be seen by the config dialog */
   QList<Identity> mShadowIdentities;
 
-signals:
+Q_SIGNALS:
   void identitiesChanged( const QString &id );
 
-private slots:
+private Q_SLOTS:
   // Connected to the DBus signal
   void slotIdentitiesChanged( const QString &id );
 
