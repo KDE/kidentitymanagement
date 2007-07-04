@@ -30,7 +30,7 @@
 #ifndef KPIMIDENTITIES_IDENTITYCOMBO_H
 #define KPIMIDENTITIES_IDENTITYCOMBO_H
 
-#include "libkpimidentities_export.h"
+#include "kpimidentities_export.h"
 #include <QtGui/QComboBox>
 
 class QString;

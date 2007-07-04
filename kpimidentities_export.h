@@ -17,8 +17,8 @@
     Boston, MA 02110-1301, USA.
 */
 
-#ifndef LIBKPIMIDENTITIES_EXPORT_H
-#define LIBKPIMIDENTITIES_EXPORT_H
+#ifndef KPIMIDENTITIES_EXPORT_H
+#define KPIMIDENTITIES_EXPORT_H
 
 /* needed for KDE_EXPORT and KDE_IMPORT macros */
 #include <kdemacros.h>

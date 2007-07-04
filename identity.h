@@ -22,7 +22,7 @@
 #ifndef kpim_identity_h
 #define kpim_identity_h
 
-#include "libkpimidentities_export.h"
+#include "kpimidentities_export.h"
 
 #include <kdemacros.h>
 

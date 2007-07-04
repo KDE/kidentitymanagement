@@ -18,6 +18,6 @@ install(FILES
         identity.h
         identitymanager.h
         identitycombo.h
-        libkpimidentities_export.h
+        kpimidentities_export.h
         DESTINATION ${INCLUDE_INSTALL_DIR}/kpimidentities )
 

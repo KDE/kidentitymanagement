@@ -21,7 +21,7 @@
 #define _KPIM_IDENTITYMANAGER_H_
 
 #include <QObject>
-#include <kpimidentities/libkpimidentities_export.h>
+#include <kpimidentities/kpimidentities_export.h>
 
 class KConfigBase;
 class KConfig;
