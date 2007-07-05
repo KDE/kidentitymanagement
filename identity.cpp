@@ -106,7 +106,7 @@ QString Signature::textFromCommand( bool * ok ) const
   if ( rc != 0 ) {
     if ( ok ) *ok = false;
     QString wmsg = i18n("<qt>Failed to execute signature script<br><b>%1</b>:"
-            "<p>%2</qt></p>", mUrl, QString( proc.readAllStandardError() ) );
+            "<p>%2</p></qt>", mUrl, QString( proc.readAllStandardError() ) );
     KMessageBox::error(0, wmsg);
     return QString();
   }
