@@ -198,14 +198,14 @@ public:
 
   /** Identity/nickname for this collection */
   QString identityName() const
-        { return property(s_identity).toString(); }
+        { return property(QLatin1String(s_identity)).toString(); }
   void setIdentityName( const QString & name );
 
   /** @return whether this identity is the default identity */
   bool isDefault() const { return mIsDefault; }
 
   /// Unique Object Identifier for this identity
-  uint uoid() const { return property(s_uoid).toInt(); }
+  uint uoid() const { return property(QLatin1String(s_uoid)).toInt(); }
 
 protected:
   /** Set whether this identity is the default identity. Since this
@@ -219,49 +219,49 @@ protected:
   **/
   void setIsDefault( bool flag );
 
-  void setUoid( uint aUoid ) { setProperty(s_uoid, aUoid); }
+  void setUoid( uint aUoid ) { setProperty(QLatin1String(s_uoid), aUoid); }
 
 public:
   /** Full name of the user */
-    QString fullName() const { return property(s_name).toString(); }
+    QString fullName() const { return property(QLatin1String(s_name)).toString(); }
   void setFullName(const QString&);
 
   /** The user's organization (optional) */
-  QString organization() const { return property(s_organization).toString(); }
+  QString organization() const { return property(QLatin1String(s_organization)).toString(); }
   void setOrganization(const QString&);
 
   /** The user's OpenPGP encryption key */
   QByteArray pgpEncryptionKey() const
-        { return property(s_pgpe).toByteArray(); }
+        { return property(QLatin1String(s_pgpe)).toByteArray(); }
   void setPGPEncryptionKey( const QByteArray & key );
 
   /** The user's OpenPGP signing key */
   QByteArray pgpSigningKey() const
-        { return property(s_pgps).toByteArray(); }
+        { return property(QLatin1String(s_pgps)).toByteArray(); }
   void setPGPSigningKey( const QByteArray & key );
 
   /** The user's S/MIME encryption key */
   QByteArray smimeEncryptionKey() const
-        { return property(s_smimee).toByteArray(); }
+        { return property(QLatin1String(s_smimee)).toByteArray(); }
   void setSMIMEEncryptionKey( const QByteArray & key );
 
   /** The user's S/MIME signing key */
   QByteArray smimeSigningKey() const
-        { return property(s_smimes).toByteArray(); }
+        { return property(QLatin1String(s_smimes)).toByteArray(); }
   void setSMIMESigningKey( const QByteArray & key );
 
   QString preferredCryptoMessageFormat() const
-        { return property(s_prefcrypt).toString(); }
+        { return property(QLatin1String(s_prefcrypt)).toString(); }
   void setPreferredCryptoMessageFormat(const QString&);
 
   /** email address (without the user name - only name\@host) */
   QString emailAddr() const
-        { return property(s_email).toString(); }
+        { return property(QLatin1String(s_email)).toString(); }
   void setEmailAddr(const QString&);
 
   /** vCard to attach to outgoing emails */
   QString vCardFile() const
-        { return property(s_vcard).toString(); }
+        { return property(QLatin1String(s_vcard)).toString(); }
   void setVCardFile(const QString&);
 
   /** email address in the format "username <name@host>" suitable
@@ -270,12 +270,12 @@ public:
 
   /** email address for the ReplyTo: field */
   QString replyToAddr() const
-        { return property(s_replyto).toString(); }
+        { return property(QLatin1String(s_replyto)).toString(); }
   void setReplyToAddr(const QString&);
 
   /** email addresses for the BCC: field */
   QString bcc() const
-        { return property(s_bcc).toString(); }
+        { return property(QLatin1String(s_bcc)).toString(); }
   void setBcc(const QString&);
 
   void setSignature( const Signature & sig ) { mSignature = sig; }
@@ -314,32 +314,32 @@ public:
 
   /** The transport that is set for this identity. Used to link a
       transport with an identity. */
-  QString transport() const { return property(s_transport).toString(); }
+  QString transport() const { return property(QLatin1String(s_transport)).toString(); }
   void setTransport(const QString&);
 
   /** The folder where sent messages from this identity will be
       stored by default. */
-  QString fcc() const { return property(s_fcc).toString(); }
+  QString fcc() const { return property(QLatin1String(s_fcc)).toString(); }
   void setFcc(const QString&);
 
   /** The folder where draft messages from this identity will be
       stored by default. */
-  QString drafts() const { return property(s_drafts).toString(); }
+  QString drafts() const { return property(QLatin1String(s_drafts)).toString(); }
   void setDrafts(const QString&);
 
   /** The folder where template messages from this identity will be
       stored by default. */
-  QString templates() const { return property(s_templates).toString(); }
+  QString templates() const { return property(QLatin1String(s_templates)).toString(); }
   void setTemplates( const QString& );
 
   /** dictionary which should be used for spell checking */
-  QString dictionary() const { return property(s_dict).toString(); }
+  QString dictionary() const { return property(QLatin1String(s_dict)).toString(); }
   void setDictionary( const QString& );
 
   /** a X-Face header for this identity */
-  QString xface() const { return property(s_xface).toString(); }
+  QString xface() const { return property(QLatin1String(s_xface)).toString(); }
   void setXFace( const QString& );
-  bool isXFaceEnabled() const { return property(s_xfaceenabled).toBool(); }
+  bool isXFaceEnabled() const { return property(QLatin1String(s_xfaceenabled)).toBool(); }
   void setXFaceEnabled( const bool );
 
   /** Get random properties */
