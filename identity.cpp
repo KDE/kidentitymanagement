@@ -273,7 +273,8 @@ Identity::Identity( const QString & id, const QString & fullName,
 			        const QString & emailAddr, const QString & organization,
 			        const QString & replyToAddr )
 {
-    setProperty(s_uoid, id);
+    setProperty(s_uoid, 0);
+    setProperty(s_identity, id);
     setProperty(s_name, fullName);
     setProperty(s_email, emailAddr);
     setProperty(s_organization, organization);
