@@ -46,18 +46,18 @@ using namespace KPIMIdentities;
 
 static QString newDBusObjectName()
 {
-    static int s_count = 0;
-    QString name( "/KPIMIDENTITIES_IdentityManager" );
-    if ( s_count++ ) {
-      name += '_';
-      name += QString::number( s_count );
-    }
-    return name;
+  static int s_count = 0;
+  QString name( "/KPIMIDENTITIES_IdentityManager" );
+  if ( s_count++ ) {
+    name += '_';
+    name += QString::number( s_count );
+  }
+  return name;
 }
 
 IdentityManager::IdentityManager( bool readonly, QObject * parent,
                                   const char * name )
-  : QObject( parent)
+    : QObject( parent )
 {
   setObjectName( name );
   new IdentityManagerAdaptor( this );
@@ -65,11 +65,11 @@ IdentityManager::IdentityManager( bool readonly, QObject * parent,
   const QString dbusPath = newDBusObjectName();
   const QString dbusInterface = "org.kde.pim.IdentityManager";
   dbus.registerObject( dbusPath, this );
-  dbus.connect( QString(), dbusPath, dbusInterface, "identitiesChanged", this, SLOT(slotIdentitiesChanged(QString)) );
+  dbus.connect( QString(), dbusPath, dbusInterface, "identitiesChanged", this, SLOT( slotIdentitiesChanged( QString ) ) );
 
   mReadOnly = readonly;
   mConfig = new KConfig( "emailidentities" );
-  readConfig(mConfig);
+  readConfig( mConfig );
   if ( mIdentities.isEmpty() ) {
     kDebug( 5325 ) << "emailidentities is empty -> convert from kmailrc" << endl;
     // No emailidentities file, or an empty one due to broken conversion
@@ -81,7 +81,7 @@ IdentityManager::IdentityManager( bool readonly, QObject * parent,
   // we need at least a default identity:
   if ( mIdentities.isEmpty() ) {
     kDebug( 5325 ) << "IdentityManager: No identity found. Creating default."
-            << endl;
+    << endl;
     createDefaultIdentity();
     commit();
   }
@@ -94,7 +94,7 @@ IdentityManager::IdentityManager( bool readonly, QObject * parent,
 IdentityManager::~IdentityManager()
 {
   kWarning( hasPendingChanges(), 5325 )
-    << "IdentityManager: There were uncommitted changes!" << endl;
+  << "IdentityManager: There were uncommitted changes!" << endl;
   delete mConfig;
 }
 
@@ -105,17 +105,17 @@ void IdentityManager::commit()
 
   QList<uint> seenUOIDs;
   for ( QList<Identity>::ConstIterator it = mIdentities.begin() ;
-	it != mIdentities.end() ; ++it )
-    seenUOIDs << (*it).uoid();
+        it != mIdentities.end() ; ++it )
+    seenUOIDs << ( *it ).uoid();
 
   QList<uint> changedUOIDs;
   // find added and changed identities:
   for ( QList<Identity>::ConstIterator it = mShadowIdentities.begin() ;
-	it != mShadowIdentities.end() ; ++it ) {
-    int index = seenUOIDs.indexOf( (*it).uoid() );
+        it != mShadowIdentities.end() ; ++it ) {
+    int index = seenUOIDs.indexOf(( *it ).uoid() );
     if ( index != -1 ) {
       uint uoid = seenUOIDs.at( index );
-      const Identity & orig = identityForUoid( uoid ); // look up in mIdentities
+      const Identity & orig = identityForUoid( uoid );  // look up in mIdentities
       if ( *it != orig ) {
         // changed identity
         kDebug( 5325 ) << "emitting changed() for identity " << uoid << endl;
@@ -125,15 +125,15 @@ void IdentityManager::commit()
       seenUOIDs.removeAll( uoid );
     } else {
       // new identity
-      kDebug( 5325 ) << "emitting added() for identity " << (*it).uoid() << endl;
+      kDebug( 5325 ) << "emitting added() for identity " << ( *it ).uoid() << endl;
       emit added( *it );
     }
   }
 
   // what's left are deleted identities:
   for ( QList<uint>::ConstIterator it = seenUOIDs.begin() ;
-	it != seenUOIDs.end() ; ++it ) {
-    kDebug( 5325 ) << "emitting deleted() for identity " << (*it) << endl;
+        it != seenUOIDs.end() ; ++it ) {
+    kDebug( 5325 ) << "emitting deleted() for identity " << ( *it ) << endl;
     emit deleted( *it );
   }
 
@@ -144,7 +144,7 @@ void IdentityManager::commit()
   // signals that ship a uoid. This is because the slots might use
   // identityForUoid(uoid)...
   for ( QList<uint>::ConstIterator it = changedUOIDs.begin() ;
-	it != changedUOIDs.end() ; ++it )
+        it != changedUOIDs.end() ; ++it )
     emit changed( *it );
 
   emit changed(); // normal signal
@@ -167,8 +167,8 @@ QStringList IdentityManager::identities() const
 {
   QStringList result;
   for ( ConstIterator it = mIdentities.begin() ;
-	it != mIdentities.end() ; ++it )
-    result << (*it).identityName();
+        it != mIdentities.end() ; ++it )
+    result << ( *it ).identityName();
   return result;
 }
 
@@ -176,8 +176,8 @@ QStringList IdentityManager::shadowIdentities() const
 {
   QStringList result;
   for ( ConstIterator it = mShadowIdentities.begin() ;
-	it != mShadowIdentities.end() ; ++it )
-    result << (*it).identityName();
+        it != mShadowIdentities.end() ; ++it )
+    result << ( *it ).identityName();
   return result;
 }
 
@@ -188,36 +188,37 @@ void IdentityManager::sort()
 
 void IdentityManager::writeConfig() const
 {
-  QStringList identities = groupList(mConfig);
+  QStringList identities = groupList( mConfig );
   for ( QStringList::Iterator group = identities.begin() ;
-	group != identities.end() ; ++group )
+        group != identities.end() ; ++group )
     mConfig->deleteGroup( *group );
   int i = 0;
   for ( ConstIterator it = mIdentities.begin() ;
-	it != mIdentities.end() ; ++it, ++i ) {
-    KConfigGroup cg( mConfig, QString::fromLatin1("Identity #%1").arg(i) );
-    (*it).writeConfig( cg );
-    if ( (*it).isDefault() ) {
+        it != mIdentities.end() ; ++it, ++i ) {
+    KConfigGroup cg( mConfig, QString::fromLatin1( "Identity #%1" ).arg( i ) );
+    ( *it ).writeConfig( cg );
+    if (( *it ).isDefault() ) {
       // remember which one is default:
       KConfigGroup general( mConfig, "General" );
-      general.writeEntry( configKeyDefaultIdentity, (*it).uoid() );
+      general.writeEntry( configKeyDefaultIdentity, ( *it ).uoid() );
 
       // Also write the default identity to emailsettings
       KEMailSettings es;
-      es.setSetting( KEMailSettings::RealName, (*it).fullName() );
-      es.setSetting( KEMailSettings::EmailAddress, (*it).emailAddr() );
-      es.setSetting( KEMailSettings::Organization, (*it).organization() );
-      es.setSetting( KEMailSettings::ReplyToAddress, (*it).replyToAddr() );
+      es.setSetting( KEMailSettings::RealName, ( *it ).fullName() );
+      es.setSetting( KEMailSettings::EmailAddress, ( *it ).emailAddr() );
+      es.setSetting( KEMailSettings::Organization, ( *it ).organization() );
+      es.setSetting( KEMailSettings::ReplyToAddress, ( *it ).replyToAddr() );
     }
   }
   mConfig->sync();
 
 }
 
-void IdentityManager::readConfig(KConfigBase* config) {
+void IdentityManager::readConfig( KConfigBase* config )
+{
   mIdentities.clear();
 
-  QStringList identities = groupList(config);
+  QStringList identities = groupList( config );
   if ( identities.isEmpty() ) return; // nothing to be done...
 
   KConfigGroup general( config, "General" );
@@ -225,7 +226,7 @@ void IdentityManager::readConfig(KConfigBase* config) {
   bool haveDefault = false;
 
   for ( QStringList::Iterator group = identities.begin() ;
-	group != identities.end() ; ++group ) {
+        group != identities.end() ; ++group ) {
     KConfigGroup configGroup( config, *group );
     mIdentities << Identity();
     mIdentities.last().readConfig( configGroup );
@@ -243,9 +244,9 @@ void IdentityManager::readConfig(KConfigBase* config) {
   mShadowIdentities = mIdentities;
 }
 
-QStringList IdentityManager::groupList(KConfigBase* config) const
+QStringList IdentityManager::groupList( KConfigBase* config ) const
 {
-  return config->groupList().filter( QRegExp("^Identity #\\d+$") );
+  return config->groupList().filter( QRegExp( "^Identity #\\d+$" ) );
 }
 
 IdentityManager::ConstIterator IdentityManager::begin() const
@@ -271,17 +272,17 @@ IdentityManager::Iterator IdentityManager::modifyEnd()
 const Identity & IdentityManager::identityForName( const QString & name ) const
 {
   kWarning( 5325 )
-    << "deprecated method IdentityManager::identityForName() called!" << endl;
+  << "deprecated method IdentityManager::identityForName() called!" << endl;
   for ( ConstIterator it = begin() ; it != end() ; ++it )
-    if ( (*it).identityName() == name ) return (*it);
+    if (( *it ).identityName() == name ) return ( *it );
   return Identity::null();
 }
 
 const Identity &IdentityManager::identityForUoid( uint uoid ) const
 {
   for ( ConstIterator it = begin() ; it != end() ; ++it ) {
-    if ( (*it).uoid() == uoid ) {
-      return (*it);
+    if (( *it ).uoid() == uoid ) {
+      return ( *it );
     }
   }
   return Identity::null();
@@ -307,51 +308,52 @@ const Identity & IdentityManager::identityForUoidOrDefault( uint uoid ) const
 }
 
 const Identity & IdentityManager::identityForAddress(
-        const QString & addresses ) const
+  const QString & addresses ) const
 {
   QStringList addressList = KPIMUtils::splitAddressList( addresses );
   for ( ConstIterator it = begin() ; it != end() ; ++it ) {
-    for( QStringList::ConstIterator addrIt = addressList.begin();
-         addrIt != addressList.end(); ++addrIt ) {
-      if( (*it).emailAddr().toLower() ==
+    for ( QStringList::ConstIterator addrIt = addressList.begin();
+          addrIt != addressList.end(); ++addrIt ) {
+      if (( *it ).emailAddr().toLower() ==
           KPIMUtils::extractEmailAddress( *addrIt ).toLower() ) {
-        return (*it);
+        return ( *it );
       }
     }
   }
   return Identity::null();
 }
 
-bool IdentityManager::thatIsMe( const QString & addressList ) const {
+bool IdentityManager::thatIsMe( const QString & addressList ) const
+{
   return !identityForAddress( addressList ).isNull();
 }
 
 Identity & IdentityManager::modifyIdentityForName( const QString & name )
 {
   for ( Iterator it = modifyBegin() ; it != modifyEnd() ; ++it )
-    if ( (*it).identityName() == name ) return (*it);
-      kWarning( 5325 ) << "IdentityManager::identityForName() used as "
-              << "newFromScratch() replacement!"
-		      << "\n  name == \"" << name << "\"" << endl;
+    if (( *it ).identityName() == name ) return ( *it );
+  kWarning( 5325 ) << "IdentityManager::identityForName() used as "
+  << "newFromScratch() replacement!"
+  << "\n  name == \"" << name << "\"" << endl;
   return newFromScratch( name );
 }
 
 Identity & IdentityManager::modifyIdentityForUoid( uint uoid )
 {
   for ( Iterator it = modifyBegin() ; it != modifyEnd() ; ++it )
-    if ( (*it).uoid() == uoid ) return (*it);
-      kWarning( 5325 ) << "IdentityManager::identityForUoid() used as "
-              << "newFromScratch() replacement!"
-		      << "\n  uoid == \"" << uoid << "\"" << endl;
-  return newFromScratch( i18n("Unnamed") );
+    if (( *it ).uoid() == uoid ) return ( *it );
+  kWarning( 5325 ) << "IdentityManager::identityForUoid() used as "
+  << "newFromScratch() replacement!"
+  << "\n  uoid == \"" << uoid << "\"" << endl;
+  return newFromScratch( i18n( "Unnamed" ) );
 }
 
 const Identity & IdentityManager::defaultIdentity() const
 {
   for ( ConstIterator it = begin() ; it != end() ; ++it )
-    if ( (*it).isDefault() ) return (*it);
-      (mIdentities.isEmpty() ? kFatal( 5325 ) : kWarning( 5325 ) )
-              << "IdentityManager: No default identity found!" << endl;
+    if (( *it ).isDefault() ) return ( *it );
+  ( mIdentities.isEmpty() ? kFatal( 5325 ) : kWarning( 5325 ) )
+  << "IdentityManager: No default identity found!" << endl;
   return *begin();
 }
 
@@ -360,10 +362,10 @@ bool IdentityManager::setAsDefault( const QString & name )
   // First, check if the identity actually exists:
   QStringList names = shadowIdentities();
   if ( names.indexOf( name ) == -1 )
-      return false;
+    return false;
   // Then, change the default as requested:
   for ( Iterator it = modifyBegin() ; it != modifyEnd() ; ++it )
-    (*it).setIsDefault( (*it).identityName() == name );
+    ( *it ).setIsDefault(( *it ).identityName() == name );
   // and re-sort:
   sort();
   return true;
@@ -374,18 +376,18 @@ bool IdentityManager::setAsDefault( uint uoid )
   // First, check if the identity actually exists:
   bool found = false;
   for ( ConstIterator it = mShadowIdentities.begin() ;
-	it != mShadowIdentities.end() ; ++it )
-    if ( (*it).uoid() == uoid ) {
+        it != mShadowIdentities.end() ; ++it )
+    if (( *it ).uoid() == uoid ) {
       found = true;
       break;
     }
 
   if ( !found )
-      return false;
+    return false;
 
   // Then, change the default as requested:
   for ( Iterator it = modifyBegin() ; it != modifyEnd() ; ++it )
-    (*it).setIsDefault( (*it).uoid() == uoid );
+    ( *it ).setIsDefault(( *it ).uoid() == uoid );
   // and re-sort:
   sort();
   return true;
@@ -394,11 +396,11 @@ bool IdentityManager::setAsDefault( uint uoid )
 bool IdentityManager::removeIdentity( const QString & name )
 {
   for ( Iterator it = modifyBegin() ; it != modifyEnd() ; ++it )
-    if ( (*it).identityName() == name ) {
-      bool removedWasDefault = (*it).isDefault();
+    if (( *it ).identityName() == name ) {
+      bool removedWasDefault = ( *it ).isDefault();
       mShadowIdentities.erase( it );
       if ( removedWasDefault )
-	mShadowIdentities.first().setIsDefault( true );
+        mShadowIdentities.first().setIsDefault( true );
       return true;
     }
   return false;
@@ -415,20 +417,20 @@ Identity & IdentityManager::newFromControlCenter( const QString & name )
   es.setProfile( es.defaultProfileName() );
 
   return newFromExisting( Identity( name,
-			       es.getSetting( KEMailSettings::RealName ),
-			       es.getSetting( KEMailSettings::EmailAddress ),
-			       es.getSetting( KEMailSettings::Organization ),
-			       es.getSetting( KEMailSettings::ReplyToAddress )
-			       ) );
+                                    es.getSetting( KEMailSettings::RealName ),
+                                    es.getSetting( KEMailSettings::EmailAddress ),
+                                    es.getSetting( KEMailSettings::Organization ),
+                                    es.getSetting( KEMailSettings::ReplyToAddress )
+                                  ) );
 }
 
 Identity & IdentityManager::newFromExisting( const Identity & other,
-					       const QString & name )
+    const QString & name )
 {
   mShadowIdentities << other;
   Identity & result = mShadowIdentities.last();
-  result.setIsDefault( false ); // we don't want two default identities!
-  result.setUoid( newUoid() ); // we don't want two identies w/ same UOID
+  result.setIsDefault( false );  // we don't want two default identities!
+  result.setUoid( newUoid() );  // we don't want two identies w/ same UOID
   if ( !name.isNull() )
     result.setIdentityName( name );
   return result;
@@ -449,7 +451,7 @@ void IdentityManager::createDefaultIdentity()
     emailAddress = emailSettings.getSetting( KEMailSettings::EmailAddress );
 
     if ( !fullName.isEmpty() && !emailAddress.isEmpty() ) {
-      newFromControlCenter( i18n("Default") );
+      newFromControlCenter( i18n( "Default" ) );
       done = true;
     } else {
       // If KEmailSettings doesn't have name and address, generate something from KUser
@@ -461,10 +463,9 @@ void IdentityManager::createDefaultIdentity()
         if ( !emailAddress.isEmpty() ) {
           KConfigGroup general( mConfig, "General" );
           QString defaultdomain = general.readEntry( "Default domain" );
-          if( !defaultdomain.isEmpty() ) {
+          if ( !defaultdomain.isEmpty() ) {
             emailAddress += '@' + defaultdomain;
-          }
-          else {
+          } else {
             emailAddress.clear();
           }
         }
@@ -473,7 +474,7 @@ void IdentityManager::createDefaultIdentity()
   }
 
   if ( !done )
-    mShadowIdentities << Identity( i18n("Default"), fullName, emailAddress );
+    mShadowIdentities << Identity( i18n( "Default" ), fullName, emailAddress );
 
   mShadowIdentities.last().setIsDefault( true );
   mShadowIdentities.last().setUoid( newUoid() );
@@ -488,20 +489,20 @@ int IdentityManager::newUoid()
   // determine the UOIDs of all saved identities
   QList<uint> usedUOIDs;
   for ( QList<Identity>::ConstIterator it = mIdentities.begin() ;
-	it != mIdentities.end() ; ++it )
-    usedUOIDs << (*it).uoid();
+        it != mIdentities.end() ; ++it )
+    usedUOIDs << ( *it ).uoid();
 
   if ( hasPendingChanges() ) {
     // add UOIDs of all shadow identities. Yes, we will add a lot of duplicate
     // UOIDs, but avoiding duplicate UOIDs isn't worth the effort.
     for ( QList<Identity>::ConstIterator it = mShadowIdentities.begin() ;
           it != mShadowIdentities.end() ; ++it ) {
-      usedUOIDs << (*it).uoid();
+      usedUOIDs << ( *it ).uoid();
     }
   }
 
   usedUOIDs << 0; // no UOID must be 0 because this value always refers to the
-                  // default identity
+  // default identity
 
   do {
     uoid = KRandom::random();
@@ -514,15 +515,15 @@ QStringList KPIMIdentities::IdentityManager::allEmails() const
 {
   QStringList lst;
   for ( ConstIterator it = begin() ; it != end() ; ++it ) {
-    lst << (*it).emailAddr();
+    lst << ( *it ).emailAddr();
   }
   return lst;
 }
 
 void KPIMIdentities::IdentityManager::slotIdentitiesChanged( const QString &id )
 {
-  kDebug( 5325 )<<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :"
-          << id << endl;
+  kDebug( 5325 ) <<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :"
+  << id << endl;
   if ( id != QDBusConnection::sessionBus().baseService() ) {
     mConfig->reparseConfiguration();
     Q_ASSERT( !hasPendingChanges() );

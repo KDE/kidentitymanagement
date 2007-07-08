@@ -23,6 +23,7 @@
 #define kpim_identity_h
 
 #include "kpimidentities_export.h"
+#include "signature.h"
 
 #include <kdemacros.h>
 
@@ -32,7 +33,8 @@
 #include <QtCore/QHash>
 #include <QtCore/QVariant>
 
-namespace KPIMIdentities {
+namespace KPIMIdentities
+{
   class Identity;
   class Signature;
 }
@@ -40,329 +42,245 @@ class KConfigGroup;
 class QDataStream;
 class QMimeData;
 
-namespace KPIMIdentities {
-
-static const char s_uoid[] = "uoid";
-static const char s_identity[] = "Identity";
-static const char s_name[] = "Name";
-static const char s_organization[] = "Organization";
-static const char s_pgps[] = "PGP Signing Key";
-static const char s_pgpe[] = "PGP Encryption Key";
-static const char s_smimes[] = "SMIME Signing Key";
-static const char s_smimee[] = "SMIME Encryption Key";
-static const char s_prefcrypt[] = "Preferred Crypto Message Format";
-static const char s_email[] = "Email Address";
-static const char s_replyto[] = "Reply-To Address";
-static const char s_bcc[] = "Bcc";
-static const char s_vcard[] = "VCardFile";
-static const char s_transport[] = "Transport";
-static const char s_fcc[] = "Fcc";
-static const char s_drafts[] = "Drafts";
-static const char s_templates[] = "Templates";
-static const char s_dict[] =  "Dictionary";
-static const char s_xface[] =  "X-Face";
-static const char s_xfaceenabled[] =  "X-FaceEnabled";
-static const char s_signature[] =  "Signature";
-
-KPIMIDENTITIES_EXPORT QDataStream & operator<<
-        ( QDataStream & stream, const KPIMIdentities::Signature & sig );
-KPIMIDENTITIES_EXPORT QDataStream & operator>>
-        ( QDataStream & stream, KPIMIdentities::Signature & sig );
-KPIMIDENTITIES_EXPORT QDataStream & operator<<
-        ( QDataStream & stream, const KPIMIdentities::Identity & ident );
-KPIMIDENTITIES_EXPORT QDataStream & operator>>
-        ( QDataStream & stream, KPIMIdentities::Identity & ident );
-
-/**
- * @short abstraction of a signature (aka "footer").
- * @author Marc Mutz <mutz@kde.org>
- */
-class KPIMIDENTITIES_EXPORT Signature {
-  friend class Identity;
-
-  friend QDataStream & operator<<( QDataStream & stream, const Signature & sig );
-  friend QDataStream & operator>>( QDataStream & stream, Signature & sig );
-
-public:
-  /** Type of signature (ie. way to obtain the signature text) */
-  enum Type { Disabled = 0, Inlined = 1, FromFile = 2, FromCommand = 3 };
-
-  /** Used for comparison */
-  bool operator==( const Signature & other ) const;
-
-  /** Constructor for disabled signature */
-  Signature();
-  /** Constructor for inline text */
-  Signature( const QString & text );
-  /** Constructor for text from a file or from output of a command */
-  Signature( const QString & url, bool isExecutable );
-
-  /** @return the raw signature text as entered resp. read from file. */
-  QString rawText( bool * ok=0 ) const;
-
-  /** @return the signature text with a "-- " separator added, if
-      necessary. */
-  QString withSeparator( bool * ok=0 ) const;
-
-  /** Set the signature text and mark this signature as being of
-      "inline text" type. */
-  void setText( const QString & text ) { mText = text; }
-  QString text() const { return mText; }
-
-  /** Set the signature URL and mark this signature as being of
-      "from file" resp. "from output of command" type. */
-  void setUrl( const QString & url, bool isExecutable=false );
-  QString url() const { return mUrl; }
-
-  /// @return the type of signature (ie. way to obtain the signature text)
-  Type type() const { return mType; }
-  void setType( Type type ) { mType = type; }
-
-protected:
-  void writeConfig( KConfigGroup& config ) const;
-  void readConfig( const KConfigGroup& config );
-
-private:
-  QString textFromFile( bool * ok ) const;
-  QString textFromCommand( bool * ok ) const;
-
-private:
-  QString mUrl;
-  QString mText;
-  Type    mType;
-};
-
-/** User identity information */
-class KPIMIDENTITIES_EXPORT Identity
+namespace KPIMIdentities
 {
-  // only the identity manager should be able to construct and
-  // destruct us, but then we get into problems with using
-  // QValueList<Identity> and especially qHeapSort().
-  friend class IdentityManager;
 
-  friend QDataStream & operator<<
-          ( QDataStream & stream,  const KPIMIdentities::Identity & ident );
-  friend QDataStream & operator>>
-          ( QDataStream & stream, KPIMIdentities::Identity & ident );
+  static const char s_uoid[] = "uoid";
+  static const char s_identity[] = "Identity";
+  static const char s_name[] = "Name";
+  static const char s_organization[] = "Organization";
+  static const char s_pgps[] = "PGP Signing Key";
+  static const char s_pgpe[] = "PGP Encryption Key";
+  static const char s_smimes[] = "SMIME Signing Key";
+  static const char s_smimee[] = "SMIME Encryption Key";
+  static const char s_prefcrypt[] = "Preferred Crypto Message Format";
+  static const char s_email[] = "Email Address";
+  static const char s_replyto[] = "Reply-To Address";
+  static const char s_bcc[] = "Bcc";
+  static const char s_vcard[] = "VCardFile";
+  static const char s_transport[] = "Transport";
+  static const char s_fcc[] = "Fcc";
+  static const char s_drafts[] = "Drafts";
+  static const char s_templates[] = "Templates";
+  static const char s_dict[] =  "Dictionary";
+  static const char s_xface[] =  "X-Face";
+  static const char s_xfaceenabled[] =  "X-FaceEnabled";
+  static const char s_signature[] =  "Signature";
 
-public:
-  typedef QList<Identity> List;
+  KPIMIDENTITIES_EXPORT QDataStream & operator<<
+  ( QDataStream & stream, const KPIMIdentities::Identity & ident );
+  KPIMIDENTITIES_EXPORT QDataStream & operator>>
+  ( QDataStream & stream, KPIMIdentities::Identity & ident );
 
-  /** used for comparison */
-  bool operator==( const Identity & other ) const;
+  /** User identity information */
+  class KPIMIDENTITIES_EXPORT Identity
+  {
+      // only the identity manager should be able to construct and
+      // destruct us, but then we get into problems with using
+      // QValueList<Identity> and especially qHeapSort().
+      friend class IdentityManager;
 
-  bool operator!=( const Identity & other ) const {
-    return !operator==( other );
-  }
+      friend QDataStream & operator<<
+      ( QDataStream & stream,  const KPIMIdentities::Identity & ident );
+      friend QDataStream & operator>>
+      ( QDataStream & stream, KPIMIdentities::Identity & ident );
 
-  /** used for sorting */
-  bool operator<( const Identity & other ) const {
-    if ( isDefault() ) return true;
-    if ( other.isDefault() ) return false;
-    return identityName() < other.identityName();
-  }
-  bool operator>( const Identity & other ) const {
-    if ( isDefault() ) return false;
-    if ( other.isDefault() ) return true;
-    return identityName() > other.identityName();
-  }
-  bool operator<=( const Identity & other ) const {
-    return !operator>( other );
-  }
-  bool operator>=( const Identity & other ) const {
-    return !operator<( other );
-  }
+    public:
+      typedef QList<Identity> List;
 
-  /** Constructor */
-  explicit Identity( const QString & id=QString(),
-		     const QString & realName=QString(),
-		     const QString & emailAddr=QString(),
-		     const QString & organization=QString(),
-		     const QString & replyToAddress=QString() );
+      /** Constructor */
+      explicit Identity( const QString & id=QString(),
+                         const QString & realName=QString(),
+                         const QString & emailAddr=QString(),
+                         const QString & organization=QString(),
+                         const QString & replyToAddress=QString() );
 
-  /** Destructor */
-  ~Identity();
+      /** Destructor */
+      ~Identity();
 
-protected:
-  /** Read configuration from config. Group must be preset (or use
-      KConfigGroup). Called from IdentityManager. */
-  void readConfig( const KConfigGroup & );
+      /** used for comparison */
+      bool operator== ( const Identity & other ) const;
 
-  /** Write configuration to config. Group must be preset (or use
-      KConfigGroup). Called from IdentityManager. */
-  void writeConfig( KConfigGroup & ) const;
+      /** used for comparison */
+      bool operator!= ( const Identity & other ) const;
 
-public:
-  /** Tests if there are enough values set to allow mailing */
-  bool mailingAllowed() const;
+      /** used for sorting */
+      bool operator< ( const Identity & other ) const;
 
-  /** Identity/nickname for this collection */
-  QString identityName() const
-        { return property(QLatin1String(s_identity)).toString(); }
-  void setIdentityName( const QString & name );
+      /** used for sorting */
+      bool operator> ( const Identity & other ) const;
 
-  /** @return whether this identity is the default identity */
-  bool isDefault() const { return mIsDefault; }
+      /** used for sorting */
+      bool operator<= ( const Identity & other ) const;
 
-  /// Unique Object Identifier for this identity
-  uint uoid() const { return property(QLatin1String(s_uoid)).toInt(); }
+      /** used for sorting */
+      bool operator>= ( const Identity & other ) const;
 
-protected:
-  /** Set whether this identity is the default identity. Since this
-      affects all other identites, too (most notably, the old default
-      identity), only the IdentityManager can change this.
-      You should use
-      <pre>
-      kmkernel->identityManager()->setAsDefault( name_of_default )
-      </pre>
-      instead.
-  **/
-  void setIsDefault( bool flag );
+      /** Tests if there are enough values set to allow mailing */
+      bool mailingAllowed() const;
 
-  void setUoid( uint aUoid ) { setProperty(QLatin1String(s_uoid), aUoid); }
+      /** Identity/nickname for this collection */
+      QString identityName() const;
 
-public:
-  /** Full name of the user */
-    QString fullName() const { return property(QLatin1String(s_name)).toString(); }
-  void setFullName(const QString&);
+      /** Identity/nickname for this collection */
+      void setIdentityName( const QString & name );
 
-  /** The user's organization (optional) */
-  QString organization() const { return property(QLatin1String(s_organization)).toString(); }
-  void setOrganization(const QString&);
+      /** @return whether this identity is the default identity */
+      bool isDefault() const;
 
-  /** The user's OpenPGP encryption key */
-  QByteArray pgpEncryptionKey() const
-        { return property(QLatin1String(s_pgpe)).toByteArray(); }
-  void setPGPEncryptionKey( const QByteArray & key );
+      /** Unique Object Identifier for this identity */
+      uint uoid() const;
 
-  /** The user's OpenPGP signing key */
-  QByteArray pgpSigningKey() const
-        { return property(QLatin1String(s_pgps)).toByteArray(); }
-  void setPGPSigningKey( const QByteArray & key );
+      /** Full name of the user */
+      QString fullName() const;
+      void setFullName( const QString& );
 
-  /** The user's S/MIME encryption key */
-  QByteArray smimeEncryptionKey() const
-        { return property(QLatin1String(s_smimee)).toByteArray(); }
-  void setSMIMEEncryptionKey( const QByteArray & key );
+      /** The user's organization (optional) */
+      QString organization() const;
+      void setOrganization( const QString& );
 
-  /** The user's S/MIME signing key */
-  QByteArray smimeSigningKey() const
-        { return property(QLatin1String(s_smimes)).toByteArray(); }
-  void setSMIMESigningKey( const QByteArray & key );
+      /** The user's OpenPGP encryption key */
+      QByteArray pgpEncryptionKey() const;
+      void setPGPEncryptionKey( const QByteArray & key );
 
-  QString preferredCryptoMessageFormat() const
-        { return property(QLatin1String(s_prefcrypt)).toString(); }
-  void setPreferredCryptoMessageFormat(const QString&);
+      /** The user's OpenPGP signing key */
+      QByteArray pgpSigningKey() const;
+      void setPGPSigningKey( const QByteArray & key );
 
-  /** email address (without the user name - only name\@host) */
-  QString emailAddr() const
-        { return property(QLatin1String(s_email)).toString(); }
-  void setEmailAddr(const QString&);
+      /** The user's S/MIME encryption key */
+      QByteArray smimeEncryptionKey() const;
+      void setSMIMEEncryptionKey( const QByteArray & key );
 
-  /** vCard to attach to outgoing emails */
-  QString vCardFile() const
-        { return property(QLatin1String(s_vcard)).toString(); }
-  void setVCardFile(const QString&);
+      /** The user's S/MIME signing key */
+      QByteArray smimeSigningKey() const;
+      void setSMIMESigningKey( const QByteArray & key );
 
-  /** email address in the format "username <name@host>" suitable
-    for the "From:" field of email messages. */
-  QString fullEmailAddr() const;
+      QString preferredCryptoMessageFormat() const;
+      void setPreferredCryptoMessageFormat( const QString& );
 
-  /** email address for the ReplyTo: field */
-  QString replyToAddr() const
-        { return property(QLatin1String(s_replyto)).toString(); }
-  void setReplyToAddr(const QString&);
+      /** email address (without the user name - only name\@host) */
+      QString emailAddr() const;
+      void setEmailAddr( const QString& );
 
-  /** email addresses for the BCC: field */
-  QString bcc() const
-        { return property(QLatin1String(s_bcc)).toString(); }
-  void setBcc(const QString&);
+      /** vCard to attach to outgoing emails */
+      QString vCardFile() const;
+      void setVCardFile( const QString& );
 
-  void setSignature( const Signature & sig ) { mSignature = sig; }
-  Signature & signature() /* _not_ const! */ { return mSignature; }
+      /** email address in the format "username <name@host>" suitable
+      for the "From:" field of email messages. */
+      QString fullEmailAddr() const;
 
-protected:
-  /** @return true if the signature is read from the output of a command */
-  bool signatureIsCommand() const {
-      return mSignature.type() == Signature::FromCommand; }
-  /** @return true if the signature is read from a text file */
-  bool signatureIsPlainFile() const {
-      return mSignature.type() == Signature::FromFile; }
-  /** @return true if the signature was specified directly */
-  bool signatureIsInline() const {
-      return mSignature.type() == Signature::Inlined; }
+      /** email address for the ReplyTo: field */
+      QString replyToAddr() const;
+      void setReplyToAddr( const QString& );
 
-  /** name of the signature file (with path) */
-  QString signatureFile() const { return mSignature.url(); }
-  void setSignatureFile(const QString&);
+      /** email addresses for the BCC: field */
+      QString bcc() const;
+      void setBcc( const QString& );
 
-  /** inline signature */
-  QString signatureInlineText() const { return mSignature.text();}
-  void setSignatureInlineText(const QString&);
+      void setSignature( const Signature & sig );
+      Signature & signature(); /* _not_ const! */
 
-  /** Inline or signature from a file */
-  bool useSignatureFile() const {
-      return signatureIsPlainFile() || signatureIsCommand(); }
+      /** Returns the signature. This method also takes care of special
+      signature files that are shell scripts and handles them
+      correct. So use this method to rectreive the contents of the
+      signature file. If @p prompt is false, no errors will be displayed
+      (useful for retries). */
+      QString signatureText( bool * ok=0 ) const;
 
-public:
-  /** Returns the signature. This method also takes care of special
-    signature files that are shell scripts and handles them
-    correct. So use this method to rectreive the contents of the
-    signature file. If @p prompt is false, no errors will be displayed
-    (useful for retries). */
-  QString signatureText( bool * ok=0) const;
-
-  /** The transport that is set for this identity. Used to link a
+      /** The transport that is set for this identity. Used to link a
       transport with an identity. */
-  QString transport() const { return property(QLatin1String(s_transport)).toString(); }
-  void setTransport(const QString&);
+      QString transport() const;
+      void setTransport( const QString& );
 
-  /** The folder where sent messages from this identity will be
+      /** The folder where sent messages from this identity will be
       stored by default. */
-  QString fcc() const { return property(QLatin1String(s_fcc)).toString(); }
-  void setFcc(const QString&);
+      QString fcc() const;
+      void setFcc( const QString& );
 
-  /** The folder where draft messages from this identity will be
+      /** The folder where draft messages from this identity will be
       stored by default. */
-  QString drafts() const { return property(QLatin1String(s_drafts)).toString(); }
-  void setDrafts(const QString&);
+      QString drafts() const;
+      void setDrafts( const QString& );
 
-  /** The folder where template messages from this identity will be
+      /** The folder where template messages from this identity will be
       stored by default. */
-  QString templates() const { return property(QLatin1String(s_templates)).toString(); }
-  void setTemplates( const QString& );
+      QString templates() const;
+      void setTemplates( const QString& );
 
-  /** dictionary which should be used for spell checking */
-  QString dictionary() const { return property(QLatin1String(s_dict)).toString(); }
-  void setDictionary( const QString& );
+      /** dictionary which should be used for spell checking */
+      QString dictionary() const;
+      void setDictionary( const QString& );
 
-  /** a X-Face header for this identity */
-  QString xface() const { return property(QLatin1String(s_xface)).toString(); }
-  void setXFace( const QString& );
-  bool isXFaceEnabled() const { return property(QLatin1String(s_xfaceenabled)).toBool(); }
-  void setXFaceEnabled( const bool );
+      /** a X-Face header for this identity */
+      QString xface() const;
+      void setXFace( const QString& );
+      bool isXFaceEnabled() const;
+      void setXFaceEnabled( const bool );
 
-  /** Get random properties */
-  QVariant property( const QString & key ) const;
-  /** Set random properties, when @p value is empty (for QStrings) or null,
+      /** Get random properties */
+      QVariant property( const QString & key ) const;
+      /** Set random properties, when @p value is empty (for QStrings) or null,
       the property is deleted. */
-  void setProperty( const QString & key, const QVariant & value );
+      void setProperty( const QString & key, const QVariant & value );
 
-  static const Identity &null();
-  /** Returns true when the identity contains no values, all null values or
+      static const Identity &null();
+      /** Returns true when the identity contains no values, all null values or
       only empty values */
-  bool isNull() const;
+      bool isNull() const;
 
-  static QString mimeDataType();
-  static bool canDecode( const QMimeData* );
-  void populateMimeData( QMimeData* );
-  static Identity fromMimeData( const QMimeData* );
+      static QString mimeDataType();
+      static bool canDecode( const QMimeData* );
+      void populateMimeData( QMimeData* );
+      static Identity fromMimeData( const QMimeData* );
 
-protected:
-  Signature mSignature;
-  bool      mIsDefault;
-  QHash<QString,QVariant>   mPropertiesMap;
-};
+
+    protected:
+      /** Read configuration from config. Group must be preset (or use
+          KConfigGroup). Called from IdentityManager. */
+      void readConfig( const KConfigGroup & );
+
+      /** Write configuration to config. Group must be preset (or use
+          KConfigGroup). Called from IdentityManager. */
+      void writeConfig( KConfigGroup & ) const;
+
+      /** Set whether this identity is the default identity. Since this
+          affects all other identites, too (most notably, the old default
+          identity), only the IdentityManager can change this.
+          You should use
+          <pre>
+          kmkernel->identityManager()->setAsDefault( name_of_default )
+          </pre>
+          instead.  */
+      void setIsDefault( bool flag );
+
+      /** set the uiod */
+      void setUoid( uint aUoid );
+
+      /** @return true if the signature is read from the output of a command */
+      bool signatureIsCommand() const;
+
+      /** @return true if the signature is read from a text file */
+      bool signatureIsPlainFile() const;
+
+      /** @return true if the signature was specified directly */
+      bool signatureIsInline() const;
+
+      /** name of the signature file (with path) */
+      QString signatureFile() const;
+      void setSignatureFile( const QString& );
+
+      /** inline signature */
+      QString signatureInlineText() const;
+      void setSignatureInlineText( const QString& );
+
+      /** Inline or signature from a file */
+      bool useSignatureFile() const;
+
+      Signature mSignature;
+      bool      mIsDefault;
+      QHash<QString,QVariant>   mPropertiesMap;
+  };
 
 }
 

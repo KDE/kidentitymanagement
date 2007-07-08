@@ -43,18 +43,17 @@ using namespace KPIMIdentities;
 */
 //@cond PRIVATE
 class KPIMIdentities::IdentityCombo::Private
-{
-};
+  {};
 //@endcond
 
 IdentityCombo::IdentityCombo( IdentityManager* manager, QWidget * parent )
-  : QComboBox( parent ), mIdentityManager( manager ), d( 0 )
+    : QComboBox( parent ), mIdentityManager( manager ), d( 0 )
 {
   reloadCombo();
   reloadUoidList();
-  connect( this, SIGNAL(activated(int)), SLOT(slotEmitChanged(int)) );
-  connect( manager, SIGNAL(changed()),
-           SLOT(slotIdentityManagerChanged()) );
+  connect( this, SIGNAL( activated( int ) ), SLOT( slotEmitChanged( int ) ) );
+  connect( manager, SIGNAL( changed() ),
+           SLOT( slotIdentityManagerChanged() ) );
 }
 
 IdentityCombo::~IdentityCombo()
@@ -64,12 +63,12 @@ IdentityCombo::~IdentityCombo()
 
 QString IdentityCombo::currentIdentityName() const
 {
-  return mIdentityManager->identities()[ currentIndex() ];
+  return mIdentityManager->identities()[ currentIndex()];
 }
 
 uint IdentityCombo::currentIdentity() const
 {
-  return mUoidList[ currentIndex() ];
+  return mUoidList[ currentIndex()];
 }
 
 void IdentityCombo::setCurrentIdentity( const Identity & identity )
@@ -80,11 +79,11 @@ void IdentityCombo::setCurrentIdentity( const Identity & identity )
 void IdentityCombo::setCurrentIdentity( const QString & name )
 {
   int idx = mIdentityManager->identities().indexOf( name );
-  if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
+  if (( idx < 0 ) || ( idx == currentIndex() ) ) {
     return;
   }
 
-  blockSignals( true ); // just in case Qt gets fixed to emit activated() here
+  blockSignals( true );  // just in case Qt gets fixed to emit activated() here
   setCurrentIndex( idx );
   blockSignals( false );
 
@@ -94,11 +93,11 @@ void IdentityCombo::setCurrentIdentity( const QString & name )
 void IdentityCombo::setCurrentIdentity( uint uoid )
 {
   int idx = mUoidList.indexOf( uoid );
-  if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
+  if (( idx < 0 ) || ( idx == currentIndex() ) ) {
     return;
   }
 
-  blockSignals( true ); // just in case Qt gets fixed to emit activated() here
+  blockSignals( true );  // just in case Qt gets fixed to emit activated() here
   setCurrentIndex( idx );
   blockSignals( false );
 
@@ -120,13 +119,13 @@ void IdentityCombo::reloadUoidList()
   mUoidList.clear();
   IdentityManager::ConstIterator it;
   for ( it = mIdentityManager->begin(); it != mIdentityManager->end(); ++it ) {
-    mUoidList << (*it).uoid();
+    mUoidList << ( *it ).uoid();
   }
 }
 
 void IdentityCombo::slotIdentityManagerChanged()
 {
-  uint oldIdentity = mUoidList[ currentIndex() ];
+  uint oldIdentity = mUoidList[ currentIndex()];
 
   reloadUoidList();
   int idx = mUoidList.indexOf( oldIdentity );

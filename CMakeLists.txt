@@ -1,6 +1,6 @@
 ########### next target ###############
 
-set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp identitycombo.cpp)
+set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp signature.cpp identitycombo.cpp)
 
 kde4_automoc(${kpimidentities_LIB_SRCS})
 
@@ -16,6 +16,7 @@ install(TARGETS kpimidentities  DESTINATION ${LIB_INSTALL_DIR})
 install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_DIR})
 install(FILES
         identity.h
+        signature.h
         identitymanager.h
         identitycombo.h
         kpimidentities_export.h
