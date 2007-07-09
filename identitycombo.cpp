@@ -109,7 +109,6 @@ void IdentityCombo::reloadCombo()
   QStringList identities = mIdentityManager->identities();
   // the IM should prevent this from happening:
   assert( !identities.isEmpty() );
-  identities.first() = i18n( "%1 (Default)", identities.first() );
   clear();
   addItems( identities );
 }
