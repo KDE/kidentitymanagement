@@ -2,7 +2,6 @@
 
 set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp signature.cpp identitycombo.cpp)
 
-kde4_automoc(${kpimidentities_LIB_SRCS})
 
 qt4_add_dbus_adaptor(kpimidentities_LIB_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KPIMIdentities::IdentityManager )
 
