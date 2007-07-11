@@ -59,7 +59,12 @@ namespace KPIMIdentities
 
     public:
       /** Type of signature (ie. way to obtain the signature text) */
-      enum Type { Disabled = 0, Inlined = 1, FromFile = 2, FromCommand = 3 };
+      enum Type {
+        Disabled = 0,
+        Inlined = 1,
+        FromFile = 2,
+        FromCommand = 3
+      };
 
       /** Used for comparison */
       bool operator== ( const Signature & other ) const;

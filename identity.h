@@ -67,10 +67,10 @@ namespace KPIMIdentities
   static const char s_xfaceenabled[] =  "X-FaceEnabled";
   static const char s_signature[] =  "Signature";
 
-  KPIMIDENTITIES_EXPORT QDataStream & operator<<
-  ( QDataStream & stream, const KPIMIdentities::Identity & ident );
-  KPIMIDENTITIES_EXPORT QDataStream & operator>>
-  ( QDataStream & stream, KPIMIdentities::Identity & ident );
+  KPIMIDENTITIES_EXPORT QDataStream &operator<<
+  ( QDataStream &stream, const KPIMIdentities::Identity &ident );
+  KPIMIDENTITIES_EXPORT QDataStream &operator>>
+  ( QDataStream &stream, KPIMIdentities::Identity &ident );
 
   /** User identity information */
   class KPIMIDENTITIES_EXPORT Identity
@@ -80,41 +80,41 @@ namespace KPIMIdentities
       // QValueList<Identity> and especially qHeapSort().
       friend class IdentityManager;
 
-      friend QDataStream & operator<<
-      ( QDataStream & stream,  const KPIMIdentities::Identity & ident );
-      friend QDataStream & operator>>
-      ( QDataStream & stream, KPIMIdentities::Identity & ident );
+      friend QDataStream &operator<<
+      ( QDataStream &stream, const KPIMIdentities::Identity &ident );
+      friend QDataStream &operator>>
+      ( QDataStream &stream, KPIMIdentities::Identity &ident );
 
     public:
       typedef QList<Identity> List;
 
       /** Constructor */
-      explicit Identity( const QString & id=QString(),
-                         const QString & realName=QString(),
-                         const QString & emailAddr=QString(),
-                         const QString & organization=QString(),
-                         const QString & replyToAddress=QString() );
+      explicit Identity( const QString &id=QString(),
+                         const QString &realName=QString(),
+                         const QString &emailAddr=QString(),
+                         const QString &organization=QString(),
+                         const QString &replyToAddress=QString() );
 
       /** Destructor */
       ~Identity();
 
       /** used for comparison */
-      bool operator== ( const Identity & other ) const;
+      bool operator== ( const Identity &other ) const;
 
       /** used for comparison */
-      bool operator!= ( const Identity & other ) const;
+      bool operator!= ( const Identity &other ) const;
 
       /** used for sorting */
-      bool operator< ( const Identity & other ) const;
+      bool operator< ( const Identity &other ) const;
 
       /** used for sorting */
-      bool operator> ( const Identity & other ) const;
+      bool operator> ( const Identity &other ) const;
 
       /** used for sorting */
-      bool operator<= ( const Identity & other ) const;
+      bool operator<= ( const Identity &other ) const;
 
       /** used for sorting */
-      bool operator>= ( const Identity & other ) const;
+      bool operator>= ( const Identity &other ) const;
 
       /** Tests if there are enough values set to allow mailing */
       bool mailingAllowed() const;
@@ -123,7 +123,7 @@ namespace KPIMIdentities
       QString identityName() const;
 
       /** Identity/nickname for this collection */
-      void setIdentityName( const QString & name );
+      void setIdentityName( const QString &name );
 
       /** @return whether this identity is the default identity */
       bool isDefault() const;
@@ -141,19 +141,19 @@ namespace KPIMIdentities
 
       /** The user's OpenPGP encryption key */
       QByteArray pgpEncryptionKey() const;
-      void setPGPEncryptionKey( const QByteArray & key );
+      void setPGPEncryptionKey( const QByteArray &key );
 
       /** The user's OpenPGP signing key */
       QByteArray pgpSigningKey() const;
-      void setPGPSigningKey( const QByteArray & key );
+      void setPGPSigningKey( const QByteArray &key );
 
       /** The user's S/MIME encryption key */
       QByteArray smimeEncryptionKey() const;
-      void setSMIMEEncryptionKey( const QByteArray & key );
+      void setSMIMEEncryptionKey( const QByteArray &key );
 
       /** The user's S/MIME signing key */
       QByteArray smimeSigningKey() const;
-      void setSMIMESigningKey( const QByteArray & key );
+      void setSMIMESigningKey( const QByteArray &key );
 
       QString preferredCryptoMessageFormat() const;
       void setPreferredCryptoMessageFormat( const QString& );
@@ -178,15 +178,15 @@ namespace KPIMIdentities
       QString bcc() const;
       void setBcc( const QString& );
 
-      void setSignature( const Signature & sig );
-      Signature & signature(); /* _not_ const! */
+      void setSignature( const Signature &sig );
+      Signature &signature(); /* _not_ const! */
 
       /** Returns the signature. This method also takes care of special
       signature files that are shell scripts and handles them
       correct. So use this method to rectreive the contents of the
       signature file. If @p prompt is false, no errors will be displayed
       (useful for retries). */
-      QString signatureText( bool * ok=0 ) const;
+      QString signatureText( bool *ok=0 ) const;
 
       /** The transport that is set for this identity. Used to link a
       transport with an identity. */
@@ -219,10 +219,10 @@ namespace KPIMIdentities
       void setXFaceEnabled( const bool );
 
       /** Get random properties */
-      QVariant property( const QString & key ) const;
+      QVariant property( const QString &key ) const;
       /** Set random properties, when @p value is empty (for QStrings) or null,
       the property is deleted. */
-      void setProperty( const QString & key, const QVariant & value );
+      void setProperty( const QString &key, const QVariant &value );
 
       static const Identity &null();
       /** Returns true when the identity contains no values, all null values or
@@ -233,7 +233,6 @@ namespace KPIMIdentities
       static bool canDecode( const QMimeData* );
       void populateMimeData( QMimeData* );
       static Identity fromMimeData( const QMimeData* );
-
 
     protected:
       /** Read configuration from config. Group must be preset (or use

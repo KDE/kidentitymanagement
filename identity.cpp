@@ -44,9 +44,9 @@ using namespace KPIMIdentities;
 // TODO: should use a kstaticdeleter?
 static Identity *identityNull = 0;
 
-Identity::Identity( const QString & id, const QString & fullName,
-                    const QString & emailAddr, const QString & organization,
-                    const QString & replyToAddr )
+Identity::Identity( const QString &id, const QString &fullName,
+                    const QString &emailAddr, const QString &organization,
+                    const QString &replyToAddr )
 {
   setProperty( s_uoid, 0 );
   setProperty( s_identity, id );
@@ -73,14 +73,15 @@ bool Identity::isNull() const
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
   while ( i != mPropertiesMap.constEnd() ) {
     if ( !i.value().isNull() ||
-         ( i.value().type() == QVariant::String && !i.value().toString().isEmpty() ) )
+         ( i.value().type() == QVariant::String && !i.value().toString().isEmpty() ) ) {
       empty = false;
+    }
     ++i;
   }
   return empty;
 }
 
-void Identity::readConfig( const KConfigGroup & config )
+void Identity::readConfig( const KConfigGroup &config )
 {
   // get all keys and convert them to our QHash.
   QMap<QString,QString> entries = config.entryMap();
@@ -91,7 +92,7 @@ void Identity::readConfig( const KConfigGroup & config )
   }
 }
 
-void Identity::writeConfig( KConfigGroup & config ) const
+void Identity::writeConfig( KConfigGroup &config ) const
 {
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
   while ( i != mPropertiesMap.constEnd() ) {
@@ -140,8 +141,8 @@ Identity Identity::fromMimeData( const QMimeData*md )
 
 // ------------------ Operators --------------------------//
 
-QDataStream & KPIMIdentities::operator<<
-( QDataStream & stream, const KPIMIdentities::Identity & i )
+QDataStream &KPIMIdentities::operator<<
+( QDataStream &stream, const KPIMIdentities::Identity &i )
 {
   return stream << static_cast<quint32>( i.uoid() )
          << i.identityName()
@@ -165,8 +166,8 @@ QDataStream & KPIMIdentities::operator<<
          << i.preferredCryptoMessageFormat();
 }
 
-QDataStream & KPIMIdentities::operator>>
-( QDataStream & stream, KPIMIdentities::Identity & i )
+QDataStream &KPIMIdentities::operator>>
+( QDataStream &stream, KPIMIdentities::Identity &i )
 {
   quint32 uoid;
   QString format;
@@ -195,44 +196,51 @@ QDataStream & KPIMIdentities::operator>>
   return stream;
 }
 
-bool Identity::operator< ( const Identity & other ) const
+bool Identity::operator< ( const Identity &other ) const
 {
-  if ( isDefault() ) return true;
-  if ( other.isDefault() ) return false;
+  if ( isDefault() ) {
+    return true;
+  }
+  if ( other.isDefault() ) {
+    return false;
+  }
   return identityName() < other.identityName();
 }
 
-bool Identity::operator> ( const Identity & other ) const
+bool Identity::operator> ( const Identity &other ) const
 {
-  if ( isDefault() ) return false;
-  if ( other.isDefault() ) return true;
+  if ( isDefault() ) {
+    return false;
+  }
+  if ( other.isDefault() ) {
+    return true;
+  }
   return identityName() > other.identityName();
 }
 
-bool Identity::operator<= ( const Identity & other ) const
+bool Identity::operator<= ( const Identity &other ) const
 {
   return !operator> ( other );
 }
 
-bool Identity::operator>= ( const Identity & other ) const
+bool Identity::operator>= ( const Identity &other ) const
 {
   return !operator< ( other );
 }
 
-bool Identity::operator== ( const Identity & other ) const
+bool Identity::operator== ( const Identity &other ) const
 {
   return mPropertiesMap == other.mPropertiesMap;
 }
 
-bool Identity::operator!= ( const Identity & other ) const
+bool Identity::operator!= ( const Identity &other ) const
 {
   return !operator== ( other );
 }
 
 // --------------------- Getters -----------------------------//
 
-
-QVariant Identity::property( const QString & key ) const
+QVariant Identity::property( const QString &key ) const
 {
   return mPropertiesMap.value( key );
 }
@@ -242,8 +250,9 @@ QString Identity::fullEmailAddr( void ) const
   const QString name = mPropertiesMap.value( s_name ).toString();
   const QString mail = mPropertiesMap.value( s_email ).toString();
 
-  if ( name.isEmpty() )
+  if ( name.isEmpty() ) {
     return mail;
+  }
 
   const QString specials( "()<>@,.;:[]" );
 
@@ -252,9 +261,9 @@ QString Identity::fullEmailAddr( void ) const
   // add DQUOTE's if necessary:
   bool needsQuotes=false;
   for ( int i=0; i < name.length(); i++ ) {
-    if ( specials.contains( name[i] ) )
+    if ( specials.contains( name[i] ) ) {
       needsQuotes = true;
-    else if ( name[i] == '\\' || name[i] == '"' ) {
+    } else if ( name[i] == '\\' || name[i] == '"' ) {
       needsQuotes = true;
       result += '\\';
     }
@@ -276,26 +285,29 @@ QString Identity::identityName() const
   return property( QLatin1String( s_identity ) ).toString();
 }
 
-
-QString Identity::signatureText( bool * ok ) const
+QString Identity::signatureText( bool *ok ) const
 {
   bool internalOK = false;
   QString signatureText = mSignature.withSeparator( &internalOK );
   if ( internalOK ) {
-    if ( ok )
-      *ok=true;
+    if ( ok ) {
+      *ok = true;
+    }
     return signatureText;
   }
 
   // OK, here comes the funny part. The call to
   // Signature::withSeparator() failed, so we should probably fix the
   // cause:
-  if ( ok )
+  if ( ok ) {
     *ok = false;
+  }
   return QString();
 
 #if 0 // TODO: error handling
-if ( mSignatureFile.endsWith( '|' ) ) {} else {}
+  if ( mSignatureFile.endsWith( '|' ) ) {
+  } else {
+  }
 #endif
 
   return QString();
@@ -366,7 +378,7 @@ QString Identity::bcc() const
   return property( QLatin1String( s_bcc ) ).toString();
 }
 
-Signature & Identity::signature()
+Signature &Identity::signature()
 {
   return mSignature;
 }
@@ -416,7 +428,6 @@ bool Identity::signatureIsPlainFile() const
   return mSignature.type() == Signature::FromFile;
 }
 
-
 bool Identity::signatureIsInline() const
 {
   return mSignature.type() == Signature::Inlined;
@@ -439,13 +450,14 @@ QString Identity::signatureFile() const
 
 // --------------------- Setters -----------------------------//
 
-void Identity::setProperty( const QString & key, const QVariant & value )
+void Identity::setProperty( const QString &key, const QVariant &value )
 {
   if ( value.isNull() ||
-       ( value.type() == QVariant::String && value.toString().isEmpty() ) )
+       ( value.type() == QVariant::String && value.toString().isEmpty() ) ) {
     mPropertiesMap.remove( key );
-  else
+  } else {
     mPropertiesMap.insert( key, value );
+  }
 }
 
 void Identity::setUoid( uint aUoid )
@@ -453,7 +465,7 @@ void Identity::setUoid( uint aUoid )
   setProperty( s_uoid, aUoid );
 }
 
-void Identity::setIdentityName( const QString & name )
+void Identity::setIdentityName( const QString &name )
 {
   setProperty( s_identity, name );
 }
@@ -485,7 +497,7 @@ void Identity::setSMIMESigningKey( const QByteArray &str )
 
 void Identity::setSMIMEEncryptionKey( const QByteArray &str )
 {
-  setProperty( s_smimee,  QString( str ) );
+  setProperty( s_smimee, QString( str ) );
 }
 
 void Identity::setEmailAddr( const QString &str )
@@ -498,7 +510,7 @@ void Identity::setVCardFile( const QString &str )
   setProperty( s_vcard, str );
 }
 
-void Identity::setReplyToAddr( const QString& str )
+void Identity::setReplyToAddr( const QString&str )
 {
   setProperty( s_replyto, str );
 }
@@ -538,7 +550,7 @@ void Identity::setDictionary( const QString &str )
   setProperty( s_dict, str );
 }
 
-void Identity::setBcc( const QString& str )
+void Identity::setBcc( const QString &str )
 {
   setProperty( s_bcc, str );
 }
@@ -548,7 +560,7 @@ void Identity::setIsDefault( bool flag )
   mIsDefault = flag;
 }
 
-void Identity::setPreferredCryptoMessageFormat( const QString& str )
+void Identity::setPreferredCryptoMessageFormat( const QString &str )
 {
   setProperty( s_prefcrypt, str );
 }
@@ -568,7 +580,7 @@ void Identity::setXFaceEnabled( const bool on )
   setProperty( s_xfaceenabled, on );
 }
 
-void Identity::setSignature( const Signature & sig )
+void Identity::setSignature( const Signature &sig )
 {
   mSignature = sig;
 }

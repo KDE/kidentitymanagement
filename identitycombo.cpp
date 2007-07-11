@@ -43,7 +43,8 @@ using namespace KPIMIdentities;
 */
 //@cond PRIVATE
 class KPIMIdentities::IdentityCombo::Private
-  {};
+{
+};
 //@endcond
 
 IdentityCombo::IdentityCombo( IdentityManager* manager, QWidget * parent )
@@ -79,7 +80,7 @@ void IdentityCombo::setCurrentIdentity( const Identity & identity )
 void IdentityCombo::setCurrentIdentity( const QString & name )
 {
   int idx = mIdentityManager->identities().indexOf( name );
-  if (( idx < 0 ) || ( idx == currentIndex() ) ) {
+  if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
     return;
   }
 
@@ -93,7 +94,7 @@ void IdentityCombo::setCurrentIdentity( const QString & name )
 void IdentityCombo::setCurrentIdentity( uint uoid )
 {
   int idx = mUoidList.indexOf( uoid );
-  if (( idx < 0 ) || ( idx == currentIndex() ) ) {
+  if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
     return;
   }
 

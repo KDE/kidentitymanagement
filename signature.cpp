@@ -34,44 +34,50 @@
 using namespace KPIMIdentities;
 
 Signature::Signature()
-    : mType( Disabled )
+  : mType( Disabled )
 {}
 
-Signature::Signature( const QString & text )
-    : mText( text ),
+Signature::Signature( const QString &text )
+  : mText( text ),
     mType( Inlined )
 {}
 
-Signature::Signature( const QString & url, bool isExecutable )
-    : mUrl( url ),
+Signature::Signature( const QString &url, bool isExecutable )
+  : mUrl( url ),
     mType( isExecutable ? FromCommand : FromFile )
 {}
 
-QString Signature::rawText( bool * ok ) const
+QString Signature::rawText( bool *ok ) const
 {
   switch ( mType ) {
-    case Disabled:
-        if ( ok ) *ok = true;
-      return QString();
-    case Inlined:
-      if ( ok ) *ok = true;
-      return mText;
-    case FromFile:
-      return textFromFile( ok );
-    case FromCommand:
-      return textFromCommand( ok );
+  case Disabled:
+    if ( ok ) {
+      *ok = true;
+    }
+    return QString();
+  case Inlined:
+    if ( ok ) {
+      *ok = true;
+    }
+    return mText;
+  case FromFile:
+    return textFromFile( ok );
+  case FromCommand:
+    return textFromCommand( ok );
   };
-  kFatal( 5325 ) << "Signature::type() returned unknown value!" << endl;
+  kFatal(5325) << "Signature::type() returned unknown value!" << endl;
   return QString(); // make compiler happy
 }
 
-QString Signature::textFromCommand( bool * ok ) const
+QString Signature::textFromCommand( bool *ok ) const
 {
   assert( mType == FromCommand );
 
   // handle pathological cases:
   if ( mUrl.isEmpty() ) {
-    if ( ok ) *ok = true;
+    if ( ok ) {
+      *ok = true;
+    }
     return QString();
   }
 
@@ -83,7 +89,9 @@ QString Signature::textFromCommand( bool * ok ) const
 
   // handle errors, if any:
   if ( rc != 0 ) {
-    if ( ok ) *ok = false;
+    if ( ok ) {
+      *ok = false;
+    }
     QString wmsg = i18n( "<qt>Failed to execute signature script<br><b>%1</b>:"
                          "<p>%2</p></qt>", mUrl, QString( proc.readAllStandardError() ) );
     KMessageBox::error( 0, wmsg );
@@ -91,8 +99,9 @@ QString Signature::textFromCommand( bool * ok ) const
   }
 
   // no errors:
-  if ( ok )
+  if ( ok ) {
     *ok = true;
+  }
 
   // get output:
   QByteArray output = proc.readAllStandardOutput();
@@ -101,60 +110,66 @@ QString Signature::textFromCommand( bool * ok ) const
   return QString::fromLocal8Bit( output.data(), output.size() );
 }
 
-QString Signature::textFromFile( bool * ok ) const
+QString Signature::textFromFile( bool *ok ) const
 {
   assert( mType == FromFile );
 
   // TODO: Use KIO::NetAccess to download non-local files!
-  if ( !KUrl( mUrl ).isLocalFile() && !( QFileInfo( mUrl ).isRelative()
-                                         && QFileInfo( mUrl ).exists() ) ) {
-    kDebug( 5325 ) << "Signature::textFromFile: "
+  if ( !KUrl( mUrl ).isLocalFile() &&
+       !( QFileInfo( mUrl ).isRelative() &&
+          QFileInfo( mUrl ).exists() ) ) {
+    kDebug(5325) << "Signature::textFromFile: "
     << "non-local URLs are unsupported" << endl;
-    if ( ok )
+    if ( ok ) {
       *ok = false;
+    }
     return QString();
   }
 
-  if ( ok )
+  if ( ok ) {
     *ok = true;
+  }
 
   // TODO: hmm, should we allow other encodings, too?
   const QByteArray ba = KPIMUtils::kFileToByteArray( mUrl, false );
   return QString::fromLocal8Bit( ba.data(), ba.size() );
 }
 
-QString Signature::withSeparator( bool * ok ) const
+QString Signature::withSeparator( bool *ok ) const
 {
   bool internalOK = false;
   QString signature = rawText( &internalOK );
   if ( !internalOK ) {
-    if ( ok )
+    if ( ok ) {
       *ok = false;
+    }
     return QString();
   }
-  if ( ok )
+  if ( ok ) {
     *ok = true;
+  }
 
-  if ( signature.isEmpty() )
+  if ( signature.isEmpty() ) {
     return signature; // don't add a separator in this case
+  }
 
-  if ( signature.startsWith( QString::fromLatin1( "-- \n" ) ) )
+  if ( signature.startsWith( QString::fromLatin1( "-- \n" ) ) ) {
     // already have signature separator at start of sig:
     return QString::fromLatin1( "\n" ) += signature;
-  else if ( signature.indexOf( QString::fromLatin1( "\n-- \n" ) ) != -1 )
+  } else if ( signature.indexOf( QString::fromLatin1( "\n-- \n" ) ) != -1 ) {
     // already have signature separator inside sig; don't prepend '\n'
     // to improve abusing signatures as templates:
     return signature;
-  else
+  } else {
     // need to prepend one:
     return QString::fromLatin1( "\n-- \n" ) + signature;
+  }
 }
-
 
 void Signature::setUrl( const QString & url, bool isExecutable )
 {
   mUrl = url;
-  mType = isExecutable ? FromCommand : FromFile ;
+  mType = isExecutable ? FromCommand : FromFile;
 }
 
 // config keys and values:
@@ -200,7 +215,8 @@ void Signature::writeConfig( KConfigGroup & config ) const
       break;
     case Disabled:
       config.writeEntry( sigTypeKey, sigTypeDisabledValue );
-    default: ;
+    default:
+      break;
   }
   config.writeEntry( sigTextKey, mText );
 }
@@ -224,13 +240,19 @@ QDataStream & KPIMIdentities::operator>>
 
 bool Signature::operator== ( const Signature & other ) const
 {
-  if ( mType != other.mType ) return false;
+  if ( mType != other.mType ) {
+    return false;
+  }
+
   switch ( mType ) {
-    case Inlined: return mText == other.mText;
-    case FromFile:
-    case FromCommand: return mUrl == other.mUrl;
-    default:
-    case Disabled: return true;
+  case Inlined:
+    return mText == other.mText;
+  case FromFile:
+  case FromCommand:
+    return mUrl == other.mUrl;
+  default:
+  case Disabled:
+    return true;
   }
 }
 
