@@ -46,8 +46,8 @@ namespace KPIMIdentities
        * This means in particular that if there is no identity configured,
        * the default identity created here will not be saved.
        */
-      explicit IdentityManager( bool readonly = false, QObject * parent=0,
-                                const char * name=0 );
+      explicit IdentityManager( bool readonly = false, QObject *parent=0,
+                                const char *name=0 );
       virtual ~IdentityManager();
 
     public:
@@ -81,24 +81,24 @@ namespace KPIMIdentities
       /** @return an identity whose address matches any in @p addresses
           or @ref Identity::null if no such identity exists.
       **/
-      const Identity & identityForAddress( const QString & addresses ) const;
+      const Identity &identityForAddress( const QString &addresses ) const;
 
       /** @return true if @p addressList contains any of our addresses,
           false otherwise.
           @see #identityForAddress
       **/
-      bool thatIsMe( const QString & addressList ) const;
+      bool thatIsMe( const QString &addressList ) const;
 
       /** @deprecated
           @return the identity named @p identityName or @ref
           Identity::null if not found.
       **/
-      const Identity & identityForName( const QString & identityName ) const;
+      const Identity &identityForName( const QString &identityName ) const;
 
       /** @return the identity with Unique Object Identifier (UOID) @p
           uoid or @ref Identity::null if not found.
        **/
-      const Identity & identityForUoid( uint uoid ) const;
+      const Identity &identityForUoid( uint uoid ) const;
 
       /** @deprecated
           Convenience method.
@@ -106,18 +106,18 @@ namespace KPIMIdentities
           @return the identity named @p identityName or the default
           identity if not found.
       **/
-      const Identity & identityForNameOrDefault(
-        const QString & identityName ) const;
+      const Identity &identityForNameOrDefault(
+        const QString &identityName ) const;
 
       /** Convenience menthod.
 
           @return the identity with Unique Object Identifier (UOID) @p
           uoid or the default identity if not found.
       **/
-      const Identity & identityForUoidOrDefault( uint uoid ) const;
+      const Identity &identityForUoidOrDefault( uint uoid ) const;
 
       /** @return the default identity */
-      const Identity & defaultIdentity() const;
+      const Identity &defaultIdentity() const;
 
       /** @deprecated
           Sets the identity named @p identityName to be the new default
@@ -125,7 +125,7 @@ namespace KPIMIdentities
 
           @return false if an identity named @p identityName was not found
       **/
-      bool setAsDefault( const QString & identityName );
+      bool setAsDefault( const QString &identityName );
 
       /** Sets the identity with Unique Object Identifier (UOID) @p uoid
           to be new the default identity. As usual, use @ref commit to
@@ -139,16 +139,16 @@ namespace KPIMIdentities
           reference to the identity that can be modified. To let others
           see this change, use @ref commit.
       **/
-      Identity & modifyIdentityForName( const QString & identityName );
+      Identity &modifyIdentityForName( const QString &identityName );
 
       /** @return the identity with Unique Object Identifier (UOID) @p uoid.
           This method returns a reference to the identity that can
           be modified. To let others see this change, use @ref commit.
       **/
-      Identity & modifyIdentityForUoid( uint uoid );
+      Identity &modifyIdentityForUoid( uint uoid );
 
       /** Removes the identity with name @p identityName */
-      bool removeIdentity( const QString & identityName );
+      bool removeIdentity( const QString &identityName );
 
       ConstIterator begin() const;
       ConstIterator end() const;
@@ -157,10 +157,10 @@ namespace KPIMIdentities
       Iterator modifyBegin();
       Iterator modifyEnd();
 
-      Identity & newFromScratch( const QString & name );
-      Identity & newFromControlCenter( const QString & name );
-      Identity & newFromExisting( const Identity & other,
-                                  const QString & name=QString() );
+      Identity &newFromScratch( const QString &name );
+      Identity &newFromControlCenter( const QString &name );
+      Identity &newFromExisting( const Identity &other,
+                                  const QString &name=QString() );
 
       /** Returns the list of all email addresses (only name@host) from all
           identities */
@@ -177,19 +177,20 @@ namespace KPIMIdentities
       /** Emitted whenever the identity @p ident changed. Useful for more
           fine-grained change notifications than what is possible with the
           standard @ref changed() signal. */
-      void changed( const KPIMIdentities::Identity & ident );
+      void changed( const KPIMIdentities::Identity &ident );
       /** Emitted on @ref commit() for each deleted identity. At the time
           this signal is emitted, the identity does still exist and can be
           retrieved by @ref identityForUoid() if needed */
       void deleted( uint uoid );
       /** Emitted on @ref commit() for each new identity */
-      void added( const KPIMIdentities::Identity & ident );
+      void added( const KPIMIdentities::Identity &ident );
 
     protected:
       /**
-       * This is called when no identity has been defined, so we need to create a
-       * default one. The parameters are filled with some default values from KUser,
-       * but reimplementations of this method can give them another value.
+       * This is called when no identity has been defined, so we need to
+       * create a default one. The parameters are filled with some default
+       * values from KUser, but reimplementations of this method can give
+       * them another value.
        */
       virtual void createDefaultIdentity( QString&/*fullName*/,
                                           QString&/*emailAddress*/ ) {}
@@ -212,15 +213,15 @@ namespace KPIMIdentities
 
     private:
       void writeConfig() const;
-      void readConfig( KConfigBase* config );
-      QStringList groupList( KConfigBase* config ) const;
+      void readConfig( KConfigBase *config );
+      QStringList groupList( KConfigBase *config ) const;
       void createDefaultIdentity();
 
       // returns a new Unique Object Identifier
       int newUoid();
 
     private:
-      KConfig* mConfig;
+      KConfig *mConfig;
       bool mReadOnly;
   };
 

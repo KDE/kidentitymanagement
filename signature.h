@@ -41,10 +41,10 @@ class KConfigGroup;
 namespace KPIMIdentities
 {
 
-  KPIMIDENTITIES_EXPORT QDataStream & operator<<
-  ( QDataStream & stream, const KPIMIdentities::Signature & sig );
-  KPIMIDENTITIES_EXPORT QDataStream & operator>>
-  ( QDataStream & stream, KPIMIdentities::Signature & sig );
+  KPIMIDENTITIES_EXPORT QDataStream &operator<<
+  ( QDataStream &stream, const KPIMIdentities::Signature &sig );
+  KPIMIDENTITIES_EXPORT QDataStream &operator>>
+  ( QDataStream &stream, KPIMIdentities::Signature &sig );
 
   /**
    * @short abstraction of a signature (aka "footer").
@@ -54,8 +54,8 @@ namespace KPIMIdentities
   {
       friend class Identity;
 
-      friend QDataStream & operator<< ( QDataStream & stream, const Signature & sig );
-      friend QDataStream & operator>> ( QDataStream & stream, Signature & sig );
+      friend QDataStream &operator<< ( QDataStream &stream, const Signature &sig );
+      friend QDataStream &operator>> ( QDataStream &stream, Signature &sig );
 
     public:
       /** Type of signature (ie. way to obtain the signature text) */
@@ -67,30 +67,30 @@ namespace KPIMIdentities
       };
 
       /** Used for comparison */
-      bool operator== ( const Signature & other ) const;
+      bool operator== ( const Signature &other ) const;
 
       /** Constructor for disabled signature */
       Signature();
       /** Constructor for inline text */
-      Signature( const QString & text );
+      Signature( const QString &text );
       /** Constructor for text from a file or from output of a command */
-      Signature( const QString & url, bool isExecutable );
+      Signature( const QString &url, bool isExecutable );
 
       /** @return the raw signature text as entered resp. read from file. */
-      QString rawText( bool * ok=0 ) const;
+      QString rawText( bool *ok=0 ) const;
 
       /** @return the signature text with a "-- " separator added, if
           necessary. */
-      QString withSeparator( bool * ok=0 ) const;
+      QString withSeparator( bool *ok=0 ) const;
 
       /** Set the signature text and mark this signature as being of
           "inline text" type. */
-      void setText( const QString & text );
+      void setText( const QString &text );
       QString text() const;
 
       /** Set the signature URL and mark this signature as being of
           "from file" resp. "from output of command" type. */
-      void setUrl( const QString & url, bool isExecutable=false );
+      void setUrl( const QString &url, bool isExecutable=false );
       QString url() const;
 
       /// @return the type of signature (ie. way to obtain the signature text)
@@ -98,12 +98,12 @@ namespace KPIMIdentities
       void setType( Type type );
 
     protected:
-      void writeConfig( KConfigGroup& config ) const;
-      void readConfig( const KConfigGroup& config );
+      void writeConfig( KConfigGroup &config ) const;
+      void readConfig( const KConfigGroup &config );
 
     private:
-      QString textFromFile( bool * ok ) const;
-      QString textFromCommand( bool * ok ) const;
+      QString textFromFile( bool *ok ) const;
+      QString textFromCommand( bool *ok ) const;
 
       QString mUrl;
       QString mText;

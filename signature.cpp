@@ -166,7 +166,7 @@ QString Signature::withSeparator( bool *ok ) const
   }
 }
 
-void Signature::setUrl( const QString & url, bool isExecutable )
+void Signature::setUrl( const QString &url, bool isExecutable )
 {
   mUrl = url;
   mType = isExecutable ? FromCommand : FromFile;
@@ -199,7 +199,7 @@ void Signature::readConfig( const KConfigGroup &config )
   mText = config.readEntry( sigTextKey );
 }
 
-void Signature::writeConfig( KConfigGroup & config ) const
+void Signature::writeConfig( KConfigGroup &config ) const
 {
   switch ( mType ) {
     case Inlined:
@@ -223,14 +223,14 @@ void Signature::writeConfig( KConfigGroup & config ) const
 
 // --------------------- Operators -------------------//
 
-QDataStream & KPIMIdentities::operator<<
-( QDataStream & stream, const KPIMIdentities::Signature & sig )
+QDataStream &KPIMIdentities::operator<<
+( QDataStream &stream, const KPIMIdentities::Signature &sig )
 {
   return stream << static_cast<quint8>( sig.mType ) << sig.mUrl << sig.mText;
 }
 
-QDataStream & KPIMIdentities::operator>>
-( QDataStream & stream, KPIMIdentities::Signature & sig )
+QDataStream &KPIMIdentities::operator>>
+( QDataStream &stream, KPIMIdentities::Signature &sig )
 {
   quint8 s;
   stream >> s  >> sig.mUrl >> sig.mText;
@@ -238,7 +238,7 @@ QDataStream & KPIMIdentities::operator>>
   return stream;
 }
 
-bool Signature::operator== ( const Signature & other ) const
+bool Signature::operator== ( const Signature &other ) const
 {
   if ( mType != other.mType ) {
     return false;
@@ -275,7 +275,7 @@ Signature::Type Signature::type() const
 
 // --------------- Setters -----------------------//
 
-void Signature::setText( const QString & text )
+void Signature::setText( const QString &text )
 {
   mText = text;
 }

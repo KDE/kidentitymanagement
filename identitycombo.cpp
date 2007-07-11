@@ -47,7 +47,7 @@ class KPIMIdentities::IdentityCombo::Private
 };
 //@endcond
 
-IdentityCombo::IdentityCombo( IdentityManager* manager, QWidget * parent )
+IdentityCombo::IdentityCombo( IdentityManager *manager, QWidget *parent )
     : QComboBox( parent ), mIdentityManager( manager ), d( 0 )
 {
   reloadCombo();
@@ -72,12 +72,12 @@ uint IdentityCombo::currentIdentity() const
   return mUoidList[ currentIndex()];
 }
 
-void IdentityCombo::setCurrentIdentity( const Identity & identity )
+void IdentityCombo::setCurrentIdentity( const Identity &identity )
 {
   setCurrentIdentity( identity.uoid() );
 }
 
-void IdentityCombo::setCurrentIdentity( const QString & name )
+void IdentityCombo::setCurrentIdentity( const QString &name )
 {
   int idx = mIdentityManager->identities().indexOf( name );
   if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
