@@ -106,8 +106,7 @@ namespace KPIMIdentities
           @return the identity named @p identityName or the default
           identity if not found.
       **/
-      const Identity &identityForNameOrDefault(
-        const QString &identityName ) const;
+      const Identity &identityForNameOrDefault( const QString &identityName ) const;
 
       /** Convenience menthod.
 
@@ -196,7 +195,7 @@ namespace KPIMIdentities
                                           QString&/*emailAddress*/ ) {}
 
     protected Q_SLOTS:
-      void slotRollback() { rollback(); }
+      void slotRollback();
 
     protected:
       /** The list that will be seen by everyone */

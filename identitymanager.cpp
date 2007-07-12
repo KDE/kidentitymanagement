@@ -554,6 +554,11 @@ QStringList KPIMIdentities::IdentityManager::allEmails() const
   return lst;
 }
 
+void KPIMIdentities::IdentityManager::slotRollback()
+{
+  rollback();
+}
+
 void KPIMIdentities::IdentityManager::slotIdentitiesChanged( const QString &id )
 {
   kDebug( 5325 ) <<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :"
