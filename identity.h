@@ -80,9 +80,9 @@ namespace KPIMIdentities
       // QValueList<Identity> and especially qHeapSort().
       friend class IdentityManager;
 
-      friend QDataStream &operator<<
+      friend KPIMIDENTITIES_EXPORT QDataStream &operator<<
       ( QDataStream &stream, const KPIMIdentities::Identity &ident );
-      friend QDataStream &operator>>
+      friend KPIMIDENTITIES_EXPORT QDataStream &operator>>
       ( QDataStream &stream, KPIMIdentities::Identity &ident );
 
     public:

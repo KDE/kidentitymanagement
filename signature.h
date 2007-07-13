@@ -54,8 +54,8 @@ namespace KPIMIdentities
   {
       friend class Identity;
 
-      friend QDataStream &operator<< ( QDataStream &stream, const Signature &sig );
-      friend QDataStream &operator>> ( QDataStream &stream, Signature &sig );
+      friend KPIMIDENTITIES_EXPORT QDataStream &operator<< ( QDataStream &stream, const Signature &sig );
+      friend KPIMIDENTITIES_EXPORT QDataStream &operator>> ( QDataStream &stream, Signature &sig );
 
     public:
       /** Type of signature (ie. way to obtain the signature text) */
