@@ -12,7 +12,7 @@ target_link_libraries(kpimidentities ${QT_AND_KDECORE_LIBS}  kpimutils ${KDE4_KU
 set_target_properties(kpimidentities PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kpimidentities  DESTINATION ${LIB_INSTALL_DIR})
 
-install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_DIR})
+install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
 install(FILES
         identity.h
         signature.h
