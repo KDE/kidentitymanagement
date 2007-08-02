@@ -65,7 +65,7 @@ QString Signature::rawText( bool *ok ) const
   case FromCommand:
     return textFromCommand( ok );
   };
-  kFatal(5325) << "Signature::type() returned unknown value!" << endl;
+  kFatal(5325) << "Signature::type() returned unknown value!";
   return QString(); // make compiler happy
 }
 

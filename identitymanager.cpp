@@ -93,7 +93,7 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
 IdentityManager::~IdentityManager()
 {
   kWarning( hasPendingChanges(), 5325 )
-  << "IdentityManager: There were uncommitted changes!" << endl;
+  << "IdentityManager: There were uncommitted changes!";
   delete mConfig;
 }
 
@@ -240,8 +240,8 @@ void IdentityManager::readConfig( KConfigBase *config )
     }
   }
   if ( !haveDefault ) {
-    kWarning( 5325 ) << "IdentityManager: There was no default identity. "
-                     << "Marking first one as default." << endl;
+    kWarning( 5325 ) << "IdentityManager: There was no default identity."
+                     << "Marking first one as default.";
     mIdentities.first().setIsDefault( true );
   }
   qSort( mIdentities );
@@ -277,7 +277,7 @@ IdentityManager::Iterator IdentityManager::modifyEnd()
 const Identity &IdentityManager::identityForName( const QString &name ) const
 {
   kWarning( 5325 )
-  << "deprecated method IdentityManager::identityForName() called!" << endl;
+  << "deprecated method IdentityManager::identityForName() called!";
   for ( ConstIterator it = begin(); it != end(); ++it ) {
     if ( (*it).identityName() == name ) {
       return (*it);
@@ -344,9 +344,9 @@ Identity &IdentityManager::modifyIdentityForName( const QString &name )
     }
   }
 
-  kWarning( 5325 ) << "IdentityManager::identityForName() used as "
+  kWarning( 5325 ) << "IdentityManager::identityForName() used as"
                    << "newFromScratch() replacement!"
-                   << "\n  name == \"" << name << "\"" << endl;
+                   << endl << "  name == \"" << name << "\"";
   return newFromScratch( name );
 }
 
@@ -358,9 +358,9 @@ Identity &IdentityManager::modifyIdentityForUoid( uint uoid )
     }
   }
 
-  kWarning( 5325 ) << "IdentityManager::identityForUoid() used as "
+  kWarning( 5325 ) << "IdentityManager::identityForUoid() used as"
                    << "newFromScratch() replacement!"
-                   << "\n  uoid == \"" << uoid << "\"" << endl;
+                   << endl << "  uoid == \"" << uoid << "\"";
   return newFromScratch( i18n( "Unnamed" ) );
 }
 
@@ -373,7 +373,7 @@ const Identity &IdentityManager::defaultIdentity() const
   }
 
   ( mIdentities.isEmpty() ? kFatal( 5325 ) : kWarning( 5325 ) )
-    << "IdentityManager: No default identity found!" << endl;
+    << "IdentityManager: No default identity found!";
   return *begin();
 }
 
