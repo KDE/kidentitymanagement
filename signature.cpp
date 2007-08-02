@@ -118,8 +118,8 @@ QString Signature::textFromFile( bool *ok ) const
   if ( !KUrl( mUrl ).isLocalFile() &&
        !( QFileInfo( mUrl ).isRelative() &&
           QFileInfo( mUrl ).exists() ) ) {
-    kDebug(5325) << "Signature::textFromFile: "
-    << "non-local URLs are unsupported" << endl;
+    kDebug(5325) << "Signature::textFromFile:"
+    << "non-local URLs are unsupported";
     if ( ok ) {
       *ok = false;
     }
