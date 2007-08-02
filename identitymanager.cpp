@@ -71,7 +71,7 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
   mConfig = new KConfig( "emailidentities" );
   readConfig( mConfig );
   if ( mIdentities.isEmpty() ) {
-    kDebug( 5325 ) << "emailidentities is empty -> convert from kmailrc" << endl;
+    kDebug( 5325 ) << "emailidentities is empty -> convert from kmailrc";
     // No emailidentities file, or an empty one due to broken conversion
     // (kconf_update bug in kdelibs <= 3.2.2)
     // => convert it, i.e. read settings from kmailrc
@@ -80,8 +80,7 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
   }
   // we need at least a default identity:
   if ( mIdentities.isEmpty() ) {
-    kDebug( 5325 ) << "IdentityManager: No identity found. Creating default."
-    << endl;
+    kDebug( 5325 ) << "IdentityManager: No identity found. Creating default.";
     createDefaultIdentity();
     commit();
   }
@@ -121,14 +120,14 @@ void IdentityManager::commit()
       const Identity &orig = identityForUoid( uoid );  // look up in mIdentities
       if ( *it != orig ) {
         // changed identity
-        kDebug( 5325 ) << "emitting changed() for identity " << uoid << endl;
+        kDebug( 5325 ) << "emitting changed() for identity" << uoid;
         emit changed(*it);
         changedUOIDs << uoid;
       }
       seenUOIDs.removeAll( uoid );
     } else {
       // new identity
-      kDebug( 5325 ) << "emitting added() for identity " << (*it).uoid() << endl;
+      kDebug( 5325 ) << "emitting added() for identity" << (*it).uoid();
       emit added(*it);
     }
   }
@@ -136,7 +135,7 @@ void IdentityManager::commit()
   // what's left are deleted identities:
   for ( QList<uint>::ConstIterator it = seenUOIDs.begin();
         it != seenUOIDs.end(); ++it ) {
-    kDebug( 5325 ) << "emitting deleted() for identity " << (*it) << endl;
+    kDebug( 5325 ) << "emitting deleted() for identity" << (*it);
     emit deleted(*it);
   }
 
@@ -561,8 +560,7 @@ void KPIMIdentities::IdentityManager::slotRollback()
 
 void KPIMIdentities::IdentityManager::slotIdentitiesChanged( const QString &id )
 {
-  kDebug( 5325 ) <<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :"
-  << id << endl;
+  kDebug( 5325 ) <<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :" << id;
   if ( id != QDBusConnection::sessionBus().baseService() ) {
     mConfig->reparseConfiguration();
     Q_ASSERT( !hasPendingChanges() );

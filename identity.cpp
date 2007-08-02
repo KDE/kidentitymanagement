@@ -97,7 +97,7 @@ void Identity::writeConfig( KConfigGroup &config ) const
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
   while ( i != mPropertiesMap.constEnd() ) {
     config.writeEntry( i.key(), i.value() );
-    kDebug( 5325 ) << "Store: " << i.key() << ": " << i.value() << endl;
+    kDebug( 5325 ) << "Store:" << i.key() << ":" << i.value();
     ++i;
   }
   mSignature.writeConfig( config );
