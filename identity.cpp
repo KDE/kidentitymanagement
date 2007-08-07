@@ -73,9 +73,13 @@ bool Identity::isNull() const
   bool empty = true;
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
   while ( i != mPropertiesMap.constEnd() ) {
-    if ( !i.value().isNull() ||
-         ( i.value().type() == QVariant::String && !i.value().toString().isEmpty() ) ) {
-      empty = false;
+
+    // The uoid is 0 by default, so ignore this
+    if ( !( i.key() == s_uoid && i.value().toUInt() == 0 ) ) {
+      if ( !i.value().isNull() ||
+          ( i.value().type() == QVariant::String && !i.value().toString().isEmpty() ) ) {
+        empty = false;
+      }
     }
     ++i;
   }
