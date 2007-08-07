@@ -47,6 +47,7 @@ static Identity *identityNull = 0;
 Identity::Identity( const QString &id, const QString &fullName,
                     const QString &emailAddr, const QString &organization,
                     const QString &replyToAddr )
+  : mIsDefault( false )
 {
   setProperty( s_uoid, 0 );
   setProperty( s_identity, id );
