@@ -422,6 +422,9 @@ bool IdentityManager::setAsDefault( uint uoid )
 
 bool IdentityManager::removeIdentity( const QString &name )
 {
+  if ( mShadowIdentities.size() <= 1 )
+    return false;
+
   for ( Iterator it = modifyBegin(); it != modifyEnd(); ++it ) {
     if ( (*it).identityName() == name ) {
       bool removedWasDefault = (*it).isDefault();

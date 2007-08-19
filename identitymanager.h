@@ -45,6 +45,7 @@ namespace KPIMIdentities
        * @param readonly if true, no changes can be made to the identity manager
        * This means in particular that if there is no identity configured,
        * the default identity created here will not be saved.
+       * It is assumed that a minimum of one identity is always present.
        */
       explicit IdentityManager( bool readonly = false, QObject *parent=0,
                                 const char *name=0 );
@@ -146,7 +147,10 @@ namespace KPIMIdentities
       **/
       Identity &modifyIdentityForUoid( uint uoid );
 
-      /** Removes the identity with name @p identityName */
+      /** Removes the identity with name @p identityName 
+          Will return false if the identity is not found, 
+          or when one tries to remove the last identity.
+       **/
       bool removeIdentity( const QString &identityName );
 
       ConstIterator begin() const;
