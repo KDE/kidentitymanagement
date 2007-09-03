@@ -188,11 +188,10 @@ namespace KPIMIdentities
       (useful for retries). */
       QString signatureText( bool *ok=0 ) const;
 
-      /** The transport ID that is set for this identity. Used to link a
-      transport with an identity. The IDs given here correspond to the
-      transport IDs used by the mailtransport library. */
-      int transport() const;
-      void setTransport( int );
+      /** The transport that is set for this identity. Used to link a
+      transport with an identity. */
+      QString transport() const;
+      void setTransport( const QString& );
 
       /** The folder where sent messages from this identity will be
       stored by default. */

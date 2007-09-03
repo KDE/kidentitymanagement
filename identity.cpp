@@ -418,9 +418,9 @@ QString Identity::fcc() const
   return property( QLatin1String( s_fcc ) ).toString();
 }
 
-int Identity::transport() const
+QString Identity::transport() const
 {
-  return property( QLatin1String( s_transport ) ).toInt();
+  return property( QLatin1String( s_transport ) ).toString();
 }
 
 bool Identity::signatureIsCommand() const
@@ -530,9 +530,9 @@ void Identity::setSignatureInlineText( const QString &str )
   mSignature.setText( str );
 }
 
-void Identity::setTransport( int id )
+void Identity::setTransport( const QString &str )
 {
-  setProperty( s_transport, id );
+  setProperty( s_transport, str );
 }
 
 void Identity::setFcc( const QString &str )
