@@ -34,7 +34,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include <QList>
 #include <QRegExp>
-#include <QtDBus>
+#include <QtDBus/QtDBus>
 
 #include <assert.h>
 #include <krandom.h>
