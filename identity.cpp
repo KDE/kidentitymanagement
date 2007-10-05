@@ -24,7 +24,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kurl.h>
 #include <kprocess.h>
 #include <kpimutils/kfileio.h>

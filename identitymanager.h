@@ -21,6 +21,7 @@
 #define _KPIM_IDENTITYMANAGER_H_
 
 #include <kpimidentities/kpimidentities_export.h>
+#include <kconfiggroup.h>
 #include <QtCore/QObject>
 
 class KConfigBase;
@@ -216,8 +217,8 @@ namespace KPIMIdentities
 
     private:
       void writeConfig() const;
-      void readConfig( KConfigBase *config );
-      QStringList groupList( KConfigBase *config ) const;
+      void readConfig( KConfig *config );
+      QStringList groupList( KConfig *config ) const;
       void createDefaultIdentity();
 
       // returns a new Unique Object Identifier

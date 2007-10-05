@@ -216,7 +216,7 @@ void IdentityManager::writeConfig() const
 
 }
 
-void IdentityManager::readConfig( KConfigBase *config )
+void IdentityManager::readConfig( KConfig *config )
 {
   mIdentities.clear();
 
@@ -249,7 +249,7 @@ void IdentityManager::readConfig( KConfigBase *config )
   mShadowIdentities = mIdentities;
 }
 
-QStringList IdentityManager::groupList( KConfigBase *config ) const
+QStringList IdentityManager::groupList( KConfig *config ) const
 {
   return config->groupList().filter( QRegExp( "^Identity #\\d+$" ) );
 }
