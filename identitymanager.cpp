@@ -274,18 +274,6 @@ IdentityManager::Iterator IdentityManager::modifyEnd()
   return mShadowIdentities.end();
 }
 
-const Identity &IdentityManager::identityForName( const QString &name ) const
-{
-  kWarning( 5325 )
-  << "deprecated method IdentityManager::identityForName() called!";
-  for ( ConstIterator it = begin(); it != end(); ++it ) {
-    if ( (*it).identityName() == name ) {
-      return (*it);
-    }
-  }
-  return Identity::null();
-}
-
 const Identity &IdentityManager::identityForUoid( uint uoid ) const
 {
   for ( ConstIterator it = begin(); it != end(); ++it ) {
@@ -294,16 +282,6 @@ const Identity &IdentityManager::identityForUoid( uint uoid ) const
     }
   }
   return Identity::null();
-}
-
-const Identity &IdentityManager::identityForNameOrDefault( const QString &name ) const
-{
-  const Identity &ident = identityForName( name );
-  if ( ident.isNull() ) {
-    return defaultIdentity();
-  } else {
-    return ident;
-  }
 }
 
 const Identity &IdentityManager::identityForUoidOrDefault( uint uoid ) const
@@ -344,7 +322,7 @@ Identity &IdentityManager::modifyIdentityForName( const QString &name )
     }
   }
 
-  kWarning( 5325 ) << "IdentityManager::identityForName() used as"
+  kWarning( 5325 ) << "IdentityManager::modifyIdentityForName() used as"
                    << "newFromScratch() replacement!"
                    << endl << "  name == \"" << name << "\"";
   return newFromScratch( name );
@@ -375,24 +353,6 @@ const Identity &IdentityManager::defaultIdentity() const
   ( mIdentities.isEmpty() ? kFatal( 5325 ) : kWarning( 5325 ) )
     << "IdentityManager: No default identity found!";
   return *begin();
-}
-
-bool IdentityManager::setAsDefault( const QString &name )
-{
-  // First, check if the identity actually exists:
-  QStringList names = shadowIdentities();
-  if ( names.indexOf( name ) == -1 ) {
-    return false;
-  }
-
-  // Then, change the default as requested:
-  for ( Iterator it = modifyBegin(); it != modifyEnd(); ++it ) {
-    (*it).setIsDefault( (*it).identityName() == name );
-  }
-
-  // and re-sort:
-  sort();
-  return true;
 }
 
 bool IdentityManager::setAsDefault( uint uoid )

@@ -55,13 +55,6 @@ namespace KPIMIdentities
       void setCurrentIdentity( uint uoid );
 
     Q_SIGNALS:
-      /**
-        @em Really emitted whenever the current identity changes. Either
-        by user intervention or on  setCurrentIdentity() or if the
-        current identity disappears.
-        @deprecated use identityChanged(uint uoid) instead
-      */
-      KDE_DEPRECATED void identityChanged( const QString &identityName );
 
       /**
         @em Really emitted whenever the current identity changes. Either

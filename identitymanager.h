@@ -91,24 +91,10 @@ namespace KPIMIdentities
       **/
       bool thatIsMe( const QString &addressList ) const;
 
-      /** @return the identity named @p identityName or @ref
-                  Identity::null if not found.
-	  @deprecated use identityForUoid() instead
-      **/
-      KDE_DEPRECATED const Identity &identityForName( const QString &identityName ) const;
-
       /** @return the identity with Unique Object Identifier (UOID) @p
                   uoid or @ref Identity::null if not found.
        **/
       const Identity &identityForUoid( uint uoid ) const;
-
-      /** Convenience method.
-
-          @return the identity named @p identityName or the default
-                  identity if not found.
-	  @deprecated use identityForUoidOrDefault() instead
-      **/
-      KDE_DEPRECATED const Identity &identityForNameOrDefault( const QString &identityName ) const;
 
       /** Convenience menthod.
 
@@ -119,14 +105,6 @@ namespace KPIMIdentities
 
       /** @return the default identity */
       const Identity &defaultIdentity() const;
-
-      /** Sets the identity named @p identityName to be the new default
-          identity. As usual, use @ref commit to make this permanent.
-
-          @return false if an identity named @p identityName was not found
-	  @deprecated use setAsDefault(uint uoid) instead
-      **/
-      KDE_DEPRECATED bool setAsDefault( const QString &identityName );
 
       /** Sets the identity with Unique Object Identifier (UOID) @p uoid
           to be new the default identity. As usual, use @ref commit to
