@@ -450,7 +450,7 @@ void IdentityManager::createDefaultIdentity()
       // If KEmailSettings doesn't have name and address, generate something from KUser
       KUser user;
       if ( fullName.isEmpty() ) {
-        fullName = user.fullName();
+        fullName = user.property( KUser::FullName ).toString();
       }
       if ( emailAddress.isEmpty() ) {
         emailAddress = user.loginName();
