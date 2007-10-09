@@ -143,7 +143,6 @@ void IdentityCombo::slotIdentityManagerChanged()
 
 void IdentityCombo::slotEmitChanged( int idx )
 {
-  emit identityChanged( mIdentityManager->identities()[idx] );
   emit identityChanged( mUoidList[idx] );
 }
 

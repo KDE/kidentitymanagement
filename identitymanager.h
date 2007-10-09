@@ -21,6 +21,7 @@
 #define _KPIM_IDENTITYMANAGER_H_
 
 #include <kpimidentities/kpimidentities_export.h>
+#include <kconfiggroup.h>
 #include <QtCore/QObject>
 
 class KConfigBase;
@@ -80,52 +81,30 @@ namespace KPIMIdentities
       void sort();
 
       /** @return an identity whose address matches any in @p addresses
-          or @ref Identity::null if no such identity exists.
+                  or @ref Identity::null if no such identity exists.
       **/
       const Identity &identityForAddress( const QString &addresses ) const;
 
       /** @return true if @p addressList contains any of our addresses,
-          false otherwise.
+                  false otherwise.
           @see #identityForAddress
       **/
       bool thatIsMe( const QString &addressList ) const;
 
-      /** @deprecated
-          @return the identity named @p identityName or @ref
-          Identity::null if not found.
-      **/
-      const Identity &identityForName( const QString &identityName ) const;
-
       /** @return the identity with Unique Object Identifier (UOID) @p
-          uoid or @ref Identity::null if not found.
+                  uoid or @ref Identity::null if not found.
        **/
       const Identity &identityForUoid( uint uoid ) const;
-
-      /** @deprecated
-          Convenience method.
-
-          @return the identity named @p identityName or the default
-          identity if not found.
-      **/
-      const Identity &identityForNameOrDefault( const QString &identityName ) const;
 
       /** Convenience menthod.
 
           @return the identity with Unique Object Identifier (UOID) @p
-          uoid or the default identity if not found.
+                  uoid or the default identity if not found.
       **/
       const Identity &identityForUoidOrDefault( uint uoid ) const;
 
       /** @return the default identity */
       const Identity &defaultIdentity() const;
-
-      /** @deprecated
-          Sets the identity named @p identityName to be the new default
-          identity. As usual, use @ref commit to make this permanent.
-
-          @return false if an identity named @p identityName was not found
-      **/
-      bool setAsDefault( const QString &identityName );
 
       /** Sets the identity with Unique Object Identifier (UOID) @p uoid
           to be new the default identity. As usual, use @ref commit to
@@ -216,8 +195,8 @@ namespace KPIMIdentities
 
     private:
       void writeConfig() const;
-      void readConfig( KConfigBase *config );
-      QStringList groupList( KConfigBase *config ) const;
+      void readConfig( KConfig *config );
+      QStringList groupList( KConfig *config ) const;
       void createDefaultIdentity();
 
       // returns a new Unique Object Identifier
