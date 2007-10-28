@@ -189,10 +189,10 @@ void Signature::readConfig( const KConfigGroup &config )
     mType = Inlined;
   } else if ( sigType == sigTypeFileValue ) {
     mType = FromFile;
-    mUrl = config.readPathEntry( sigFileKey );
+    mUrl = config.readPathEntry( sigFileKey, QString() );
   } else if ( sigType == sigTypeCommandValue ) {
     mType = FromCommand;
-    mUrl = config.readPathEntry( sigCommandKey );
+    mUrl = config.readPathEntry( sigCommandKey, QString() );
   } else {
     mType = Disabled;
   }
