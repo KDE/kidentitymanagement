@@ -95,6 +95,7 @@ void Identity::readConfig( const KConfigGroup &config )
     mPropertiesMap.insert( i.key(), i.value() );
     ++i;
   }
+  mSignature.readConfig( config );
 }
 
 void Identity::writeConfig( KConfigGroup &config ) const
@@ -235,7 +236,8 @@ bool Identity::operator>= ( const Identity &other ) const
 
 bool Identity::operator== ( const Identity &other ) const
 {
-  return mPropertiesMap == other.mPropertiesMap;
+  return mPropertiesMap == other.mPropertiesMap &&
+         mSignature == other.mSignature;
 }
 
 bool Identity::operator!= ( const Identity &other ) const
