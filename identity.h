@@ -181,12 +181,13 @@ namespace KPIMIdentities
       void setSignature( const Signature &sig );
       Signature &signature(); /* _not_ const! */
 
-      /** Returns the signature. This method also takes care of special
-      signature files that are shell scripts and handles them
-      correct. So use this method to rectreive the contents of the
-      signature file. If @p prompt is false, no errors will be displayed
-      (useful for retries). */
-      QString signatureText( bool *ok=0 ) const;
+      /** @return the signature with '-- \n' prepended to it if it is not
+      present already.
+      No newline in front of or after the signature is added.
+      If @p ok is a valid bool pointer, @p ok is set to true or false depending
+      on wether the signature could successfully be obtained.
+      */
+      QString signatureText( bool *ok = 0 ) const;
 
       /** The transport that is set for this identity. Used to link a
       transport with an identity. */

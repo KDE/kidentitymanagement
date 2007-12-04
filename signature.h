@@ -79,8 +79,8 @@ namespace KPIMIdentities
       /** @return the raw signature text as entered resp. read from file. */
       QString rawText( bool *ok=0 ) const;
 
-      /** @return the signature text with a "-- " separator added, if
-          necessary. */
+      /** @return the signature text with a "-- \n" separator added, if
+          necessary. A newline will not be appended or prepended. */
       QString withSeparator( bool *ok=0 ) const;
 
       /** Set the signature text and mark this signature as being of
