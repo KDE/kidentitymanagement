@@ -350,8 +350,10 @@ const Identity &IdentityManager::defaultIdentity() const
     }
   }
 
-  ( mIdentities.isEmpty() ? kFatal( 5325 ) : kWarning( 5325 ) )
-    << "IdentityManager: No default identity found!";
+  if ( mIdentities.isEmpty() )
+      kFatal( 5325 ) << "IdentityManager: No default identity found!";
+  else
+      kWarning( 5325 ) << "IdentityManager: No default identity found!";
   return *begin();
 }
 
