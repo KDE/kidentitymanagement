@@ -56,6 +56,16 @@ namespace KPIMIdentities
       typedef QList<Identity>::Iterator Iterator;
       typedef QList<Identity>::ConstIterator ConstIterator;
 
+      /**
+       * Typedef for STL style iterator
+       */
+      typedef Iterator iterator;
+
+      /**
+       * Typedef for STL style iterator
+       */
+      typedef ConstIterator const_iterator;
+
       /** Commit changes to disk and emit changed() if necessary. */
       void commit();
       /** Re-read the config from disk and forget changes. */
@@ -126,8 +136,8 @@ namespace KPIMIdentities
       **/
       Identity &modifyIdentityForUoid( uint uoid );
 
-      /** Removes the identity with name @p identityName 
-          Will return false if the identity is not found, 
+      /** Removes the identity with name @p identityName
+          Will return false if the identity is not found,
           or when one tries to remove the last identity.
        **/
       bool removeIdentity( const QString &identityName );

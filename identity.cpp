@@ -294,30 +294,7 @@ QString Identity::identityName() const
 
 QString Identity::signatureText( bool *ok ) const
 {
-  bool internalOK = false;
-  QString signatureText = mSignature.withSeparator( &internalOK );
-  if ( internalOK ) {
-    if ( ok ) {
-      *ok = true;
-    }
-    return signatureText;
-  }
-
-  // OK, here comes the funny part. The call to
-  // Signature::withSeparator() failed, so we should probably fix the
-  // cause:
-  if ( ok ) {
-    *ok = false;
-  }
-  return QString();
-
-#if 0 // TODO: error handling
-  if ( mSignatureFile.endsWith( '|' ) ) {
-  } else {
-  }
-#endif
-
-  return QString();
+  return mSignature.withSeparator( ok );
 }
 
 bool Identity::isDefault() const
