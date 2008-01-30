@@ -168,6 +168,16 @@ void Signature::setUrl( const QString &url, bool isExecutable )
   mType = isExecutable ? FromCommand : FromFile;
 }
 
+void Signature::setInlinedHtml( bool isHtml )
+{
+  mInlinedHtml = isHtml;
+}
+
+bool Signature::isInlinedHtml() const
+{
+  return mInlinedHtml;
+}
+
 // config keys and values:
 static const char sigTypeKey[] = "Signature Type";
 static const char sigTypeInlineValue[] = "inline";
@@ -177,12 +187,14 @@ static const char sigTypeDisabledValue[] = "disabled";
 static const char sigTextKey[] = "Inline Signature";
 static const char sigFileKey[] = "Signature File";
 static const char sigCommandKey[] = "Signature Command";
+static const char sigTypeInlinedHtmlKey[] = "Inlined Html";
 
 void Signature::readConfig( const KConfigGroup &config )
 {
   QString sigType = config.readEntry( sigTypeKey );
   if ( sigType == sigTypeInlineValue ) {
     mType = Inlined;
+    mInlinedHtml = config.readEntry( sigTypeInlinedHtmlKey, false );
   } else if ( sigType == sigTypeFileValue ) {
     mType = FromFile;
     mUrl = config.readPathEntry( sigFileKey, QString() );
@@ -200,6 +212,7 @@ void Signature::writeConfig( KConfigGroup &config ) const
   switch ( mType ) {
     case Inlined:
       config.writeEntry( sigTypeKey, sigTypeInlineValue );
+      config.writeEntry( sigTypeInlinedHtmlKey, mInlinedHtml );
       break;
     case FromFile:
       config.writeEntry( sigTypeKey, sigTypeFileValue );

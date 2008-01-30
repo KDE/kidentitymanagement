@@ -189,6 +189,12 @@ namespace KPIMIdentities
       */
       QString signatureText( bool *ok = 0 ) const;
 
+      /**
+       * @since 4.1
+       * @return true if the inlined signature is html formatted
+       */
+      bool signatureIsInlinedHtml() const;
+
       /** The transport that is set for this identity. Used to link a
       transport with an identity. */
       QString transport() const;

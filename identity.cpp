@@ -297,6 +297,11 @@ QString Identity::signatureText( bool *ok ) const
   return mSignature.withSeparator( ok );
 }
 
+bool Identity::signatureIsInlinedHtml() const
+{
+  return mSignature.isInlinedHtml();
+}
+
 bool Identity::isDefault() const
 {
   return mIsDefault;

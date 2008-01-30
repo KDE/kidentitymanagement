@@ -97,6 +97,19 @@ namespace KPIMIdentities
       Type type() const;
       void setType( Type type );
 
+      /**
+       * Sets the inlined signature to text or html
+       * @param isHtml sets the inlined signature to html
+       * @since 4.1 
+       */
+      void setInlinedHtml( bool isHtml );
+
+      /**
+       * @return boolean whether the inlined signature is html
+       * @since 4.1
+       */
+      bool isInlinedHtml() const;
+
     protected:
       void writeConfig( KConfigGroup &config ) const;
       void readConfig( const KConfigGroup &config );
@@ -108,6 +121,7 @@ namespace KPIMIdentities
       QString mUrl;
       QString mText;
       Type    mType;
+      bool mInlinedHtml;
   };
 
 }
