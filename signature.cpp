@@ -34,17 +34,20 @@
 using namespace KPIMIdentities;
 
 Signature::Signature()
-  : mType( Disabled )
+  : mType( Disabled ),
+    mInlinedHtml( false ) 
 {}
 
 Signature::Signature( const QString &text )
   : mText( text ),
-    mType( Inlined )
+    mType( Inlined ),
+    mInlinedHtml( false )
 {}
 
 Signature::Signature( const QString &url, bool isExecutable )
   : mUrl( url ),
-    mType( isExecutable ? FromCommand : FromFile )
+    mType( isExecutable ? FromCommand : FromFile ),
+    mInlinedHtml( false )
 {}
 
 QString Signature::rawText( bool *ok ) const
