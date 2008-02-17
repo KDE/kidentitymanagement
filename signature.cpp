@@ -35,7 +35,7 @@ using namespace KPIMIdentities;
 
 Signature::Signature()
   : mType( Disabled ),
-    mInlinedHtml( false ) 
+    mInlinedHtml( false )
 {}
 
 Signature::Signature( const QString &text )
@@ -95,7 +95,7 @@ QString Signature::textFromCommand( bool *ok ) const
     if ( ok ) {
       *ok = false;
     }
-    QString wmsg = i18n( "<qt>Failed to execute signature script<br><b>%1</b>:"
+    QString wmsg = i18n( "<qt>Failed to execute signature script<p><b>%1</b>:</p>"
                          "<p>%2</p></qt>", mUrl, QString( proc.readAllStandardError() ) );
     KMessageBox::error( 0, wmsg );
     return QString();
