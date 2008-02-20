@@ -1,4 +1,3 @@
-########### next target ###############
 
 set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp signature.cpp identitycombo.cpp)
 
@@ -19,5 +18,5 @@ install(FILES
         identitymanager.h
         identitycombo.h
         kpimidentities_export.h
-        DESTINATION ${INCLUDE_INSTALL_DIR}/kpimidentities )
+        DESTINATION ${INCLUDE_INSTALL_DIR}/kpimidentities COMPONENT Devel)
 
