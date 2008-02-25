@@ -156,8 +156,9 @@ QString Signature::withSeparator( bool *ok ) const
     return signature; // don't add a separator in this case
   }
 
-  if ( signature.startsWith( QString::fromLatin1( "-- \n" ) ) ) {
-    // already have signature separator at start of sig:
+  if ( signature.startsWith( QString::fromLatin1( "-- \n" ) )
+    || ( signature.indexOf( QString::fromLatin1( "\n-- \n" ) ) != -1 ) ) {
+    // already have signature separator at start of sig or inside sig:
     return signature;
   } else {
     // need to prepend one:
