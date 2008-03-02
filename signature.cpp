@@ -140,29 +140,23 @@ QString Signature::textFromFile( bool *ok ) const
 
 QString Signature::withSeparator( bool *ok ) const
 {
-  bool internalOK = false;
-  QString signature = rawText( &internalOK );
-  if ( !internalOK ) {
-    if ( ok ) {
-      *ok = false;
-    }
+  QString signature = rawText( ok );
+  if ( ok && (*ok) == false )
     return QString();
-  }
-  if ( ok ) {
-    *ok = true;
-  }
 
   if ( signature.isEmpty() ) {
     return signature; // don't add a separator in this case
   }
 
-  if ( signature.startsWith( QString::fromLatin1( "-- \n" ) )
-    || ( signature.indexOf( QString::fromLatin1( "\n-- \n" ) ) != -1 ) ) {
+  QString newline = ( isInlinedHtml() && mType == Inlined ) ? "<br>" : "\n";
+  if ( signature.startsWith( QString::fromLatin1( "-- " ) + newline )
+    || ( signature.indexOf( newline + QString::fromLatin1( "-- " ) +
+                            newline ) != -1 ) ) {
     // already have signature separator at start of sig or inside sig:
     return signature;
   } else {
     // need to prepend one:
-    return QString::fromLatin1( "-- \n" ) + signature;
+    return QString::fromLatin1( "-- " ) + newline + signature;
   }
 }
 
