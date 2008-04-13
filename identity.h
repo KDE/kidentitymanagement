@@ -185,7 +185,7 @@ namespace KPIMIdentities
       present already.
       No newline in front of or after the signature is added.
       If @p ok is a valid bool pointer, @p ok is set to true or false depending
-      on wether the signature could successfully be obtained.
+      on whether the signature could successfully be obtained.
       */
       QString signatureText( bool *ok = 0 ) const;
 
