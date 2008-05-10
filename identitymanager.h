@@ -17,8 +17,8 @@
     02110-1301, USA.
 */
 
-#ifndef _KPIM_IDENTITYMANAGER_H_
-#define _KPIM_IDENTITYMANAGER_H_
+#ifndef KPIMIDENTITIES_IDENTITYMANAGER_H
+#define KPIMIDENTITIES_IDENTITYMANAGER_H
 
 #include <kpimidentities/kpimidentities_export.h>
 #include <kconfiggroup.h>
@@ -36,9 +36,9 @@ namespace KPIMIdentities
    * @short Manages the list of identities.
    * @author Marc Mutz <mutz@kde.org>
    **/
-  class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
-  {
-      Q_OBJECT
+class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
+{
+    Q_OBJECT
     public:
       /**
        * Create an identity manager, which loads the emailidentities file
@@ -68,6 +68,7 @@ namespace KPIMIdentities
 
       /** Commit changes to disk and emit changed() if necessary. */
       void commit();
+
       /** Re-read the config from disk and forget changes. */
       void rollback();
 
@@ -215,7 +216,7 @@ namespace KPIMIdentities
     private:
       KConfig *mConfig;
       bool mReadOnly;
-  };
+};
 
 } // namespace
 

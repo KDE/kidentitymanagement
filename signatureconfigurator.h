@@ -6,7 +6,7 @@
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either 
+    License as published by the Free Software Foundation; either
     version 2.1 of the License, or (at your option) any later version.
 
     This library is distributed in the hope that it will be useful,
@@ -14,7 +14,7 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
     Lesser General Public License for more details.
 
-    You should have received a copy of the GNU Lesser General Public 
+    You should have received a copy of the GNU Lesser General Public
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
@@ -22,8 +22,8 @@
 #define KPIMIDENTITIES_SIGNATURECONFIGURATOR_H
 
 #include "kpimidentities_export.h"
-#include <QWidget>
 #include "signature.h" // for Signature::Type
+#include <QtGui/QWidget>
 
 using KPIMIdentities::Signature;
 
@@ -38,15 +38,16 @@ class QTextCharFormat;
 
 namespace KPIMIdentities {
 
-  /** 
+  /**
     * This widget gives an interface so users can edit their signature.
     * You can set a signature via setSignature(), let the user edit the
     * signature and when done, read the signature back.
     */
-  class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget {
-    Q_OBJECT
+class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
+{
+  Q_OBJECT
   public:
-     /** 
+     /**
        * Constructor
        */
     SignatureConfigurator( QWidget * parent=0 );
@@ -61,7 +62,7 @@ namespace KPIMIdentities {
       */
     enum ViewMode { ShowCode, ShowHtml };
 
-    /** 
+    /**
       * Indicated if the user wants a signature
       */
     bool isSignatureEnabled() const;
@@ -83,8 +84,8 @@ namespace KPIMIdentities {
     void setSignatureType( Signature::Type type );
 
     /**
-      * Returns the inline text, only usefull
-      * when this is the appropiate Signature::Type
+      * Returns the inline text, only useful
+      * when this is the appropriate Signature::Type
       */
     QString inlineText() const;
 
@@ -99,13 +100,13 @@ namespace KPIMIdentities {
       */
     QString fileURL() const;
 
-    /** 
-      * Set @p url for the file url part of the 
+    /**
+      * Set @p url for the file url part of the
       * widget.
       */
     void setFileURL( const QString & url );
 
-    /** 
+    /**
       * Returns the url of the command which the
       * users wants to use as signature.
       */
@@ -136,7 +137,7 @@ namespace KPIMIdentities {
     // unnecessary tags Qt inserts
     QString asCleanedHTML() const;
 
-  protected slots:
+  protected Q_SLOTS:
     void slotEnableEditButton( const QString & );
     void slotEdit();
     void slotShowCodeOrHtml();
@@ -157,8 +158,8 @@ namespace KPIMIdentities {
     class Private;
     Private *const d;
     //@endcond
-  };
+};
+
 }
 
 #endif
-

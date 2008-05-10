@@ -19,8 +19,8 @@
     02110-1301, USA.
 */
 
-#ifndef kpim_identity_h
-#define kpim_identity_h
+#ifndef KPIMIDENTITES_IDENTITY_H
+#define KPIMIDENTITES_IDENTITY_H
 
 #include "kpimidentities_export.h"
 #include "signature.h"
@@ -72,18 +72,18 @@ namespace KPIMIdentities
   KPIMIDENTITIES_EXPORT QDataStream &operator>>
   ( QDataStream &stream, KPIMIdentities::Identity &ident );
 
-  /** User identity information */
-  class KPIMIDENTITIES_EXPORT Identity
-  {
-      // only the identity manager should be able to construct and
-      // destruct us, but then we get into problems with using
-      // QValueList<Identity> and especially qHeapSort().
-      friend class IdentityManager;
+/** User identity information */
+class KPIMIDENTITIES_EXPORT Identity
+{
+    // only the identity manager should be able to construct and
+    // destruct us, but then we get into problems with using
+    // QValueList<Identity> and especially qHeapSort().
+    friend class IdentityManager;
 
-      friend KPIMIDENTITIES_EXPORT QDataStream &operator<<
-      ( QDataStream &stream, const KPIMIdentities::Identity &ident );
-      friend KPIMIDENTITIES_EXPORT QDataStream &operator>>
-      ( QDataStream &stream, KPIMIdentities::Identity &ident );
+    friend KPIMIDENTITIES_EXPORT QDataStream &operator<<
+    ( QDataStream &stream, const KPIMIdentities::Identity &ident );
+    friend KPIMIDENTITIES_EXPORT QDataStream &operator>>
+    ( QDataStream &stream, KPIMIdentities::Identity &ident );
 
     public:
       typedef QList<Identity> List;
@@ -286,7 +286,7 @@ namespace KPIMIdentities
       Signature mSignature;
       bool      mIsDefault;
       QHash<QString,QVariant>   mPropertiesMap;
-  };
+};
 
 }
 

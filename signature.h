@@ -19,8 +19,8 @@
     02110-1301, USA.
 */
 
-#ifndef kpim_signature_h
-#define kpim_signature_h
+#ifndef KPIMIDENTITIES_SIGNATURE_H
+#define KPIMIDENTITIES_SIGNATURE_H
 
 #include "kpimidentities_export.h"
 
@@ -100,7 +100,7 @@ namespace KPIMIdentities
       /**
        * Sets the inlined signature to text or html
        * @param isHtml sets the inlined signature to html
-       * @since 4.1 
+       * @since 4.1
        */
       void setInlinedHtml( bool isHtml );
 
