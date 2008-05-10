@@ -1,5 +1,5 @@
 
-set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp signature.cpp identitycombo.cpp)
+set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp signature.cpp signatureconfigurator.cpp identitycombo.cpp)
 
 
 qt4_add_dbus_adaptor(kpimidentities_LIB_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KPIMIdentities::IdentityManager )
@@ -15,6 +15,7 @@ install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_INST
 install(FILES
         identity.h
         signature.h
+        signatureconfigurator.h
         identitymanager.h
         identitycombo.h
         kpimidentities_export.h
