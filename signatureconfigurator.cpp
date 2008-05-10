@@ -2,17 +2,17 @@
     Copyright 2008 Thomas McGuire <Thomas.McGuire@gmx.net>
     Copyright 2008 Edwin Schepers <yez@familieschepers.nl>
     Copyright 2004 Marc Mutz <mutz@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either 
     version 2.1 of the License, or (at your option) any later version.
-    
+
     This library is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
     Lesser General Public License for more details.
-    
+
     You should have received a copy of the GNU Lesser General Public 
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -38,18 +38,31 @@
 #include <QTextEdit>
 
 #include <QStackedWidget>
-//Added by qt3to4:
+
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
 #include <assert.h>
 
-using namespace KMail;
+using namespace KPIMIdentities;
 
-namespace KMail {
+namespace KPIMIdentities {
 
-  SignatureConfigurator::SignatureConfigurator( QWidget * parent )
-    : QWidget( parent )
+/**
+   Private class that helps to provide binary compatibility between releases.
+   @internal
+  */
+//@cond PRIVATE
+class KPIMIdentities::SignatureConfigurator::Private
+{
+  public:
+    bool inlinedHtml;
+    ViewMode viewMode;
+};
+//@endcond
+
+SignatureConfigurator::SignatureConfigurator( QWidget * parent )
+    : QWidget( parent ), d( new Private )
   {
     // tmp. vars:
     QLabel * label;
@@ -133,7 +146,7 @@ namespace KMail {
     connect( mShowCodeOrHtmlBtn, SIGNAL(clicked()), SLOT(slotShowCodeOrHtml()) );
     hlay->addWidget( mHtmlCheck );
     hlay->addWidget( mShowCodeOrHtmlBtn, 1 );
-    mInlinedHtml = true;
+    d->inlinedHtml = true;
 
     widgetStack->setCurrentIndex( 0 ); // since mSourceCombo->currentItem() == 0
 
@@ -193,7 +206,7 @@ namespace KMail {
 
   SignatureConfigurator::~SignatureConfigurator()
   {
-
+    delete d;
   }
 
   bool SignatureConfigurator::isSignatureEnabled() const
@@ -238,7 +251,7 @@ namespace KMail {
     if ( mHtmlCheck->checkState() == Qt::Unchecked ) 
       return mTextEdit->toPlainText();
 
-    if ( mViewMode == ShowHtml )
+    if ( d->viewMode == ShowHtml )
       return asCleanedHTML();
     else
       return mTextEdit->toPlainText();
@@ -281,7 +294,7 @@ namespace KMail {
   {
     Signature sig;
     sig.setType( signatureType() );
-    sig.setInlinedHtml( mInlinedHtml );
+    sig.setInlinedHtml( d->inlinedHtml );
     sig.setText( inlineText() );
     if ( signatureType() == Signature::FromCommand )
       sig.setUrl( commandURL(), true );
@@ -296,12 +309,12 @@ namespace KMail {
     if ( sig.isInlinedHtml() )
     {
       mHtmlCheck->setCheckState( Qt::Checked );
-      mInlinedHtml = true;
+      d->inlinedHtml = true;
       initHtmlState();
     }
     else
     {
-      mInlinedHtml = false;
+      d->inlinedHtml = false;
       mShowCodeOrHtmlBtn->setEnabled( false );
       mTextEdit->setAcceptRichText( false );
     }
@@ -347,7 +360,7 @@ namespace KMail {
   // button clicked
   void SignatureConfigurator::slotShowCodeOrHtml()
   {
-    if ( mViewMode == ShowCode )
+    if ( d->viewMode == ShowCode )
       toggleHtmlBtnState( ShowHtml );
     else
       toggleHtmlBtnState( ShowCode );
@@ -357,7 +370,7 @@ namespace KMail {
   {
     mShowCodeOrHtmlBtn->setEnabled( true );
     mTextEdit->setAcceptRichText( true );
-    mViewMode = ShowHtml;
+    d->viewMode = ShowHtml;
     mShowCodeOrHtmlBtn->setText( i18n("Show HTML Code") );
   }
 
@@ -369,13 +382,13 @@ namespace KMail {
         // show the html code, and toggle the button text
         mTextEdit->setAcceptRichText( false );
         mTextEdit->setPlainText( asCleanedHTML() );
-        mViewMode = ShowCode;
+        d->viewMode = ShowCode;
         mShowCodeOrHtmlBtn->setText( i18n("Show HTML") );
         break;
       case ShowHtml:
         // show the formatted signature
         mTextEdit->setAcceptRichText( true );
-        mViewMode = ShowHtml;
+        d->viewMode = ShowHtml;
         mTextEdit->setHtml( mTextEdit->toPlainText() );
         mShowCodeOrHtmlBtn->setText( i18n("Show HTML Code") );
         break;
@@ -388,17 +401,17 @@ namespace KMail {
     if ( mHtmlCheck->checkState() == Qt::Unchecked ) {
       mTextEdit->setAcceptRichText( false );
       mShowCodeOrHtmlBtn->setEnabled( false );
-      mInlinedHtml = false;
-      if ( mViewMode == ShowCode )
+      d->inlinedHtml = false;
+      if ( d->viewMode == ShowCode )
         mTextEdit->setHtml( mTextEdit->toPlainText() );
       mTextEdit->setPlainText( mTextEdit->toPlainText() );
     }
     else {
-      mInlinedHtml = true;
+      d->inlinedHtml = true;
       initHtmlState();
     }
   }
 
-} // namespace KMail
+}
 
 #include "signatureconfigurator.moc"
