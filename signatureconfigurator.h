@@ -31,6 +31,8 @@ class QComboBox;
 class QCheckBox;
 class KUrlRequester;
 class KLineEdit;
+class KToolBar;
+class KRichTextWidget;
 class QString;
 class QPushButton;
 class QTextEdit;
@@ -140,18 +142,18 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
   protected Q_SLOTS:
     void slotEnableEditButton( const QString & );
     void slotEdit();
-    void slotShowCodeOrHtml();
     void slotSetHtml();
 
   protected:
-    QCheckBox     * mEnableCheck;
-    QCheckBox     * mHtmlCheck;
-    QComboBox     * mSourceCombo;
-    KUrlRequester * mFileRequester;
-    QPushButton   * mEditButton;
-    QPushButton   * mShowCodeOrHtmlBtn;
-    KLineEdit     * mCommandEdit;
-    QTextEdit     * mTextEdit;
+    QCheckBox       * mEnableCheck;
+    QCheckBox       * mHtmlCheck;
+    QComboBox       * mSourceCombo;
+    KUrlRequester   * mFileRequester;
+    QPushButton     * mEditButton;
+    KLineEdit       * mCommandEdit;
+    KToolBar        * mEditToolBar;
+    KToolBar        * mFormatToolBar;
+    KRichTextWidget * mTextEdit;
 
   private:
     //@cond PRIVATE

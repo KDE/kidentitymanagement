@@ -20,12 +20,15 @@
 
 #include "signatureconfigurator.h"
 
+#include <kactioncollection.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <kdialog.h>
 #include <klineedit.h>
 #include <kurlrequester.h>
+#include <krichtextwidget.h>
 #include <kshellcompletion.h>
+#include <ktoolbar.h>
 #include <krun.h>
 
 #include <QCheckBox>
@@ -57,7 +60,6 @@ class KPIMIdentities::SignatureConfigurator::Private
 {
   public:
     bool inlinedHtml;
-    ViewMode viewMode;
 };
 //@endcond
 
@@ -130,22 +132,72 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     page = new QWidget( widgetStack );
     widgetStack->insertWidget( pageno, page );
     page_vlay = new QVBoxLayout( page );
-    mTextEdit = new QTextEdit();
-    page_vlay->addWidget( mTextEdit, 0 );
-    mTextEdit->setWhatsThis(
-        i18n("Use this field to enter an arbitrary static signature."));
-    mTextEdit->setFont( KGlobalSettings::fixedFont() );
-    mTextEdit->setWordWrapMode( QTextOption::WrapAnywhere );
+
+    mEditToolBar = new KToolBar( this );
+    mEditToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
+    page_vlay->addWidget( mEditToolBar, 0 );
+
+    mFormatToolBar = new KToolBar( this );
+    mFormatToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
+    page_vlay->addWidget( mFormatToolBar, 1 );
+
+    mTextEdit = new KRichTextWidget( this );
+    page_vlay->addWidget( mTextEdit, 2 );
+    mTextEdit->setWhatsThis( i18n("Use this field to enter an arbitrary static signature."));
+    // exclude SupportToPlainText.
+    mTextEdit->setRichTextSupport( KRichTextWidget::FullTextFormattingSupport |
+        KRichTextWidget::FullListSupport |
+        KRichTextWidget::SupportAlignment |
+        KRichTextWidget::SupportRuleLine |
+        KRichTextWidget::SupportHyperlinks |
+        KRichTextWidget::SupportFormatPainting );
+
+    // Fill the toolbars.
+    KActionCollection *actionCollection = new KActionCollection(this);
+    mTextEdit->createActions( actionCollection );
+//     const QList< QAction* > actionList = actionCollection->actions();
+//     int total = actionList.count();
+//     for ( int i = 0; i < total; ++i ) {
+//       if ( i < total/2 )  // another way of splitting possible?
+//         mEditToolBar->addAction( actionList.at( i ) );
+//       else
+//         mFormatToolBar->addAction( actionList.at( i ) );
+//     }
+    mEditToolBar->addAction( actionCollection->action( "format_text_bold" ) );
+    mEditToolBar->addAction( actionCollection->action( "format_text_italic" ) );
+    mEditToolBar->addAction( actionCollection->action( "format_text_underline" ) );
+    mEditToolBar->addAction( actionCollection->action( "format_text_strikeout" ) );
+    mEditToolBar->addAction( actionCollection->action( "format_text_foreground_color" ) );
+    mEditToolBar->addAction( actionCollection->action( "format_text_background_color" ) );
+    mEditToolBar->addAction( actionCollection->action( "format_font_family" ) );
+    mEditToolBar->addAction( actionCollection->action( "format_font_size" ) );
+
+//     QAction* separator = new QAction(this);
+//     separator->setSeparator( true );
+
+    mFormatToolBar->addAction( actionCollection->action( "format_list_style" ) );
+    mFormatToolBar->addAction( actionCollection->action( "format_list_indent_more" ) );
+    mFormatToolBar->addAction( actionCollection->action( "format_list_indent_less" ) );
+    mFormatToolBar->addAction( actionCollection->action( "format_list_indent_less" ) );
+    mFormatToolBar->addSeparator();
+
+    mFormatToolBar->addAction( actionCollection->action( "format_align_left" ) );
+    mFormatToolBar->addAction( actionCollection->action( "format_align_center" ) );
+    mFormatToolBar->addAction( actionCollection->action( "format_align_right" ) );
+    mFormatToolBar->addAction( actionCollection->action( "format_align_justify" ) );
+    mFormatToolBar->addSeparator();
+
+    mFormatToolBar->addAction( actionCollection->action( "insert_horizontal_rule" ) );
+    mFormatToolBar->addAction( actionCollection->action( "manage_link" ) );
+    mFormatToolBar->addAction( actionCollection->action( "format_painter" ) );
+
 
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout( hlay );
     mHtmlCheck = new QCheckBox( i18n("&Use HTML"), page );
     connect( mHtmlCheck, SIGNAL(clicked()),
              this, SLOT(slotSetHtml()) );
-    mShowCodeOrHtmlBtn = new QPushButton( i18n("Show HTML"), page );
-    connect( mShowCodeOrHtmlBtn, SIGNAL(clicked()), SLOT(slotShowCodeOrHtml()) );
     hlay->addWidget( mHtmlCheck );
-    hlay->addWidget( mShowCodeOrHtmlBtn, 1 );
     d->inlinedHtml = true;
 
     widgetStack->setCurrentIndex( 0 ); // since mSourceCombo->currentItem() == 0
@@ -246,20 +298,9 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     mSourceCombo->setCurrentIndex( idx );
   }
 
-  QString SignatureConfigurator::inlineText() const
-  {
-    if ( mHtmlCheck->checkState() == Qt::Unchecked ) 
-      return mTextEdit->toPlainText();
-
-    if ( d->viewMode == ShowHtml )
-      return asCleanedHTML();
-    else
-      return mTextEdit->toPlainText();
-  }
-
   void SignatureConfigurator::setInlineText( const QString & text )
   {
-    mTextEdit->setText( text );
+    mTextEdit->setTextOrHtml( text );
   }
 
   QString SignatureConfigurator::fileURL() const
@@ -295,7 +336,7 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     Signature sig;
     sig.setType( signatureType() );
     sig.setInlinedHtml( d->inlinedHtml );
-    sig.setText( inlineText() );
+    sig.setText( mTextEdit->textOrHtml() );
     if ( signatureType() == Signature::FromCommand )
       sig.setUrl( commandURL(), true );
     if ( signatureType() == Signature::FromFile )
@@ -307,17 +348,10 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
   {
     setSignatureType( sig.type() );
     if ( sig.isInlinedHtml() )
-    {
       mHtmlCheck->setCheckState( Qt::Checked );
-      d->inlinedHtml = true;
-      initHtmlState();
-    }
     else
-    {
-      d->inlinedHtml = false;
-      mShowCodeOrHtmlBtn->setEnabled( false );
-      mTextEdit->setAcceptRichText( false );
-    }
+      mHtmlCheck->setCheckState( Qt::Unchecked );
+    slotSetHtml();
     setInlineText( sig.text() );
 
     if ( sig.type() == Signature::FromFile )
@@ -357,58 +391,25 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     return text;
   }
 
-  // button clicked
-  void SignatureConfigurator::slotShowCodeOrHtml()
-  {
-    if ( d->viewMode == ShowCode )
-      toggleHtmlBtnState( ShowHtml );
-    else
-      toggleHtmlBtnState( ShowCode );
-  }
-
-  void SignatureConfigurator::initHtmlState()
-  {
-    mShowCodeOrHtmlBtn->setEnabled( true );
-    mTextEdit->setAcceptRichText( true );
-    d->viewMode = ShowHtml;
-    mShowCodeOrHtmlBtn->setText( i18n("Show HTML Code") );
-  }
-
-  void SignatureConfigurator::toggleHtmlBtnState( ViewMode state )
-  {
-    switch ( state )
-    {
-      case ShowCode:
-        // show the html code, and toggle the button text
-        mTextEdit->setAcceptRichText( false );
-        mTextEdit->setPlainText( asCleanedHTML() );
-        d->viewMode = ShowCode;
-        mShowCodeOrHtmlBtn->setText( i18n("Show HTML") );
-        break;
-      case ShowHtml:
-        // show the formatted signature
-        mTextEdit->setAcceptRichText( true );
-        d->viewMode = ShowHtml;
-        mTextEdit->setHtml( mTextEdit->toPlainText() );
-        mShowCodeOrHtmlBtn->setText( i18n("Show HTML Code") );
-        break;
-    }
-  }
-
   // "use HTML"-checkbox (un)checked
   void SignatureConfigurator::slotSetHtml()
   {
     if ( mHtmlCheck->checkState() == Qt::Unchecked ) {
-      mTextEdit->setAcceptRichText( false );
-      mShowCodeOrHtmlBtn->setEnabled( false );
+      mHtmlCheck->setText( i18n("&Use HTML") );
+      mEditToolBar->setVisible( false );
+      mEditToolBar->setEnabled( false );
+      mFormatToolBar->setVisible( false );
+      mFormatToolBar->setEnabled( false );
+      mTextEdit->switchToPlainText();
       d->inlinedHtml = false;
-      if ( d->viewMode == ShowCode )
-        mTextEdit->setHtml( mTextEdit->toPlainText() );
-      mTextEdit->setPlainText( mTextEdit->toPlainText() );
     }
     else {
+      mHtmlCheck->setText( i18n("&Use HTML (disabling removes formatting)") );
       d->inlinedHtml = true;
-      initHtmlState();
+      mEditToolBar->setVisible( true );
+      mEditToolBar->setEnabled( true );
+      mFormatToolBar->setVisible( true );
+      mFormatToolBar->setEnabled( true );
     }
   }
 
