@@ -27,8 +27,8 @@
 
 using KPIMIdentities::Signature;
 
-class QComboBox;
 class QCheckBox;
+class KComboBox;
 class KUrlRequester;
 class KLineEdit;
 class KToolBar;
@@ -147,7 +147,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
   protected:
     QCheckBox       * mEnableCheck;
     QCheckBox       * mHtmlCheck;
-    QComboBox       * mSourceCombo;
+    KComboBox       * mSourceCombo;
     KUrlRequester   * mFileRequester;
     QPushButton     * mEditButton;
     KLineEdit       * mCommandEdit;
