@@ -155,14 +155,6 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     // Fill the toolbars.
     KActionCollection *actionCollection = new KActionCollection(this);
     mTextEdit->createActions( actionCollection );
-//     const QList< QAction* > actionList = actionCollection->actions();
-//     int total = actionList.count();
-//     for ( int i = 0; i < total; ++i ) {
-//       if ( i < total/2 )  // another way of splitting possible?
-//         mEditToolBar->addAction( actionList.at( i ) );
-//       else
-//         mFormatToolBar->addAction( actionList.at( i ) );
-//     }
     mEditToolBar->addAction( actionCollection->action( "format_text_bold" ) );
     mEditToolBar->addAction( actionCollection->action( "format_text_italic" ) );
     mEditToolBar->addAction( actionCollection->action( "format_text_underline" ) );
@@ -171,9 +163,6 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     mEditToolBar->addAction( actionCollection->action( "format_text_background_color" ) );
     mEditToolBar->addAction( actionCollection->action( "format_font_family" ) );
     mEditToolBar->addAction( actionCollection->action( "format_font_size" ) );
-
-//     QAction* separator = new QAction(this);
-//     separator->setSeparator( true );
 
     mFormatToolBar->addAction( actionCollection->action( "format_list_style" ) );
     mFormatToolBar->addAction( actionCollection->action( "format_list_indent_more" ) );
@@ -190,7 +179,6 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     mFormatToolBar->addAction( actionCollection->action( "insert_horizontal_rule" ) );
     mFormatToolBar->addAction( actionCollection->action( "manage_link" ) );
     mFormatToolBar->addAction( actionCollection->action( "format_painter" ) );
-
 
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout( hlay );
@@ -336,7 +324,7 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     Signature sig;
     sig.setType( signatureType() );
     sig.setInlinedHtml( d->inlinedHtml );
-    sig.setText( mTextEdit->textOrHtml() );
+    sig.setText( d->inlinedHtml ? asCleanedHTML() : mTextEdit->textOrHtml() );
     if ( signatureType() == Signature::FromCommand )
       sig.setUrl( commandURL(), true );
     if ( signatureType() == Signature::FromFile )
@@ -382,12 +370,15 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
   QString SignatureConfigurator::asCleanedHTML() const
   {
     QString text = mTextEdit->toHtml();
-    text.remove( "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n" );
-    text.remove( "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n" );
-    text.remove( "p, li { white-space: pre-wrap; }\n" );
-    text.remove( "</style></head><body style=\" font-family:'Monospace'; font-size:10pt; font-weight:400; font-style:normal;\">\n" );
-    text.remove( "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">" );
-    text.remove( "</p></body></html>" );
+
+    // Beautiful little hack to find the html headers produced by Qt.
+    QTextDocument textDocument;
+    QString html = textDocument.toHtml();
+
+    // Now remove each line from the text, the result is clean html.
+    foreach( const QString& line, html.split("\n") ){
+        text.remove( line + "\n" );
+    }
     return text;
   }
 
@@ -410,6 +401,7 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
       mEditToolBar->setEnabled( true );
       mFormatToolBar->setVisible( true );
       mFormatToolBar->setEnabled( true );
+      mTextEdit->enableRichTextMode();
     }
   }
 
