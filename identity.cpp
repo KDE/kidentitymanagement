@@ -556,11 +556,10 @@ void Identity::setPreferredCryptoMessageFormat( const QString &str )
 
 void Identity::setXFace( const QString &str )
 {
-  // TODO: maybe make this non const, to indicate we actually are changing str
   QString strNew = str;
-  strNew.remove( " " );
-  strNew.remove( "\n" );
-  strNew.remove( "\r" );
+  strNew.remove( ' ' );
+  strNew.remove( '\n' );
+  strNew.remove( '\r' );
   setProperty( s_xface, strNew );
 }
 
