@@ -33,46 +33,24 @@
 
 using namespace KPIMIdentities;
 
-Signature::Signature()
-  : mType( Disabled ),
-    mInlinedHtml( false )
-{}
-
-Signature::Signature( const QString &text )
-  : mText( text ),
-    mType( Inlined ),
-    mInlinedHtml( false )
-{}
-
-Signature::Signature( const QString &url, bool isExecutable )
-  : mUrl( url ),
-    mType( isExecutable ? FromCommand : FromFile ),
-    mInlinedHtml( false )
-{}
-
-QString Signature::rawText( bool *ok ) const
+/**
+ *   Private class that helps to provide binary compatibility between releases.
+ *   @internal
+ */
+//@cond PRIVATE
+class KPIMIdentities::Signature::Private
 {
-  switch ( mType ) {
-  case Disabled:
-    if ( ok ) {
-      *ok = true;
-    }
-    return QString();
-  case Inlined:
-    if ( ok ) {
-      *ok = true;
-    }
-    return mText;
-  case FromFile:
-    return textFromFile( ok );
-  case FromCommand:
-    return textFromCommand( ok );
-  };
-  kFatal(5325) << "Signature::type() returned unknown value!";
-  return QString(); // make compiler happy
-}
+  public:
+    QString textFromFile( bool *ok ) const;
+    QString textFromCommand( bool *ok ) const;
 
-QString Signature::textFromCommand( bool *ok ) const
+    QString mUrl;
+    QString mText;
+    Type    mType;
+    bool mInlinedHtml;
+};
+
+QString Signature::Private::textFromCommand( bool *ok ) const
 {
   assert( mType == FromCommand );
 
@@ -113,7 +91,7 @@ QString Signature::textFromCommand( bool *ok ) const
   return QString::fromLocal8Bit( output.data(), output.size() );
 }
 
-QString Signature::textFromFile( bool *ok ) const
+QString Signature::Private::textFromFile( bool *ok ) const
 {
   assert( mType == FromFile );
 
@@ -138,6 +116,64 @@ QString Signature::textFromFile( bool *ok ) const
   return QString::fromLocal8Bit( ba.data(), ba.size() );
 }
 
+//@endcond
+
+Signature::Signature()
+  : d( new Private )
+{
+    d->mType = Disabled;
+    d->mInlinedHtml = false;
+}
+
+Signature::Signature( const QString &text )
+  : d( new Private )
+{
+    d->mText = text;
+    d->mType = Inlined;
+    d->mInlinedHtml = false;
+}
+
+Signature::Signature( const QString &url, bool isExecutable )
+  : d( new Private )
+{
+    d->mUrl = url;
+    d->mType = isExecutable ? FromCommand : FromFile;
+    d->mInlinedHtml = false;
+}
+
+Signature::Signature( const Signature &other )
+  : d( new Private )
+{
+    *d = *other.d;
+}
+
+Signature::~Signature()
+{
+  delete d;
+}
+
+QString Signature::rawText( bool *ok ) const
+{
+  switch ( d->mType ) {
+  case Disabled:
+    if ( ok ) {
+      *ok = true;
+    }
+    return QString();
+  case Inlined:
+    if ( ok ) {
+      *ok = true;
+    }
+    return d->mText;
+  case FromFile:
+    return d->textFromFile( ok );
+  case FromCommand:
+    return d->textFromCommand( ok );
+  };
+  kFatal(5325) << "Signature::type() returned unknown value!";
+  return QString(); // make compiler happy
+}
+
 QString Signature::withSeparator( bool *ok ) const
 {
   QString signature = rawText( ok );
@@ -148,7 +184,7 @@ QString Signature::withSeparator( bool *ok ) const
     return signature; // don't add a separator in this case
   }
 
-  QString newline = ( isInlinedHtml() && mType == Inlined ) ? "<br>" : "\n";
+  QString newline = ( isInlinedHtml() && d->mType == Inlined ) ? "<br>" : "\n";
   if ( signature.startsWith( QString::fromLatin1( "-- " ) + newline )
     || ( signature.indexOf( newline + QString::fromLatin1( "-- " ) +
                             newline ) != -1 ) ) {
@@ -162,18 +198,18 @@ QString Signature::withSeparator( bool *ok ) const
 
 void Signature::setUrl( const QString &url, bool isExecutable )
 {
-  mUrl = url;
-  mType = isExecutable ? FromCommand : FromFile;
+  d->mUrl = url;
+  d->mType = isExecutable ? FromCommand : FromFile;
 }
 
 void Signature::setInlinedHtml( bool isHtml )
 {
-  mInlinedHtml = isHtml;
+  d->mInlinedHtml = isHtml;
 }
 
 bool Signature::isInlinedHtml() const
 {
-  return mInlinedHtml;
+  return d->mInlinedHtml;
 }
 
 // config keys and values:
@@ -191,41 +227,41 @@ void Signature::readConfig( const KConfigGroup &config )
 {
   QString sigType = config.readEntry( sigTypeKey );
   if ( sigType == sigTypeInlineValue ) {
-    mType = Inlined;
-    mInlinedHtml = config.readEntry( sigTypeInlinedHtmlKey, false );
+    d->mType = Inlined;
+    d->mInlinedHtml = config.readEntry( sigTypeInlinedHtmlKey, false );
   } else if ( sigType == sigTypeFileValue ) {
-    mType = FromFile;
-    mUrl = config.readPathEntry( sigFileKey, QString() );
+    d->mType = FromFile;
+    d->mUrl = config.readPathEntry( sigFileKey, QString() );
   } else if ( sigType == sigTypeCommandValue ) {
-    mType = FromCommand;
-    mUrl = config.readPathEntry( sigCommandKey, QString() );
+    d->mType = FromCommand;
+    d->mUrl = config.readPathEntry( sigCommandKey, QString() );
   } else {
-    mType = Disabled;
+    d->mType = Disabled;
   }
-  mText = config.readEntry( sigTextKey );
+  d->mText = config.readEntry( sigTextKey );
 }
 
 void Signature::writeConfig( KConfigGroup &config ) const
 {
-  switch ( mType ) {
+  switch ( d->mType ) {
     case Inlined:
       config.writeEntry( sigTypeKey, sigTypeInlineValue );
-      config.writeEntry( sigTypeInlinedHtmlKey, mInlinedHtml );
+      config.writeEntry( sigTypeInlinedHtmlKey, d->mInlinedHtml );
       break;
     case FromFile:
       config.writeEntry( sigTypeKey, sigTypeFileValue );
-      config.writePathEntry( sigFileKey, mUrl );
+      config.writePathEntry( sigFileKey, d->mUrl );
       break;
     case FromCommand:
       config.writeEntry( sigTypeKey, sigTypeCommandValue );
-      config.writePathEntry( sigCommandKey, mUrl );
+      config.writePathEntry( sigCommandKey, d->mUrl );
       break;
     case Disabled:
       config.writeEntry( sigTypeKey, sigTypeDisabledValue );
     default:
       break;
   }
-  config.writeEntry( sigTextKey, mText );
+  config.writeEntry( sigTextKey, d->mText );
 }
 
 // --------------------- Operators -------------------//
@@ -233,61 +269,67 @@ void Signature::writeConfig( KConfigGroup &config ) const
 QDataStream &KPIMIdentities::operator<<
 ( QDataStream &stream, const KPIMIdentities::Signature &sig )
 {
-  return stream << static_cast<quint8>( sig.mType ) << sig.mUrl << sig.mText;
+  return stream << static_cast<quint8>( sig.d->mType ) << sig.d->mUrl << sig.d->mText;
 }
 
 QDataStream &KPIMIdentities::operator>>
 ( QDataStream &stream, KPIMIdentities::Signature &sig )
 {
   quint8 s;
-  stream >> s  >> sig.mUrl >> sig.mText;
-  sig.mType = static_cast<Signature::Type>( s );
+  stream >> s  >> sig.d->mUrl >> sig.d->mText;
+  sig.d->mType = static_cast<Signature::Type>( s );
   return stream;
 }
 
 bool Signature::operator== ( const Signature &other ) const
 {
-  if ( mType != other.mType ) {
+  if ( d->mType != other.d->mType ) {
     return false;
   }
 
-  switch ( mType ) {
+  switch ( d->mType ) {
   case Inlined:
-    return mText == other.mText;
+    return d->mText == other.d->mText;
   case FromFile:
   case FromCommand:
-    return mUrl == other.mUrl;
+    return d->mUrl == other.d->mUrl;
   default:
   case Disabled:
     return true;
   }
 }
 
+Signature Signature::operator=( const Signature &other )
+{
+    *d = *other.d;
+    return *this;
+}
+
 // --------------- Getters -----------------------//
 
 QString Signature::text() const
 {
-  return mText;
+  return d->mText;
 }
 
 QString Signature::url() const
 {
-  return mUrl;
+  return d->mUrl;
 }
 
 Signature::Type Signature::type() const
 {
-  return mType;
+  return d->mType;
 }
 
 // --------------- Setters -----------------------//
 
 void Signature::setText( const QString &text )
 {
-  mText = text;
+  d->mText = text;
 }
 
 void Signature::setType( Type type )
 {
-  mType = type;
+  d->mType = type;
 }
