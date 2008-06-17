@@ -192,17 +192,30 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
       void slotRollback();
 
     protected:
+      /** The list that will be seen by everyone */
+      QList<Identity> mIdentities;
+      /** The list that will be seen by the config dialog */
+      QList<Identity> mShadowIdentities;
 
     Q_SIGNALS:
       void identitiesChanged( const QString &id );
 
-    private:
-     //@cond PRIVATE
-     class Private;
-     Private *d;
-     //@endcond
+    private Q_SLOTS:
+      // Connected to the DBus signal
+      void slotIdentitiesChanged( const QString &id );
 
-     Q_PRIVATE_SLOT( d, void slotIdentitiesChanged( const QString &id ) )
+    private:
+      void writeConfig() const;
+      void readConfig( KConfig *config );
+      QStringList groupList( KConfig *config ) const;
+      void createDefaultIdentity();
+
+      // returns a new Unique Object Identifier
+      int newUoid();
+
+    private:
+      KConfig *mConfig;
+      bool mReadOnly;
 };
 
 } // namespace

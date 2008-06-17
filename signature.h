@@ -68,7 +68,6 @@ namespace KPIMIdentities
 
       /** Used for comparison */
       bool operator== ( const Signature &other ) const;
-      Signature operator= ( const Signature &other );
 
       /** Constructor for disabled signature */
       Signature();
@@ -76,11 +75,6 @@ namespace KPIMIdentities
       Signature( const QString &text );
       /** Constructor for text from a file or from output of a command */
       Signature( const QString &url, bool isExecutable );
-      /** Copy constructor */
-      Signature( const Signature &other );
-
-      /** Destructor */
-      ~Signature();
 
       /** @return the raw signature text as entered resp. read from file. */
       QString rawText( bool *ok=0 ) const;
@@ -121,10 +115,13 @@ namespace KPIMIdentities
       void readConfig( const KConfigGroup &config );
 
     private:
-      //@cond PRIVATE
-      class Private;
-      Private *d;
-      //@endcond
+      QString textFromFile( bool *ok ) const;
+      QString textFromCommand( bool *ok ) const;
+
+      QString mUrl;
+      QString mText;
+      Type    mType;
+      bool mInlinedHtml;
   };
 
 }
