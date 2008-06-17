@@ -241,7 +241,6 @@ class KPIMIDENTITIES_EXPORT Identity
       void populateMimeData( QMimeData* );
       static Identity fromMimeData( const QMimeData* );
 
-    protected:
       /** Read configuration from config. Group must be preset (or use
           KConfigGroup). Called from IdentityManager. */
       void readConfig( const KConfigGroup & );
@@ -263,6 +262,7 @@ class KPIMIDENTITIES_EXPORT Identity
       /** set the uiod */
       void setUoid( uint aUoid );
 
+    protected:
       /** @return true if the signature is read from the output of a command */
       bool signatureIsCommand() const;
 
