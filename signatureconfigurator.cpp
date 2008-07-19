@@ -377,7 +377,7 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
 
     // Now remove each line from the text, the result is clean html.
     foreach( const QString& line, html.split("\n") ){
-        text.remove( line + "\n" );
+        text.remove( line + '\n' );
     }
     return text;
   }
