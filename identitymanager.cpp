@@ -112,7 +112,7 @@ QString IdentityManager::makeUnique( const QString &name ) const
 
 bool IdentityManager::isUnique( const QString &name ) const
 {
-  return identities().contains( name );
+  return !identities().contains( name );
 }
 
 void IdentityManager::commit()
