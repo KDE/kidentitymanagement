@@ -97,6 +97,24 @@ IdentityManager::~IdentityManager()
   delete mConfig;
 }
 
+QString IdentityManager::makeUnique( const QString &name ) const
+{
+  int suffix = 1;
+  QString result = name;
+  while ( identities().contains( result ) ) {
+    result = i18nc( "%1: name; %2: number appended to it to make it unique "
+                    "among a list of names", "%1 #%2",
+                    name, suffix );
+    suffix++;
+  }
+  return result;
+}
+
+bool IdentityManager::isUnique( const QString &name ) const
+{
+  return identities().contains( name );
+}
+
 void IdentityManager::commit()
 {
   // early out:

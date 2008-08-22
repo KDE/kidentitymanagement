@@ -66,6 +66,12 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
        */
       typedef ConstIterator const_iterator;
 
+      /** @return a unique name for a new identity based on @p name */
+      QString makeUnique( const QString &name ) const;
+
+      /** @return whether the @p name is unique */
+      bool isUnique( const QString &name ) const;
+
       /** Commit changes to disk and emit changed() if necessary. */
       void commit();
 
