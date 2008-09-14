@@ -215,7 +215,12 @@ class KPIMIDENTITIES_EXPORT Identity
       QString templates() const;
       void setTemplates( const QString& );
 
-      /** dictionary which should be used for spell checking */
+      /**
+       * Dictionary which should be used for spell checking
+       *
+       * Note that this is the localized language name (e.g. "British English"),
+       * _not_ the language code or dictionary name!
+      */
       QString dictionary() const;
       void setDictionary( const QString& );
 

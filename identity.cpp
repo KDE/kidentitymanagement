@@ -21,6 +21,7 @@
 #include "identity.h"
 #include "signature.h"
 
+#include <sonnet/globals.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -55,6 +56,9 @@ Identity::Identity( const QString &id, const QString &fullName,
   setProperty( s_email, emailAddr );
   setProperty( s_organization, organization );
   setProperty( s_replyto, replyToAddr );
+#if KDE_IS_VERSION( 4, 1, 67 )
+  setDictionary( Sonnet::defaultLanguageName() );
+#endif
 }
 
 Identity::~Identity()
