@@ -209,7 +209,7 @@ void IdentityManager::sort()
 void IdentityManager::writeConfig() const
 {
   QStringList identities = groupList( mConfig );
-  for ( QStringList::Iterator group = identities.begin();
+  for ( QStringList::const_iterator group = identities.begin();
         group != identities.end(); ++group )
     mConfig->deleteGroup( *group );
   int i = 0;
@@ -247,7 +247,7 @@ void IdentityManager::readConfig( KConfig *config )
   uint defaultIdentity = general.readEntry( configKeyDefaultIdentity, 0 );
   bool haveDefault = false;
 
-  for ( QStringList::Iterator group = identities.begin();
+  for ( QStringList::const_iterator group = identities.begin();
         group != identities.end(); ++group ) {
     KConfigGroup configGroup( config, *group );
     mIdentities << Identity();
