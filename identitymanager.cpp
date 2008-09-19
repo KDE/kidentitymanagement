@@ -208,7 +208,7 @@ void IdentityManager::sort()
 
 void IdentityManager::writeConfig() const
 {
-  QStringList identities = groupList( mConfig );
+  const QStringList identities = groupList( mConfig );
   for ( QStringList::const_iterator group = identities.begin();
         group != identities.end(); ++group )
     mConfig->deleteGroup( *group );
@@ -238,7 +238,7 @@ void IdentityManager::readConfig( KConfig *config )
 {
   mIdentities.clear();
 
-  QStringList identities = groupList( config );
+  const QStringList identities = groupList( config );
   if ( identities.isEmpty() ) {
     return; // nothing to be done...
   }
