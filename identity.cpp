@@ -79,6 +79,14 @@ bool Identity::isNull() const
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
   while ( i != mPropertiesMap.constEnd() ) {
 
+#if KDE_IS_VERSION( 4, 1, 67 )
+    // Take into account that the dictionary for a null identity is not empty
+    if ( i.key() == s_dict && dictionary() == Sonnet::defaultLanguageName() ) {
+      ++i;
+      continue;
+    }
+#endif
+
     // The uoid is 0 by default, so ignore this
     if ( !( i.key() == s_uoid && i.value().toUInt() == 0 ) ) {
       if ( !i.value().isNull() ||
