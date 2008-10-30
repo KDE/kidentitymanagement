@@ -21,9 +21,11 @@
 #include "identity.h"
 #include "signature.h"
 
-#include <sonnet/globals.h>
-#include <kdebug.h>
 #include <kdeversion.h>
+#if KDE_IS_VERSION( 4, 1, 67 )
+#include <sonnet/globals.h>
+#endif
+#include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
