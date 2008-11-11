@@ -123,15 +123,15 @@ void IdentityManager::commit()
   }
 
   QList<uint> seenUOIDs;
-  for ( QList<Identity>::ConstIterator it = mIdentities.begin();
-        it != mIdentities.end(); ++it ) {
+  for ( QList<Identity>::ConstIterator it = mIdentities.constBegin();
+        it != mIdentities.constEnd(); ++it ) {
     seenUOIDs << (*it).uoid();
   }
 
   QList<uint> changedUOIDs;
   // find added and changed identities:
-  for ( QList<Identity>::ConstIterator it = mShadowIdentities.begin();
-        it != mShadowIdentities.end(); ++it ) {
+  for ( QList<Identity>::ConstIterator it = mShadowIdentities.constBegin();
+        it != mShadowIdentities.constEnd(); ++it ) {
     int index = seenUOIDs.indexOf( (*it).uoid() );
     if ( index != -1 ) {
       uint uoid = seenUOIDs.at( index );
@@ -151,8 +151,8 @@ void IdentityManager::commit()
   }
 
   // what's left are deleted identities:
-  for ( QList<uint>::ConstIterator it = seenUOIDs.begin();
-        it != seenUOIDs.end(); ++it ) {
+  for ( QList<uint>::ConstIterator it = seenUOIDs.constBegin();
+        it != seenUOIDs.constEnd(); ++it ) {
     kDebug( 5325 ) << "emitting deleted() for identity" << (*it);
     emit deleted(*it);
   }
@@ -163,8 +163,8 @@ void IdentityManager::commit()
   // now that mIdentities has all the new info, we can emit the added/changed
   // signals that ship a uoid. This is because the slots might use
   // identityForUoid(uoid)...
-  for ( QList<uint>::ConstIterator it = changedUOIDs.begin();
-        it != changedUOIDs.end(); ++it )
+  for ( QList<uint>::ConstIterator it = changedUOIDs.constBegin();
+        it != changedUOIDs.constEnd(); ++it )
     emit changed(*it);
 
   emit changed(); // normal signal
@@ -317,8 +317,8 @@ const Identity &IdentityManager::identityForAddress(
 {
   QStringList addressList = KPIMUtils::splitAddressList( addresses );
   for ( ConstIterator it = begin(); it != end(); ++it ) {
-    for ( QStringList::ConstIterator addrIt = addressList.begin();
-          addrIt != addressList.end(); ++addrIt ) {
+    for ( QStringList::ConstIterator addrIt = addressList.constBegin();
+          addrIt != addressList.constEnd(); ++addrIt ) {
       if ( (*it).emailAddr().toLower() == KPIMUtils::extractEmailAddress( *addrIt ).toLower() ) {
         return (*it);
       }
@@ -379,8 +379,8 @@ bool IdentityManager::setAsDefault( uint uoid )
 {
   // First, check if the identity actually exists:
   bool found = false;
-  for ( ConstIterator it = mShadowIdentities.begin();
-        it != mShadowIdentities.end(); ++it )
+  for ( ConstIterator it = mShadowIdentities.constBegin();
+        it != mShadowIdentities.constEnd(); ++it )
     if ( (*it).uoid() == uoid ) {
       found = true;
       break;
@@ -505,15 +505,15 @@ int IdentityManager::newUoid()
 
   // determine the UOIDs of all saved identities
   QList<uint> usedUOIDs;
-  for ( QList<Identity>::ConstIterator it = mIdentities.begin();
-        it != mIdentities.end(); ++it )
+  for ( QList<Identity>::ConstIterator it = mIdentities.constBegin();
+        it != mIdentities.constEnd(); ++it )
     usedUOIDs << (*it).uoid();
 
   if ( hasPendingChanges() ) {
     // add UOIDs of all shadow identities. Yes, we will add a lot of duplicate
     // UOIDs, but avoiding duplicate UOIDs isn't worth the effort.
-    for ( QList<Identity>::ConstIterator it = mShadowIdentities.begin();
-          it != mShadowIdentities.end(); ++it ) {
+    for ( QList<Identity>::ConstIterator it = mShadowIdentities.constBegin();
+          it != mShadowIdentities.constEnd(); ++it ) {
       usedUOIDs << (*it).uoid();
     }
   }
