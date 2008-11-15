@@ -489,7 +489,29 @@ void IdentityManager::createDefaultIdentity()
   }
 
   if ( !done ) {
-    mShadowIdentities << Identity( i18nc( "show default identity", "Default" ), fullName, emailAddress );
+    // Default identity name
+    QString name( i18nc( "Default name for new email accounts/identities.", "Unnamed" ) );
+
+    if ( !emailAddress.isEmpty() ) {
+      // If we have an email address, create a default identity name from it
+      QString idName = emailAddress;
+      int pos = idName.indexOf( '@' );
+      if ( pos != -1 ) {
+        name = idName.mid( pos + 1, -1 );
+      }
+
+      // Make the name a bit more human friendly
+      name.replace( '.', ' ' );
+      pos = name.indexOf( ' ' );
+      if ( pos != 0 ) {
+        name[pos + 1] = name[pos + 1].toUpper();
+      }
+      name[0] = name[0].toUpper();
+    } else if ( !fullName.isEmpty() ) {
+      // If we have a full name, create a default identity name from it
+      name = fullName;
+    }
+    mShadowIdentities << Identity( name, fullName, emailAddress );
   }
 
   mShadowIdentities.last().setIsDefault( true );
