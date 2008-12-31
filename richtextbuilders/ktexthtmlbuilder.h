@@ -19,8 +19,8 @@
     02110-1301, USA.
 */
 
-#ifndef KHTMLBUILDER_H
-#define KHTMLBUILDER_H
+#ifndef KTEXTHTMLBUILDER_H
+#define KTEXTHTMLBUILDER_H
 
 #include "kabstractmarkupbuilder.h"
 

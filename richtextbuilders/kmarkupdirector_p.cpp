@@ -19,8 +19,6 @@
     02110-1301, USA.
 */
 
-#include <kdebug.h>
-
 #include "kmarkupdirector_p.h"
 
 void KMarkupDirector::Private::processClosingElements(QTextBlock::iterator it)
@@ -391,7 +389,7 @@ void KMarkupDirector::Private::processOpeningElements(QTextBlock::iterator it)
                             builder->beginAnchor(fragmentFormat.anchorHref(), n);
                             break;
                         } else {
-                            // Empty <a> tags allow multipe names for the same section.
+                            // Empty <a> tags allow multiple names for the same section.
                             builder->beginAnchor(QString(), n);
                             builder->endAnchor();
                         }
