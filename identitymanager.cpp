@@ -27,6 +27,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include <kemailsettings.h> // for IdentityEntry::fromControlCenter()
 #include <klocale.h>
+#include <kglobal.h>
 #include <kdebug.h>
 #include <kconfig.h>
 #include <kuser.h>
@@ -59,6 +60,7 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
     : QObject( parent )
 {
   setObjectName( name );
+  KGlobal::locale()->insertCatalog("libkpimidentities");
   new IdentityManagerAdaptor( this );
   QDBusConnection dbus = QDBusConnection::sessionBus();
   const QString dbusPath = newDBusObjectName();
