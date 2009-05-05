@@ -26,11 +26,12 @@
 #include <kdialog.h>
 #include <klineedit.h>
 #include <kurlrequester.h>
-#include <krichtextwidget.h>
 #include <kshellcompletion.h>
 #include <ktoolbar.h>
 #include <krun.h>
 #include <KComboBox>
+
+#include <kpimtextedit/textedit.h>
 
 #include <QCheckBox>
 #include <QDir>
@@ -141,7 +142,7 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     mFormatToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
     page_vlay->addWidget( mFormatToolBar, 1 );
 
-    mTextEdit = new KRichTextWidget( this );
+    mTextEdit = new KPIMTextEdit::TextEdit( this );
     page_vlay->addWidget( mTextEdit, 2 );
     mTextEdit->setWhatsThis( i18n("Use this field to enter an arbitrary static signature."));
     // exclude SupportToPlainText.

@@ -26,6 +26,7 @@
 #include <kconfiggroup.h>
 #include <kurl.h>
 #include <kprocess.h>
+#include <KRichTextEdit>
 #include <kpimutils/kfileio.h>
 
 #include <QFileInfo>
@@ -226,6 +227,83 @@ void Signature::writeConfig( KConfigGroup &config ) const
       break;
   }
   config.writeEntry( sigTextKey, mText );
+}
+
+void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
+                                    Placement placement, bool addSeparator )
+{
+  QString signature;
+  if ( addSeparator )
+    signature = withSeparator();
+  else
+    signature = rawText();
+
+  insertPlainSignatureIntoTextEdit( signature, textEdit, placement,
+                   ( isInlinedHtml() &&
+                     type() == KPIMIdentities::Signature::Inlined ) );
+}
+
+void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRichTextEdit *textEdit,
+                                                  Signature::Placement placement, bool isHtml )
+{
+  if ( !signature.isEmpty() ) {
+
+    // Save the modified state of the document, as inserting a signature
+    // shouldn't change this. Restore it at the end of this function.
+    bool isModified = textEdit->document()->isModified();
+
+    // Move to the desired position, where the signature should be inserted
+    QTextCursor cursor = textEdit->textCursor();
+    QTextCursor oldCursor = cursor;
+    cursor.beginEditBlock();
+
+    if ( placement == End )
+      cursor.movePosition( QTextCursor::End );
+    else if ( placement == Start )
+      cursor.movePosition( QTextCursor::Start );
+    textEdit->setTextCursor( cursor );
+
+    // Insert the signature and newlines depending on where it was inserted.
+    bool hackForCursorsAtEnd = false;
+    int oldCursorPos = -1;
+    if ( placement == End ) {
+
+      if ( oldCursor.position() == textEdit->toPlainText().length() ) {
+        hackForCursorsAtEnd = true;
+        oldCursorPos = oldCursor.position();
+      }
+
+      if ( isHtml ) {
+        textEdit->insertHtml( QLatin1String( "<br>" ) + signature );
+      } else {
+        textEdit->insertPlainText( QLatin1Char( '\n' ) + signature );
+      }
+    } else if ( placement == Start || placement == AtCursor ) {
+      if ( isHtml ) {
+        textEdit->insertHtml( QLatin1String( "<br>" ) + signature + QLatin1String( "<br>" ) );
+      } else {
+        textEdit->insertPlainText( QLatin1Char( '\n' ) + signature + QLatin1Char( '\n' ) );
+      }
+    }
+
+    cursor.endEditBlock();
+
+    // There is one special case when re-setting the old cursor: The cursor
+    // was at the end. In this case, QTextEdit has no way to know
+    // if the signature was added before or after the cursor, and just decides
+    // that it was added before (and the cursor moves to the end, but it should
+    // not when appending a signature). See bug 167961
+    if ( hackForCursorsAtEnd )
+      oldCursor.setPosition( oldCursorPos );
+
+    textEdit->setTextCursor( oldCursor );
+    textEdit->ensureCursorVisible();
+
+    textEdit->document()->setModified( isModified );
+
+    if ( isHtml )
+      textEdit->enableRichTextMode();
+  }
 }
 
 // --------------------- Operators -------------------//

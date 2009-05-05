@@ -7,7 +7,7 @@ qt4_add_dbus_adaptor(kpimidentities_LIB_SRCS org.kde.pim.IdentityManager.xml ide
 
 kde4_add_library(kpimidentities SHARED ${kpimidentities_LIB_SRCS})
 
-target_link_libraries(kpimidentities ${QT_AND_KDECORE_LIBS}  kpimutils ${KDE4_KIO_LIBS} )
+target_link_libraries(kpimidentities ${QT_AND_KDECORE_LIBS}  kpimutils ${KDE4_KIO_LIBS} kpimtextedit )
 
 set_target_properties(kpimidentities PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kpimidentities EXPORT kdepimlibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})

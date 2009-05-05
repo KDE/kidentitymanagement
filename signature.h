@@ -37,6 +37,7 @@ namespace KPIMIdentities
   class Signature;
 }
 class KConfigGroup;
+class KRichTextEdit;
 
 namespace KPIMIdentities
 {
@@ -64,6 +65,16 @@ namespace KPIMIdentities
         Inlined = 1,
         FromFile = 2,
         FromCommand = 3
+      };
+
+      /**
+       * Describes the placement of the signature text when it is to be inserted into a
+       * text edit
+       */
+      enum Placement {
+        Start,                   ///< The signature is placed at the start of the textedit
+        End,                     ///< The signature is placed at the end of the textedit
+        AtCursor                 ///< The signature is placed at the current cursor position
       };
 
       /** Used for comparison */
@@ -109,6 +120,54 @@ namespace KPIMIdentities
        * @since 4.1
        */
       bool isInlinedHtml() const;
+
+
+      /**
+       * Inserts this signature into the given text edit.
+       * The cursor position is preserved.
+       * A leading or trailing newline is also added automatically, depending on
+       * the placement.
+       * For undo/redo, this is treated as one operation.
+       *
+       * Rich text mode of the text edit will be enabled if the signature is in
+       * inlined HTML format.
+       *
+       * @param textEdit the signature will be inserted into this text edit.
+       * @param placement defines where in the text edit the signature should be
+       *                  inserted.
+       * @param addSeparator if true, the separator '-- \n' will be added in front
+       *                     of the signature
+       *
+       * @since 4.3
+       */
+      void insertIntoTextEdit( KRichTextEdit *textEdit,
+                               Placement placement = End, bool addSeparator = true );
+
+      /**
+       * Inserts this given signature into the given text edit.
+       * The cursor position is preserved.
+       * A leading or trailing newline is also added automatically, depending on
+       * the placement.
+       * For undo/redo, this is treated as one operation.
+       * A separator is not added.
+       *
+       * Use the insertIntoTextEdit() function if possible, as it has support
+       * for separators and does HTML detection automatically.
+       *
+       * Rich text mode of the text edit will be enabled if @p isHtml is true.
+       *
+       * @param signature the signature, either as plain text or as HTML
+       * @param textEdit the text edit to insert the signature into
+       * @param placement defines where in the textedit the signature should be
+       *                  inserted.
+       * @param isHtml defines whether the signature should be inserted as text or html
+       *
+       * @since 4.3
+       */
+      static void insertPlainSignatureIntoTextEdit( const QString &signature,
+                                                    KRichTextEdit *textEdit,
+                                                    Placement placement = End,
+                                                    bool isHtml = false );
 
     protected:
       void writeConfig( KConfigGroup &config ) const;

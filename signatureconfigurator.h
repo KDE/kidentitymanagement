@@ -153,7 +153,8 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
     KLineEdit       * mCommandEdit;
     KToolBar        * mEditToolBar;
     KToolBar        * mFormatToolBar;
-    KRichTextWidget * mTextEdit;
+    KRichTextWidget * mTextEdit;      // Grmbl, why is this not in the private class? 
+                                      // This is a KPIMTextEdit::TextEdit, really.
 
   private:
     //@cond PRIVATE
