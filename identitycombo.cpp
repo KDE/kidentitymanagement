@@ -48,7 +48,7 @@ class KPIMIdentities::IdentityCombo::Private
 //@endcond
 
 IdentityCombo::IdentityCombo( IdentityManager *manager, QWidget *parent )
-    : KComboBox( parent ), mIdentityManager( manager ), d( 0 )
+    : QComboBox( parent ), mIdentityManager( manager ), d( 0 )
 {
   reloadCombo();
   reloadUoidList();

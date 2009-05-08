@@ -31,7 +31,7 @@
 #define KPIMIDENTITIES_IDENTITYCOMBO_H
 
 #include "kpimidentities_export.h"
-#include <KDE/KComboBox>
+#include <QtGui/QComboBox>
 
 class QString;
 
@@ -41,7 +41,8 @@ namespace KPIMIdentities
   class IdentityManager;
   class Identity;
 
-  class KPIMIDENTITIES_EXPORT IdentityCombo : public KComboBox
+  //KDE5: subclass from a KComboBox
+  class KPIMIDENTITIES_EXPORT IdentityCombo : public QComboBox //krazy:exclude=qclasses
   {
       Q_OBJECT
     public:
