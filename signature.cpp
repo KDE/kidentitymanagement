@@ -363,6 +363,7 @@ Signature::Type Signature::type() const
 void Signature::setText( const QString &text )
 {
   mText = text;
+  mType = Inlined;
 }
 
 void Signature::setType( Type type )

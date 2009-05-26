@@ -7,3 +7,14 @@ target_link_libraries ( identitytest
                         ${KDE4_KDECORE_LIBS}
                         kpimidentities
                       )
+
+set (signaturetest_SRCS signaturetest.cpp )
+kde4_add_unit_test (signaturetest TESTNAME signaturetest ${signaturetest_SRCS})
+
+target_link_libraries ( signaturetest
+                        ${QT_QTTEST_LIBRARY}
+                        ${QT_QTCORE_LIBRARY}
+                        ${KDE4_KDECORE_LIBS}
+                        kpimidentities
+                        kpimtextedit
+                      )
