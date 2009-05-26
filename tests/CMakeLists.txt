@@ -13,8 +13,7 @@ kde4_add_unit_test (signaturetest TESTNAME signaturetest ${signaturetest_SRCS})
 
 target_link_libraries ( signaturetest
                         ${QT_QTTEST_LIBRARY}
-                        ${QT_QTCORE_LIBRARY}
-                        ${KDE4_KDECORE_LIBS}
+                        ${KDE4_KDEUI_LIBS}
                         kpimidentities
                         kpimtextedit
                       )
