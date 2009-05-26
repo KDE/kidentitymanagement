@@ -66,6 +66,85 @@ void SignatureTester::testSignatures()
   QVERIFY( sig4.text().isEmpty() );
   QCOMPARE( sig4.type(), Signature::FromFile );
   QCOMPARE( sig4.withSeparator(), QString( "-- \n" ) + fileContent );
-
 }
 
+static void setCursorPos( QTextEdit &edit, int pos )
+{
+  QTextCursor cursor( edit.document() );
+  cursor.setPosition( pos );
+  edit.setTextCursor( cursor );
+}
+
+void SignatureTester::testTextEditInsertion()
+{
+  TextEdit edit;
+  Signature sig;
+  sig.setText( "Hello World" );
+
+  // Test inserting signature at start, with seperators
+  edit.setPlainText( "Bla Bla" );
+  sig.insertIntoTextEdit( &edit, Signature::Start, true );
+  QVERIFY( edit.textMode() == KRichTextEdit::Plain );
+  QCOMPARE( edit.toPlainText(), QString( "\n-- \nHello World\nBla Bla" ) );
+
+  // Test inserting signature at end. make sure cursor position is preserved
+  edit.clear();
+  edit.setPlainText( "Bla Bla" );
+  setCursorPos( edit, 4 );
+  sig.insertIntoTextEdit( &edit, Signature::End, true );
+  QCOMPARE( edit.toPlainText(), QString( "Bla Bla\n-- \nHello World" ) );
+  QCOMPARE( edit.textCursor().position(), 4 );
+
+  // test inserting a signature at cursor position. make sure the cursor
+  // moves the position correctly. make sure modified state is preserved
+  edit.clear();
+  edit.setPlainText( "Bla Bla" );
+  setCursorPos( edit, 4 );
+  edit.document()->setModified( false );
+  sig.insertIntoTextEdit( &edit, Signature::AtCursor, true );
+  QCOMPARE( edit.toPlainText(), QString( "Bla \n-- \nHello World\nBla" ) );
+  QCOMPARE( edit.textCursor().position(), 21 );
+  QVERIFY( !edit.document()->isModified() );
+
+  // make sure undo undoes everything in one go
+  edit.undo();
+  QCOMPARE( edit.toPlainText(), QString( "Bla Bla" ) );
+
+  // test inserting signature without seperator.
+  // make sure cursor position and modified state is preserved.
+  edit.clear();
+  edit.setPlainText( "Bla Bla" );
+  setCursorPos( edit, 4 );
+  edit.document()->setModified( true );
+  sig.insertIntoTextEdit( &edit, Signature::End, false );
+  QCOMPARE( edit.toPlainText(), QString( "Bla Bla\nHello World" ) );
+  QCOMPARE( edit.textCursor().position(), 4 );
+  QVERIFY( edit.document()->isModified() );
+
+  sig.setText( "Hello<br>World" );
+  sig.setInlinedHtml( true );
+
+  // test that html signatures turn html on and have correct line endings (<br> vs \n)
+  edit.clear();
+  edit.setPlainText( "Bla Bla" );
+  sig.insertIntoTextEdit( &edit, Signature::End, true );
+  QVERIFY( edit.textMode() == KRichTextEdit::Rich );
+  QCOMPARE( edit.toPlainText(), QString( "Bla Bla\n-- \nHello\nWorld" ) );
+}
+
+void SignatureTester::testBug167961()
+{
+  TextEdit edit;
+  Signature sig;
+  sig.setText( "BLA" );
+
+  // Test that the cursor is still at the start when appending a sig into
+  // an empty text edit
+  sig.insertIntoTextEdit( &edit, Signature::End, true );
+  QCOMPARE( edit.textCursor().position(), 0 );
+
+  // OTOH, when prepending a sig, the cursor should be at the end
+  edit.clear();
+  sig.insertIntoTextEdit( &edit, Signature::Start, true );
+  QCOMPARE( edit.textCursor().position(), 9 ); // "\n-- \nBLA\n"
+}

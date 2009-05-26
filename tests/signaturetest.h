@@ -28,6 +28,8 @@ class SignatureTester : public QObject
 
 private slots:
   void testSignatures();
+  void testTextEditInsertion();
+  void testBug167961();
 };
 
 #endif
