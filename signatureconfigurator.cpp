@@ -322,13 +322,23 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
   Signature SignatureConfigurator::signature() const
   {
     Signature sig;
-    sig.setType( signatureType() );
-    sig.setInlinedHtml( d->inlinedHtml );
-    sig.setText( d->inlinedHtml ? asCleanedHTML() : mTextEdit->textOrHtml() );
-    if ( signatureType() == Signature::FromCommand )
+    const Signature::Type sigType = signatureType();
+    switch ( sigType ) {
+    case Signature::Inlined:
+      sig.setInlinedHtml( d->inlinedHtml );
+      sig.setText( d->inlinedHtml ? asCleanedHTML() : mTextEdit->textOrHtml() );
+      break;
+    case Signature::FromCommand:
       sig.setUrl( commandURL(), true );
-    if ( signatureType() == Signature::FromFile )
+      break;
+    case Signature::FromFile:
       sig.setUrl( fileURL(), false );
+      break;
+    case Signature::Disabled:
+      /* do nothing */
+      break;
+    }
+    sig.setType( sigType );
     return sig;
   }
 
