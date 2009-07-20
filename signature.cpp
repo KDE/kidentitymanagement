@@ -341,6 +341,20 @@ bool Signature::operator== ( const Signature &other ) const
   }
 }
 
+QString Signature::plainText() const
+{
+  QString sigText = rawText();
+  if ( isInlinedHtml() && type() == Inlined ) {
+    // Use a QTextDocument as a helper, it does all the work for us and
+    // strips all HTML tags.
+    QTextDocument helper;
+    QTextCursor helperCursor( &helper );
+    helperCursor.insertHtml( sigText );
+    sigText = helper.toPlainText();
+  }
+  return sigText;
+}
+
 // --------------- Getters -----------------------//
 
 QString Signature::text() const
