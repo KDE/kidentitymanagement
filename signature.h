@@ -99,6 +99,13 @@ namespace KPIMIdentities
       void setText( const QString &text );
       QString text() const;
 
+      /**
+       * Returns the text of the signature. If the signature is HTML, the HTML
+       * tags will be stripped.
+       * @since 4.4
+       */
+      QString plainText() const;
+
       /** Set the signature URL and mark this signature as being of
           "from file" resp. "from output of command" type. */
       void setUrl( const QString &url, bool isExecutable=false );
