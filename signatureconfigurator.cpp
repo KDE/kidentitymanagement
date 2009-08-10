@@ -76,7 +76,6 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
 
     vlay = new QVBoxLayout( this );
     vlay->setObjectName( "main layout" );
-    vlay->setSpacing( KDialog::spacingHint() );
     vlay->setMargin( 0 );
 
     // "enable signatue" checkbox:
@@ -197,7 +196,6 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     widgetStack->insertWidget( pageno, page ); // force sequential numbers (play safe)
     page_vlay = new QVBoxLayout( page );
     page_vlay->setMargin( 0 );
-    page_vlay->setSpacing( KDialog::spacingHint() );
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout( hlay );
     mFileRequester = new KUrlRequester( page );
@@ -226,7 +224,6 @@ SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     widgetStack->insertWidget( pageno,page );
     page_vlay = new QVBoxLayout( page  );
     page_vlay->setMargin( 0 );
-    page_vlay->setSpacing( KDialog::spacingHint() );
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout( hlay );
     mCommandEdit = new KLineEdit( page );
