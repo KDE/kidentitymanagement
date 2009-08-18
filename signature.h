@@ -203,15 +203,17 @@ namespace KPIMIdentities
        * TODO: KDE5: BIC: Change from KRichTextEdit to KPIMTextEdit::TextEdit, to avoid
        *                  the dynamic_cast used here
        */
-      void insertIntoTextEdit( KRichTextEdit *textEdit,
-                               Placement placement = End, bool addSeparator = true );
+      void KDE_DEPRECATED insertIntoTextEdit( KRichTextEdit *textEdit,
+                                              Placement placement = End, bool addSeparator = true );
 
       /**
-       * Same as the other insertIntoTextEdit(), only that this is the const version
+       * Same as the other insertIntoTextEdit(), only that this is const and has
+       * an additional parameter.
        * @since 4.4
        */
       void insertIntoTextEdit( KRichTextEdit *textEdit,
-                               Placement placement = End, bool addSeparator = true ) const;
+                               Placement placement = End, bool addSeparator = true,
+                               bool addNewlines = true ) const;
 
       /**
        * Inserts this given signature into the given text edit.
@@ -233,11 +235,25 @@ namespace KPIMIdentities
        * @param isHtml defines whether the signature should be inserted as text or html
        *
        * @since 4.3
+       * TODO: KDE5: BIC: remove this method in favor of the overloaded one
+       */
+      static void KDE_DEPRECATED insertPlainSignatureIntoTextEdit( const QString &signature,
+                                                                   KRichTextEdit *textEdit,
+                                                                   Placement placement = End,
+                                                                   bool isHtml = false );
+
+      /**
+       * Same as the above, with the possibility to omit linebreaks altogether
+       * @param addNewlines: If true, will add some newlines before or after the body, depending
+       *                     on the placement. Those newlines are useful when this function is
+       *                     triggered when the cursor is in the middle of some text.
+       * @since 4.4
        */
       static void insertPlainSignatureIntoTextEdit( const QString &signature,
                                                     KRichTextEdit *textEdit,
                                                     Placement placement = End,
-                                                    bool isHtml = false );
+                                                    bool isHtml = false,
+                                                    bool addNewlines = true );
 
     protected:
       void writeConfig( KConfigGroup &config ) const;

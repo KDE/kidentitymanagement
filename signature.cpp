@@ -235,7 +235,11 @@ QString Signature::withSeparator( bool *ok ) const
     return signature; // don't add a separator in this case
   }
 
-  QString newline = ( isInlinedHtml() && mType == Inlined ) ? "<br>" : "\n";
+  const bool htmlSig = ( isInlinedHtml() && mType == Inlined );
+  QString newline = htmlSig ? "<br>" : "\n";
+  if ( htmlSig && signature.startsWith( "<p" ) )
+    newline.clear();
+
   if ( signature.startsWith( QString::fromLatin1( "-- " ) + newline )
     || ( signature.indexOf( newline + QString::fromLatin1( "-- " ) +
                             newline ) != -1 ) ) {
@@ -394,22 +398,23 @@ void Signature::writeConfig( KConfigGroup &config ) const
 void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
                                     Placement placement, bool addSeparator )
 {
-  // Bah.
-  const_cast<const Signature*>( this )->insertIntoTextEdit( textEdit, placement, addSeparator );
+  insertIntoTextEdit( textEdit, placement, addSeparator, true );
 }
 
 void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
-                                    Placement placement, bool addSeparator ) const
+                                    Placement placement, bool addSeperator,
+                                    bool addNewlines ) const
 {
   QString signature;
-  if ( addSeparator )
+  if ( addSeperator )
     signature = withSeparator();
   else
     signature = rawText();
 
   insertPlainSignatureIntoTextEdit( signature, textEdit, placement,
                    ( isInlinedHtml() &&
-                     type() == KPIMIdentities::Signature::Inlined ) );
+                     type() == KPIMIdentities::Signature::Inlined ),
+                   addNewlines );
 
   // We added the text of the signature above, now it is time to add the images as well.
   KPIMTextEdit::TextEdit *pimEdit = dynamic_cast<KPIMTextEdit::TextEdit*>( textEdit );
@@ -422,6 +427,15 @@ void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
 
 void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRichTextEdit *textEdit,
                                                   Signature::Placement placement, bool isHtml )
+{
+  insertPlainSignatureIntoTextEdit( signature, textEdit, placement, isHtml, true );
+}
+
+void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
+                                                  KRichTextEdit *textEdit,
+                                                  Placement placement,
+                                                  bool isHtml,
+                                                  bool addNewlines )
 {
   if ( !signature.isEmpty() ) {
 
@@ -440,6 +454,15 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRic
       cursor.movePosition( QTextCursor::Start );
     textEdit->setTextCursor( cursor );
 
+
+    QString lineSep;
+    if ( addNewlines ) {
+      if ( isHtml )
+        lineSep = QLatin1String( "<br>" );
+      else
+        lineSep = QLatin1Char( '\n' );
+    }
+
     // Insert the signature and newlines depending on where it was inserted.
     bool hackForCursorsAtEnd = false;
     int oldCursorPos = -1;
@@ -451,15 +474,15 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRic
       }
 
       if ( isHtml ) {
-        textEdit->insertHtml( QLatin1String( "<br>" ) + signature );
+        textEdit->insertHtml( lineSep + signature );
       } else {
-        textEdit->insertPlainText( QLatin1Char( '\n' ) + signature );
+        textEdit->insertPlainText( lineSep + signature );
       }
     } else if ( placement == Start || placement == AtCursor ) {
       if ( isHtml ) {
-        textEdit->insertHtml( QLatin1String( "<br>" ) + signature + QLatin1String( "<br>" ) );
+        textEdit->insertHtml( lineSep + signature + lineSep );
       } else {
-        textEdit->insertPlainText( QLatin1Char( '\n' ) + signature + QLatin1Char( '\n' ) );
+        textEdit->insertPlainText( lineSep + signature + lineSep );
       }
     }
 

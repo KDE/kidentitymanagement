@@ -390,7 +390,7 @@ void SignatureConfigurator::Private::init()
 
     // Let insertIntoTextEdit() handle setting the text, as that function also adds the images.
     mTextEdit->clear();
-    sig.insertIntoTextEdit( mTextEdit, KPIMIdentities::Signature::Start, false /* no seperator*/ );
+    sig.insertIntoTextEdit( mTextEdit, KPIMIdentities::Signature::Start, false, false );
 
     if ( sig.type() == Signature::FromFile )
       setFileURL( sig.url() );

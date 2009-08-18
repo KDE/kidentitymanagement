@@ -31,6 +31,7 @@ private slots:
   void testTextEditInsertion();
   void testBug167961();
   void testImages();
+  void testLinebreaks();
 };
 
 #endif
