@@ -23,6 +23,10 @@
 
 #include "kpimtextedit/textedit.h"
 
+#include <KIconLoader>
+#include <KStandardDirs>
+#include <KConfigGroup>
+
 using namespace KPIMIdentities;
 using namespace KPIMTextEdit;
 
@@ -148,3 +152,78 @@ void SignatureTester::testBug167961()
   sig.insertIntoTextEdit( &edit, Signature::Start, true );
   QCOMPARE( edit.textCursor().position(), 9 ); // "\n-- \nBLA\n"
 }
+
+// Make writeConfig() public, we need it
+class MySignature : public Signature
+{
+  public:
+    using Signature::writeConfig;
+    using Signature::readConfig;
+};
+
+void SignatureTester::testImages()
+{
+  TextEdit edit;
+  QString image1Path = KIconLoader::global()->iconPath( QLatin1String( "folder-new" ), KIconLoader::Small, false );
+  QString image2Path = KIconLoader::global()->iconPath( QLatin1String( "arrow-up" ), KIconLoader::Small, false );
+  QImage image1, image2;
+  QVERIFY( image1.load( image1Path ) );
+  QVERIFY( image2.load( image1Path ) );
+  QString path = KStandardDirs::locateLocal( "data", "emailidentities/unittest/" );
+  QString configPath = KStandardDirs::locateLocal( "config", "signaturetest" );
+  KConfig config( configPath );
+  KConfigGroup group1 = config.group( "Signature1" );
+
+  MySignature sig;
+  sig.setImageLocation( path );
+  sig.setInlinedHtml( true );
+  sig.setText( "Bla<img src=\"folder-new.png\">Bla" );
+  sig.addImage( image1, "folder-new.png" );
+  sig.writeConfig( group1 );
+
+  // OK, signature saved, the image should be saved as well
+  QDir dir( path );
+  QStringList entryList = dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks );
+  QCOMPARE( entryList.count(), 1 );
+  QCOMPARE( entryList.first(), QString( "folder-new.png" ) );
+
+  // Now, set the text of the signature to something without images, then save it.
+  // The signature class should have removed the images.
+  sig.setText( "ascii ribbon campaign - against html mail" );
+  sig.writeConfig( group1 );
+  entryList = dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks );
+  QCOMPARE( entryList.count(), 0 );
+
+  // Enable images again, this time with two of the buggers
+  sig.setText( "Bla<img src=\"folder-new.png\">Bla<img src=\"arrow-up.png\">Bla" );
+  sig.addImage( image1, "folder-new.png" );
+  sig.addImage( image2, "arrow-up.png" );
+  sig.writeConfig( group1 );
+  entryList = dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks );
+  QCOMPARE( entryList.count(), 2 );
+  QCOMPARE( entryList.first(), QString( "arrow-up.png" ) );
+  QCOMPARE( entryList.last(), QString( "folder-new.png" ) );
+
+  // Now, create a second signature instance from the same config, and make sure it can still
+  // read the images, and it does not mess up
+  MySignature sig2;
+  sig2.readConfig( group1 );
+  sig2.insertIntoTextEdit( &edit );
+  QCOMPARE( edit.embeddedImages().count(), 2 );
+  QCOMPARE( sig2.text(), QString( "Bla<img src=\"folder-new.png\">Bla<img src=\"arrow-up.png\">Bla") );
+  sig2.writeConfig( group1 );
+  entryList = dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks );
+  QCOMPARE( entryList.count(), 2 );
+  QCOMPARE( entryList.first(), QString( "arrow-up.png" ) );
+  QCOMPARE( entryList.last(), QString( "folder-new.png" ) );
+
+  // Remove one image from the signature, and make sure only 1 file is left one file system.
+  sig2.setText( "<img src=\"folder-new.png\">" );
+  sig2.writeConfig( group1 );
+  edit.clear();
+  sig2.insertIntoTextEdit( &edit );
+  QCOMPARE( edit.embeddedImages().size(), 1 );
+  entryList = dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks );
+  QCOMPARE( entryList.count(), 1 );
+}
+

@@ -30,6 +30,7 @@ private slots:
   void testSignatures();
   void testTextEditInsertion();
   void testBug167961();
+  void testImages();
 };
 
 #endif

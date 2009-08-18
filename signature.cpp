@@ -275,6 +275,61 @@ static const char sigCommandKey[] = "Signature Command";
 static const char sigTypeInlinedHtmlKey[] = "Inlined Html";
 static const char sigImageLocation[] = "Image Location";
 
+// Returns the names of all images in the HTML code
+static QStringList findImageNames( const QString &htmlCode )
+{
+  QStringList ret;
+
+  // To complicated for us, so cheat and let a text edit do the hard work
+  KPIMTextEdit::TextEdit edit;
+  edit.setHtml( htmlCode );
+  foreach( const KPIMTextEdit::ImageWithNamePtr &image, edit.imagesWithName() ) {
+    ret << image->name;
+  }
+  return ret;
+}
+
+void Signature::cleanupImages() const
+{
+  // Remove any images from the internal structure that are no longer there
+  if ( isInlinedHtml() ) {
+    foreach( const SignaturePrivate::EmbeddedImagePtr imageInList, d( this )->embeddedImages ) {
+      bool found = false;
+      foreach( const QString &imageInHtml, findImageNames( mText ) ) {
+        if ( imageInHtml == imageInList->name ) {
+          found = true;
+          break;
+        }
+      }
+      if ( !found )
+        d( this )->embeddedImages.removeAll( imageInList );
+    }
+  }
+
+  // Delete all the old image files
+  if ( !d( this )->saveLocation.isEmpty() ) {
+    QDir dir( d( this )->saveLocation );
+    foreach( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
+      if ( fileName.toLower().endsWith( ".png" ) ) {
+        kDebug() << "Deleting old image" << dir.path() + fileName;
+        dir.remove( fileName );
+      }
+    }
+  }
+}
+
+void Signature::saveImages() const
+{
+  if ( isInlinedHtml() && !d( this )->saveLocation.isEmpty() ) {
+    foreach( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
+      QString location = d( this )->saveLocation + '/' + image->name;
+      if ( !image->image.save( location, "PNG" ) ) {
+        kWarning() << "Failed to save image" << location;
+      }
+    }
+  }
+}
+
 void Signature::readConfig( const KConfigGroup &config )
 {
   QString sigType = config.readEntry( sigTypeKey );
@@ -332,26 +387,8 @@ void Signature::writeConfig( KConfigGroup &config ) const
   config.writeEntry( sigTextKey, mText );
   config.writeEntry( sigImageLocation, d( this )->saveLocation );
 
-  // First delete the old image files
-  if ( !d( this )->saveLocation.isEmpty() ) {
-    QDir dir( d( this )->saveLocation );
-    foreach( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
-      if ( fileName.toLower().endsWith( ".png" ) ) {
-        kDebug() << "Deleting old image" << dir.path() + fileName;
-        dir.remove( fileName );
-      }
-    }
-  }
-
-  // Then, save the new images
-  if ( isInlinedHtml() && !d( this )->saveLocation.isEmpty() ) {
-    foreach( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
-      QString location = d( this )->saveLocation + '/' + image->name;
-      if ( !image->image.save( location, "PNG" ) ) {
-        kWarning() << "Failed to save image" << location;
-      }
-    }
-  }
+  cleanupImages();
+  saveImages();
 }
 
 void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
