@@ -1,6 +1,7 @@
 /*
     Copyright (c) 2002-2004 Marc Mutz <mutz@kde.org>
     Copyright (c) 2007 Tom Albers <tomalbers@kde.nl>
+    Copyright (c) 2009 Thomas McGuire <mcguire@kde.org>
 
     This library is free software; you can redistribute it and/or modify it
     under the terms of the GNU Library General Public License as published by
@@ -30,9 +31,65 @@
 #include <kpimutils/kfileio.h>
 
 #include <QFileInfo>
+#include <QSharedPointer>
+#include <QImage>
+
 #include <assert.h>
+#include <QtCore/QDir>
+#include <kpimtextedit/textedit.h>
 
 using namespace KPIMIdentities;
+
+class SignaturePrivate
+{
+  public:
+    struct EmbeddedImage
+    {
+      QImage image;
+      QString name;
+    };
+    typedef QSharedPointer<EmbeddedImage> EmbeddedImagePtr;
+
+    /// List of images that belong to this signature. Either added by addImage() or
+    /// by readConfig().
+    QList<EmbeddedImagePtr> embeddedImages;
+
+    /// The directory where the images will be saved to.
+    QString saveLocation;
+};
+
+QDataStream &operator<< ( QDataStream &stream, const SignaturePrivate::EmbeddedImagePtr &img )
+{
+  return stream << img->image << img->name;
+}
+
+QDataStream &operator>> ( QDataStream &stream, SignaturePrivate::EmbeddedImagePtr &img )
+{
+  return stream >> img->image >> img->name;
+}
+
+// TODO: KDE5: BIC: Add a real d-pointer.
+// This QHash is just a workaround around BIC issues, for more info see
+// http://techbase.kde.org/Policies/Binary_Compatibility_Issues_With_C++
+typedef QHash<const Signature*,SignaturePrivate*> SigPrivateHash;
+Q_GLOBAL_STATIC(SigPrivateHash, d_func)
+
+static SignaturePrivate* d( const Signature *sig )
+{
+  SignaturePrivate *ret = d_func()->value( sig, 0 );
+  if ( !ret ) {
+    ret = new SignaturePrivate;
+    d_func()->insert( sig, ret );
+  }
+  return ret;
+}
+
+static void delete_d( const Signature* sig )
+{
+  SignaturePrivate *ret = d_func()->value( sig, 0 );
+  delete ret;
+  d_func()->remove( sig );
+}
 
 Signature::Signature()
   : mType( Disabled ),
@@ -50,6 +107,35 @@ Signature::Signature( const QString &url, bool isExecutable )
     mType( isExecutable ? FromCommand : FromFile ),
     mInlinedHtml( false )
 {}
+
+void Signature::assignFrom ( const KPIMIdentities::Signature &that )
+{
+  mUrl = that.mUrl;
+  mInlinedHtml = that.mInlinedHtml;
+  mText = that.mText;
+  mType = that.mType;
+  d( this )->saveLocation = d( &that )->saveLocation;
+  d( this )->embeddedImages = d( &that )->embeddedImages;
+}
+
+Signature::Signature ( const Signature &that )
+{
+  assignFrom( that );
+}
+
+Signature& Signature::operator= ( const KPIMIdentities::Signature & that )
+{
+  if ( this == &that )
+    return *this;
+
+  assignFrom( that );
+  return *this;
+}
+
+Signature::~Signature()
+{
+  delete_d( this );
+}
 
 QString Signature::rawText( bool *ok ) const
 {
@@ -187,6 +273,7 @@ static const char sigTextKey[] = "Inline Signature";
 static const char sigFileKey[] = "Signature File";
 static const char sigCommandKey[] = "Signature Command";
 static const char sigTypeInlinedHtmlKey[] = "Inlined Html";
+static const char sigImageLocation[] = "Image Location";
 
 void Signature::readConfig( const KConfigGroup &config )
 {
@@ -204,6 +291,22 @@ void Signature::readConfig( const KConfigGroup &config )
     mType = Disabled;
   }
   mText = config.readEntry( sigTextKey );
+  d( this )->saveLocation = config.readEntry( sigImageLocation );
+
+  if ( isInlinedHtml() && !d( this )->saveLocation.isEmpty() ) {
+    QDir dir( d( this )->saveLocation );
+    foreach( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
+      if ( fileName.toLower().endsWith( ".png" ) ) {
+        QImage image;
+        if ( image.load( dir.path() + '/' + fileName ) ) {
+          addImage( image, fileName );
+        }
+        else {
+          kWarning() << "Unable to load image" << dir.path() + '/' + fileName;
+        }
+      }
+    }
+  }
 }
 
 void Signature::writeConfig( KConfigGroup &config ) const
@@ -227,10 +330,39 @@ void Signature::writeConfig( KConfigGroup &config ) const
       break;
   }
   config.writeEntry( sigTextKey, mText );
+  config.writeEntry( sigImageLocation, d( this )->saveLocation );
+
+  // First delete the old image files
+  if ( !d( this )->saveLocation.isEmpty() ) {
+    QDir dir( d( this )->saveLocation );
+    foreach( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
+      if ( fileName.toLower().endsWith( ".png" ) ) {
+        kDebug() << "Deleting old image" << dir.path() + fileName;
+        dir.remove( fileName );
+      }
+    }
+  }
+
+  // Then, save the new images
+  if ( isInlinedHtml() && !d( this )->saveLocation.isEmpty() ) {
+    foreach( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
+      QString location = d( this )->saveLocation + '/' + image->name;
+      if ( !image->image.save( location, "PNG" ) ) {
+        kWarning() << "Failed to save image" << location;
+      }
+    }
+  }
 }
 
 void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
                                     Placement placement, bool addSeparator )
+{
+  // Bah.
+  const_cast<const Signature*>( this )->insertIntoTextEdit( textEdit, placement, addSeparator );
+}
+
+void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
+                                    Placement placement, bool addSeparator ) const
 {
   QString signature;
   if ( addSeparator )
@@ -241,6 +373,14 @@ void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
   insertPlainSignatureIntoTextEdit( signature, textEdit, placement,
                    ( isInlinedHtml() &&
                      type() == KPIMIdentities::Signature::Inlined ) );
+
+  // We added the text of the signature above, now it is time to add the images as well.
+  KPIMTextEdit::TextEdit *pimEdit = dynamic_cast<KPIMTextEdit::TextEdit*>( textEdit );
+  if ( pimEdit && isInlinedHtml() ) {
+    foreach( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
+      pimEdit->loadImage( image->image, image->name, image->name );
+    }
+  }
 }
 
 void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRichTextEdit *textEdit,
@@ -301,8 +441,9 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRic
 
     textEdit->document()->setModified( isModified );
 
-    if ( isHtml )
+    if ( isHtml ) {
       textEdit->enableRichTextMode();
+    }
   }
 }
 
@@ -311,14 +452,15 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRic
 QDataStream &KPIMIdentities::operator<<
 ( QDataStream &stream, const KPIMIdentities::Signature &sig )
 {
-  return stream << static_cast<quint8>( sig.mType ) << sig.mUrl << sig.mText;
+  return stream << static_cast<quint8>( sig.mType ) << sig.mUrl << sig.mText
+                << d( &sig )->saveLocation << d( &sig )->embeddedImages;
 }
 
 QDataStream &KPIMIdentities::operator>>
 ( QDataStream &stream, KPIMIdentities::Signature &sig )
 {
   quint8 s;
-  stream >> s  >> sig.mUrl >> sig.mText;
+  stream >> s  >> sig.mUrl >> sig.mText >> d( &sig )->saveLocation >> d( &sig )->embeddedImages;
   sig.mType = static_cast<Signature::Type>( s );
   return stream;
 }
@@ -327,6 +469,13 @@ bool Signature::operator== ( const Signature &other ) const
 {
   if ( mType != other.mType ) {
     return false;
+  }
+
+  if ( mType == Inlined && mInlinedHtml ) {
+    if ( d( this )->saveLocation != d( &other )->saveLocation )
+      return false;
+    if ( d( this )->embeddedImages != d( &other )->embeddedImages )
+      return false;
   }
 
   switch ( mType ) {
@@ -353,6 +502,20 @@ QString Signature::plainText() const
     sigText = helper.toPlainText();
   }
   return sigText;
+}
+
+void Signature::addImage ( const QImage& imageData, const QString& imageName )
+{
+  Q_ASSERT( !( d( this )->saveLocation.isEmpty() ) );
+  SignaturePrivate::EmbeddedImagePtr image( new SignaturePrivate::EmbeddedImage() );
+  image->image = imageData;
+  image->name = imageName;
+  d( this )->embeddedImages.append( image );
+}
+
+void Signature::setImageLocation ( const QString& path )
+{
+  d( this )->saveLocation = path;
 }
 
 // --------------- Getters -----------------------//

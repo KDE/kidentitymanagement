@@ -51,8 +51,21 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
   public:
      /**
        * Constructor
+       * @deprecated: Use the other constructor
+       * TODO: KDE5: BIC: remove
        */
-    SignatureConfigurator( QWidget * parent=0 );
+    KDE_DEPRECATED SignatureConfigurator( QWidget * parent = 0 );
+
+    /// Used to decide whether to allow the user to add images or not
+    enum HtmlImageMode { EnableHtmlImages, DisableHtmlImages };
+
+    /**
+     * Constructor. If you want that the user sees a button to add images in the HTML toolbar,
+     * enable HTML images by setting @p HtmlImageMode to EnableHtmlImages.
+     *
+     * @since 4.4
+     */
+    explicit SignatureConfigurator( HtmlImageMode imageMode = DisableHtmlImages, QWidget * parent = 0 );
 
     /**
       * destructor
@@ -130,6 +143,16 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
     **/
     void setSignature( const Signature & sig );
 
+    /**
+     * Sets the directory where the images used in the HTML signature will be stored.
+     * Needs to be called before calling setSignature(), as each signature should use
+     * a different location.
+     * The directory needs to exist, it will not be created.
+     * @since 4.4
+     * @sa Signature::setImageLocation
+     */
+    void setImageLocation( const QString &path );
+
   private:
     void toggleHtmlBtnState( ViewMode state );
 
@@ -145,6 +168,8 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
     void slotSetHtml();
 
   protected:
+
+    // TODO: KDE5: BIC: Move to private class!
     QCheckBox       * mEnableCheck;
     QCheckBox       * mHtmlCheck;
     KComboBox       * mSourceCombo;
