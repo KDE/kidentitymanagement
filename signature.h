@@ -172,7 +172,7 @@ namespace KPIMIdentities
        * This is needed if you use setText() to set some HTML source that references images. Those
        * referenced images needed to be added by calling this function. The @imageName has to match
        * the src attribute of the img tag.
-       * 
+       *
        * If you use SignatureConfigurator, you don't need to call this function, as the configurator
        * will handle this for you.
        * setImageLocation() needs to be called once before.
@@ -251,9 +251,9 @@ namespace KPIMIdentities
        */
       static void insertPlainSignatureIntoTextEdit( const QString &signature,
                                                     KRichTextEdit *textEdit,
-                                                    Placement placement = End,
-                                                    bool isHtml = false,
-                                                    bool addNewlines = true );
+                                                    Placement placement,
+                                                    bool isHtml,
+                                                    bool addNewlines );
 
     protected:
       void writeConfig( KConfigGroup &config ) const;
