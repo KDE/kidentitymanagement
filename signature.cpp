@@ -237,8 +237,9 @@ QString Signature::withSeparator( bool *ok ) const
 
   const bool htmlSig = ( isInlinedHtml() && mType == Inlined );
   QString newline = htmlSig ? "<br>" : "\n";
-  if ( htmlSig && signature.startsWith( "<p" ) )
+  if ( htmlSig && signature.startsWith( QLatin1String( "<p" ) ) ) {
     newline.clear();
+  }
 
   if ( signature.startsWith( QString::fromLatin1( "-- " ) + newline )
     || ( signature.indexOf( newline + QString::fromLatin1( "-- " ) +
@@ -314,7 +315,7 @@ void Signature::cleanupImages() const
   if ( !d( this )->saveLocation.isEmpty() ) {
     QDir dir( d( this )->saveLocation );
     foreach( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
-      if ( fileName.toLower().endsWith( ".png" ) ) {
+      if ( fileName.toLower().endsWith( QLatin1String( ".png" ) ) ) {
         kDebug() << "Deleting old image" << dir.path() + fileName;
         dir.remove( fileName );
       }
@@ -355,7 +356,7 @@ void Signature::readConfig( const KConfigGroup &config )
   if ( isInlinedHtml() && !d( this )->saveLocation.isEmpty() ) {
     QDir dir( d( this )->saveLocation );
     foreach( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
-      if ( fileName.toLower().endsWith( ".png" ) ) {
+      if ( fileName.toLower().endsWith( QLatin1String( ".png" ) ) ) {
         QImage image;
         if ( image.load( dir.path() + '/' + fileName ) ) {
           addImage( image, fileName );
