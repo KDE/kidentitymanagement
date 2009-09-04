@@ -92,7 +92,7 @@ void Identity::readConfig( const KConfigGroup &config )
   QMap<QString,QString> entries = config.entryMap();
   QMap<QString,QString>::const_iterator i = entries.constBegin();
   while ( i != entries.constEnd() ) {
-    mPropertiesMap.insert( i.key(), i.value() );
+    mPropertiesMap.insert( i.key(), config.readEntry( i.key() ) );
     ++i;
   }
   mSignature.readConfig( config );
