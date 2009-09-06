@@ -265,7 +265,7 @@ void SignatureConfigurator::Private::init()
     d->init();
   }
 
-  SignatureConfigurator::SignatureConfigurator( HtmlImageMode imageMode, QWidget * parent )
+  SignatureConfigurator::SignatureConfigurator( QWidget * parent, HtmlImageMode imageMode )
     : QWidget( parent ), d( new Private( this ) )
   {
     d->imageMode = imageMode;

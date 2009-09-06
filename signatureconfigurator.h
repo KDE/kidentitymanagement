@@ -65,7 +65,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
      *
      * @since 4.4
      */
-    explicit SignatureConfigurator( HtmlImageMode imageMode = DisableHtmlImages, QWidget * parent = 0 );
+    explicit SignatureConfigurator( QWidget *parent, HtmlImageMode imageMode );
 
     /**
       * destructor
