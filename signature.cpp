@@ -298,7 +298,7 @@ void Signature::cleanupImages() const
 {
   // Remove any images from the internal structure that are no longer there
   if ( isInlinedHtml() ) {
-    foreach( const SignaturePrivate::EmbeddedImagePtr imageInList, d( this )->embeddedImages ) {
+    foreach( const SignaturePrivate::EmbeddedImagePtr &imageInList, d( this )->embeddedImages ) {
       bool found = false;
       foreach( const QString &imageInHtml, findImageNames( mText ) ) {
         if ( imageInHtml == imageInList->name ) {
