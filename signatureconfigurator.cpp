@@ -19,6 +19,7 @@
 
 
 #include "signatureconfigurator.h"
+#include "identity.h"
 
 #include <kactioncollection.h>
 #include <klocale.h>
@@ -30,6 +31,7 @@
 #include <ktoolbar.h>
 #include <krun.h>
 #include <KComboBox>
+#include <KStandardDirs>
 
 #include <kpimtextedit/textedit.h>
 
@@ -448,6 +450,13 @@ void SignatureConfigurator::Private::init()
   void SignatureConfigurator::setImageLocation ( const QString& path )
   {
     d->imageLocation = path;
+  }
+
+  void SignatureConfigurator::setImageLocation( const Identity &identity )
+  {
+    const QString dir = QString( "emailidentities/%1/" ).arg(
+        QString::number( identity.uoid() ) );
+    setImageLocation( KStandardDirs::locateLocal( "data", dir ) );
   }
 
 }

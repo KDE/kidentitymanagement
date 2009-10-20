@@ -140,6 +140,16 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
      */
     void setImageLocation( const QString &path );
 
+    /**
+     * Sets the image location to the image location of a given identity, which is
+     * emailidentities/<identity-id>/.
+     *
+     * @param identity The identity whose unique ID will be used to determine the image
+     *                 location.
+     * @since 4.4
+     */
+    void setImageLocation( const Identity &identity );
+
   private:
     void toggleHtmlBtnState( ViewMode state );
 
