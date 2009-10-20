@@ -51,21 +51,8 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
   public:
      /**
        * Constructor
-       * @deprecated: Use the other constructor
-       * TODO: KDE5: BIC: remove
        */
-    KDE_DEPRECATED SignatureConfigurator( QWidget * parent = 0 );
-
-    /// Used to decide whether to allow the user to add images or not
-    enum HtmlImageMode { EnableHtmlImages, DisableHtmlImages };
-
-    /**
-     * Constructor. If you want that the user sees a button to add images in the HTML toolbar,
-     * enable HTML images by setting @p HtmlImageMode to EnableHtmlImages.
-     *
-     * @since 4.4
-     */
-    explicit SignatureConfigurator( QWidget *parent, HtmlImageMode imageMode );
+    explicit SignatureConfigurator( QWidget * parent = 0 );
 
     /**
       * destructor
