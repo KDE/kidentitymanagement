@@ -19,6 +19,7 @@
 
 
 #include "signatureconfigurator.h"
+#include "identity.h"
 
 #include <kactioncollection.h>
 #include <klocale.h>
@@ -30,6 +31,7 @@
 #include <ktoolbar.h>
 #include <krun.h>
 #include <KComboBox>
+#include <KStandardDirs>
 
 #include <kpimtextedit/textedit.h>
 
@@ -65,13 +67,12 @@ class SignatureConfigurator::Private
 
     SignatureConfigurator *q;
     bool inlinedHtml;
-    HtmlImageMode imageMode;
     QString imageLocation;
 };
 //@endcond
 
 SignatureConfigurator::Private::Private( SignatureConfigurator *parent )
-  :q( parent ), imageMode( DisableHtmlImages )
+  :q( parent )
 {
 }
 
@@ -191,10 +192,8 @@ void SignatureConfigurator::Private::init()
   q->mFormatToolBar->addAction( actionCollection->action( "manage_link" ) );
   q->mFormatToolBar->addAction( actionCollection->action( "format_painter" ) );
 
-  if ( imageMode == EnableHtmlImages ) {
-    q->mFormatToolBar->addSeparator();
-    q->mFormatToolBar->addAction( actionCollection->action( "add_image" ) );
-  }
+  q->mFormatToolBar->addSeparator();
+  q->mFormatToolBar->addAction( actionCollection->action( "add_image" ) );
 
   hlay = new QHBoxLayout(); // inherits spacing
   page_vlay->addLayout( hlay );
@@ -262,13 +261,6 @@ void SignatureConfigurator::Private::init()
   SignatureConfigurator::SignatureConfigurator( QWidget * parent )
     : QWidget( parent ), d( new Private( this ) )
   {
-    d->init();
-  }
-
-  SignatureConfigurator::SignatureConfigurator( QWidget * parent, HtmlImageMode imageMode )
-    : QWidget( parent ), d( new Private( this ) )
-  {
-    d->imageMode = imageMode;
     d->init();
   }
 
@@ -458,6 +450,13 @@ void SignatureConfigurator::Private::init()
   void SignatureConfigurator::setImageLocation ( const QString& path )
   {
     d->imageLocation = path;
+  }
+
+  void SignatureConfigurator::setImageLocation( const Identity &identity )
+  {
+    const QString dir = QString( "emailidentities/%1/" ).arg(
+        QString::number( identity.uoid() ) );
+    setImageLocation( KStandardDirs::locateLocal( "data", dir ) );
   }
 
 }
