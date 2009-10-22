@@ -75,6 +75,7 @@ namespace KPIMIdentities
 
     protected Q_SLOTS:
       void slotEmitChanged( int );
+      void slotUpdateTooltip( uint uoid );
 
     protected:
       void reloadCombo();
