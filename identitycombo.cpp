@@ -53,8 +53,10 @@ IdentityCombo::IdentityCombo( IdentityManager *manager, QWidget *parent )
   reloadCombo();
   reloadUoidList();
   connect( this, SIGNAL( activated( int ) ), SLOT( slotEmitChanged( int ) ) );
+  connect( this, SIGNAL(identityChanged( uint ) ), this, SLOT(slotUpdateTooltip( uint ) ) );
   connect( manager, SIGNAL( changed() ),
            SLOT( slotIdentityManagerChanged() ) );
+  slotUpdateTooltip( currentIdentity() );
 }
 
 IdentityCombo::~IdentityCombo()
@@ -135,6 +137,8 @@ void IdentityCombo::slotIdentityManagerChanged()
   setCurrentIndex( idx < 0 ? 0 : idx );
   blockSignals( false );
 
+  slotUpdateTooltip( currentIdentity() );
+
   if ( idx < 0 ) {
     // apparently our oldIdentity got deleted:
     slotEmitChanged( currentIndex() );
@@ -144,6 +148,11 @@ void IdentityCombo::slotIdentityManagerChanged()
 void IdentityCombo::slotEmitChanged( int idx )
 {
   emit identityChanged( mUoidList[idx] );
+}
+
+void IdentityCombo::slotUpdateTooltip( uint uoid )
+{
+  setToolTip( mIdentityManager->identityForUoid( uoid ).fullEmailAddr() );
 }
 
 #include "identitycombo.moc"
