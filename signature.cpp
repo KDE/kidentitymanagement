@@ -432,6 +432,13 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRic
   insertPlainSignatureIntoTextEdit( signature, textEdit, placement, isHtml, true );
 }
 
+static bool isCursorAtEndOfLine( const QTextCursor &cursor )
+{
+  QTextCursor testCursor = cursor;
+  testCursor.movePosition( QTextCursor::EndOfLine, QTextCursor::KeepAnchor );
+  return !testCursor.hasSelection();
+}
+
 void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
                                                   KRichTextEdit *textEdit,
                                                   Placement placement,
@@ -453,6 +460,8 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
       cursor.movePosition( QTextCursor::End );
     else if ( placement == Start )
       cursor.movePosition( QTextCursor::Start );
+    else if ( placement == AtCursor )
+      cursor.movePosition( QTextCursor::StartOfLine );
     textEdit->setTextCursor( cursor );
 
 
@@ -481,9 +490,15 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
       }
     } else if ( placement == Start || placement == AtCursor ) {
       if ( isHtml ) {
-        textEdit->insertHtml( lineSep + signature + lineSep );
+        if ( isCursorAtEndOfLine( cursor ) )
+          textEdit->insertHtml( signature );
+        else
+          textEdit->insertHtml( signature + lineSep );
       } else {
-        textEdit->insertPlainText( lineSep + signature + lineSep );
+        if ( isCursorAtEndOfLine( cursor ) )
+          textEdit->insertPlainText( signature );
+        else
+          textEdit->insertPlainText( signature + lineSep );
       }
     }
 
