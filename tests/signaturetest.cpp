@@ -89,7 +89,7 @@ void SignatureTester::testTextEditInsertion()
   edit.setPlainText( "Bla Bla" );
   sig.insertIntoTextEdit( &edit, Signature::Start, true, true );
   QVERIFY( edit.textMode() == KRichTextEdit::Plain );
-  QCOMPARE( edit.toPlainText(), QString( "\n-- \nHello World\nBla Bla" ) );
+  QCOMPARE( edit.toPlainText(), QString( "-- \nHello World\nBla Bla" ) );
 
   // Test inserting signature at end. make sure cursor position is preserved
   edit.clear();
@@ -99,15 +99,15 @@ void SignatureTester::testTextEditInsertion()
   QCOMPARE( edit.toPlainText(), QString( "Bla Bla\n-- \nHello World" ) );
   QCOMPARE( edit.textCursor().position(), 4 );
 
-  // test inserting a signature at cursor position. make sure the cursor
-  // moves the position correctly. make sure modified state is preserved
+  // test inserting a signature at cursor position. make sure the signature is inserted
+  // to the beginning of the line and make sure modified state is preserved
   edit.clear();
   edit.setPlainText( "Bla Bla" );
   setCursorPos( edit, 4 );
   edit.document()->setModified( false );
   sig.insertIntoTextEdit( &edit, Signature::AtCursor, true, true );
-  QCOMPARE( edit.toPlainText(), QString( "Bla \n-- \nHello World\nBla" ) );
-  QCOMPARE( edit.textCursor().position(), 21 );
+  QCOMPARE( edit.toPlainText(), QString( "-- \nHello World\nBla Bla" ) );
+  QCOMPARE( edit.textCursor().position(), 20 );
   QVERIFY( !edit.document()->isModified() );
 
   // make sure undo undoes everything in one go
@@ -150,7 +150,7 @@ void SignatureTester::testBug167961()
   // OTOH, when prepending a sig, the cursor should be at the end
   edit.clear();
   sig.insertIntoTextEdit( &edit, Signature::Start, true, true );
-  QCOMPARE( edit.textCursor().position(), 9 ); // "\n-- \nBLA\n"
+  QCOMPARE( edit.textCursor().position(), 7 ); // "-- \nBLA"
 }
 
 // Make writeConfig() public, we need it
