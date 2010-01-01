@@ -396,42 +396,6 @@ void Signature::writeConfig( KConfigGroup &config ) const
   saveImages();
 }
 
-void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
-                                    Placement placement, bool addSeparator )
-{
-  insertIntoTextEdit( textEdit, placement, addSeparator, true );
-}
-
-void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
-                                    Placement placement, bool addSeperator,
-                                    bool addNewlines ) const
-{
-  QString signature;
-  if ( addSeperator )
-    signature = withSeparator();
-  else
-    signature = rawText();
-
-  insertPlainSignatureIntoTextEdit( signature, textEdit, placement,
-                   ( isInlinedHtml() &&
-                     type() == KPIMIdentities::Signature::Inlined ),
-                   addNewlines );
-
-  // We added the text of the signature above, now it is time to add the images as well.
-  KPIMTextEdit::TextEdit *pimEdit = dynamic_cast<KPIMTextEdit::TextEdit*>( textEdit );
-  if ( pimEdit && isInlinedHtml() ) {
-    foreach( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
-      pimEdit->loadImage( image->image, image->name, image->name );
-    }
-  }
-}
-
-void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRichTextEdit *textEdit,
-                                                  Signature::Placement placement, bool isHtml )
-{
-  insertPlainSignatureIntoTextEdit( signature, textEdit, placement, isHtml, true );
-}
-
 static bool isCursorAtEndOfLine( const QTextCursor &cursor )
 {
   QTextCursor testCursor = cursor;
@@ -439,11 +403,11 @@ static bool isCursorAtEndOfLine( const QTextCursor &cursor )
   return !testCursor.hasSelection();
 }
 
-void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
-                                                  KRichTextEdit *textEdit,
-                                                  Placement placement,
-                                                  bool isHtml,
-                                                  bool addNewlines )
+static void insertSignatureHelper( const QString &signature,
+                                   KRichTextEdit *textEdit,
+                                   Signature::Placement placement,
+                                   bool isHtml,
+                                   bool addNewlines )
 {
   if ( !signature.isEmpty() ) {
 
@@ -456,11 +420,11 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
     QTextCursor oldCursor = cursor;
     cursor.beginEditBlock();
 
-    if ( placement == End )
+    if ( placement == Signature::End )
       cursor.movePosition( QTextCursor::End );
-    else if ( placement == Start )
+    else if ( placement == Signature::Start )
       cursor.movePosition( QTextCursor::Start );
-    else if ( placement == AtCursor )
+    else if ( placement == Signature::AtCursor )
       cursor.movePosition( QTextCursor::StartOfLine );
     textEdit->setTextCursor( cursor );
 
@@ -476,7 +440,7 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
     // Insert the signature and newlines depending on where it was inserted.
     bool hackForCursorsAtEnd = false;
     int oldCursorPos = -1;
-    if ( placement == End ) {
+    if ( placement == Signature::End ) {
 
       if ( oldCursor.position() == textEdit->toPlainText().length() ) {
         hackForCursorsAtEnd = true;
@@ -488,7 +452,7 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
       } else {
         textEdit->insertPlainText( lineSep + signature );
       }
-    } else if ( placement == Start || placement == AtCursor ) {
+    } else if ( placement == Signature::Start || placement == Signature::AtCursor ) {
       if ( isHtml ) {
         if ( isCursorAtEndOfLine( cursor ) )
           textEdit->insertHtml( signature );
@@ -521,6 +485,49 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature,
       textEdit->enableRichTextMode();
     }
   }
+}
+
+void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
+                                    Placement placement, bool addSeparator )
+{
+  QString signature;
+  if ( addSeparator )
+    signature = withSeparator();
+  else
+    signature = rawText();
+
+  insertSignatureHelper( signature, textEdit, placement,
+                   ( isInlinedHtml() &&
+                     type() == KPIMIdentities::Signature::Inlined ),
+                   true );
+}
+
+void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
+                                    KPIMTextEdit::TextEdit *textEdit ) const
+{
+  QString signature;
+  if ( addedText & AddSeparator )
+    signature = withSeparator();
+  else
+    signature = rawText();
+
+  insertSignatureHelper( signature, textEdit, placement,
+                   ( isInlinedHtml() &&
+                     type() == KPIMIdentities::Signature::Inlined ),
+                   ( addedText & AddNewLines ) );
+
+  // We added the text of the signature above, now it is time to add the images as well.
+  if ( isInlinedHtml() ) {
+    foreach( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
+      textEdit->loadImage( image->image, image->name, image->name );
+    }
+  }
+}
+
+void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRichTextEdit *textEdit,
+                                                  Signature::Placement placement, bool isHtml )
+{
+  insertSignatureHelper( signature, textEdit, placement, isHtml, true );
 }
 
 // --------------------- Operators -------------------//
