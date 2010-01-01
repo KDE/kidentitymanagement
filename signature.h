@@ -41,6 +41,11 @@ namespace KPIMIdentities
 class KConfigGroup;
 class KRichTextEdit;
 
+namespace KPIMTextEdit
+{
+  class TextEdit;
+}
+
 namespace KPIMIdentities
 {
 
@@ -66,6 +71,20 @@ namespace KPIMIdentities
    * The images added with addImage() are then saved to that directory when calling writeConfig().
    * When loading a signature, readConfig() automatically loads the images as well.
    * To actually add the images to a text edit, call insertIntoTextEdit().
+   *
+   * Example of creating a HTML signature and then inserting it into a text edit:
+   * @code
+   * Signature htmlSig;
+   * htmlSig.setText( "<img src=\"hello.png\"> World" );
+   * htmlSig.setInlinedHtml( true );
+   * htmlSig.setImageLocation( KStandardDirs::locateLocal( "data", "emailidentities/example/" );
+   * QImage image = ...;
+   * htmlSig.addImage( image, "hello.png" );
+   * ...
+   * KTextEdit edit;
+   * htmlSig.insertIntoTextEdit( KPIMIdentities::Signature::End,
+   *                             KPIMIdentities::Signature::AddSeparator, &edit );
+   * @endcode
    */
   class KPIMIDENTITIES_EXPORT Signature
   {
@@ -126,7 +145,7 @@ namespace KPIMIdentities
        * tags will be stripped.
        * @since 4.4
        */
-      QString plainText() const;
+      QString toPlainText() const;
 
       /** Set the signature URL and mark this signature as being of
           "from file" resp. "from output of command" type. */
@@ -181,10 +200,26 @@ namespace KPIMIdentities
       void addImage( const QImage &image, const QString &imageName );
 
       /**
-       * Inserts this signature into the given text edit.
+       * @since 4.3
+       * @deprecated Use the other overload of insertIntoTextEdit() instead. This one doesn't
+       *             support inline images and always adds newline characters.
+       */
+      void KDE_DEPRECATED insertIntoTextEdit( KRichTextEdit *textEdit,
+                                              Placement placement = End, bool addSeparator = true );
+
+      enum AddedTextFlag {
+        AddNothing = 0,         ///< Don't add any text to the signature
+        AddSeparator = 1 << 0,  ///< The separator '-- \n' will be added in front
+                                ///  of the signature
+        AddNewLines = 1 << 1,   ///< Add a newline character in front or after the signature,
+                                ///  depending on the placement
+      };
+
+      /// Describes which additional parts should be added to the signature
+      typedef QFlags<AddedTextFlag> AddedText;
+       
+     /** Inserts this signature into the given text edit.
        * The cursor position is preserved.
-       * A leading or trailing newline is also added automatically, depending on
-       * the placement.
        * For undo/redo, this is treated as one operation.
        *
        * Rich text mode of the text edit will be enabled if the signature is in
@@ -192,28 +227,17 @@ namespace KPIMIdentities
        *
        * If this signature uses images, they will be added automatically.
        *
-       * @param textEdit the signature will be inserted into this text edit.
        * @param placement defines where in the text edit the signature should be
        *                  inserted.
-       * @param addSeparator if true, the separator '-- \n' will be added in front
-       *                     of the signature
-       *
-       * @since 4.3
-       * TODO: KDE5: BIC: remove, as we have a const version below
-       * TODO: KDE5: BIC: Change from KRichTextEdit to KPIMTextEdit::TextEdit, to avoid
-       *                  the dynamic_cast used here
-       */
-      void KDE_DEPRECATED insertIntoTextEdit( KRichTextEdit *textEdit,
-                                              Placement placement = End, bool addSeparator = true );
-
-      /**
-       * Same as the other insertIntoTextEdit(), only that this is const and has
-       * an additional parameter.
+       * @param addedText defines which other texts should be added to the signature
+       * @param textEdit the signature will be inserted into this text edit.
+       * 
        * @since 4.4
        */
-      void insertIntoTextEdit( KRichTextEdit *textEdit,
-                               Placement placement = End, bool addSeparator = true,
-                               bool addNewlines = true ) const;
+      // TODO: KDE5: BIC: Reorder paramters, the order here is a workaround for ambiguous parameters
+      //                  with the deprecated method
+      void insertIntoTextEdit( Placement placement, AddedText addedText,
+                               KPIMTextEdit::TextEdit *textEdit ) const;
 
       /**
        * Inserts this given signature into the given text edit.
@@ -235,29 +259,22 @@ namespace KPIMIdentities
        * @param isHtml defines whether the signature should be inserted as text or html
        *
        * @since 4.3
-       * TODO: KDE5: BIC: remove this method in favor of the overloaded one
+       * @deprecated Use the non-static insertIntoTextEdit() instead
        */
       static void KDE_DEPRECATED insertPlainSignatureIntoTextEdit( const QString &signature,
                                                                    KRichTextEdit *textEdit,
                                                                    Placement placement = End,
                                                                    bool isHtml = false );
 
-      /**
-       * Same as the above, with the possibility to omit linebreaks altogether
-       * @param addNewlines: If true, will add some newlines before or after the body, depending
-       *                     on the placement. Those newlines are useful when this function is
-       *                     triggered when the cursor is in the middle of some text.
-       * @since 4.4
-       */
-      static void insertPlainSignatureIntoTextEdit( const QString &signature,
-                                                    KRichTextEdit *textEdit,
-                                                    Placement placement,
-                                                    bool isHtml,
-                                                    bool addNewlines );
-
     protected:
+
+      // TODO: KDE5: BIC: Move all to private class
       void writeConfig( KConfigGroup &config ) const;
       void readConfig( const KConfigGroup &config );
+
+    private:
+
+      // TODO: KDE5: BIC: Move all to private class
 
       /**
        * Helper used for the copy constructor and the assignment operator
@@ -275,7 +292,6 @@ namespace KPIMIdentities
        */
       void saveImages() const;
 
-    private:
       QString textFromFile( bool *ok ) const;
       QString textFromCommand( bool *ok ) const;
 
@@ -286,6 +302,8 @@ namespace KPIMIdentities
       Type    mType;
       bool mInlinedHtml;
   };
+
+  Q_DECLARE_OPERATORS_FOR_FLAGS(Signature::AddedText)
 
 }
 

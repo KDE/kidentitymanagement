@@ -382,7 +382,9 @@ void SignatureConfigurator::Private::init()
 
     // Let insertIntoTextEdit() handle setting the text, as that function also adds the images.
     mTextEdit->clear();
-    sig.insertIntoTextEdit( mTextEdit, KPIMIdentities::Signature::Start, false, false );
+    KPIMTextEdit::TextEdit * const pimEdit = static_cast<KPIMTextEdit::TextEdit*>( mTextEdit );
+    sig.insertIntoTextEdit( KPIMIdentities::Signature::Start, KPIMIdentities::Signature::AddNothing,
+                            pimEdit );
 
     if ( sig.type() == Signature::FromFile )
       setFileURL( sig.url() );
