@@ -66,6 +66,19 @@ namespace KPIMIdentities
    * The images added with addImage() are then saved to that directory when calling writeConfig().
    * When loading a signature, readConfig() automatically loads the images as well.
    * To actually add the images to a text edit, call insertIntoTextEdit().
+   *
+   * Example of creating a HTML signature and then inserting it into a text edit:
+   * @code
+   * Signature htmlSig;
+   * htmlSig.setText( "<img src=\"hello.png\"> World" );
+   * htmlSig.setInlinedHtml( true );
+   * htmlSig.setImageLocation( KStandardDirs::locateLocal( "data", "emailidentities/example/" );
+   * QImage image = ...;
+   * htmlSig.addImage( image, "hello.png" );
+   * ...
+   * KTextEdit edit;
+   * htmlSig.insertIntoTextEdit( &edit, KPIMIdentities::Signature::End, true, true );
+   * @endcode
    */
   class KPIMIDENTITIES_EXPORT Signature
   {
@@ -126,7 +139,7 @@ namespace KPIMIdentities
        * tags will be stripped.
        * @since 4.4
        */
-      QString plainText() const;
+      QString toPlainText() const;
 
       /** Set the signature URL and mark this signature as being of
           "from file" resp. "from output of command" type. */
@@ -256,8 +269,14 @@ namespace KPIMIdentities
                                                     bool addNewlines );
 
     protected:
+
+      // TODO: KDE5: BIC: Move all to private class
       void writeConfig( KConfigGroup &config ) const;
       void readConfig( const KConfigGroup &config );
+
+    private:
+
+      // TODO: KDE5: BIC: Move all to private class
 
       /**
        * Helper used for the copy constructor and the assignment operator
@@ -275,7 +294,6 @@ namespace KPIMIdentities
        */
       void saveImages() const;
 
-    private:
       QString textFromFile( bool *ok ) const;
       QString textFromCommand( bool *ok ) const;
 

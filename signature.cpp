@@ -566,7 +566,7 @@ bool Signature::operator== ( const Signature &other ) const
   }
 }
 
-QString Signature::plainText() const
+QString Signature::toPlainText() const
 {
   QString sigText = rawText();
   if ( isInlinedHtml() && type() == Inlined ) {
