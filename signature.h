@@ -211,7 +211,7 @@ namespace KPIMIdentities
         AddNothing = 0,         ///< Don't add any text to the signature
         AddSeparator = 1 << 0,  ///< The separator '-- \n' will be added in front
                                 ///  of the signature
-        AddNewLines = 1 << 1,   ///< Add a newline character in front or after the signature,
+        AddNewLines = 1 << 1    ///< Add a newline character in front or after the signature,
                                 ///  depending on the placement
       };
 
