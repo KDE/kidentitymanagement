@@ -22,9 +22,7 @@
 #include "signature.h"
 
 #include <kdeversion.h>
-#if KDE_IS_VERSION( 4, 1, 67 )
 #include <sonnet/globals.h>
-#endif
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -59,9 +57,7 @@ Identity::Identity( const QString &id, const QString &fullName,
   setProperty( s_email, emailAddr );
   setProperty( s_organization, organization );
   setProperty( s_replyto, replyToAddr );
-#if KDE_IS_VERSION( 4, 1, 67 )
   setDictionary( Sonnet::defaultLanguageName() );
-#endif
 }
 
 Identity::~Identity()
@@ -81,13 +77,11 @@ bool Identity::isNull() const
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
   while ( i != mPropertiesMap.constEnd() ) {
 
-#if KDE_IS_VERSION( 4, 1, 67 )
     // Take into account that the dictionary for a null identity is not empty
     if ( i.key() == s_dict && dictionary() == Sonnet::defaultLanguageName() ) {
       ++i;
       continue;
     }
-#endif
 
     // The uoid is 0 by default, so ignore this
     if ( !( i.key() == s_uoid && i.value().toUInt() == 0 ) ) {
