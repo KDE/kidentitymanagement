@@ -234,7 +234,7 @@ namespace KPIMIdentities
        * 
        * @since 4.4
        */
-      // TODO: KDE5: BIC: Reorder paramters, the order here is a workaround for ambiguous parameters
+      // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
       //                  with the deprecated method
       void insertIntoTextEdit( Placement placement, AddedText addedText,
                                KPIMTextEdit::TextEdit *textEdit ) const;
