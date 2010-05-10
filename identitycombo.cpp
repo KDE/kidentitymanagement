@@ -155,4 +155,10 @@ void IdentityCombo::slotUpdateTooltip( uint uoid )
   setToolTip( mIdentityManager->identityForUoid( uoid ).fullEmailAddr() );
 }
 
+IdentityManager* IdentityCombo::identityManager() const
+{
+  return mIdentityManager;
+}
+
+
 #include "identitycombo.moc"
