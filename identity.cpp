@@ -102,7 +102,12 @@ void Identity::readConfig( const KConfigGroup &config )
   QMap<QString,QString> entries = config.entryMap();
   QMap<QString,QString>::const_iterator i = entries.constBegin();
   while ( i != entries.constEnd() ) {
-    mPropertiesMap.insert( i.key(), config.readEntry( i.key() ) );
+    if ( i.key() == s_emailAliases ) {
+      // HACK: Read s_emailAliases as a stringlist
+      mPropertiesMap.insert( i.key(), config.readEntry( i.key(), QStringList() ) );
+    } else {
+      mPropertiesMap.insert( i.key(), config.readEntry( i.key() ) );
+    }
     ++i;
   }
   mSignature.readConfig( config );

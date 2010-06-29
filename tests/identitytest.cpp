@@ -21,6 +21,9 @@
 #include "../identitymanager.h"
 #include "../identity.h"
 
+#include <KConfig>
+#include <KConfigGroup>
+
 using namespace KPIMIdentities;
 
 QTEST_KDEMAIN_CORE( IdentityTester )
@@ -47,6 +50,13 @@ void IdentityTester::test_Aliases()
   QVERIFY( i1.matchesEmailAddress( "\"Lastname, Firstname\" <firstname@example.com>" ) );
   QVERIFY( i1.matchesEmailAddress( "\"Lastname, Firstname\" <firstname.lastname@example.com>" ) );
   QCOMPARE( i1.emailAliases().size(), 2 );
+
+  KConfig testConfig("test");
+  KConfigGroup testGroup( &testConfig, "testGroup" );
+  i1.writeConfig( testGroup );
+  i1.readConfig( testGroup );
+  QCOMPARE( i1.emailAliases().size(), 2 );
+
   manager.commit();
 
   Identity &i2 = manager.newFromScratch( "Test2" );
