@@ -28,6 +28,7 @@ class IdentityTester : public QObject
 
 private slots:
   void test_NullIdentity();
+  void test_Aliases();
 };
 
 #endif

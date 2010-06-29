@@ -54,7 +54,7 @@ namespace KPIMIdentities
   static const char s_smimes[] = "SMIME Signing Key";
   static const char s_smimee[] = "SMIME Encryption Key";
   static const char s_prefcrypt[] = "Preferred Crypto Message Format";
-  static const char s_email[] = "Email Address";
+  static const char s_email[] = "Email Address"; // TODO: KDE5: Rename to s_primaryEmail
   static const char s_replyto[] = "Reply-To Address";
   static const char s_bcc[] = "Bcc";
   static const char s_vcard[] = "VCardFile";
@@ -66,6 +66,7 @@ namespace KPIMIdentities
   static const char s_xface[] =  "X-Face";
   static const char s_xfaceenabled[] =  "X-FaceEnabled";
   static const char s_signature[] =  "Signature";
+  static const char s_emailAliases[] = "Email Aliases";
 
   KPIMIDENTITIES_EXPORT QDataStream &operator<<
   ( QDataStream &stream, const KPIMIdentities::Identity &ident );
@@ -158,9 +159,39 @@ class KPIMIDENTITIES_EXPORT Identity
       QString preferredCryptoMessageFormat() const;
       void setPreferredCryptoMessageFormat( const QString& );
 
-      /** email address (without the user name - only name\@host) */
-      QString emailAddr() const;
-      void setEmailAddr( const QString& );
+      /**
+       * email address (without the user name - only name\@host)
+       * @deprecated Use the primary email address or aliases, depending on your usecase
+       * @sa primaryEmailAddress(), setPrimaryEmailAddress(), emailAliases(), setEmailAliases(),
+       *     matchesEmailAddress()
+       */
+      KDE_DEPRECATED QString emailAddr() const;
+      KDE_DEPRECATED void setEmailAddr( const QString& );
+
+      /**
+       * primary email address (without the user name - only name\@host).
+       * The primary email address is used for all outgoing mail.
+       *
+       * @since 4.6
+       */
+      QString primaryEmailAddress() const;
+      void setPrimaryEmailAddress( const QString & email );
+
+      /**
+       * email address aliases
+       *
+       * @since 4.6
+       */
+      const QStringList emailAliases() const;
+      void setEmailAliases( const QStringList & aliases );
+
+      /**
+       * @return true if this identity contains the email address @p addr, either as primary address
+       *         or as alias
+       *
+       * @since 4.6
+       */
+      bool matchesEmailAddress( const QString & addr ) const;
 
       /** vCard to attach to outgoing emails */
       QString vCardFile() const;

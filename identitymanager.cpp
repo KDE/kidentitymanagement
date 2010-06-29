@@ -227,7 +227,7 @@ void IdentityManager::writeConfig() const
       // Also write the default identity to emailsettings
       KEMailSettings es;
       es.setSetting( KEMailSettings::RealName, (*it).fullName() );
-      es.setSetting( KEMailSettings::EmailAddress, (*it).emailAddr() );
+      es.setSetting( KEMailSettings::EmailAddress, (*it).primaryEmailAddress() );
       es.setSetting( KEMailSettings::Organization, (*it).organization() );
       es.setSetting( KEMailSettings::ReplyToAddress, (*it).replyToAddr() );
     }
@@ -317,13 +317,13 @@ const Identity &IdentityManager::identityForUoidOrDefault( uint uoid ) const
 const Identity &IdentityManager::identityForAddress(
   const QString &addresses ) const
 {
-  QStringList addressList = KPIMUtils::splitAddressList( addresses );
-  for ( ConstIterator it = begin(); it != end(); ++it ) {
-    for ( QStringList::ConstIterator addrIt = addressList.constBegin();
-          addrIt != addressList.constEnd(); ++addrIt ) {
-      if ( (*it).emailAddr().toLower() == KPIMUtils::extractEmailAddress( *addrIt ).toLower() ) {
-        return (*it);
-      }
+  const QStringList addressList = KPIMUtils::splitAddressList( addresses );
+  foreach ( const QString &fullAddress, addressList ) {
+    const QString addrSpec = KPIMUtils::extractEmailAddress( fullAddress ).toLower();
+    for ( ConstIterator it = begin(); it != end(); ++it ) {
+      const Identity &identity = *it;
+      if ( identity.matchesEmailAddress( addrSpec ) )
+        return identity;
     }
   }
   return Identity::null();
@@ -556,7 +556,9 @@ QStringList KPIMIdentities::IdentityManager::allEmails() const
 {
   QStringList lst;
   for ( ConstIterator it = begin(); it != end(); ++it ) {
-    lst << (*it).emailAddr();
+    lst << (*it).primaryEmailAddress();
+    if ( !(*it).emailAliases().isEmpty() )
+      lst << (*it).emailAliases();
   }
   return lst;
 }

@@ -30,6 +30,7 @@
 #include <kurl.h>
 #include <kprocess.h>
 #include <kpimutils/kfileio.h>
+#include <kpimutils/email.h>
 
 #include <QFileInfo>
 #include <QMimeData>
@@ -167,7 +168,8 @@ QDataStream &KPIMIdentities::operator<<
          << i.pgpEncryptionKey()
          << i.smimeSigningKey()
          << i.smimeEncryptionKey()
-         << i.emailAddr()
+         << i.primaryEmailAddress()
+         << i.emailAliases()
          << i.replyToAddr()
          << i.bcc()
          << i.vCardFile()
@@ -196,6 +198,7 @@ QDataStream &KPIMIdentities::operator>>
   >> i.mPropertiesMap[s_smimes]
   >> i.mPropertiesMap[s_smimee]
   >> i.mPropertiesMap[s_email]
+  >> i.mPropertiesMap[s_emailAliases]
   >> i.mPropertiesMap[s_replyto]
   >> i.mPropertiesMap[s_bcc]
   >> i.mPropertiesMap[s_vcard]
@@ -358,7 +361,17 @@ QString Identity::preferredCryptoMessageFormat() const
 
 QString Identity::emailAddr() const
 {
+  return primaryEmailAddress();
+}
+
+QString Identity::primaryEmailAddress() const
+{
   return property( QLatin1String( s_email ) ).toString();
+}
+
+const QStringList Identity::emailAliases() const
+{
+  return property( QLatin1String( s_emailAliases ) ).toStringList();
 }
 
 QString Identity::vCardFile() const
@@ -500,7 +513,17 @@ void Identity::setSMIMEEncryptionKey( const QByteArray &str )
 
 void Identity::setEmailAddr( const QString &str )
 {
-  setProperty( s_email, str );
+  setPrimaryEmailAddress( str );
+}
+
+void Identity::setPrimaryEmailAddress( const QString & email )
+{
+  setProperty( s_email, email );
+}
+
+void Identity::setEmailAliases( const QStringList & aliases )
+{
+  setProperty( s_emailAliases, aliases );
 }
 
 void Identity::setVCardFile( const QString &str )
@@ -580,4 +603,18 @@ void Identity::setXFaceEnabled( const bool on )
 void Identity::setSignature( const Signature &sig )
 {
   mSignature = sig;
+}
+
+bool Identity::matchesEmailAddress( const QString & addr ) const
+{
+  const QString addrSpec = KPIMUtils::extractEmailAddress( addr ).toLower();
+  if ( addrSpec == primaryEmailAddress().toLower() )
+    return true;
+
+  foreach ( const QString &alias, emailAliases() ) {
+    if ( alias.toLower() == addrSpec )
+      return true;
+  }
+
+  return false;
 }

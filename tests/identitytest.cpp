@@ -21,10 +21,23 @@
 #include "../identitymanager.h"
 #include "../identity.h"
 
+using namespace KPIMIdentities;
+
 QTEST_KDEMAIN_CORE( IdentityTester )
 
 void IdentityTester::test_NullIdentity()
 {
-  KPIMIdentities::IdentityManager manager;
+  IdentityManager manager;
   QVERIFY( manager.identityForAddress( "thisaddressforsuredoesnotexist@kde.org" ).isNull() );
+}
+
+void IdentityTester::test_Aliases()
+{
+  IdentityManager manager;
+  Identity i1 = manager.newFromScratch( "Test" );
+  i1.setPrimaryEmailAddress( "firstname.lastname@example.com" );
+  i1.setEmailAliases( QStringList() << "firstname@example.com" << "lastname@example.com" );
+  QVERIFY( i1.matchesEmailAddress( "\"Lastname, Firstname\" <firstname@example.com>" ) );
+  QVERIFY( i1.matchesEmailAddress( "\"Lastname, Firstname\" <firstname.lastname@example.com>" ) );
+  QCOMPARE( i1.emailAliases().size(), 2 );
 }
