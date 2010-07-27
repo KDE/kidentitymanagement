@@ -24,7 +24,10 @@
 #include <kdemacros.h>
 
 #ifndef KPIMIDENTITIES_EXPORT
-# if defined(MAKE_KPIMIDENTITIES_LIB)
+# if defined(KDEPIM_STATIC_LIBS)
+   /* No export/import for static libraries */
+#  define KPIMIDENTITIES_EXPORT
+# elif defined(MAKE_KPIMIDENTITIES_LIB)
    /* We are building this library */
 #  define KPIMIDENTITIES_EXPORT KDE_EXPORT
 # else

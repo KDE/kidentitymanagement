@@ -5,7 +5,7 @@ add_subdirectory( tests )
 
 qt4_add_dbus_adaptor(kpimidentities_LIB_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KPIMIdentities::IdentityManager )
 
-kde4_add_library(kpimidentities SHARED ${kpimidentities_LIB_SRCS})
+kde4_add_library(kpimidentities ${LIBRARY_TYPE} ${kpimidentities_LIB_SRCS})
 
 target_link_libraries(kpimidentities ${QT_AND_KDECORE_LIBS}  kpimutils ${KDE4_KIO_LIBS} kpimtextedit )
 
