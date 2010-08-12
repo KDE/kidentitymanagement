@@ -144,6 +144,7 @@ void SignatureConfigurator::Private::init()
   widgetStack->insertWidget( pageno, page );
   page_vlay = new QVBoxLayout( page );
 
+#ifndef QT_NO_TOOLBAR
   q->mEditToolBar = new KToolBar( q );
   q->mEditToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
   page_vlay->addWidget( q->mEditToolBar, 0 );
@@ -151,6 +152,7 @@ void SignatureConfigurator::Private::init()
   q->mFormatToolBar = new KToolBar( q );
   q->mFormatToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
   page_vlay->addWidget( q->mFormatToolBar, 1 );
+#endif
 
   q->mTextEdit = new KPIMTextEdit::TextEdit( q );
   static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableImageActions();
@@ -167,6 +169,7 @@ void SignatureConfigurator::Private::init()
   // Fill the toolbars.
   KActionCollection *actionCollection = new KActionCollection( q );
   q->mTextEdit->createActions( actionCollection );
+#ifndef QT_NO_TOOLBAR
   q->mEditToolBar->addAction( actionCollection->action( "format_text_bold" ) );
   q->mEditToolBar->addAction( actionCollection->action( "format_text_italic" ) );
   q->mEditToolBar->addAction( actionCollection->action( "format_text_underline" ) );
@@ -194,6 +197,7 @@ void SignatureConfigurator::Private::init()
 
   q->mFormatToolBar->addSeparator();
   q->mFormatToolBar->addAction( actionCollection->action( "add_image" ) );
+#endif
 
   hlay = new QHBoxLayout(); // inherits spacing
   page_vlay->addLayout( hlay );
@@ -431,20 +435,24 @@ void SignatureConfigurator::Private::init()
   {
     if ( mHtmlCheck->checkState() == Qt::Unchecked ) {
       mHtmlCheck->setText( i18n("&Use HTML") );
+#ifndef QT_NO_TOOLBAR
       mEditToolBar->setVisible( false );
       mEditToolBar->setEnabled( false );
       mFormatToolBar->setVisible( false );
       mFormatToolBar->setEnabled( false );
+#endif
       mTextEdit->switchToPlainText();
       d->inlinedHtml = false;
     }
     else {
       mHtmlCheck->setText( i18n("&Use HTML (disabling removes formatting)") );
       d->inlinedHtml = true;
+#ifndef QT_NO_TOOLBAR
       mEditToolBar->setVisible( true );
       mEditToolBar->setEnabled( true );
       mFormatToolBar->setVisible( true );
       mFormatToolBar->setEnabled( true );
+#endif
       mTextEdit->enableRichTextMode();
     }
   }
