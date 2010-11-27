@@ -64,9 +64,10 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
   new IdentityManagerAdaptor( this );
   QDBusConnection dbus = QDBusConnection::sessionBus();
   const QString dbusPath = newDBusObjectName();
+  setProperty( "uniqueDBusPath", dbusPath );
   const QString dbusInterface = "org.kde.pim.IdentityManager";
   dbus.registerObject( dbusPath, this );
-  dbus.connect( QString(), dbusPath, dbusInterface, "identitiesChanged", this,
+  dbus.connect( QString(), QString(), dbusInterface, "identitiesChanged", this,
                 SLOT( slotIdentitiesChanged( QString ) ) );
 
   mReadOnly = readonly;
@@ -172,7 +173,9 @@ void IdentityManager::commit()
   emit changed(); // normal signal
 
   // DBus signal for other IdentityManager instances
-  emit identitiesChanged( QDBusConnection::sessionBus().baseService() );
+  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).arg( QDBusConnection::sessionBus().baseService() )
+                                                              .arg( property( "uniqueDBusPath" ).toString() );
+  emit identitiesChanged( ourIdentifier );
 }
 
 void IdentityManager::rollback()
@@ -571,7 +574,9 @@ void KPIMIdentities::IdentityManager::slotRollback()
 void KPIMIdentities::IdentityManager::slotIdentitiesChanged( const QString &id )
 {
   kDebug( 5325 ) <<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :" << id;
-  if ( id != QDBusConnection::sessionBus().baseService() ) {
+  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).arg( QDBusConnection::sessionBus().baseService() )
+                                                              .arg( property( "uniqueDBusPath" ).toString() );
+  if ( id != ourIdentifier ) {
     mConfig->reparseConfiguration();
     Q_ASSERT( !hasPendingChanges() );
     readConfig( mConfig );
