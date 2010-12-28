@@ -423,6 +423,21 @@ bool IdentityManager::removeIdentity( const QString &name )
   return false;
 }
 
+bool IdentityManager::removeIdentityForced( const QString &name )
+{
+  for ( Iterator it = modifyBegin(); it != modifyEnd(); ++it ) {
+    if ( (*it).identityName() == name ) {
+      bool removedWasDefault = (*it).isDefault();
+      mShadowIdentities.erase( it );
+      if ( removedWasDefault && !mShadowIdentities.isEmpty() ) {
+        mShadowIdentities.first().setIsDefault( true );
+      }
+      return true;
+    }
+  }
+  return false;
+}
+
 Identity &IdentityManager::newFromScratch( const QString &name )
 {
   return newFromExisting( Identity( name ) );
