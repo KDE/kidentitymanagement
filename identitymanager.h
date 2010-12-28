@@ -149,6 +149,17 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
        **/
       bool removeIdentity( const QString &identityName );
 
+      /**
+       * Removes the identity with name @p identityName
+       * Will return @c false if the identity is not found, @c true otherwise.
+       *
+       * @note In opposite to removeIdentity, this method allows to remove the
+       *       last remaining identity.
+       *
+       * @since 4.6
+       */
+      bool removeIdentityForced( const QString &identityName );
+
       ConstIterator begin() const;
       ConstIterator end() const;
       /// Iterator used by the configuration dialog, which works on a separate list
