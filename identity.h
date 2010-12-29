@@ -237,12 +237,16 @@ class KPIMIDENTITIES_EXPORT Identity
       void setFcc( const QString& );
 
       /** The folder where draft messages from this identity will be
-      stored by default. */
+      stored by default.
+      TODO: KDE5 Change QString to int as the folder is an akonadi collection id.
+      */
       QString drafts() const;
       void setDrafts( const QString& );
 
       /** The folder where template messages from this identity will be
-      stored by default. */
+      stored by default.
+      TODO: KDE5 Change QString to int as the folder is an akonadi collection id.
+      */
       QString templates() const;
       void setTemplates( const QString& );
 
