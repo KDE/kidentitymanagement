@@ -68,7 +68,7 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
   const QString dbusInterface = "org.kde.pim.IdentityManager";
   dbus.registerObject( dbusPath, this );
   dbus.connect( QString(), QString(), dbusInterface, "identitiesChanged", this,
-                SLOT( slotIdentitiesChanged( QString ) ) );
+                SLOT(slotIdentitiesChanged(QString)) );
 
   mReadOnly = readonly;
   mConfig = new KConfig( "emailidentities" );

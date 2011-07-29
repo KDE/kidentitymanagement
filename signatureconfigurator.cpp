@@ -123,9 +123,9 @@ void SignatureConfigurator::Private::init()
   widgetStack->setEnabled( false ); // since !mEnableCheck->isChecked()
   vlay->addWidget( widgetStack, 1 );
   q->connect( q->mSourceCombo, SIGNAL(currentIndexChanged(int)),
-              widgetStack, SLOT(setCurrentIndex (int)) );
+              widgetStack, SLOT(setCurrentIndex(int)) );
   q->connect( q->mSourceCombo, SIGNAL(highlighted(int)),
-              widgetStack, SLOT(setCurrentIndex (int)) );
+              widgetStack, SLOT(setCurrentIndex(int)) );
   // connects for the enabling of the widgets depending on
   // signatureEnabled:
   q->connect( q->mEnableCheck, SIGNAL(toggled(bool)),
@@ -227,8 +227,8 @@ void SignatureConfigurator::Private::init()
   hlay->addWidget( label );
   hlay->addWidget( q->mFileRequester, 1 );
   q->mFileRequester->button()->setAutoDefault( false );
-  q->connect( q->mFileRequester, SIGNAL(textChanged(const QString &)),
-              q, SLOT(slotEnableEditButton(const QString &)) );
+  q->connect( q->mFileRequester, SIGNAL(textChanged(QString)),
+              q, SLOT(slotEnableEditButton(QString)) );
   q->mEditButton = new QPushButton( i18n("Edit &File"), page );
   q->mEditButton->setWhatsThis( i18n("Opens the specified file in a text editor."));
   q->connect( q->mEditButton, SIGNAL(clicked()),

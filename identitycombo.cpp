@@ -52,10 +52,10 @@ IdentityCombo::IdentityCombo( IdentityManager *manager, QWidget *parent )
 {
   reloadCombo();
   reloadUoidList();
-  connect( this, SIGNAL( activated( int ) ), SLOT( slotEmitChanged( int ) ) );
-  connect( this, SIGNAL(identityChanged( uint ) ), this, SLOT(slotUpdateTooltip( uint ) ) );
-  connect( manager, SIGNAL( changed() ),
-           SLOT( slotIdentityManagerChanged() ) );
+  connect( this, SIGNAL(activated(int)), SLOT(slotEmitChanged(int)) );
+  connect( this, SIGNAL(identityChanged(uint)), this, SLOT(slotUpdateTooltip(uint)) );
+  connect( manager, SIGNAL(changed()),
+           SLOT(slotIdentityManagerChanged()) );
   slotUpdateTooltip( currentIdentity() );
 }
 
