@@ -79,7 +79,7 @@ bool Identity::isNull() const
   while ( i != mPropertiesMap.constEnd() ) {
 
     // Take into account that the dictionary for a null identity is not empty
-    if ( i.key() == s_dict && dictionary() == Sonnet::defaultLanguageName() ) {
+    if ( i.key() == s_dict ) {
       ++i;
       continue;
     }
