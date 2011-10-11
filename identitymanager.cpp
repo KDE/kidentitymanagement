@@ -126,8 +126,9 @@ void IdentityManager::commit()
   }
 
   QList<uint> seenUOIDs;
+  QList<Identity>::ConstIterator end = mIdentities.constEnd();
   for ( QList<Identity>::ConstIterator it = mIdentities.constBegin();
-        it != mIdentities.constEnd(); ++it ) {
+        it != end; ++it ) {
     seenUOIDs << (*it).uoid();
   }
 
@@ -166,8 +167,9 @@ void IdentityManager::commit()
   // now that mIdentities has all the new info, we can emit the added/changed
   // signals that ship a uoid. This is because the slots might use
   // identityForUoid(uoid)...
+  QList<uint>::ConstIterator changedEnd( changedUOIDs.constEnd() );
   for ( QList<uint>::ConstIterator it = changedUOIDs.constBegin();
-        it != changedUOIDs.constEnd(); ++it )
+        it != changedEnd; ++it )
     emit changed(*it);
 
   emit changed(); // normal signal
@@ -191,8 +193,9 @@ bool IdentityManager::hasPendingChanges() const
 QStringList IdentityManager::identities() const
 {
   QStringList result;
-  for ( ConstIterator it = mIdentities.begin();
-        it != mIdentities.end(); ++it )
+  ConstIterator end = mIdentities.constEnd();
+  for ( ConstIterator it = mIdentities.constBegin();
+        it != end; ++it )
     result << (*it).identityName();
   return result;
 }
@@ -200,8 +203,9 @@ QStringList IdentityManager::identities() const
 QStringList IdentityManager::shadowIdentities() const
 {
   QStringList result;
-  for ( ConstIterator it = mShadowIdentities.begin();
-        it != mShadowIdentities.end(); ++it )
+  ConstIterator end = mShadowIdentities.constEnd();
+  for ( ConstIterator it = mShadowIdentities.constBegin();
+        it != end; ++it )
     result << (*it).identityName();
   return result;
 }
@@ -214,12 +218,14 @@ void IdentityManager::sort()
 void IdentityManager::writeConfig() const
 {
   const QStringList identities = groupList( mConfig );
-  for ( QStringList::const_iterator group = identities.begin();
-        group != identities.end(); ++group )
+  QStringList::const_iterator groupEnd = identities.constEnd();
+  for ( QStringList::const_iterator group = identities.constBegin();
+        group != groupEnd; ++group )
     mConfig->deleteGroup( *group );
   int i = 0;
-  for ( ConstIterator it = mIdentities.begin();
-        it != mIdentities.end(); ++it, ++i ) {
+  ConstIterator end = mIdentities.constEnd();
+  for ( ConstIterator it = mIdentities.constBegin();
+        it != end; ++it, ++i ) {
     KConfigGroup cg( mConfig, QString::fromLatin1( "Identity #%1" ).arg( i ) );
     (*it).writeConfig( cg );
     if ( (*it).isDefault() ) {
@@ -251,9 +257,9 @@ void IdentityManager::readConfig( KConfig *config )
   KConfigGroup general( config, "General" );
   uint defaultIdentity = general.readEntry( configKeyDefaultIdentity, 0 );
   bool haveDefault = false;
-
-  for ( QStringList::const_iterator group = identities.begin();
-        group != identities.end(); ++group ) {
+  QStringList::const_iterator groupEnd = identities.constEnd();
+  for ( QStringList::const_iterator group = identities.constBegin();
+        group != groupEnd; ++group ) {
     KConfigGroup configGroup( config, *group );
     mIdentities << Identity();
     mIdentities.last().readConfig( configGroup );

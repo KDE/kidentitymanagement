@@ -101,7 +101,8 @@ void Identity::readConfig( const KConfigGroup &config )
   // get all keys and convert them to our QHash.
   QMap<QString,QString> entries = config.entryMap();
   QMap<QString,QString>::const_iterator i = entries.constBegin();
-  while ( i != entries.constEnd() ) {
+  QMap<QString,QString>::const_iterator end = entries.constEnd();
+  while ( i != end ) {
     if ( i.key() == s_emailAliases ) {
       // HACK: Read s_emailAliases as a stringlist
       mPropertiesMap.insert( i.key(), config.readEntry( i.key(), QStringList() ) );
@@ -116,7 +117,8 @@ void Identity::readConfig( const KConfigGroup &config )
 void Identity::writeConfig( KConfigGroup &config ) const
 {
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
-  while ( i != mPropertiesMap.constEnd() ) {
+  QHash<QString, QVariant>::const_iterator end = mPropertiesMap.constEnd();
+  while ( i != end ) {
     config.writeEntry( i.key(), i.value() );
     kDebug( 5325 ) << "Store:" << i.key() << ":" << i.value();
     ++i;
@@ -284,7 +286,8 @@ QString Identity::fullEmailAddr( void ) const
 
   // add DQUOTE's if necessary:
   bool needsQuotes=false;
-  for ( int i=0; i < name.length(); i++ ) {
+  const int nameLength( name.length() );
+  for ( int i=0; i < nameLength; i++ ) {
     if ( specials.contains( name[i] ) ) {
       needsQuotes = true;
     } else if ( name[i] == '\\' || name[i] == '"' ) {

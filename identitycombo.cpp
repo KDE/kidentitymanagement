@@ -120,7 +120,8 @@ void IdentityCombo::reloadUoidList()
 {
   mUoidList.clear();
   IdentityManager::ConstIterator it;
-  for ( it = mIdentityManager->begin(); it != mIdentityManager->end(); ++it ) {
+  IdentityManager::ConstIterator end( mIdentityManager->end() );
+  for ( it = mIdentityManager->begin(); it != end; ++it ) {
     mUoidList << ( *it ).uoid();
   }
 }
