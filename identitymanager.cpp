@@ -60,7 +60,7 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
     : QObject( parent )
 {
   setObjectName( name );
-  KGlobal::locale()->insertCatalog("libkpimidentities");
+  KGlobal::locale()->insertCatalog( "libkpimidentities" );
   new IdentityManagerAdaptor( this );
   QDBusConnection dbus = QDBusConnection::sessionBus();
   const QString dbusPath = newDBusObjectName();
@@ -173,8 +173,9 @@ void IdentityManager::commit()
   emit changed(); // normal signal
 
   // DBus signal for other IdentityManager instances
-  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).arg( QDBusConnection::sessionBus().baseService() )
-                                                              .arg( property( "uniqueDBusPath" ).toString() );
+  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).
+                                  arg( QDBusConnection::sessionBus().baseService() ).
+                                  arg( property( "uniqueDBusPath" ).toString() );
   emit identitiesChanged( ourIdentifier );
 }
 
@@ -262,6 +263,7 @@ void IdentityManager::readConfig( KConfig *config )
       mIdentities.last().setIsDefault( true );
     }
   }
+
   if ( !haveDefault ) {
     kWarning( 5325 ) << "IdentityManager: There was no default identity."
                      << "Marking first one as default.";
@@ -325,8 +327,9 @@ const Identity &IdentityManager::identityForAddress(
     const QString addrSpec = KPIMUtils::extractEmailAddress( fullAddress ).toLower();
     for ( ConstIterator it = begin(); it != end(); ++it ) {
       const Identity &identity = *it;
-      if ( identity.matchesEmailAddress( addrSpec ) )
+      if ( identity.matchesEmailAddress( addrSpec ) ) {
         return identity;
+      }
     }
   }
   return Identity::null();
@@ -373,10 +376,11 @@ const Identity &IdentityManager::defaultIdentity() const
     }
   }
 
-  if ( mIdentities.isEmpty() )
-      kFatal( 5325 ) << "IdentityManager: No default identity found!";
-  else
-      kWarning( 5325 ) << "IdentityManager: No default identity found!";
+  if ( mIdentities.isEmpty() ) {
+    kFatal( 5325 ) << "IdentityManager: No default identity found!";
+  } else {
+    kWarning( 5325 ) << "IdentityManager: No default identity found!";
+  }
   return *begin();
 }
 
@@ -407,14 +411,15 @@ bool IdentityManager::setAsDefault( uint uoid )
 
 bool IdentityManager::removeIdentity( const QString &name )
 {
-  if ( mShadowIdentities.size() <= 1 )
+  if ( mShadowIdentities.size() <= 1 ) {
     return false;
+  }
 
   for ( Iterator it = modifyBegin(); it != modifyEnd(); ++it ) {
     if ( (*it).identityName() == name ) {
       bool removedWasDefault = (*it).isDefault();
       mShadowIdentities.erase( it );
-      if ( removedWasDefault ) {
+      if ( removedWasDefault && !mShadowIdentities.isEmpty() ) {
         mShadowIdentities.first().setIsDefault( true );
       }
       return true;
@@ -456,8 +461,7 @@ Identity &IdentityManager::newFromControlCenter( const QString &name )
                                es.getSetting( KEMailSettings::ReplyToAddress ) ) );
 }
 
-Identity &IdentityManager::newFromExisting( const Identity &other,
-    const QString &name )
+Identity &IdentityManager::newFromExisting( const Identity &other, const QString &name )
 {
   mShadowIdentities << other;
   Identity &result = mShadowIdentities.last();
@@ -575,8 +579,9 @@ QStringList KPIMIdentities::IdentityManager::allEmails() const
   QStringList lst;
   for ( ConstIterator it = begin(); it != end(); ++it ) {
     lst << (*it).primaryEmailAddress();
-    if ( !(*it).emailAliases().isEmpty() )
+    if ( !(*it).emailAliases().isEmpty() ) {
       lst << (*it).emailAliases();
+    }
   }
   return lst;
 }
@@ -589,8 +594,9 @@ void KPIMIdentities::IdentityManager::slotRollback()
 void KPIMIdentities::IdentityManager::slotIdentitiesChanged( const QString &id )
 {
   kDebug( 5325 ) <<" KPIMIdentities::IdentityManager::slotIdentitiesChanged :" << id;
-  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).arg( QDBusConnection::sessionBus().baseService() )
-                                                              .arg( property( "uniqueDBusPath" ).toString() );
+  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).
+                                  arg( QDBusConnection::sessionBus().baseService() ).
+                                  arg( property( "uniqueDBusPath" ).toString() );
   if ( id != ourIdentifier ) {
     mConfig->reparseConfiguration();
     Q_ASSERT( !hasPendingChanges() );
