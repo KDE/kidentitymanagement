@@ -329,7 +329,7 @@ void SignatureConfigurator::Private::init()
 
   void SignatureConfigurator::setFileURL( const QString & url )
   {
-    mFileRequester->setUrl( url );
+    mFileRequester->setUrl( QUrl(url) );
   }
 
   QString SignatureConfigurator::commandURL() const
