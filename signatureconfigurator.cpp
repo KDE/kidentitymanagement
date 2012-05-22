@@ -285,8 +285,6 @@ void SignatureConfigurator::Private::init()
 
   Signature::Type SignatureConfigurator::signatureType() const
   {
-    if ( !isSignatureEnabled() ) return Signature::Disabled;
-
     switch ( mSourceCombo->currentIndex() ) {
     case 0:  return Signature::Inlined;
     case 1:  return Signature::FromFile;
@@ -297,8 +295,6 @@ void SignatureConfigurator::Private::init()
 
   void SignatureConfigurator::setSignatureType( Signature::Type type )
   {
-    setSignatureEnabled( type != Signature::Disabled );
-
     int idx = 0;
     switch( type ) {
     case Signature::Inlined:     idx = 0; break;
@@ -370,7 +366,7 @@ void SignatureConfigurator::Private::init()
       /* do nothing */
       break;
     }
-
+    sig.setEnabledSignature(isSignatureEnabled());
     sig.setType( sigType );
     return sig;
   }
@@ -378,6 +374,8 @@ void SignatureConfigurator::Private::init()
   void SignatureConfigurator::setSignature( const Signature & sig )
   {
     setSignatureType( sig.type() );
+    setSignatureEnabled( sig.isEnabledSignature() );
+
     if ( sig.isInlinedHtml() )
       mHtmlCheck->setCheckState( Qt::Checked );
     else
@@ -388,8 +386,7 @@ void SignatureConfigurator::Private::init()
     mTextEdit->clear();
     KPIMTextEdit::TextEdit * const pimEdit = static_cast<KPIMTextEdit::TextEdit*>( mTextEdit );
     sig.insertIntoTextEdit( KPIMIdentities::Signature::Start, KPIMIdentities::Signature::AddNothing,
-                            pimEdit );
-
+                            pimEdit,true );
     if ( sig.type() == Signature::FromFile )
       setFileURL( sig.url() );
     else
