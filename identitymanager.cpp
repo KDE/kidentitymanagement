@@ -557,15 +557,17 @@ int IdentityManager::newUoid()
 
   // determine the UOIDs of all saved identities
   QList<uint> usedUOIDs;
+  QList<Identity>::ConstIterator end(mIdentities.constEnd());
   for ( QList<Identity>::ConstIterator it = mIdentities.constBegin();
-        it != mIdentities.constEnd(); ++it )
+        it != end; ++it )
     usedUOIDs << (*it).uoid();
 
   if ( hasPendingChanges() ) {
     // add UOIDs of all shadow identities. Yes, we will add a lot of duplicate
     // UOIDs, but avoiding duplicate UOIDs isn't worth the effort.
+    QList<Identity>::ConstIterator endShadow(mShadowIdentities.constEnd());
     for ( QList<Identity>::ConstIterator it = mShadowIdentities.constBegin();
-          it != mShadowIdentities.constEnd(); ++it ) {
+          it != endShadow; ++it ) {
       usedUOIDs << (*it).uoid();
     }
   }
