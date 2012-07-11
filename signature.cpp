@@ -521,7 +521,7 @@ void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
 void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
                                     KPIMTextEdit::TextEdit *textEdit, bool forceDisplay ) const
 {
-  insertSignatureText(placement,addedText, textEdit, true);
+  insertSignatureText(placement,addedText, textEdit, forceDisplay);
 }
 
 void Signature::insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
