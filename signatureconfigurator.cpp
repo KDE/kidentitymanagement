@@ -198,6 +198,8 @@ void SignatureConfigurator::Private::init()
 
   q->mFormatToolBar->addSeparator();
   q->mFormatToolBar->addAction( actionCollection->action( "add_image" ) );
+  q->mFormatToolBar->addSeparator();
+  q->mFormatToolBar->addAction( actionCollection->action( "insert_html" ) );
 #endif
 
   hlay = new QHBoxLayout(); // inherits spacing
