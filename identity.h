@@ -57,6 +57,7 @@ namespace KPIMIdentities
   static const char s_email[] = "Email Address"; // TODO: KDE5: Rename to s_primaryEmail
   static const char s_replyto[] = "Reply-To Address";
   static const char s_bcc[] = "Bcc";
+  static const char s_cc[] = "Cc";
   static const char s_vcard[] = "VCardFile";
   static const char s_transport[] = "Transport";
   static const char s_fcc[] = "Fcc";
@@ -208,6 +209,13 @@ class KPIMIDENTITIES_EXPORT Identity
       /** email addresses for the BCC: field */
       QString bcc() const;
       void setBcc( const QString& );
+
+      /** email addresses for the CC: field 
+       * @since 4.9
+       */
+      QString cc() const;
+      void setCc( const QString& );
+
 
       void setSignature( const Signature &sig );
       Signature &signature(); /* _not_ const! */

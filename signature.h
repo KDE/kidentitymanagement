@@ -199,6 +199,15 @@ namespace KPIMIdentities
        */
       void addImage( const QImage &image, const QString &imageName );
 
+
+      /**
+       * @brief setEnabledSignature
+       * @param enabled
+       * @since 4.9
+       */
+      void setEnabledSignature(bool enabled);
+      bool isEnabledSignature() const;
+
       /**
        * @since 4.3
        * @deprecated Use the other overload of insertIntoTextEdit() instead. This one doesn't
@@ -240,6 +249,13 @@ namespace KPIMIdentities
                                KPIMTextEdit::TextEdit *textEdit ) const;
 
       /**
+       * @since 4.9
+       **/
+      //TODO; KDE5 merge with previous method
+      void insertIntoTextEdit( Placement placement, AddedText addedText,
+                               KPIMTextEdit::TextEdit *textEdit, bool forceDisplay ) const;
+
+      /**
        * Inserts this given signature into the given text edit.
        * The cursor position is preserved.
        * A leading or trailing newline is also added automatically, depending on
@@ -273,6 +289,7 @@ namespace KPIMIdentities
       void readConfig( const KConfigGroup &config );
 
     private:
+      void insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const;
 
       // TODO: KDE5: BIC: Move all to private class
 

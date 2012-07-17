@@ -43,6 +43,10 @@ using namespace KPIMIdentities;
 class SignaturePrivate
 {
   public:
+    SignaturePrivate()
+      :enabled(false)
+    {
+    }
     struct EmbeddedImage
     {
       QImage image;
@@ -56,6 +60,7 @@ class SignaturePrivate
 
     /// The directory where the images will be saved to.
     QString saveLocation;
+    bool enabled;
 };
 
 QDataStream &operator<< ( QDataStream &stream, const SignaturePrivate::EmbeddedImagePtr &img )
@@ -114,6 +119,7 @@ void Signature::assignFrom ( const KPIMIdentities::Signature &that )
   mInlinedHtml = that.mInlinedHtml;
   mText = that.mText;
   mType = that.mType;
+  d( this )->enabled = d( &that )->enabled;
   d( this )->saveLocation = d( &that )->saveLocation;
   d( this )->embeddedImages = d( &that )->embeddedImages;
 }
@@ -279,6 +285,7 @@ static const char sigFileKey[] = "Signature File";
 static const char sigCommandKey[] = "Signature Command";
 static const char sigTypeInlinedHtmlKey[] = "Inlined Html";
 static const char sigImageLocation[] = "Image Location";
+static const char sigEnabled[] ="Signature Enabled";
 
 // Returns the names of all images in the HTML code
 static QStringList findImageNames( const QString &htmlCode )
@@ -347,9 +354,12 @@ void Signature::readConfig( const KConfigGroup &config )
   } else if ( sigType == sigTypeCommandValue ) {
     mType = FromCommand;
     mUrl = config.readPathEntry( sigCommandKey, QString() );
-  } else {
-    mType = Disabled;
+  } else if ( sigType == sigTypeDisabledValue ) {
+    d(this)->enabled = false;
   }
+  if(mType!=Disabled)
+    d(this)->enabled = config.readEntry(sigEnabled,true);
+
   mText = config.readEntry( sigTextKey );
   d( this )->saveLocation = config.readEntry( sigImageLocation );
 
@@ -384,13 +394,12 @@ void Signature::writeConfig( KConfigGroup &config ) const
       config.writeEntry( sigTypeKey, sigTypeCommandValue );
       config.writePathEntry( sigCommandKey, mUrl );
       break;
-    case Disabled:
-      config.writeEntry( sigTypeKey, sigTypeDisabledValue );
     default:
       break;
   }
   config.writeEntry( sigTextKey, mText );
   config.writeEntry( sigImageLocation, d( this )->saveLocation );
+  config.writeEntry( sigEnabled, d( this )->enabled );
 
   cleanupImages();
   saveImages();
@@ -446,7 +455,6 @@ static void insertSignatureHelper( const QString &signature,
         hackForCursorsAtEnd = true;
         oldCursorPos = oldCursor.position();
       }
-
       if ( isHtml ) {
         textEdit->insertHtml( lineSep + signature );
       } else {
@@ -490,12 +498,14 @@ static void insertSignatureHelper( const QString &signature,
 void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
                                     Placement placement, bool addSeparator )
 {
+  if(!isEnabledSignature()) {
+    return;
+  }
   QString signature;
   if ( addSeparator )
     signature = withSeparator();
   else
     signature = rawText();
-
   insertSignatureHelper( signature, textEdit, placement,
                    ( isInlinedHtml() &&
                      type() == KPIMIdentities::Signature::Inlined ),
@@ -505,16 +515,31 @@ void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
 void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
                                     KPIMTextEdit::TextEdit *textEdit ) const
 {
+  insertSignatureText(placement,addedText, textEdit, false);
+}
+
+void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
+                                    KPIMTextEdit::TextEdit *textEdit, bool forceDisplay ) const
+{
+  insertSignatureText(placement,addedText, textEdit, forceDisplay);
+}
+
+void Signature::insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
+{
+  if(!forceDisplay) {
+    if(!isEnabledSignature()) {
+      return;
+    }
+  }
   QString signature;
   if ( addedText & AddSeparator )
     signature = withSeparator();
   else
     signature = rawText();
-
   insertSignatureHelper( signature, textEdit, placement,
-                   ( isInlinedHtml() &&
-                     type() == KPIMIdentities::Signature::Inlined ),
-                   ( addedText & AddNewLines ) );
+                         ( isInlinedHtml() &&
+                           type() == KPIMIdentities::Signature::Inlined ),
+                         ( addedText & AddNewLines ) );
 
   // We added the text of the signature above, now it is time to add the images as well.
   if ( isInlinedHtml() ) {
@@ -523,6 +548,7 @@ void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
     }
   }
 }
+
 
 void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRichTextEdit *textEdit,
                                                   Signature::Placement placement, bool isHtml )
@@ -536,14 +562,14 @@ QDataStream &KPIMIdentities::operator<<
 ( QDataStream &stream, const KPIMIdentities::Signature &sig )
 {
   return stream << static_cast<quint8>( sig.mType ) << sig.mUrl << sig.mText
-                << d( &sig )->saveLocation << d( &sig )->embeddedImages;
+                << d( &sig )->saveLocation << d( &sig )->embeddedImages<<d( &sig )->enabled;
 }
 
 QDataStream &KPIMIdentities::operator>>
 ( QDataStream &stream, KPIMIdentities::Signature &sig )
 {
   quint8 s;
-  stream >> s  >> sig.mUrl >> sig.mText >> d( &sig )->saveLocation >> d( &sig )->embeddedImages;
+  stream >> s  >> sig.mUrl >> sig.mText >> d( &sig )->saveLocation >> d( &sig )->embeddedImages >>d( &sig )->enabled;
   sig.mType = static_cast<Signature::Type>( s );
   return stream;
 }
@@ -553,6 +579,9 @@ bool Signature::operator== ( const Signature &other ) const
   if ( mType != other.mType ) {
     return false;
   }
+
+  if( d( this )->enabled != d( &other )->enabled )
+    return false;
 
   if ( mType == Inlined && mInlinedHtml ) {
     if ( d( this )->saveLocation != d( &other )->saveLocation )
@@ -629,4 +658,15 @@ void Signature::setText( const QString &text )
 void Signature::setType( Type type )
 {
   mType = type;
+}
+
+
+void Signature::setEnabledSignature(bool enabled)
+{
+  d( this )->enabled = enabled;
+}
+
+bool Signature::isEnabledSignature() const
+{
+  return d( this )->enabled;
 }

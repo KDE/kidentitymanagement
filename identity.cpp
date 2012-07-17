@@ -187,7 +187,9 @@ QDataStream &KPIMIdentities::operator<<
          << i.mPropertiesMap[s_signature]
          << i.dictionary()
          << i.xface()
-         << i.preferredCryptoMessageFormat();
+         << i.preferredCryptoMessageFormat()
+         << i.cc();
+
 }
 
 QDataStream &KPIMIdentities::operator>>
@@ -216,7 +218,9 @@ QDataStream &KPIMIdentities::operator>>
   >> i.mPropertiesMap[s_signature]
   >> i.mPropertiesMap[s_dict]
   >> i.mPropertiesMap[s_xface]
-  >> i.mPropertiesMap[s_prefcrypt];
+  >> i.mPropertiesMap[s_prefcrypt]
+  >> i.mPropertiesMap[s_cc];
+
   i.setProperty( s_uoid, uoid );
   return stream;
 }
@@ -395,6 +399,11 @@ QString Identity::replyToAddr() const
 QString Identity::bcc() const
 {
   return property( QLatin1String( s_bcc ) ).toString();
+}
+
+QString Identity::cc() const
+{
+  return property( QLatin1String( s_cc ) ).toString();
 }
 
 Signature &Identity::signature()
@@ -583,6 +592,12 @@ void Identity::setBcc( const QString &str )
 {
   setProperty( s_bcc, str );
 }
+
+void Identity::setCc( const QString &str )
+{
+  setProperty( s_cc, str );
+}
+
 
 void Identity::setIsDefault( bool flag )
 {
