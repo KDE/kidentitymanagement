@@ -157,6 +157,7 @@ void SignatureConfigurator::Private::init()
   q->mTextEdit = new KPIMTextEdit::TextEdit( q );
   static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableImageActions();
   static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableInsertHtmlActions();
+  static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableInsertTableActions();
   page_vlay->addWidget( q->mTextEdit, 2 );
   q->mTextEdit->setWhatsThis( i18n("Use this field to enter an arbitrary static signature."));
   // exclude SupportToPlainText.
@@ -200,6 +201,7 @@ void SignatureConfigurator::Private::init()
   q->mFormatToolBar->addAction( actionCollection->action( "add_image" ) );
   q->mFormatToolBar->addSeparator();
   q->mFormatToolBar->addAction( actionCollection->action( "insert_html" ) );
+  q->mFormatToolBar->addAction( actionCollection->action( "insert_table" ) );
 #endif
 
   hlay = new QHBoxLayout(); // inherits spacing
