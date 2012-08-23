@@ -68,6 +68,7 @@ namespace KPIMIdentities
   static const char s_xfaceenabled[] =  "X-FaceEnabled";
   static const char s_signature[] =  "Signature";
   static const char s_emailAliases[] = "Email Aliases";
+  static const char s_attachVcard[] = "Attach Vcard";
 
   KPIMIDENTITIES_EXPORT QDataStream &operator<<
   ( QDataStream &stream, const KPIMIdentities::Identity &ident );
@@ -216,6 +217,12 @@ class KPIMIDENTITIES_EXPORT Identity
       QString cc() const;
       void setCc( const QString& );
 
+      /**
+       *
+       * @since 4.10
+       */
+      bool attachVcard() const;
+      void setAttachVcard(bool attach);
 
       void setSignature( const Signature &sig );
       Signature &signature(); /* _not_ const! */
