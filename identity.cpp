@@ -188,7 +188,9 @@ QDataStream &KPIMIdentities::operator<<
          << i.dictionary()
          << i.xface()
          << i.preferredCryptoMessageFormat()
-         << i.cc();
+         << i.cc()
+         << i.attachVcard();
+
 
 }
 
@@ -219,7 +221,8 @@ QDataStream &KPIMIdentities::operator>>
   >> i.mPropertiesMap[s_dict]
   >> i.mPropertiesMap[s_xface]
   >> i.mPropertiesMap[s_prefcrypt]
-  >> i.mPropertiesMap[s_cc];
+  >> i.mPropertiesMap[s_cc]
+  >> i.mPropertiesMap[s_attachVcard];
 
   i.setProperty( s_uoid, uoid );
   return stream;
@@ -391,6 +394,11 @@ QString Identity::vCardFile() const
   return property( QLatin1String( s_vcard ) ).toString();
 }
 
+bool Identity::attachVcard() const
+{
+  return property( QLatin1String( s_attachVcard ) ).toBool();
+}
+
 QString Identity::replyToAddr() const
 {
   return property( QLatin1String( s_replyto ) ).toString();
@@ -548,6 +556,11 @@ void Identity::setVCardFile( const QString &str )
   setProperty( s_vcard, str );
 }
 
+void Identity::setAttachVcard(bool attachment)
+{
+  setProperty( s_attachVcard, attachment);
+}
+
 void Identity::setReplyToAddr( const QString&str )
 {
   setProperty( s_replyto, str );
@@ -597,6 +610,7 @@ void Identity::setCc( const QString &str )
 {
   setProperty( s_cc, str );
 }
+
 
 
 void Identity::setIsDefault( bool flag )
