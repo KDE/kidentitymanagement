@@ -340,7 +340,7 @@ class KPIMIDENTITIES_EXPORT Identity
 
       Signature mSignature;
       bool      mIsDefault;
-      QHash<QString,QVariant>   mPropertiesMap;
+      QHash<QString, QVariant>   mPropertiesMap;
 };
 
 }

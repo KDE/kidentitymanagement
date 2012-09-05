@@ -51,7 +51,7 @@ void IdentityTester::test_Aliases()
   QVERIFY( i1.matchesEmailAddress( "\"Lastname, Firstname\" <firstname.lastname@example.com>" ) );
   QCOMPARE( i1.emailAliases().size(), 2 );
 
-  KConfig testConfig("test");
+  KConfig testConfig( "test" );
   KConfigGroup testGroup( &testConfig, "testGroup" );
   i1.writeConfig( testGroup );
   i1.readConfig( testGroup );

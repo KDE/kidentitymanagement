@@ -219,7 +219,7 @@ void SignatureTester::testImages()
   sig2.insertIntoTextEdit( KPIMIdentities::Signature::End, Signature::AddSeparator | Signature::AddNewLines,
                            &edit );
   QCOMPARE( edit.embeddedImages().count(), 2 );
-  QCOMPARE( sig2.text(), QString( "Bla<img src=\"folder-new.png\">Bla<img src=\"arrow-up.png\">Bla") );
+  QCOMPARE( sig2.text(), QString( "Bla<img src=\"folder-new.png\">Bla<img src=\"arrow-up.png\">Bla" ) );
   sig2.writeConfig( group1 );
   entryList = dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks );
   QCOMPARE( entryList.count(), 2 );

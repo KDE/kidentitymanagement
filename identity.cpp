@@ -99,9 +99,9 @@ bool Identity::isNull() const
 void Identity::readConfig( const KConfigGroup &config )
 {
   // get all keys and convert them to our QHash.
-  QMap<QString,QString> entries = config.entryMap();
-  QMap<QString,QString>::const_iterator i = entries.constBegin();
-  QMap<QString,QString>::const_iterator end = entries.constEnd();
+  QMap<QString, QString> entries = config.entryMap();
+  QMap<QString, QString>::const_iterator i = entries.constBegin();
+  QMap<QString, QString>::const_iterator end = entries.constEnd();
   while ( i != end ) {
     if ( i.key() == s_emailAliases ) {
       // HACK: Read s_emailAliases as a stringlist
@@ -305,7 +305,7 @@ QString Identity::fullEmailAddr( void ) const
   }
 
   if ( needsQuotes ) {
-    result.insert( 0,'"' );
+    result.insert( 0, '"' );
     result += '"';
   }
 
@@ -558,7 +558,7 @@ void Identity::setVCardFile( const QString &str )
 
 void Identity::setAttachVcard(bool attachment)
 {
-  setProperty( s_attachVcard, attachment);
+  setProperty( s_attachVcard, attachment );
 }
 
 void Identity::setReplyToAddr( const QString&str )
@@ -645,12 +645,14 @@ void Identity::setSignature( const Signature &sig )
 bool Identity::matchesEmailAddress( const QString & addr ) const
 {
   const QString addrSpec = KPIMUtils::extractEmailAddress( addr ).toLower();
-  if ( addrSpec == primaryEmailAddress().toLower() )
+  if ( addrSpec == primaryEmailAddress().toLower() ) {
     return true;
+  }
 
   foreach ( const QString &alias, emailAliases() ) {
-    if ( alias.toLower() == addrSpec )
+    if ( alias.toLower() == addrSpec ) {
       return true;
+    }
   }
 
   return false;
