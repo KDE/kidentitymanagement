@@ -428,17 +428,20 @@ QString Identity::dictionary() const
 
 QString Identity::templates() const
 {
-  return property( QLatin1String( s_templates ) ).toString();
+  const QString str = property( QLatin1String( s_templates ) ).toString();
+  return verifyAkonadiId(str);
 }
 
 QString Identity::drafts() const
 {
-  return property( QLatin1String( s_drafts ) ).toString();
+  const QString str = property( QLatin1String( s_drafts ) ).toString();
+  return verifyAkonadiId(str);
 }
 
 QString Identity::fcc() const
 {
-  return property( QLatin1String( s_fcc ) ).toString();
+  const QString str = property( QLatin1String( s_fcc ) ).toString();
+  return verifyAkonadiId(str);
 }
 
 QString Identity::transport() const
@@ -640,4 +643,18 @@ bool Identity::matchesEmailAddress( const QString & addr ) const
   }
 
   return false;
+}
+
+QString Identity::verifyAkonadiId(const QString& str) const
+{
+  if(str.isEmpty())
+    return str;
+  bool ok = false;
+  const qlonglong val = str.toLongLong(&ok);
+  Q_UNUSED(val);
+  if(ok) {
+    return str;
+  } else {
+    return QString();
+  }
 }
