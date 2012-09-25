@@ -23,7 +23,7 @@
 
 #include "kpimidentities_export.h"
 #include "signature.h" // for Signature::Type
-#include <QtGui/QWidget>
+#include <QWidget>
 
 using KPIMIdentities::Signature;
 
