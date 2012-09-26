@@ -44,7 +44,7 @@ class SignaturePrivate
 {
   public:
     SignaturePrivate()
-      :enabled(false)
+      :enabled( false )
     {
     }
     struct EmbeddedImage
@@ -77,7 +77,7 @@ QDataStream &operator>> ( QDataStream &stream, SignaturePrivate::EmbeddedImagePt
 // This QHash is just a workaround around BIC issues, for more info see
 // http://techbase.kde.org/Policies/Binary_Compatibility_Issues_With_C++
 typedef QHash<const Signature*,SignaturePrivate*> SigPrivateHash;
-Q_GLOBAL_STATIC(SigPrivateHash, d_func)
+Q_GLOBAL_STATIC( SigPrivateHash, d_func )
 
 static SignaturePrivate* d( const Signature *sig )
 {
@@ -131,8 +131,9 @@ Signature::Signature ( const Signature &that )
 
 Signature& Signature::operator= ( const KPIMIdentities::Signature & that )
 {
-  if ( this == &that )
+  if ( this == &that ) {
     return *this;
+  }
 
   assignFrom( that );
   return *this;
@@ -161,7 +162,7 @@ QString Signature::rawText( bool *ok ) const
   case FromCommand:
     return textFromCommand( ok );
   };
-  kFatal(5325) << "Signature::type() returned unknown value!";
+  kFatal( 5325 ) << "Signature::type() returned unknown value!";
   return QString(); // make compiler happy
 }
 
@@ -214,7 +215,7 @@ QString Signature::textFromFile( bool *ok ) const
   if ( !KUrl( mUrl ).isLocalFile() &&
        !( QFileInfo( mUrl ).isRelative() &&
           QFileInfo( mUrl ).exists() ) ) {
-    kDebug(5325) << "Signature::textFromFile:"
+    kDebug( 5325 ) << "Signature::textFromFile:"
     << "non-local URLs are unsupported";
     if ( ok ) {
       *ok = false;
@@ -234,8 +235,9 @@ QString Signature::textFromFile( bool *ok ) const
 QString Signature::withSeparator( bool *ok ) const
 {
   QString signature = rawText( ok );
-  if ( ok && (*ok) == false )
+  if ( ok && ( *ok ) == false ) {
     return QString();
+  }
 
   if ( signature.isEmpty() ) {
     return signature; // don't add a separator in this case
@@ -247,9 +249,8 @@ QString Signature::withSeparator( bool *ok ) const
     newline.clear();
   }
 
-  if ( signature.startsWith( QString::fromLatin1( "-- " ) + newline )
-    || ( signature.indexOf( newline + QString::fromLatin1( "-- " ) +
-                            newline ) != -1 ) ) {
+  if ( signature.startsWith( QString::fromLatin1( "-- " ) + newline ) ||
+       ( signature.indexOf( newline + QString::fromLatin1( "-- " ) + newline ) != -1 ) ) {
     // already have signature separator at start of sig or inside sig:
     return signature;
   } else {
@@ -295,7 +296,7 @@ static QStringList findImageNames( const QString &htmlCode )
   // To complicated for us, so cheat and let a text edit do the hard work
   KPIMTextEdit::TextEdit edit;
   edit.setHtml( htmlCode );
-  foreach( const KPIMTextEdit::ImageWithNamePtr &image, edit.imagesWithName() ) {
+  foreach ( const KPIMTextEdit::ImageWithNamePtr &image, edit.imagesWithName() ) {
     ret << image->name;
   }
   return ret;
@@ -305,23 +306,24 @@ void Signature::cleanupImages() const
 {
   // Remove any images from the internal structure that are no longer there
   if ( isInlinedHtml() ) {
-    foreach( const SignaturePrivate::EmbeddedImagePtr &imageInList, d( this )->embeddedImages ) {
+    foreach ( const SignaturePrivate::EmbeddedImagePtr &imageInList, d( this )->embeddedImages ) {
       bool found = false;
-      foreach( const QString &imageInHtml, findImageNames( mText ) ) {
+      foreach ( const QString &imageInHtml, findImageNames( mText ) ) {
         if ( imageInHtml == imageInList->name ) {
           found = true;
           break;
         }
       }
-      if ( !found )
+      if ( !found ) {
         d( this )->embeddedImages.removeAll( imageInList );
+      }
     }
   }
 
   // Delete all the old image files
   if ( !d( this )->saveLocation.isEmpty() ) {
     QDir dir( d( this )->saveLocation );
-    foreach( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
+    foreach ( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
       if ( fileName.toLower().endsWith( QLatin1String( ".png" ) ) ) {
         kDebug() << "Deleting old image" << dir.path() + fileName;
         dir.remove( fileName );
@@ -333,7 +335,7 @@ void Signature::cleanupImages() const
 void Signature::saveImages() const
 {
   if ( isInlinedHtml() && !d( this )->saveLocation.isEmpty() ) {
-    foreach( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
+    foreach ( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
       QString location = d( this )->saveLocation + '/' + image->name;
       if ( !image->image.save( location, "PNG" ) ) {
         kWarning() << "Failed to save image" << location;
@@ -355,17 +357,18 @@ void Signature::readConfig( const KConfigGroup &config )
     mType = FromCommand;
     mUrl = config.readPathEntry( sigCommandKey, QString() );
   } else if ( sigType == sigTypeDisabledValue ) {
-    d(this)->enabled = false;
+    d( this )->enabled = false;
   }
-  if(mType!=Disabled)
-    d(this)->enabled = config.readEntry(sigEnabled,true);
+  if ( mType != Disabled ) {
+    d( this )->enabled = config.readEntry( sigEnabled, true );
+  }
 
   mText = config.readEntry( sigTextKey );
   d( this )->saveLocation = config.readEntry( sigImageLocation );
 
   if ( isInlinedHtml() && !d( this )->saveLocation.isEmpty() ) {
     QDir dir( d( this )->saveLocation );
-    foreach( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
+    foreach ( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
       if ( fileName.toLower().endsWith( QLatin1String( ".png" ) ) ) {
         QImage image;
         if ( image.load( dir.path() + '/' + fileName ) ) {
@@ -429,21 +432,23 @@ static void insertSignatureHelper( const QString &signature,
     QTextCursor oldCursor = cursor;
     cursor.beginEditBlock();
 
-    if ( placement == Signature::End )
+    if ( placement == Signature::End ) {
       cursor.movePosition( QTextCursor::End );
-    else if ( placement == Signature::Start )
+    } else if ( placement == Signature::Start ) {
       cursor.movePosition( QTextCursor::Start );
-    else if ( placement == Signature::AtCursor )
+    } else if ( placement == Signature::AtCursor ) {
       cursor.movePosition( QTextCursor::StartOfLine );
+    }
     textEdit->setTextCursor( cursor );
 
 
     QString lineSep;
     if ( addNewlines ) {
-      if ( isHtml )
+      if ( isHtml ) {
         lineSep = QLatin1String( "<br>" );
-      else
+      } else {
         lineSep = QLatin1Char( '\n' );
+      }
     }
 
     // Insert the signature and newlines depending on where it was inserted.
@@ -462,15 +467,17 @@ static void insertSignatureHelper( const QString &signature,
       }
     } else if ( placement == Signature::Start || placement == Signature::AtCursor ) {
       if ( isHtml ) {
-        if ( isCursorAtEndOfLine( cursor ) )
+        if ( isCursorAtEndOfLine( cursor ) ) {
           textEdit->insertHtml( signature );
-        else
+        } else {
           textEdit->insertHtml( signature + lineSep );
+        }
       } else {
-        if ( isCursorAtEndOfLine( cursor ) )
+        if ( isCursorAtEndOfLine( cursor ) ) {
           textEdit->insertPlainText( signature );
-        else
+        } else {
           textEdit->insertPlainText( signature + lineSep );
+        }
       }
     }
 
@@ -481,8 +488,9 @@ static void insertSignatureHelper( const QString &signature,
     // if the signature was added before or after the cursor, and just decides
     // that it was added before (and the cursor moves to the end, but it should
     // not when appending a signature). See bug 167961
-    if ( hackForCursorsAtEnd )
+    if ( hackForCursorsAtEnd ) {
       oldCursor.setPosition( oldCursorPos );
+    }
 
     textEdit->setTextCursor( oldCursor );
     textEdit->ensureCursorVisible();
@@ -498,14 +506,15 @@ static void insertSignatureHelper( const QString &signature,
 void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
                                     Placement placement, bool addSeparator )
 {
-  if(!isEnabledSignature()) {
+  if ( !isEnabledSignature() ) {
     return;
   }
   QString signature;
-  if ( addSeparator )
+  if ( addSeparator ) {
     signature = withSeparator();
-  else
+  } else {
     signature = rawText();
+  }
   insertSignatureHelper( signature, textEdit, placement,
                    ( isInlinedHtml() &&
                      type() == KPIMIdentities::Signature::Inlined ),
@@ -515,27 +524,28 @@ void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
 void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
                                     KPIMTextEdit::TextEdit *textEdit ) const
 {
-  insertSignatureText(placement,addedText, textEdit, false);
+  insertSignatureText( placement, addedText, textEdit, false );
 }
 
 void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
                                     KPIMTextEdit::TextEdit *textEdit, bool forceDisplay ) const
 {
-  insertSignatureText(placement,addedText, textEdit, forceDisplay);
+  insertSignatureText( placement, addedText, textEdit, forceDisplay );
 }
 
 void Signature::insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
 {
-  if(!forceDisplay) {
-    if(!isEnabledSignature()) {
+  if ( !forceDisplay ) {
+    if ( !isEnabledSignature() ) {
       return;
     }
   }
   QString signature;
-  if ( addedText & AddSeparator )
+  if ( addedText & AddSeparator ) {
     signature = withSeparator();
-  else
+  } else {
     signature = rawText();
+  }
   insertSignatureHelper( signature, textEdit, placement,
                          ( isInlinedHtml() &&
                            type() == KPIMIdentities::Signature::Inlined ),
@@ -543,7 +553,7 @@ void Signature::insertSignatureText(Placement placement, AddedText addedText, KP
 
   // We added the text of the signature above, now it is time to add the images as well.
   if ( isInlinedHtml() ) {
-    foreach( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
+    foreach ( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
       textEdit->loadImage( image->image, image->name, image->name );
     }
   }
@@ -562,7 +572,7 @@ QDataStream &KPIMIdentities::operator<<
 ( QDataStream &stream, const KPIMIdentities::Signature &sig )
 {
   return stream << static_cast<quint8>( sig.mType ) << sig.mUrl << sig.mText
-                << d( &sig )->saveLocation << d( &sig )->embeddedImages<<d( &sig )->enabled;
+                << d( &sig )->saveLocation << d( &sig )->embeddedImages << d( &sig )->enabled;
 }
 
 QDataStream &KPIMIdentities::operator>>
@@ -580,14 +590,17 @@ bool Signature::operator== ( const Signature &other ) const
     return false;
   }
 
-  if( d( this )->enabled != d( &other )->enabled )
+  if ( d( this )->enabled != d( &other )->enabled ) {
     return false;
+  }
 
   if ( mType == Inlined && mInlinedHtml ) {
-    if ( d( this )->saveLocation != d( &other )->saveLocation )
+    if ( d( this )->saveLocation != d( &other )->saveLocation ) {
       return false;
-    if ( d( this )->embeddedImages != d( &other )->embeddedImages )
+    }
+    if ( d( this )->embeddedImages != d( &other )->embeddedImages ) {
       return false;
+    }
   }
 
   switch ( mType ) {

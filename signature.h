@@ -226,7 +226,7 @@ namespace KPIMIdentities
 
       /// Describes which additional parts should be added to the signature
       typedef QFlags<AddedTextFlag> AddedText;
-       
+
      /** Inserts this signature into the given text edit.
        * The cursor position is preserved.
        * For undo/redo, this is treated as one operation.
@@ -320,7 +320,7 @@ namespace KPIMIdentities
       bool mInlinedHtml;
   };
 
-  Q_DECLARE_OPERATORS_FOR_FLAGS(Signature::AddedText)
+  Q_DECLARE_OPERATORS_FOR_FLAGS( Signature::AddedText )
 
 }
 

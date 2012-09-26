@@ -99,9 +99,9 @@ bool Identity::isNull() const
 void Identity::readConfig( const KConfigGroup &config )
 {
   // get all keys and convert them to our QHash.
-  QMap<QString,QString> entries = config.entryMap();
-  QMap<QString,QString>::const_iterator i = entries.constBegin();
-  QMap<QString,QString>::const_iterator end = entries.constEnd();
+  QMap<QString, QString> entries = config.entryMap();
+  QMap<QString, QString>::const_iterator i = entries.constBegin();
+  QMap<QString, QString>::const_iterator end = entries.constEnd();
   while ( i != end ) {
     if ( i.key() == s_emailAliases ) {
       // HACK: Read s_emailAliases as a stringlist
@@ -305,7 +305,7 @@ QString Identity::fullEmailAddr( void ) const
   }
 
   if ( needsQuotes ) {
-    result.insert( 0,'"' );
+    result.insert( 0, '"' );
     result += '"';
   }
 
@@ -436,17 +436,20 @@ QString Identity::dictionary() const
 
 QString Identity::templates() const
 {
-  return property( QLatin1String( s_templates ) ).toString();
+  const QString str = property( QLatin1String( s_templates ) ).toString();
+  return verifyAkonadiId(str);
 }
 
 QString Identity::drafts() const
 {
-  return property( QLatin1String( s_drafts ) ).toString();
+  const QString str = property( QLatin1String( s_drafts ) ).toString();
+  return verifyAkonadiId(str);
 }
 
 QString Identity::fcc() const
 {
-  return property( QLatin1String( s_fcc ) ).toString();
+  const QString str = property( QLatin1String( s_fcc ) ).toString();
+  return verifyAkonadiId(str);
 }
 
 QString Identity::transport() const
@@ -558,7 +561,7 @@ void Identity::setVCardFile( const QString &str )
 
 void Identity::setAttachVcard(bool attachment)
 {
-  setProperty( s_attachVcard, attachment);
+  setProperty( s_attachVcard, attachment );
 }
 
 void Identity::setReplyToAddr( const QString&str )
@@ -645,13 +648,29 @@ void Identity::setSignature( const Signature &sig )
 bool Identity::matchesEmailAddress( const QString & addr ) const
 {
   const QString addrSpec = KPIMUtils::extractEmailAddress( addr ).toLower();
-  if ( addrSpec == primaryEmailAddress().toLower() )
+  if ( addrSpec == primaryEmailAddress().toLower() ) {
     return true;
+  }
 
   foreach ( const QString &alias, emailAliases() ) {
-    if ( alias.toLower() == addrSpec )
+    if ( alias.toLower() == addrSpec ) {
       return true;
+    }
   }
 
   return false;
+}
+
+QString Identity::verifyAkonadiId(const QString& str) const
+{
+  if(str.isEmpty())
+    return str;
+  bool ok = false;
+  const qlonglong val = str.toLongLong(&ok);
+  Q_UNUSED(val);
+  if(ok) {
+    return str;
+  } else {
+    return QString();
+  }
 }

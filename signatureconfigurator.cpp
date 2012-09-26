@@ -90,10 +90,10 @@ void SignatureConfigurator::Private::init()
   vlay->setMargin( 0 );
 
   // "enable signatue" checkbox:
-  q->mEnableCheck = new QCheckBox( i18n("&Enable signature"), q );
+  q->mEnableCheck = new QCheckBox( i18n( "&Enable signature" ), q );
   q->mEnableCheck->setWhatsThis(
-      i18n("Check this box if you want KMail to append a signature to mails "
-            "written with this identity."));
+      i18n( "Check this box if you want KMail to append a signature to mails "
+            "written with this identity." ) );
   vlay->addWidget( q->mEnableCheck );
 
   // "obtain signature text from" combo and label:
@@ -102,17 +102,16 @@ void SignatureConfigurator::Private::init()
   q->mSourceCombo = new KComboBox( q );
   q->mSourceCombo->setEditable( false );
   q->mSourceCombo->setWhatsThis(
-      i18n("Click on the widgets below to obtain help on the input methods."));
+      i18n( "Click on the widgets below to obtain help on the input methods." ) );
   q->mSourceCombo->setEnabled( false ); // since !mEnableCheck->isChecked()
   q->mSourceCombo->addItems( QStringList()
-                  << i18nc("continuation of \"obtain signature text from\"",
-                          "Input Field Below")
-                  << i18nc("continuation of \"obtain signature text from\"",
-                          "File")
-                  << i18nc("continuation of \"obtain signature text from\"",
-                          "Output of Command")
-                  );
-  label = new QLabel( i18n("Obtain signature &text from:"), q );
+                  << i18nc( "continuation of \"obtain signature text from\"",
+                            "Input Field Below" )
+                  << i18nc( "continuation of \"obtain signature text from\"",
+                            "File" )
+                  << i18nc( "continuation of \"obtain signature text from\"",
+                            "Output of Command" ) );
+  label = new QLabel( i18n( "Obtain signature &text from:" ), q );
   label->setBuddy( q->mSourceCombo );
   label->setEnabled( false ); // since !mEnableCheck->isChecked()
   hlay->addWidget( label );
@@ -159,7 +158,7 @@ void SignatureConfigurator::Private::init()
   static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableInsertHtmlActions();
   static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableInsertTableActions();
   page_vlay->addWidget( q->mTextEdit, 2 );
-  q->mTextEdit->setWhatsThis( i18n("Use this field to enter an arbitrary static signature."));
+  q->mTextEdit->setWhatsThis( i18n( "Use this field to enter an arbitrary static signature." ) );
   // exclude SupportToPlainText.
   q->mTextEdit->setRichTextSupport( KRichTextWidget::FullTextFormattingSupport |
       KRichTextWidget::FullListSupport |
@@ -206,7 +205,7 @@ void SignatureConfigurator::Private::init()
 
   hlay = new QHBoxLayout(); // inherits spacing
   page_vlay->addLayout( hlay );
-  q->mHtmlCheck = new QCheckBox( i18n("&Use HTML"), page );
+  q->mHtmlCheck = new QCheckBox( i18n( "&Use HTML" ), page );
   q->connect( q->mHtmlCheck, SIGNAL(clicked()),
               q, SLOT(slotSetHtml()) );
   hlay->addWidget( q->mHtmlCheck );
@@ -224,18 +223,18 @@ void SignatureConfigurator::Private::init()
   page_vlay->addLayout( hlay );
   q->mFileRequester = new KUrlRequester( page );
   q->mFileRequester->setWhatsThis(
-      i18n("Use this requester to specify a text file that contains your "
+      i18n( "Use this requester to specify a text file that contains your "
             "signature. It will be read every time you create a new mail or "
-            "append a new signature."));
-  label = new QLabel( i18n("S&pecify file:"), page );
+            "append a new signature." ) );
+  label = new QLabel( i18n( "S&pecify file:" ), page );
   label->setBuddy( q->mFileRequester );
   hlay->addWidget( label );
   hlay->addWidget( q->mFileRequester, 1 );
   q->mFileRequester->button()->setAutoDefault( false );
   q->connect( q->mFileRequester, SIGNAL(textChanged(QString)),
               q, SLOT(slotEnableEditButton(QString)) );
-  q->mEditButton = new QPushButton( i18n("Edit &File"), page );
-  q->mEditButton->setWhatsThis( i18n("Opens the specified file in a text editor."));
+  q->mEditButton = new QPushButton( i18n( "Edit &File" ), page );
+  q->mEditButton->setWhatsThis( i18n( "Opens the specified file in a text editor." ) );
   q->connect( q->mEditButton, SIGNAL(clicked()),
               q, SLOT(slotEdit()) );
   q->mEditButton->setAutoDefault( false );
@@ -246,8 +245,8 @@ void SignatureConfigurator::Private::init()
   // page 2: "signature command" requester and label:
   ++pageno;
   page = new QWidget( widgetStack );
-  widgetStack->insertWidget( pageno,page );
-  page_vlay = new QVBoxLayout( page  );
+  widgetStack->insertWidget( pageno, page );
+  page_vlay = new QVBoxLayout( page );
   page_vlay->setMargin( 0 );
   hlay = new QHBoxLayout(); // inherits spacing
   page_vlay->addLayout( hlay );
@@ -255,12 +254,12 @@ void SignatureConfigurator::Private::init()
   q->mCommandEdit->setCompletionObject( new KShellCompletion() );
   q->mCommandEdit->setAutoDeleteCompletionObject( true );
   q->mCommandEdit->setWhatsThis(
-      i18n("You can add an arbitrary command here, either with or without path "
+      i18n( "You can add an arbitrary command here, either with or without path "
             "depending on whether or not the command is in your Path. For every "
             "new mail, KMail will execute the command and use what it outputs (to "
             "standard output) as a signature. Usual commands for use with this "
-            "mechanism are \"fortune\" or \"ksig -random\"."));
-  label = new QLabel( i18n("S&pecify command:"), page );
+            "mechanism are \"fortune\" or \"ksig -random\"." ) );
+  label = new QLabel( i18n( "S&pecify command:" ), page );
   label->setBuddy( q->mCommandEdit );
   hlay->addWidget( label );
   hlay->addWidget( q->mCommandEdit, 1 );
@@ -301,7 +300,7 @@ void SignatureConfigurator::Private::init()
   void SignatureConfigurator::setSignatureType( Signature::Type type )
   {
     int idx = 0;
-    switch( type ) {
+    switch ( type ) {
     case Signature::Inlined:     idx = 0; break;
     case Signature::FromFile:    idx = 1; break;
     case Signature::FromCommand: idx = 2; break;
@@ -322,9 +321,9 @@ void SignatureConfigurator::Private::init()
 
     // Force the filename to be relative to ~ instead of $PWD depending
     // on the rest of the code (KRun::run in Edit and KFileItem on save)
-    if ( !file.isEmpty() && QFileInfo( file ).isRelative() )
-        file = QDir::home().absolutePath() + QDir::separator() + file;
-
+    if ( !file.isEmpty() && QFileInfo( file ).isRelative() ) {
+      file = QDir::home().absolutePath() + QDir::separator() + file;
+    }
     return file;
   }
 
@@ -353,10 +352,11 @@ void SignatureConfigurator::Private::init()
       sig.setInlinedHtml( d->inlinedHtml );
       sig.setText( d->inlinedHtml ? asCleanedHTML() : mTextEdit->textOrHtml() );
       if ( d->inlinedHtml ) {
-        if ( !d->imageLocation.isEmpty() )
+        if ( !d->imageLocation.isEmpty() ) {
           sig.setImageLocation( d->imageLocation );
+        }
         KPIMTextEdit::ImageWithNameList images = static_cast< KPIMTextEdit::TextEdit*>( mTextEdit )->imagesWithName();
-        foreach( const KPIMTextEdit::ImageWithNamePtr &image, images ) {
+        foreach ( const KPIMTextEdit::ImageWithNamePtr &image, images ) {
           sig.addImage( image->image, image->name );
         }
       }
@@ -371,7 +371,7 @@ void SignatureConfigurator::Private::init()
       /* do nothing */
       break;
     }
-    sig.setEnabledSignature(isSignatureEnabled());
+    sig.setEnabledSignature( isSignatureEnabled() );
     sig.setType( sigType );
     return sig;
   }
@@ -381,26 +381,29 @@ void SignatureConfigurator::Private::init()
     setSignatureType( sig.type() );
     setSignatureEnabled( sig.isEnabledSignature() );
 
-    if ( sig.isInlinedHtml() )
+    if ( sig.isInlinedHtml() ) {
       mHtmlCheck->setCheckState( Qt::Checked );
-    else
+    } else {
       mHtmlCheck->setCheckState( Qt::Unchecked );
+    }
     slotSetHtml();
 
     // Let insertIntoTextEdit() handle setting the text, as that function also adds the images.
     mTextEdit->clear();
     KPIMTextEdit::TextEdit * const pimEdit = static_cast<KPIMTextEdit::TextEdit*>( mTextEdit );
     sig.insertIntoTextEdit( KPIMIdentities::Signature::Start, KPIMIdentities::Signature::AddNothing,
-                            pimEdit,true );
-    if ( sig.type() == Signature::FromFile )
+                            pimEdit, true );
+    if ( sig.type() == Signature::FromFile ) {
       setFileURL( sig.url() );
-    else
+    } else {
       setFileURL( QString() );
+    }
 
-    if ( sig.type() == Signature::FromCommand )
+    if ( sig.type() == Signature::FromCommand ) {
       setCommandURL( sig.url() );
-    else
+    } else {
       setCommandURL( QString() );
+    }
   }
 
   void SignatureConfigurator::slotEnableEditButton( const QString & url )
@@ -414,7 +417,7 @@ void SignatureConfigurator::Private::init()
     // slotEnableEditButton should prevent this assert from being hit:
     assert( !url.isEmpty() );
 
-    (void)KRun::runUrl( KUrl( url ), QString::fromLatin1("text/plain"), this );
+    (void)KRun::runUrl( KUrl( url ), QString::fromLatin1( "text/plain" ), this );
   }
 
   QString SignatureConfigurator::asCleanedHTML() const
@@ -426,8 +429,8 @@ void SignatureConfigurator::Private::init()
     QString html = textDocument.toHtml();
 
     // Now remove each line from the text, the result is clean html.
-    foreach( const QString& line, html.split( '\n' ) ){
-        text.remove( line + '\n' );
+    foreach ( const QString& line, html.split( '\n' ) ) {
+      text.remove( line + '\n' );
     }
     return text;
   }
@@ -436,7 +439,7 @@ void SignatureConfigurator::Private::init()
   void SignatureConfigurator::slotSetHtml()
   {
     if ( mHtmlCheck->checkState() == Qt::Unchecked ) {
-      mHtmlCheck->setText( i18n("&Use HTML") );
+      mHtmlCheck->setText( i18n( "&Use HTML" ) );
 #ifndef QT_NO_TOOLBAR
       mEditToolBar->setVisible( false );
       mEditToolBar->setEnabled( false );
@@ -447,7 +450,7 @@ void SignatureConfigurator::Private::init()
       d->inlinedHtml = false;
     }
     else {
-      mHtmlCheck->setText( i18n("&Use HTML (disabling removes formatting)") );
+      mHtmlCheck->setText( i18n( "&Use HTML (disabling removes formatting)" ) );
       d->inlinedHtml = true;
 #ifndef QT_NO_TOOLBAR
       mEditToolBar->setVisible( true );

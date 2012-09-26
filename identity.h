@@ -318,6 +318,10 @@ class KPIMIDENTITIES_EXPORT Identity
       void setUoid( uint aUoid );
 
     protected:
+      /** during migration when it failed it can be a string => not a qlonglong akonadi::id => fix it*/
+      /** remove it in kde5 */
+      QString verifyAkonadiId(const QString& str) const;
+
       /** @return true if the signature is read from the output of a command */
       bool signatureIsCommand() const;
 
@@ -340,7 +344,7 @@ class KPIMIDENTITIES_EXPORT Identity
 
       Signature mSignature;
       bool      mIsDefault;
-      QHash<QString,QVariant>   mPropertiesMap;
+      QHash<QString, QVariant>   mPropertiesMap;
 };
 
 }
