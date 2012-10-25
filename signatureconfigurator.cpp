@@ -476,4 +476,3 @@ void SignatureConfigurator::Private::init()
 
 }
 
-#include "signatureconfigurator.moc"

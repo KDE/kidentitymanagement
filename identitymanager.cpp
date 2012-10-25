@@ -619,4 +619,3 @@ void KPIMIdentities::IdentityManager::slotIdentitiesChanged( const QString &id )
   }
 }
 
-#include "identitymanager.moc"
