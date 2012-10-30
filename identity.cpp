@@ -199,7 +199,6 @@ QDataStream &KPIMIdentities::operator>>
 ( QDataStream &stream, KPIMIdentities::Identity &i )
 {
   quint32 uoid;
-  QString format;
   stream
   >> uoid
   >> i.mPropertiesMap[s_identity]
