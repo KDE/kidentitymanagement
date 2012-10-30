@@ -189,7 +189,8 @@ QDataStream &KPIMIdentities::operator<<
          << i.xface()
          << i.preferredCryptoMessageFormat()
          << i.cc()
-         << i.attachVcard();
+         << i.attachVcard()
+         << i.autocorrectionLanguage();
 
 
 }
@@ -222,7 +223,8 @@ QDataStream &KPIMIdentities::operator>>
   >> i.mPropertiesMap[s_xface]
   >> i.mPropertiesMap[s_prefcrypt]
   >> i.mPropertiesMap[s_cc]
-  >> i.mPropertiesMap[s_attachVcard];
+  >> i.mPropertiesMap[s_attachVcard]
+  >> i.mPropertiesMap[s_autocorrectionLanguage];
 
   i.setProperty( s_uoid, uoid );
   return stream;
@@ -487,6 +489,11 @@ QString Identity::signatureFile() const
   return mSignature.url();
 }
 
+QString Identity::autocorrectionLanguage() const
+{
+  return property( QLatin1String( s_autocorrectionLanguage ) ).toString();
+}
+
 // --------------------- Setters -----------------------------//
 
 void Identity::setProperty( const QString &key, const QVariant &value )
@@ -614,8 +621,6 @@ void Identity::setCc( const QString &str )
   setProperty( s_cc, str );
 }
 
-
-
 void Identity::setIsDefault( bool flag )
 {
   mIsDefault = flag;
@@ -673,4 +678,9 @@ QString Identity::verifyAkonadiId(const QString& str) const
   } else {
     return QString();
   }
+}
+
+void Identity::setAutocorrectionLanguage(const QString& language)
+{
+  setProperty( s_autocorrectionLanguage, language );
 }
