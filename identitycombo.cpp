@@ -162,4 +162,3 @@ IdentityManager* IdentityCombo::identityManager() const
 }
 
 
-#include "identitycombo.moc"

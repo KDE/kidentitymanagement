@@ -69,6 +69,7 @@ namespace KPIMIdentities
   static const char s_signature[] =  "Signature";
   static const char s_emailAliases[] = "Email Aliases";
   static const char s_attachVcard[] = "Attach Vcard";
+  static const char s_autocorrectionLanguage[] = "Autocorrection Language";
 
   KPIMIDENTITIES_EXPORT QDataStream &operator<<
   ( QDataStream &stream, const KPIMIdentities::Identity &ident );
@@ -223,6 +224,12 @@ class KPIMIDENTITIES_EXPORT Identity
        */
       bool attachVcard() const;
       void setAttachVcard(bool attach);
+
+      /**
+       * @since 4.10
+       */
+      QString autocorrectionLanguage() const;
+      void setAutocorrectionLanguage(const QString& language);
 
       void setSignature( const Signature &sig );
       Signature &signature(); /* _not_ const! */
