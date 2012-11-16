@@ -618,7 +618,7 @@ bool Signature::operator== ( const Signature &other ) const
 QString Signature::toPlainText() const
 {
   QString sigText = rawText();
-  if ( isInlinedHtml() && type() == Inlined ) {
+  if ( !sigText.isEmpty() && isInlinedHtml() && type() == Inlined ) {
     // Use a QTextDocument as a helper, it does all the work for us and
     // strips all HTML tags.
     QTextDocument helper;
