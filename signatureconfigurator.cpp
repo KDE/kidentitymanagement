@@ -179,6 +179,7 @@ void SignatureConfigurator::Private::init()
   q->mEditToolBar->addAction( actionCollection->action( "format_text_background_color" ) );
   q->mEditToolBar->addAction( actionCollection->action( "format_font_family" ) );
   q->mEditToolBar->addAction( actionCollection->action( "format_font_size" ) );
+  q->mEditToolBar->addAction( actionCollection->action( "format_reset" ) );
 
   q->mFormatToolBar->addAction( actionCollection->action( "format_list_style" ) );
   q->mFormatToolBar->addAction( actionCollection->action( "format_list_indent_more" ) );
