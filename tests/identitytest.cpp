@@ -69,5 +69,5 @@ void IdentityTester::test_Aliases()
   manager.commit();
 
   QCOMPARE( manager.allEmails().size(), 4 );
-  QCOMPARE( manager.identityForAddress( "firstname@example.com" ).identityName().toAscii().data(), "Test1" );
+  QCOMPARE( manager.identityForAddress( "firstname@example.com" ).identityName().toLatin1().data(), "Test1" );
 }
