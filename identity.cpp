@@ -59,6 +59,7 @@ Identity::Identity( const QString &id, const QString &fullName,
   setProperty( s_organization, organization );
   setProperty( s_replyto, replyToAddr );
   setDictionary( Sonnet::defaultLanguageName() );
+  setProperty( s_disabledFcc, false );
 }
 
 Identity::~Identity()
@@ -190,7 +191,8 @@ QDataStream &KPIMIdentities::operator<<
          << i.preferredCryptoMessageFormat()
          << i.cc()
          << i.attachVcard()
-         << i.autocorrectionLanguage();
+         << i.autocorrectionLanguage()
+         << i.disabledFcc();
 
 
 }
@@ -223,7 +225,8 @@ QDataStream &KPIMIdentities::operator>>
   >> i.mPropertiesMap[s_prefcrypt]
   >> i.mPropertiesMap[s_cc]
   >> i.mPropertiesMap[s_attachVcard]
-  >> i.mPropertiesMap[s_autocorrectionLanguage];
+  >> i.mPropertiesMap[s_autocorrectionLanguage]
+  >> i.mPropertiesMap[s_disabledFcc];
 
   i.setProperty( s_uoid, uoid );
   return stream;
@@ -682,4 +685,20 @@ QString Identity::verifyAkonadiId(const QString& str) const
 void Identity::setAutocorrectionLanguage(const QString& language)
 {
   setProperty( s_autocorrectionLanguage, language );
+}
+
+
+bool Identity::disabledFcc() const
+{
+  const QVariant var = property(QLatin1String( s_disabledFcc ));
+  if(var.isNull()) {
+     return false;
+  } else {
+     return var.toBool();
+  }
+}
+
+void Identity::setDisabledFcc(bool disable)
+{
+  setProperty( s_disabledFcc, disable );
 }
