@@ -84,7 +84,11 @@ bool Identity::isNull() const
       ++i;
       continue;
     }
-
+    // Take into account that disableFcc == false for a null identity 
+    if( i.key() == s_disabledFcc && i.value().toBool() == false ) {
+      ++i;
+      continue;
+    }
     // The uoid is 0 by default, so ignore this
     if ( !( i.key() == s_uoid && i.value().toUInt() == 0 ) ) {
       if ( !i.value().isNull() ||
