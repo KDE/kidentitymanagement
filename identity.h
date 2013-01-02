@@ -190,6 +190,7 @@ class KPIMIDENTITIES_EXPORT Identity
       void setEmailAliases( const QStringList & aliases );
 
       /**
+       * @param addr the email address to check
        * @return true if this identity contains the email address @p addr, either as primary address
        *         or as alias
        *
@@ -241,10 +242,11 @@ class KPIMIDENTITIES_EXPORT Identity
       void setSignature( const Signature &sig );
       Signature &signature(); /* _not_ const! */
 
-      /** @return the signature with '-- \n' prepended to it if it is not
+      /**
+      @return the signature with '-- \n' prepended to it if it is not
       present already.
       No newline in front of or after the signature is added.
-      If @p ok is a valid bool pointer, @p ok is set to true or false depending
+      @param ok if a valid bool pointer, it is set to @c true or @c false depending
       on whether the signature could successfully be obtained.
       */
       QString signatureText( bool *ok = 0 ) const;
@@ -294,7 +296,9 @@ class KPIMIDENTITIES_EXPORT Identity
       bool isXFaceEnabled() const;
       void setXFaceEnabled( const bool );
 
-      /** Get random properties */
+      /** Get random properties
+       *  @param key the key of the property to get
+       */
       QVariant property( const QString &key ) const;
       /** Set random properties, when @p value is empty (for QStrings) or null,
       the property is deleted. */
@@ -328,7 +332,9 @@ class KPIMIDENTITIES_EXPORT Identity
           instead.  */
       void setIsDefault( bool flag );
 
-      /** set the uiod */
+      /** set the uiod
+       *  @param aUoid the uoid to set
+       */
       void setUoid( uint aUoid );
 
     protected:

@@ -128,11 +128,15 @@ namespace KPIMIdentities
       /** Destructor */
       ~Signature();
 
-      /** @return the raw signature text as entered resp. read from file. */
+      /** @return the raw signature text as entered resp. read from file.
+          @param ok set to @c true if reading succeeded
+       */
       QString rawText( bool *ok=0 ) const;
 
       /** @return the signature text with a "-- \n" separator added, if
-          necessary. A newline will not be appended or prepended. */
+          necessary. A newline will not be appended or prepended.
+          @param ok set to @c true if reading succeeded
+       */
       QString withSeparator( bool *ok=0 ) const;
 
       /** Set the signature text and mark this signature as being of
@@ -181,7 +185,7 @@ namespace KPIMIdentities
        *          be stale inline image files
        *
        * Like with addImage(), the SignatureConfigurator will handle this for you.
-       *
+       * @param path the path to set as image location
        * @since 4.4
        */
       void setImageLocation( const QString &path );
@@ -202,7 +206,7 @@ namespace KPIMIdentities
 
       /**
        * @brief setEnabledSignature
-       * @param enabled
+       * @param enabled enables signature if set as @c true
        * @since 4.9
        */
       void setEnabledSignature(bool enabled);

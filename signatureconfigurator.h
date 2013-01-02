@@ -127,6 +127,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
 
     /**
        Convenience method. Sets the widgets according to @p sig
+       @param sig the signature to configure
     **/
     void setSignature( const Signature & sig );
 
@@ -135,6 +136,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
      * Needs to be called before calling setSignature(), as each signature should use
      * a different location.
      * The directory needs to exist, it will not be created.
+     * @param path the image location to set
      * @since 4.4
      * @sa Signature::setImageLocation
      */

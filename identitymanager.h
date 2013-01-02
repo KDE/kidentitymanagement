@@ -66,10 +66,14 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
        */
       typedef ConstIterator const_iterator;
 
-      /** @return a unique name for a new identity based on @p name */
+      /** @return a unique name for a new identity based on @p name
+       *  @param name the name of the base identity
+       */
       QString makeUnique( const QString &name ) const;
 
-      /** @return whether the @p name is unique */
+      /** @return whether the @p name is unique
+       *  @param name the name to be examined
+       */
       bool isUnique( const QString &name ) const;
 
       /** Commit changes to disk and emit changed() if necessary. */
@@ -99,17 +103,20 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
 
       /** @return an identity whose address matches any in @p addresses
                   or @ref Identity::null if no such identity exists.
+          @param addresses the string of addresses to scan for matches
       **/
       const Identity &identityForAddress( const QString &addresses ) const;
 
       /** @return true if @p addressList contains any of our addresses,
                   false otherwise.
+          @param addressList the addressList to examine
           @see #identityForAddress
       **/
       bool thatIsMe( const QString &addressList ) const;
 
       /** @return the identity with Unique Object Identifier (UOID) @p
                   uoid or @ref Identity::null if not found.
+          @param uoid the Unique Object Identifier to find identity with
        **/
       const Identity &identityForUoid( uint uoid ) const;
 
@@ -117,6 +124,7 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
 
           @return the identity with Unique Object Identifier (UOID) @p
                   uoid or the default identity if not found.
+          @param uoid the Unique Object Identifier to find identity with
       **/
       const Identity &identityForUoidOrDefault( uint uoid ) const;
 
@@ -126,7 +134,8 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
       /** Sets the identity with Unique Object Identifier (UOID) @p uoid
           to be new the default identity. As usual, use @ref commit to
           make this permanent.
-
+          
+          @param uoid the default identity to set
           @return false if an identity with UOID @p uoid was not found
       **/
       bool setAsDefault( uint uoid );
@@ -134,6 +143,7 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
       /** @return the identity named @p identityName. This method returns a
           reference to the identity that can be modified. To let others
           see this change, use @ref commit.
+          @param identityName the identity name to return modifiable reference
       **/
       Identity &modifyIdentityForName( const QString &identityName );
 
@@ -146,6 +156,7 @@ class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
       /** Removes the identity with name @p identityName
           Will return false if the identity is not found,
           or when one tries to remove the last identity.
+          @param identityName the identity to remove
        **/
       bool removeIdentity( const QString &identityName );
 
