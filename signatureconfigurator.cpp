@@ -72,7 +72,7 @@ class SignatureConfigurator::Private
 //@endcond
 
 SignatureConfigurator::Private::Private( SignatureConfigurator *parent )
-  :q( parent )
+  :q( parent ), inlinedHtml( true )
 {
 }
 
