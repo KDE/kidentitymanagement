@@ -27,6 +27,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include <kemailsettings.h> // for IdentityEntry::fromControlCenter()
 #include <klocale.h>
+#include <klocalizedstring.h>
 #include <kglobal.h>
 #include <kdebug.h>
 #include <kconfig.h>

@@ -22,7 +22,7 @@
 #include "identity.h"
 
 #include <kactioncollection.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kdebug.h>
 #include <kdialog.h>
 #include <klineedit.h>
