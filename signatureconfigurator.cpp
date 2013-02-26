@@ -30,6 +30,7 @@
 #include <kshellcompletion.h>
 #include <ktoolbar.h>
 #include <krun.h>
+#include <KUrl>
 #include <KComboBox>
 #include <KStandardDirs>
 
