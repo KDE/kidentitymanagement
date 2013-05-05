@@ -87,6 +87,7 @@ void SignatureTester::testTextEditInsertion()
 {
   TextEdit edit;
   Signature sig;
+  sig.setEnabledSignature( true );
   sig.setText( "Hello World" );
 
   // Test inserting signature at start, with seperators
@@ -148,6 +149,7 @@ void SignatureTester::testBug167961()
 {
   TextEdit edit;
   Signature sig;
+  sig.setEnabledSignature( true );
   sig.setText( "BLA" );
 
   // Test that the cursor is still at the start when appending a sig into
@@ -183,6 +185,7 @@ void SignatureTester::testImages()
   KConfigGroup group1 = config.group( "Signature1" );
 
   MySignature sig;
+  sig.setEnabledSignature( true );
   sig.setImageLocation( path );
   sig.setInlinedHtml( true );
   sig.setText( "Bla<img src=\"folder-new.png\">Bla" );
@@ -240,6 +243,7 @@ void SignatureTester::testImages()
 void SignatureTester::testLinebreaks()
 {
   Signature sig;
+  sig.setEnabledSignature( true );
   sig.setType( Signature::Inlined );
   sig.setInlinedHtml( true );
   sig.setText( "Hans Mustermann<br>Musterstr. 42" );
