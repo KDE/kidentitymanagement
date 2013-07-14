@@ -1,5 +1,5 @@
 set (identitytest_SRCS identitytest.cpp )
-kde4_add_unit_test (identitytest TESTNAME identitytest ${identitytest_SRCS})
+kde4_add_unit_test (identitytest TESTNAME kpimidentities-identitytest ${identitytest_SRCS})
 
 target_link_libraries ( identitytest
                         ${QT_QTTEST_LIBRARY}
@@ -9,7 +9,7 @@ target_link_libraries ( identitytest
                       )
 
 set (signaturetest_SRCS signaturetest.cpp )
-kde4_add_unit_test (signaturetest TESTNAME signaturetest ${signaturetest_SRCS})
+kde4_add_unit_test (signaturetest TESTNAME kpimidentities-signaturetest ${signaturetest_SRCS})
 
 target_link_libraries ( signaturetest
                         ${QT_QTTEST_LIBRARY}
