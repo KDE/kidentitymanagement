@@ -87,7 +87,7 @@ void SignatureConfigurator::Private::init()
   QVBoxLayout * page_vlay;
 
   vlay = new QVBoxLayout( q );
-  vlay->setObjectName( "main layout" );
+  vlay->setObjectName( QLatin1String("main layout") );
   vlay->setMargin( 0 );
 
   // "enable signatue" checkbox:
@@ -172,37 +172,37 @@ void SignatureConfigurator::Private::init()
   KActionCollection *actionCollection = new KActionCollection( q );
   q->mTextEdit->createActions( actionCollection );
 #ifndef QT_NO_TOOLBAR
-  q->mEditToolBar->addAction( actionCollection->action( "format_text_bold" ) );
-  q->mEditToolBar->addAction( actionCollection->action( "format_text_italic" ) );
-  q->mEditToolBar->addAction( actionCollection->action( "format_text_underline" ) );
-  q->mEditToolBar->addAction( actionCollection->action( "format_text_strikeout" ) );
-  q->mEditToolBar->addAction( actionCollection->action( "format_text_foreground_color" ) );
-  q->mEditToolBar->addAction( actionCollection->action( "format_text_background_color" ) );
-  q->mEditToolBar->addAction( actionCollection->action( "format_font_family" ) );
-  q->mEditToolBar->addAction( actionCollection->action( "format_font_size" ) );
-  q->mEditToolBar->addAction( actionCollection->action( "format_reset" ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_text_bold") ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_text_italic") ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_text_underline") ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_text_strikeout") ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_text_foreground_color") ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_text_background_color") ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_font_family") ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_font_size") ) );
+  q->mEditToolBar->addAction( actionCollection->action( QLatin1String("format_reset") ) );
 
-  q->mFormatToolBar->addAction( actionCollection->action( "format_list_style" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "format_list_indent_more" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "format_list_indent_less" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "format_list_indent_less" ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_list_style") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_list_indent_more") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_list_indent_less") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_list_indent_less") ) );
   q->mFormatToolBar->addSeparator();
 
-  q->mFormatToolBar->addAction( actionCollection->action( "format_align_left" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "format_align_center" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "format_align_right" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "format_align_justify" ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_align_left") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_align_center") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_align_right") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_align_justify") ) );
   q->mFormatToolBar->addSeparator();
 
-  q->mFormatToolBar->addAction( actionCollection->action( "insert_horizontal_rule" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "manage_link" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "format_painter" ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("insert_horizontal_rule") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("manage_link") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("format_painter") ) );
 
   q->mFormatToolBar->addSeparator();
-  q->mFormatToolBar->addAction( actionCollection->action( "add_image" ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("add_image") ) );
   q->mFormatToolBar->addSeparator();
-  q->mFormatToolBar->addAction( actionCollection->action( "insert_html" ) );
-  q->mFormatToolBar->addAction( actionCollection->action( "insert_table" ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("insert_html") ) );
+  q->mFormatToolBar->addAction( actionCollection->action( QLatin1String("insert_table" )) );
 #endif
 
   hlay = new QHBoxLayout(); // inherits spacing
@@ -431,8 +431,8 @@ void SignatureConfigurator::Private::init()
     QString html = textDocument.toHtml();
 
     // Now remove each line from the text, the result is clean html.
-    foreach ( const QString& line, html.split( '\n' ) ) {
-      text.remove( line + '\n' );
+    foreach ( const QString& line, html.split( QLatin1Char('\n') ) ) {
+      text.remove( line + QLatin1Char('\n') );
     }
     return text;
   }
@@ -471,7 +471,7 @@ void SignatureConfigurator::Private::init()
 
   void SignatureConfigurator::setImageLocation( const Identity &identity )
   {
-    const QString dir = QString( "emailidentities/%1/" ).arg(
+    const QString dir = QString::fromLatin1( "emailidentities/%1/" ).arg(
         QString::number( identity.uoid() ) );
     setImageLocation( KStandardDirs::locateLocal( "data", dir ) );
   }

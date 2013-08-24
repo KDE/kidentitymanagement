@@ -48,9 +48,9 @@ using namespace KPIMIdentities;
 static QString newDBusObjectName()
 {
   static int s_count = 0;
-  QString name( "/KPIMIDENTITIES_IdentityManager" );
+  QString name( QLatin1String("/KPIMIDENTITIES_IdentityManager") );
   if ( s_count++ ) {
-    name += '_';
+    name += QLatin1Char('_');
     name += QString::number( s_count );
   }
   return name;
@@ -60,26 +60,26 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
                                   const char *name )
     : QObject( parent )
 {
-  setObjectName( name );
-  KGlobal::locale()->insertCatalog( "libkpimidentities" );
+  setObjectName( QLatin1String(name) );
+  KGlobal::locale()->insertCatalog( QLatin1String("libkpimidentities") );
   new IdentityManagerAdaptor( this );
   QDBusConnection dbus = QDBusConnection::sessionBus();
   const QString dbusPath = newDBusObjectName();
   setProperty( "uniqueDBusPath", dbusPath );
-  const QString dbusInterface = "org.kde.pim.IdentityManager";
+  const QString dbusInterface = QLatin1String("org.kde.pim.IdentityManager");
   dbus.registerObject( dbusPath, this );
-  dbus.connect( QString(), QString(), dbusInterface, "identitiesChanged", this,
+  dbus.connect( QString(), QString(), dbusInterface, QLatin1String("identitiesChanged"), this,
                 SLOT(slotIdentitiesChanged(QString)) );
 
   mReadOnly = readonly;
-  mConfig = new KConfig( "emailidentities" );
+  mConfig = new KConfig( QLatin1String("emailidentities") );
   readConfig( mConfig );
   if ( mIdentities.isEmpty() ) {
     kDebug( 5325 ) << "emailidentities is empty -> convert from kmailrc";
     // No emailidentities file, or an empty one due to broken conversion
     // (kconf_update bug in kdelibs <= 3.2.2)
     // => convert it, i.e. read settings from kmailrc
-    KConfig kmailConf( "kmailrc" );
+    KConfig kmailConf( QLatin1String("kmailrc") );
     readConfig( &kmailConf );
   }
   // we need at least a default identity:
@@ -287,7 +287,7 @@ void IdentityManager::readConfig( KConfig *config )
 
 QStringList IdentityManager::groupList( KConfig *config ) const
 {
-  return config->groupList().filter( QRegExp( "^Identity #\\d+$" ) );
+  return config->groupList().filter( QRegExp( QLatin1String("^Identity #\\d+$") ) );
 }
 
 IdentityManager::ConstIterator IdentityManager::begin() const
@@ -515,7 +515,7 @@ void IdentityManager::createDefaultIdentity()
           KConfigGroup general( mConfig, "General" );
           QString defaultdomain = general.readEntry( "Default domain" );
           if ( !defaultdomain.isEmpty() ) {
-            emailAddress += '@' + defaultdomain;
+            emailAddress += QLatin1Char('@') + defaultdomain;
           } else {
             emailAddress.clear();
           }
@@ -531,14 +531,14 @@ void IdentityManager::createDefaultIdentity()
     if ( !emailAddress.isEmpty() ) {
       // If we have an email address, create a default identity name from it
       QString idName = emailAddress;
-      int pos = idName.indexOf( '@' );
+      int pos = idName.indexOf( QLatin1Char('@') );
       if ( pos != -1 ) {
         name = idName.mid( pos + 1, -1 );
       }
 
       // Make the name a bit more human friendly
-      name.replace( '.', ' ' );
-      pos = name.indexOf( ' ' );
+      name.replace( QLatin1Char('.'), QLatin1Char(' ') );
+      pos = name.indexOf( QLatin1Char(' ') );
       if ( pos != 0 ) {
         name[pos + 1] = name[pos + 1].toUpper();
       }

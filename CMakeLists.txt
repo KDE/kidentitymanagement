@@ -1,4 +1,7 @@
 
+add_definitions( -DQT_NO_CAST_FROM_ASCII )
+add_definitions( -DQT_NO_CAST_TO_ASCII )
+
 set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp signature.cpp signatureconfigurator.cpp identitycombo.cpp)
 
 add_subdirectory( tests )
