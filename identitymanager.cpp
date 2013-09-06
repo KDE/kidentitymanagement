@@ -88,6 +88,20 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
     createDefaultIdentity();
     commit();
   }
+
+  KConfig kmailConf( QLatin1String("kmail2rc") );
+  if (!mReadOnly && kmailConf.hasGroup(QLatin1String("Composer"))) {
+    KConfigGroup composerGroup = kmailConf.group(QLatin1String("Composer"));
+    if (composerGroup.hasKey(QLatin1String("pgp-auto-sign"))) {
+      const bool pgpAutoSign = composerGroup.readEntry(QLatin1String("pgp-auto-sign"), false);
+      QList<Identity>::iterator end = mIdentities.end();
+      for ( QList<Identity>::iterator it = mIdentities.begin(); it != end; ++it ) {
+        it->setPgpAutoSign(pgpAutoSign);
+      }
+    }
+    writeConfig();
+  }
+
   // Migration: people without settings in kemailsettings should get some
   if ( KEMailSettings().getSetting( KEMailSettings::EmailAddress ).isEmpty() ) {
     writeConfig();

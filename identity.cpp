@@ -196,9 +196,8 @@ QDataStream &KPIMIdentities::operator<<
          << i.cc()
          << i.attachVcard()
          << i.autocorrectionLanguage()
-         << i.disabledFcc();
-
-
+         << i.disabledFcc()
+         << i.pgpAutoSign();
 }
 
 QDataStream &KPIMIdentities::operator>>
@@ -230,7 +229,8 @@ QDataStream &KPIMIdentities::operator>>
   >> i.mPropertiesMap[QLatin1String(s_cc)]
   >> i.mPropertiesMap[QLatin1String(s_attachVcard)]
   >> i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
-  >> i.mPropertiesMap[QLatin1String(s_disabledFcc)];
+  >> i.mPropertiesMap[QLatin1String(s_disabledFcc)]
+  >> i.mPropertiesMap[QLatin1String(s_pgpautosign)];
 
   i.setProperty( QLatin1String(s_uoid), uoid );
   return stream;
@@ -706,3 +706,20 @@ void Identity::setDisabledFcc(bool disable)
 {
   setProperty( QLatin1String(s_disabledFcc), disable );
 }
+
+bool Identity::pgpAutoSign() const
+{
+  const QVariant var = property(QLatin1String( s_pgpautosign ));
+  if(var.isNull()) {
+    return false;
+  } else {
+    return var.toBool();
+  }
+}
+
+void Identity::setPgpAutoSign(bool autoSign)
+{
+  setProperty( QLatin1String(s_pgpautosign), autoSign );
+}
+
+
