@@ -8,7 +8,13 @@ add_subdirectory( tests )
 
 qt4_add_dbus_adaptor(kpimidentities_LIB_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KPIMIdentities::IdentityManager )
 
+include_directories(
+  ${CMAKE_BINARY_DIR}/kpimutils
+  ${CMAKE_BINARY_DIR}/kpimtextedit
+)
+
 kde4_add_library(kpimidentities ${LIBRARY_TYPE} ${kpimidentities_LIB_SRCS})
+generate_export_header(kpimidentities)
 
 target_link_libraries(kpimidentities ${QT_AND_KDECORE_LIBS}  kpimutils ${KDE4_KIO_LIBS} kpimtextedit )
 
@@ -22,6 +28,6 @@ install(FILES
         signatureconfigurator.h
         identitymanager.h
         identitycombo.h
-        kpimidentities_export.h
+        ${CMAKE_CURRENT_BINARY_DIR}/kpimidentities_export.h
         DESTINATION ${INCLUDE_INSTALL_DIR}/kpimidentities COMPONENT Devel)
 
