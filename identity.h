@@ -170,8 +170,8 @@ class KPIMIDENTITIES_EXPORT Identity
        * @sa primaryEmailAddress(), setPrimaryEmailAddress(), emailAliases(), setEmailAliases(),
        *     matchesEmailAddress()
        */
-      KDE_DEPRECATED QString emailAddr() const;
-      KDE_DEPRECATED void setEmailAddr( const QString& );
+      KPIMIDENTITIES_DEPRECATED QString emailAddr() const;
+      KPIMIDENTITIES_DEPRECATED void setEmailAddr( const QString& );
 
       /**
        * primary email address (without the user name - only name\@host).
