@@ -13,7 +13,7 @@ include_directories(
   ${CMAKE_BINARY_DIR}/kpimtextedit
 )
 
-kde4_add_library(kpimidentities ${LIBRARY_TYPE} ${kpimidentities_LIB_SRCS})
+add_library(kpimidentities ${LIBRARY_TYPE} ${kpimidentities_LIB_SRCS})
 generate_export_header(kpimidentities)
 
 target_link_libraries(kpimidentities ${QT_AND_KDECORE_LIBS}  kpimutils ${KDE4_KIO_LIBS} kpimtextedit )
