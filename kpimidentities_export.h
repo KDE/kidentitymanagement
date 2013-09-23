@@ -36,4 +36,6 @@
 # endif
 #endif
 
+#define KPIMIDENTITIES_DEPRECATED KDE_DEPRECATED
+
 #endif
