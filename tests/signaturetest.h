@@ -26,7 +26,7 @@ class SignatureTester : public QObject
 {
   Q_OBJECT
 
-private slots:
+private Q_SLOTS:
   void testSignatures();
   void testTextEditInsertion();
   void testBug167961();
