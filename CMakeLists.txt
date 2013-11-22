@@ -16,7 +16,7 @@ include_directories(
 add_library(kpimidentities ${LIBRARY_TYPE} ${kpimidentities_LIB_SRCS})
 generate_export_header(kpimidentities)
 
-target_link_libraries(kpimidentities ${QT_AND_KDECORE_LIBS}  kpimutils ${KDE4_KIO_LIBS} kpimtextedit )
+target_link_libraries(kpimidentities kpimutils ${KDE4_KIO_LIBS} kpimtextedit)
 
 set_target_properties(kpimidentities PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kpimidentities EXPORT kdepimlibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
