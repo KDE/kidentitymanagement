@@ -21,26 +21,13 @@
 #include "identity.h"
 #include "signature.h"
 
-#include <kdeversion.h>
 #include <sonnet/globals.h>
 #include <kdebug.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
 #include <kconfiggroup.h>
-#include <kurl.h>
-#include <kprocess.h>
-#include <kpimutils/kfileio.h>
 #include <kpimutils/email.h>
 
-#include <QFileInfo>
 #include <QMimeData>
 #include <QByteArray>
-
-#include <sys/types.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <assert.h>
 
 using namespace KPIMIdentities;
 
