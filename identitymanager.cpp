@@ -61,7 +61,8 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
     : QObject( parent )
 {
   setObjectName( name );
-  KLocalizedString::insertCatalog( "libkpimidentities" );
+#warning another insertCatalog porting
+//   KLocalizedString::insertCatalog( "libkpimidentities" );
   new IdentityManagerAdaptor( this );
   QDBusConnection dbus = QDBusConnection::sessionBus();
   const QString dbusPath = newDBusObjectName();
