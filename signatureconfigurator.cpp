@@ -170,7 +170,7 @@ void SignatureConfigurator::Private::init()
 
   // Fill the toolbars.
   KActionCollection *actionCollection = new KActionCollection( q );
-  q->mTextEdit->createActions( actionCollection );
+  actionCollection->addActions(q->mTextEdit->createActions());
 #ifndef QT_NO_TOOLBAR
   q->mEditToolBar->addAction( actionCollection->action( "format_text_bold" ) );
   q->mEditToolBar->addAction( actionCollection->action( "format_text_italic" ) );
