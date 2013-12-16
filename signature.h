@@ -217,7 +217,7 @@ namespace KPIMIdentities
        * @deprecated Use the other overload of insertIntoTextEdit() instead. This one doesn't
        *             support inline images and always adds newline characters.
        */
-      void KDE_DEPRECATED insertIntoTextEdit( KRichTextEdit *textEdit,
+      void KPIMIDENTITIES_DEPRECATED insertIntoTextEdit( KRichTextEdit *textEdit,
                                               Placement placement = End, bool addSeparator = true );
 
       enum AddedTextFlag {
@@ -281,7 +281,7 @@ namespace KPIMIdentities
        * @since 4.3
        * @deprecated Use the non-static insertIntoTextEdit() instead
        */
-      static void KDE_DEPRECATED insertPlainSignatureIntoTextEdit( const QString &signature,
+      static void KPIMIDENTITIES_DEPRECATED insertPlainSignatureIntoTextEdit( const QString &signature,
                                                                    KRichTextEdit *textEdit,
                                                                    Placement placement = End,
                                                                    bool isHtml = false );

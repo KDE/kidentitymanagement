@@ -1,3 +1,9 @@
+include_directories(
+  ${CMAKE_BINARY_DIR}/kpimidentities
+  ${CMAKE_BINARY_DIR}/kpimtextedit
+)
+
+
 set (identitytest_SRCS identitytest.cpp )
 kde4_add_unit_test (identitytest TESTNAME kpimidentities-identitytest ${identitytest_SRCS})
 

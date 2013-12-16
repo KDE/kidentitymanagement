@@ -190,7 +190,7 @@ QString Signature::textFromCommand( bool *ok ) const
       *ok = false;
     }
     QString wmsg = i18n( "<qt>Failed to execute signature script<p><b>%1</b>:</p>"
-                         "<p>%2</p></qt>", mUrl, QString( proc.readAllStandardError() ) );
+                         "<p>%2</p></qt>", mUrl, QLatin1String( proc.readAllStandardError() ) );
     KMessageBox::error( 0, wmsg );
     return QString();
   }
@@ -244,7 +244,7 @@ QString Signature::withSeparator( bool *ok ) const
   }
 
   const bool htmlSig = ( isInlinedHtml() && mType == Inlined );
-  QString newline = htmlSig ? "<br>" : "\n";
+  QString newline = htmlSig ? QLatin1String("<br>") : QLatin1String("\n");
   if ( htmlSig && signature.startsWith( QLatin1String( "<p" ) ) ) {
     newline.clear();
   }
@@ -336,7 +336,7 @@ void Signature::saveImages() const
 {
   if ( isInlinedHtml() && !d( this )->saveLocation.isEmpty() ) {
     foreach ( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
-      QString location = d( this )->saveLocation + '/' + image->name;
+      QString location = d( this )->saveLocation + QLatin1Char('/') + image->name;
       if ( !image->image.save( location, "PNG" ) ) {
         kWarning() << "Failed to save image" << location;
       }
@@ -347,16 +347,16 @@ void Signature::saveImages() const
 void Signature::readConfig( const KConfigGroup &config )
 {
   QString sigType = config.readEntry( sigTypeKey );
-  if ( sigType == sigTypeInlineValue ) {
+  if ( sigType == QLatin1String(sigTypeInlineValue) ) {
     mType = Inlined;
     mInlinedHtml = config.readEntry( sigTypeInlinedHtmlKey, false );
-  } else if ( sigType == sigTypeFileValue ) {
+  } else if ( sigType == QLatin1String(sigTypeFileValue) ) {
     mType = FromFile;
     mUrl = config.readPathEntry( sigFileKey, QString() );
-  } else if ( sigType == sigTypeCommandValue ) {
+  } else if ( sigType == QLatin1String(sigTypeCommandValue) ) {
     mType = FromCommand;
     mUrl = config.readPathEntry( sigCommandKey, QString() );
-  } else if ( sigType == sigTypeDisabledValue ) {
+  } else if ( sigType == QLatin1String(sigTypeDisabledValue) ) {
     d( this )->enabled = false;
   }
   if ( mType != Disabled ) {
@@ -371,11 +371,11 @@ void Signature::readConfig( const KConfigGroup &config )
     foreach ( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
       if ( fileName.toLower().endsWith( QLatin1String( ".png" ) ) ) {
         QImage image;
-        if ( image.load( dir.path() + '/' + fileName ) ) {
+        if ( image.load( dir.path() + QLatin1Char('/') + fileName ) ) {
           addImage( image, fileName );
         }
         else {
-          kWarning() << "Unable to load image" << dir.path() + '/' + fileName;
+          kWarning() << "Unable to load image" << dir.path() + QLatin1Char('/') + fileName;
         }
       }
     }

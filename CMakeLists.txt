@@ -1,14 +1,22 @@
 
 find_package(KF5 NO_MODULE REQUIRED COMPONENTS CoreAddons KIO Sonnet)
+add_definitions( -DQT_NO_CAST_TO_ASCII )
+
 set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp signature.cpp signatureconfigurator.cpp identitycombo.cpp)
 
 add_subdirectory( tests )
 
 qt4_add_dbus_adaptor(kpimidentities_LIB_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KPIMIdentities::IdentityManager )
 
-kde4_add_library(kpimidentities ${LIBRARY_TYPE} ${kpimidentities_LIB_SRCS})
+include_directories(
+  ${CMAKE_BINARY_DIR}/kpimutils
+  ${CMAKE_BINARY_DIR}/kpimtextedit
+)
 
 target_link_libraries(kpimidentities KF5::CoreAddons KF5::KIOCore KF5::SonnetCore kpimutils kpimtextedit )
+generate_export_header(kpimidentities)
+
+target_link_libraries(kpimidentities kpimutils ${KDE4_KIO_LIBS} kpimtextedit)
 
 set_target_properties(kpimidentities PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kpimidentities EXPORT kdepimlibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
@@ -20,6 +28,6 @@ install(FILES
         signatureconfigurator.h
         identitymanager.h
         identitycombo.h
-        kpimidentities_export.h
+        ${CMAKE_CURRENT_BINARY_DIR}/kpimidentities_export.h
         DESTINATION ${INCLUDE_INSTALL_DIR}/kpimidentities COMPONENT Devel)
 

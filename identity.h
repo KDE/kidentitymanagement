@@ -71,6 +71,7 @@ namespace KPIMIdentities
   static const char s_attachVcard[] = "Attach Vcard";
   static const char s_autocorrectionLanguage[] = "Autocorrection Language";
   static const char s_disabledFcc[] = "Disable Fcc";
+  static const char s_pgpautosign[] = "Pgp Auto Sign";
 
   KPIMIDENTITIES_EXPORT QDataStream &operator<<
   ( QDataStream &stream, const KPIMIdentities::Identity &ident );
@@ -169,8 +170,8 @@ class KPIMIDENTITIES_EXPORT Identity
        * @sa primaryEmailAddress(), setPrimaryEmailAddress(), emailAliases(), setEmailAliases(),
        *     matchesEmailAddress()
        */
-      KDE_DEPRECATED QString emailAddr() const;
-      KDE_DEPRECATED void setEmailAddr( const QString& );
+      KPIMIDENTITIES_DEPRECATED QString emailAddr() const;
+      KPIMIDENTITIES_DEPRECATED void setEmailAddr( const QString& );
 
       /**
        * primary email address (without the user name - only name\@host).
@@ -238,6 +239,13 @@ class KPIMIDENTITIES_EXPORT Identity
        */
       bool disabledFcc() const;
       void setDisabledFcc(bool);
+
+      /**
+       * @since 4.12
+       */
+      bool pgpAutoSign() const;
+      void setPgpAutoSign(bool);
+
 
       void setSignature( const Signature &sig );
       Signature &signature(); /* _not_ const! */
