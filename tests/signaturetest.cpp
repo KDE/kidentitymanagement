@@ -65,7 +65,7 @@ void SignatureTester::testSignatures()
   QVERIFY( !sig3.isInlinedHtml() );
   QVERIFY( sig3.text().isEmpty() );
   QCOMPARE( sig3.type(), Signature::FromCommand );
-  QCOMPARE( sig3.withSeparator(), QLatin1String( "-- \n" ) + fileContent );
+  QCOMPARE( sig3.withSeparator(), QString(QLatin1String( "-- \n" ) + fileContent) );
 
   Signature sig4;
   sig4.setUrl( QLatin1String(__FILE__), false );
@@ -73,7 +73,7 @@ void SignatureTester::testSignatures()
   QVERIFY( !sig4.isInlinedHtml() );
   QVERIFY( sig4.text().isEmpty() );
   QCOMPARE( sig4.type(), Signature::FromFile );
-  QCOMPARE( sig4.withSeparator(), QLatin1String( "-- \n" ) + fileContent );
+  QCOMPARE( sig4.withSeparator(), QString(QLatin1String( "-- \n" ) + fileContent) );
 }
 
 static void setCursorPos( QTextEdit &edit, int pos )
