@@ -37,6 +37,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <QList>
 #include <QRegExp>
 #include <QtDBus/QtDBus>
+#include <QHostInfo>
 
 #include <assert.h>
 #include <krandom.h>
@@ -90,18 +91,39 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
   }
 
   KConfig kmailConf( QLatin1String("kmail2rc") );
-  if (!mReadOnly && kmailConf.hasGroup(QLatin1String("Composer"))) {
-    KConfigGroup composerGroup = kmailConf.group(QLatin1String("Composer"));
-    if (composerGroup.hasKey(QLatin1String("pgp-auto-sign"))) {
-      composerGroup.deleteEntry(QLatin1String("pgp-auto-sign"));
-      composerGroup.sync();
-      const bool pgpAutoSign = composerGroup.readEntry(QLatin1String("pgp-auto-sign"), false);
-      QList<Identity>::iterator end = mIdentities.end();
-      for ( QList<Identity>::iterator it = mIdentities.begin(); it != end; ++it ) {
-        it->setPgpAutoSign(pgpAutoSign);
+  if (!mReadOnly) {
+    bool needCommit = false;
+    if (kmailConf.hasGroup(QLatin1String("Composer"))) {
+      KConfigGroup composerGroup = kmailConf.group(QLatin1String("Composer"));
+      if (composerGroup.hasKey(QLatin1String("pgp-auto-sign"))) {
+        const bool pgpAutoSign = composerGroup.readEntry(QLatin1String("pgp-auto-sign"), false);
+        QList<Identity>::iterator end = mIdentities.end();
+        for ( QList<Identity>::iterator it = mIdentities.begin(); it != end; ++it ) {
+          it->setPgpAutoSign(pgpAutoSign);
+        }
+        composerGroup.deleteEntry(QLatin1String("pgp-auto-sign"));
+        composerGroup.sync();
+        needCommit = true;
       }
     }
-    commit();
+    if (kmailConf.hasGroup(QLatin1String("General"))) {
+      KConfigGroup generalGroup = kmailConf.group(QLatin1String("General"));
+      if (generalGroup.hasKey(QLatin1String("Default domain"))) {
+         QString defaultDomain = generalGroup.readEntry(QLatin1String("Default domain"));
+         if (defaultDomain.isEmpty()) {
+             defaultDomain = QHostInfo::localHostName();
+         }
+         QList<Identity>::iterator end = mIdentities.end();
+         for ( QList<Identity>::iterator it = mIdentities.begin(); it != end; ++it ) {
+           it->setDefaultDomainName(defaultDomain);
+         }
+         generalGroup.deleteEntry(QLatin1String("Default domain"));
+         generalGroup.sync();
+         needCommit = true;
+      }
+    }
+    if (needCommit)
+      commit();
   }
 
   // Migration: people without settings in kemailsettings should get some
