@@ -18,8 +18,8 @@
 */
 #include "qtest_kde.h"
 #include "identitytest.h"
-#include "../identitymanager.h"
-#include "../identity.h"
+#include "identitymanager.h"
+#include "identity.h"
 
 #include <KConfig>
 #include <KConfigGroup>

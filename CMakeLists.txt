@@ -27,7 +27,6 @@ ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX KPIMIDENTITIES
 
 ########### Find packages ###########
 find_package(KF5 ${KF5_VERSION} CONFIG REQUIRED COMPONENTS CoreAddons KDE4Support KIO)
-#find_package(Qt5 COMPONENTS Locale)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${KPimIdentities_SOURCE_DIR})
   find_package(KF5PimUtils ${KF5_VERSION} CONFIG REQUIRED)
@@ -36,7 +35,7 @@ endif()
 
 ########### Targets ###########
 add_subdirectory(src)
-#add_subdirectory(autotests)
+add_subdirectory(autotests)
 
 ########### CMake Config Files ###########
 set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5PimIdentities")

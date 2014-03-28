@@ -23,7 +23,7 @@
 #include "qtest_kde.h"
 #include "signaturetest.h"
 
-#include "../signature.h"
+#include "signature.h"
 
 #include "kpimtextedit/textedit.h"
 
