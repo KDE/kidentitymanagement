@@ -72,6 +72,7 @@ namespace KPIMIdentities
   static const char s_autocorrectionLanguage[] = "Autocorrection Language";
   static const char s_disabledFcc[] = "Disable Fcc";
   static const char s_pgpautosign[] = "Pgp Auto Sign";
+  static const char s_defaultDomainName[] = "Default Domain";
 
   KPIMIDENTITIES_EXPORT QDataStream &operator<<
   ( QDataStream &stream, const KPIMIdentities::Identity &ident );
@@ -245,6 +246,12 @@ class KPIMIDENTITIES_EXPORT Identity
        */
       bool pgpAutoSign() const;
       void setPgpAutoSign(bool);
+
+      /**
+       * @since 4.14
+       */
+      QString defaultDomainName() const;
+      void setDefaultDomainName(const QString &domainName);
 
 
       void setSignature( const Signature &sig );
