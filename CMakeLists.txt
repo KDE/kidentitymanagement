@@ -29,8 +29,8 @@ ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX KPIMIDENTITIES
 find_package(KF5 ${KF5_VERSION} CONFIG REQUIRED COMPONENTS CoreAddons KDE4Support KIO)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${KPimIdentities_SOURCE_DIR})
-  find_package(KF5PimUtils ${KF5_VERSION} CONFIG REQUIRED)
   find_package(KF5PimTextEdit ${KF5_VERSION} CONFIG REQUIRED)
+  find_package(KF5PimUtils ${KF5_VERSION} CONFIG REQUIRED)
 endif()
 
 ########### Targets ###########

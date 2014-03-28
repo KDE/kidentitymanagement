@@ -3,7 +3,7 @@
 find_dependency(KF5CoreAddons "@KF5_VERSION@")
 find_dependency(KF5KDE4Support "@KF5_VERSION@")
 find_dependency(KF5KIO "@KF5_VERSION@")
-find_dependency(KF5Sonnet "@KF5_VERSION@")
+find_dependency(KF5PimTextEdit "@KF5_VERSION@")
 find_dependency(KF5PimUtils "@KF5_VERSION@")
 
 include("${CMAKE_CURRENT_LIST_DIR}/KF5PimIdentitiesTargets.cmake")
