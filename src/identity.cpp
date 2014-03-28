@@ -21,7 +21,6 @@
 #include "identity.h"
 #include "signature.h"
 
-#include <sonnet/globals.h>
 #include <kdebug.h>
 #include <kconfiggroup.h>
 #include <kpimutils/email.h>
@@ -46,7 +45,8 @@ Identity::Identity( const QString &id, const QString &fullName,
   setProperty( QLatin1String(s_email), emailAddr );
   setProperty( QLatin1String(s_organization), organization );
   setProperty( QLatin1String(s_replyto), replyToAddr );
-  setDictionary( Sonnet::defaultLanguageName() );
+  // FIXME KF5: Sonnet::defaultLanguageName is gone
+  //setDictionary( Sonnet::defaultLanguageName() );
   setProperty( QLatin1String(s_disabledFcc), false );
   setProperty( QLatin1String(s_defaultDomainName), QHostInfo::localHostName());
 }

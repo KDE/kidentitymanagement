@@ -21,8 +21,8 @@ target_link_libraries(KF5PimIdentities
   KF5::CoreAddons
   KF5::KDE4Support
   KF5::KIOCore
+  KF5::PimTextEdit
   KF5::PimUtils
-  KF5::SonnetCore
 )
 
 set_target_properties(KF5PimIdentities PROPERTIES
