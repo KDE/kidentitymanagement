@@ -1,33 +1,66 @@
+cmake_minimum_required(VERSION 2.8.12)
 
-find_package(KF5 NO_MODULE REQUIRED COMPONENTS CoreAddons KIO Sonnet)
-add_definitions( -DQT_NO_CAST_TO_ASCII )
+project(KPimIdentities)
 
-set(kpimidentities_LIB_SRCS identitymanager.cpp identity.cpp signature.cpp signatureconfigurator.cpp identitycombo.cpp)
+# ECM setup
+find_package(ECM 0.0.11 CONFIG REQUIRED)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
-add_subdirectory( tests )
+include(GenerateExportHeader)
+include(ECMGenerateHeaders)
+include(ECMGeneratePriFile)
+include(ECMPackageConfigHelpers)
+include(ECMSetupVersion)
+include(FeatureSummary)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDEFrameworkCompilerSettings)
 
-qt4_add_dbus_adaptor(kpimidentities_LIB_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KPIMIdentities::IdentityManager )
 
-include_directories(
-  ${CMAKE_BINARY_DIR}/kpimutils
-  ${CMAKE_BINARY_DIR}/kpimtextedit
+set(KF5_VERSION "4.97.0")
+
+ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX KPIMIDENTITIES
+                        VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kpimidentities_version.h"
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5PimIdentitiesConfigVersion.cmake"
+                        SOVERSION 5
 )
 
-target_link_libraries(kpimidentities KF5::CoreAddons KF5::KIOCore KF5::SonnetCore kpimutils kpimtextedit )
-generate_export_header(kpimidentities)
+########### Find packages ###########
+find_package(KF5 ${KF5_VERSION} CONFIG REQUIRED COMPONENTS CoreAddons KDE4Support KIO Sonnet)
+find_package(KF5PimUtils ${KF5_VERSION} CONFIG REQUIRED)
 
-target_link_libraries(kpimidentities kpimutils ${KDE4_KIO_LIBS} kpimtextedit)
+########### Targets ###########
+add_subdirectory(src)
+#add_subdirectory(autotests)
 
-set_target_properties(kpimidentities PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
-install(TARGETS kpimidentities EXPORT kdepimlibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+########### CMake Config Files ###########
+set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5PimIdentities")
 
-install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
+ecm_configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5PimIdentitiesConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5PimIdentitiesConfig.cmake"
+  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+)
+
 install(FILES
-        identity.h
-        signature.h
-        signatureconfigurator.h
-        identitymanager.h
-        identitycombo.h
-        ${CMAKE_CURRENT_BINARY_DIR}/kpimidentities_export.h
-        DESTINATION ${INCLUDE_INSTALL_DIR}/kpimidentities COMPONENT Devel)
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5PimIdentitiesConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5PimIdentitiesConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT Devel
+)
 
+install(EXPORT KF5PimIdentitiesTargets
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    FILE KF5PimIdentitiesTargets.cmake
+    NAMESPACE KF5::
+)
+
+install(FILES
+   ${CMAKE_CURRENT_BINARY_DIR}/kpimidentities_version.h
+   DESTINATION ${INCLUDE_INSTALL_DIR}
+   COMPONENT Devel
+)
+
+if ("${CMAKE_BINARY_DIR}" STREQUAL "${KPimIdentities_BINARY_DIR}")
+  feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+endif()

@@ -20,7 +20,7 @@
 #ifndef KPIMIDENTITIES_IDENTITYMANAGER_H
 #define KPIMIDENTITIES_IDENTITYMANAGER_H
 
-#include <kpimidentities/kpimidentities_export.h>
+#include <kpimidentities_export.h>
 #include <kconfiggroup.h>
 #include <QtCore/QObject>
 
