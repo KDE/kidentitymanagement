@@ -63,5 +63,5 @@ install(FILES
 
 install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
 
-ecm_generate_pri_file(BASE_NAME KPimIdentities LIB_NAME KF5PimIdentities DEPS "CoreAddons KIO Sonnet" FILENAME_VAR PRI_FILENAME)
+ecm_generate_pri_file(BASE_NAME KPimIdentities LIB_NAME KF5PimIdentities DEPS "CoreAddons KDE4Support KIO PimUtils Sonnet" FILENAME_VAR PRI_FILENAME)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
