@@ -67,7 +67,11 @@ bool Identity::isNull() const
   bool empty = true;
   QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
   while ( i != mPropertiesMap.constEnd() ) {
-
+    // Take into account that the defaultDomainName for a null identity is not empty
+    if ( i.key() == QLatin1String(s_defaultDomainName) ) {
+      ++i;
+      continue;
+    }
     // Take into account that the dictionary for a null identity is not empty
     if ( i.key() == QLatin1String(s_dict) ) {
       ++i;
