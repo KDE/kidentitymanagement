@@ -325,7 +325,7 @@ void Signature::cleanupImages() const
     QDir dir( d( this )->saveLocation );
     foreach ( const QString &fileName, dir.entryList( QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks ) ) {
       if ( fileName.toLower().endsWith( QLatin1String( ".png" ) ) ) {
-        kDebug() << "Deleting old image" << dir.path() + fileName;
+        qDebug() << "Deleting old image" << dir.path() + fileName;
         dir.remove( fileName );
       }
     }
@@ -338,7 +338,7 @@ void Signature::saveImages() const
     foreach ( const SignaturePrivate::EmbeddedImagePtr &image, d( this )->embeddedImages ) {
       QString location = d( this )->saveLocation + QLatin1Char('/') + image->name;
       if ( !image->image.save( location, "PNG" ) ) {
-        kWarning() << "Failed to save image" << location;
+        qWarning() << "Failed to save image" << location;
       }
     }
   }
@@ -375,7 +375,7 @@ void Signature::readConfig( const KConfigGroup &config )
           addImage( image, fileName );
         }
         else {
-          kWarning() << "Unable to load image" << dir.path() + QLatin1Char('/') + fileName;
+          qWarning() << "Unable to load image" << dir.path() + QLatin1Char('/') + fileName;
         }
       }
     }
