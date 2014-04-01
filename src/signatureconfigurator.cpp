@@ -23,7 +23,7 @@
 
 #include <kactioncollection.h>
 #include <klocalizedstring.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kdialog.h>
 #include <klineedit.h>
 #include <kurlrequester.h>
