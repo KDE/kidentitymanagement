@@ -49,7 +49,7 @@ using namespace KPIMIdentities;
 static QString newDBusObjectName()
 {
   static int s_count = 0;
-  QString name( QLatin1String("/KPIMIDENTITIES_IdentityManager") );
+  QString name( QStringLiteral("/KPIMIDENTITIES_IdentityManager") );
   if ( s_count++ ) {
     name += QLatin1Char('_');
     name += QString::number( s_count );
@@ -68,20 +68,20 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
   QDBusConnection dbus = QDBusConnection::sessionBus();
   const QString dbusPath = newDBusObjectName();
   setProperty( "uniqueDBusPath", dbusPath );
-  const QString dbusInterface = QLatin1String("org.kde.pim.IdentityManager");
+  const QString dbusInterface = QStringLiteral("org.kde.pim.IdentityManager");
   dbus.registerObject( dbusPath, this );
-  dbus.connect( QString(), QString(), dbusInterface, QLatin1String("identitiesChanged"), this,
+  dbus.connect( QString(), QString(), dbusInterface, QStringLiteral("identitiesChanged"), this,
                 SLOT(slotIdentitiesChanged(QString)) );
 
   mReadOnly = readonly;
-  mConfig = new KConfig( QLatin1String("emailidentities") );
+  mConfig = new KConfig( QStringLiteral("emailidentities") );
   readConfig( mConfig );
   if ( mIdentities.isEmpty() ) {
     kDebug( 5325 ) << "emailidentities is empty -> convert from kmailrc";
     // No emailidentities file, or an empty one due to broken conversion
     // (kconf_update bug in kdelibs <= 3.2.2)
     // => convert it, i.e. read settings from kmailrc
-    KConfig kmailConf( QLatin1String("kmailrc") );
+    KConfig kmailConf( QStringLiteral("kmailrc") );
     readConfig( &kmailConf );
   }
   // we need at least a default identity:
@@ -91,26 +91,26 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
     commit();
   }
 
-  KConfig kmailConf( QLatin1String("kmail2rc") );
+  KConfig kmailConf( QStringLiteral("kmail2rc") );
   if (!mReadOnly) {
     bool needCommit = false;
-    if (kmailConf.hasGroup(QLatin1String("Composer"))) {
-      KConfigGroup composerGroup = kmailConf.group(QLatin1String("Composer"));
-      if (composerGroup.hasKey(QLatin1String("pgp-auto-sign"))) {
-        const bool pgpAutoSign = composerGroup.readEntry(QLatin1String("pgp-auto-sign"), false);
+    if (kmailConf.hasGroup(QStringLiteral("Composer"))) {
+      KConfigGroup composerGroup = kmailConf.group(QStringLiteral("Composer"));
+      if (composerGroup.hasKey(QStringLiteral("pgp-auto-sign"))) {
+        const bool pgpAutoSign = composerGroup.readEntry(QStringLiteral("pgp-auto-sign"), false);
         QList<Identity>::iterator end = mIdentities.end();
         for ( QList<Identity>::iterator it = mIdentities.begin(); it != end; ++it ) {
           it->setPgpAutoSign(pgpAutoSign);
         }
-        composerGroup.deleteEntry(QLatin1String("pgp-auto-sign"));
+        composerGroup.deleteEntry(QStringLiteral("pgp-auto-sign"));
         composerGroup.sync();
         needCommit = true;
       }
     }
-    if (kmailConf.hasGroup(QLatin1String("General"))) {
-      KConfigGroup generalGroup = kmailConf.group(QLatin1String("General"));
-      if (generalGroup.hasKey(QLatin1String("Default domain"))) {
-         QString defaultDomain = generalGroup.readEntry(QLatin1String("Default domain"));
+    if (kmailConf.hasGroup(QStringLiteral("General"))) {
+      KConfigGroup generalGroup = kmailConf.group(QStringLiteral("General"));
+      if (generalGroup.hasKey(QStringLiteral("Default domain"))) {
+         QString defaultDomain = generalGroup.readEntry(QStringLiteral("Default domain"));
          if (defaultDomain.isEmpty()) {
              defaultDomain = QHostInfo::localHostName();
          }
@@ -118,7 +118,7 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
          for ( QList<Identity>::iterator it = mIdentities.begin(); it != end; ++it ) {
            it->setDefaultDomainName(defaultDomain);
          }
-         generalGroup.deleteEntry(QLatin1String("Default domain"));
+         generalGroup.deleteEntry(QStringLiteral("Default domain"));
          generalGroup.sync();
          needCommit = true;
       }
@@ -326,7 +326,7 @@ void IdentityManager::readConfig( KConfig *config )
 
 QStringList IdentityManager::groupList( KConfig *config ) const
 {
-  return config->groupList().filter( QRegExp( QLatin1String("^Identity #\\d+$") ) );
+  return config->groupList().filter( QRegExp( QStringLiteral("^Identity #\\d+$") ) );
 }
 
 IdentityManager::ConstIterator IdentityManager::begin() const
