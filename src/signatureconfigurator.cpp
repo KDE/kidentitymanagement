@@ -50,6 +50,7 @@
 #include <QHBoxLayout>
 
 #include <assert.h>
+#include <QStandardPaths>
 
 using namespace KPIMIdentities;
 
@@ -473,7 +474,7 @@ void SignatureConfigurator::Private::init()
   {
     const QString dir = QString::fromLatin1( "emailidentities/%1/" ).arg(
         QString::number( identity.uoid() ) );
-    setImageLocation( KStandardDirs::locateLocal( "data", dir ) );
+    setImageLocation( QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + dir ) ;
   }
 
 }

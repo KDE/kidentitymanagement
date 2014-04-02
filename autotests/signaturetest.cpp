@@ -30,6 +30,7 @@
 #include <KIconLoader>
 #include <KStandardDirs>
 #include <KConfigGroup>
+#include <QStandardPaths>
 
 using namespace KPIMIdentities;
 using namespace KPIMTextEdit;
@@ -179,8 +180,8 @@ void SignatureTester::testImages()
   QImage image1, image2;
   QVERIFY( image1.load( image1Path ) );
   QVERIFY( image2.load( image1Path ) );
-  QString path = KStandardDirs::locateLocal( "data", QStringLiteral("emailidentities/unittest/") );
-  QString configPath = KStandardDirs::locateLocal( "config", QStringLiteral("signaturetest") );
+  QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + QStringLiteral("emailidentities/unittest/") ;
+  QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + QStringLiteral("signaturetest") ;
   KConfig config( configPath );
   KConfigGroup group1 = config.group( "Signature1" );
 
