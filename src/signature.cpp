@@ -522,12 +522,6 @@ void Signature::insertIntoTextEdit( KRichTextEdit *textEdit,
 }
 
 void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
-                                    KPIMTextEdit::TextEdit *textEdit ) const
-{
-  insertSignatureText( placement, addedText, textEdit, false );
-}
-
-void Signature::insertIntoTextEdit( Placement placement, AddedText addedText,
                                     KPIMTextEdit::TextEdit *textEdit, bool forceDisplay ) const
 {
   insertSignatureText( placement, addedText, textEdit, forceDisplay );

@@ -244,20 +244,14 @@ namespace KPIMIdentities
        *                  inserted.
        * @param addedText defines which other texts should be added to the signature
        * @param textEdit the signature will be inserted into this text edit.
-       * 
-       * @since 4.4
+       *
+       * @since 4.9 
        */
       // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
       //                  with the deprecated method
-      void insertIntoTextEdit( Placement placement, AddedText addedText,
-                               KPIMTextEdit::TextEdit *textEdit ) const;
-
-      /**
-       * @since 4.9
-       **/
       //TODO; KDE5 merge with previous method
       void insertIntoTextEdit( Placement placement, AddedText addedText,
-                               KPIMTextEdit::TextEdit *textEdit, bool forceDisplay ) const;
+                               KPIMTextEdit::TextEdit *textEdit, bool forceDisplay = false ) const;
 
       /**
        * Inserts this given signature into the given text edit.
