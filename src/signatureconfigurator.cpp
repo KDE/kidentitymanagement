@@ -70,6 +70,17 @@ class SignatureConfigurator::Private
     SignatureConfigurator *q;
     bool inlinedHtml;
     QString imageLocation;
+    QCheckBox       * mEnableCheck;
+    QCheckBox       * mHtmlCheck;
+    KComboBox       * mSourceCombo;
+    KUrlRequester   * mFileRequester;
+    QPushButton     * mEditButton;
+    KLineEdit       * mCommandEdit;
+    KToolBar        * mEditToolBar;
+    KToolBar        * mFormatToolBar;
+    KRichTextWidget * mTextEdit;      // Grmbl, why is this not in the private class? 
+                                      // This is a KPIMTextEdit::TextEdit, really.
+
 };
 //@endcond
 
@@ -92,21 +103,21 @@ void SignatureConfigurator::Private::init()
   vlay->setMargin( 0 );
 
   // "enable signatue" checkbox:
-  q->mEnableCheck = new QCheckBox( i18n( "&Enable signature" ), q );
-  q->mEnableCheck->setWhatsThis(
+  mEnableCheck = new QCheckBox( i18n( "&Enable signature" ), q );
+  mEnableCheck->setWhatsThis(
       i18n( "Check this box if you want KMail to append a signature to mails "
             "written with this identity." ) );
-  vlay->addWidget( q->mEnableCheck );
+  vlay->addWidget( mEnableCheck );
 
   // "obtain signature text from" combo and label:
   hlay = new QHBoxLayout(); // inherits spacing
   vlay->addLayout( hlay );
-  q->mSourceCombo = new KComboBox( q );
-  q->mSourceCombo->setEditable( false );
-  q->mSourceCombo->setWhatsThis(
+  mSourceCombo = new KComboBox( q );
+  mSourceCombo->setEditable( false );
+  mSourceCombo->setWhatsThis(
       i18n( "Click on the widgets below to obtain help on the input methods." ) );
-  q->mSourceCombo->setEnabled( false ); // since !mEnableCheck->isChecked()
-  q->mSourceCombo->addItems( QStringList()
+  mSourceCombo->setEnabled( false ); // since !mEnableCheck->isChecked()
+  mSourceCombo->addItems( QStringList()
                   << i18nc( "continuation of \"obtain signature text from\"",
                             "Input Field Below" )
                   << i18nc( "continuation of \"obtain signature text from\"",
@@ -114,30 +125,30 @@ void SignatureConfigurator::Private::init()
                   << i18nc( "continuation of \"obtain signature text from\"",
                             "Output of Command" ) );
   label = new QLabel( i18n( "Obtain signature &text from:" ), q );
-  label->setBuddy( q->mSourceCombo );
+  label->setBuddy( mSourceCombo );
   label->setEnabled( false ); // since !mEnableCheck->isChecked()
   hlay->addWidget( label );
-  hlay->addWidget( q->mSourceCombo, 1 );
+  hlay->addWidget( mSourceCombo, 1 );
 
   // widget stack that is controlled by the source combo:
   QStackedWidget * widgetStack = new QStackedWidget( q );
   widgetStack->setEnabled( false ); // since !mEnableCheck->isChecked()
   vlay->addWidget( widgetStack, 1 );
-  q->connect( q->mSourceCombo, SIGNAL(currentIndexChanged(int)),
+  q->connect( mSourceCombo, SIGNAL(currentIndexChanged(int)),
               widgetStack, SLOT(setCurrentIndex(int)) );
-  q->connect( q->mSourceCombo, SIGNAL(highlighted(int)),
+  q->connect( mSourceCombo, SIGNAL(highlighted(int)),
               widgetStack, SLOT(setCurrentIndex(int)) );
   // connects for the enabling of the widgets depending on
   // signatureEnabled:
-  q->connect( q->mEnableCheck, SIGNAL(toggled(bool)),
-              q->mSourceCombo, SLOT(setEnabled(bool)) );
-  q->connect( q->mEnableCheck, SIGNAL(toggled(bool)),
+  q->connect( mEnableCheck, SIGNAL(toggled(bool)),
+              mSourceCombo, SLOT(setEnabled(bool)) );
+  q->connect( mEnableCheck, SIGNAL(toggled(bool)),
               widgetStack, SLOT(setEnabled(bool)) );
-  q->connect( q->mEnableCheck, SIGNAL(toggled(bool)),
+  q->connect( mEnableCheck, SIGNAL(toggled(bool)),
               label, SLOT(setEnabled(bool)) );
   // The focus might be still in the widget that is disabled
-  q->connect( q->mEnableCheck, SIGNAL(clicked()),
-              q->mEnableCheck, SLOT(setFocus()) );
+  q->connect( mEnableCheck, SIGNAL(clicked()),
+              mEnableCheck, SLOT(setFocus()) );
 
   int pageno = 0;
   // page 0: input field for direct entering:
@@ -146,23 +157,23 @@ void SignatureConfigurator::Private::init()
   page_vlay = new QVBoxLayout( page );
 
 #ifndef QT_NO_TOOLBAR
-  q->mEditToolBar = new KToolBar( q );
-  q->mEditToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
-  page_vlay->addWidget( q->mEditToolBar, 0 );
+  mEditToolBar = new KToolBar( q );
+  mEditToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
+  page_vlay->addWidget( mEditToolBar, 0 );
 
-  q->mFormatToolBar = new KToolBar( q );
-  q->mFormatToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
-  page_vlay->addWidget( q->mFormatToolBar, 1 );
+  mFormatToolBar = new KToolBar( q );
+  mFormatToolBar->setToolButtonStyle( Qt::ToolButtonIconOnly );
+  page_vlay->addWidget( mFormatToolBar, 1 );
 #endif
 
-  q->mTextEdit = new KPIMTextEdit::TextEdit( q );
-  static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableImageActions();
-  static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableInsertHtmlActions();
-  static_cast<KPIMTextEdit::TextEdit*>( q->mTextEdit )->enableInsertTableActions();
-  page_vlay->addWidget( q->mTextEdit, 2 );
-  q->mTextEdit->setWhatsThis( i18n( "Use this field to enter an arbitrary static signature." ) );
+  mTextEdit = new KPIMTextEdit::TextEdit( q );
+  static_cast<KPIMTextEdit::TextEdit*>( mTextEdit )->enableImageActions();
+  static_cast<KPIMTextEdit::TextEdit*>( mTextEdit )->enableInsertHtmlActions();
+  static_cast<KPIMTextEdit::TextEdit*>( mTextEdit )->enableInsertTableActions();
+  page_vlay->addWidget( mTextEdit, 2 );
+  mTextEdit->setWhatsThis( i18n( "Use this field to enter an arbitrary static signature." ) );
   // exclude SupportToPlainText.
-  q->mTextEdit->setRichTextSupport( KRichTextWidget::FullTextFormattingSupport |
+  mTextEdit->setRichTextSupport( KRichTextWidget::FullTextFormattingSupport |
       KRichTextWidget::FullListSupport |
       KRichTextWidget::SupportAlignment |
       KRichTextWidget::SupportRuleLine |
@@ -171,47 +182,47 @@ void SignatureConfigurator::Private::init()
 
   // Fill the toolbars.
   KActionCollection *actionCollection = new KActionCollection( q );
-  actionCollection->addActions(q->mTextEdit->createActions());
+  actionCollection->addActions(mTextEdit->createActions());
 #ifndef QT_NO_TOOLBAR
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_bold") ) );
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_italic") ) );
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_underline") ) );
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_strikeout") ) );
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_foreground_color") ) );
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_background_color") ) );
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_font_family") ) );
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_font_size") ) );
-  q->mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_reset") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_bold") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_italic") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_underline") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_strikeout") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_foreground_color") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_text_background_color") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_font_family") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_font_size") ) );
+  mEditToolBar->addAction( actionCollection->action( QStringLiteral("format_reset") ) );
 
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_list_style") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_list_indent_more") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_list_indent_less") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_list_indent_less") ) );
-  q->mFormatToolBar->addSeparator();
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_list_style") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_list_indent_more") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_list_indent_less") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_list_indent_less") ) );
+  mFormatToolBar->addSeparator();
 
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_align_left") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_align_center") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_align_right") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_align_justify") ) );
-  q->mFormatToolBar->addSeparator();
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_align_left") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_align_center") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_align_right") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_align_justify") ) );
+  mFormatToolBar->addSeparator();
 
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("insert_horizontal_rule") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("manage_link") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_painter") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("insert_horizontal_rule") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("manage_link") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("format_painter") ) );
 
-  q->mFormatToolBar->addSeparator();
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("add_image") ) );
-  q->mFormatToolBar->addSeparator();
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("insert_html") ) );
-  q->mFormatToolBar->addAction( actionCollection->action( QStringLiteral("insert_table" )) );
+  mFormatToolBar->addSeparator();
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("add_image") ) );
+  mFormatToolBar->addSeparator();
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("insert_html") ) );
+  mFormatToolBar->addAction( actionCollection->action( QStringLiteral("insert_table" )) );
 #endif
 
   hlay = new QHBoxLayout(); // inherits spacing
   page_vlay->addLayout( hlay );
-  q->mHtmlCheck = new QCheckBox( i18n( "&Use HTML" ), page );
-  q->connect( q->mHtmlCheck, SIGNAL(clicked()),
+  mHtmlCheck = new QCheckBox( i18n( "&Use HTML" ), page );
+  q->connect( mHtmlCheck, SIGNAL(clicked()),
               q, SLOT(slotSetHtml()) );
-  hlay->addWidget( q->mHtmlCheck );
+  hlay->addWidget( mHtmlCheck );
   inlinedHtml = true;
 
   widgetStack->setCurrentIndex( 0 ); // since mSourceCombo->currentItem() == 0
@@ -224,25 +235,25 @@ void SignatureConfigurator::Private::init()
   page_vlay->setMargin( 0 );
   hlay = new QHBoxLayout(); // inherits spacing
   page_vlay->addLayout( hlay );
-  q->mFileRequester = new KUrlRequester( page );
-  q->mFileRequester->setWhatsThis(
+  mFileRequester = new KUrlRequester( page );
+  mFileRequester->setWhatsThis(
       i18n( "Use this requester to specify a text file that contains your "
             "signature. It will be read every time you create a new mail or "
             "append a new signature." ) );
   label = new QLabel( i18n( "S&pecify file:" ), page );
-  label->setBuddy( q->mFileRequester );
+  label->setBuddy( mFileRequester );
   hlay->addWidget( label );
-  hlay->addWidget( q->mFileRequester, 1 );
-  q->mFileRequester->button()->setAutoDefault( false );
-  q->connect( q->mFileRequester, SIGNAL(textChanged(QString)),
+  hlay->addWidget( mFileRequester, 1 );
+  mFileRequester->button()->setAutoDefault( false );
+  q->connect( mFileRequester, SIGNAL(textChanged(QString)),
               q, SLOT(slotEnableEditButton(QString)) );
-  q->mEditButton = new QPushButton( i18n( "Edit &File" ), page );
-  q->mEditButton->setWhatsThis( i18n( "Opens the specified file in a text editor." ) );
-  q->connect( q->mEditButton, SIGNAL(clicked()),
+  mEditButton = new QPushButton( i18n( "Edit &File" ), page );
+  mEditButton->setWhatsThis( i18n( "Opens the specified file in a text editor." ) );
+  q->connect( mEditButton, SIGNAL(clicked()),
               q, SLOT(slotEdit()) );
-  q->mEditButton->setAutoDefault( false );
-  q->mEditButton->setEnabled( false ); // initially nothing to edit
-  hlay->addWidget( q->mEditButton );
+  mEditButton->setAutoDefault( false );
+  mEditButton->setEnabled( false ); // initially nothing to edit
+  hlay->addWidget( mEditButton );
   page_vlay->addStretch( 1 ); // spacer
 
   // page 2: "signature command" requester and label:
@@ -253,19 +264,19 @@ void SignatureConfigurator::Private::init()
   page_vlay->setMargin( 0 );
   hlay = new QHBoxLayout(); // inherits spacing
   page_vlay->addLayout( hlay );
-  q->mCommandEdit = new KLineEdit( page );
-  q->mCommandEdit->setCompletionObject( new KShellCompletion() );
-  q->mCommandEdit->setAutoDeleteCompletionObject( true );
-  q->mCommandEdit->setWhatsThis(
+  mCommandEdit = new KLineEdit( page );
+  mCommandEdit->setCompletionObject( new KShellCompletion() );
+  mCommandEdit->setAutoDeleteCompletionObject( true );
+  mCommandEdit->setWhatsThis(
       i18n( "You can add an arbitrary command here, either with or without path "
             "depending on whether or not the command is in your Path. For every "
             "new mail, KMail will execute the command and use what it outputs (to "
             "standard output) as a signature. Usual commands for use with this "
             "mechanism are \"fortune\" or \"ksig -random\"." ) );
   label = new QLabel( i18n( "S&pecify command:" ), page );
-  label->setBuddy( q->mCommandEdit );
+  label->setBuddy( mCommandEdit );
   hlay->addWidget( label );
-  hlay->addWidget( q->mCommandEdit, 1 );
+  hlay->addWidget( mCommandEdit, 1 );
   page_vlay->addStretch( 1 ); // spacer
 }
 
@@ -282,17 +293,17 @@ void SignatureConfigurator::Private::init()
 
   bool SignatureConfigurator::isSignatureEnabled() const
   {
-    return mEnableCheck->isChecked();
+    return d->mEnableCheck->isChecked();
   }
 
   void SignatureConfigurator::setSignatureEnabled( bool enable )
   {
-    mEnableCheck->setChecked( enable );
+    d->mEnableCheck->setChecked( enable );
   }
 
   Signature::Type SignatureConfigurator::signatureType() const
   {
-    switch ( mSourceCombo->currentIndex() ) {
+    switch ( d->mSourceCombo->currentIndex() ) {
     case 0:  return Signature::Inlined;
     case 1:  return Signature::FromFile;
     case 2:  return Signature::FromCommand;
@@ -310,17 +321,17 @@ void SignatureConfigurator::Private::init()
     default:                     idx = 0; break;
     };
 
-    mSourceCombo->setCurrentIndex( idx );
+    d->mSourceCombo->setCurrentIndex( idx );
   }
 
   void SignatureConfigurator::setInlineText( const QString & text )
   {
-    mTextEdit->setTextOrHtml( text );
+    d->mTextEdit->setTextOrHtml( text );
   }
 
   QString SignatureConfigurator::fileURL() const
   {
-    QString file = mFileRequester->url().path();
+    QString file = d->mFileRequester->url().path();
 
     // Force the filename to be relative to ~ instead of $PWD depending
     // on the rest of the code (KRun::run in Edit and KFileItem on save)
@@ -332,17 +343,17 @@ void SignatureConfigurator::Private::init()
 
   void SignatureConfigurator::setFileURL( const QString & url )
   {
-    mFileRequester->setUrl( QUrl(url) );
+    d->mFileRequester->setUrl( QUrl(url) );
   }
 
   QString SignatureConfigurator::commandURL() const
   {
-    return mCommandEdit->text();
+    return d->mCommandEdit->text();
   }
 
   void SignatureConfigurator::setCommandURL( const QString & url )
   {
-    mCommandEdit->setText( url );
+    d->mCommandEdit->setText( url );
   }
 
 
@@ -353,12 +364,12 @@ void SignatureConfigurator::Private::init()
     switch ( sigType ) {
     case Signature::Inlined:
       sig.setInlinedHtml( d->inlinedHtml );
-      sig.setText( d->inlinedHtml ? asCleanedHTML() : mTextEdit->textOrHtml() );
+      sig.setText( d->inlinedHtml ? asCleanedHTML() : d->mTextEdit->textOrHtml() );
       if ( d->inlinedHtml ) {
         if ( !d->imageLocation.isEmpty() ) {
           sig.setImageLocation( d->imageLocation );
         }
-        KPIMTextEdit::ImageWithNameList images = static_cast< KPIMTextEdit::TextEdit*>( mTextEdit )->imagesWithName();
+        KPIMTextEdit::ImageWithNameList images = static_cast< KPIMTextEdit::TextEdit*>( d->mTextEdit )->imagesWithName();
         foreach ( const KPIMTextEdit::ImageWithNamePtr &image, images ) {
           sig.addImage( image->image, image->name );
         }
@@ -385,15 +396,15 @@ void SignatureConfigurator::Private::init()
     setSignatureEnabled( sig.isEnabledSignature() );
 
     if ( sig.isInlinedHtml() ) {
-      mHtmlCheck->setCheckState( Qt::Checked );
+      d->mHtmlCheck->setCheckState( Qt::Checked );
     } else {
-      mHtmlCheck->setCheckState( Qt::Unchecked );
+      d->mHtmlCheck->setCheckState( Qt::Unchecked );
     }
     slotSetHtml();
 
     // Let insertIntoTextEdit() handle setting the text, as that function also adds the images.
-    mTextEdit->clear();
-    KPIMTextEdit::TextEdit * const pimEdit = static_cast<KPIMTextEdit::TextEdit*>( mTextEdit );
+    d->mTextEdit->clear();
+    KPIMTextEdit::TextEdit * const pimEdit = static_cast<KPIMTextEdit::TextEdit*>( d->mTextEdit );
     sig.insertIntoTextEdit( KPIMIdentities::Signature::Start, KPIMIdentities::Signature::AddNothing,
                             pimEdit, true );
     if ( sig.type() == Signature::FromFile ) {
@@ -411,7 +422,7 @@ void SignatureConfigurator::Private::init()
 
   void SignatureConfigurator::slotEnableEditButton( const QString & url )
   {
-    mEditButton->setDisabled( url.trimmed().isEmpty() );
+    d->mEditButton->setDisabled( url.trimmed().isEmpty() );
   }
 
   void SignatureConfigurator::slotEdit()
@@ -425,7 +436,7 @@ void SignatureConfigurator::Private::init()
 
   QString SignatureConfigurator::asCleanedHTML() const
   {
-    QString text = mTextEdit->toHtml();
+    QString text = d->mTextEdit->toHtml();
 
     // Beautiful little hack to find the html headers produced by Qt.
     QTextDocument textDocument;
@@ -441,27 +452,27 @@ void SignatureConfigurator::Private::init()
   // "use HTML"-checkbox (un)checked
   void SignatureConfigurator::slotSetHtml()
   {
-    if ( mHtmlCheck->checkState() == Qt::Unchecked ) {
-      mHtmlCheck->setText( i18n( "&Use HTML" ) );
+    if ( d->mHtmlCheck->checkState() == Qt::Unchecked ) {
+      d->mHtmlCheck->setText( i18n( "&Use HTML" ) );
 #ifndef QT_NO_TOOLBAR
-      mEditToolBar->setVisible( false );
-      mEditToolBar->setEnabled( false );
-      mFormatToolBar->setVisible( false );
-      mFormatToolBar->setEnabled( false );
+      d->mEditToolBar->setVisible( false );
+      d->mEditToolBar->setEnabled( false );
+      d->mFormatToolBar->setVisible( false );
+      d->mFormatToolBar->setEnabled( false );
 #endif
-      mTextEdit->switchToPlainText();
+      d->mTextEdit->switchToPlainText();
       d->inlinedHtml = false;
     }
     else {
-      mHtmlCheck->setText( i18n( "&Use HTML (disabling removes formatting)" ) );
+      d->mHtmlCheck->setText( i18n( "&Use HTML (disabling removes formatting)" ) );
       d->inlinedHtml = true;
 #ifndef QT_NO_TOOLBAR
-      mEditToolBar->setVisible( true );
-      mEditToolBar->setEnabled( true );
-      mFormatToolBar->setVisible( true );
-      mFormatToolBar->setEnabled( true );
+      d->mEditToolBar->setVisible( true );
+      d->mEditToolBar->setEnabled( true );
+      d->mFormatToolBar->setVisible( true );
+      d->mFormatToolBar->setEnabled( true );
 #endif
-      mTextEdit->enableRichTextMode();
+      d->mTextEdit->enableRichTextMode();
     }
   }
 

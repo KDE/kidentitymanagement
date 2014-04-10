@@ -44,7 +44,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include "identitymanageradaptor.h"
 
-using namespace KPIMIdentities;
+namespace KPIMIdentities {
 
 static QString newDBusObjectName()
 {
@@ -57,209 +57,39 @@ static QString newDBusObjectName()
   return name;
 }
 
-IdentityManager::IdentityManager( bool readonly, QObject *parent,
-                                  const char *name )
-    : QObject( parent )
+
+/**
+ *   Private class that helps to provide binary compatibility between releases.
+ *   @internal
+ */
+//@cond PRIVATE
+class KPIMIdentities::IdentityManager::Private
 {
-  setObjectName( QLatin1String(name) );
-#warning another insertCatalog porting
-//   KLocalizedString::insertCatalog( "libkpimidentities" );
-  new IdentityManagerAdaptor( this );
-  QDBusConnection dbus = QDBusConnection::sessionBus();
-  const QString dbusPath = newDBusObjectName();
-  setProperty( "uniqueDBusPath", dbusPath );
-  const QString dbusInterface = QStringLiteral("org.kde.pim.IdentityManager");
-  dbus.registerObject( dbusPath, this );
-  dbus.connect( QString(), QString(), dbusInterface, QStringLiteral("identitiesChanged"), this,
-                SLOT(slotIdentitiesChanged(QString)) );
+  public:
+    Private( KPIMIdentities::IdentityManager* );
+    void writeConfig() const;
+    void readConfig( KConfig *config );
+    void createDefaultIdentity();
+    QStringList groupList( KConfig *config ) const;
+    void slotIdentitiesChanged( const QString &id );
+    KConfig *mConfig;
 
-  mReadOnly = readonly;
-  mConfig = new KConfig( QStringLiteral("emailidentities") );
-  readConfig( mConfig );
-  if ( mIdentities.isEmpty() ) {
-    kDebug( 5325 ) << "emailidentities is empty -> convert from kmailrc";
-    // No emailidentities file, or an empty one due to broken conversion
-    // (kconf_update bug in kdelibs <= 3.2.2)
-    // => convert it, i.e. read settings from kmailrc
-    KConfig kmailConf( QStringLiteral("kmailrc") );
-    readConfig( &kmailConf );
-  }
-  // we need at least a default identity:
-  if ( mIdentities.isEmpty() ) {
-    kDebug( 5325 ) << "IdentityManager: No identity found. Creating default.";
-    createDefaultIdentity();
-    commit();
-  }
+    QList<Identity> mIdentities;
+    QList<Identity> mShadowIdentities;
 
-  KConfig kmailConf( QStringLiteral("kmail2rc") );
-  if (!mReadOnly) {
-    bool needCommit = false;
-    if (kmailConf.hasGroup(QStringLiteral("Composer"))) {
-      KConfigGroup composerGroup = kmailConf.group(QStringLiteral("Composer"));
-      if (composerGroup.hasKey(QStringLiteral("pgp-auto-sign"))) {
-        const bool pgpAutoSign = composerGroup.readEntry(QStringLiteral("pgp-auto-sign"), false);
-        QList<Identity>::iterator end = mIdentities.end();
-        for ( QList<Identity>::iterator it = mIdentities.begin(); it != end; ++it ) {
-          it->setPgpAutoSign(pgpAutoSign);
-        }
-        composerGroup.deleteEntry(QStringLiteral("pgp-auto-sign"));
-        composerGroup.sync();
-        needCommit = true;
-      }
-    }
-    if (kmailConf.hasGroup(QStringLiteral("General"))) {
-      KConfigGroup generalGroup = kmailConf.group(QStringLiteral("General"));
-      if (generalGroup.hasKey(QStringLiteral("Default domain"))) {
-         QString defaultDomain = generalGroup.readEntry(QStringLiteral("Default domain"));
-         if (defaultDomain.isEmpty()) {
-             defaultDomain = QHostInfo::localHostName();
-         }
-         QList<Identity>::iterator end = mIdentities.end();
-         for ( QList<Identity>::iterator it = mIdentities.begin(); it != end; ++it ) {
-           it->setDefaultDomainName(defaultDomain);
-         }
-         generalGroup.deleteEntry(QStringLiteral("Default domain"));
-         generalGroup.sync();
-         needCommit = true;
-      }
-    }
-    if (needCommit)
-      commit();
-  }
+    // returns a new Unique Object Identifier
+    int newUoid();
 
-  // Migration: people without settings in kemailsettings should get some
-  if ( KEMailSettings().getSetting( KEMailSettings::EmailAddress ).isEmpty() ) {
-    writeConfig();
-  }
+    bool mReadOnly;
+    KPIMIdentities::IdentityManager *q;
+};
+
+IdentityManager::Private::Private( KPIMIdentities::IdentityManager *manager)
+    : q( manager )
+{
 }
 
-IdentityManager::~IdentityManager()
-{
-  kWarning( hasPendingChanges(), 5325 )
-  << "IdentityManager: There were uncommitted changes!";
-  delete mConfig;
-}
-
-QString IdentityManager::makeUnique( const QString &name ) const
-{
-  int suffix = 1;
-  QString result = name;
-  while ( identities().contains( result ) ) {
-    result = i18nc( "%1: name; %2: number appended to it to make it unique "
-                    "among a list of names", "%1 #%2",
-                    name, suffix );
-    suffix++;
-  }
-  return result;
-}
-
-bool IdentityManager::isUnique( const QString &name ) const
-{
-  return !identities().contains( name );
-}
-
-void IdentityManager::commit()
-{
-  // early out:
-  if ( !hasPendingChanges() || mReadOnly ) {
-    return;
-  }
-
-  QList<uint> seenUOIDs;
-  QList<Identity>::ConstIterator end = mIdentities.constEnd();
-  for ( QList<Identity>::ConstIterator it = mIdentities.constBegin();
-        it != end; ++it ) {
-    seenUOIDs << ( *it ).uoid();
-  }
-
-  QList<uint> changedUOIDs;
-  // find added and changed identities:
-  for ( QList<Identity>::ConstIterator it = mShadowIdentities.constBegin();
-        it != mShadowIdentities.constEnd(); ++it ) {
-    int index = seenUOIDs.indexOf( ( *it ).uoid() );
-    if ( index != -1 ) {
-      uint uoid = seenUOIDs.at( index );
-      const Identity &orig = identityForUoid( uoid );  // look up in mIdentities
-      if ( *it != orig ) {
-        // changed identity
-        kDebug( 5325 ) << "emitting changed() for identity" << uoid;
-        emit changed( *it );
-        changedUOIDs << uoid;
-      }
-      seenUOIDs.removeAll( uoid );
-    } else {
-      // new identity
-      kDebug( 5325 ) << "emitting added() for identity" << ( *it ).uoid();
-      emit added( *it );
-    }
-  }
-
-  // what's left are deleted identities:
-  for ( QList<uint>::ConstIterator it = seenUOIDs.constBegin();
-        it != seenUOIDs.constEnd(); ++it ) {
-    kDebug( 5325 ) << "emitting deleted() for identity" << ( *it );
-    emit deleted( *it );
-  }
-
-  mIdentities = mShadowIdentities;
-  writeConfig();
-
-  // now that mIdentities has all the new info, we can emit the added/changed
-  // signals that ship a uoid. This is because the slots might use
-  // identityForUoid(uoid)...
-  QList<uint>::ConstIterator changedEnd( changedUOIDs.constEnd() );
-  for ( QList<uint>::ConstIterator it = changedUOIDs.constBegin();
-        it != changedEnd; ++it ) {
-    emit changed( *it );
-  }
-
-  emit changed(); // normal signal
-
-  // DBus signal for other IdentityManager instances
-  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).
-                                  arg( QDBusConnection::sessionBus().baseService() ).
-                                  arg( property( "uniqueDBusPath" ).toString() );
-  emit identitiesChanged( ourIdentifier );
-}
-
-void IdentityManager::rollback()
-{
-  mShadowIdentities = mIdentities;
-}
-
-bool IdentityManager::hasPendingChanges() const
-{
-  return mIdentities != mShadowIdentities;
-}
-
-QStringList IdentityManager::identities() const
-{
-  QStringList result;
-  ConstIterator end = mIdentities.constEnd();
-  for ( ConstIterator it = mIdentities.constBegin();
-        it != end; ++it ) {
-    result << ( *it ).identityName();
-  }
-  return result;
-}
-
-QStringList IdentityManager::shadowIdentities() const
-{
-  QStringList result;
-  ConstIterator end = mShadowIdentities.constEnd();
-  for ( ConstIterator it = mShadowIdentities.constBegin();
-        it != end; ++it ) {
-    result << ( *it ).identityName();
-  }
-  return result;
-}
-
-void IdentityManager::sort()
-{
-  qSort( mShadowIdentities );
-}
-
-void IdentityManager::writeConfig() const
+void IdentityManager::Private::writeConfig() const
 {
   const QStringList identities = groupList( mConfig );
   QStringList::const_iterator groupEnd = identities.constEnd();
@@ -290,7 +120,7 @@ void IdentityManager::writeConfig() const
 
 }
 
-void IdentityManager::readConfig( KConfig *config )
+void IdentityManager::Private::readConfig( KConfig *config )
 {
   mIdentities.clear();
 
@@ -324,29 +154,353 @@ void IdentityManager::readConfig( KConfig *config )
   mShadowIdentities = mIdentities;
 }
 
-QStringList IdentityManager::groupList( KConfig *config ) const
+void IdentityManager::Private::createDefaultIdentity()
+{
+  QString fullName, emailAddress;
+  bool done = false;
+
+  // Check if the application has any settings
+  q->createDefaultIdentity( fullName, emailAddress );
+
+  // If not, then use the kcontrol settings
+  if ( fullName.isEmpty() && emailAddress.isEmpty() ) {
+    KEMailSettings emailSettings;
+    fullName = emailSettings.getSetting( KEMailSettings::RealName );
+    emailAddress = emailSettings.getSetting( KEMailSettings::EmailAddress );
+
+    if ( !fullName.isEmpty() && !emailAddress.isEmpty() ) {
+      q->newFromControlCenter( i18nc( "use default address from control center",
+                                   "Default" ) );
+      done = true;
+    } else {
+      // If KEmailSettings doesn't have name and address, generate something from KUser
+      KUser user;
+      if ( fullName.isEmpty() ) {
+        fullName = user.property( KUser::FullName ).toString();
+      }
+      if ( emailAddress.isEmpty() ) {
+        emailAddress = user.loginName();
+        if ( !emailAddress.isEmpty() ) {
+          KConfigGroup general( mConfig, "General" );
+          QString defaultdomain = general.readEntry( "Default domain" );
+          if ( !defaultdomain.isEmpty() ) {
+            emailAddress += QLatin1Char('@') + defaultdomain;
+          } else {
+            emailAddress.clear();
+          }
+        }
+      }
+    }
+  }
+
+  if ( !done ) {
+    // Default identity name
+    QString name( i18nc( "Default name for new email accounts/identities.", "Unnamed" ) );
+
+    if ( !emailAddress.isEmpty() ) {
+      // If we have an email address, create a default identity name from it
+      QString idName = emailAddress;
+      int pos = idName.indexOf( QLatin1Char('@') );
+      if ( pos != -1 ) {
+        name = idName.mid( pos + 1, -1 );
+      }
+
+      // Make the name a bit more human friendly
+      name.replace( QLatin1Char('.'), QLatin1Char(' ') );
+      pos = name.indexOf( QLatin1Char(' ') );
+      if ( pos != 0 ) {
+        name[pos + 1] = name[pos + 1].toUpper();
+      }
+      name[0] = name[0].toUpper();
+    } else if ( !fullName.isEmpty() ) {
+      // If we have a full name, create a default identity name from it
+      name = fullName;
+    }
+    mShadowIdentities << Identity( name, fullName, emailAddress );
+  }
+
+  mShadowIdentities.last().setIsDefault( true );
+  mShadowIdentities.last().setUoid( newUoid() );
+  if ( mReadOnly ) { // commit won't do it in readonly mode
+    mIdentities = mShadowIdentities;
+  }
+}
+
+QStringList IdentityManager::Private::groupList( KConfig *config ) const
 {
   return config->groupList().filter( QRegExp( QStringLiteral("^Identity #\\d+$") ) );
 }
 
+int IdentityManager::Private::newUoid()
+{
+  int uoid;
+
+  // determine the UOIDs of all saved identities
+  QList<uint> usedUOIDs;
+  QList<Identity>::ConstIterator end( mIdentities.constEnd() );
+  for ( QList<Identity>::ConstIterator it = mIdentities.constBegin();
+        it != end; ++it ) {
+    usedUOIDs << ( *it ).uoid();
+  }
+
+  if ( q->hasPendingChanges() ) {
+    // add UOIDs of all shadow identities. Yes, we will add a lot of duplicate
+    // UOIDs, but avoiding duplicate UOIDs isn't worth the effort.
+    QList<Identity>::ConstIterator endShadow( mShadowIdentities.constEnd() );
+    for ( QList<Identity>::ConstIterator it = mShadowIdentities.constBegin();
+          it != endShadow; ++it ) {
+      usedUOIDs << ( *it ).uoid();
+    }
+  }
+
+  usedUOIDs << 0; // no UOID must be 0 because this value always refers to the
+  // default identity
+
+  do {
+    uoid = KRandom::random();
+  } while ( usedUOIDs.indexOf( uoid ) != -1 );
+
+  return uoid;
+}
+
+void IdentityManager::Private::slotIdentitiesChanged( const QString &id )
+{
+  kDebug( 5325 ) << " KPIMIdentities::IdentityManager::slotIdentitiesChanged :" << id;
+  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).
+                                  arg( QDBusConnection::sessionBus().baseService() ).
+                                  arg( q->property( "uniqueDBusPath" ).toString() );
+  if ( id != ourIdentifier ) {
+    mConfig->reparseConfiguration();
+    Q_ASSERT( !hasPendingChanges() );
+    readConfig( mConfig );
+    emit q->changed();
+  }
+}
+
+
+IdentityManager::IdentityManager( bool readonly, QObject *parent,
+                                  const char *name )
+    : QObject( parent ),
+      d( new Private( this ) )
+{
+  setObjectName( QLatin1String(name) );
+#warning another insertCatalog porting
+//   KLocalizedString::insertCatalog( "libkpimidentities" );
+  new IdentityManagerAdaptor( this );
+  QDBusConnection dbus = QDBusConnection::sessionBus();
+  const QString dbusPath = newDBusObjectName();
+  setProperty( "uniqueDBusPath", dbusPath );
+  const QString dbusInterface = QStringLiteral("org.kde.pim.IdentityManager");
+  dbus.registerObject( dbusPath, this );
+  dbus.connect( QString(), QString(), dbusInterface, QStringLiteral("identitiesChanged"), this,
+                SLOT(slotIdentitiesChanged(QString)) );
+
+  d->mReadOnly = readonly;
+  d->mConfig = new KConfig( QStringLiteral("emailidentities") );
+  d->readConfig( d->mConfig );
+  if ( d->mIdentities.isEmpty() ) {
+    kDebug( 5325 ) << "emailidentities is empty -> convert from kmailrc";
+    // No emailidentities file, or an empty one due to broken conversion
+    // (kconf_update bug in kdelibs <= 3.2.2)
+    // => convert it, i.e. read settings from kmailrc
+    KConfig kmailConf( QStringLiteral("kmailrc") );
+    d->readConfig( &kmailConf );
+  }
+  // we need at least a default identity:
+  if ( d->mIdentities.isEmpty() ) {
+    kDebug( 5325 ) << "IdentityManager: No identity found. Creating default.";
+    d->createDefaultIdentity();
+    commit();
+  }
+
+  KConfig kmailConf( QStringLiteral("kmail2rc") );
+  if (!d->mReadOnly) {
+    bool needCommit = false;
+    if (kmailConf.hasGroup(QStringLiteral("Composer"))) {
+      KConfigGroup composerGroup = kmailConf.group(QStringLiteral("Composer"));
+      if (composerGroup.hasKey(QStringLiteral("pgp-auto-sign"))) {
+        const bool pgpAutoSign = composerGroup.readEntry(QStringLiteral("pgp-auto-sign"), false);
+        QList<Identity>::iterator end = d->mIdentities.end();
+        for ( QList<Identity>::iterator it = d->mIdentities.begin(); it != end; ++it ) {
+          it->setPgpAutoSign(pgpAutoSign);
+        }
+        composerGroup.deleteEntry(QStringLiteral("pgp-auto-sign"));
+        composerGroup.sync();
+        needCommit = true;
+      }
+    }
+    if (kmailConf.hasGroup(QStringLiteral("General"))) {
+      KConfigGroup generalGroup = kmailConf.group(QStringLiteral("General"));
+      if (generalGroup.hasKey(QStringLiteral("Default domain"))) {
+         QString defaultDomain = generalGroup.readEntry(QStringLiteral("Default domain"));
+         if (defaultDomain.isEmpty()) {
+             defaultDomain = QHostInfo::localHostName();
+         }
+         QList<Identity>::iterator end = d->mIdentities.end();
+         for ( QList<Identity>::iterator it = d->mIdentities.begin(); it != end; ++it ) {
+           it->setDefaultDomainName(defaultDomain);
+         }
+         generalGroup.deleteEntry(QStringLiteral("Default domain"));
+         generalGroup.sync();
+         needCommit = true;
+      }
+    }
+    if (needCommit)
+      commit();
+  }
+
+  // Migration: people without settings in kemailsettings should get some
+  if ( KEMailSettings().getSetting( KEMailSettings::EmailAddress ).isEmpty() ) {
+    d->writeConfig();
+  }
+}
+
+IdentityManager::~IdentityManager()
+{
+  kWarning( hasPendingChanges(), 5325 )
+  << "IdentityManager: There were uncommitted changes!";
+  delete d;
+}
+
+QString IdentityManager::makeUnique( const QString &name ) const
+{
+  int suffix = 1;
+  QString result = name;
+  while ( identities().contains( result ) ) {
+    result = i18nc( "%1: name; %2: number appended to it to make it unique "
+                    "among a list of names", "%1 #%2",
+                    name, suffix );
+    ++suffix;
+  }
+  return result;
+}
+
+bool IdentityManager::isUnique( const QString &name ) const
+{
+  return !identities().contains( name );
+}
+
+void IdentityManager::commit()
+{
+  // early out:
+  if ( !hasPendingChanges() || d->mReadOnly ) {
+    return;
+  }
+
+  QList<uint> seenUOIDs;
+  QList<Identity>::ConstIterator end = d->mIdentities.constEnd();
+  for ( QList<Identity>::ConstIterator it = d->mIdentities.constBegin();
+        it != end; ++it ) {
+    seenUOIDs << ( *it ).uoid();
+  }
+
+  QList<uint> changedUOIDs;
+  // find added and changed identities:
+  for ( QList<Identity>::ConstIterator it = d->mShadowIdentities.constBegin();
+        it != d->mShadowIdentities.constEnd(); ++it ) {
+    int index = seenUOIDs.indexOf( ( *it ).uoid() );
+    if ( index != -1 ) {
+      uint uoid = seenUOIDs.at( index );
+      const Identity &orig = identityForUoid( uoid );  // look up in mIdentities
+      if ( *it != orig ) {
+        // changed identity
+        kDebug( 5325 ) << "emitting changed() for identity" << uoid;
+        emit changed( *it );
+        changedUOIDs << uoid;
+      }
+      seenUOIDs.removeAll( uoid );
+    } else {
+      // new identity
+      kDebug( 5325 ) << "emitting added() for identity" << ( *it ).uoid();
+      emit added( *it );
+    }
+  }
+
+  // what's left are deleted identities:
+  for ( QList<uint>::ConstIterator it = seenUOIDs.constBegin();
+        it != seenUOIDs.constEnd(); ++it ) {
+    kDebug( 5325 ) << "emitting deleted() for identity" << ( *it );
+    emit deleted( *it );
+  }
+
+  d->mIdentities = d->mShadowIdentities;
+  d->writeConfig();
+
+  // now that mIdentities has all the new info, we can emit the added/changed
+  // signals that ship a uoid. This is because the slots might use
+  // identityForUoid(uoid)...
+  QList<uint>::ConstIterator changedEnd( changedUOIDs.constEnd() );
+  for ( QList<uint>::ConstIterator it = changedUOIDs.constBegin();
+        it != changedEnd; ++it ) {
+    emit changed( *it );
+  }
+
+  emit changed(); // normal signal
+
+  // DBus signal for other IdentityManager instances
+  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).
+                                  arg( QDBusConnection::sessionBus().baseService() ).
+                                  arg( property( "uniqueDBusPath" ).toString() );
+  emit identitiesChanged( ourIdentifier );
+}
+
+void IdentityManager::rollback()
+{
+  d->mShadowIdentities = d->mIdentities;
+}
+
+bool IdentityManager::hasPendingChanges() const
+{
+  return d->mIdentities != d->mShadowIdentities;
+}
+
+QStringList IdentityManager::identities() const
+{
+  QStringList result;
+  ConstIterator end = d->mIdentities.constEnd();
+  for ( ConstIterator it = d->mIdentities.constBegin();
+        it != end; ++it ) {
+    result << ( *it ).identityName();
+  }
+  return result;
+}
+
+QStringList IdentityManager::shadowIdentities() const
+{
+  QStringList result;
+  ConstIterator end = d->mShadowIdentities.constEnd();
+  for ( ConstIterator it = d->mShadowIdentities.constBegin();
+        it != end; ++it ) {
+    result << ( *it ).identityName();
+  }
+  return result;
+}
+
+void IdentityManager::sort()
+{
+  qSort( d->mShadowIdentities );
+}
+
+
+
 IdentityManager::ConstIterator IdentityManager::begin() const
 {
-  return mIdentities.begin();
+  return d->mIdentities.constBegin();
 }
 
 IdentityManager::ConstIterator IdentityManager::end() const
 {
-  return mIdentities.end();
+  return d->mIdentities.constEnd();
 }
 
 IdentityManager::Iterator IdentityManager::modifyBegin()
 {
-  return mShadowIdentities.begin();
+  return d->mShadowIdentities.begin();
 }
 
 IdentityManager::Iterator IdentityManager::modifyEnd()
 {
-  return mShadowIdentities.end();
+  return d->mShadowIdentities.end();
 }
 
 const Identity &IdentityManager::identityForUoid( uint uoid ) const
@@ -426,7 +580,7 @@ const Identity &IdentityManager::defaultIdentity() const
     }
   }
 
-  if ( mIdentities.isEmpty() ) {
+  if ( d->mIdentities.isEmpty() ) {
     kFatal( 5325 ) << "IdentityManager: No default identity found!";
   } else {
     kWarning( 5325 ) << "IdentityManager: No default identity found!";
@@ -438,8 +592,8 @@ bool IdentityManager::setAsDefault( uint uoid )
 {
   // First, check if the identity actually exists:
   bool found = false;
-  for ( ConstIterator it = mShadowIdentities.constBegin();
-        it != mShadowIdentities.constEnd(); ++it ) {
+  for ( ConstIterator it = d->mShadowIdentities.constBegin();
+        it != d->mShadowIdentities.constEnd(); ++it ) {
     if ( ( *it ).uoid() == uoid ) {
       found = true;
       break;
@@ -462,16 +616,16 @@ bool IdentityManager::setAsDefault( uint uoid )
 
 bool IdentityManager::removeIdentity( const QString &name )
 {
-  if ( mShadowIdentities.size() <= 1 ) {
+  if ( d->mShadowIdentities.size() <= 1 ) {
     return false;
   }
 
   for ( Iterator it = modifyBegin(); it != modifyEnd(); ++it ) {
     if ( ( *it ).identityName() == name ) {
       bool removedWasDefault = ( *it ).isDefault();
-      mShadowIdentities.erase( it );
-      if ( removedWasDefault && !mShadowIdentities.isEmpty() ) {
-        mShadowIdentities.first().setIsDefault( true );
+      d->mShadowIdentities.erase( it );
+      if ( removedWasDefault && !d->mShadowIdentities.isEmpty() ) {
+        d->mShadowIdentities.first().setIsDefault( true );
       }
       return true;
     }
@@ -484,9 +638,9 @@ bool IdentityManager::removeIdentityForced( const QString &name )
   for ( Iterator it = modifyBegin(); it != modifyEnd(); ++it ) {
     if ( ( *it ).identityName() == name ) {
       bool removedWasDefault = ( *it ).isDefault();
-      mShadowIdentities.erase( it );
-      if ( removedWasDefault && !mShadowIdentities.isEmpty() ) {
-        mShadowIdentities.first().setIsDefault( true );
+      d->mShadowIdentities.erase( it );
+      if ( removedWasDefault && !d->mShadowIdentities.isEmpty() ) {
+        d->mShadowIdentities.first().setIsDefault( true );
       }
       return true;
     }
@@ -514,119 +668,17 @@ Identity &IdentityManager::newFromControlCenter( const QString &name )
 
 Identity &IdentityManager::newFromExisting( const Identity &other, const QString &name )
 {
-  mShadowIdentities << other;
-  Identity &result = mShadowIdentities.last();
+  d->mShadowIdentities << other;
+  Identity &result = d->mShadowIdentities.last();
   result.setIsDefault( false );  // we don't want two default identities!
-  result.setUoid( newUoid() );  // we don't want two identies w/ same UOID
+  result.setUoid( d->newUoid() );  // we don't want two identies w/ same UOID
   if ( !name.isNull() ) {
     result.setIdentityName( name );
   }
   return result;
 }
 
-void IdentityManager::createDefaultIdentity()
-{
-  QString fullName, emailAddress;
-  bool done = false;
 
-  // Check if the application has any settings
-  createDefaultIdentity( fullName, emailAddress );
-
-  // If not, then use the kcontrol settings
-  if ( fullName.isEmpty() && emailAddress.isEmpty() ) {
-    KEMailSettings emailSettings;
-    fullName = emailSettings.getSetting( KEMailSettings::RealName );
-    emailAddress = emailSettings.getSetting( KEMailSettings::EmailAddress );
-
-    if ( !fullName.isEmpty() && !emailAddress.isEmpty() ) {
-      newFromControlCenter( i18nc( "use default address from control center",
-                                   "Default" ) );
-      done = true;
-    } else {
-      // If KEmailSettings doesn't have name and address, generate something from KUser
-      KUser user;
-      if ( fullName.isEmpty() ) {
-        fullName = user.property( KUser::FullName ).toString();
-      }
-      if ( emailAddress.isEmpty() ) {
-        emailAddress = user.loginName();
-        if ( !emailAddress.isEmpty() ) {
-          KConfigGroup general( mConfig, "General" );
-          QString defaultdomain = general.readEntry( "Default domain" );
-          if ( !defaultdomain.isEmpty() ) {
-            emailAddress += QLatin1Char('@') + defaultdomain;
-          } else {
-            emailAddress.clear();
-          }
-        }
-      }
-    }
-  }
-
-  if ( !done ) {
-    // Default identity name
-    QString name( i18nc( "Default name for new email accounts/identities.", "Unnamed" ) );
-
-    if ( !emailAddress.isEmpty() ) {
-      // If we have an email address, create a default identity name from it
-      QString idName = emailAddress;
-      int pos = idName.indexOf( QLatin1Char('@') );
-      if ( pos != -1 ) {
-        name = idName.mid( pos + 1, -1 );
-      }
-
-      // Make the name a bit more human friendly
-      name.replace( QLatin1Char('.'), QLatin1Char(' ') );
-      pos = name.indexOf( QLatin1Char(' ') );
-      if ( pos != 0 ) {
-        name[pos + 1] = name[pos + 1].toUpper();
-      }
-      name[0] = name[0].toUpper();
-    } else if ( !fullName.isEmpty() ) {
-      // If we have a full name, create a default identity name from it
-      name = fullName;
-    }
-    mShadowIdentities << Identity( name, fullName, emailAddress );
-  }
-
-  mShadowIdentities.last().setIsDefault( true );
-  mShadowIdentities.last().setUoid( newUoid() );
-  if ( mReadOnly ) { // commit won't do it in readonly mode
-    mIdentities = mShadowIdentities;
-  }
-}
-
-int IdentityManager::newUoid()
-{
-  int uoid;
-
-  // determine the UOIDs of all saved identities
-  QList<uint> usedUOIDs;
-  QList<Identity>::ConstIterator end( mIdentities.constEnd() );
-  for ( QList<Identity>::ConstIterator it = mIdentities.constBegin();
-        it != end; ++it ) {
-    usedUOIDs << ( *it ).uoid();
-  }
-
-  if ( hasPendingChanges() ) {
-    // add UOIDs of all shadow identities. Yes, we will add a lot of duplicate
-    // UOIDs, but avoiding duplicate UOIDs isn't worth the effort.
-    QList<Identity>::ConstIterator endShadow( mShadowIdentities.constEnd() );
-    for ( QList<Identity>::ConstIterator it = mShadowIdentities.constBegin();
-          it != endShadow; ++it ) {
-      usedUOIDs << ( *it ).uoid();
-    }
-  }
-
-  usedUOIDs << 0; // no UOID must be 0 because this value always refers to the
-  // default identity
-
-  do {
-    uoid = KRandom::random();
-  } while ( usedUOIDs.indexOf( uoid ) != -1 );
-
-  return uoid;
-}
 
 QStringList KPIMIdentities::IdentityManager::allEmails() const
 {
@@ -645,17 +697,5 @@ void KPIMIdentities::IdentityManager::slotRollback()
   rollback();
 }
 
-void KPIMIdentities::IdentityManager::slotIdentitiesChanged( const QString &id )
-{
-  kDebug( 5325 ) << " KPIMIdentities::IdentityManager::slotIdentitiesChanged :" << id;
-  const QString ourIdentifier = QString::fromLatin1( "%1/%2" ).
-                                  arg( QDBusConnection::sessionBus().baseService() ).
-                                  arg( property( "uniqueDBusPath" ).toString() );
-  if ( id != ourIdentifier ) {
-    mConfig->reparseConfiguration();
-    Q_ASSERT( !hasPendingChanges() );
-    readConfig( mConfig );
-    emit changed();
-  }
 }
-
+#include "moc_identitymanager.cpp"

@@ -27,17 +27,6 @@
 
 using KPIMIdentities::Signature;
 
-class QCheckBox;
-class KComboBox;
-class KUrlRequester;
-class KLineEdit;
-class KToolBar;
-class KRichTextWidget;
-class QString;
-class QPushButton;
-class QTextEdit;
-class QTextCharFormat;
-
 namespace KPIMIdentities {
 
   /**
@@ -165,20 +154,6 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
     void slotEnableEditButton( const QString & );
     void slotEdit();
     void slotSetHtml();
-
-  protected:
-
-    // TODO: KDE5: BIC: Move to private class!
-    QCheckBox       * mEnableCheck;
-    QCheckBox       * mHtmlCheck;
-    KComboBox       * mSourceCombo;
-    KUrlRequester   * mFileRequester;
-    QPushButton     * mEditButton;
-    KLineEdit       * mCommandEdit;
-    KToolBar        * mEditToolBar;
-    KToolBar        * mFormatToolBar;
-    KRichTextWidget * mTextEdit;      // Grmbl, why is this not in the private class? 
-                                      // This is a KPIMTextEdit::TextEdit, really.
 
   private:
     //@cond PRIVATE
