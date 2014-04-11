@@ -1,7 +1,7 @@
 @PACKAGE_INIT@
 
 find_dependency(KF5CoreAddons "@KF5_VERSION@")
-find_dependency(KF5KDE4Support "@KF5_VERSION@")
+find_dependency(KF5KDELibs4Support "@KF5_VERSION@")
 find_dependency(KF5KIO "@KF5_VERSION@")
 find_dependency(KF5PimTextEdit "@KF5_VERSION@")
 find_dependency(KF5PimUtils "@KF5_VERSION@")
