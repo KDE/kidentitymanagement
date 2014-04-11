@@ -19,7 +19,7 @@ target_include_directories(KF5PimIdentities PUBLIC "$<BUILD_INTERFACE:${KPimIden
 
 target_link_libraries(KF5PimIdentities
   KF5::CoreAddons
-  KF5::KDE4Support
+  KF5::KDELibs4Support
   KF5::KIOCore
   KF5::PimTextEdit
   KF5::PimUtils
