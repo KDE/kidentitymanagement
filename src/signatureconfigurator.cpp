@@ -30,7 +30,7 @@
 #include <kshellcompletion.h>
 #include <ktoolbar.h>
 #include <krun.h>
-#include <KUrl>
+#include <QUrl>
 #include <KComboBox>
 #include <KStandardDirs>
 
@@ -432,7 +432,7 @@ void SignatureConfigurator::Private::init()
     // slotEnableEditButton should prevent this assert from being hit:
     assert( !url.isEmpty() );
 
-    (void)KRun::runUrl( KUrl( url ), QString::fromLatin1( "text/plain" ), this );
+    (void)KRun::runUrl( QUrl( url ), QString::fromLatin1( "text/plain" ), this );
   }
 
   QString SignatureConfigurator::asCleanedHTML() const
