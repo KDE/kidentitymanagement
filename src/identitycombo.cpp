@@ -44,14 +44,48 @@ using namespace KPIMIdentities;
 //@cond PRIVATE
 class KPIMIdentities::IdentityCombo::Private
 {
+public:
+    Private(IdentityManager *manager, IdentityCombo *qq)
+        : mIdentityManager(manager),
+          q(qq)
+    {
+
+    }
+    void reloadCombo();
+    void reloadUoidList();
+
+    QList<uint> mUoidList;
+    IdentityManager *mIdentityManager;
+    IdentityCombo *q;
 };
+
+void KPIMIdentities::IdentityCombo::Private::reloadCombo()
+{
+    const QStringList identities = mIdentityManager->identities();
+    // the IM should prevent this from happening:
+    assert( !identities.isEmpty() );
+    q->clear();
+    q->addItems( identities );
+}
+
+void KPIMIdentities::IdentityCombo::Private::reloadUoidList()
+{
+  mUoidList.clear();
+  IdentityManager::ConstIterator it;
+  IdentityManager::ConstIterator end( mIdentityManager->end() );
+  for ( it = mIdentityManager->begin(); it != end; ++it ) {
+    mUoidList << ( *it ).uoid();
+  }
+}
+
+
 //@endcond
 
 IdentityCombo::IdentityCombo( IdentityManager *manager, QWidget *parent )
-    : QComboBox( parent ), mIdentityManager( manager ), d( 0 )
+    : KComboBox( parent ), d( new Private(manager,this) )
 {
-  reloadCombo();
-  reloadUoidList();
+  d->reloadCombo();
+  d->reloadUoidList();
   connect( this, SIGNAL(activated(int)), SLOT(slotEmitChanged(int)) );
   connect( this, SIGNAL(identityChanged(uint)), this, SLOT(slotUpdateTooltip(uint)) );
   connect( manager, SIGNAL(changed()),
@@ -66,12 +100,12 @@ IdentityCombo::~IdentityCombo()
 
 QString IdentityCombo::currentIdentityName() const
 {
-  return mIdentityManager->identities()[ currentIndex()];
+  return d->mIdentityManager->identities().at(currentIndex());
 }
 
 uint IdentityCombo::currentIdentity() const
 {
-  return mUoidList[ currentIndex()];
+  return d->mUoidList.at(currentIndex());
 }
 
 void IdentityCombo::setCurrentIdentity( const Identity &identity )
@@ -81,7 +115,7 @@ void IdentityCombo::setCurrentIdentity( const Identity &identity )
 
 void IdentityCombo::setCurrentIdentity( const QString &name )
 {
-  int idx = mIdentityManager->identities().indexOf( name );
+  int idx = d->mIdentityManager->identities().indexOf( name );
   if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
     return;
   }
@@ -95,7 +129,7 @@ void IdentityCombo::setCurrentIdentity( const QString &name )
 
 void IdentityCombo::setCurrentIdentity( uint uoid )
 {
-  int idx = mUoidList.indexOf( uoid );
+  int idx = d->mUoidList.indexOf( uoid );
   if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
     return;
   }
@@ -107,34 +141,17 @@ void IdentityCombo::setCurrentIdentity( uint uoid )
   slotEmitChanged( idx );
 }
 
-void IdentityCombo::reloadCombo()
-{
-  QStringList identities = mIdentityManager->identities();
-  // the IM should prevent this from happening:
-  assert( !identities.isEmpty() );
-  clear();
-  addItems( identities );
-}
 
-void IdentityCombo::reloadUoidList()
-{
-  mUoidList.clear();
-  IdentityManager::ConstIterator it;
-  IdentityManager::ConstIterator end( mIdentityManager->end() );
-  for ( it = mIdentityManager->begin(); it != end; ++it ) {
-    mUoidList << ( *it ).uoid();
-  }
-}
 
 void IdentityCombo::slotIdentityManagerChanged()
 {
-  uint oldIdentity = mUoidList[ currentIndex()];
+  uint oldIdentity = d->mUoidList.at(currentIndex());
 
-  reloadUoidList();
-  int idx = mUoidList.indexOf( oldIdentity );
+  d->reloadUoidList();
+  int idx = d->mUoidList.indexOf( oldIdentity );
 
   blockSignals( true );
-  reloadCombo();
+  d->reloadCombo();
   setCurrentIndex( idx < 0 ? 0 : idx );
   blockSignals( false );
 
@@ -148,17 +165,17 @@ void IdentityCombo::slotIdentityManagerChanged()
 
 void IdentityCombo::slotEmitChanged( int idx )
 {
-  emit identityChanged( mUoidList[idx] );
+  emit identityChanged( d->mUoidList.at(idx) );
 }
 
 void IdentityCombo::slotUpdateTooltip( uint uoid )
 {
-  setToolTip( mIdentityManager->identityForUoid( uoid ).fullEmailAddr() );
+  setToolTip( d->mIdentityManager->identityForUoid( uoid ).fullEmailAddr() );
 }
 
 IdentityManager* IdentityCombo::identityManager() const
 {
-  return mIdentityManager;
+  return d->mIdentityManager;
 }
 
 

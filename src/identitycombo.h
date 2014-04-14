@@ -31,7 +31,7 @@
 #define KPIMIDENTITIES_IDENTITYCOMBO_H
 
 #include "kpimidentities_export.h"
-#include <QComboBox>
+#include <KComboBox>
 
 class QString;
 
@@ -42,7 +42,7 @@ namespace KPIMIdentities
   class Identity;
 
   //KDE5: subclass from a KComboBox
-  class KPIMIDENTITIES_EXPORT IdentityCombo : public QComboBox //krazy:exclude=qclasses
+  class KPIMIDENTITIES_EXPORT IdentityCombo : public KComboBox
   {
       Q_OBJECT
     public:
@@ -81,12 +81,6 @@ namespace KPIMIdentities
     protected Q_SLOTS:
       void slotEmitChanged( int );
       void slotUpdateTooltip( uint uoid );
-
-    protected:
-      void reloadCombo();
-      void reloadUoidList();
-      QList<uint> mUoidList;
-      IdentityManager *mIdentityManager;
 
     private:
       //@cond PRIVATE
