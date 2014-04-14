@@ -141,15 +141,6 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
      */
     void setImageLocation( const Identity &identity );
 
-  private:
-    void toggleHtmlBtnState( ViewMode state );
-
-    void initHtmlState();
-
-    // Returns the current text of the textedit as HTML code, but strips
-    // unnecessary tags Qt inserts
-    QString asCleanedHTML() const;
-
   protected Q_SLOTS:
     void slotEnableEditButton( const QString & );
     void slotEdit();

@@ -66,6 +66,9 @@ class SignatureConfigurator::Private
   public:
     Private( SignatureConfigurator *parent );
     void init();
+    // Returns the current text of the textedit as HTML code, but strips
+    // unnecessary tags Qt inserts
+    QString asCleanedHTML() const;
 
     SignatureConfigurator *q;
     bool inlinedHtml;
@@ -87,6 +90,21 @@ class SignatureConfigurator::Private
 SignatureConfigurator::Private::Private( SignatureConfigurator *parent )
   :q( parent ), inlinedHtml( true )
 {
+}
+
+QString SignatureConfigurator::Private::asCleanedHTML() const
+{
+  QString text = mTextEdit->toHtml();
+
+  // Beautiful little hack to find the html headers produced by Qt.
+  QTextDocument textDocument;
+  QString html = textDocument.toHtml();
+
+  // Now remove each line from the text, the result is clean html.
+  foreach ( const QString& line, html.split( QLatin1Char('\n') ) ) {
+    text.remove( line + QLatin1Char('\n') );
+  }
+  return text;
 }
 
 void SignatureConfigurator::Private::init()
@@ -365,7 +383,7 @@ void SignatureConfigurator::Private::init()
     switch ( sigType ) {
     case Signature::Inlined:
       sig.setInlinedHtml( d->inlinedHtml );
-      sig.setText( d->inlinedHtml ? asCleanedHTML() : d->mTextEdit->textOrHtml() );
+      sig.setText( d->inlinedHtml ? d->asCleanedHTML() : d->mTextEdit->textOrHtml() );
       if ( d->inlinedHtml ) {
         if ( !d->imageLocation.isEmpty() ) {
           sig.setImageLocation( d->imageLocation );
@@ -433,21 +451,6 @@ void SignatureConfigurator::Private::init()
     assert( !url.isEmpty() );
 
     (void)KRun::runUrl( QUrl( url ), QString::fromLatin1( "text/plain" ), this );
-  }
-
-  QString SignatureConfigurator::asCleanedHTML() const
-  {
-    QString text = d->mTextEdit->toHtml();
-
-    // Beautiful little hack to find the html headers produced by Qt.
-    QTextDocument textDocument;
-    QString html = textDocument.toHtml();
-
-    // Now remove each line from the text, the result is clean html.
-    foreach ( const QString& line, html.split( QLatin1Char('\n') ) ) {
-      text.remove( line + QLatin1Char('\n') );
-    }
-    return text;
   }
 
   // "use HTML"-checkbox (un)checked
