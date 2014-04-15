@@ -23,7 +23,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include "identitymanager.h"
 #include "identity.h" // for IdentityList::{export,import}Data
 
-#include <kpimutils/email.h> // for static helper functions
+#include <email.h> // for static helper functions
 
 #include <kemailsettings.h> // for IdentityEntry::fromControlCenter()
 #include <klocale.h>
@@ -75,7 +75,7 @@ class KPIMIdentities::IdentityManager::Private
     KConfig *mConfig;
 
     QList<Identity> mIdentities;
-    QList<Identity> mShadowIdentities;
+    QList<Identity> shadowIdentities;
 
     // returns a new Unique Object Identifier
     int newUoid();
@@ -151,7 +151,7 @@ void IdentityManager::Private::readConfig( KConfig *config )
   }
   qSort( mIdentities );
 
-  mShadowIdentities = mIdentities;
+  shadowIdentities = mIdentities;
 }
 
 void IdentityManager::Private::createDefaultIdentity()
@@ -216,13 +216,13 @@ void IdentityManager::Private::createDefaultIdentity()
       // If we have a full name, create a default identity name from it
       name = fullName;
     }
-    mShadowIdentities << Identity( name, fullName, emailAddress );
+    shadowIdentities << Identity( name, fullName, emailAddress );
   }
 
-  mShadowIdentities.last().setIsDefault( true );
-  mShadowIdentities.last().setUoid( newUoid() );
+  shadowIdentities.last().setIsDefault( true );
+  shadowIdentities.last().setUoid( newUoid() );
   if ( mReadOnly ) { // commit won't do it in readonly mode
-    mIdentities = mShadowIdentities;
+    mIdentities = shadowIdentities;
   }
 }
 
@@ -246,8 +246,8 @@ int IdentityManager::Private::newUoid()
   if ( q->hasPendingChanges() ) {
     // add UOIDs of all shadow identities. Yes, we will add a lot of duplicate
     // UOIDs, but avoiding duplicate UOIDs isn't worth the effort.
-    QList<Identity>::ConstIterator endShadow( mShadowIdentities.constEnd() );
-    for ( QList<Identity>::ConstIterator it = mShadowIdentities.constBegin();
+    QList<Identity>::ConstIterator endShadow( shadowIdentities.constEnd() );
+    for ( QList<Identity>::ConstIterator it = shadowIdentities.constBegin();
           it != endShadow; ++it ) {
       usedUOIDs << ( *it ).uoid();
     }
@@ -396,8 +396,8 @@ void IdentityManager::commit()
 
   QList<uint> changedUOIDs;
   // find added and changed identities:
-  for ( QList<Identity>::ConstIterator it = d->mShadowIdentities.constBegin();
-        it != d->mShadowIdentities.constEnd(); ++it ) {
+  for ( QList<Identity>::ConstIterator it = d->shadowIdentities.constBegin();
+        it != d->shadowIdentities.constEnd(); ++it ) {
     int index = seenUOIDs.indexOf( ( *it ).uoid() );
     if ( index != -1 ) {
       uint uoid = seenUOIDs.at( index );
@@ -423,7 +423,7 @@ void IdentityManager::commit()
     emit deleted( *it );
   }
 
-  d->mIdentities = d->mShadowIdentities;
+  d->mIdentities = d->shadowIdentities;
   d->writeConfig();
 
   // now that mIdentities has all the new info, we can emit the added/changed
@@ -446,12 +446,12 @@ void IdentityManager::commit()
 
 void IdentityManager::rollback()
 {
-  d->mShadowIdentities = d->mIdentities;
+  d->shadowIdentities = d->mIdentities;
 }
 
 bool IdentityManager::hasPendingChanges() const
 {
-  return d->mIdentities != d->mShadowIdentities;
+  return d->mIdentities != d->shadowIdentities;
 }
 
 QStringList IdentityManager::identities() const
@@ -468,8 +468,8 @@ QStringList IdentityManager::identities() const
 QStringList IdentityManager::shadowIdentities() const
 {
   QStringList result;
-  ConstIterator end = d->mShadowIdentities.constEnd();
-  for ( ConstIterator it = d->mShadowIdentities.constBegin();
+  ConstIterator end = d->shadowIdentities.constEnd();
+  for ( ConstIterator it = d->shadowIdentities.constBegin();
         it != end; ++it ) {
     result << ( *it ).identityName();
   }
@@ -478,7 +478,7 @@ QStringList IdentityManager::shadowIdentities() const
 
 void IdentityManager::sort()
 {
-  qSort( d->mShadowIdentities );
+  qSort( d->shadowIdentities );
 }
 
 
@@ -495,12 +495,12 @@ IdentityManager::ConstIterator IdentityManager::end() const
 
 IdentityManager::Iterator IdentityManager::modifyBegin()
 {
-  return d->mShadowIdentities.begin();
+  return d->shadowIdentities.begin();
 }
 
 IdentityManager::Iterator IdentityManager::modifyEnd()
 {
-  return d->mShadowIdentities.end();
+  return d->shadowIdentities.end();
 }
 
 const Identity &IdentityManager::identityForUoid( uint uoid ) const
@@ -592,8 +592,8 @@ bool IdentityManager::setAsDefault( uint uoid )
 {
   // First, check if the identity actually exists:
   bool found = false;
-  for ( ConstIterator it = d->mShadowIdentities.constBegin();
-        it != d->mShadowIdentities.constEnd(); ++it ) {
+  for ( ConstIterator it = d->shadowIdentities.constBegin();
+        it != d->shadowIdentities.constEnd(); ++it ) {
     if ( ( *it ).uoid() == uoid ) {
       found = true;
       break;
@@ -616,16 +616,16 @@ bool IdentityManager::setAsDefault( uint uoid )
 
 bool IdentityManager::removeIdentity( const QString &name )
 {
-  if ( d->mShadowIdentities.size() <= 1 ) {
+  if ( d->shadowIdentities.size() <= 1 ) {
     return false;
   }
 
   for ( Iterator it = modifyBegin(); it != modifyEnd(); ++it ) {
     if ( ( *it ).identityName() == name ) {
       bool removedWasDefault = ( *it ).isDefault();
-      d->mShadowIdentities.erase( it );
-      if ( removedWasDefault && !d->mShadowIdentities.isEmpty() ) {
-        d->mShadowIdentities.first().setIsDefault( true );
+      d->shadowIdentities.erase( it );
+      if ( removedWasDefault && !d->shadowIdentities.isEmpty() ) {
+        d->shadowIdentities.first().setIsDefault( true );
       }
       return true;
     }
@@ -638,9 +638,9 @@ bool IdentityManager::removeIdentityForced( const QString &name )
   for ( Iterator it = modifyBegin(); it != modifyEnd(); ++it ) {
     if ( ( *it ).identityName() == name ) {
       bool removedWasDefault = ( *it ).isDefault();
-      d->mShadowIdentities.erase( it );
-      if ( removedWasDefault && !d->mShadowIdentities.isEmpty() ) {
-        d->mShadowIdentities.first().setIsDefault( true );
+      d->shadowIdentities.erase( it );
+      if ( removedWasDefault && !d->shadowIdentities.isEmpty() ) {
+        d->shadowIdentities.first().setIsDefault( true );
       }
       return true;
     }
@@ -668,8 +668,8 @@ Identity &IdentityManager::newFromControlCenter( const QString &name )
 
 Identity &IdentityManager::newFromExisting( const Identity &other, const QString &name )
 {
-  d->mShadowIdentities << other;
-  Identity &result = d->mShadowIdentities.last();
+  d->shadowIdentities << other;
+  Identity &result = d->shadowIdentities.last();
   result.setIsDefault( false );  // we don't want two default identities!
   result.setUoid( d->newUoid() );  // we don't want two identies w/ same UOID
   if ( !name.isNull() ) {
