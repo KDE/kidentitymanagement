@@ -10,7 +10,7 @@ set(identitytest_SRCS identitytest.cpp)
 add_executable(identitytest ${identitytest_SRCS})
 add_test(identitytest identitytest)
 ecm_mark_as_test(identitytest)
-target_link_libraries(identitytest KF5PimIdentities Qt5::Test)
+target_link_libraries(identitytest KF5::PimIdentities Qt5::Test)
 
 ########### next target ###############
 
