@@ -41,7 +41,6 @@ namespace KPIMIdentities
   class IdentityManager;
   class Identity;
 
-  //KDE5: subclass from a KComboBox
   class KPIMIDENTITIES_EXPORT IdentityCombo : public KComboBox
   {
       Q_OBJECT
