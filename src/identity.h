@@ -166,15 +166,6 @@ class KPIMIDENTITIES_EXPORT Identity
       void setPreferredCryptoMessageFormat( const QString& );
 
       /**
-       * email address (without the user name - only name\@host)
-       * @deprecated Use the primary email address or aliases, depending on your usecase
-       * @sa primaryEmailAddress(), setPrimaryEmailAddress(), emailAliases(), setEmailAliases(),
-       *     matchesEmailAddress()
-       */
-      KPIMIDENTITIES_DEPRECATED QString emailAddr() const;
-      KPIMIDENTITIES_DEPRECATED void setEmailAddr( const QString& );
-
-      /**
        * primary email address (without the user name - only name\@host).
        * The primary email address is used for all outgoing mail.
        *

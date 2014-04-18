@@ -380,11 +380,6 @@ QString Identity::preferredCryptoMessageFormat() const
   return property( QLatin1String( s_prefcrypt ) ).toString();
 }
 
-QString Identity::emailAddr() const
-{
-  return primaryEmailAddress();
-}
-
 QString Identity::primaryEmailAddress() const
 {
   return property( QLatin1String( s_email ) ).toString();
@@ -548,11 +543,6 @@ void Identity::setSMIMESigningKey( const QByteArray &str )
 void Identity::setSMIMEEncryptionKey( const QByteArray &str )
 {
   setProperty( QLatin1String(s_smimee), QLatin1String( str ) );
-}
-
-void Identity::setEmailAddr( const QString &str )
-{
-  setPrimaryEmailAddress( str );
 }
 
 void Identity::setPrimaryEmailAddress( const QString & email )
