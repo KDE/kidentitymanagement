@@ -271,7 +271,7 @@ void IdentityManager::Private::slotIdentitiesChanged( const QString &id )
                                   arg( q->property( "uniqueDBusPath" ).toString() );
   if ( id != ourIdentifier ) {
     mConfig->reparseConfiguration();
-    Q_ASSERT( !hasPendingChanges() );
+    Q_ASSERT( !q->hasPendingChanges() );
     readConfig( mConfig );
     emit q->changed();
   }
