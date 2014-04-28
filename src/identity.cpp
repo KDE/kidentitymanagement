@@ -49,9 +49,6 @@ Identity::Identity( const QString &id, const QString &fullName,
   //setDictionary( Sonnet::defaultLanguageName() );
   setProperty( QLatin1String(s_disabledFcc), false );
   setProperty( QLatin1String(s_defaultDomainName), QHostInfo::localHostName());
-  setProperty( QLatin1String(s_templates), -1);
-  setProperty( QLatin1String(s_fcc), -1);
-  setProperty( QLatin1String(s_drafts), -1);
 }
 
 Identity::~Identity()
@@ -435,22 +432,22 @@ QString Identity::dictionary() const
   return property( QLatin1String( s_dict ) ).toString();
 }
 
-qlonglong Identity::templates() const
+QString Identity::templates() const
 {
-  const qlonglong id = property( QLatin1String( s_templates ) ).toLongLong();
-  return id;
+  const QString str = property( QLatin1String( s_templates ) ).toString();
+  return verifyAkonadiId(str);
 }
 
-qlonglong Identity::drafts() const
+QString Identity::drafts() const
 {
-  const qlonglong id = property( QLatin1String( s_drafts ) ).toLongLong();
-  return id;
+  const QString str = property( QLatin1String( s_drafts ) ).toString();
+  return verifyAkonadiId(str);
 }
 
-qlonglong Identity::fcc() const
+QString Identity::fcc() const
 {
-  const qlonglong id = property( QLatin1String( s_fcc ) ).toLongLong();
-  return id;
+  const QString str = property( QLatin1String( s_fcc ) ).toString();
+  return verifyAkonadiId(str);
 }
 
 QString Identity::transport() const
@@ -585,19 +582,19 @@ void Identity::setTransport( const QString &str )
   setProperty( QLatin1String(s_transport), str );
 }
 
-void Identity::setFcc( qlonglong id )
+void Identity::setFcc( const QString &str )
 {
-  setProperty( QLatin1String(s_fcc), id );
+  setProperty( QLatin1String(s_fcc), str );
 }
 
-void Identity::setDrafts( qlonglong id )
+void Identity::setDrafts( const QString &str )
 {
-  setProperty( QLatin1String(s_drafts), id );
+  setProperty( QLatin1String(s_drafts), str );
 }
 
-void Identity::setTemplates( qlonglong id )
+void Identity::setTemplates( const QString &str )
 {
-  setProperty( QLatin1String(s_templates), id );
+  setProperty( QLatin1String(s_templates), str );
 }
 
 void Identity::setDictionary( const QString &str )
@@ -704,6 +701,20 @@ QString Identity::defaultDomainName() const
 void Identity::setDefaultDomainName(const QString &domainName)
 {
     setProperty( QLatin1String(s_defaultDomainName), domainName );
+}
+
+QString Identity::verifyAkonadiId(const QString& str) const
+{
+  if(str.isEmpty())
+    return str;
+  bool ok = false;
+  const qlonglong val = str.toLongLong(&ok);
+  Q_UNUSED(val);
+  if(ok) {
+    return str;
+  } else {
+    return QString();
+  }
 }
 
 

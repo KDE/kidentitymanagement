@@ -270,20 +270,20 @@ class KPIMIDENTITIES_EXPORT Identity
 
       /** The folder where sent messages from this identity will be
       stored by default. */
-      qlonglong fcc() const;
-      void setFcc( qlonglong id );
+      QString fcc() const;
+      void setFcc( const QString& );
 
       /** The folder where draft messages from this identity will be
       stored by default.
       */
-      qlonglong drafts() const;
-      void setDrafts( qlonglong id );
+      QString drafts() const;
+      void setDrafts( const QString& );
 
       /** The folder where template messages from this identity will be
       stored by default.
       */
-      qlonglong templates() const;
-      void setTemplates( qlonglong id );
+      QString templates() const;
+      void setTemplates( const QString& );
 
       /**
        * Dictionary which should be used for spell checking
@@ -342,6 +342,8 @@ class KPIMIDENTITIES_EXPORT Identity
       void setUoid( uint aUoid );
 
     protected:
+      /** during migration when it failed it can be a string => not a qlonglong akonadi::id => fix it*/
+      QString verifyAkonadiId(const QString& str) const;
       /** @return true if the signature is read from the output of a command */
       bool signatureIsCommand() const;
 
