@@ -43,7 +43,6 @@ ecm_generate_headers(KPimIdentities_CamelCase_HEADERS
   SignatureConfigurator
 
   REQUIRED_HEADERS KPimIdentities_HEADERS
-  PREFIX KPIMIdentities
 )
 
 ########### install files ###############
