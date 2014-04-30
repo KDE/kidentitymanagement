@@ -31,7 +31,7 @@ set_target_properties(KF5PimIdentities PROPERTIES
     EXPORT_NAME PimIdentities
 )
 
-install(TARGETS KF5PimIdentities EXPORT KF5PimIdentitiesTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5PimIdentities EXPORT KF5PimIdentitiesTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### Generate Headers ###############
 ecm_generate_headers(KPimIdentities_CamelCase_HEADERS
