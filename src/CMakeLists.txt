@@ -18,10 +18,12 @@ target_include_directories(KF5PimIdentities INTERFACE "$<INSTALL_INTERFACE:${KF5
 target_include_directories(KF5PimIdentities PUBLIC "$<BUILD_INTERFACE:${KPimIdentities_SOURCE_DIR}/src;${KPimIdentities_BINARY_DIR}/src>")
 
 target_link_libraries(KF5PimIdentities
+PUBLIC
   KF5::CoreAddons
   KF5::KDELibs4Support
-  KF5::KIOCore
   KF5::PimTextEdit
+PRIVATE
+  KF5::KIOCore
   KF5::PimUtils
 )
 
@@ -57,5 +59,5 @@ install(FILES
 
 install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
 
-ecm_generate_pri_file(BASE_NAME KPimIdentities LIB_NAME KF5PimIdentities DEPS "CoreAddons KDELibs4Support KIO PimUtils Sonnet" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities)
+ecm_generate_pri_file(BASE_NAME KPimIdentities LIB_NAME KF5PimIdentities DEPS "CoreAddons KDELibs4Support PimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
