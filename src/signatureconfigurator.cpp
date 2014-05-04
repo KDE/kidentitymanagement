@@ -34,7 +34,7 @@
 #include <KComboBox>
 #include <KStandardDirs>
 
-#include <kpimtextedit/textedit.h>
+#include <textedit.h>
 
 #include <QCheckBox>
 #include <QDir>

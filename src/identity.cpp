@@ -23,7 +23,7 @@
 
 #include <kdebug.h>
 #include <kconfiggroup.h>
-#include <kpimutils/email.h>
+#include <email.h>
 
 #include <QMimeData>
 #include <QByteArray>
