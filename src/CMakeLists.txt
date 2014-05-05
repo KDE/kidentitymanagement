@@ -43,7 +43,7 @@ ecm_generate_headers(KPimIdentities_CamelCase_HEADERS
   IdentityManager
   Signature
   SignatureConfigurator
-
+  PREFIX KPIMIdentities
   REQUIRED_HEADERS KPimIdentities_HEADERS
 )
 
@@ -53,7 +53,7 @@ install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kpimidentities_export.h
   ${KPimIdentities_HEADERS}
     ${KPimIdentities_CamelCase_HEADERS}
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities/kpimidentities
     COMPONENT Devel
 )
 
