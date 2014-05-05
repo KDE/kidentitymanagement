@@ -28,7 +28,7 @@
 #include <kurl.h>
 #include <kprocess.h>
 #include <KRichTextEdit>
-#include <kfileio.h>
+#include <kpimutils/kfileio.h>
 
 #include <QFileInfo>
 #include <QSharedPointer>
@@ -36,7 +36,7 @@
 
 #include <assert.h>
 #include <QtCore/QDir>
-#include <textedit.h>
+#include <kpimtextedit/textedit.h>
 
 using namespace KPIMIdentities;
 
