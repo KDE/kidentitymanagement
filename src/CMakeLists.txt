@@ -52,10 +52,14 @@ ecm_generate_headers(KPimIdentities_CamelCase_HEADERS
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kpimidentities_export.h
   ${KPimIdentities_HEADERS}
-    ${KPimIdentities_CamelCase_HEADERS}
     DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities/kpimidentities
     COMPONENT Devel
 )
+install(FILES    ${KPimIdentities_CamelCase_HEADERS}
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities/KPIMIdentities/
+    COMPONENT Devel
+)
+
 
 install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
 
