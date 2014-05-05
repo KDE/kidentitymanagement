@@ -23,7 +23,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include "identitymanager.h"
 #include "identity.h" // for IdentityList::{export,import}Data
 
-#include <email.h> // for static helper functions
+#include <kpimutils/email.h> // for static helper functions
 
 #include <kemailsettings.h> // for IdentityEntry::fromControlCenter()
 #include <klocale.h>
