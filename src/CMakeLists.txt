@@ -14,7 +14,7 @@ generate_export_header(KF5PimIdentities BASE_NAME kpimidentities)
 
 add_library(KF5::PimIdentities ALIAS KF5PimIdentities)
 
-target_include_directories(KF5PimIdentities INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities>")
+target_include_directories(KF5PimIdentities INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities;${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities/kpimidentities;>")
 target_include_directories(KF5PimIdentities PUBLIC "$<BUILD_INTERFACE:${KPimIdentities_SOURCE_DIR}/src;${KPimIdentities_BINARY_DIR}/src>")
 
 target_link_libraries(KF5PimIdentities
