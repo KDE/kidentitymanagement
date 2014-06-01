@@ -34,7 +34,7 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${KPimIdentities_SOURCE_DIR}")
   find_package(KF5PimTextEdit ${KF5_VERSION} CONFIG REQUIRED)
   find_package(KF5PimUtils ${KF5_VERSION} CONFIG REQUIRED)
 endif()
-add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities\")
+add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
 ########### Targets ###########
 add_subdirectory(src)

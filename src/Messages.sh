@@ -1,2 +1,2 @@
 #! /bin/sh
-$XGETTEXT *.cpp *.h -o $podir/libkpimidentities.pot
+$XGETTEXT *.cpp *.h -o $podir/libkpimidentities5.pot
