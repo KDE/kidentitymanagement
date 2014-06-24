@@ -32,7 +32,6 @@
 #include <krun.h>
 #include <QUrl>
 #include <KComboBox>
-#include <KStandardDirs>
 
 #include <kpimtextedit/textedit.h>
 
@@ -40,9 +39,6 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QLabel>
-#include <QLayout>
-#include <QMimeData>
-#include <QTextEdit>
 
 #include <QStackedWidget>
 
