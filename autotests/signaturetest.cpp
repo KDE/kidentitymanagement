@@ -20,7 +20,7 @@
 #undef QT_USE_FAST_CONCATENATION
 #undef QT_USE_FAST_OPERATOR_PLUS
 
-#include "qtest_kde.h"
+#include "qtest.h"
 #include "signaturetest.h"
 
 #include "signature.h"
@@ -31,11 +31,12 @@
 #include <KStandardDirs>
 #include <KConfigGroup>
 #include <QStandardPaths>
-
+#include <KConfig>
+#include <QDir>
 using namespace KPIMIdentities;
 using namespace KPIMTextEdit;
 
-QTEST_KDEMAIN( SignatureTester, GUI )
+QTEST_MAIN( SignatureTester )
 
 void SignatureTester::testSignatures()
 {

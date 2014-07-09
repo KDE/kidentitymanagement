@@ -16,7 +16,7 @@
     Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     02110-1301, USA.
 */
-#include "qtest_kde.h"
+#include "qtest.h"
 #include "identitytest.h"
 #include "identitymanager.h"
 #include "identity.h"
@@ -26,7 +26,7 @@
 
 using namespace KPIMIdentities;
 
-QTEST_KDEMAIN_CORE( IdentityTester )
+QTEST_GUILESS_MAIN( IdentityTester )
 
 void IdentityTester::test_NullIdentity()
 {
