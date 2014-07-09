@@ -21,11 +21,11 @@
 
 #include "signature.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
-#include <kurl.h>
+#include <QUrl>
 #include <kprocess.h>
 #include <KRichTextEdit>
 #include <kpimutils/kfileio.h>
@@ -162,7 +162,7 @@ QString Signature::rawText( bool *ok ) const
   case FromCommand:
     return textFromCommand( ok );
   };
-  kFatal( 5325 ) << "Signature::type() returned unknown value!";
+  qCritical() << "Signature::type() returned unknown value!";
   return QString(); // make compiler happy
 }
 
@@ -212,10 +212,10 @@ QString Signature::textFromFile( bool *ok ) const
   assert( mType == FromFile );
 
   // TODO: Use KIO::NetAccess to download non-local files!
-  if ( !KUrl( mUrl ).isLocalFile() &&
+  if ( !QUrl( mUrl ).isLocalFile() &&
        !( QFileInfo( mUrl ).isRelative() &&
           QFileInfo( mUrl ).exists() ) ) {
-    kDebug( 5325 ) << "Signature::textFromFile:"
+    qDebug() << "Signature::textFromFile:"
     << "non-local URLs are unsupported";
     if ( ok ) {
       *ok = false;

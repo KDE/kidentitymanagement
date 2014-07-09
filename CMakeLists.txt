@@ -27,9 +27,18 @@ ecm_setup_version(${KDEPIMLIBS_VERSION} VARIABLE_PREFIX KPIMIDENTITIES
 )
 
 ########### Find packages ###########
-find_package(KF5CoreAddons ${KF5_VERSION} CONFIG REQUIRED)
+#REMOVE IT WHEN WE REMOVE from KF5PimTextEdit or KF5PimUtils
 find_package(KF5KDELibs4Support ${KF5_VERSION} CONFIG REQUIRED)
+
+find_package(Qt5Network NO_MODULE REQUIRED)
+find_package(KF5CoreAddons ${KF5_VERSION} CONFIG REQUIRED)
 find_package(KF5KIO ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5Completion ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5TextWidgets ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5XmlGui ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5KIO ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5Config ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5Emoticons ${KF5_VERSION} CONFIG REQUIRED)
 
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${KPimIdentities_SOURCE_DIR}")
   find_package(KF5PimTextEdit ${KDEPIMLIBS_VERSION} CONFIG REQUIRED)

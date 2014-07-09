@@ -21,7 +21,7 @@
 #include "identity.h"
 #include "signature.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kconfiggroup.h>
 #include <kpimutils/email.h>
 
@@ -118,7 +118,7 @@ void Identity::writeConfig( KConfigGroup &config ) const
   QHash<QString, QVariant>::const_iterator end = mPropertiesMap.constEnd();
   while ( i != end ) {
     config.writeEntry( i.key(), i.value() );
-    kDebug( 5325 ) << "Store:" << i.key() << ":" << i.value();
+    qDebug() << "Store:" << i.key() << ":" << i.value();
     ++i;
   }
   mSignature.writeConfig( config );

@@ -24,7 +24,14 @@ PUBLIC
 PRIVATE
   KF5::KIOCore
   KF5::PimUtils
-  KF5::KDELibs4Support
+  Qt5::Network
+  KF5::Completion
+  KF5::I18n
+  KF5::TextWidgets
+  KF5::WidgetsAddons
+  KF5::XmlGui
+  KF5::KIOWidgets
+  KF5::ConfigCore
 )
 
 set_target_properties(KF5PimIdentities PROPERTIES

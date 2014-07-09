@@ -25,7 +25,7 @@
 
 #include "kpimidentities_export.h"
 
-#include <kdemacros.h>
+//#include <kdemacros.h>
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>

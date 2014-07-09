@@ -28,7 +28,6 @@
 #include "kpimtextedit/textedit.h"
 
 #include <KIconLoader>
-#include <KStandardDirs>
 #include <KConfigGroup>
 #include <QStandardPaths>
 #include <KConfig>
