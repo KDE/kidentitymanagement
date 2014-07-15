@@ -45,6 +45,7 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${KPimIdentities_SOURCE_DIR}")
   find_package(KF5PimUtils ${KDEPIMLIBS_VERSION} CONFIG REQUIRED)
 endif()
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
+add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII")
 
 ########### Targets ###########
 add_subdirectory(src)

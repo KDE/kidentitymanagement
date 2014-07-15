@@ -284,8 +284,6 @@ IdentityManager::IdentityManager( bool readonly, QObject *parent,
       d( new Private( this ) )
 {
   setObjectName( QLatin1String(name) );
-#warning another insertCatalog porting
-//   KLocalizedString::insertCatalog( "libkpimidentities" );
   new IdentityManagerAdaptor( this );
   QDBusConnection dbus = QDBusConnection::sessionBus();
   const QString dbusPath = newDBusObjectName();
