@@ -25,8 +25,6 @@
 #include "kpimidentities_export.h"
 #include "signature.h"
 
-//#include <kdemacros.h>
-
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QList>
