@@ -27,21 +27,22 @@
 
 using KPIMIdentities::Signature;
 
-namespace KPIMIdentities {
+namespace KPIMIdentities
+{
 
-  /**
-    * This widget gives an interface so users can edit their signature.
-    * You can set a signature via setSignature(), let the user edit the
-    * signature and when done, read the signature back.
-    */
+/**
+  * This widget gives an interface so users can edit their signature.
+  * You can set a signature via setSignature(), let the user edit the
+  * signature and when done, read the signature back.
+  */
 class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
 {
-  Q_OBJECT
-  public:
-     /**
-       * Constructor
-       */
-    explicit SignatureConfigurator( QWidget * parent = 0 );
+    Q_OBJECT
+public:
+    /**
+      * Constructor
+      */
+    explicit SignatureConfigurator(QWidget *parent = 0);
 
     /**
       * destructor
@@ -61,7 +62,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
     /**
       * Use this to activate the signature.
       */
-    void setSignatureEnabled( bool enable );
+    void setSignatureEnabled(bool enable);
 
     /**
       * This returns the type of the signature,
@@ -72,7 +73,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
     /**
       * Set the signature type to @p type.
       */
-    void setSignatureType( Signature::Type type );
+    void setSignatureType(Signature::Type type);
 
     /**
       * Returns the inline text, only useful
@@ -83,7 +84,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
     /**
       * Make @p text the text for the signature.
       */
-    void setInlineText( const QString & text );
+    void setInlineText(const QString &text);
 
     /**
       * Returns the file url which the user wants
@@ -95,7 +96,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
       * Set @p url for the file url part of the
       * widget.
       */
-    void setFileURL( const QString & url );
+    void setFileURL(const QString &url);
 
     /**
       * Returns the url of the command which the
@@ -106,7 +107,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
     /**
       * Sets @p url as the command to execute.
       */
-    void setCommandURL( const QString & url );
+    void setCommandURL(const QString &url);
 
     /**
        Conveniece method.
@@ -118,7 +119,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
        Convenience method. Sets the widgets according to @p sig
        @param sig the signature to configure
     **/
-    void setSignature( const Signature & sig );
+    void setSignature(const Signature &sig);
 
     /**
      * Sets the directory where the images used in the HTML signature will be stored.
@@ -129,7 +130,7 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
      * @since 4.4
      * @sa Signature::setImageLocation
      */
-    void setImageLocation( const QString &path );
+    void setImageLocation(const QString &path);
 
     /**
      * Sets the image location to the image location of a given identity, which is
@@ -139,14 +140,14 @@ class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
      *                 location.
      * @since 4.4
      */
-    void setImageLocation( const Identity &identity );
+    void setImageLocation(const Identity &identity);
 
-  protected Q_SLOTS:
-    void slotEnableEditButton( const QString & );
+protected Q_SLOTS:
+    void slotEnableEditButton(const QString &);
     void slotEdit();
     void slotSetHtml();
 
-  private:
+private:
     //@cond PRIVATE
     class Private;
     Private *const d;

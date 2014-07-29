@@ -63,119 +63,115 @@ void KPIMIdentities::IdentityCombo::Private::reloadCombo()
 {
     const QStringList identities = mIdentityManager->identities();
     // the IM should prevent this from happening:
-    assert( !identities.isEmpty() );
+    assert(!identities.isEmpty());
     q->clear();
-    q->addItems( identities );
+    q->addItems(identities);
 }
 
 void KPIMIdentities::IdentityCombo::Private::reloadUoidList()
 {
-  mUoidList.clear();
-  IdentityManager::ConstIterator it;
-  IdentityManager::ConstIterator end( mIdentityManager->end() );
-  for ( it = mIdentityManager->begin(); it != end; ++it ) {
-    mUoidList << ( *it ).uoid();
-  }
+    mUoidList.clear();
+    IdentityManager::ConstIterator it;
+    IdentityManager::ConstIterator end(mIdentityManager->end());
+    for (it = mIdentityManager->begin(); it != end; ++it) {
+        mUoidList << (*it).uoid();
+    }
 }
-
 
 //@endcond
 
-IdentityCombo::IdentityCombo( IdentityManager *manager, QWidget *parent )
-    : KComboBox( parent ), d( new Private(manager,this) )
+IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
+    : KComboBox(parent), d(new Private(manager, this))
 {
-  d->reloadCombo();
-  d->reloadUoidList();
-  connect( this, SIGNAL(activated(int)), SLOT(slotEmitChanged(int)) );
-  connect( this, SIGNAL(identityChanged(uint)), this, SLOT(slotUpdateTooltip(uint)) );
-  connect( manager, SIGNAL(changed()),
-           SLOT(slotIdentityManagerChanged()) );
-  slotUpdateTooltip( currentIdentity() );
+    d->reloadCombo();
+    d->reloadUoidList();
+    connect(this, SIGNAL(activated(int)), SLOT(slotEmitChanged(int)));
+    connect(this, SIGNAL(identityChanged(uint)), this, SLOT(slotUpdateTooltip(uint)));
+    connect(manager, SIGNAL(changed()),
+            SLOT(slotIdentityManagerChanged()));
+    slotUpdateTooltip(currentIdentity());
 }
 
 IdentityCombo::~IdentityCombo()
 {
-  delete d;
+    delete d;
 }
 
 QString IdentityCombo::currentIdentityName() const
 {
-  return d->mIdentityManager->identities().at(currentIndex());
+    return d->mIdentityManager->identities().at(currentIndex());
 }
 
 uint IdentityCombo::currentIdentity() const
 {
-  return d->mUoidList.at(currentIndex());
+    return d->mUoidList.at(currentIndex());
 }
 
-void IdentityCombo::setCurrentIdentity( const Identity &identity )
+void IdentityCombo::setCurrentIdentity(const Identity &identity)
 {
-  setCurrentIdentity( identity.uoid() );
+    setCurrentIdentity(identity.uoid());
 }
 
-void IdentityCombo::setCurrentIdentity( const QString &name )
+void IdentityCombo::setCurrentIdentity(const QString &name)
 {
-  int idx = d->mIdentityManager->identities().indexOf( name );
-  if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
-    return;
-  }
+    int idx = d->mIdentityManager->identities().indexOf(name);
+    if ((idx < 0) || (idx == currentIndex())) {
+        return;
+    }
 
-  blockSignals( true );  // just in case Qt gets fixed to emit activated() here
-  setCurrentIndex( idx );
-  blockSignals( false );
+    blockSignals(true);    // just in case Qt gets fixed to emit activated() here
+    setCurrentIndex(idx);
+    blockSignals(false);
 
-  slotEmitChanged( idx );
+    slotEmitChanged(idx);
 }
 
-void IdentityCombo::setCurrentIdentity( uint uoid )
+void IdentityCombo::setCurrentIdentity(uint uoid)
 {
-  int idx = d->mUoidList.indexOf( uoid );
-  if ( ( idx < 0 ) || ( idx == currentIndex() ) ) {
-    return;
-  }
+    int idx = d->mUoidList.indexOf(uoid);
+    if ((idx < 0) || (idx == currentIndex())) {
+        return;
+    }
 
-  blockSignals( true );  // just in case Qt gets fixed to emit activated() here
-  setCurrentIndex( idx );
-  blockSignals( false );
+    blockSignals(true);    // just in case Qt gets fixed to emit activated() here
+    setCurrentIndex(idx);
+    blockSignals(false);
 
-  slotEmitChanged( idx );
+    slotEmitChanged(idx);
 }
-
-
 
 void IdentityCombo::slotIdentityManagerChanged()
 {
-  uint oldIdentity = d->mUoidList.at(currentIndex());
+    uint oldIdentity = d->mUoidList.at(currentIndex());
 
-  d->reloadUoidList();
-  int idx = d->mUoidList.indexOf( oldIdentity );
+    d->reloadUoidList();
+    int idx = d->mUoidList.indexOf(oldIdentity);
 
-  blockSignals( true );
-  d->reloadCombo();
-  setCurrentIndex( idx < 0 ? 0 : idx );
-  blockSignals( false );
+    blockSignals(true);
+    d->reloadCombo();
+    setCurrentIndex(idx < 0 ? 0 : idx);
+    blockSignals(false);
 
-  slotUpdateTooltip( currentIdentity() );
+    slotUpdateTooltip(currentIdentity());
 
-  if ( idx < 0 ) {
-    // apparently our oldIdentity got deleted:
-    slotEmitChanged( currentIndex() );
-  }
+    if (idx < 0) {
+        // apparently our oldIdentity got deleted:
+        slotEmitChanged(currentIndex());
+    }
 }
 
-void IdentityCombo::slotEmitChanged( int idx )
+void IdentityCombo::slotEmitChanged(int idx)
 {
-  emit identityChanged( d->mUoidList.at(idx) );
+    emit identityChanged(d->mUoidList.at(idx));
 }
 
-void IdentityCombo::slotUpdateTooltip( uint uoid )
+void IdentityCombo::slotUpdateTooltip(uint uoid)
 {
-  setToolTip( d->mIdentityManager->identityForUoid( uoid ).fullEmailAddr() );
+    setToolTip(d->mIdentityManager->identityForUoid(uoid).fullEmailAddr());
 }
 
-IdentityManager* IdentityCombo::identityManager() const
+IdentityManager *IdentityCombo::identityManager() const
 {
-  return d->mIdentityManager;
+    return d->mIdentityManager;
 }
-
 

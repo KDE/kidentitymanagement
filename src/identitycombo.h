@@ -38,55 +38,55 @@ class QString;
 namespace KPIMIdentities
 {
 
-  class IdentityManager;
-  class Identity;
+class IdentityManager;
+class Identity;
 
-  class KPIMIDENTITIES_EXPORT IdentityCombo : public KComboBox
-  {
-      Q_OBJECT
-    public:
-      explicit IdentityCombo( IdentityManager *manager, QWidget *parent=0 );
+class KPIMIDENTITIES_EXPORT IdentityCombo : public KComboBox
+{
+    Q_OBJECT
+public:
+    explicit IdentityCombo(IdentityManager *manager, QWidget *parent = 0);
 
-      ~IdentityCombo();
-      QString currentIdentityName() const;
-      uint currentIdentity() const;
-      void setCurrentIdentity( const QString &identityName );
-      void setCurrentIdentity( const Identity &identity );
-      void setCurrentIdentity( uint uoid );
-      /**
-        Returns the IdentityManager used in this combo box.
-        @since 4.5
-      */
-      IdentityManager* identityManager() const;
+    ~IdentityCombo();
+    QString currentIdentityName() const;
+    uint currentIdentity() const;
+    void setCurrentIdentity(const QString &identityName);
+    void setCurrentIdentity(const Identity &identity);
+    void setCurrentIdentity(uint uoid);
+    /**
+      Returns the IdentityManager used in this combo box.
+      @since 4.5
+    */
+    IdentityManager *identityManager() const;
 
-    Q_SIGNALS:
+Q_SIGNALS:
 
-      /**
-        @em Really emitted whenever the current identity changes. Either
-        by user intervention or on setCurrentIdentity() or if the
-        current identity disappears.
+    /**
+      @em Really emitted whenever the current identity changes. Either
+      by user intervention or on setCurrentIdentity() or if the
+      current identity disappears.
 
-        You might also want to listen to IdentityManager::changed,
-        IdentityManager::deleted and IdentityManager::added.
-      */
-      void identityChanged( uint uoid );
+      You might also want to listen to IdentityManager::changed,
+      IdentityManager::deleted and IdentityManager::added.
+    */
+    void identityChanged(uint uoid);
 
-    public Q_SLOTS:
-      /**
-        Connected to IdentityManager::changed(). Reloads the list of identities.
-      */
-      void slotIdentityManagerChanged();
+public Q_SLOTS:
+    /**
+      Connected to IdentityManager::changed(). Reloads the list of identities.
+    */
+    void slotIdentityManagerChanged();
 
-    protected Q_SLOTS:
-      void slotEmitChanged( int );
-      void slotUpdateTooltip( uint uoid );
+protected Q_SLOTS:
+    void slotEmitChanged(int);
+    void slotUpdateTooltip(uint uoid);
 
-    private:
-      //@cond PRIVATE
-      class Private;
-      Private *const d;
-      //@endcond
-  };
+private:
+    //@cond PRIVATE
+    class Private;
+    Private *const d;
+    //@endcond
+};
 
 }
 

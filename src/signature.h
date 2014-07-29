@@ -33,290 +33,289 @@
 
 namespace KPIMIdentities
 {
-  class Signature;
-  class Identity;
+class Signature;
+class Identity;
 }
 class KConfigGroup;
 class KRichTextEdit;
 
 namespace KPIMTextEdit
 {
-  class TextEdit;
+class TextEdit;
 }
 
 namespace KPIMIdentities
 {
 
-  KPIMIDENTITIES_EXPORT QDataStream &operator<<
-  ( QDataStream &stream, const KPIMIdentities::Signature &sig );
-  KPIMIDENTITIES_EXPORT QDataStream &operator>>
-  ( QDataStream &stream, KPIMIdentities::Signature &sig );
+KPIMIDENTITIES_EXPORT QDataStream &operator<<
+(QDataStream &stream, const KPIMIdentities::Signature &sig);
+KPIMIDENTITIES_EXPORT QDataStream &operator>>
+(QDataStream &stream, KPIMIdentities::Signature &sig);
 
-  /**
-   * @short Abstraction of a signature (aka "footer").
-   *
-   * The signature can either be plain text, HTML text, text returned from a command or text stored
-   * in a file.
-   *
-   * In case of HTML text, the signature can contain images.
-   * Since you set the HTML source with setText(), there also needs to be a way to add the images
-   * to the signature, as the HTML source contains only the img tags that reference those images.
-   * To add the image to the signature, call addImage(). The name given there must match the name
-   * of the img tag in the HTML source.
-   *
-   * The images need to be stored somewhere. The Signature class handles that by storing all images
-   * in a directory. You must set that directory with setImageLocation(), before calling addImage().
-   * The images added with addImage() are then saved to that directory when calling writeConfig().
-   * When loading a signature, readConfig() automatically loads the images as well.
-   * To actually add the images to a text edit, call insertIntoTextEdit().
-   *
-   * Example of creating a HTML signature and then inserting it into a text edit:
-   * @code
-   * Signature htmlSig;
-   * htmlSig.setText( "<img src=\"hello.png\"> World" );
-   * htmlSig.setInlinedHtml( true );
-   * htmlSig.setImageLocation( KStandardDirs::locateLocal( "data", "emailidentities/example/" );
-   * QImage image = ...;
-   * htmlSig.addImage( image, "hello.png" );
-   * ...
-   * KTextEdit edit;
-   * htmlSig.insertIntoTextEdit( KPIMIdentities::Signature::End,
-   *                             KPIMIdentities::Signature::AddSeparator, &edit );
-   * @endcode
-   */
-  class KPIMIDENTITIES_EXPORT Signature
-  {
-      friend class Identity;
+/**
+ * @short Abstraction of a signature (aka "footer").
+ *
+ * The signature can either be plain text, HTML text, text returned from a command or text stored
+ * in a file.
+ *
+ * In case of HTML text, the signature can contain images.
+ * Since you set the HTML source with setText(), there also needs to be a way to add the images
+ * to the signature, as the HTML source contains only the img tags that reference those images.
+ * To add the image to the signature, call addImage(). The name given there must match the name
+ * of the img tag in the HTML source.
+ *
+ * The images need to be stored somewhere. The Signature class handles that by storing all images
+ * in a directory. You must set that directory with setImageLocation(), before calling addImage().
+ * The images added with addImage() are then saved to that directory when calling writeConfig().
+ * When loading a signature, readConfig() automatically loads the images as well.
+ * To actually add the images to a text edit, call insertIntoTextEdit().
+ *
+ * Example of creating a HTML signature and then inserting it into a text edit:
+ * @code
+ * Signature htmlSig;
+ * htmlSig.setText( "<img src=\"hello.png\"> World" );
+ * htmlSig.setInlinedHtml( true );
+ * htmlSig.setImageLocation( KStandardDirs::locateLocal( "data", "emailidentities/example/" );
+ * QImage image = ...;
+ * htmlSig.addImage( image, "hello.png" );
+ * ...
+ * KTextEdit edit;
+ * htmlSig.insertIntoTextEdit( KPIMIdentities::Signature::End,
+ *                             KPIMIdentities::Signature::AddSeparator, &edit );
+ * @endcode
+ */
+class KPIMIDENTITIES_EXPORT Signature
+{
+    friend class Identity;
 
-      friend KPIMIDENTITIES_EXPORT QDataStream &operator<< ( QDataStream &stream, const Signature &sig );
-      friend KPIMIDENTITIES_EXPORT QDataStream &operator>> ( QDataStream &stream, Signature &sig );
+    friend KPIMIDENTITIES_EXPORT QDataStream &operator<< (QDataStream &stream, const Signature &sig);
+    friend KPIMIDENTITIES_EXPORT QDataStream &operator>> (QDataStream &stream, Signature &sig);
 
-    public:
-      /** Type of signature (ie. way to obtain the signature text) */
-      enum Type {
+public:
+    /** Type of signature (ie. way to obtain the signature text) */
+    enum Type {
         Disabled = 0,
         Inlined = 1,
         FromFile = 2,
         FromCommand = 3
-      };
+    };
 
-      /**
-       * Describes the placement of the signature text when it is to be inserted into a
-       * text edit
-       */
-      enum Placement {
+    /**
+     * Describes the placement of the signature text when it is to be inserted into a
+     * text edit
+     */
+    enum Placement {
         Start,                   ///< The signature is placed at the start of the textedit
         End,                     ///< The signature is placed at the end of the textedit
         AtCursor                 ///< The signature is placed at the current cursor position
-      };
+    };
 
-      /** Used for comparison */
-      bool operator== ( const Signature &other ) const;
+    /** Used for comparison */
+    bool operator== (const Signature &other) const;
 
-      /** Constructor for disabled signature */
-      Signature();
-      /** Constructor for inline text */
-      Signature( const QString &text );
-      /** Constructor for text from a file or from output of a command */
-      Signature( const QString &url, bool isExecutable );
-      /** Copy constructor */
-      Signature( const Signature &that );
-      /** Assignment operator */
-      Signature& operator= ( const Signature &that );
-      /** Destructor */
-      ~Signature();
+    /** Constructor for disabled signature */
+    Signature();
+    /** Constructor for inline text */
+    Signature(const QString &text);
+    /** Constructor for text from a file or from output of a command */
+    Signature(const QString &url, bool isExecutable);
+    /** Copy constructor */
+    Signature(const Signature &that);
+    /** Assignment operator */
+    Signature &operator= (const Signature &that);
+    /** Destructor */
+    ~Signature();
 
-      /** @return the raw signature text as entered resp. read from file.
-          @param ok set to @c true if reading succeeded
-       */
-      QString rawText( bool *ok=0 ) const;
+    /** @return the raw signature text as entered resp. read from file.
+        @param ok set to @c true if reading succeeded
+     */
+    QString rawText(bool *ok = 0) const;
 
-      /** @return the signature text with a "-- \n" separator added, if
-          necessary. A newline will not be appended or prepended.
-          @param ok set to @c true if reading succeeded
-       */
-      QString withSeparator( bool *ok=0 ) const;
+    /** @return the signature text with a "-- \n" separator added, if
+        necessary. A newline will not be appended or prepended.
+        @param ok set to @c true if reading succeeded
+     */
+    QString withSeparator(bool *ok = 0) const;
 
-      /** Set the signature text and mark this signature as being of
-          "inline text" type. */
-      void setText( const QString &text );
-      QString text() const;
+    /** Set the signature text and mark this signature as being of
+        "inline text" type. */
+    void setText(const QString &text);
+    QString text() const;
 
-      /**
-       * Returns the text of the signature. If the signature is HTML, the HTML
-       * tags will be stripped.
-       * @since 4.4
-       */
-      QString toPlainText() const;
+    /**
+     * Returns the text of the signature. If the signature is HTML, the HTML
+     * tags will be stripped.
+     * @since 4.4
+     */
+    QString toPlainText() const;
 
-      /** Set the signature URL and mark this signature as being of
-          "from file" resp. "from output of command" type. */
-      void setUrl( const QString &url, bool isExecutable=false );
-      QString url() const;
+    /** Set the signature URL and mark this signature as being of
+        "from file" resp. "from output of command" type. */
+    void setUrl(const QString &url, bool isExecutable = false);
+    QString url() const;
 
-      /// @return the type of signature (ie. way to obtain the signature text)
-      Type type() const;
-      void setType( Type type );
+    /// @return the type of signature (ie. way to obtain the signature text)
+    Type type() const;
+    void setType(Type type);
 
-      /**
-       * Sets the inlined signature to text or html
-       * @param isHtml sets the inlined signature to html
-       * @since 4.1
-       */
-      void setInlinedHtml( bool isHtml );
+    /**
+     * Sets the inlined signature to text or html
+     * @param isHtml sets the inlined signature to html
+     * @since 4.1
+     */
+    void setInlinedHtml(bool isHtml);
 
-      /**
-       * @return boolean whether the inlined signature is html
-       * @since 4.1
-       */
-      bool isInlinedHtml() const;
+    /**
+     * @return boolean whether the inlined signature is html
+     * @since 4.1
+     */
+    bool isInlinedHtml() const;
 
-      /**
-       * Sets the location where the copies of the signature images will be stored.
-       * The images will be stored there when calling writeConfig(). The image location
-       * is stored in the config, so the next readConfig() call knows where to look for
-       * images.
-       * It is recommended to use KStandardDirs::locateLocal( "data", "emailidentities/%1" )
-       * for the location, where %1 is the unique identifier of the identity.
-       *
-       * @warning readConfig will delete all other PNG files in this directory, as they could
-       *          be stale inline image files
-       *
-       * Like with addImage(), the SignatureConfigurator will handle this for you.
-       * @param path the path to set as image location
-       * @since 4.4
-       */
-      void setImageLocation( const QString &path );
+    /**
+     * Sets the location where the copies of the signature images will be stored.
+     * The images will be stored there when calling writeConfig(). The image location
+     * is stored in the config, so the next readConfig() call knows where to look for
+     * images.
+     * It is recommended to use KStandardDirs::locateLocal( "data", "emailidentities/%1" )
+     * for the location, where %1 is the unique identifier of the identity.
+     *
+     * @warning readConfig will delete all other PNG files in this directory, as they could
+     *          be stale inline image files
+     *
+     * Like with addImage(), the SignatureConfigurator will handle this for you.
+     * @param path the path to set as image location
+     * @since 4.4
+     */
+    void setImageLocation(const QString &path);
 
-      /**
-       * Adds the given image to the signature.
-       * This is needed if you use setText() to set some HTML source that references images. Those
-       * referenced images needed to be added by calling this function. The @imageName has to match
-       * the src attribute of the img tag.
-       *
-       * If you use SignatureConfigurator, you don't need to call this function, as the configurator
-       * will handle this for you.
-       * setImageLocation() needs to be called once before.
-       * @since 4.4
-       */
-      void addImage( const QImage &image, const QString &imageName );
+    /**
+     * Adds the given image to the signature.
+     * This is needed if you use setText() to set some HTML source that references images. Those
+     * referenced images needed to be added by calling this function. The @imageName has to match
+     * the src attribute of the img tag.
+     *
+     * If you use SignatureConfigurator, you don't need to call this function, as the configurator
+     * will handle this for you.
+     * setImageLocation() needs to be called once before.
+     * @since 4.4
+     */
+    void addImage(const QImage &image, const QString &imageName);
 
+    /**
+     * @brief setEnabledSignature
+     * @param enabled enables signature if set as @c true
+     * @since 4.9
+     */
+    void setEnabledSignature(bool enabled);
+    bool isEnabledSignature() const;
 
-      /**
-       * @brief setEnabledSignature
-       * @param enabled enables signature if set as @c true
-       * @since 4.9
-       */
-      void setEnabledSignature(bool enabled);
-      bool isEnabledSignature() const;
+    /**
+     * @since 4.3
+     * @deprecated Use the other overload of insertIntoTextEdit() instead. This one doesn't
+     *             support inline images and always adds newline characters.
+     */
+    void KPIMIDENTITIES_DEPRECATED insertIntoTextEdit(KRichTextEdit *textEdit,
+            Placement placement = End, bool addSeparator = true);
 
-      /**
-       * @since 4.3
-       * @deprecated Use the other overload of insertIntoTextEdit() instead. This one doesn't
-       *             support inline images and always adds newline characters.
-       */
-      void KPIMIDENTITIES_DEPRECATED insertIntoTextEdit( KRichTextEdit *textEdit,
-                                              Placement placement = End, bool addSeparator = true );
-
-      enum AddedTextFlag {
+    enum AddedTextFlag {
         AddNothing = 0,         ///< Don't add any text to the signature
         AddSeparator = 1 << 0,  ///< The separator '-- \n' will be added in front
-                                ///  of the signature
+        ///  of the signature
         AddNewLines = 1 << 1    ///< Add a newline character in front or after the signature,
-                                ///  depending on the placement
-      };
+                      ///  depending on the placement
+    };
 
-      /// Describes which additional parts should be added to the signature
-      typedef QFlags<AddedTextFlag> AddedText;
+    /// Describes which additional parts should be added to the signature
+    typedef QFlags<AddedTextFlag> AddedText;
 
-     /** Inserts this signature into the given text edit.
-       * The cursor position is preserved.
-       * For undo/redo, this is treated as one operation.
-       *
-       * Rich text mode of the text edit will be enabled if the signature is in
-       * inlined HTML format.
-       *
-       * If this signature uses images, they will be added automatically.
-       *
-       * @param placement defines where in the text edit the signature should be
-       *                  inserted.
-       * @param addedText defines which other texts should be added to the signature
-       * @param textEdit the signature will be inserted into this text edit.
-       *
-       * @since 4.9 
-       */
-      // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
-      //                  with the deprecated method
-      //TODO; KDE5 merge with previous method
-      void insertIntoTextEdit( Placement placement, AddedText addedText,
-                               KPIMTextEdit::TextEdit *textEdit, bool forceDisplay = false ) const;
+    /** Inserts this signature into the given text edit.
+      * The cursor position is preserved.
+      * For undo/redo, this is treated as one operation.
+      *
+      * Rich text mode of the text edit will be enabled if the signature is in
+      * inlined HTML format.
+      *
+      * If this signature uses images, they will be added automatically.
+      *
+      * @param placement defines where in the text edit the signature should be
+      *                  inserted.
+      * @param addedText defines which other texts should be added to the signature
+      * @param textEdit the signature will be inserted into this text edit.
+      *
+      * @since 4.9
+      */
+    // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
+    //                  with the deprecated method
+    //TODO; KDE5 merge with previous method
+    void insertIntoTextEdit(Placement placement, AddedText addedText,
+                            KPIMTextEdit::TextEdit *textEdit, bool forceDisplay = false) const;
 
-      /**
-       * Inserts this given signature into the given text edit.
-       * The cursor position is preserved.
-       * A leading or trailing newline is also added automatically, depending on
-       * the placement.
-       * For undo/redo, this is treated as one operation.
-       * A separator is not added.
-       *
-       * Use the insertIntoTextEdit() function if possible, as it has support
-       * for separators and does HTML detection automatically.
-       *
-       * Rich text mode of the text edit will be enabled if @p isHtml is true.
-       *
-       * @param signature the signature, either as plain text or as HTML
-       * @param textEdit the text edit to insert the signature into
-       * @param placement defines where in the textedit the signature should be
-       *                  inserted.
-       * @param isHtml defines whether the signature should be inserted as text or html
-       *
-       * @since 4.3
-       * @deprecated Use the non-static insertIntoTextEdit() instead
-       */
-      static void KPIMIDENTITIES_DEPRECATED insertPlainSignatureIntoTextEdit( const QString &signature,
-                                                                   KRichTextEdit *textEdit,
-                                                                   Placement placement = End,
-                                                                   bool isHtml = false );
+    /**
+     * Inserts this given signature into the given text edit.
+     * The cursor position is preserved.
+     * A leading or trailing newline is also added automatically, depending on
+     * the placement.
+     * For undo/redo, this is treated as one operation.
+     * A separator is not added.
+     *
+     * Use the insertIntoTextEdit() function if possible, as it has support
+     * for separators and does HTML detection automatically.
+     *
+     * Rich text mode of the text edit will be enabled if @p isHtml is true.
+     *
+     * @param signature the signature, either as plain text or as HTML
+     * @param textEdit the text edit to insert the signature into
+     * @param placement defines where in the textedit the signature should be
+     *                  inserted.
+     * @param isHtml defines whether the signature should be inserted as text or html
+     *
+     * @since 4.3
+     * @deprecated Use the non-static insertIntoTextEdit() instead
+     */
+    static void KPIMIDENTITIES_DEPRECATED insertPlainSignatureIntoTextEdit(const QString &signature,
+            KRichTextEdit *textEdit,
+            Placement placement = End,
+            bool isHtml = false);
 
-    protected:
+protected:
 
-      // TODO: KDE5: BIC: Move all to private class
-      void writeConfig( KConfigGroup &config ) const;
-      void readConfig( const KConfigGroup &config );
+    // TODO: KDE5: BIC: Move all to private class
+    void writeConfig(KConfigGroup &config) const;
+    void readConfig(const KConfigGroup &config);
 
-    private:
-      void insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const;
+private:
+    void insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const;
 
-      // TODO: KDE5: BIC: Move all to private class
+    // TODO: KDE5: BIC: Move all to private class
 
-      /**
-       * Helper used for the copy constructor and the assignment operator
-       */
-      void assignFrom( const Signature &that );
+    /**
+     * Helper used for the copy constructor and the assignment operator
+     */
+    void assignFrom(const Signature &that);
 
-      /**
-       * Clean up unused images from our internal list and delete all images
-       * from the file system
-       */
-      void cleanupImages() const;
+    /**
+     * Clean up unused images from our internal list and delete all images
+     * from the file system
+     */
+    void cleanupImages() const;
 
-      /**
-       * Saves all images from our internal list to the file system.
-       */
-      void saveImages() const;
+    /**
+     * Saves all images from our internal list to the file system.
+     */
+    void saveImages() const;
 
-      QString textFromFile( bool *ok ) const;
-      QString textFromCommand( bool *ok ) const;
+    QString textFromFile(bool *ok) const;
+    QString textFromCommand(bool *ok) const;
 
-      // TODO: KDE5: BIC: Add a d-pointer!!!
-      //       There is already a pseude private class in the .cpp, using a hash.
-      QString mUrl;
-      QString mText;
-      Type    mType;
-      bool mInlinedHtml;
-  };
+    // TODO: KDE5: BIC: Add a d-pointer!!!
+    //       There is already a pseude private class in the .cpp, using a hash.
+    QString mUrl;
+    QString mText;
+    Type    mType;
+    bool mInlinedHtml;
+};
 
-  Q_DECLARE_OPERATORS_FOR_FLAGS( Signature::AddedText )
+Q_DECLARE_OPERATORS_FOR_FLAGS(Signature::AddedText)
 
 }
 

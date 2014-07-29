@@ -24,14 +24,14 @@
 
 class SignatureTester : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
 private Q_SLOTS:
-  void testSignatures();
-  void testTextEditInsertion();
-  void testBug167961();
-  void testImages();
-  void testLinebreaks();
+    void testSignatures();
+    void testTextEditInsertion();
+    void testBug167961();
+    void testImages();
+    void testLinebreaks();
 };
 
 #endif
