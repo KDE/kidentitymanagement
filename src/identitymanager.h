@@ -24,8 +24,6 @@
 #include <kconfiggroup.h>
 #include <QtCore/QObject>
 
-class KConfigBase;
-class KConfig;
 class QStringList;
 
 namespace KPIMIdentities
