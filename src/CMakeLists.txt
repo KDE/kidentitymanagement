@@ -22,7 +22,6 @@ PUBLIC
   KF5::CoreAddons
   KF5::PimTextEdit
 PRIVATE
-  KF5::KIOCore
   KF5::PimUtils
   Qt5::Network
   KF5::Completion
