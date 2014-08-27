@@ -89,8 +89,8 @@ class KIDENTITYMANAGEMENT_EXPORT Signature
 {
     friend class Identity;
 
-    //friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<< (QDataStream &stream, const Signature &sig);
-    //friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>> (QDataStream &stream, Signature &sig);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<< (QDataStream &stream, const Signature &sig);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>> (QDataStream &stream, Signature &sig);
 
 public:
     /** Type of signature (ie. way to obtain the signature text) */
