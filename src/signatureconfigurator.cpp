@@ -76,7 +76,7 @@ public:
     KLineEdit        *mCommandEdit;
     KToolBar         *mEditToolBar;
     KToolBar         *mFormatToolBar;
-    KRichTextWidget *mTextEdit;       // Grmbl, why is this not in the private class?
+    KRichTextWidget *mTextEdit;
     // This is a KPIMTextEdit::TextEdit, really.
 
 };
@@ -357,7 +357,7 @@ QString SignatureConfigurator::fileURL() const
 
 void SignatureConfigurator::setFileURL(const QString &url)
 {
-    d->mFileRequester->setUrl(QUrl(url));
+    d->mFileRequester->setUrl(QUrl::fromLocalFile(url));
 }
 
 QString SignatureConfigurator::commandURL() const
@@ -444,7 +444,7 @@ void SignatureConfigurator::slotEdit()
     // slotEnableEditButton should prevent this assert from being hit:
     assert(!url.isEmpty());
 
-    (void)KRun::runUrl(QUrl(url), QString::fromLatin1("text/plain"), this);
+    (void)KRun::runUrl(QUrl::fromLocalFile(url), QString::fromLatin1("text/plain"), this);
 }
 
 // "use HTML"-checkbox (un)checked
