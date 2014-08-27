@@ -261,8 +261,6 @@ protected:
     void readConfig(const KConfigGroup &config);
 
 private:
-    void insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const;
-
     //@cond PRIVATE
     class Private;
     Private *const d;
