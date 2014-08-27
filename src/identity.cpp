@@ -42,7 +42,7 @@ Identity::Identity(const QString &id, const QString &fullName,
     setProperty(QLatin1String(s_uoid), 0);
     setProperty(QLatin1String(s_identity), id);
     setProperty(QLatin1String(s_name), fullName);
-    setProperty(QLatin1String(s_email), emailAddr);
+    setProperty(QLatin1String(s_primaryEmail), emailAddr);
     setProperty(QLatin1String(s_organization), organization);
     setProperty(QLatin1String(s_replyto), replyToAddr);
     // FIXME KF5: Sonnet::defaultLanguageName is gone
@@ -126,7 +126,7 @@ void Identity::writeConfig(KConfigGroup &config) const
 
 bool Identity::mailingAllowed() const
 {
-    return !property(QLatin1String(s_email)).toString().isEmpty();
+    return !property(QLatin1String(s_primaryEmail)).toString().isEmpty();
 }
 
 QString Identity::mimeDataType()
@@ -207,7 +207,7 @@ QDataStream &KPIMIdentities::operator>>
             >> i.mPropertiesMap[QLatin1String(s_pgpe)]
             >> i.mPropertiesMap[QLatin1String(s_smimes)]
             >> i.mPropertiesMap[QLatin1String(s_smimee)]
-            >> i.mPropertiesMap[QLatin1String(s_email)]
+            >> i.mPropertiesMap[QLatin1String(s_primaryEmail)]
             >> i.mPropertiesMap[QLatin1String(s_emailAliases)]
             >> i.mPropertiesMap[QLatin1String(s_replyto)]
             >> i.mPropertiesMap[QLatin1String(s_bcc)]
@@ -284,7 +284,7 @@ QVariant Identity::property(const QString &key) const
 QString Identity::fullEmailAddr(void) const
 {
     const QString name = mPropertiesMap.value(QLatin1String(s_name)).toString();
-    const QString mail = mPropertiesMap.value(QLatin1String(s_email)).toString();
+    const QString mail = mPropertiesMap.value(QLatin1String(s_primaryEmail)).toString();
 
     if (name.isEmpty()) {
         return mail;
@@ -379,7 +379,7 @@ QString Identity::preferredCryptoMessageFormat() const
 
 QString Identity::primaryEmailAddress() const
 {
-    return property(QLatin1String(s_email)).toString();
+    return property(QLatin1String(s_primaryEmail)).toString();
 }
 
 const QStringList Identity::emailAliases() const
@@ -544,7 +544,7 @@ void Identity::setSMIMEEncryptionKey(const QByteArray &str)
 
 void Identity::setPrimaryEmailAddress(const QString &email)
 {
-    setProperty(QLatin1String(s_email), email);
+    setProperty(QLatin1String(s_primaryEmail), email);
 }
 
 void Identity::setEmailAliases(const QStringList &aliases)
