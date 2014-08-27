@@ -500,24 +500,6 @@ static void insertSignatureHelper(const QString &signature,
     }
 }
 
-void Signature::insertIntoTextEdit(KRichTextEdit *textEdit,
-                                   Placement placement, bool addSeparator)
-{
-    if (!isEnabledSignature()) {
-        return;
-    }
-    QString signature;
-    if (addSeparator) {
-        signature = withSeparator();
-    } else {
-        signature = rawText();
-    }
-    insertSignatureHelper(signature, textEdit, placement,
-                          (isInlinedHtml() &&
-                           type() == KIdentityManagement::Signature::Inlined),
-                          true);
-}
-
 void Signature::insertIntoTextEdit(Placement placement, AddedText addedText,
                                    KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
 {
@@ -548,12 +530,6 @@ void Signature::insertSignatureText(Placement placement, AddedText addedText, KP
             textEdit->loadImage(image->image, image->name, image->name);
         }
     }
-}
-
-void Signature::insertPlainSignatureIntoTextEdit(const QString &signature, KRichTextEdit *textEdit,
-        Signature::Placement placement, bool isHtml)
-{
-    insertSignatureHelper(signature, textEdit, placement, isHtml, true);
 }
 
 // --------------------- Operators -------------------//

@@ -209,14 +209,6 @@ public:
     void setEnabledSignature(bool enabled);
     bool isEnabledSignature() const;
 
-    /**
-     * @since 4.3
-     * @deprecated Use the other overload of insertIntoTextEdit() instead. This one doesn't
-     *             support inline images and always adds newline characters.
-     */
-    void KIDENTITYMANAGEMENT_DEPRECATED insertIntoTextEdit(KRichTextEdit *textEdit,
-            Placement placement = End, bool addSeparator = true);
-
     enum AddedTextFlag {
         AddNothing = 0,         ///< Don't add any text to the signature
         AddSeparator = 1 << 0,  ///< The separator '-- \n' will be added in front
@@ -249,33 +241,6 @@ public:
     //TODO; KDE5 merge with previous method
     void insertIntoTextEdit(Placement placement, AddedText addedText,
                             KPIMTextEdit::TextEdit *textEdit, bool forceDisplay = false) const;
-
-    /**
-     * Inserts this given signature into the given text edit.
-     * The cursor position is preserved.
-     * A leading or trailing newline is also added automatically, depending on
-     * the placement.
-     * For undo/redo, this is treated as one operation.
-     * A separator is not added.
-     *
-     * Use the insertIntoTextEdit() function if possible, as it has support
-     * for separators and does HTML detection automatically.
-     *
-     * Rich text mode of the text edit will be enabled if @p isHtml is true.
-     *
-     * @param signature the signature, either as plain text or as HTML
-     * @param textEdit the text edit to insert the signature into
-     * @param placement defines where in the textedit the signature should be
-     *                  inserted.
-     * @param isHtml defines whether the signature should be inserted as text or html
-     *
-     * @since 4.3
-     * @deprecated Use the non-static insertIntoTextEdit() instead
-     */
-    static void KIDENTITYMANAGEMENT_DEPRECATED insertPlainSignatureIntoTextEdit(const QString &signature,
-            KRichTextEdit *textEdit,
-            Placement placement = End,
-            bool isHtml = false);
 
 protected:
 
