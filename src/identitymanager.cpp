@@ -293,14 +293,6 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent,
     d->mReadOnly = readonly;
     d->mConfig = new KConfig(QStringLiteral("emailidentities"));
     d->readConfig(d->mConfig);
-    if (d->mIdentities.isEmpty()) {
-        qDebug() << "emailidentities is empty -> convert from kmailrc";
-        // No emailidentities file, or an empty one due to broken conversion
-        // (kconf_update bug in kdelibs <= 3.2.2)
-        // => convert it, i.e. read settings from kmailrc
-        KConfig kmailConf(QStringLiteral("kmailrc"));
-        d->readConfig(&kmailConf);
-    }
     // we need at least a default identity:
     if (d->mIdentities.isEmpty()) {
         qDebug() << "IdentityManager: No identity found. Creating default.";

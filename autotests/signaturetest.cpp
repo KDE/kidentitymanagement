@@ -176,7 +176,6 @@ void SignatureTester::testImages()
 {
     TextEdit edit;
     QString image1Path = KIconLoader::global()->iconPath(QStringLiteral("folder-new"), KIconLoader::Small, false);
-    QString image2Path = KIconLoader::global()->iconPath(QStringLiteral("arrow-up"), KIconLoader::Small, false);
     QImage image1, image2;
     QVERIFY(image1.load(image1Path));
     QVERIFY(image2.load(image1Path));
