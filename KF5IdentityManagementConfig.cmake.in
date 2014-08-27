@@ -3,4 +3,4 @@
 find_dependency(KF5CoreAddons "@KF5_VERSION@")
 find_dependency(KF5PimTextEdit "@KDEPIMLIBS_VERSION@")
 
-include("${CMAKE_CURRENT_LIST_DIR}/KF5PimIdentitiesTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/KF5IdentityManagementTargets.cmake")
