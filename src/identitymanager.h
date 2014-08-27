@@ -17,8 +17,8 @@
     02110-1301, USA.
 */
 
-#ifndef KPIMIDENTITIES_IDENTITYMANAGER_H
-#define KPIMIDENTITIES_IDENTITYMANAGER_H
+#ifndef KIDENTITYMANAGER_IDENTITYMANAGER_H
+#define KIDENTITYMANAGER_IDENTITYMANAGER_H
 
 #include <kidentitymanagement_export.h>
 #include <kconfiggroup.h>

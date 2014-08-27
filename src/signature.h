@@ -20,8 +20,8 @@
     02110-1301, USA.
 */
 
-#ifndef KPIMIDENTITIES_SIGNATURE_H
-#define KPIMIDENTITIES_SIGNATURE_H
+#ifndef KIDENTITYMANAGER_SIGNATURE_H
+#define KIDENTITYMANAGER_SIGNATURE_H
 
 #include "kidentitymanagement_export.h"
 
@@ -238,7 +238,6 @@ public:
       */
     // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
     //                  with the deprecated method
-    //TODO; KDE5 merge with previous method
     void insertIntoTextEdit(Placement placement, AddedText addedText,
                             KPIMTextEdit::TextEdit *textEdit, bool forceDisplay = false) const;
 

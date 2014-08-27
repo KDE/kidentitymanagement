@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KPIMIDENTITIES_SIGNATURECONFIGURATOR_H
-#define KPIMIDENTITIES_SIGNATURECONFIGURATOR_H
+#ifndef KIDENTITYMANAGER_SIGNATURECONFIGURATOR_H
+#define KIDENTITYMANAGER_SIGNATURECONFIGURATOR_H
 
 #include "kidentitymanagement_export.h"
 #include "signature.h" // for Signature::Type

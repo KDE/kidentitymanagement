@@ -48,7 +48,7 @@ namespace KIdentityManagement
 static QString newDBusObjectName()
 {
     static int s_count = 0;
-    QString name(QStringLiteral("/KPIMIDENTITIES_IdentityManager"));
+    QString name(QStringLiteral("/KIDENTITYMANAGER_IdentityManager"));
     if (s_count++) {
         name += QLatin1Char('_');
         name += QString::number(s_count);

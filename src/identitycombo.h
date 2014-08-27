@@ -27,8 +27,8 @@
   @author Marc Mutz \<mutz@kde.org\>
  */
 
-#ifndef KPIMIDENTITIES_IDENTITYCOMBO_H
-#define KPIMIDENTITIES_IDENTITYCOMBO_H
+#ifndef KIDENTITYMANAGER_IDENTITYCOMBO_H
+#define KIDENTITYMANAGER_IDENTITYCOMBO_H
 
 #include "kidentitymanagement_export.h"
 #include <KComboBox>
