@@ -40,90 +40,76 @@
 
 using namespace KIdentityManagement;
 
-class SignaturePrivate
+
+
+class KIdentityManagement::Signature::Private
 {
 public:
-    SignaturePrivate()
-        : enabled(false)
+    Private(Signature *qq)
+        : enabled(false),
+          q(qq)
     {
     }
-    struct EmbeddedImage {
-        QImage image;
-        QString name;
-    };
-    typedef QSharedPointer<EmbeddedImage> EmbeddedImagePtr;
 
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().
-    QList<EmbeddedImagePtr> embeddedImages;
+    QList<Signature::EmbeddedImagePtr> embeddedImages;
 
     /// The directory where the images will be saved to.
     QString saveLocation;
     bool enabled;
+    QString mUrl;
+    QString mText;
+    Signature::Type mType;
+    bool mInlinedHtml;
+    Signature *q;
 };
 
-QDataStream &operator<< (QDataStream &stream, const SignaturePrivate::EmbeddedImagePtr &img)
+QDataStream &operator<< (QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
 {
     return stream << img->image << img->name;
 }
 
-QDataStream &operator>> (QDataStream &stream, SignaturePrivate::EmbeddedImagePtr &img)
+QDataStream &operator>> (QDataStream &stream, KIdentityManagement::Signature::EmbeddedImagePtr &img)
 {
     return stream >> img->image >> img->name;
 }
 
-// TODO: KDE5: BIC: Add a real d-pointer.
-// This QHash is just a workaround around BIC issues, for more info see
-// http://techbase.kde.org/Policies/Binary_Compatibility_Issues_With_C++
-typedef QHash<const Signature *, SignaturePrivate *> SigPrivateHash;
-Q_GLOBAL_STATIC(SigPrivateHash, d_func)
-
-static SignaturePrivate *d(const Signature *sig)
-{
-    SignaturePrivate *ret = d_func()->value(sig, 0);
-    if (!ret) {
-        ret = new SignaturePrivate;
-        d_func()->insert(sig, ret);
-    }
-    return ret;
-}
-
-static void delete_d(const Signature *sig)
-{
-    SignaturePrivate *ret = d_func()->value(sig, 0);
-    delete ret;
-    d_func()->remove(sig);
-}
-
 Signature::Signature()
-    : mType(Disabled),
-      mInlinedHtml(false)
-{}
+    : d(new Private(this))
+{
+    d->mType = Disabled;
+    d->mInlinedHtml = false;
+}
 
 Signature::Signature(const QString &text)
-    : mText(text),
-      mType(Inlined),
-      mInlinedHtml(false)
-{}
+    : d(new Private(this))
+{
+    d->mType = Inlined;
+    d->mInlinedHtml = false;
+    d->mText = text;
+}
 
 Signature::Signature(const QString &url, bool isExecutable)
-    : mUrl(url),
-      mType(isExecutable ? FromCommand : FromFile),
-      mInlinedHtml(false)
-{}
+    : d(new Private(this))
+{
+    d->mType = isExecutable ? FromCommand : FromFile;
+    d->mUrl = url;
+}
 
 void Signature::assignFrom(const KIdentityManagement::Signature &that)
 {
-    mUrl = that.mUrl;
-    mInlinedHtml = that.mInlinedHtml;
-    mText = that.mText;
-    mType = that.mType;
-    d(this)->enabled = d(&that)->enabled;
-    d(this)->saveLocation = d(&that)->saveLocation;
-    d(this)->embeddedImages = d(&that)->embeddedImages;
+    d->mUrl = that.url();
+    d->mInlinedHtml = that.isInlinedHtml();
+    d->mText = that.text();
+    d->mType = that.type();
+    d->enabled = that.isEnabledSignature();
+    d->saveLocation = that.imageLocation();
+    d->embeddedImages = that.embeddedImages();
 }
 
 Signature::Signature(const Signature &that)
+    : d(new Private(this))
 {
     assignFrom(that);
 }
@@ -140,12 +126,12 @@ Signature &Signature::operator= (const KIdentityManagement::Signature &that)
 
 Signature::~Signature()
 {
-    delete_d(this);
+    delete d;
 }
 
 QString Signature::rawText(bool *ok) const
 {
-    switch (mType) {
+    switch (d->mType) {
     case Disabled:
         if (ok) {
             *ok = true;
@@ -155,7 +141,7 @@ QString Signature::rawText(bool *ok) const
         if (ok) {
             *ok = true;
         }
-        return mText;
+        return d->mText;
     case FromFile:
         return textFromFile(ok);
     case FromCommand:
@@ -167,10 +153,10 @@ QString Signature::rawText(bool *ok) const
 
 QString Signature::textFromCommand(bool *ok) const
 {
-    assert(mType == FromCommand);
+    assert(d->mType == FromCommand);
 
     // handle pathological cases:
-    if (mUrl.isEmpty()) {
+    if (d->mUrl.isEmpty()) {
         if (ok) {
             *ok = true;
         }
@@ -180,7 +166,7 @@ QString Signature::textFromCommand(bool *ok) const
     // create a shell process:
     KProcess proc;
     proc.setOutputChannelMode(KProcess::SeparateChannels);
-    proc.setShellCommand(mUrl);
+    proc.setShellCommand(d->mUrl);
     int rc = proc.execute();
 
     // handle errors, if any:
@@ -189,7 +175,7 @@ QString Signature::textFromCommand(bool *ok) const
             *ok = false;
         }
         const QString wmsg = i18n("<qt>Failed to execute signature script<p><b>%1</b>:</p>"
-                                  "<p>%2</p></qt>", mUrl, QLatin1String(proc.readAllStandardError()));
+                                  "<p>%2</p></qt>", d->mUrl, QLatin1String(proc.readAllStandardError()));
         KMessageBox::error(0, wmsg);
         return QString();
     }
@@ -208,12 +194,12 @@ QString Signature::textFromCommand(bool *ok) const
 
 QString Signature::textFromFile(bool *ok) const
 {
-    assert(mType == FromFile);
+    assert(d->mType == FromFile);
 
     // TODO: Use KIO::NetAccess to download non-local files!
-    if (!QUrl(mUrl).isLocalFile() &&
-            !(QFileInfo(mUrl).isRelative() &&
-              QFileInfo(mUrl).exists())) {
+    if (!QUrl(d->mUrl).isLocalFile() &&
+            !(QFileInfo(d->mUrl).isRelative() &&
+              QFileInfo(d->mUrl).exists())) {
         qDebug() << "Signature::textFromFile:"
                  << "non-local URLs are unsupported";
         if (ok) {
@@ -227,7 +213,7 @@ QString Signature::textFromFile(bool *ok) const
     }
 
     // TODO: hmm, should we allow other encodings, too?
-    const QByteArray ba = KPIMUtils::kFileToByteArray(mUrl, false);
+    const QByteArray ba = KPIMUtils::kFileToByteArray(d->mUrl, false);
     return QString::fromLocal8Bit(ba.data(), ba.size());
 }
 
@@ -242,7 +228,7 @@ QString Signature::withSeparator(bool *ok) const
         return signature; // don't add a separator in this case
     }
 
-    const bool htmlSig = (isInlinedHtml() && mType == Inlined);
+    const bool htmlSig = (isInlinedHtml() && d->mType == Inlined);
     QString newline = htmlSig ? QLatin1String("<br>") : QLatin1String("\n");
     if (htmlSig && signature.startsWith(QLatin1String("<p"))) {
         newline.clear();
@@ -260,18 +246,18 @@ QString Signature::withSeparator(bool *ok) const
 
 void Signature::setUrl(const QString &url, bool isExecutable)
 {
-    mUrl = url;
-    mType = isExecutable ? FromCommand : FromFile;
+    d->mUrl = url;
+    d->mType = isExecutable ? FromCommand : FromFile;
 }
 
 void Signature::setInlinedHtml(bool isHtml)
 {
-    mInlinedHtml = isHtml;
+    d->mInlinedHtml = isHtml;
 }
 
 bool Signature::isInlinedHtml() const
 {
-    return mInlinedHtml;
+    return d->mInlinedHtml;
 }
 
 // config keys and values:
@@ -305,23 +291,23 @@ void Signature::cleanupImages() const
 {
     // Remove any images from the internal structure that are no longer there
     if (isInlinedHtml()) {
-        foreach (const SignaturePrivate::EmbeddedImagePtr &imageInList, d(this)->embeddedImages) {
+        foreach (const Signature::EmbeddedImagePtr &imageInList, d->embeddedImages) {
             bool found = false;
-            foreach (const QString &imageInHtml, findImageNames(mText)) {
+            foreach (const QString &imageInHtml, findImageNames(d->mText)) {
                 if (imageInHtml == imageInList->name) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                d(this)->embeddedImages.removeAll(imageInList);
+                d->embeddedImages.removeAll(imageInList);
             }
         }
     }
 
     // Delete all the old image files
-    if (!d(this)->saveLocation.isEmpty()) {
-        QDir dir(d(this)->saveLocation);
+    if (!d->saveLocation.isEmpty()) {
+        QDir dir(d->saveLocation);
         foreach (const QString &fileName, dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks)) {
             if (fileName.toLower().endsWith(QLatin1String(".png"))) {
                 qDebug() << "Deleting old image" << dir.path() + fileName;
@@ -333,9 +319,9 @@ void Signature::cleanupImages() const
 
 void Signature::saveImages() const
 {
-    if (isInlinedHtml() && !d(this)->saveLocation.isEmpty()) {
-        foreach (const SignaturePrivate::EmbeddedImagePtr &image, d(this)->embeddedImages) {
-            QString location = d(this)->saveLocation + QLatin1Char('/') + image->name;
+    if (isInlinedHtml() && !d->saveLocation.isEmpty()) {
+        foreach (const Signature::EmbeddedImagePtr &image, d->embeddedImages) {
+            QString location = d->saveLocation + QLatin1Char('/') + image->name;
             if (!image->image.save(location, "PNG")) {
                 qWarning() << "Failed to save image" << location;
             }
@@ -347,26 +333,26 @@ void Signature::readConfig(const KConfigGroup &config)
 {
     QString sigType = config.readEntry(sigTypeKey);
     if (sigType == QLatin1String(sigTypeInlineValue)) {
-        mType = Inlined;
-        mInlinedHtml = config.readEntry(sigTypeInlinedHtmlKey, false);
+        d->mType = Inlined;
+        d->mInlinedHtml = config.readEntry(sigTypeInlinedHtmlKey, false);
     } else if (sigType == QLatin1String(sigTypeFileValue)) {
-        mType = FromFile;
-        mUrl = config.readPathEntry(sigFileKey, QString());
+        d->mType = FromFile;
+        d->mUrl = config.readPathEntry(sigFileKey, QString());
     } else if (sigType == QLatin1String(sigTypeCommandValue)) {
-        mType = FromCommand;
-        mUrl = config.readPathEntry(sigCommandKey, QString());
+        d->mType = FromCommand;
+        d->mUrl = config.readPathEntry(sigCommandKey, QString());
     } else if (sigType == QLatin1String(sigTypeDisabledValue)) {
-        d(this)->enabled = false;
+        d->enabled = false;
     }
-    if (mType != Disabled) {
-        d(this)->enabled = config.readEntry(sigEnabled, true);
+    if (d->mType != Disabled) {
+        d->enabled = config.readEntry(sigEnabled, true);
     }
 
-    mText = config.readEntry(sigTextKey);
-    d(this)->saveLocation = config.readEntry(sigImageLocation);
+    d->mText = config.readEntry(sigTextKey);
+    d->saveLocation = config.readEntry(sigImageLocation);
 
-    if (isInlinedHtml() && !d(this)->saveLocation.isEmpty()) {
-        QDir dir(d(this)->saveLocation);
+    if (isInlinedHtml() && !d->saveLocation.isEmpty()) {
+        QDir dir(d->saveLocation);
         foreach (const QString &fileName, dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks)) {
             if (fileName.toLower().endsWith(QLatin1String(".png"))) {
                 QImage image;
@@ -382,25 +368,25 @@ void Signature::readConfig(const KConfigGroup &config)
 
 void Signature::writeConfig(KConfigGroup &config) const
 {
-    switch (mType) {
+    switch (d->mType) {
     case Inlined:
         config.writeEntry(sigTypeKey, sigTypeInlineValue);
-        config.writeEntry(sigTypeInlinedHtmlKey, mInlinedHtml);
+        config.writeEntry(sigTypeInlinedHtmlKey, d->mInlinedHtml);
         break;
     case FromFile:
         config.writeEntry(sigTypeKey, sigTypeFileValue);
-        config.writePathEntry(sigFileKey, mUrl);
+        config.writePathEntry(sigFileKey, d->mUrl);
         break;
     case FromCommand:
         config.writeEntry(sigTypeKey, sigTypeCommandValue);
-        config.writePathEntry(sigCommandKey, mUrl);
+        config.writePathEntry(sigCommandKey, d->mUrl);
         break;
     default:
         break;
     }
-    config.writeEntry(sigTextKey, mText);
-    config.writeEntry(sigImageLocation, d(this)->saveLocation);
-    config.writeEntry(sigEnabled, d(this)->enabled);
+    config.writeEntry(sigTextKey, d->mText);
+    config.writeEntry(sigImageLocation, d->saveLocation);
+    config.writeEntry(sigEnabled, d->enabled);
 
     cleanupImages();
     saveImages();
@@ -506,6 +492,16 @@ void Signature::insertIntoTextEdit(Placement placement, AddedText addedText,
     insertSignatureText(placement, addedText, textEdit, forceDisplay);
 }
 
+QList<Signature::EmbeddedImagePtr> Signature::embeddedImages() const
+{
+    return d->embeddedImages;
+}
+
+void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embedded)
+{
+    d->embeddedImages = embedded;
+}
+
 void Signature::insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
 {
     if (!forceDisplay) {
@@ -526,7 +522,7 @@ void Signature::insertSignatureText(Placement placement, AddedText addedText, KP
 
     // We added the text of the signature above, now it is time to add the images as well.
     if (isInlinedHtml()) {
-        foreach (const SignaturePrivate::EmbeddedImagePtr &image, d(this)->embeddedImages) {
+        foreach (const Signature::EmbeddedImagePtr &image, d->embeddedImages) {
             textEdit->loadImage(image->image, image->name, image->name);
         }
     }
@@ -537,44 +533,54 @@ void Signature::insertSignatureText(Placement placement, AddedText addedText, KP
 QDataStream &KIdentityManagement::operator<<
 (QDataStream &stream, const KIdentityManagement::Signature &sig)
 {
-    return stream << static_cast<quint8>(sig.mType) << sig.mUrl << sig.mText
-           << d(&sig)->saveLocation << d(&sig)->embeddedImages << d(&sig)->enabled;
+    return stream << static_cast<quint8>(sig.type()) << sig.url() << sig.text()
+           << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature();
 }
 
 QDataStream &KIdentityManagement::operator>>
 (QDataStream &stream, KIdentityManagement::Signature &sig)
 {
     quint8 s;
-    stream >> s  >> sig.mUrl >> sig.mText >> d(&sig)->saveLocation >> d(&sig)->embeddedImages >> d(&sig)->enabled;
-    sig.mType = static_cast<Signature::Type>(s);
+    QString url;
+    QString text;
+    QString saveLocation;
+    QList<Signature::EmbeddedImagePtr> lst;
+    bool enabled;
+    stream >> s  >> url >> text >> saveLocation >> lst >> enabled;
+    sig.setText(text);
+    sig.setUrl(url);
+    sig.setImageLocation(saveLocation);
+    sig.setEmbeddedImages(lst);
+    sig.setEnabledSignature(enabled);
+    sig.setType(static_cast<Signature::Type>(s));
     return stream;
 }
 
 bool Signature::operator== (const Signature &other) const
 {
-    if (mType != other.mType) {
+    if (d->mType != other.type()) {
         return false;
     }
 
-    if (d(this)->enabled != d(&other)->enabled) {
+    if (d->enabled != other.isEnabledSignature()) {
         return false;
     }
 
-    if (mType == Inlined && mInlinedHtml) {
-        if (d(this)->saveLocation != d(&other)->saveLocation) {
+    if (d->mType == Inlined && d->mInlinedHtml) {
+        if (d->saveLocation != other.imageLocation()) {
             return false;
         }
-        if (d(this)->embeddedImages != d(&other)->embeddedImages) {
+        if (d->embeddedImages != other.embeddedImages()) {
             return false;
         }
     }
 
-    switch (mType) {
+    switch (d->mType) {
     case Inlined:
-        return mText == other.mText;
+        return d->mText == other.text();
     case FromFile:
     case FromCommand:
-        return mUrl == other.mUrl;
+        return d->mUrl == other.url();
     default:
     case Disabled:
         return true;
@@ -597,54 +603,59 @@ QString Signature::toPlainText() const
 
 void Signature::addImage(const QImage &imageData, const QString &imageName)
 {
-    Q_ASSERT(!(d(this)->saveLocation.isEmpty()));
-    SignaturePrivate::EmbeddedImagePtr image(new SignaturePrivate::EmbeddedImage());
+    Q_ASSERT(!(d->saveLocation.isEmpty()));
+    Signature::EmbeddedImagePtr image(new Signature::EmbeddedImage());
     image->image = imageData;
     image->name = imageName;
-    d(this)->embeddedImages.append(image);
+    d->embeddedImages.append(image);
 }
 
 void Signature::setImageLocation(const QString &path)
 {
-    d(this)->saveLocation = path;
+    d->saveLocation = path;
+}
+
+QString Signature::imageLocation() const
+{
+    return d->saveLocation;
 }
 
 // --------------- Getters -----------------------//
 
 QString Signature::text() const
 {
-    return mText;
+    return d->mText;
 }
 
 QString Signature::url() const
 {
-    return mUrl;
+    return d->mUrl;
 }
 
 Signature::Type Signature::type() const
 {
-    return mType;
+    return d->mType;
 }
 
 // --------------- Setters -----------------------//
 
 void Signature::setText(const QString &text)
 {
-    mText = text;
-    mType = Inlined;
+    d->mText = text;
+    d->mType = Inlined;
 }
 
 void Signature::setType(Type type)
 {
-    mType = type;
+    d->mType = type;
 }
 
 void Signature::setEnabledSignature(bool enabled)
 {
-    d(this)->enabled = enabled;
+    d->enabled = enabled;
 }
 
 bool Signature::isEnabledSignature() const
 {
-    return d(this)->enabled;
+    return d->enabled;
 }

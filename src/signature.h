@@ -30,6 +30,7 @@
 #include <QtCore/QList>
 #include <QtCore/QHash>
 #include <QtCore/QVariant>
+#include <QImage>
 
 namespace KIdentityManagement
 {
@@ -88,8 +89,8 @@ class KIDENTITYMANAGEMENT_EXPORT Signature
 {
     friend class Identity;
 
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<< (QDataStream &stream, const Signature &sig);
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>> (QDataStream &stream, Signature &sig);
+    //friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<< (QDataStream &stream, const Signature &sig);
+    //friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>> (QDataStream &stream, Signature &sig);
 
 public:
     /** Type of signature (ie. way to obtain the signature text) */
@@ -109,6 +110,13 @@ public:
         End,                     ///< The signature is placed at the end of the textedit
         AtCursor                 ///< The signature is placed at the current cursor position
     };
+
+    struct EmbeddedImage {
+        QImage image;
+        QString name;
+    };
+    typedef QSharedPointer<EmbeddedImage> EmbeddedImagePtr;
+
 
     /** Used for comparison */
     bool operator== (const Signature &other) const;
@@ -187,6 +195,8 @@ public:
      * @since 4.4
      */
     void setImageLocation(const QString &path);
+    QString imageLocation() const;
+
 
     /**
      * Adds the given image to the signature.
@@ -241,6 +251,9 @@ public:
     void insertIntoTextEdit(Placement placement, AddedText addedText,
                             KPIMTextEdit::TextEdit *textEdit, bool forceDisplay = false) const;
 
+    QList<Signature::EmbeddedImagePtr> embeddedImages() const;
+    void setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embedded);
+
 protected:
 
     // TODO: KDE5: BIC: Move all to private class
@@ -271,12 +284,10 @@ private:
     QString textFromFile(bool *ok) const;
     QString textFromCommand(bool *ok) const;
 
-    // TODO: KDE5: BIC: Add a d-pointer!!!
-    //       There is already a pseude private class in the .cpp, using a hash.
-    QString mUrl;
-    QString mText;
-    Type    mType;
-    bool mInlinedHtml;
+    //@cond PRIVATE
+    class Private;
+    Private *const d;
+    //@endcond
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Signature::AddedText)
