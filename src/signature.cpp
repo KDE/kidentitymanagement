@@ -51,6 +51,13 @@ public:
     {
     }
 
+    void assignFrom(const KIdentityManagement::Signature &that);
+    void cleanupImages();
+    void saveImages() const;
+    QString textFromFile(bool *ok) const;
+    QString textFromCommand(bool *ok) const;
+
+
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().
     QList<Signature::EmbeddedImagePtr> embeddedImages;
@@ -64,6 +71,141 @@ public:
     bool inlinedHtml;
     Signature *q;
 };
+
+
+// Returns the names of all images in the HTML code
+static QStringList findImageNames(const QString &htmlCode)
+{
+    QStringList ret;
+
+    // To complicated for us, so cheat and let a text edit do the hard work
+    KPIMTextEdit::TextEdit edit;
+    edit.setHtml(htmlCode);
+    foreach (const KPIMTextEdit::ImageWithNamePtr &image, edit.imagesWithName()) {
+        ret << image->name;
+    }
+    return ret;
+}
+
+void Signature::Private::assignFrom(const KIdentityManagement::Signature &that)
+{
+    url = that.url();
+    inlinedHtml = that.isInlinedHtml();
+    text = that.text();
+    type = that.type();
+    enabled = that.isEnabledSignature();
+    saveLocation = that.imageLocation();
+    embeddedImages = that.embeddedImages();
+}
+
+void Signature::Private::cleanupImages()
+{
+    // Remove any images from the internal structure that are no longer there
+    if (inlinedHtml) {
+        foreach (const Signature::EmbeddedImagePtr &imageInList, embeddedImages) {
+            bool found = false;
+            foreach (const QString &imageInHtml, findImageNames(text)) {
+                if (imageInHtml == imageInList->name) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                embeddedImages.removeAll(imageInList);
+            }
+        }
+    }
+
+    // Delete all the old image files
+    if (!saveLocation.isEmpty()) {
+        QDir dir(saveLocation);
+        foreach (const QString &fileName, dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks)) {
+            if (fileName.toLower().endsWith(QLatin1String(".png"))) {
+                qDebug() << "Deleting old image" << dir.path() + fileName;
+                dir.remove(fileName);
+            }
+        }
+    }
+}
+
+void Signature::Private::saveImages() const
+{
+    if (inlinedHtml && !saveLocation.isEmpty()) {
+        foreach (const Signature::EmbeddedImagePtr &image, embeddedImages) {
+            QString location = saveLocation + QLatin1Char('/') + image->name;
+            if (!image->image.save(location, "PNG")) {
+                qWarning() << "Failed to save image" << location;
+            }
+        }
+    }
+}
+
+QString Signature::Private::textFromFile(bool *ok) const
+{
+    assert(type == FromFile);
+
+    // TODO: Use KIO::NetAccess to download non-local files!
+    if (!QUrl(url).isLocalFile() &&
+            !(QFileInfo(url).isRelative() &&
+              QFileInfo(url).exists())) {
+        qDebug() << "Signature::textFromFile:"
+                 << "non-local URLs are unsupported";
+        if (ok) {
+            *ok = false;
+        }
+        return QString();
+    }
+
+    if (ok) {
+        *ok = true;
+    }
+
+    // TODO: hmm, should we allow other encodings, too?
+    const QByteArray ba = KPIMUtils::kFileToByteArray(url, false);
+    return QString::fromLocal8Bit(ba.data(), ba.size());
+}
+
+QString Signature::Private::textFromCommand(bool *ok) const
+{
+    assert(type == FromCommand);
+
+    // handle pathological cases:
+    if (url.isEmpty()) {
+        if (ok) {
+            *ok = true;
+        }
+        return QString();
+    }
+
+    // create a shell process:
+    KProcess proc;
+    proc.setOutputChannelMode(KProcess::SeparateChannels);
+    proc.setShellCommand(url);
+    int rc = proc.execute();
+
+    // handle errors, if any:
+    if (rc != 0) {
+        if (ok) {
+            *ok = false;
+        }
+        const QString wmsg = i18n("<qt>Failed to execute signature script<p><b>%1</b>:</p>"
+                                  "<p>%2</p></qt>", url, QLatin1String(proc.readAllStandardError()));
+        KMessageBox::error(0, wmsg);
+        return QString();
+    }
+
+    // no errors:
+    if (ok) {
+        *ok = true;
+    }
+
+    // get output:
+    QByteArray output = proc.readAllStandardOutput();
+
+    // TODO: hmm, should we allow other encodings, too?
+    return QString::fromLocal8Bit(output.data(), output.size());
+}
+
 
 QDataStream &operator<< (QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
 {
@@ -97,21 +239,10 @@ Signature::Signature(const QString &url, bool isExecutable)
     d->url = url;
 }
 
-void Signature::assignFrom(const KIdentityManagement::Signature &that)
-{
-    d->url = that.url();
-    d->inlinedHtml = that.isInlinedHtml();
-    d->text = that.text();
-    d->type = that.type();
-    d->enabled = that.isEnabledSignature();
-    d->saveLocation = that.imageLocation();
-    d->embeddedImages = that.embeddedImages();
-}
-
 Signature::Signature(const Signature &that)
     : d(new Private(this))
 {
-    assignFrom(that);
+    d->assignFrom(that);
 }
 
 Signature &Signature::operator= (const KIdentityManagement::Signature &that)
@@ -120,7 +251,7 @@ Signature &Signature::operator= (const KIdentityManagement::Signature &that)
         return *this;
     }
 
-    assignFrom(that);
+    d->assignFrom(that);
     return *this;
 }
 
@@ -143,79 +274,14 @@ QString Signature::rawText(bool *ok) const
         }
         return d->text;
     case FromFile:
-        return textFromFile(ok);
+        return d->textFromFile(ok);
     case FromCommand:
-        return textFromCommand(ok);
+        return d->textFromCommand(ok);
     };
     qCritical() << "Signature::type() returned unknown value!";
     return QString(); // make compiler happy
 }
 
-QString Signature::textFromCommand(bool *ok) const
-{
-    assert(d->type == FromCommand);
-
-    // handle pathological cases:
-    if (d->url.isEmpty()) {
-        if (ok) {
-            *ok = true;
-        }
-        return QString();
-    }
-
-    // create a shell process:
-    KProcess proc;
-    proc.setOutputChannelMode(KProcess::SeparateChannels);
-    proc.setShellCommand(d->url);
-    int rc = proc.execute();
-
-    // handle errors, if any:
-    if (rc != 0) {
-        if (ok) {
-            *ok = false;
-        }
-        const QString wmsg = i18n("<qt>Failed to execute signature script<p><b>%1</b>:</p>"
-                                  "<p>%2</p></qt>", d->url, QLatin1String(proc.readAllStandardError()));
-        KMessageBox::error(0, wmsg);
-        return QString();
-    }
-
-    // no errors:
-    if (ok) {
-        *ok = true;
-    }
-
-    // get output:
-    QByteArray output = proc.readAllStandardOutput();
-
-    // TODO: hmm, should we allow other encodings, too?
-    return QString::fromLocal8Bit(output.data(), output.size());
-}
-
-QString Signature::textFromFile(bool *ok) const
-{
-    assert(d->type == FromFile);
-
-    // TODO: Use KIO::NetAccess to download non-local files!
-    if (!QUrl(d->url).isLocalFile() &&
-            !(QFileInfo(d->url).isRelative() &&
-              QFileInfo(d->url).exists())) {
-        qDebug() << "Signature::textFromFile:"
-                 << "non-local URLs are unsupported";
-        if (ok) {
-            *ok = false;
-        }
-        return QString();
-    }
-
-    if (ok) {
-        *ok = true;
-    }
-
-    // TODO: hmm, should we allow other encodings, too?
-    const QByteArray ba = KPIMUtils::kFileToByteArray(d->url, false);
-    return QString::fromLocal8Bit(ba.data(), ba.size());
-}
 
 QString Signature::withSeparator(bool *ok) const
 {
@@ -273,61 +339,6 @@ static const char sigTypeInlinedHtmlKey[] = "Inlined Html";
 static const char sigImageLocation[] = "Image Location";
 static const char sigEnabled[] = "Signature Enabled";
 
-// Returns the names of all images in the HTML code
-static QStringList findImageNames(const QString &htmlCode)
-{
-    QStringList ret;
-
-    // To complicated for us, so cheat and let a text edit do the hard work
-    KPIMTextEdit::TextEdit edit;
-    edit.setHtml(htmlCode);
-    foreach (const KPIMTextEdit::ImageWithNamePtr &image, edit.imagesWithName()) {
-        ret << image->name;
-    }
-    return ret;
-}
-
-void Signature::cleanupImages() const
-{
-    // Remove any images from the internal structure that are no longer there
-    if (isInlinedHtml()) {
-        foreach (const Signature::EmbeddedImagePtr &imageInList, d->embeddedImages) {
-            bool found = false;
-            foreach (const QString &imageInHtml, findImageNames(d->text)) {
-                if (imageInHtml == imageInList->name) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                d->embeddedImages.removeAll(imageInList);
-            }
-        }
-    }
-
-    // Delete all the old image files
-    if (!d->saveLocation.isEmpty()) {
-        QDir dir(d->saveLocation);
-        foreach (const QString &fileName, dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks)) {
-            if (fileName.toLower().endsWith(QLatin1String(".png"))) {
-                qDebug() << "Deleting old image" << dir.path() + fileName;
-                dir.remove(fileName);
-            }
-        }
-    }
-}
-
-void Signature::saveImages() const
-{
-    if (isInlinedHtml() && !d->saveLocation.isEmpty()) {
-        foreach (const Signature::EmbeddedImagePtr &image, d->embeddedImages) {
-            QString location = d->saveLocation + QLatin1Char('/') + image->name;
-            if (!image->image.save(location, "PNG")) {
-                qWarning() << "Failed to save image" << location;
-            }
-        }
-    }
-}
 
 void Signature::readConfig(const KConfigGroup &config)
 {
@@ -388,8 +399,8 @@ void Signature::writeConfig(KConfigGroup &config) const
     config.writeEntry(sigImageLocation, d->saveLocation);
     config.writeEntry(sigEnabled, d->enabled);
 
-    cleanupImages();
-    saveImages();
+    d->cleanupImages();
+    d->saveImages();
 }
 
 static bool isCursorAtEndOfLine(const QTextCursor &cursor)
@@ -502,31 +513,6 @@ void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embe
     d->embeddedImages = embedded;
 }
 
-void Signature::insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
-{
-    if (!forceDisplay) {
-        if (!isEnabledSignature()) {
-            return;
-        }
-    }
-    QString signature;
-    if (addedText & AddSeparator) {
-        signature = withSeparator();
-    } else {
-        signature = rawText();
-    }
-    insertSignatureHelper(signature, textEdit, placement,
-                          (isInlinedHtml() &&
-                           type() == KIdentityManagement::Signature::Inlined),
-                          (addedText & AddNewLines));
-
-    // We added the text of the signature above, now it is time to add the images as well.
-    if (isInlinedHtml()) {
-        foreach (const Signature::EmbeddedImagePtr &image, d->embeddedImages) {
-            textEdit->loadImage(image->image, image->name, image->name);
-        }
-    }
-}
 
 // --------------------- Operators -------------------//
 
@@ -658,4 +644,30 @@ void Signature::setEnabledSignature(bool enabled)
 bool Signature::isEnabledSignature() const
 {
     return d->enabled;
+}
+
+void Signature::insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
+{
+    if (!forceDisplay) {
+        if (!isEnabledSignature()) {
+            return;
+        }
+    }
+    QString signature;
+    if (addedText & AddSeparator) {
+        signature = withSeparator();
+    } else {
+        signature = rawText();
+    }
+    insertSignatureHelper(signature, textEdit, placement,
+                          (isInlinedHtml() &&
+                           type() == KIdentityManagement::Signature::Inlined),
+                          (addedText & AddNewLines));
+
+    // We added the text of the signature above, now it is time to add the images as well.
+    if (isInlinedHtml()) {
+        foreach (const Signature::EmbeddedImagePtr &image, d->embeddedImages) {
+            textEdit->loadImage(image->image, image->name, image->name);
+        }
+    }
 }

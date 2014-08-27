@@ -263,27 +263,6 @@ protected:
 private:
     void insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const;
 
-    // TODO: KDE5: BIC: Move all to private class
-
-    /**
-     * Helper used for the copy constructor and the assignment operator
-     */
-    void assignFrom(const Signature &that);
-
-    /**
-     * Clean up unused images from our internal list and delete all images
-     * from the file system
-     */
-    void cleanupImages() const;
-
-    /**
-     * Saves all images from our internal list to the file system.
-     */
-    void saveImages() const;
-
-    QString textFromFile(bool *ok) const;
-    QString textFromCommand(bool *ok) const;
-
     //@cond PRIVATE
     class Private;
     Private *const d;
