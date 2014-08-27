@@ -4,7 +4,7 @@ index 1d81e4c..258f138 100644
 +++ b/kpimidentities/src/signature.cpp
 @@ -40,11 +40,24 @@
  
- using namespace KPIMIdentities;
+ using namespace KIdentityManagement;
  
 -class SignaturePrivate
 +QDataStream &operator<< ( QDataStream &stream, const Signature::Private::EmbeddedImagePtr &img )
@@ -20,7 +20,7 @@ index 1d81e4c..258f138 100644
 +  return stream >> img->image >> img->name;
 +}
 +
-+class KPIMIdentities::Signature::Private
++class KIdentityManagement::Signature::Private
 +{
 +public:
 +    Private(Signature *qq)
@@ -109,7 +109,7 @@ index 1d81e4c..258f138 100644
 +    d->mInlinedHtml = false;
 +}
  
- void Signature::assignFrom ( const KPIMIdentities::Signature &that )
+ void Signature::assignFrom ( const KIdentityManagement::Signature &that )
  {
 -  mUrl = that.mUrl;
 -  mInlinedHtml = that.mInlinedHtml;
@@ -128,7 +128,7 @@ index 1d81e4c..258f138 100644
  }
  
  Signature::Signature ( const Signature &that )
-@@ -141,12 +135,12 @@ Signature& Signature::operator= ( const KPIMIdentities::Signature & that )
+@@ -141,12 +135,12 @@ Signature& Signature::operator= ( const KIdentityManagement::Signature & that )
  
  Signature::~Signature()
  {
@@ -355,16 +355,16 @@ index 1d81e4c..258f138 100644
      }
    }
 @@ -565,7 +559,7 @@ void Signature::insertPlainSignatureIntoTextEdit( const QString &signature, KRic
- QDataStream &KPIMIdentities::operator<<
- ( QDataStream &stream, const KPIMIdentities::Signature &sig )
+ QDataStream &KIdentityManagement::operator<<
+ ( QDataStream &stream, const KIdentityManagement::Signature &sig )
  {
 -  return stream << static_cast<quint8>( sig.mType ) << sig.mUrl << sig.mText
 +  return stream << static_cast<quint8>( sig.type() ) << sig.url() << sig.text()
                  << d( &sig )->saveLocation << d( &sig )->embeddedImages << d( &sig )->enabled;
  }
  
-@@ -573,36 +567,36 @@ QDataStream &KPIMIdentities::operator>>
- ( QDataStream &stream, KPIMIdentities::Signature &sig )
+@@ -573,36 +567,36 @@ QDataStream &KIdentityManagement::operator>>
+ ( QDataStream &stream, KIdentityManagement::Signature &sig )
  {
    quint8 s;
 -  stream >> s  >> sig.mUrl >> sig.mText >> d( &sig )->saveLocation >> d( &sig )->embeddedImages >>d( &sig )->enabled;
@@ -489,7 +489,7 @@ diff --git a/kpimidentities/src/signature.h b/kpimidentities/src/signature.h
 index 116d17c..b8de09a 100644
 --- a/kpimidentities/src/signature.h
 +++ b/kpimidentities/src/signature.h
-@@ -280,7 +280,9 @@ namespace KPIMIdentities
+@@ -280,7 +280,9 @@ namespace KIdentityManagement
                                                                     Placement placement = End,
                                                                     bool isHtml = false );
  
@@ -500,7 +500,7 @@ index 116d17c..b8de09a 100644
  
        // TODO: KDE5: BIC: Move all to private class
        void writeConfig( KConfigGroup &config ) const;
-@@ -310,12 +312,10 @@ namespace KPIMIdentities
+@@ -310,12 +312,10 @@ namespace KIdentityManagement
        QString textFromFile( bool *ok ) const;
        QString textFromCommand( bool *ok ) const;
  

@@ -24,7 +24,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 
-using namespace KPIMIdentities;
+using namespace KIdentityManagement;
 
 QTEST_GUILESS_MAIN(IdentityTester)
 

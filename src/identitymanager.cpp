@@ -42,7 +42,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include "identitymanageradaptor.h"
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 
 static QString newDBusObjectName()
@@ -61,10 +61,10 @@ static QString newDBusObjectName()
  *   @internal
  */
 //@cond PRIVATE
-class KPIMIdentities::IdentityManager::Private
+class KIdentityManagement::IdentityManager::Private
 {
 public:
-    Private(KPIMIdentities::IdentityManager *);
+    Private(KIdentityManagement::IdentityManager *);
     void writeConfig() const;
     void readConfig(KConfig *config);
     void createDefaultIdentity();
@@ -79,10 +79,10 @@ public:
     int newUoid();
 
     bool mReadOnly;
-    KPIMIdentities::IdentityManager *q;
+    KIdentityManagement::IdentityManager *q;
 };
 
-IdentityManager::Private::Private(KPIMIdentities::IdentityManager *manager)
+IdentityManager::Private::Private(KIdentityManagement::IdentityManager *manager)
     : q(manager)
 {
 }
@@ -263,7 +263,7 @@ int IdentityManager::Private::newUoid()
 
 void IdentityManager::Private::slotIdentitiesChanged(const QString &id)
 {
-    qDebug() << " KPIMIdentities::IdentityManager::slotIdentitiesChanged :" << id;
+    qDebug() << " KIdentityManagement::IdentityManager::slotIdentitiesChanged :" << id;
     const QString ourIdentifier = QString::fromLatin1("%1/%2").
                                   arg(QDBusConnection::sessionBus().baseService()).
                                   arg(q->property("uniqueDBusPath").toString());
@@ -673,7 +673,7 @@ Identity &IdentityManager::newFromExisting(const Identity &other, const QString 
     return result;
 }
 
-QStringList KPIMIdentities::IdentityManager::allEmails() const
+QStringList KIdentityManagement::IdentityManager::allEmails() const
 {
     QStringList lst;
     for (ConstIterator it = begin(); it != end(); ++it) {
@@ -685,7 +685,7 @@ QStringList KPIMIdentities::IdentityManager::allEmails() const
     return lst;
 }
 
-void KPIMIdentities::IdentityManager::slotRollback()
+void KIdentityManagement::IdentityManager::slotRollback()
 {
     rollback();
 }

@@ -32,7 +32,7 @@
 #include <QStandardPaths>
 #include <KConfig>
 #include <QDir>
-using namespace KPIMIdentities;
+using namespace KIdentityManagement;
 using namespace KPIMTextEdit;
 
 QTEST_MAIN(SignatureTester)
@@ -222,7 +222,7 @@ void SignatureTester::testImages()
     // read the images, and it does not mess up
     MySignature sig2;
     sig2.readConfig(group1);
-    sig2.insertIntoTextEdit(KPIMIdentities::Signature::End, Signature::AddSeparator | Signature::AddNewLines,
+    sig2.insertIntoTextEdit(KIdentityManagement::Signature::End, Signature::AddSeparator | Signature::AddNewLines,
                             &edit);
     QCOMPARE(edit.embeddedImages().count(), 2);
     QCOMPARE(sig2.text(), QStringLiteral("Bla<img src=\"folder-new.png\">Bla<img src=\"arrow-up.png\">Bla"));

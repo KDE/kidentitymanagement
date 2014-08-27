@@ -29,7 +29,7 @@
 #include <QByteArray>
 #include <QHostInfo>
 
-using namespace KPIMIdentities;
+using namespace KIdentityManagement;
 
 // TODO: should use a kstaticdeleter?
 static Identity *identityNull = 0;
@@ -162,8 +162,8 @@ Identity Identity::fromMimeData(const QMimeData *md)
 
 // ------------------ Operators --------------------------//
 
-QDataStream &KPIMIdentities::operator<<
-(QDataStream &stream, const KPIMIdentities::Identity &i)
+QDataStream &KIdentityManagement::operator<<
+(QDataStream &stream, const KIdentityManagement::Identity &i)
 {
     return stream << static_cast<quint32>(i.uoid())
            << i.identityName()
@@ -194,8 +194,8 @@ QDataStream &KPIMIdentities::operator<<
            << i.defaultDomainName();
 }
 
-QDataStream &KPIMIdentities::operator>>
-(QDataStream &stream, KPIMIdentities::Identity &i)
+QDataStream &KIdentityManagement::operator>>
+(QDataStream &stream, KIdentityManagement::Identity &i)
 {
     quint32 uoid;
     stream

@@ -20,13 +20,13 @@
 #ifndef KPIMIDENTITIES_IDENTITYMANAGER_H
 #define KPIMIDENTITIES_IDENTITYMANAGER_H
 
-#include <kpimidentities_export.h>
+#include <kidentitymanagement_export.h>
 #include <kconfiggroup.h>
 #include <QtCore/QObject>
 
 class QStringList;
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 
 class Identity;
@@ -34,7 +34,7 @@ class Identity;
  * @short Manages the list of identities.
  * @author Marc Mutz <mutz@kde.org>
  **/
-class KPIMIDENTITIES_EXPORT IdentityManager : public QObject
+class KIDENTITYMANAGEMENT_EXPORT IdentityManager : public QObject
 {
     Q_OBJECT
 public:
@@ -196,13 +196,13 @@ Q_SIGNALS:
     /** Emitted whenever the identity @p ident changed. Useful for more
         fine-grained change notifications than what is possible with the
         standard @ref changed() signal. */
-    void changed(const KPIMIdentities::Identity &ident);
+    void changed(const KIdentityManagement::Identity &ident);
     /** Emitted on @ref commit() for each deleted identity. At the time
         this signal is emitted, the identity does still exist and can be
         retrieved by @ref identityForUoid() if needed */
     void deleted(uint uoid);
     /** Emitted on @ref commit() for each new identity */
-    void added(const KPIMIdentities::Identity &ident);
+    void added(const KIdentityManagement::Identity &ident);
 
 protected:
     /**

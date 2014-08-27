@@ -35,14 +35,14 @@
 
 #include <assert.h>
 
-using namespace KPIMIdentities;
+using namespace KIdentityManagement;
 
 /**
   Private class that helps to provide binary compatibility between releases.
   @internal
 */
 //@cond PRIVATE
-class KPIMIdentities::IdentityCombo::Private
+class KIdentityManagement::IdentityCombo::Private
 {
 public:
     Private(IdentityManager *manager, IdentityCombo *qq)
@@ -59,7 +59,7 @@ public:
     IdentityCombo *q;
 };
 
-void KPIMIdentities::IdentityCombo::Private::reloadCombo()
+void KIdentityManagement::IdentityCombo::Private::reloadCombo()
 {
     const QStringList identities = mIdentityManager->identities();
     // the IM should prevent this from happening:
@@ -68,7 +68,7 @@ void KPIMIdentities::IdentityCombo::Private::reloadCombo()
     q->addItems(identities);
 }
 
-void KPIMIdentities::IdentityCombo::Private::reloadUoidList()
+void KIdentityManagement::IdentityCombo::Private::reloadUoidList()
 {
     mUoidList.clear();
     IdentityManager::ConstIterator it;

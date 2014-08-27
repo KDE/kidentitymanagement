@@ -46,9 +46,9 @@
 #include <assert.h>
 #include <QStandardPaths>
 
-using namespace KPIMIdentities;
+using namespace KIdentityManagement;
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 
 /**
@@ -418,7 +418,7 @@ void SignatureConfigurator::setSignature(const Signature &sig)
     // Let insertIntoTextEdit() handle setting the text, as that function also adds the images.
     d->mTextEdit->clear();
     KPIMTextEdit::TextEdit *const pimEdit = static_cast<KPIMTextEdit::TextEdit *>(d->mTextEdit);
-    sig.insertIntoTextEdit(KPIMIdentities::Signature::Start, KPIMIdentities::Signature::AddNothing,
+    sig.insertIntoTextEdit(KIdentityManagement::Signature::Start, KIdentityManagement::Signature::AddNothing,
                            pimEdit, true);
     if (sig.type() == Signature::FromFile) {
         setFileURL(sig.url());

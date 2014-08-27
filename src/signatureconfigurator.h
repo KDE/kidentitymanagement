@@ -21,13 +21,13 @@
 #ifndef KPIMIDENTITIES_SIGNATURECONFIGURATOR_H
 #define KPIMIDENTITIES_SIGNATURECONFIGURATOR_H
 
-#include "kpimidentities_export.h"
+#include "kidentitymanagement_export.h"
 #include "signature.h" // for Signature::Type
 #include <QWidget>
 
-using KPIMIdentities::Signature;
+using KIdentityManagement::Signature;
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 
 /**
@@ -35,7 +35,7 @@ namespace KPIMIdentities
   * You can set a signature via setSignature(), let the user edit the
   * signature and when done, read the signature back.
   */
-class KPIMIDENTITIES_EXPORT SignatureConfigurator : public QWidget
+class KIDENTITYMANAGEMENT_EXPORT SignatureConfigurator : public QWidget
 {
     Q_OBJECT
 public:

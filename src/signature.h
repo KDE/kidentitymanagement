@@ -23,7 +23,7 @@
 #ifndef KPIMIDENTITIES_SIGNATURE_H
 #define KPIMIDENTITIES_SIGNATURE_H
 
-#include "kpimidentities_export.h"
+#include "kidentitymanagement_export.h"
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -31,7 +31,7 @@
 #include <QtCore/QHash>
 #include <QtCore/QVariant>
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 class Signature;
 class Identity;
@@ -44,13 +44,13 @@ namespace KPIMTextEdit
 class TextEdit;
 }
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 
-KPIMIDENTITIES_EXPORT QDataStream &operator<<
-(QDataStream &stream, const KPIMIdentities::Signature &sig);
-KPIMIDENTITIES_EXPORT QDataStream &operator>>
-(QDataStream &stream, KPIMIdentities::Signature &sig);
+KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<
+(QDataStream &stream, const KIdentityManagement::Signature &sig);
+KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>
+(QDataStream &stream, KIdentityManagement::Signature &sig);
 
 /**
  * @short Abstraction of a signature (aka "footer").
@@ -80,16 +80,16 @@ KPIMIDENTITIES_EXPORT QDataStream &operator>>
  * htmlSig.addImage( image, "hello.png" );
  * ...
  * KTextEdit edit;
- * htmlSig.insertIntoTextEdit( KPIMIdentities::Signature::End,
- *                             KPIMIdentities::Signature::AddSeparator, &edit );
+ * htmlSig.insertIntoTextEdit( KIdentityManagement::Signature::End,
+ *                             KIdentityManagement::Signature::AddSeparator, &edit );
  * @endcode
  */
-class KPIMIDENTITIES_EXPORT Signature
+class KIDENTITYMANAGEMENT_EXPORT Signature
 {
     friend class Identity;
 
-    friend KPIMIDENTITIES_EXPORT QDataStream &operator<< (QDataStream &stream, const Signature &sig);
-    friend KPIMIDENTITIES_EXPORT QDataStream &operator>> (QDataStream &stream, Signature &sig);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<< (QDataStream &stream, const Signature &sig);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>> (QDataStream &stream, Signature &sig);
 
 public:
     /** Type of signature (ie. way to obtain the signature text) */
@@ -214,7 +214,7 @@ public:
      * @deprecated Use the other overload of insertIntoTextEdit() instead. This one doesn't
      *             support inline images and always adds newline characters.
      */
-    void KPIMIDENTITIES_DEPRECATED insertIntoTextEdit(KRichTextEdit *textEdit,
+    void KIDENTITYMANAGEMENT_DEPRECATED insertIntoTextEdit(KRichTextEdit *textEdit,
             Placement placement = End, bool addSeparator = true);
 
     enum AddedTextFlag {
@@ -272,7 +272,7 @@ public:
      * @since 4.3
      * @deprecated Use the non-static insertIntoTextEdit() instead
      */
-    static void KPIMIDENTITIES_DEPRECATED insertPlainSignatureIntoTextEdit(const QString &signature,
+    static void KIDENTITYMANAGEMENT_DEPRECATED insertPlainSignatureIntoTextEdit(const QString &signature,
             KRichTextEdit *textEdit,
             Placement placement = End,
             bool isHtml = false);

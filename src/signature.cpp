@@ -38,7 +38,7 @@
 #include <QtCore/QDir>
 #include <kpimtextedit/textedit.h>
 
-using namespace KPIMIdentities;
+using namespace KIdentityManagement;
 
 class SignaturePrivate
 {
@@ -112,7 +112,7 @@ Signature::Signature(const QString &url, bool isExecutable)
       mInlinedHtml(false)
 {}
 
-void Signature::assignFrom(const KPIMIdentities::Signature &that)
+void Signature::assignFrom(const KIdentityManagement::Signature &that)
 {
     mUrl = that.mUrl;
     mInlinedHtml = that.mInlinedHtml;
@@ -128,7 +128,7 @@ Signature::Signature(const Signature &that)
     assignFrom(that);
 }
 
-Signature &Signature::operator= (const KPIMIdentities::Signature &that)
+Signature &Signature::operator= (const KIdentityManagement::Signature &that)
 {
     if (this == &that) {
         return *this;
@@ -514,7 +514,7 @@ void Signature::insertIntoTextEdit(KRichTextEdit *textEdit,
     }
     insertSignatureHelper(signature, textEdit, placement,
                           (isInlinedHtml() &&
-                           type() == KPIMIdentities::Signature::Inlined),
+                           type() == KIdentityManagement::Signature::Inlined),
                           true);
 }
 
@@ -539,7 +539,7 @@ void Signature::insertSignatureText(Placement placement, AddedText addedText, KP
     }
     insertSignatureHelper(signature, textEdit, placement,
                           (isInlinedHtml() &&
-                           type() == KPIMIdentities::Signature::Inlined),
+                           type() == KIdentityManagement::Signature::Inlined),
                           (addedText & AddNewLines));
 
     // We added the text of the signature above, now it is time to add the images as well.
@@ -558,15 +558,15 @@ void Signature::insertPlainSignatureIntoTextEdit(const QString &signature, KRich
 
 // --------------------- Operators -------------------//
 
-QDataStream &KPIMIdentities::operator<<
-(QDataStream &stream, const KPIMIdentities::Signature &sig)
+QDataStream &KIdentityManagement::operator<<
+(QDataStream &stream, const KIdentityManagement::Signature &sig)
 {
     return stream << static_cast<quint8>(sig.mType) << sig.mUrl << sig.mText
            << d(&sig)->saveLocation << d(&sig)->embeddedImages << d(&sig)->enabled;
 }
 
-QDataStream &KPIMIdentities::operator>>
-(QDataStream &stream, KPIMIdentities::Signature &sig)
+QDataStream &KIdentityManagement::operator>>
+(QDataStream &stream, KIdentityManagement::Signature &sig)
 {
     quint8 s;
     stream >> s  >> sig.mUrl >> sig.mText >> d(&sig)->saveLocation >> d(&sig)->embeddedImages >> d(&sig)->enabled;

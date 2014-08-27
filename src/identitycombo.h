@@ -30,18 +30,18 @@
 #ifndef KPIMIDENTITIES_IDENTITYCOMBO_H
 #define KPIMIDENTITIES_IDENTITYCOMBO_H
 
-#include "kpimidentities_export.h"
+#include "kidentitymanagement_export.h"
 #include <KComboBox>
 
 class QString;
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 
 class IdentityManager;
 class Identity;
 
-class KPIMIDENTITIES_EXPORT IdentityCombo : public KComboBox
+class KIDENTITYMANAGEMENT_EXPORT IdentityCombo : public KComboBox
 {
     Q_OBJECT
 public:

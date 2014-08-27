@@ -22,7 +22,7 @@
 #ifndef KPIMIDENTITES_IDENTITY_H
 #define KPIMIDENTITES_IDENTITY_H
 
-#include "kpimidentities_export.h"
+#include "kidentitymanagement_export.h"
 #include "signature.h"
 
 #include <QtCore/QString>
@@ -31,7 +31,7 @@
 #include <QtCore/QHash>
 #include <QtCore/QVariant>
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 class Identity;
 class Signature;
@@ -40,7 +40,7 @@ class KConfigGroup;
 class QDataStream;
 class QMimeData;
 
-namespace KPIMIdentities
+namespace KIdentityManagement
 {
 
 static const char s_uoid[] = "uoid";
@@ -72,23 +72,23 @@ static const char s_disabledFcc[] = "Disable Fcc";
 static const char s_pgpautosign[] = "Pgp Auto Sign";
 static const char s_defaultDomainName[] = "Default Domain";
 
-KPIMIDENTITIES_EXPORT QDataStream &operator<<
-(QDataStream &stream, const KPIMIdentities::Identity &ident);
-KPIMIDENTITIES_EXPORT QDataStream &operator>>
-(QDataStream &stream, KPIMIdentities::Identity &ident);
+KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<
+(QDataStream &stream, const KIdentityManagement::Identity &ident);
+KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>
+(QDataStream &stream, KIdentityManagement::Identity &ident);
 
 /** User identity information */
-class KPIMIDENTITIES_EXPORT Identity
+class KIDENTITYMANAGEMENT_EXPORT Identity
 {
     // only the identity manager should be able to construct and
     // destruct us, but then we get into problems with using
     // QValueList<Identity> and especially qHeapSort().
     friend class IdentityManager;
 
-    friend KPIMIDENTITIES_EXPORT QDataStream &operator<<
-    (QDataStream &stream, const KPIMIdentities::Identity &ident);
-    friend KPIMIDENTITIES_EXPORT QDataStream &operator>>
-    (QDataStream &stream, KPIMIdentities::Identity &ident);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<
+    (QDataStream &stream, const KIdentityManagement::Identity &ident);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>
+    (QDataStream &stream, KIdentityManagement::Identity &ident);
 
 public:
     typedef QList<Identity> List;

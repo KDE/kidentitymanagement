@@ -1,4 +1,4 @@
-set(kpimidentities_SRCS
+set(kidentitymanagement_SRCS
   identity.cpp
   identitycombo.cpp
   identitymanager.cpp
@@ -6,18 +6,18 @@ set(kpimidentities_SRCS
   signatureconfigurator.cpp
 )
 
-qt5_add_dbus_adaptor(kpimidentities_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KPIMIdentities::IdentityManager )
+qt5_add_dbus_adaptor(kidentitymanagement_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
 
-add_library(KF5PimIdentities ${kpimidentities_SRCS})
+add_library(KF5IdentityManagement ${kidentitymanagement_SRCS})
 
-generate_export_header(KF5PimIdentities BASE_NAME kpimidentities)
+generate_export_header(KF5IdentityManagement BASE_NAME kidentitymanagement)
 
-add_library(KF5::PimIdentities ALIAS KF5PimIdentities)
+add_library(KF5::IdentityManagement ALIAS KF5IdentityManagement)
 
-target_include_directories(KF5PimIdentities INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities;${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities/kpimidentities;>")
-target_include_directories(KF5PimIdentities PUBLIC "$<BUILD_INTERFACE:${KPimIdentities_SOURCE_DIR}/src;${KPimIdentities_BINARY_DIR}/src>")
+target_include_directories(KF5IdentityManagement INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement;${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement/kidentitymanagement;>")
+target_include_directories(KF5IdentityManagement PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
 
-target_link_libraries(KF5PimIdentities
+target_link_libraries(KF5IdentityManagement
 PUBLIC
   KF5::CoreAddons
   KF5::PimTextEdit
@@ -33,41 +33,41 @@ PRIVATE
   KF5::ConfigCore
 )
 
-set_target_properties(KF5PimIdentities PROPERTIES
+set_target_properties(KF5IdentityManagement PROPERTIES
     VERSION ${KPIMIDENTITIES_VERSION_STRING}
     SOVERSION ${KPIMIDENTITIES_SOVERSION}
-    EXPORT_NAME PimIdentities
+    EXPORT_NAME IdentityManagement
 )
 
-install(TARGETS KF5PimIdentities EXPORT KF5PimIdentitiesTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5IdentityManagement EXPORT KF5IdentityManagementTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### Generate Headers ###############
-ecm_generate_headers(KPimIdentities_CamelCase_HEADERS
+ecm_generate_headers(KIdentityManagement_CamelCase_HEADERS
   HEADER_NAMES
   Identity
   IdentityCombo
   IdentityManager
   Signature
   SignatureConfigurator
-  PREFIX KPIMIdentities
-  REQUIRED_HEADERS KPimIdentities_HEADERS
+  PREFIX KIdentityManagement
+  REQUIRED_HEADERS KIdentityManagement_HEADERS
 )
 
 ########### install files ###############
 
 install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/kpimidentities_export.h
-  ${KPimIdentities_HEADERS}
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities/kpimidentities
+  ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_export.h
+  ${KIdentityManagement_HEADERS}
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement/kidentitymanagement
     COMPONENT Devel
 )
-install(FILES    ${KPimIdentities_CamelCase_HEADERS}
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities/KPIMIdentities/
+install(FILES    ${KIdentityManagement_CamelCase_HEADERS}
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement/KIdentityManagement/
     COMPONENT Devel
 )
 
 
 install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
 
-ecm_generate_pri_file(BASE_NAME KPimIdentities LIB_NAME KF5PimIdentities DEPS "CoreAddons PimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/KPIMIdentities)
+ecm_generate_pri_file(BASE_NAME KIdentityManagement LIB_NAME KF5IdentityManagement DEPS "CoreAddons PimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
