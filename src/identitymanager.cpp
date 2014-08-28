@@ -31,6 +31,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <kconfig.h>
 #include <kuser.h>
 #include <kconfiggroup.h>
+#include <kdelibs4configmigrator.h>
 
 #include <QList>
 #include <QRegExp>
@@ -280,6 +281,10 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent,
     : QObject(parent),
       d(new Private(this))
 {
+    Kdelibs4ConfigMigrator migrate(QLatin1String("identitymanager"));
+    migrate.setConfigFiles(QStringList() << QLatin1String("emailidentities"));
+    migrate.migrate();
+
     setObjectName(QLatin1String(name));
     new IdentityManagerAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
