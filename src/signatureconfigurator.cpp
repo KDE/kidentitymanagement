@@ -36,6 +36,7 @@
 #include <QCheckBox>
 #include <QDir>
 #include <QFileInfo>
+#include <QFileInfo>
 #include <QLabel>
 
 #include <QStackedWidget>
@@ -480,9 +481,11 @@ void SignatureConfigurator::setImageLocation(const QString &path)
 
 void SignatureConfigurator::setImageLocation(const Identity &identity)
 {
-    const QString dir = QString::fromLatin1("emailidentities/%1/").arg(
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + QString::fromLatin1("emailidentities/%1/").arg(
                             QString::number(identity.uoid()));
-    setImageLocation(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + dir) ;
+    QFileInfo fileInfo(dir);
+    QDir().mkpath(fileInfo.absolutePath());
+    setImageLocation(dir);
 }
 
 }
