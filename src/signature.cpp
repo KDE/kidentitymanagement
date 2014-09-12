@@ -240,7 +240,8 @@ QString Signature::Private::textFromFile(bool *ok) const
     assert(type == FromFile);
 
     // TODO: Use KIO::NetAccess to download non-local files!
-    if (!QUrl(url).isLocalFile() &&
+    const QUrl u(url);
+    if (!u.isLocalFile() && !u.scheme().isEmpty() &&
             !(QFileInfo(url).isRelative() &&
               QFileInfo(url).exists())) {
         qDebug() << "Signature::textFromFile:"
