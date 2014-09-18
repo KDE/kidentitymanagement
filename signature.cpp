@@ -452,44 +452,45 @@ static void insertSignatureHelper( const QString &signature,
     }
 
     // Insert the signature and newlines depending on where it was inserted.
-    bool hackForCursorsAtEnd = false;
-    int oldCursorPos = -1;
+    int newCursorPos = -1;
+    QString headSep;
+    QString tailSep;
     if ( placement == Signature::End ) {
-
+      // There is one special case when re-setting the old cursor: The cursor
+      // was at the end. In this case, QTextEdit has no way to know
+      // if the signature was added before or after the cursor, and just
+      // decides that it was added before (and the cursor moves to the end,
+      // but it should not when appending a signature). See bug 167961
       if ( oldCursor.position() == textEdit->toPlainText().length() ) {
-        hackForCursorsAtEnd = true;
-        oldCursorPos = oldCursor.position();
+        newCursorPos = oldCursor.position();
       }
-      if ( isHtml ) {
-        textEdit->insertHtml( lineSep + signature );
-      } else {
-        textEdit->insertPlainText( lineSep + signature );
+      headSep = lineSep;
+    } else if ( placement == Signature::Start ) {
+      // When prepending signatures, add a couple of new lines before
+      // the signature, and move the cursor to the beginning of the QTextEdit.
+      // People tends to insert new text there.
+      newCursorPos = 0;
+      headSep = lineSep + lineSep;
+      if ( !isCursorAtEndOfLine( cursor ) ) {
+        tailSep = lineSep;
       }
-    } else if ( placement == Signature::Start || placement == Signature::AtCursor ) {
-      if ( isHtml ) {
-        if ( isCursorAtEndOfLine( cursor ) ) {
-          textEdit->insertHtml( signature );
-        } else {
-          textEdit->insertHtml( signature + lineSep );
-        }
-      } else {
-        if ( isCursorAtEndOfLine( cursor ) ) {
-          textEdit->insertPlainText( signature );
-        } else {
-          textEdit->insertPlainText( signature + lineSep );
-        }
+    } else if ( placement == Signature::AtCursor ) {
+      if ( !isCursorAtEndOfLine( cursor ) ) {
+        tailSep = lineSep;
       }
+    }
+
+    const QString full_signature = headSep + signature + tailSep;
+    if ( isHtml ) {
+      textEdit->insertHtml( full_signature );
+    } else {
+      textEdit->insertPlainText( full_signature );
     }
 
     cursor.endEditBlock();
 
-    // There is one special case when re-setting the old cursor: The cursor
-    // was at the end. In this case, QTextEdit has no way to know
-    // if the signature was added before or after the cursor, and just decides
-    // that it was added before (and the cursor moves to the end, but it should
-    // not when appending a signature). See bug 167961
-    if ( hackForCursorsAtEnd ) {
-      oldCursor.setPosition( oldCursorPos );
+    if ( newCursorPos != -1 ) {
+      oldCursor.setPosition( newCursorPos );
     }
 
     textEdit->setTextCursor( oldCursor );
