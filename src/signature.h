@@ -231,7 +231,9 @@ public:
     typedef QFlags<AddedTextFlag> AddedText;
 
     /** Inserts this signature into the given text edit.
-      * The cursor position is preserved.
+      * If the signature is inserted at the beginning, a couple of new
+      * lines will be inserted before it, and the cursor is moved to
+      * the beginning. Otherwise, the cursor position is preserved.
       * For undo/redo, this is treated as one operation.
       *
       * Rich text mode of the text edit will be enabled if the signature is in
