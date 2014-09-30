@@ -148,21 +148,17 @@ void SignatureConfigurator::Private::init()
     QStackedWidget *widgetStack = new QStackedWidget(q);
     widgetStack->setEnabled(false);   // since !mEnableCheck->isChecked()
     vlay->addWidget(widgetStack, 1);
-    q->connect(mSourceCombo, SIGNAL(currentIndexChanged(int)),
-               widgetStack, SLOT(setCurrentIndex(int)));
-    q->connect(mSourceCombo, SIGNAL(highlighted(int)),
-               widgetStack, SLOT(setCurrentIndex(int)));
+    q->connect(mSourceCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
+    q->connect(mSourceCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::highlighted), widgetStack, &QStackedWidget::setCurrentIndex);
     // connects for the enabling of the widgets depending on
     // signatureEnabled:
-    q->connect(mEnableCheck, SIGNAL(toggled(bool)),
-               mSourceCombo, SLOT(setEnabled(bool)));
-    q->connect(mEnableCheck, SIGNAL(toggled(bool)),
-               widgetStack, SLOT(setEnabled(bool)));
-    q->connect(mEnableCheck, SIGNAL(toggled(bool)),
-               label, SLOT(setEnabled(bool)));
+    q->connect(mEnableCheck, &QCheckBox::toggled, mSourceCombo, &KComboBox::setEnabled);
+    q->connect(mEnableCheck, &QCheckBox::toggled, widgetStack, &QStackedWidget::setEnabled);
+    q->connect(mEnableCheck, &QCheckBox::toggled, label, &QLabel::setEnabled);
     // The focus might be still in the widget that is disabled
     q->connect(mEnableCheck, SIGNAL(clicked()),
                mEnableCheck, SLOT(setFocus()));
+
 
     int pageno = 0;
     // page 0: input field for direct entering:
@@ -234,8 +230,7 @@ void SignatureConfigurator::Private::init()
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout(hlay);
     mHtmlCheck = new QCheckBox(i18n("&Use HTML"), page);
-    q->connect(mHtmlCheck, SIGNAL(clicked()),
-               q, SLOT(slotSetHtml()));
+    q->connect(mHtmlCheck, &QCheckBox::clicked, q, &SignatureConfigurator::slotSetHtml);
     hlay->addWidget(mHtmlCheck);
     inlinedHtml = true;
 
@@ -259,12 +254,10 @@ void SignatureConfigurator::Private::init()
     hlay->addWidget(label);
     hlay->addWidget(mFileRequester, 1);
     mFileRequester->button()->setAutoDefault(false);
-    q->connect(mFileRequester, SIGNAL(textChanged(QString)),
-               q, SLOT(slotEnableEditButton(QString)));
+    q->connect(mFileRequester, &KUrlRequester::textChanged, q, &SignatureConfigurator::slotEnableEditButton);
     mEditButton = new QPushButton(i18n("Edit &File"), page);
     mEditButton->setWhatsThis(i18n("Opens the specified file in a text editor."));
-    q->connect(mEditButton, SIGNAL(clicked()),
-               q, SLOT(slotEdit()));
+    q->connect(mEditButton, &QPushButton::clicked, q, &SignatureConfigurator::slotEdit);
     mEditButton->setAutoDefault(false);
     mEditButton->setEnabled(false);   // initially nothing to edit
     hlay->addWidget(mEditButton);
