@@ -114,7 +114,6 @@ void SignatureConfigurator::Private::init()
 
     vlay = new QVBoxLayout(q);
     vlay->setObjectName(QStringLiteral("main layout"));
-    vlay->setMargin(0);
 
     // "enable signatue" checkbox:
     mEnableCheck = new QCheckBox(i18n("&Enable signature"), q);
