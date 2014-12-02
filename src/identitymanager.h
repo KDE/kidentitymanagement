@@ -46,7 +46,7 @@ public:
      * the default identity created here will not be saved.
      * It is assumed that a minimum of one identity is always present.
      */
-    explicit IdentityManager(bool readonly = false, QObject *parent = 0,
+    explicit IdentityManager(bool readonly = false, QObject *parent = Q_NULLPTR,
                              const char *name = 0);
     virtual ~IdentityManager();
 
