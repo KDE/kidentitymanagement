@@ -42,7 +42,7 @@ public:
     /**
       * Constructor
       */
-    explicit SignatureConfigurator(QWidget *parent = 0);
+    explicit SignatureConfigurator(QWidget *parent = Q_NULLPTR);
 
     /**
       * destructor

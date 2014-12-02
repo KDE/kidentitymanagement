@@ -45,7 +45,7 @@ class KIDENTITYMANAGEMENT_EXPORT IdentityCombo : public KComboBox
 {
     Q_OBJECT
 public:
-    explicit IdentityCombo(IdentityManager *manager, QWidget *parent = 0);
+    explicit IdentityCombo(IdentityManager *manager, QWidget *parent = Q_NULLPTR);
 
     ~IdentityCombo();
     QString currentIdentityName() const;
