@@ -28,7 +28,6 @@
 #include <QUrl>
 #include <kprocess.h>
 #include <KRichTextEdit>
-#include <kpimutils/kfileio.h>
 
 #include <QFileInfo>
 #include <QSharedPointer>
@@ -261,7 +260,12 @@ QString Signature::Private::textFromFile(bool *ok) const
     }
 
     // TODO: hmm, should we allow other encodings, too?
-    const QByteArray ba = KPIMUtils::kFileToByteArray(url, false);
+    QFile f(url);
+    if (!f.open(QIODevice::ReadOnly)) {
+        qWarning() << "Failed to open" << url << ":" << f.errorString();
+        return QString();
+    }
+    const QByteArray ba = f.readAll();
     return QString::fromLocal8Bit(ba.data(), ba.size());
 }
 

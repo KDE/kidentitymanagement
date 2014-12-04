@@ -23,7 +23,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include "identitymanager.h"
 #include "identity.h" // for IdentityList::{export,import}Data
 
-#include <kpimutils/email.h> // for static helper functions
+#include <kemailaddress.h> // for static helper functions
 
 #include <kemailsettings.h> // for IdentityEntry::fromControlCenter()
 #include <klocalizedstring.h>
@@ -518,9 +518,9 @@ const Identity &IdentityManager::identityForUoidOrDefault(uint uoid) const
 const Identity &IdentityManager::identityForAddress(
     const QString &addresses) const
 {
-    const QStringList addressList = KPIMUtils::splitAddressList(addresses);
+    const QStringList addressList = KEmailAddress::splitAddressList(addresses);
     foreach (const QString &fullAddress, addressList) {
-        const QString addrSpec = KPIMUtils::extractEmailAddress(fullAddress).toLower();
+        const QString addrSpec = KEmailAddress::extractEmailAddress(fullAddress).toLower();
         for (ConstIterator it = begin(); it != end(); ++it) {
             const Identity &identity = *it;
             if (identity.matchesEmailAddress(addrSpec)) {

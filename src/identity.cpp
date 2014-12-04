@@ -23,7 +23,7 @@
 
 #include <qdebug.h>
 #include <kconfiggroup.h>
-#include <kpimutils/email.h>
+#include <kemailaddress.h>
 
 #include <QMimeData>
 #include <QByteArray>
@@ -643,7 +643,7 @@ void Identity::setSignature(const Signature &sig)
 
 bool Identity::matchesEmailAddress(const QString &addr) const
 {
-    const QString addrSpec = KPIMUtils::extractEmailAddress(addr).toLower();
+    const QString addrSpec = KEmailAddress::extractEmailAddress(addr).toLower();
     if (addrSpec == primaryEmailAddress().toLower()) {
         return true;
     }
