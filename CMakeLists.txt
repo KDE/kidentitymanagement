@@ -18,7 +18,7 @@ include(KDEFrameworkCompilerSettings)
 
 
 set(KF5_VERSION "5.5.0")
-set(KDEPIMLIBS_VERSION "4.77.0")
+set(KDEPIMLIBS_VERSION "4.78.0")
 
 ecm_setup_version(${KDEPIMLIBS_VERSION} VARIABLE_PREFIX KIDENTITYMANAGEMENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
