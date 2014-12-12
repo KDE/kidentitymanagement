@@ -40,9 +40,7 @@ find_package(KF5Config ${KF5_VERSION} CONFIG REQUIRED)
 find_package(KF5Emoticons ${KF5_VERSION} CONFIG REQUIRED)
 find_package(KF5Codecs ${KF5_VERSION} CONFIG REQUIRED)
 
-if("${CMAKE_SOURCE_DIR}" STREQUAL "${KIdentityManagement_SOURCE_DIR}")
-  find_package(KF5PimTextEdit ${KDEPIMLIBS_VERSION} CONFIG REQUIRED)
-endif()
+find_package(KF5PimTextEdit ${KDEPIMLIBS_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII")
 
@@ -78,6 +76,4 @@ install(FILES
    COMPONENT Devel
 )
 
-if ("${CMAKE_BINARY_DIR}" STREQUAL "${KIdentityManagement_BINARY_DIR}")
-  feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
-endif()
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
