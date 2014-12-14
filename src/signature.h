@@ -117,7 +117,6 @@ public:
     };
     typedef QSharedPointer<EmbeddedImage> EmbeddedImagePtr;
 
-
     /** Used for comparison */
     bool operator== (const Signature &other) const;
 
@@ -196,7 +195,6 @@ public:
      */
     void setImageLocation(const QString &path);
     QString imageLocation() const;
-
 
     /**
      * Adds the given image to the signature.

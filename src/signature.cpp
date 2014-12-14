@@ -39,8 +39,6 @@
 
 using namespace KIdentityManagement;
 
-
-
 class KIdentityManagement::Signature::Private
 {
 public:
@@ -56,7 +54,6 @@ public:
     QString textFromFile(bool *ok) const;
     QString textFromCommand(bool *ok) const;
     void insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const;
-
 
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().
@@ -129,35 +126,32 @@ static void insertSignatureHelper(const QString &signature,
                 newCursorPos = oldCursor.position();
             }
             headSep = lineSep;
-        } else if ( placement == Signature::Start ) {
+        } else if (placement == Signature::Start) {
             // When prepending signatures, add a couple of new lines before
             // the signature, and move the cursor to the beginning of the QTextEdit.
             // People tends to insert new text there.
             newCursorPos = 0;
             headSep = lineSep + lineSep;
-            if ( !isCursorAtEndOfLine( cursor ) ) {
-               tailSep = lineSep;
+            if (!isCursorAtEndOfLine(cursor)) {
+                tailSep = lineSep;
             }
-       } else if ( placement == Signature::AtCursor ) {
-           if ( !isCursorAtEndOfLine( cursor ) ) {
-                 tailSep = lineSep;
-           }
+        } else if (placement == Signature::AtCursor) {
+            if (!isCursorAtEndOfLine(cursor)) {
+                tailSep = lineSep;
+            }
         }
-
 
         const QString full_signature = headSep + signature + tailSep;
-        if ( isHtml ) {
-           textEdit->insertHtml( full_signature );
+        if (isHtml) {
+            textEdit->insertHtml(full_signature);
         } else {
-           textEdit->insertPlainText( full_signature );
+            textEdit->insertPlainText(full_signature);
         }
-
 
         cursor.endEditBlock();
-        if ( newCursorPos != -1 ) {
-           oldCursor.setPosition( newCursorPos );
+        if (newCursorPos != -1) {
+            oldCursor.setPosition(newCursorPos);
         }
-
 
         textEdit->setTextCursor(oldCursor);
         textEdit->ensureCursorVisible();
@@ -169,7 +163,6 @@ static void insertSignatureHelper(const QString &signature,
         }
     }
 }
-
 
 // Returns the names of all images in the HTML code
 static QStringList findImageNames(const QString &htmlCode)
@@ -248,7 +241,7 @@ QString Signature::Private::textFromFile(bool *ok) const
             !(QFileInfo(url).isRelative() &&
               QFileInfo(url).exists())) {
         qCDebug(KIDENTITYMANAGEMENT_LOG) << "Signature::textFromFile:"
-                 << "non-local URLs are unsupported";
+                                         << "non-local URLs are unsupported";
         if (ok) {
             *ok = false;
         }
@@ -336,7 +329,6 @@ void Signature::Private::insertSignatureText(Placement placement, AddedText adde
     }
 }
 
-
 QDataStream &operator<< (QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
 {
     return stream << img->image << img->name;
@@ -412,7 +404,6 @@ QString Signature::rawText(bool *ok) const
     return QString(); // make compiler happy
 }
 
-
 QString Signature::withSeparator(bool *ok) const
 {
     QString signature = rawText(ok);
@@ -468,7 +459,6 @@ static const char sigCommandKey[] = "Signature Command";
 static const char sigTypeInlinedHtmlKey[] = "Inlined Html";
 static const char sigImageLocation[] = "Image Location";
 static const char sigEnabled[] = "Signature Enabled";
-
 
 void Signature::readConfig(const KConfigGroup &config)
 {
@@ -548,7 +538,6 @@ void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embe
 {
     d->embeddedImages = embedded;
 }
-
 
 // --------------------- Operators -------------------//
 

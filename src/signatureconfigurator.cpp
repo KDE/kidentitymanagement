@@ -158,7 +158,6 @@ void SignatureConfigurator::Private::init()
     q->connect(mEnableCheck, SIGNAL(clicked()),
                mEnableCheck, SLOT(setFocus()));
 
-
     int pageno = 0;
     // page 0: input field for direct entering:
     page = new QWidget(widgetStack);

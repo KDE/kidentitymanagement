@@ -20,4 +20,3 @@
 #include "kidentitymanagement_debug.h"
 Q_LOGGING_CATEGORY(KIDENTITYMANAGEMENT_LOG, "log_kidentitymanagement")
 
-

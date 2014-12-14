@@ -93,12 +93,12 @@ void SignatureTester::testTextEditInsertion()
 
     // Test inserting signature at start, with seperators. Make sure two new
     // lines are inserted before the signature
- 
+
     edit.setPlainText(QStringLiteral("Bla Bla"));
     sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator | Signature::AddNewLines,
                            &edit);
     QVERIFY(edit.textMode() == KRichTextEdit::Plain);
-    QCOMPARE( edit.toPlainText(), QLatin1String( "\n\n-- \nHello World\nBla Bla" ) );
+    QCOMPARE(edit.toPlainText(), QLatin1String("\n\n-- \nHello World\nBla Bla"));
 
     // Test inserting signature at end. make sure cursor position is preserved
     edit.clear();
@@ -163,7 +163,7 @@ void SignatureTester::testBug167961()
     // When prepending a sig, the cursor should also be at the start, see bug 211634
     edit.clear();
     sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator | Signature::AddNewLines, &edit);
-    QCOMPARE( edit.textCursor().position(), 0 );
+    QCOMPARE(edit.textCursor().position(), 0);
 }
 
 // Make writeConfig() public, we need it

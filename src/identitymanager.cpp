@@ -145,7 +145,7 @@ void IdentityManager::Private::readConfig(KConfig *config)
 
     if (!haveDefault) {
         qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: There was no default identity."
-                   << "Marking first one as default.";
+                                           << "Marking first one as default.";
         mIdentities.first().setIsDefault(true);
     }
     qSort(mIdentities);
@@ -545,8 +545,8 @@ Identity &IdentityManager::modifyIdentityForName(const QString &name)
     }
 
     qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager::modifyIdentityForName() used as"
-               << "newFromScratch() replacement!"
-               << endl << "  name == \"" << name << "\"";
+                                       << "newFromScratch() replacement!"
+                                       << endl << "  name == \"" << name << "\"";
     return newFromScratch(name);
 }
 
@@ -559,8 +559,8 @@ Identity &IdentityManager::modifyIdentityForUoid(uint uoid)
     }
 
     qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager::identityForUoid() used as"
-               << "newFromScratch() replacement!"
-               << endl << "  uoid == \"" << uoid << "\"";
+                                       << "newFromScratch() replacement!"
+                                       << endl << "  uoid == \"" << uoid << "\"";
     return newFromScratch(i18n("Unnamed"));
 }
 
