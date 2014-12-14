@@ -27,7 +27,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include <kemailsettings.h> // for IdentityEntry::fromControlCenter()
 #include <klocalizedstring.h>
-#include <qdebug.h>
+#include "kidentitymanagement_debug.h"
 #include <kconfig.h>
 #include <kuser.h>
 #include <kconfiggroup.h>
@@ -144,7 +144,7 @@ void IdentityManager::Private::readConfig(KConfig *config)
     }
 
     if (!haveDefault) {
-        qWarning() << "IdentityManager: There was no default identity."
+        qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: There was no default identity."
                    << "Marking first one as default.";
         mIdentities.first().setIsDefault(true);
     }
@@ -264,7 +264,7 @@ int IdentityManager::Private::newUoid()
 
 void IdentityManager::Private::slotIdentitiesChanged(const QString &id)
 {
-    qDebug() << " KIdentityManagement::IdentityManager::slotIdentitiesChanged :" << id;
+    qCDebug(KIDENTITYMANAGEMENT_LOG) << " KIdentityManagement::IdentityManager::slotIdentitiesChanged :" << id;
     const QString ourIdentifier = QString::fromLatin1("%1/%2").
                                   arg(QDBusConnection::sessionBus().baseService()).
                                   arg(q->property("uniqueDBusPath").toString());
@@ -300,7 +300,7 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent,
     d->readConfig(d->mConfig);
     // we need at least a default identity:
     if (d->mIdentities.isEmpty()) {
-        qDebug() << "IdentityManager: No identity found. Creating default.";
+        qCDebug(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: No identity found. Creating default.";
         d->createDefaultIdentity();
         commit();
     }
@@ -351,7 +351,7 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent,
 IdentityManager::~IdentityManager()
 {
     if (hasPendingChanges()) {
-        qWarning() << "IdentityManager: There were uncommitted changes!";
+        qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: There were uncommitted changes!";
     }
     delete d;
 }
@@ -398,14 +398,14 @@ void IdentityManager::commit()
             const Identity &orig = identityForUoid(uoid);    // look up in mIdentities
             if (*it != orig) {
                 // changed identity
-                qDebug() << "emitting changed() for identity" << uoid;
+                qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting changed() for identity" << uoid;
                 emit changed(*it);
                 changedUOIDs << uoid;
             }
             seenUOIDs.removeAll(uoid);
         } else {
             // new identity
-            qDebug() << "emitting added() for identity" << (*it).uoid();
+            qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting added() for identity" << (*it).uoid();
             emit added(*it);
         }
     }
@@ -413,7 +413,7 @@ void IdentityManager::commit()
     // what's left are deleted identities:
     for (QList<uint>::ConstIterator it = seenUOIDs.constBegin();
             it != seenUOIDs.constEnd(); ++it) {
-        qDebug() << "emitting deleted() for identity" << (*it);
+        qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting deleted() for identity" << (*it);
         emit deleted(*it);
     }
 
@@ -544,7 +544,7 @@ Identity &IdentityManager::modifyIdentityForName(const QString &name)
         }
     }
 
-    qWarning() << "IdentityManager::modifyIdentityForName() used as"
+    qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager::modifyIdentityForName() used as"
                << "newFromScratch() replacement!"
                << endl << "  name == \"" << name << "\"";
     return newFromScratch(name);
@@ -558,7 +558,7 @@ Identity &IdentityManager::modifyIdentityForUoid(uint uoid)
         }
     }
 
-    qWarning() << "IdentityManager::identityForUoid() used as"
+    qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager::identityForUoid() used as"
                << "newFromScratch() replacement!"
                << endl << "  uoid == \"" << uoid << "\"";
     return newFromScratch(i18n("Unnamed"));
@@ -575,7 +575,7 @@ const Identity &IdentityManager::defaultIdentity() const
     if (d->mIdentities.isEmpty()) {
         qCritical() << "IdentityManager: No default identity found!";
     } else {
-        qWarning() << "IdentityManager: No default identity found!";
+        qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: No default identity found!";
     }
     return *begin();
 }

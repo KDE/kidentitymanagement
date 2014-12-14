@@ -22,7 +22,7 @@
 
 #include <kactioncollection.h>
 #include <klocalizedstring.h>
-#include <qdebug.h>
+#include "kidentitymanagement_debug.h"
 #include <klineedit.h>
 #include <kurlrequester.h>
 #include <kshellcompletion.h>

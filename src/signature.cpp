@@ -21,7 +21,7 @@
 
 #include "signature.h"
 
-#include <qdebug.h>
+#include "kidentitymanagement_debug.h"
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
@@ -219,7 +219,7 @@ void Signature::Private::cleanupImages()
         QDir dir(saveLocation);
         foreach (const QString &fileName, dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks)) {
             if (fileName.toLower().endsWith(QLatin1String(".png"))) {
-                qDebug() << "Deleting old image" << dir.path() + fileName;
+                qCDebug(KIDENTITYMANAGEMENT_LOG) << "Deleting old image" << dir.path() + fileName;
                 dir.remove(fileName);
             }
         }
@@ -232,7 +232,7 @@ void Signature::Private::saveImages() const
         foreach (const Signature::EmbeddedImagePtr &image, embeddedImages) {
             QString location = saveLocation + QLatin1Char('/') + image->name;
             if (!image->image.save(location, "PNG")) {
-                qWarning() << "Failed to save image" << location;
+                qCWarning(KIDENTITYMANAGEMENT_LOG) << "Failed to save image" << location;
             }
         }
     }
@@ -247,7 +247,7 @@ QString Signature::Private::textFromFile(bool *ok) const
     if (!u.isLocalFile() && !u.scheme().isEmpty() &&
             !(QFileInfo(url).isRelative() &&
               QFileInfo(url).exists())) {
-        qDebug() << "Signature::textFromFile:"
+        qCDebug(KIDENTITYMANAGEMENT_LOG) << "Signature::textFromFile:"
                  << "non-local URLs are unsupported";
         if (ok) {
             *ok = false;
@@ -262,7 +262,7 @@ QString Signature::Private::textFromFile(bool *ok) const
     // TODO: hmm, should we allow other encodings, too?
     QFile f(url);
     if (!f.open(QIODevice::ReadOnly)) {
-        qWarning() << "Failed to open" << url << ":" << f.errorString();
+        qCWarning(KIDENTITYMANAGEMENT_LOG) << "Failed to open" << url << ":" << f.errorString();
         return QString();
     }
     const QByteArray ba = f.readAll();
@@ -500,7 +500,7 @@ void Signature::readConfig(const KConfigGroup &config)
                 if (image.load(dir.path() + QLatin1Char('/') + fileName)) {
                     addImage(image, fileName);
                 } else {
-                    qWarning() << "Unable to load image" << dir.path() + QLatin1Char('/') + fileName;
+                    qCWarning(KIDENTITYMANAGEMENT_LOG) << "Unable to load image" << dir.path() + QLatin1Char('/') + fileName;
                 }
             }
         }

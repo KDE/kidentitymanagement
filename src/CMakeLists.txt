@@ -4,6 +4,7 @@ set(kidentitymanagement_SRCS
   identitymanager.cpp
   signature.cpp
   signatureconfigurator.cpp
+  kidentitymanagement_debug.cpp
 )
 
 qt5_add_dbus_adaptor(kidentitymanagement_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
