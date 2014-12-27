@@ -18,10 +18,10 @@ include(KDEFrameworkCompilerSettings)
 
 
 set(KF5_VERSION "5.5.0")
-set(KDEPIMLIBS_VERSION "4.79.0")
+set(KIDENTITYMANAGEMENTLIB_VERSION "4.79.0")
 set(PIMTEXTEDITLIB_VERSION "4.79.0")
 
-ecm_setup_version(${KDEPIMLIBS_VERSION} VARIABLE_PREFIX KIDENTITYMANAGEMENT
+ecm_setup_version(${KIDENTITYMANAGEMENTLIB_VERSION} VARIABLE_PREFIX KIDENTITYMANAGEMENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfigVersion.cmake"
                         SOVERSION 5
