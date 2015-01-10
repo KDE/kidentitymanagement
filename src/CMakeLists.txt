@@ -15,7 +15,7 @@ generate_export_header(KF5IdentityManagement BASE_NAME kidentitymanagement)
 
 add_library(KF5::IdentityManagement ALIAS KF5IdentityManagement)
 
-target_include_directories(KF5IdentityManagement INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement;${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement/kidentitymanagement;>")
+target_include_directories(KF5IdentityManagement INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement;${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement/kidentitymanagement;>")
 target_include_directories(KF5IdentityManagement PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
 
 target_link_libraries(KF5IdentityManagement
@@ -59,16 +59,16 @@ ecm_generate_headers(KIdentityManagement_CamelCase_HEADERS
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_export.h
   ${KIdentityManagement_HEADERS}
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement/kidentitymanagement
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement/kidentitymanagement
     COMPONENT Devel
 )
 install(FILES    ${KIdentityManagement_CamelCase_HEADERS}
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement/KIdentityManagement/
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement/KIdentityManagement/
     COMPONENT Devel
 )
 
 
-install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR} RENAME kf5_org.kde.pim.IdentityManager.xml)
+install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR} RENAME kf5_org.kde.pim.IdentityManager.xml)
 
-ecm_generate_pri_file(BASE_NAME KIdentityManagement LIB_NAME KF5IdentityManagement DEPS "CoreAddons PimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement)
+ecm_generate_pri_file(BASE_NAME KIdentityManagement LIB_NAME KF5IdentityManagement DEPS "CoreAddons PimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
