@@ -147,6 +147,10 @@ void IdentityManager::Private::readConfig(KConfig *config)
         }
     }
     if (!haveDefault) {
+        if (mIdentities.isEmpty()) {
+            mIdentities << Identity();
+        }
+
         qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: There was no default identity."
                                            << "Marking first one as default.";
         mIdentities.first().setIsDefault(true);
