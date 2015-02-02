@@ -36,7 +36,6 @@
 #include <QCheckBox>
 #include <QDir>
 #include <QFileInfo>
-#include <QFileInfo>
 #include <QLabel>
 
 #include <QStackedWidget>
