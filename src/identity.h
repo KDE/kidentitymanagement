@@ -27,7 +27,7 @@
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QList>
+#include <QtCore/QVector>
 #include <QtCore/QHash>
 #include <QtCore/QVariant>
 
@@ -91,7 +91,7 @@ class KIDENTITYMANAGEMENT_EXPORT Identity
     (QDataStream &stream, KIdentityManagement::Identity &ident);
 
 public:
-    typedef QList<Identity> List;
+    typedef QVector<Identity> List;
 
     /** Constructor */
     explicit Identity(const QString &id = QString(),
