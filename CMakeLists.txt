@@ -28,7 +28,7 @@ ecm_setup_version(${KIDENTITYMANAGEMENT_LIB_VERSION} VARIABLE_PREFIX KIDENTITYMA
 )
 
 ########### Find packages ###########
-#REMOVE IT WHEN WE REMOVE from KF5PimTextEdit or KF5PimUtils
+#REMOVE IT WHEN WE REMOVE from KF5PimTextEdit 
 find_package(KF5KDELibs4Support ${KF5_VERSION} CONFIG REQUIRED)
 
 find_package(Qt5Network NO_MODULE REQUIRED)
