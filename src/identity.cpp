@@ -32,7 +32,7 @@
 using namespace KIdentityManagement;
 
 // TODO: should use a kstaticdeleter?
-static Identity *identityNull = 0;
+static Identity *identityNull = Q_NULLPTR;
 
 Identity::Identity(const QString &id, const QString &fullName,
                    const QString &emailAddr, const QString &organization,
