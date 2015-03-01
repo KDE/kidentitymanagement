@@ -17,7 +17,7 @@ include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 
 
-set(KF5_VERSION "5.6.0")
+set(KF5_VERSION "5.7.0")
 set(KIDENTITYMANAGEMENT_LIB_VERSION "4.79.0")
 set(PIMTEXTEDIT_LIB_VERSION "4.79.0")
 
