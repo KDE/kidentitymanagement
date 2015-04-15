@@ -4,6 +4,7 @@ set(kidentitymanagement_SRCS
   identitymanager.cpp
   signature.cpp
   signatureconfigurator.cpp
+  utils.cpp
   kidentitymanagement_debug.cpp
 )
 
@@ -50,6 +51,7 @@ ecm_generate_headers(KIdentityManagement_CamelCase_HEADERS
   IdentityManager
   Signature
   SignatureConfigurator
+  Utils
   PREFIX KIdentityManagement
   REQUIRED_HEADERS KIdentityManagement_HEADERS
 )
