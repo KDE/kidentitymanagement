@@ -162,6 +162,7 @@ void SignatureConfigurator::Private::init()
     page = new QWidget(widgetStack);
     widgetStack->insertWidget(pageno, page);
     page_vlay = new QVBoxLayout(page);
+    page_vlay->setMargin(0);
 
 #ifndef QT_NO_TOOLBAR
     mEditToolBar = new KToolBar(q);
