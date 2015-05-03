@@ -24,6 +24,8 @@
 #include <KConfig>
 #include <KConfigGroup>
 
+#include <QMimeData>
+
 using namespace KIdentityManagement;
 
 QTEST_GUILESS_MAIN(IdentityTester)
@@ -70,4 +72,24 @@ void IdentityTester::test_Aliases()
 
     QCOMPARE(manager.allEmails().size(), 4);
     QCOMPARE(manager.identityForAddress(QStringLiteral("firstname@example.com")).identityName().toLatin1().data(), "Test1");
+}
+
+void IdentityTester::test_toMimeData()
+{
+    IdentityManager manager;
+    Identity &identity = manager.newFromScratch(QStringLiteral("Test1"));
+    identity.setFullName(QLatin1String("name"));
+    QMimeData mimeData;
+    identity.populateMimeData(&mimeData);
+
+    Identity identity2 = Identity::fromMimeData(&mimeData);
+
+    // The deserializer fills in the QHash will lots of invalid variants, which is OK, but the CTOR doesn't fill
+    // The hash with the missing fields, so this comparison will fail. Maybe do a smarter Identity== where missing
+    // from the hash or being invalid is equivalent
+    QEXPECT_FAIL("", "The deserialized instance is different", Continue);
+    QCOMPARE(identity, identity2);
+
+    QEXPECT_FAIL("", "Missing qRegisterMetaTypeStreamOperators() I guess ?", Continue);
+    QCOMPARE(identity.fullName(), identity2.fullName());
 }

@@ -144,7 +144,7 @@ void Identity::populateMimeData(QMimeData *md)
     QByteArray a;
     {
         QDataStream s(&a, QIODevice::WriteOnly);
-        s << this;
+        s << *this;
     }
     md->setData(mimeDataType(), a);
 }
