@@ -312,7 +312,7 @@ public:
 
     static QString mimeDataType();
     static bool canDecode(const QMimeData *);
-    void populateMimeData(QMimeData *);
+    void populateMimeData(QMimeData *) const;
     static Identity fromMimeData(const QMimeData *);
 
     /** Read configuration from config. Group must be preset (or use

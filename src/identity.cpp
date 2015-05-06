@@ -139,7 +139,7 @@ bool Identity::canDecode(const QMimeData *md)
     return md->hasFormat(mimeDataType());
 }
 
-void Identity::populateMimeData(QMimeData *md)
+void Identity::populateMimeData(QMimeData *md) const
 {
     QByteArray a;
     {
