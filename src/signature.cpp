@@ -172,7 +172,9 @@ static QStringList findImageNames(const QString &htmlCode)
     // To complicated for us, so cheat and let a text edit do the hard work
     KPIMTextEdit::TextEdit edit;
     edit.setHtml(htmlCode);
-    foreach (const KPIMTextEdit::ImageWithNamePtr &image, edit.imagesWithName()) {
+    QList<KPIMTextEdit::ImageWithNamePtr> images = edit.imagesWithName();
+    ret.reserve(images.count());
+    foreach (const KPIMTextEdit::ImageWithNamePtr &image, images) {
         ret << image->name;
     }
     return ret;

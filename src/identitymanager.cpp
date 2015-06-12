@@ -243,6 +243,7 @@ int IdentityManager::Private::newUoid()
 
     // determine the UOIDs of all saved identities
     QList<uint> usedUOIDs;
+    usedUOIDs.reserve(1 + mIdentities.count() + (q->hasPendingChanges() ? shadowIdentities.count() : 0));
     QList<Identity>::ConstIterator end(mIdentities.constEnd());
     for (QList<Identity>::ConstIterator it = mIdentities.constBegin();
             it != end; ++it) {
@@ -389,6 +390,7 @@ void IdentityManager::commit()
     }
 
     QList<uint> seenUOIDs;
+    seenUOIDs.reserve(d->mIdentities.count());
     QList<Identity>::ConstIterator end = d->mIdentities.constEnd();
     for (QList<Identity>::ConstIterator it = d->mIdentities.constBegin();
             it != end; ++it) {
@@ -458,6 +460,7 @@ bool IdentityManager::hasPendingChanges() const
 QStringList IdentityManager::identities() const
 {
     QStringList result;
+    result.reserve(d->mIdentities.count());
     ConstIterator end = d->mIdentities.constEnd();
     for (ConstIterator it = d->mIdentities.constBegin();
             it != end; ++it) {
@@ -469,6 +472,7 @@ QStringList IdentityManager::identities() const
 QStringList IdentityManager::shadowIdentities() const
 {
     QStringList result;
+    result.reserve(d->shadowIdentities.count());
     ConstIterator end = d->shadowIdentities.constEnd();
     for (ConstIterator it = d->shadowIdentities.constBegin();
             it != end; ++it) {
