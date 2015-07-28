@@ -28,8 +28,6 @@ ecm_setup_version(${KIDENTITYMANAGEMENT_LIB_VERSION} VARIABLE_PREFIX KIDENTITYMA
 )
 
 ########### Find packages ###########
-#REMOVE IT WHEN WE REMOVE from KF5PimTextEdit 
-find_package(KF5KDELibs4Support ${KF5_VERSION} CONFIG REQUIRED)
 
 find_package(Qt5Network NO_MODULE REQUIRED)
 find_package(KF5CoreAddons ${KF5_VERSION} CONFIG REQUIRED)
@@ -40,6 +38,7 @@ find_package(KF5KIO ${KF5_VERSION} CONFIG REQUIRED)
 find_package(KF5Config ${KF5_VERSION} CONFIG REQUIRED)
 find_package(KF5Emoticons ${KF5_VERSION} CONFIG REQUIRED)
 find_package(KF5Codecs ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5IconThemes ${KF5_VERSION} CONFIG REQUIRED)
 
 find_package(KF5PimTextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
