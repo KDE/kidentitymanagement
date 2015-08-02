@@ -98,7 +98,7 @@ void SignatureTester::testTextEditInsertion()
     sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator | Signature::AddNewLines,
                            &edit);
     QVERIFY(edit.textMode() == KRichTextEdit::Plain);
-    QCOMPARE(edit.toPlainText(), QLatin1String("\n\n-- \nHello World\nBla Bla"));
+    QCOMPARE(edit.toPlainText(), QStringLiteral("\n\n-- \nHello World\nBla Bla"));
 
     // Test inserting signature at end. make sure cursor position is preserved
     edit.clear();

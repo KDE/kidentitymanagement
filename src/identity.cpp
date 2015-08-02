@@ -131,7 +131,7 @@ bool Identity::mailingAllowed() const
 
 QString Identity::mimeDataType()
 {
-    return QLatin1String("application/x-kmail-identity-drag");
+    return QStringLiteral("application/x-kmail-identity-drag");
 }
 
 bool Identity::canDecode(const QMimeData *md)

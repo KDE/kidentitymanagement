@@ -105,7 +105,7 @@ static void insertSignatureHelper(const QString &signature,
         QString lineSep;
         if (addNewlines) {
             if (isHtml) {
-                lineSep = QLatin1String("<br>");
+                lineSep = QStringLiteral("<br>");
             } else {
                 lineSep = QLatin1Char('\n');
             }
@@ -418,8 +418,8 @@ QString Signature::withSeparator(bool *ok) const
     }
 
     const bool htmlSig = (isInlinedHtml() && d->type == Inlined);
-    QString newline = htmlSig ? QLatin1String("<br>") : QLatin1String("\n");
-    if (htmlSig && signature.startsWith(QLatin1String("<p"))) {
+    QString newline = htmlSig ? QStringLiteral("<br>") : QStringLiteral("\n");
+    if (htmlSig && signature.startsWith(QStringLiteral("<p"))) {
         newline.clear();
     }
 

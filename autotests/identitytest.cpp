@@ -78,7 +78,7 @@ void IdentityTester::test_toMimeData()
 {
     IdentityManager manager;
     Identity &identity = manager.newFromScratch(QStringLiteral("Test1"));
-    identity.setFullName(QLatin1String("name"));
+    identity.setFullName(QStringLiteral("name"));
     QMimeData mimeData;
     identity.populateMimeData(&mimeData);
 
