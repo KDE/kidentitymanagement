@@ -62,7 +62,7 @@ static QString newDBusObjectName()
  *   @internal
  */
 //@cond PRIVATE
-class KIdentityManagement::IdentityManager::Private
+class Q_DECL_HIDDEN KIdentityManagement::IdentityManager::Private
 {
 public:
     Private(KIdentityManagement::IdentityManager *);

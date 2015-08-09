@@ -56,7 +56,7 @@ namespace KIdentityManagement
    @internal
   */
 //@cond PRIVATE
-class SignatureConfigurator::Private
+class Q_DECL_HIDDEN SignatureConfigurator::Private
 {
 public:
     Private(SignatureConfigurator *parent);

@@ -39,7 +39,7 @@
 
 using namespace KIdentityManagement;
 
-class KIdentityManagement::Signature::Private
+class Q_DECL_HIDDEN KIdentityManagement::Signature::Private
 {
 public:
     Private(Signature *qq)

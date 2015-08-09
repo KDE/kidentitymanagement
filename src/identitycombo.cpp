@@ -42,7 +42,7 @@ using namespace KIdentityManagement;
   @internal
 */
 //@cond PRIVATE
-class KIdentityManagement::IdentityCombo::Private
+class Q_DECL_HIDDEN KIdentityManagement::IdentityCombo::Private
 {
 public:
     Private(IdentityManager *manager, IdentityCombo *qq)
