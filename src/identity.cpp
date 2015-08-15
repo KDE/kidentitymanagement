@@ -290,7 +290,7 @@ QString Identity::fullEmailAddr(void) const
         return mail;
     }
 
-    const QString specials(QLatin1String("()<>@,.;:[]"));
+    const QString specials(QStringLiteral("()<>@,.;:[]"));
 
     QString result;
 
