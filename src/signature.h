@@ -47,7 +47,7 @@ class TextEdit;
 
 namespace KIdentityManagement
 {
-
+class SignaturePrivate;
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<
 (QDataStream &stream, const KIdentityManagement::Signature &sig);
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>
@@ -262,8 +262,7 @@ protected:
 
 private:
     //@cond PRIVATE
-    class Private;
-    Private *const d;
+    SignaturePrivate *const d;
     //@endcond
 };
 

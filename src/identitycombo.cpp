@@ -38,14 +38,14 @@
 using namespace KIdentityManagement;
 
 /**
-  Private class that helps to provide binary compatibility between releases.
+  IdentityComboPrivate class that helps to provide binary compatibility between releases.
   @internal
 */
 //@cond PRIVATE
-class Q_DECL_HIDDEN KIdentityManagement::IdentityCombo::Private
+class KIdentityManagement::IdentityComboPrivate
 {
 public:
-    Private(IdentityManager *manager, IdentityCombo *qq)
+    IdentityComboPrivate(IdentityManager *manager, IdentityCombo *qq)
         : mIdentityManager(manager),
           q(qq)
     {
@@ -59,7 +59,7 @@ public:
     IdentityCombo *q;
 };
 
-void KIdentityManagement::IdentityCombo::Private::reloadCombo()
+void KIdentityManagement::IdentityComboPrivate::reloadCombo()
 {
     const QStringList identities = mIdentityManager->identities();
     // the IM should prevent this from happening:
@@ -68,7 +68,7 @@ void KIdentityManagement::IdentityCombo::Private::reloadCombo()
     q->addItems(identities);
 }
 
-void KIdentityManagement::IdentityCombo::Private::reloadUoidList()
+void KIdentityManagement::IdentityComboPrivate::reloadUoidList()
 {
     mUoidList.clear();
     IdentityManager::ConstIterator it;
@@ -81,7 +81,7 @@ void KIdentityManagement::IdentityCombo::Private::reloadUoidList()
 //@endcond
 
 IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
-    : KComboBox(parent), d(new Private(manager, this))
+    : KComboBox(parent), d(new IdentityComboPrivate(manager, this))
 {
     d->reloadCombo();
     d->reloadUoidList();

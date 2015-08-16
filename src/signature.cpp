@@ -39,10 +39,10 @@
 
 using namespace KIdentityManagement;
 
-class Q_DECL_HIDDEN KIdentityManagement::Signature::Private
+class Q_DECL_HIDDEN KIdentityManagement::SignaturePrivate
 {
 public:
-    Private(Signature *qq)
+    SignaturePrivate(Signature *qq)
         : enabled(false),
           q(qq)
     {
@@ -180,7 +180,7 @@ static QStringList findImageNames(const QString &htmlCode)
     return ret;
 }
 
-void Signature::Private::assignFrom(const KIdentityManagement::Signature &that)
+void SignaturePrivate::assignFrom(const KIdentityManagement::Signature &that)
 {
     url = that.url();
     inlinedHtml = that.isInlinedHtml();
@@ -191,7 +191,7 @@ void Signature::Private::assignFrom(const KIdentityManagement::Signature &that)
     embeddedImages = that.embeddedImages();
 }
 
-void Signature::Private::cleanupImages()
+void SignaturePrivate::cleanupImages()
 {
     // Remove any images from the internal structure that are no longer there
     if (inlinedHtml) {
@@ -221,7 +221,7 @@ void Signature::Private::cleanupImages()
     }
 }
 
-void Signature::Private::saveImages() const
+void SignaturePrivate::saveImages() const
 {
     if (inlinedHtml && !saveLocation.isEmpty()) {
         foreach (const Signature::EmbeddedImagePtr &image, embeddedImages) {
@@ -233,9 +233,9 @@ void Signature::Private::saveImages() const
     }
 }
 
-QString Signature::Private::textFromFile(bool *ok) const
+QString SignaturePrivate::textFromFile(bool *ok) const
 {
-    assert(type == FromFile);
+    assert(type == Signature::FromFile);
 
     // TODO: Use KIO::NetAccess to download non-local files!
     const QUrl u(url);
@@ -264,9 +264,9 @@ QString Signature::Private::textFromFile(bool *ok) const
     return QString::fromLocal8Bit(ba.data(), ba.size());
 }
 
-QString Signature::Private::textFromCommand(bool *ok) const
+QString SignaturePrivate::textFromCommand(bool *ok) const
 {
-    assert(type == FromCommand);
+    assert(type == Signature::FromCommand);
 
     // handle pathological cases:
     if (url.isEmpty()) {
@@ -305,7 +305,7 @@ QString Signature::Private::textFromCommand(bool *ok) const
     return QString::fromLocal8Bit(output.data(), output.size());
 }
 
-void Signature::Private::insertSignatureText(Placement placement, AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
+void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
 {
     if (!forceDisplay) {
         if (!enabled) {
@@ -313,7 +313,7 @@ void Signature::Private::insertSignatureText(Placement placement, AddedText adde
         }
     }
     QString signature;
-    if (addedText & AddSeparator) {
+    if (addedText & Signature::AddSeparator) {
         signature = q->withSeparator();
     } else {
         signature = q->rawText();
@@ -321,7 +321,7 @@ void Signature::Private::insertSignatureText(Placement placement, AddedText adde
     insertSignatureHelper(signature, textEdit, placement,
                           (inlinedHtml &&
                            type == KIdentityManagement::Signature::Inlined),
-                          (addedText & AddNewLines));
+                          (addedText & Signature::AddNewLines));
 
     // We added the text of the signature above, now it is time to add the images as well.
     if (inlinedHtml) {
@@ -342,14 +342,14 @@ QDataStream &operator>> (QDataStream &stream, KIdentityManagement::Signature::Em
 }
 
 Signature::Signature()
-    : d(new Private(this))
+    : d(new SignaturePrivate(this))
 {
     d->type = Disabled;
     d->inlinedHtml = false;
 }
 
 Signature::Signature(const QString &text)
-    : d(new Private(this))
+    : d(new SignaturePrivate(this))
 {
     d->type = Inlined;
     d->inlinedHtml = false;
@@ -357,14 +357,14 @@ Signature::Signature(const QString &text)
 }
 
 Signature::Signature(const QString &url, bool isExecutable)
-    : d(new Private(this))
+    : d(new SignaturePrivate(this))
 {
     d->type = isExecutable ? FromCommand : FromFile;
     d->url = url;
 }
 
 Signature::Signature(const Signature &that)
-    : d(new Private(this))
+    : d(new SignaturePrivate(this))
 {
     d->assignFrom(that);
 }

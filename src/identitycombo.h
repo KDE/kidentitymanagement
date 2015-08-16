@@ -37,7 +37,7 @@ class QString;
 
 namespace KIdentityManagement
 {
-
+class IdentityComboPrivate;
 class IdentityManager;
 class Identity;
 
@@ -83,8 +83,7 @@ protected Q_SLOTS:
 
 private:
     //@cond PRIVATE
-    class Private;
-    Private *const d;
+    IdentityComboPrivate *const d;
     //@endcond
 };
 
