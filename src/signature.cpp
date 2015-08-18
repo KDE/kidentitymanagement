@@ -423,13 +423,13 @@ QString Signature::withSeparator(bool *ok) const
         newline.clear();
     }
 
-    if (signature.startsWith(QString::fromLatin1("-- ") + newline) ||
-            (signature.indexOf(newline + QString::fromLatin1("-- ") + newline) != -1)) {
+    if (signature.startsWith(QLatin1String("-- ") + newline) ||
+            (signature.indexOf(newline + QLatin1String("-- ") + newline) != -1)) {
         // already have signature separator at start of sig or inside sig:
         return signature;
     } else {
         // need to prepend one:
-        return QString::fromLatin1("-- ") + newline + signature;
+        return QLatin1String("-- ") + newline + signature;
     }
 }
 

@@ -100,7 +100,7 @@ void IdentityManager::Private::writeConfig() const
     ConstIterator end = mIdentities.constEnd();
     for (ConstIterator it = mIdentities.constBegin();
             it != end; ++it, ++i) {
-        KConfigGroup cg(mConfig, QString::fromLatin1("Identity #%1").arg(i));
+        KConfigGroup cg(mConfig, QStringLiteral("Identity #%1").arg(i));
         (*it).writeConfig(cg);
         if ((*it).isDefault()) {
             // remember which one is default:
@@ -273,7 +273,7 @@ int IdentityManager::Private::newUoid()
 void IdentityManager::Private::slotIdentitiesChanged(const QString &id)
 {
     qCDebug(KIDENTITYMANAGEMENT_LOG) << " KIdentityManagement::IdentityManager::slotIdentitiesChanged :" << id;
-    const QString ourIdentifier = QString::fromLatin1("%1/%2").
+    const QString ourIdentifier = QStringLiteral("%1/%2").
                                   arg(QDBusConnection::sessionBus().baseService()).
                                   arg(q->property("uniqueDBusPath").toString());
     if (id != ourIdentifier) {
@@ -441,7 +441,7 @@ void IdentityManager::commit()
     emit changed(); // normal signal
 
     // DBus signal for other IdentityManager instances
-    const QString ourIdentifier = QString::fromLatin1("%1/%2").
+    const QString ourIdentifier = QStringLiteral("%1/%2").
                                   arg(QDBusConnection::sessionBus().baseService()).
                                   arg(property("uniqueDBusPath").toString());
     emit identitiesChanged(ourIdentifier);
