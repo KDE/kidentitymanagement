@@ -5,8 +5,9 @@ set(kidentitymanagement_SRCS
   signature.cpp
   signatureconfigurator.cpp
   utils.cpp
-  kidentitymanagement_debug.cpp
 )
+
+ecm_qt_declare_logging_category(kidentitymanagement_SRCS HEADER kidentitymanagement_debug.h IDENTIFIER KIDENTITYMANAGEMENT_LOG CATEGORY_NAME log_kidentitymanagement)
 
 qt5_add_dbus_adaptor(kidentitymanagement_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
 
