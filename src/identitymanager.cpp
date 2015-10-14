@@ -274,8 +274,7 @@ void IdentityManager::Private::slotIdentitiesChanged(const QString &id)
 {
     qCDebug(KIDENTITYMANAGEMENT_LOG) << " KIdentityManagement::IdentityManager::slotIdentitiesChanged :" << id;
     const QString ourIdentifier = QStringLiteral("%1/%2").
-                                  arg(QDBusConnection::sessionBus().baseService()).
-                                  arg(q->property("uniqueDBusPath").toString());
+                                  arg(QDBusConnection::sessionBus().baseService(), q->property("uniqueDBusPath").toString());
     if (id != ourIdentifier) {
         mConfig->reparseConfiguration();
         Q_ASSERT(!q->hasPendingChanges());
@@ -442,8 +441,7 @@ void IdentityManager::commit()
 
     // DBus signal for other IdentityManager instances
     const QString ourIdentifier = QStringLiteral("%1/%2").
-                                  arg(QDBusConnection::sessionBus().baseService()).
-                                  arg(property("uniqueDBusPath").toString());
+                                  arg(QDBusConnection::sessionBus().baseService(), property("uniqueDBusPath").toString());
     emit identitiesChanged(ourIdentifier);
 }
 
