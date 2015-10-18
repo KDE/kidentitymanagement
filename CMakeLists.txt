@@ -49,7 +49,7 @@ add_subdirectory(src)
 
 if(BUILD_TESTING)
     MESSAGE(STATUS "reactivate autotests")
-    #add_subdirectory(autotests)
+    add_subdirectory(autotests)
 endif()
 
 ########### CMake Config Files ###########

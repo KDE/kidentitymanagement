@@ -31,6 +31,11 @@
 #include <QStandardPaths>
 #include <KConfig>
 #include <QDir>
+#include <KActionCollection>
+
+#include <kpimtextedit/richtextcomposer.h>
+#include <kpimtextedit/richtextcomposercontroler.h>
+#include <kpimtextedit/richtextcomposerimages.h>
 using namespace KIdentityManagement;
 using namespace KPIMTextEdit;
 
@@ -85,7 +90,8 @@ static void setCursorPos(QTextEdit &edit, int pos)
 
 void SignatureTester::testTextEditInsertion()
 {
-    TextEdit edit;
+    KPIMTextEdit::RichTextComposer edit;
+    edit.createActions(new KActionCollection(this));
     Signature sig;
     sig.setEnabledSignature(true);
     sig.setText(QStringLiteral("Hello World"));
@@ -96,7 +102,7 @@ void SignatureTester::testTextEditInsertion()
     edit.setPlainText(QStringLiteral("Bla Bla"));
     sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator | Signature::AddNewLines,
                            &edit);
-    QVERIFY(edit.textMode() == KRichTextEdit::Plain);
+    QVERIFY(edit.textMode() == KPIMTextEdit::RichTextComposer::Plain);
     QCOMPARE(edit.toPlainText(), QStringLiteral("\n\n-- \nHello World\nBla Bla"));
 
     // Test inserting signature at end. make sure cursor position is preserved
@@ -143,13 +149,14 @@ void SignatureTester::testTextEditInsertion()
     edit.setPlainText(QStringLiteral("Bla Bla"));
     sig.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines,
                            &edit);
-    QVERIFY(edit.textMode() == KRichTextEdit::Rich);
+    QVERIFY(edit.textMode() == KPIMTextEdit::RichTextComposer::Rich);
     QCOMPARE(edit.toPlainText(), QStringLiteral("Bla Bla\n-- \nHello\nWorld"));
 }
 
 void SignatureTester::testBug167961()
 {
-    TextEdit edit;
+    KPIMTextEdit::RichTextComposer edit;
+    edit.createActions(new KActionCollection(this));
     Signature sig;
     sig.setEnabledSignature(true);
     sig.setText(QStringLiteral("BLA"));
@@ -175,7 +182,8 @@ public:
 
 void SignatureTester::testImages()
 {
-    TextEdit edit;
+    KPIMTextEdit::RichTextComposer edit;
+    edit.createActions(new KActionCollection(this));
     QString image1Path = KIconLoader::global()->iconPath(QStringLiteral("folder-new"), KIconLoader::Small, false);
     QImage image1, image2;
     QVERIFY(image1.load(image1Path));
@@ -224,7 +232,7 @@ void SignatureTester::testImages()
     sig2.readConfig(group1);
     sig2.insertIntoTextEdit(KIdentityManagement::Signature::End, Signature::AddSeparator | Signature::AddNewLines,
                             &edit);
-    QCOMPARE(edit.embeddedImages().count(), 2);
+    QCOMPARE(edit.composerControler()->composerImages()->embeddedImages().count(), 2);
     QCOMPARE(sig2.text(), QStringLiteral("Bla<img src=\"folder-new.png\">Bla<img src=\"arrow-up.png\">Bla"));
     sig2.writeConfig(group1);
     entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
@@ -238,7 +246,7 @@ void SignatureTester::testImages()
     edit.clear();
     sig2.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines,
                             &edit);
-    QCOMPARE(edit.embeddedImages().size(), 1);
+    QCOMPARE(edit.composerControler()->composerImages()->embeddedImages().size(), 1);
     entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
     QCOMPARE(entryList.count(), 1);
 }
@@ -251,7 +259,8 @@ void SignatureTester::testLinebreaks()
     sig.setInlinedHtml(true);
     sig.setText(QStringLiteral("Hans Mustermann<br>Musterstr. 42"));
 
-    KPIMTextEdit::TextEdit edit;
+    KPIMTextEdit::RichTextComposer edit;
+    edit.createActions(new KActionCollection(this));
     sig.insertIntoTextEdit(Signature::Start, Signature::AddNothing, &edit);
     QCOMPARE(edit.toPlainText(), QStringLiteral("Hans Mustermann\nMusterstr. 42"));
 
