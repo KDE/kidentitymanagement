@@ -35,7 +35,9 @@
 
 #include <assert.h>
 #include <QtCore/QDir>
-#include <kpimtextedit/textedit.h>
+#include <kpimtextedit/richtextcomposer.h>
+#include <kpimtextedit/richtextcomposercontroler.h>
+#include <kpimtextedit/richtextcomposerimages.h>
 
 using namespace KIdentityManagement;
 
@@ -53,7 +55,7 @@ public:
     void saveImages() const;
     QString textFromFile(bool *ok) const;
     QString textFromCommand(bool *ok) const;
-    void insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const;
+    void insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const;
 
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().
@@ -77,7 +79,7 @@ static bool isCursorAtEndOfLine(const QTextCursor &cursor)
 }
 
 static void insertSignatureHelper(const QString &signature,
-                                  KRichTextEdit *textEdit,
+                                  KPIMTextEdit::RichTextComposer *textEdit,
                                   Signature::Placement placement,
                                   bool isHtml,
                                   bool addNewlines)
@@ -159,7 +161,7 @@ static void insertSignatureHelper(const QString &signature,
         textEdit->document()->setModified(isModified);
 
         if (isHtml) {
-            textEdit->enableRichTextMode();
+            textEdit->activateRichText();
         }
     }
 }
@@ -170,9 +172,9 @@ static QStringList findImageNames(const QString &htmlCode)
     QStringList ret;
 
     // To complicated for us, so cheat and let a text edit do the hard work
-    KPIMTextEdit::TextEdit edit;
+    KPIMTextEdit::RichTextComposer edit;
     edit.setHtml(htmlCode);
-    QList<KPIMTextEdit::ImageWithNamePtr> images = edit.imagesWithName();
+    QList<KPIMTextEdit::ImageWithNamePtr> images = edit.composerControler()->composerImages()->imagesWithName();
     ret.reserve(images.count());
     foreach (const KPIMTextEdit::ImageWithNamePtr &image, images) {
         ret << image->name;
@@ -305,7 +307,7 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
     return QString::fromLocal8Bit(output.data(), output.size());
 }
 
-void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
+void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const
 {
     if (!forceDisplay) {
         if (!enabled) {
@@ -326,7 +328,7 @@ void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signa
     // We added the text of the signature above, now it is time to add the images as well.
     if (inlinedHtml) {
         foreach (const Signature::EmbeddedImagePtr &image, embeddedImages) {
-            textEdit->loadImage(image->image, image->name, image->name);
+            textEdit->composerControler()->composerImages()->loadImage(image->image, image->name, image->name);
         }
     }
 }
@@ -526,7 +528,7 @@ void Signature::writeConfig(KConfigGroup &config) const
 }
 
 void Signature::insertIntoTextEdit(Placement placement, AddedText addedText,
-                                   KPIMTextEdit::TextEdit *textEdit, bool forceDisplay) const
+                                   KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const
 {
     d->insertSignatureText(placement, addedText, textEdit, forceDisplay);
 }

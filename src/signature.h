@@ -42,7 +42,7 @@ class KRichTextEdit;
 
 namespace KPIMTextEdit
 {
-class TextEdit;
+class RichTextComposer;
 }
 
 namespace KIdentityManagement
@@ -249,7 +249,7 @@ public:
     // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
     //                  with the deprecated method
     void insertIntoTextEdit(Placement placement, AddedText addedText,
-                            KPIMTextEdit::TextEdit *textEdit, bool forceDisplay = false) const;
+                            KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay = false) const;
 
     QList<Signature::EmbeddedImagePtr> embeddedImages() const;
     void setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embedded);

@@ -31,7 +31,9 @@
 #include <QUrl>
 #include <KComboBox>
 
-#include <kpimtextedit/textedit.h>
+#include <KPIMTextEdit/RichTextComposer>
+#include <KPIMTextEdit/RichTextComposerImages>
+#include <KPIMTextEdit/RichTextComposerControler>
 
 #include <QCheckBox>
 #include <QDir>
@@ -76,8 +78,7 @@ public:
     KLineEdit        *mCommandEdit;
     KToolBar         *mEditToolBar;
     KToolBar         *mFormatToolBar;
-    KRichTextWidget *mTextEdit;
-    // This is a KPIMTextEdit::TextEdit, really.
+    KPIMTextEdit::RichTextComposer *mTextEdit;
 
 };
 //@endcond
@@ -174,23 +175,13 @@ void SignatureConfigurator::Private::init()
     page_vlay->addWidget(mFormatToolBar, 1);
 #endif
 
-    mTextEdit = new KPIMTextEdit::TextEdit(q);
-    static_cast<KPIMTextEdit::TextEdit *>(mTextEdit)->enableImageActions();
-    static_cast<KPIMTextEdit::TextEdit *>(mTextEdit)->enableInsertHtmlActions();
-    static_cast<KPIMTextEdit::TextEdit *>(mTextEdit)->enableInsertTableActions();
+    mTextEdit = new KPIMTextEdit::RichTextComposer(q);
     page_vlay->addWidget(mTextEdit, 2);
     mTextEdit->setWhatsThis(i18n("Use this field to enter an arbitrary static signature."));
-    // exclude SupportToPlainText.
-    mTextEdit->setRichTextSupport(KRichTextWidget::FullTextFormattingSupport |
-                                  KRichTextWidget::FullListSupport |
-                                  KRichTextWidget::SupportAlignment |
-                                  KRichTextWidget::SupportRuleLine |
-                                  KRichTextWidget::SupportHyperlinks |
-                                  KRichTextWidget::SupportFormatPainting);
 
     // Fill the toolbars.
     KActionCollection *actionCollection = new KActionCollection(q);
-    actionCollection->addActions(mTextEdit->createActions());
+    mTextEdit->createActions(actionCollection);
 #ifndef QT_NO_TOOLBAR
     mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_bold")));
     mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_italic")));
@@ -374,7 +365,7 @@ Signature SignatureConfigurator::signature() const
             if (!d->imageLocation.isEmpty()) {
                 sig.setImageLocation(d->imageLocation);
             }
-            KPIMTextEdit::ImageWithNameList images = static_cast< KPIMTextEdit::TextEdit *>(d->mTextEdit)->imagesWithName();
+            KPIMTextEdit::ImageWithNameList images = d->mTextEdit->composerControler()->composerImages()->imagesWithName();
             foreach (const KPIMTextEdit::ImageWithNamePtr &image, images) {
                 sig.addImage(image->image, image->name);
             }
@@ -409,9 +400,8 @@ void SignatureConfigurator::setSignature(const Signature &sig)
 
     // Let insertIntoTextEdit() handle setting the text, as that function also adds the images.
     d->mTextEdit->clear();
-    KPIMTextEdit::TextEdit *const pimEdit = static_cast<KPIMTextEdit::TextEdit *>(d->mTextEdit);
     sig.insertIntoTextEdit(KIdentityManagement::Signature::Start, KIdentityManagement::Signature::AddNothing,
-                           pimEdit, true);
+                           d->mTextEdit, true);
     if (sig.type() == Signature::FromFile) {
         setFileURL(sig.url());
     } else {
@@ -461,7 +451,7 @@ void SignatureConfigurator::slotSetHtml()
         d->mFormatToolBar->setVisible(true);
         d->mFormatToolBar->setEnabled(true);
 #endif
-        d->mTextEdit->enableRichTextMode();
+        d->mTextEdit->activateRichText();
     }
 }
 

@@ -25,7 +25,6 @@
 
 #include "signature.h"
 
-#include "kpimtextedit/textedit.h"
 
 #include <KIconLoader>
 #include <KConfigGroup>
