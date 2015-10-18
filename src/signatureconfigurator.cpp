@@ -48,6 +48,8 @@
 #include <assert.h>
 #include <QStandardPaths>
 
+#include <kpimtextedit/richtexteditorwidget.h>
+
 using namespace KIdentityManagement;
 
 namespace KIdentityManagement
@@ -176,7 +178,9 @@ void SignatureConfigurator::Private::init()
 #endif
 
     mTextEdit = new KPIMTextEdit::RichTextComposer(q);
-    page_vlay->addWidget(mTextEdit, 2);
+
+    KPIMTextEdit::RichTextEditorWidget *richTextEditorwidget = new KPIMTextEdit::RichTextEditorWidget(mTextEdit, q);
+    page_vlay->addWidget(richTextEditorwidget, 2);
     mTextEdit->setWhatsThis(i18n("Use this field to enter an arbitrary static signature."));
 
     // Fill the toolbars.
