@@ -25,10 +25,17 @@
 #include <KConfigGroup>
 
 #include <QMimeData>
+#include <QStandardPaths>
 
 using namespace KIdentityManagement;
 
 QTEST_GUILESS_MAIN(IdentityTester)
+
+void IdentityTester::initTestCase()
+{
+    QStandardPaths::setTestModeEnabled(true);
+}
+
 
 void IdentityTester::test_NullIdentity()
 {
