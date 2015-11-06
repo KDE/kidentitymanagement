@@ -34,10 +34,10 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <kdelibs4configmigrator.h>
 
 #include <QList>
-#include <QRegExp>
 #include <QtDBus/QtDBus>
 #include <QHostInfo>
 
+#include <QRegularExpression>
 #include <assert.h>
 #include <krandom.h>
 
@@ -234,7 +234,7 @@ void IdentityManager::Private::createDefaultIdentity()
 
 QStringList IdentityManager::Private::groupList(KConfig *config) const
 {
-    return config->groupList().filter(QRegExp(QStringLiteral("^Identity #\\d+$")));
+    return config->groupList().filter(QRegularExpression(QStringLiteral("^Identity #\\d+$")));
 }
 
 int IdentityManager::Private::newUoid()
