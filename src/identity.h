@@ -100,9 +100,6 @@ public:
                       const QString &organization = QString(),
                       const QString &replyToAddress = QString());
 
-    /** Destructor */
-    ~Identity();
-
     /** used for comparison */
     bool operator== (const Identity &other) const;
 

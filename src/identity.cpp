@@ -51,9 +51,6 @@ Identity::Identity(const QString &id, const QString &fullName,
     setProperty(QLatin1String(s_defaultDomainName), QHostInfo::localHostName());
 }
 
-Identity::~Identity()
-{}
-
 const Identity &Identity::null()
 {
     if (!identityNull) {
