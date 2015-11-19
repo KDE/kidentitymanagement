@@ -49,7 +49,7 @@ void IdentityTester::test_Aliases()
 
     // It is picking up identities from older tests somethimes, so cleanup
     while (manager.identities().size() > 1) {
-        manager.removeIdentity(manager.identities().first());
+        manager.removeIdentity(manager.identities().at(0));
         manager.commit();
     }
 
@@ -74,7 +74,7 @@ void IdentityTester::test_Aliases()
     manager.commit();
 
     // Remove the first identity, which we couldn't remove above
-    manager.removeIdentity(manager.identities().first());
+    manager.removeIdentity(manager.identities().at(0));
     manager.commit();
 
     QCOMPARE(manager.allEmails().size(), 4);
