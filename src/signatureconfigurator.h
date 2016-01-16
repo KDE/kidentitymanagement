@@ -90,7 +90,7 @@ public:
       * Returns the file url which the user wants
       * to use as a signature.
       */
-    QString fileURL() const;
+    QString filePath() const;
 
     /**
       * Set @p url for the file url part of the
@@ -102,7 +102,7 @@ public:
       * Returns the url of the command which the
       * users wants to use as signature.
       */
-    QString commandURL() const;
+    QString commandPath() const;
 
     /**
       * Sets @p url as the command to execute.

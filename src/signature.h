@@ -125,7 +125,7 @@ public:
     /** Constructor for inline text */
     Signature(const QString &text);
     /** Constructor for text from a file or from output of a command */
-    Signature(const QString &url, bool isExecutable);
+    Signature(const QString &path, bool isExecutable);
     /** Copy constructor */
     Signature(const Signature &that);
     /** Assignment operator */
@@ -158,8 +158,8 @@ public:
 
     /** Set the signature URL and mark this signature as being of
         "from file" resp. "from output of command" type. */
-    void setUrl(const QString &url, bool isExecutable = false);
-    QString url() const;
+    void setPath(const QString &path, bool isExecutable = false);
+    QString path() const;
 
     /// @return the type of signature (ie. way to obtain the signature text)
     Type type() const;

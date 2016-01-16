@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project(KIdentityManagement)
 
 # ECM setup
-find_package(ECM 5.16.0 CONFIG REQUIRED)
+find_package(ECM 5.17.0 CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 include(GenerateExportHeader)
@@ -17,8 +17,8 @@ include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 include(ECMQtDeclareLoggingCategory)
 
-set(KF5_VERSION "5.16.0")
-set(KIDENTITYMANAGEMENT_LIB_VERSION "4.82.0")
+set(KF5_VERSION "5.17.0")
+set(KIDENTITYMANAGEMENT_LIB_VERSION "5.40.0")
 set(PIMTEXTEDIT_LIB_VERSION "4.86.0")
 
 ecm_setup_version(${KIDENTITYMANAGEMENT_LIB_VERSION} VARIABLE_PREFIX KIDENTITYMANAGEMENT

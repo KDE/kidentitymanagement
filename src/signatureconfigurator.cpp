@@ -330,7 +330,7 @@ void SignatureConfigurator::setInlineText(const QString &text)
     d->mTextEdit->setTextOrHtml(text);
 }
 
-QString SignatureConfigurator::fileURL() const
+QString SignatureConfigurator::filePath() const
 {
     QString file = d->mFileRequester->url().path();
 
@@ -347,7 +347,7 @@ void SignatureConfigurator::setFileURL(const QString &url)
     d->mFileRequester->setUrl(QUrl::fromLocalFile(url));
 }
 
-QString SignatureConfigurator::commandURL() const
+QString SignatureConfigurator::commandPath() const
 {
     return d->mCommandEdit->text();
 }
@@ -376,10 +376,10 @@ Signature SignatureConfigurator::signature() const
         }
         break;
     case Signature::FromCommand:
-        sig.setUrl(commandURL(), true);
+        sig.setPath(commandPath(), true);
         break;
     case Signature::FromFile:
-        sig.setUrl(fileURL(), false);
+        sig.setPath(filePath(), false);
         break;
     case Signature::Disabled:
         /* do nothing */
@@ -407,13 +407,13 @@ void SignatureConfigurator::setSignature(const Signature &sig)
     sig.insertIntoTextEdit(KIdentityManagement::Signature::Start, KIdentityManagement::Signature::AddNothing,
                            d->mTextEdit, true);
     if (sig.type() == Signature::FromFile) {
-        setFileURL(sig.url());
+        setFileURL(sig.path());
     } else {
         setFileURL(QString());
     }
 
     if (sig.type() == Signature::FromCommand) {
-        setCommandURL(sig.url());
+        setCommandURL(sig.path());
     } else {
         setCommandURL(QString());
     }
@@ -426,7 +426,7 @@ void SignatureConfigurator::slotEnableEditButton(const QString &url)
 
 void SignatureConfigurator::slotEdit()
 {
-    QString url = fileURL();
+    QString url = filePath();
     // slotEnableEditButton should prevent this assert from being hit:
     assert(!url.isEmpty());
 

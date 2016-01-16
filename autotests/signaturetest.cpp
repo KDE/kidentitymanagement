@@ -65,7 +65,7 @@ void SignatureTester::testSignatures()
     QString fileContent = QString::fromUtf8(thisFile.readAll());
 
     Signature sig3;
-    sig3.setUrl(QStringLiteral("cat ") + QStringLiteral(__FILE__), true);
+    sig3.setPath(QStringLiteral("cat ") + QStringLiteral(__FILE__), true);
     QCOMPARE(sig3.rawText(), fileContent);
     QVERIFY(!sig3.isInlinedHtml());
     QVERIFY(sig3.text().isEmpty());
@@ -73,7 +73,7 @@ void SignatureTester::testSignatures()
     QCOMPARE(sig3.withSeparator(), QString(QStringLiteral("-- \n") + fileContent));
 
     Signature sig4;
-    sig4.setUrl(QStringLiteral(__FILE__), false);
+    sig4.setPath(QStringLiteral(__FILE__), false);
     QCOMPARE(sig4.rawText(), fileContent);
     QVERIFY(!sig4.isInlinedHtml());
     QVERIFY(sig4.text().isEmpty());

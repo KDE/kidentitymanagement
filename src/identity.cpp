@@ -479,7 +479,7 @@ QString Identity::signatureInlineText() const
 
 QString Identity::signatureFile() const
 {
-    return mSignature.url();
+    return mSignature.path();
 }
 
 QString Identity::autocorrectionLanguage() const
@@ -566,7 +566,7 @@ void Identity::setReplyToAddr(const QString &str)
 
 void Identity::setSignatureFile(const QString &str)
 {
-    mSignature.setUrl(str, signatureIsCommand());
+    mSignature.setPath(str, signatureIsCommand());
 }
 
 void Identity::setSignatureInlineText(const QString &str)

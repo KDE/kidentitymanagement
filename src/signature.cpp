@@ -184,7 +184,7 @@ static QStringList findImageNames(const QString &htmlCode)
 
 void SignaturePrivate::assignFrom(const KIdentityManagement::Signature &that)
 {
-    url = that.url();
+    url = that.path();
     inlinedHtml = that.isInlinedHtml();
     text = that.text();
     type = that.type();
@@ -435,7 +435,7 @@ QString Signature::withSeparator(bool *ok) const
     }
 }
 
-void Signature::setUrl(const QString &url, bool isExecutable)
+void Signature::setPath(const QString &url, bool isExecutable)
 {
     d->url = url;
     d->type = isExecutable ? FromCommand : FromFile;
@@ -548,7 +548,7 @@ void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embe
 QDataStream &KIdentityManagement::operator<<
 (QDataStream &stream, const KIdentityManagement::Signature &sig)
 {
-    return stream << static_cast<quint8>(sig.type()) << sig.url() << sig.text()
+    return stream << static_cast<quint8>(sig.type()) << sig.path() << sig.text()
            << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature();
 }
 
@@ -563,7 +563,7 @@ QDataStream &KIdentityManagement::operator>>
     bool enabled;
     stream >> s  >> url >> text >> saveLocation >> lst >> enabled;
     sig.setText(text);
-    sig.setUrl(url);
+    sig.setPath(url);
     sig.setImageLocation(saveLocation);
     sig.setEmbeddedImages(lst);
     sig.setEnabledSignature(enabled);
@@ -595,7 +595,7 @@ bool Signature::operator== (const Signature &other) const
         return d->text == other.text();
     case FromFile:
     case FromCommand:
-        return d->url == other.url();
+        return d->url == other.path();
     default:
     case Disabled:
         return true;
@@ -642,7 +642,7 @@ QString Signature::text() const
     return d->text;
 }
 
-QString Signature::url() const
+QString Signature::path() const
 {
     return d->url;
 }
