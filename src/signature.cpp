@@ -64,7 +64,7 @@ public:
     /// The directory where the images will be saved to.
     QString saveLocation;
     bool enabled;
-    QString url;
+    QString path;
     QString text;
     Signature::Type type;
     bool inlinedHtml;
@@ -184,7 +184,7 @@ static QStringList findImageNames(const QString &htmlCode)
 
 void SignaturePrivate::assignFrom(const KIdentityManagement::Signature &that)
 {
-    url = that.path();
+    path = that.path();
     inlinedHtml = that.isInlinedHtml();
     text = that.text();
     type = that.type();
@@ -239,13 +239,9 @@ QString SignaturePrivate::textFromFile(bool *ok) const
 {
     assert(type == Signature::FromFile);
 
-    // TODO: Use KIO::NetAccess to download non-local files!
-    const QUrl u(url);
-    if (!u.isLocalFile() && !u.scheme().isEmpty() &&
-            !(QFileInfo(url).isRelative() &&
-              QFileInfo(url).exists())) {
-        qCDebug(KIDENTITYMANAGEMENT_LOG) << "Signature::textFromFile:"
-                                         << "non-local URLs are unsupported";
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly)) {
+        qCWarning(KIDENTITYMANAGEMENT_LOG) << "Failed to open" << path << ":" << f.errorString();
         if (ok) {
             *ok = false;
         }
@@ -254,13 +250,6 @@ QString SignaturePrivate::textFromFile(bool *ok) const
 
     if (ok) {
         *ok = true;
-    }
-
-    // TODO: hmm, should we allow other encodings, too?
-    QFile f(url);
-    if (!f.open(QIODevice::ReadOnly)) {
-        qCWarning(KIDENTITYMANAGEMENT_LOG) << "Failed to open" << url << ":" << f.errorString();
-        return QString();
     }
     const QByteArray ba = f.readAll();
     return QString::fromLocal8Bit(ba.data(), ba.size());
@@ -271,7 +260,7 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
     assert(type == Signature::FromCommand);
 
     // handle pathological cases:
-    if (url.isEmpty()) {
+    if (path.isEmpty()) {
         if (ok) {
             *ok = true;
         }
@@ -281,7 +270,7 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
     // create a shell process:
     KProcess proc;
     proc.setOutputChannelMode(KProcess::SeparateChannels);
-    proc.setShellCommand(url);
+    proc.setShellCommand(path);
     int rc = proc.execute();
 
     // handle errors, if any:
@@ -290,7 +279,7 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
             *ok = false;
         }
         const QString wmsg = i18n("<qt>Failed to execute signature script<p><b>%1</b>:</p>"
-                                  "<p>%2</p></qt>", url, QLatin1String(proc.readAllStandardError()));
+                                  "<p>%2</p></qt>", path, QLatin1String(proc.readAllStandardError()));
         KMessageBox::error(Q_NULLPTR, wmsg);
         return QString();
     }
@@ -358,11 +347,11 @@ Signature::Signature(const QString &text)
     d->text = text;
 }
 
-Signature::Signature(const QString &url, bool isExecutable)
+Signature::Signature(const QString &path, bool isExecutable)
     : d(new SignaturePrivate(this))
 {
     d->type = isExecutable ? FromCommand : FromFile;
-    d->url = url;
+    d->path = path;
 }
 
 Signature::Signature(const Signature &that)
@@ -435,9 +424,9 @@ QString Signature::withSeparator(bool *ok) const
     }
 }
 
-void Signature::setPath(const QString &url, bool isExecutable)
+void Signature::setPath(const QString &path, bool isExecutable)
 {
-    d->url = url;
+    d->path = path;
     d->type = isExecutable ? FromCommand : FromFile;
 }
 
@@ -472,10 +461,10 @@ void Signature::readConfig(const KConfigGroup &config)
         d->inlinedHtml = config.readEntry(sigTypeInlinedHtmlKey, false);
     } else if (sigType == QLatin1String(sigTypeFileValue)) {
         d->type = FromFile;
-        d->url = config.readPathEntry(sigFileKey, QString());
+        d->path = config.readPathEntry(sigFileKey, QString());
     } else if (sigType == QLatin1String(sigTypeCommandValue)) {
         d->type = FromCommand;
-        d->url = config.readPathEntry(sigCommandKey, QString());
+        d->path = config.readPathEntry(sigCommandKey, QString());
     } else if (sigType == QLatin1String(sigTypeDisabledValue)) {
         d->enabled = false;
     }
@@ -510,11 +499,11 @@ void Signature::writeConfig(KConfigGroup &config) const
         break;
     case FromFile:
         config.writeEntry(sigTypeKey, sigTypeFileValue);
-        config.writePathEntry(sigFileKey, d->url);
+        config.writePathEntry(sigFileKey, d->path);
         break;
     case FromCommand:
         config.writeEntry(sigTypeKey, sigTypeCommandValue);
-        config.writePathEntry(sigCommandKey, d->url);
+        config.writePathEntry(sigCommandKey, d->path);
         break;
     default:
         break;
@@ -556,14 +545,14 @@ QDataStream &KIdentityManagement::operator>>
 (QDataStream &stream, KIdentityManagement::Signature &sig)
 {
     quint8 s;
-    QString url;
+    QString path;
     QString text;
     QString saveLocation;
     QList<Signature::EmbeddedImagePtr> lst;
     bool enabled;
-    stream >> s  >> url >> text >> saveLocation >> lst >> enabled;
+    stream >> s  >> path >> text >> saveLocation >> lst >> enabled;
     sig.setText(text);
-    sig.setPath(url);
+    sig.setPath(path);
     sig.setImageLocation(saveLocation);
     sig.setEmbeddedImages(lst);
     sig.setEnabledSignature(enabled);
@@ -595,7 +584,7 @@ bool Signature::operator== (const Signature &other) const
         return d->text == other.text();
     case FromFile:
     case FromCommand:
-        return d->url == other.path();
+        return d->path == other.path();
     default:
     case Disabled:
         return true;
@@ -644,7 +633,7 @@ QString Signature::text() const
 
 QString Signature::path() const
 {
-    return d->url;
+    return d->path;
 }
 
 Signature::Type Signature::type() const
