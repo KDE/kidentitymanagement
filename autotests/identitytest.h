@@ -24,7 +24,7 @@
 
 class IdentityTester : public QObject
 {
-    Q_OBJECT    
+    Q_OBJECT
 
 private Q_SLOTS:
     void initTestCase();

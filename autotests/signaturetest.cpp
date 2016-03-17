@@ -25,7 +25,6 @@
 
 #include "signature.h"
 
-
 #include <KIconLoader>
 #include <KConfigGroup>
 #include <QStandardPaths>
@@ -188,9 +187,9 @@ void SignatureTester::testImages()
     QImage image1, image2;
     QVERIFY(image1.load(image1Path));
     QVERIFY(image2.load(image1Path));
-    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + QStringLiteral("emailidentities/unittest/") ;
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + QStringLiteral("emailidentities/unittest/");
     QDir().mkpath(path);
-    QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + QStringLiteral("signaturetest") ;
+    QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + QStringLiteral("signaturetest");
     QDir().mkpath(configPath);
     KConfig config(configPath);
     KConfigGroup group1 = config.group("Signature1");

@@ -36,7 +36,6 @@ void IdentityTester::initTestCase()
     QStandardPaths::setTestModeEnabled(true);
 }
 
-
 void IdentityTester::test_NullIdentity()
 {
     IdentityManager manager;
