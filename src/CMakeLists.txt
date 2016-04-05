@@ -29,7 +29,6 @@ PRIVATE
   Qt5::Network
   KF5::Completion
   KF5::I18n
-  KF5::TextWidgets
   KF5::WidgetsAddons
   KF5::XmlGui
   KF5::KIOWidgets

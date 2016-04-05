@@ -27,7 +27,6 @@
 #include <kconfiggroup.h>
 #include <QUrl>
 #include <kprocess.h>
-#include <KRichTextEdit>
 
 #include <QFileInfo>
 #include <QSharedPointer>
