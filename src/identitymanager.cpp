@@ -67,6 +67,7 @@ class Q_DECL_HIDDEN KIdentityManagement::IdentityManager::Private
 {
 public:
     Private(KIdentityManagement::IdentityManager *);
+    ~Private();
     void writeConfig() const;
     void readConfig(KConfig *config);
     void createDefaultIdentity();
@@ -695,6 +696,11 @@ QStringList KIdentityManagement::IdentityManager::allEmails() const
 void KIdentityManagement::IdentityManager::slotRollback()
 {
     rollback();
+}
+
+IdentityManager::Private::~Private()
+{
+    delete mConfig;
 }
 
 }
