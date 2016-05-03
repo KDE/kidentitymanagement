@@ -45,6 +45,8 @@ class Q_DECL_HIDDEN KIdentityManagement::SignaturePrivate
 public:
     SignaturePrivate(Signature *qq)
         : enabled(false),
+          type(Signature::Disabled),
+          inlinedHtml(false),
           q(qq)
     {
     }
