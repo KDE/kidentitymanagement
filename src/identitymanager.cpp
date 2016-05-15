@@ -290,9 +290,13 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent,
     : QObject(parent),
       d(new Private(this))
 {
-    Kdelibs4ConfigMigrator migrate(QStringLiteral("identitymanager"));
-    migrate.setConfigFiles(QStringList() << QStringLiteral("emailidentities"));
-    migrate.migrate();
+    static bool triedMigration = false;
+    if (!triedMigration) {
+        triedMigration = true;
+        Kdelibs4ConfigMigrator migrate(QStringLiteral("identitymanager"));
+        migrate.setConfigFiles(QStringList() << QStringLiteral("emailidentities"));
+        migrate.migrate();
+    }
 
     setObjectName(QLatin1String(name));
     new IdentityManagerAdaptor(this);
