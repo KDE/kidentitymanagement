@@ -188,6 +188,7 @@ QDataStream &KIdentityManagement::operator<<
            << i.autocorrectionLanguage()
            << i.disabledFcc()
            << i.pgpAutoSign()
+           << i.pgpAutoEncrypt()
            << i.defaultDomainName();
 }
 
@@ -222,6 +223,7 @@ QDataStream &KIdentityManagement::operator>>
             >> i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
             >> i.mPropertiesMap[QLatin1String(s_disabledFcc)]
             >> i.mPropertiesMap[QLatin1String(s_pgpautosign)]
+            >> i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
             >> i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
 
     i.setProperty(QLatin1String(s_uoid), uoid);
@@ -687,6 +689,21 @@ bool Identity::pgpAutoSign() const
 void Identity::setPgpAutoSign(bool autoSign)
 {
     setProperty(QLatin1String(s_pgpautosign), autoSign);
+}
+
+bool Identity::pgpAutoEncrypt() const
+{
+    const QVariant var = property(QLatin1String(s_pgpautoencrypt));
+    if (var.isNull()) {
+        return false;
+    } else {
+        return var.toBool();
+    }
+}
+
+void Identity::setPgpAutoEncrypt(bool autoEncrypt)
+{
+    setProperty(QLatin1String(s_pgpautoencrypt), autoEncrypt);
 }
 
 QString Identity::defaultDomainName() const

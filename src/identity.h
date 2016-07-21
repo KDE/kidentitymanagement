@@ -70,6 +70,7 @@ static const char s_attachVcard[] = "Attach Vcard";
 static const char s_autocorrectionLanguage[] = "Autocorrection Language";
 static const char s_disabledFcc[] = "Disable Fcc";
 static const char s_pgpautosign[] = "Pgp Auto Sign";
+static const char s_pgpautoencrypt[] = "Pgp Auto Encrypt";
 static const char s_defaultDomainName[] = "Default Domain";
 
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<
@@ -232,6 +233,12 @@ public:
      */
     bool pgpAutoSign() const;
     void setPgpAutoSign(bool);
+
+    /**
+     * @since 5.4
+     */
+    bool pgpAutoEncrypt() const;
+    void setPgpAutoEncrypt(bool);
 
     /**
      * @since 4.14
