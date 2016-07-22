@@ -34,11 +34,16 @@ using namespace KIdentityManagement;
 // TODO: should use a kstaticdeleter?
 static Identity *identityNull = Q_NULLPTR;
 
+Q_DECLARE_METATYPE(KIdentityManagement::Signature)
+
 Identity::Identity(const QString &id, const QString &fullName,
                    const QString &emailAddr, const QString &organization,
                    const QString &replyToAddr)
     : mIsDefault(false)
 {
+    qRegisterMetaType<Signature>();
+    qRegisterMetaTypeStreamOperators<Signature>();
+
     setProperty(QLatin1String(s_uoid), 0);
     setProperty(QLatin1String(s_identity), id);
     setProperty(QLatin1String(s_name), fullName);
@@ -163,33 +168,34 @@ QDataStream &KIdentityManagement::operator<<
 (QDataStream &stream, const KIdentityManagement::Identity &i)
 {
     return stream << static_cast<quint32>(i.uoid())
-           << i.identityName()
-           << i.fullName()
-           << i.organization()
-           << i.pgpSigningKey()
-           << i.pgpEncryptionKey()
-           << i.smimeSigningKey()
-           << i.smimeEncryptionKey()
-           << i.primaryEmailAddress()
-           << i.emailAliases()
-           << i.replyToAddr()
-           << i.bcc()
-           << i.vCardFile()
-           << i.transport()
-           << i.fcc()
-           << i.drafts()
-           << i.templates()
-           << i.mPropertiesMap[QLatin1String(s_signature)]
-           << i.dictionary()
-           << i.xface()
-           << i.preferredCryptoMessageFormat()
-           << i.cc()
-           << i.attachVcard()
-           << i.autocorrectionLanguage()
-           << i.disabledFcc()
-           << i.pgpAutoSign()
-           << i.pgpAutoEncrypt()
-           << i.defaultDomainName();
+            << i.mPropertiesMap[QLatin1String(s_identity)]
+            << i.mPropertiesMap[QLatin1String(s_name)]
+            << i.mPropertiesMap[QLatin1String(s_organization)]
+            << i.mPropertiesMap[QLatin1String(s_pgps)]
+            << i.mPropertiesMap[QLatin1String(s_pgpe)]
+            << i.mPropertiesMap[QLatin1String(s_smimes)]
+            << i.mPropertiesMap[QLatin1String(s_smimee)]
+            << i.mPropertiesMap[QLatin1String(s_primaryEmail)]
+            << i.mPropertiesMap[QLatin1String(s_emailAliases)]
+            << i.mPropertiesMap[QLatin1String(s_replyto)]
+            << i.mPropertiesMap[QLatin1String(s_bcc)]
+            << i.mPropertiesMap[QLatin1String(s_vcard)]
+            << i.mPropertiesMap[QLatin1String(s_transport)]
+            << i.mPropertiesMap[QLatin1String(s_fcc)]
+            << i.mPropertiesMap[QLatin1String(s_drafts)]
+            << i.mPropertiesMap[QLatin1String(s_templates)]
+            << i.mSignature
+            << i.mPropertiesMap[QLatin1String(s_dict)]
+            << i.mPropertiesMap[QLatin1String(s_xface)]
+            << i.mPropertiesMap[QLatin1String(s_xfaceenabled)]
+            << i.mPropertiesMap[QLatin1String(s_prefcrypt)]
+            << i.mPropertiesMap[QLatin1String(s_cc)]
+            << i.mPropertiesMap[QLatin1String(s_attachVcard)]
+            << i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
+            << i.mPropertiesMap[QLatin1String(s_disabledFcc)]
+            << i.mPropertiesMap[QLatin1String(s_pgpautosign)]
+            << i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
+            << i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
 }
 
 QDataStream &KIdentityManagement::operator>>
@@ -214,9 +220,10 @@ QDataStream &KIdentityManagement::operator>>
             >> i.mPropertiesMap[QLatin1String(s_fcc)]
             >> i.mPropertiesMap[QLatin1String(s_drafts)]
             >> i.mPropertiesMap[QLatin1String(s_templates)]
-            >> i.mPropertiesMap[QLatin1String(s_signature)]
+            >> i.mSignature
             >> i.mPropertiesMap[QLatin1String(s_dict)]
             >> i.mPropertiesMap[QLatin1String(s_xface)]
+            >> i.mPropertiesMap[QLatin1String(s_xfaceenabled)]
             >> i.mPropertiesMap[QLatin1String(s_prefcrypt)]
             >> i.mPropertiesMap[QLatin1String(s_cc)]
             >> i.mPropertiesMap[QLatin1String(s_attachVcard)]
@@ -264,8 +271,32 @@ bool Identity::operator>= (const Identity &other) const
 
 bool Identity::operator== (const Identity &other) const
 {
-    return mPropertiesMap == other.mPropertiesMap &&
-           mSignature == other.mSignature;
+    // The deserializer fills in the QHash will lots of invalid variants, which
+    // is OK, but the CTOR doesn't fill the hash with the missing fields, so
+    // regular mPropertiesMap == other.mPropertiesMap comparison will fail.
+    // This algo considers both maps equal even if one map does not contain the
+    // key and the other one contains the key but with an invalid value
+    for (const auto &pair : { qMakePair(mPropertiesMap, other.mPropertiesMap),
+                              qMakePair(other.mPropertiesMap, mPropertiesMap) }) {
+        const auto lhs = pair.first;
+        const auto rhs = pair.second;
+        for (auto lhsIt = lhs.constBegin(), lhsEnd = lhs.constEnd(); lhsIt != lhsEnd; ++lhsIt) {
+            const auto rhsIt = rhs.constFind(lhsIt.key());
+            // Does the other map contain the key?
+            if (rhsIt == rhs.constEnd()) {
+                // It does not, so check if our value is invalid, if yes, consider it
+                // equal to not present and continue
+                if (lhsIt->isValid()) {
+                    return false;
+                }
+            } else if (lhsIt.value() != rhsIt.value()) {
+                // Both maps have the key, but different value -> different maps
+                return false;
+            }
+        }
+    }
+
+    return mSignature == other.mSignature;
 }
 
 bool Identity::operator!= (const Identity &other) const
@@ -277,7 +308,11 @@ bool Identity::operator!= (const Identity &other) const
 
 QVariant Identity::property(const QString &key) const
 {
-    return mPropertiesMap.value(key);
+    if (key == QLatin1String(s_signature)) {
+        return QVariant::fromValue(mSignature);
+    } else {
+        return mPropertiesMap.value(key);
+    }
 }
 
 QString Identity::fullEmailAddr(void) const
@@ -493,11 +528,15 @@ QString Identity::autocorrectionLanguage() const
 
 void Identity::setProperty(const QString &key, const QVariant &value)
 {
-    if (value.isNull() ||
-            (value.type() == QVariant::String && value.toString().isEmpty())) {
-        mPropertiesMap.remove(key);
+    if (key == QLatin1String(s_signature)) {
+        mSignature = value.value<Signature>();
     } else {
-        mPropertiesMap.insert(key, value);
+        if (value.isNull() ||
+                (value.type() == QVariant::String && value.toString().isEmpty())) {
+            mPropertiesMap.remove(key);
+        } else {
+            mPropertiesMap.insert(key, value);
+        }
     }
 }
 

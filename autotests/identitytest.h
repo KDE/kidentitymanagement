@@ -22,12 +22,21 @@
 
 #include <qobject.h>
 
+namespace KIdentityManagement {
+class Identity;
+}
+
 class IdentityTester : public QObject
 {
     Q_OBJECT
 
+private:
+    bool compareIdentities(const KIdentityManagement::Identity &actual,
+                           const KIdentityManagement::Identity &expected);
+
 private Q_SLOTS:
     void initTestCase();
+    void test_Identity();
     void test_NullIdentity();
     void test_Aliases();
     void test_toMimeData();
