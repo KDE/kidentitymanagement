@@ -50,6 +50,15 @@ public:
                              const char *name = 0);
     virtual ~IdentityManager();
 
+    /**
+     * Creates or reuses the identity manager instance for this process.
+     * It loads the emailidentities file to create identities.
+     * This sets readonly to false, so you should create a separate instance
+     * if you need it to be readonly.
+     * @since 5.2.91
+     */
+    IdentityManager *self();
+
 public:
     typedef QList<Identity>::Iterator Iterator;
     typedef QList<Identity>::ConstIterator ConstIterator;

@@ -285,6 +285,13 @@ void IdentityManager::Private::slotIdentitiesChanged(const QString &id)
     }
 }
 
+Q_GLOBAL_STATIC(IdentityManager, s_self)
+
+IdentityManager *IdentityManager::self()
+{
+    return s_self;
+}
+
 IdentityManager::IdentityManager(bool readonly, QObject *parent,
                                  const char *name)
     : QObject(parent),
