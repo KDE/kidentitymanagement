@@ -57,7 +57,7 @@ public:
      * if you need it to be readonly.
      * @since 5.2.91
      */
-    IdentityManager *self();
+    static IdentityManager *self();
 
 public:
     typedef QList<Identity>::Iterator Iterator;
