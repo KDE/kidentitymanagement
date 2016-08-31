@@ -1,4 +1,5 @@
 /*
+    Copyright (c) 2016 Laurent Montel <montel@kde.org>
     Copyright (c) 2009 Thomas McGuire <mcguire@kde.org>
 
     This library is free software; you can redistribute it and/or modify it
@@ -32,6 +33,7 @@ private Q_SLOTS:
     void testBug167961();
     void testImages();
     void testLinebreaks();
+    void testEqualSignatures();
 };
 
 #endif

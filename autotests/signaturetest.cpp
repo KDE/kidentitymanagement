@@ -1,4 +1,5 @@
 /*
+    Copyright (c) 2016 Laurent Montel <montel@kde.org>
     Copyright (c) 2008 Thomas McGuire <mcguire@kde.org>
 
     This library is free software; you can redistribute it and/or modify it
@@ -40,6 +41,30 @@ using namespace KPIMTextEdit;
 
 QTEST_MAIN(SignatureTester)
 
+void SignatureTester::testEqualSignatures()
+{
+    Signature sig1;
+    sig1.setText(QStringLiteral("Hello World"));
+    sig1.setEnabledSignature(true);
+    Signature sig2(sig1);
+    QVERIFY(sig1 == sig2);
+    QCOMPARE(sig2.text(), QStringLiteral("Hello World"));
+    QCOMPARE(sig2.type(), Signature::Inlined);
+    QCOMPARE(sig2.rawText(), QStringLiteral("Hello World"));
+    QVERIFY(!sig2.isInlinedHtml());
+    QCOMPARE(sig2.withSeparator(), QStringLiteral("-- \nHello World"));
+    QVERIFY(sig2.isEnabledSignature());
+
+    Signature sig3 = sig1;
+    QVERIFY(sig1 == sig3);
+    QCOMPARE(sig3.text(), QStringLiteral("Hello World"));
+    QCOMPARE(sig3.type(), Signature::Inlined);
+    QCOMPARE(sig3.rawText(), QStringLiteral("Hello World"));
+    QVERIFY(!sig3.isInlinedHtml());
+    QCOMPARE(sig3.withSeparator(), QStringLiteral("-- \nHello World"));
+    QVERIFY(sig3.isEnabledSignature());
+}
+
 void SignatureTester::testSignatures()
 {
     Signature sig1;
@@ -49,6 +74,7 @@ void SignatureTester::testSignatures()
     QCOMPARE(sig1.rawText(), QStringLiteral("Hello World"));
     QVERIFY(!sig1.isInlinedHtml());
     QCOMPARE(sig1.withSeparator(), QStringLiteral("-- \nHello World"));
+    QVERIFY(!sig1.isEnabledSignature());
 
     Signature sig2;
     sig2.setText(QStringLiteral("<b>Hello</b> World"));
@@ -57,6 +83,7 @@ void SignatureTester::testSignatures()
     QCOMPARE(sig2.type(), Signature::Inlined);
     QCOMPARE(sig2.rawText(), QStringLiteral("<b>Hello</b> World"));
     QCOMPARE(sig2.withSeparator(), QStringLiteral("-- <br><b>Hello</b> World"));
+    QVERIFY(!sig2.isEnabledSignature());
 
     // Read this very file in, we use it for the tests
     QFile thisFile(QStringLiteral(__FILE__));
@@ -70,6 +97,7 @@ void SignatureTester::testSignatures()
     QVERIFY(sig3.text().isEmpty());
     QCOMPARE(sig3.type(), Signature::FromCommand);
     QCOMPARE(sig3.withSeparator(), QString(QStringLiteral("-- \n") + fileContent));
+    QVERIFY(!sig3.isEnabledSignature());
 
     Signature sig4;
     sig4.setPath(QStringLiteral(__FILE__), false);
@@ -78,6 +106,7 @@ void SignatureTester::testSignatures()
     QVERIFY(sig4.text().isEmpty());
     QCOMPARE(sig4.type(), Signature::FromFile);
     QCOMPARE(sig4.withSeparator(), QString(QStringLiteral("-- \n") + fileContent));
+    QVERIFY(!sig4.isEnabledSignature());
 }
 
 static void setCursorPos(QTextEdit &edit, int pos)
