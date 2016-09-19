@@ -7,7 +7,7 @@ set(kidentitymanagement_SRCS
   utils.cpp
 )
 
-ecm_qt_declare_logging_category(kidentitymanagement_SRCS HEADER kidentitymanagement_debug.h IDENTIFIER KIDENTITYMANAGEMENT_LOG CATEGORY_NAME log_kidentitymanagement)
+ecm_qt_declare_logging_category(kidentitymanagement_SRCS HEADER kidentitymanagement_debug.h IDENTIFIER KIDENTITYMANAGEMENT_LOG CATEGORY_NAME org.kde.pim.kidentitymanagement)
 
 qt5_add_dbus_adaptor(kidentitymanagement_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
 
