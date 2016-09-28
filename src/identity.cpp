@@ -168,34 +168,34 @@ QDataStream &KIdentityManagement::operator<<
 (QDataStream &stream, const KIdentityManagement::Identity &i)
 {
     return stream << static_cast<quint32>(i.uoid())
-            << i.mPropertiesMap[QLatin1String(s_identity)]
-            << i.mPropertiesMap[QLatin1String(s_name)]
-            << i.mPropertiesMap[QLatin1String(s_organization)]
-            << i.mPropertiesMap[QLatin1String(s_pgps)]
-            << i.mPropertiesMap[QLatin1String(s_pgpe)]
-            << i.mPropertiesMap[QLatin1String(s_smimes)]
-            << i.mPropertiesMap[QLatin1String(s_smimee)]
-            << i.mPropertiesMap[QLatin1String(s_primaryEmail)]
-            << i.mPropertiesMap[QLatin1String(s_emailAliases)]
-            << i.mPropertiesMap[QLatin1String(s_replyto)]
-            << i.mPropertiesMap[QLatin1String(s_bcc)]
-            << i.mPropertiesMap[QLatin1String(s_vcard)]
-            << i.mPropertiesMap[QLatin1String(s_transport)]
-            << i.mPropertiesMap[QLatin1String(s_fcc)]
-            << i.mPropertiesMap[QLatin1String(s_drafts)]
-            << i.mPropertiesMap[QLatin1String(s_templates)]
-            << i.mSignature
-            << i.mPropertiesMap[QLatin1String(s_dict)]
-            << i.mPropertiesMap[QLatin1String(s_xface)]
-            << i.mPropertiesMap[QLatin1String(s_xfaceenabled)]
-            << i.mPropertiesMap[QLatin1String(s_prefcrypt)]
-            << i.mPropertiesMap[QLatin1String(s_cc)]
-            << i.mPropertiesMap[QLatin1String(s_attachVcard)]
-            << i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
-            << i.mPropertiesMap[QLatin1String(s_disabledFcc)]
-            << i.mPropertiesMap[QLatin1String(s_pgpautosign)]
-            << i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
-            << i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
+           << i.mPropertiesMap[QLatin1String(s_identity)]
+           << i.mPropertiesMap[QLatin1String(s_name)]
+           << i.mPropertiesMap[QLatin1String(s_organization)]
+           << i.mPropertiesMap[QLatin1String(s_pgps)]
+           << i.mPropertiesMap[QLatin1String(s_pgpe)]
+           << i.mPropertiesMap[QLatin1String(s_smimes)]
+           << i.mPropertiesMap[QLatin1String(s_smimee)]
+           << i.mPropertiesMap[QLatin1String(s_primaryEmail)]
+           << i.mPropertiesMap[QLatin1String(s_emailAliases)]
+           << i.mPropertiesMap[QLatin1String(s_replyto)]
+           << i.mPropertiesMap[QLatin1String(s_bcc)]
+           << i.mPropertiesMap[QLatin1String(s_vcard)]
+           << i.mPropertiesMap[QLatin1String(s_transport)]
+           << i.mPropertiesMap[QLatin1String(s_fcc)]
+           << i.mPropertiesMap[QLatin1String(s_drafts)]
+           << i.mPropertiesMap[QLatin1String(s_templates)]
+           << i.mSignature
+           << i.mPropertiesMap[QLatin1String(s_dict)]
+           << i.mPropertiesMap[QLatin1String(s_xface)]
+           << i.mPropertiesMap[QLatin1String(s_xfaceenabled)]
+           << i.mPropertiesMap[QLatin1String(s_prefcrypt)]
+           << i.mPropertiesMap[QLatin1String(s_cc)]
+           << i.mPropertiesMap[QLatin1String(s_attachVcard)]
+           << i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
+           << i.mPropertiesMap[QLatin1String(s_disabledFcc)]
+           << i.mPropertiesMap[QLatin1String(s_pgpautosign)]
+           << i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
+           << i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
 }
 
 QDataStream &KIdentityManagement::operator>>
@@ -276,8 +276,10 @@ bool Identity::operator== (const Identity &other) const
     // regular mPropertiesMap == other.mPropertiesMap comparison will fail.
     // This algo considers both maps equal even if one map does not contain the
     // key and the other one contains the key but with an invalid value
-    for (const auto &pair : { qMakePair(mPropertiesMap, other.mPropertiesMap),
-                              qMakePair(other.mPropertiesMap, mPropertiesMap) }) {
+    for (const auto &pair : {
+    qMakePair(mPropertiesMap, other.mPropertiesMap),
+                  qMakePair(other.mPropertiesMap, mPropertiesMap)
+    }) {
         const auto lhs = pair.first;
         const auto rhs = pair.second;
         for (auto lhsIt = lhs.constBegin(), lhsEnd = lhs.constEnd(); lhsIt != lhsEnd; ++lhsIt) {

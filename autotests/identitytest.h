@@ -22,7 +22,8 @@
 
 #include <qobject.h>
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 class Identity;
 }
 

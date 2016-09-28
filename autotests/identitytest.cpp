@@ -47,7 +47,7 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         //QCOMPARE(actual.isDefault(), expected.isDefault());
         QCOMPARE(actual.identityName(), expected.identityName());
         QCOMPARE(actual.fullName(), expected.fullName());
-        QCOMPARE(actual.organization(), expected.organization()); 
+        QCOMPARE(actual.organization(), expected.organization());
         QCOMPARE(actual.pgpEncryptionKey(), expected.pgpEncryptionKey());
         QCOMPARE(actual.pgpSigningKey(), expected.pgpSigningKey());
         QCOMPARE(actual.smimeEncryptionKey(), expected.smimeEncryptionKey());
@@ -66,7 +66,7 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         QCOMPARE(actual.pgpAutoEncrypt(), expected.pgpAutoEncrypt());
         QCOMPARE(actual.defaultDomainName(), expected.defaultDomainName());
         QCOMPARE(actual.signatureText(), expected.signatureText());
-        QCOMPARE(const_cast<Identity&>(actual).signature(), const_cast<Identity&>(expected).signature());
+        QCOMPARE(const_cast<Identity &>(actual).signature(), const_cast<Identity &>(expected).signature());
         QCOMPARE(actual.transport(), expected.transport());
         QCOMPARE(actual.fcc(), expected.fcc());
         QCOMPARE(actual.drafts(), expected.drafts());
@@ -80,7 +80,6 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
     return ok;
 }
 
-
 void IdentityTester::test_Identity()
 {
     Identity identity;
@@ -93,7 +92,7 @@ void IdentityTester::test_Identity()
     identity.setFullName(QStringLiteral("Daniel Vrátil"));
     QCOMPARE(identity.fullName(), QStringLiteral("Daniel Vrátil"));
     identity.setOrganization(QStringLiteral("KDE"));
-    QCOMPARE(identity.organization(), QStringLiteral("KDE")); 
+    QCOMPARE(identity.organization(), QStringLiteral("KDE"));
     identity.setPGPEncryptionKey("0x0123456789ABCDEF");
     QCOMPARE(identity.pgpEncryptionKey(), QByteArray("0x0123456789ABCDEF"));
     identity.setPGPSigningKey("0xFEDCBA9876543210");
@@ -182,7 +181,6 @@ void IdentityTester::test_Identity()
         QVERIFY(compareIdentities(copy, identity));
     }
 }
-
 
 void IdentityTester::test_NullIdentity()
 {
