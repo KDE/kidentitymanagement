@@ -541,7 +541,7 @@ const Identity &IdentityManager::identityForAddress(
     const QString &addresses) const
 {
     const QStringList addressList = KEmailAddress::splitAddressList(addresses);
-    foreach (const QString &fullAddress, addressList) {
+    for (const QString &fullAddress : addressList) {
         const QString addrSpec = KEmailAddress::extractEmailAddress(fullAddress).toLower();
         for (ConstIterator it = begin(); it != end(); ++it) {
             const Identity &identity = *it;

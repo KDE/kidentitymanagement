@@ -99,7 +99,8 @@ QString SignatureConfigurator::Private::asCleanedHTML() const
     QString html = textDocument.toHtml();
 
     // Now remove each line from the text, the result is clean html.
-    foreach (const QString &line, html.split(QLatin1Char('\n'))) {
+    const QStringList lst = html.split(QLatin1Char('\n'));
+    for (const QString &line : lst) {
         text.remove(line + QLatin1Char('\n'));
     }
     return text;
@@ -369,8 +370,8 @@ Signature SignatureConfigurator::signature() const
             if (!d->imageLocation.isEmpty()) {
                 sig.setImageLocation(d->imageLocation);
             }
-            KPIMTextEdit::ImageWithNameList images = d->mTextEdit->composerControler()->composerImages()->imagesWithName();
-            foreach (const KPIMTextEdit::ImageWithNamePtr &image, images) {
+            const KPIMTextEdit::ImageWithNameList images = d->mTextEdit->composerControler()->composerImages()->imagesWithName();
+            for (const KPIMTextEdit::ImageWithNamePtr &image : images) {
                 sig.addImage(image->image, image->name);
             }
         }

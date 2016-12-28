@@ -175,9 +175,9 @@ static QStringList findImageNames(const QString &htmlCode)
     // To complicated for us, so cheat and let a text edit do the hard work
     KPIMTextEdit::RichTextComposer edit;
     edit.setHtml(htmlCode);
-    QList<KPIMTextEdit::ImageWithNamePtr> images = edit.composerControler()->composerImages()->imagesWithName();
+    const QList<KPIMTextEdit::ImageWithNamePtr> images = edit.composerControler()->composerImages()->imagesWithName();
     ret.reserve(images.count());
-    foreach (const KPIMTextEdit::ImageWithNamePtr &image, images) {
+    for (const KPIMTextEdit::ImageWithNamePtr &image : images) {
         ret << image->name;
     }
     return ret;
@@ -215,7 +215,8 @@ void SignaturePrivate::cleanupImages()
     // Delete all the old image files
     if (!saveLocation.isEmpty()) {
         QDir dir(saveLocation);
-        foreach (const QString &fileName, dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks)) {
+        const QStringList lst = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
+        for (const QString &fileName : lst) {
             if (fileName.toLower().endsWith(QLatin1String(".png"))) {
                 qCDebug(KIDENTITYMANAGEMENT_LOG) << "Deleting old image" << dir.path() + fileName;
                 dir.remove(fileName);
@@ -478,7 +479,8 @@ void Signature::readConfig(const KConfigGroup &config)
 
     if (isInlinedHtml() && !d->saveLocation.isEmpty()) {
         QDir dir(d->saveLocation);
-        foreach (const QString &fileName, dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks)) {
+        const QStringList lst = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
+        for (const QString &fileName : lst) {
             if (fileName.toLower().endsWith(QLatin1String(".png"))) {
                 QImage image;
                 if (image.load(dir.path() + QLatin1Char('/') + fileName)) {

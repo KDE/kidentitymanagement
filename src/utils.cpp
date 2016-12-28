@@ -44,7 +44,9 @@ private Q_SLOTS:
     void slotIdentitiesChanged()
     {
         mEmails.clear();
-        foreach (const QString &email, mIdentityManager.allEmails()) {
+        const QStringList lst = mIdentityManager.allEmails();
+        mEmails.reserve(lst.count());
+        for (const QString &email : lst) {
             mEmails.insert(email.toLower());
         }
     }
