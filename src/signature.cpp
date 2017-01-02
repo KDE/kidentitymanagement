@@ -282,7 +282,7 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
         }
         const QString wmsg = i18n("<qt>Failed to execute signature script<p><b>%1</b>:</p>"
                                   "<p>%2</p></qt>", path, QLatin1String(proc.readAllStandardError()));
-        KMessageBox::error(Q_NULLPTR, wmsg);
+        KMessageBox::error(nullptr, wmsg);
         return QString();
     }
 

@@ -256,7 +256,7 @@ public:
     @param ok if a valid bool pointer, it is set to @c true or @c false depending
     on whether the signature could successfully be obtained.
     */
-    QString signatureText(bool *ok = Q_NULLPTR) const;
+    QString signatureText(bool *ok = nullptr) const;
 
     /**
      * @since 4.1

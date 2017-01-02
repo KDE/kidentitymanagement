@@ -32,7 +32,7 @@
 using namespace KIdentityManagement;
 
 // TODO: should use a kstaticdeleter?
-static Identity *identityNull = Q_NULLPTR;
+static Identity *identityNull = nullptr;
 
 Q_DECLARE_METATYPE(KIdentityManagement::Signature)
 
