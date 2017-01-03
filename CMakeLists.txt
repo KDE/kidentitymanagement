@@ -1,6 +1,7 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.0)
+set(PIM_VERSION "5.4.40")
 
-project(KIdentityManagement)
+project(KIdentityManagement VERSION ${PIM_VERSION})
 
 # ECM setup
 set(KF5_VERSION "5.28.0")
@@ -20,12 +21,11 @@ include(ECMQtDeclareLoggingCategory)
 include(ECMCoverageOption)
 
 
-set(PIM_VERSION "5.4.40")
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
 set(PIMTEXTEDIT_LIB_VERSION "5.4.40")
 
-ecm_setup_version(${KIDENTITYMANAGEMENT_LIB_VERSION} VARIABLE_PREFIX KIDENTITYMANAGEMENT
+ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfigVersion.cmake"
                         SOVERSION 5
