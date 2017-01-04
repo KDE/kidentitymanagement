@@ -1,5 +1,5 @@
 @PACKAGE_INIT@
-
+include(CMakeFindDependencyMacro)
 find_dependency(KF5CoreAddons "@KF5_VERSION@")
 find_dependency(KF5PimTextEdit "@PIMTEXTEDIT_LIB_VERSION@")
 
