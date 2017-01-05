@@ -606,8 +606,9 @@ bool IdentityManager::setAsDefault(uint uoid)
 {
     // First, check if the identity actually exists:
     bool found = false;
+    ConstIterator end(d->shadowIdentities.constEnd());
     for (ConstIterator it = d->shadowIdentities.constBegin();
-            it != d->shadowIdentities.constEnd(); ++it) {
+            it != end; ++it) {
         if ((*it).uoid() == uoid) {
             found = true;
             break;

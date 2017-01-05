@@ -688,7 +688,8 @@ bool Identity::matchesEmailAddress(const QString &addr) const
         return true;
     }
 
-    foreach (const QString &alias, emailAliases()) {
+    const QStringList lst = emailAliases();
+    for (const QString &alias : lst) {
         if (alias.toLower() == addrSpec) {
             return true;
         }

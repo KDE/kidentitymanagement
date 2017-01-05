@@ -200,7 +200,8 @@ void SignaturePrivate::cleanupImages()
     if (inlinedHtml) {
         foreach (const Signature::EmbeddedImagePtr &imageInList, embeddedImages) {
             bool found = false;
-            foreach (const QString &imageInHtml, findImageNames(text)) {
+            const QStringList lstImage = findImageNames(text);
+            for (const QString &imageInHtml : lstImage) {
                 if (imageInHtml == imageInList->name) {
                     found = true;
                     break;
