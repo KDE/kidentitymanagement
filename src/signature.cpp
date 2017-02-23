@@ -20,6 +20,7 @@
 */
 
 #include "signature.h"
+#include "helper_p.h"
 
 #include "kidentitymanagement_debug.h"
 #include <klocalizedstring.h>
@@ -198,7 +199,7 @@ void SignaturePrivate::cleanupImages()
 {
     // Remove any images from the internal structure that are no longer there
     if (inlinedHtml) {
-        foreach (const Signature::EmbeddedImagePtr &imageInList, embeddedImages) {
+        foreach (const Signature::EmbeddedImagePtr &imageInList, embeddedImages) { //Don't use for(...:...) here.
             bool found = false;
             const QStringList lstImage = findImageNames(text);
             for (const QString &imageInHtml : lstImage) {
@@ -229,7 +230,7 @@ void SignaturePrivate::cleanupImages()
 void SignaturePrivate::saveImages() const
 {
     if (inlinedHtml && !saveLocation.isEmpty()) {
-        foreach (const Signature::EmbeddedImagePtr &image, embeddedImages) {
+        for (const Signature::EmbeddedImagePtr &image : qAsConst(embeddedImages)) {
             QString location = saveLocation + QLatin1Char('/') + image->name;
             if (!image->image.save(location, "PNG")) {
                 qCWarning(KIDENTITYMANAGEMENT_LOG) << "Failed to save image" << location;
@@ -319,7 +320,7 @@ void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signa
 
     // We added the text of the signature above, now it is time to add the images as well.
     if (inlinedHtml) {
-        foreach (const Signature::EmbeddedImagePtr &image, embeddedImages) {
+        for (const Signature::EmbeddedImagePtr &image : qAsConst(embeddedImages)) {
             textEdit->composerControler()->composerImages()->loadImage(image->image, image->name, image->name);
         }
     }
