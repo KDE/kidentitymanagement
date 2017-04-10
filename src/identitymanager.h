@@ -47,7 +47,7 @@ public:
      * It is assumed that a minimum of one identity is always present.
      */
     explicit IdentityManager(bool readonly = false, QObject *parent = nullptr,
-                             const char *name = 0);
+                             const char *name = nullptr);
     virtual ~IdentityManager();
 
     /**
