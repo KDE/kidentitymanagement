@@ -469,8 +469,7 @@ void SignatureConfigurator::setImageLocation(const Identity &identity)
 {
     const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + QStringLiteral("emailidentities/%1/").arg(
                             QString::number(identity.uoid()));
-    QFileInfo fileInfo(dir);
-    QDir().mkpath(fileInfo.absolutePath());
+    QDir().mkpath(dir);
     setImageLocation(dir);
 }
 
