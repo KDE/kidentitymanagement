@@ -20,7 +20,6 @@
 */
 
 #include "signature.h"
-#include "helper_p.h"
 
 #include "kidentitymanagement_debug.h"
 #include <klocalizedstring.h>
