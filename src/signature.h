@@ -32,26 +32,21 @@
 #include <QtCore/QVariant>
 #include <QImage>
 
-namespace KIdentityManagement
-{
+namespace KIdentityManagement {
 class Signature;
 class Identity;
 }
 class KConfigGroup;
 class KRichTextEdit;
 
-namespace KPIMTextEdit
-{
+namespace KPIMTextEdit {
 class RichTextComposer;
 }
 
-namespace KIdentityManagement
-{
+namespace KIdentityManagement {
 class SignaturePrivate;
-KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<
-(QDataStream &stream, const KIdentityManagement::Signature &sig);
-KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>
-(QDataStream &stream, KIdentityManagement::Signature &sig);
+KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Signature &sig);
+KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Signature &sig);
 
 /**
  * @short Abstraction of a signature (aka "footer").
@@ -89,8 +84,8 @@ class KIDENTITYMANAGEMENT_EXPORT Signature
 {
     friend class Identity;
 
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<< (QDataStream &stream, const Signature &sig);
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>> (QDataStream &stream, Signature &sig);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const Signature &sig);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, Signature &sig);
 
 public:
     /** Type of signature (ie. way to obtain the signature text) */
@@ -118,7 +113,7 @@ public:
     typedef QSharedPointer<EmbeddedImage> EmbeddedImagePtr;
 
     /** Used for comparison */
-    bool operator== (const Signature &other) const;
+    bool operator==(const Signature &other) const;
 
     /** Constructor for disabled signature */
     Signature();
@@ -129,7 +124,7 @@ public:
     /** Copy constructor */
     Signature(const Signature &that);
     /** Assignment operator */
-    Signature &operator= (const Signature &that);
+    Signature &operator=(const Signature &that);
     /** Destructor */
     ~Signature();
 
@@ -248,8 +243,7 @@ public:
       */
     // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
     //                  with the deprecated method
-    void insertIntoTextEdit(Placement placement, AddedText addedText,
-                            KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay = false) const;
+    void insertIntoTextEdit(Placement placement, AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay = false) const;
 
     QList<Signature::EmbeddedImagePtr> embeddedImages() const;
     void setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embedded);
@@ -267,7 +261,6 @@ private:
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Signature::AddedText)
-
 }
 
 #endif /*kpim_signature_h*/

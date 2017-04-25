@@ -75,7 +75,7 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         QCOMPARE(actual.isXFaceEnabled(), expected.isXFaceEnabled());
         QCOMPARE(actual.xface(), expected.xface());
         ok = true;
-    }();
+    } ();
 
     return ok;
 }

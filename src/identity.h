@@ -31,8 +31,7 @@
 #include <QtCore/QHash>
 #include <QtCore/QVariant>
 
-namespace KIdentityManagement
-{
+namespace KIdentityManagement {
 class Identity;
 class Signature;
 }
@@ -40,9 +39,7 @@ class KConfigGroup;
 class QDataStream;
 class QMimeData;
 
-namespace KIdentityManagement
-{
-
+namespace KIdentityManagement {
 static const char s_uoid[] = "uoid";
 static const char s_identity[] = "Identity";
 static const char s_name[] = "Name";
@@ -61,10 +58,10 @@ static const char s_transport[] = "Transport";
 static const char s_fcc[] = "Fcc";
 static const char s_drafts[] = "Drafts";
 static const char s_templates[] = "Templates";
-static const char s_dict[] =  "Dictionary";
-static const char s_xface[] =  "X-Face";
-static const char s_xfaceenabled[] =  "X-FaceEnabled";
-static const char s_signature[] =  "Signature";
+static const char s_dict[] = "Dictionary";
+static const char s_xface[] = "X-Face";
+static const char s_xfaceenabled[] = "X-FaceEnabled";
+static const char s_signature[] = "Signature";
 static const char s_emailAliases[] = "Email Aliases";
 static const char s_attachVcard[] = "Attach Vcard";
 static const char s_autocorrectionLanguage[] = "Autocorrection Language";
@@ -73,10 +70,8 @@ static const char s_pgpautosign[] = "Pgp Auto Sign";
 static const char s_pgpautoencrypt[] = "Pgp Auto Encrypt";
 static const char s_defaultDomainName[] = "Default Domain";
 
-KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<
-(QDataStream &stream, const KIdentityManagement::Identity &ident);
-KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>
-(QDataStream &stream, KIdentityManagement::Identity &ident);
+KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Identity &ident);
+KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Identity &ident);
 
 /** User identity information */
 class KIDENTITYMANAGEMENT_EXPORT Identity
@@ -86,38 +81,33 @@ class KIDENTITYMANAGEMENT_EXPORT Identity
     // QValueList<Identity> and especially qHeapSort().
     friend class IdentityManager;
 
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<
-    (QDataStream &stream, const KIdentityManagement::Identity &ident);
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>
-    (QDataStream &stream, KIdentityManagement::Identity &ident);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Identity &ident);
+    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Identity &ident);
 
 public:
     typedef QVector<Identity> List;
 
     /** Constructor */
-    explicit Identity(const QString &id = QString(),
-                      const QString &realName = QString(),
-                      const QString &emailAddr = QString(),
-                      const QString &organization = QString(),
-                      const QString &replyToAddress = QString());
+    explicit Identity(const QString &id = QString(), const QString &realName = QString(), const QString &emailAddr = QString(),
+                      const QString &organization = QString(), const QString &replyToAddress = QString());
 
     /** used for comparison */
-    bool operator== (const Identity &other) const;
+    bool operator==(const Identity &other) const;
 
     /** used for comparison */
-    bool operator!= (const Identity &other) const;
+    bool operator!=(const Identity &other) const;
 
     /** used for sorting */
-    bool operator< (const Identity &other) const;
+    bool operator<(const Identity &other) const;
 
     /** used for sorting */
-    bool operator> (const Identity &other) const;
+    bool operator>(const Identity &other) const;
 
     /** used for sorting */
-    bool operator<= (const Identity &other) const;
+    bool operator<=(const Identity &other) const;
 
     /** used for sorting */
-    bool operator>= (const Identity &other) const;
+    bool operator>=(const Identity &other) const;
 
     /** Tests if there are enough values set to allow mailing */
     bool mailingAllowed() const;
@@ -366,10 +356,9 @@ protected:
     bool useSignatureFile() const;
 
     Signature mSignature;
-    bool      mIsDefault;
-    QHash<QString, QVariant>   mPropertiesMap;
+    bool mIsDefault;
+    QHash<QString, QVariant> mPropertiesMap;
 };
-
 }
 
 #endif /*kpim_identity_h*/

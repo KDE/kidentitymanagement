@@ -26,9 +26,7 @@
 
 class QStringList;
 
-namespace KIdentityManagement
-{
-
+namespace KIdentityManagement {
 class Identity;
 /**
  * @short Manages the list of identities.
@@ -46,8 +44,7 @@ public:
      * the default identity created here will not be saved.
      * It is assumed that a minimum of one identity is always present.
      */
-    explicit IdentityManager(bool readonly = false, QObject *parent = nullptr,
-                             const char *name = nullptr);
+    explicit IdentityManager(bool readonly = false, QObject *parent = nullptr, const char *name = nullptr);
     virtual ~IdentityManager();
 
     /**
@@ -187,8 +184,7 @@ public:
 
     Identity &newFromScratch(const QString &name);
     Identity &newFromControlCenter(const QString &name);
-    Identity &newFromExisting(const Identity &other,
-                              const QString &name = QString());
+    Identity &newFromExisting(const Identity &other, const QString &name = QString());
 
     /** Returns the list of all email addresses (only name@host) from all
         identities */
@@ -220,8 +216,9 @@ protected:
      * values from KUser, but reimplementations of this method can give
      * them another value.
      */
-    virtual void createDefaultIdentity(QString &/*fullName*/,
-                                       QString &/*emailAddress*/) {}
+    virtual void createDefaultIdentity(QString & /*fullName*/, QString & /*emailAddress*/)
+    {
+    }
 
 protected Q_SLOTS:
     void slotRollback();
@@ -236,7 +233,6 @@ private:
     //@endcond
     Q_PRIVATE_SLOT(d, void slotIdentitiesChanged(const QString &id))
 };
-
 } // namespace
 
 #endif // _KMAIL_IDENTITYMANAGER_H_

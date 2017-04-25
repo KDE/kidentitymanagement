@@ -35,6 +35,7 @@ public:
                 SLOT(slotIdentitiesChanged()));
         slotIdentitiesChanged();
     }
+
     const QSet<QString> &emails()
     {
         return mEmails;

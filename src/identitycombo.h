@@ -35,8 +35,7 @@
 
 class QString;
 
-namespace KIdentityManagement
-{
+namespace KIdentityManagement {
 class IdentityComboPrivate;
 class IdentityManager;
 class Identity;
@@ -86,7 +85,6 @@ private:
     IdentityComboPrivate *const d;
     //@endcond
 };
-
 }
 
 #endif

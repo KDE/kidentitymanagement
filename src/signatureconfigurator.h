@@ -27,9 +27,7 @@
 
 using KIdentityManagement::Signature;
 
-namespace KIdentityManagement
-{
-
+namespace KIdentityManagement {
 /**
   * This widget gives an interface so users can edit their signature.
   * You can set a signature via setSignature(), let the user edit the
@@ -52,7 +50,9 @@ public:
     /**
       * Enum for the different viemodes.
       */
-    enum ViewMode { ShowCode, ShowHtml };
+    enum ViewMode {
+        ShowCode, ShowHtml
+    };
 
     /**
       * Indicated if the user wants a signature
@@ -153,7 +153,6 @@ private:
     Private *const d;
     //@endcond
 };
-
 }
 
 #endif

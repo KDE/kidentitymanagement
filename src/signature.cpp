@@ -44,10 +44,10 @@ class Q_DECL_HIDDEN KIdentityManagement::SignaturePrivate
 {
 public:
     SignaturePrivate(Signature *qq)
-        : enabled(false),
-          type(Signature::Disabled),
-          inlinedHtml(false),
-          q(qq)
+        : enabled(false)
+        , type(Signature::Disabled)
+        , inlinedHtml(false)
+        , q(qq)
     {
     }
 
@@ -79,14 +79,9 @@ static bool isCursorAtEndOfLine(const QTextCursor &cursor)
     return !testCursor.hasSelection();
 }
 
-static void insertSignatureHelper(const QString &signature,
-                                  KPIMTextEdit::RichTextComposer *textEdit,
-                                  Signature::Placement placement,
-                                  bool isHtml,
-                                  bool addNewlines)
+static void insertSignatureHelper(const QString &signature, KPIMTextEdit::RichTextComposer *textEdit, Signature::Placement placement, bool isHtml, bool addNewlines)
 {
     if (!signature.isEmpty()) {
-
         // Save the modified state of the document, as inserting a signature
         // shouldn't change this. Restore it at the end of this function.
         bool isModified = textEdit->document()->isModified();
@@ -313,8 +308,8 @@ void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signa
         signature = q->rawText();
     }
     insertSignatureHelper(signature, textEdit, placement,
-                          (inlinedHtml &&
-                           type == KIdentityManagement::Signature::Inlined),
+                          (inlinedHtml
+                           && type == KIdentityManagement::Signature::Inlined),
                           (addedText & Signature::AddNewLines));
 
     // We added the text of the signature above, now it is time to add the images as well.
@@ -325,12 +320,12 @@ void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signa
     }
 }
 
-QDataStream &operator<< (QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
+QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
 {
     return stream << img->image << img->name;
 }
 
-QDataStream &operator>> (QDataStream &stream, KIdentityManagement::Signature::EmbeddedImagePtr &img)
+QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Signature::EmbeddedImagePtr &img)
 {
     return stream >> img->image >> img->name;
 }
@@ -363,7 +358,7 @@ Signature::Signature(const Signature &that)
     d->assignFrom(that);
 }
 
-Signature &Signature::operator= (const KIdentityManagement::Signature &that)
+Signature &Signature::operator=(const KIdentityManagement::Signature &that)
 {
     if (this == &that) {
         return *this;
@@ -395,7 +390,7 @@ QString Signature::rawText(bool *ok) const
         return d->textFromFile(ok);
     case FromCommand:
         return d->textFromCommand(ok);
-    };
+    }
     qCritical() << "Signature::type() returned unknown value!";
     return QString(); // make compiler happy
 }
@@ -417,8 +412,8 @@ QString Signature::withSeparator(bool *ok) const
         newline.clear();
     }
 
-    if (signature.startsWith(QLatin1String("-- ") + newline) ||
-            (signature.indexOf(newline + QLatin1String("-- ") + newline) != -1)) {
+    if (signature.startsWith(QLatin1String("-- ") + newline)
+        || (signature.indexOf(newline + QLatin1String("-- ") + newline) != -1)) {
         // already have signature separator at start of sig or inside sig:
         return signature;
     } else {
@@ -520,8 +515,7 @@ void Signature::writeConfig(KConfigGroup &config) const
     d->saveImages();
 }
 
-void Signature::insertIntoTextEdit(Placement placement, AddedText addedText,
-                                   KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const
+void Signature::insertIntoTextEdit(Placement placement, AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const
 {
     d->insertSignatureText(placement, addedText, textEdit, forceDisplay);
 }
@@ -539,14 +533,14 @@ void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embe
 // --------------------- Operators -------------------//
 
 QDataStream &KIdentityManagement::operator<<
-(QDataStream &stream, const KIdentityManagement::Signature &sig)
+    (QDataStream &stream, const KIdentityManagement::Signature &sig)
 {
     return stream << static_cast<quint8>(sig.type()) << sig.path() << sig.text()
-           << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature();
+                  << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature();
 }
 
 QDataStream &KIdentityManagement::operator>>
-(QDataStream &stream, KIdentityManagement::Signature &sig)
+    (QDataStream &stream, KIdentityManagement::Signature &sig)
 {
     quint8 s;
     QString path;
@@ -564,7 +558,7 @@ QDataStream &KIdentityManagement::operator>>
     return stream;
 }
 
-bool Signature::operator== (const Signature &other) const
+bool Signature::operator==(const Signature &other) const
 {
     if (d->type != other.type()) {
         return false;

@@ -36,9 +36,7 @@ static Identity *identityNull = nullptr;
 
 Q_DECLARE_METATYPE(KIdentityManagement::Signature)
 
-Identity::Identity(const QString &id, const QString &fullName,
-                   const QString &emailAddr, const QString &organization,
-                   const QString &replyToAddr)
+Identity::Identity(const QString &id, const QString &fullName, const QString &emailAddr, const QString &organization, const QString &replyToAddr)
     : mIsDefault(false)
 {
     qRegisterMetaType<Signature>();
@@ -86,8 +84,8 @@ bool Identity::isNull() const
         }
         // The uoid is 0 by default, so ignore this
         if (!(i.key() == QLatin1String(s_uoid) && i.value().toUInt() == 0)) {
-            if (!i.value().isNull() ||
-                    (i.value().type() == QVariant::String && !i.value().toString().isEmpty())) {
+            if (!i.value().isNull()
+                || (i.value().type() == QVariant::String && !i.value().toString().isEmpty())) {
                 empty = false;
             }
         }
@@ -165,79 +163,79 @@ Identity Identity::fromMimeData(const QMimeData *md)
 // ------------------ Operators --------------------------//
 
 QDataStream &KIdentityManagement::operator<<
-(QDataStream &stream, const KIdentityManagement::Identity &i)
+    (QDataStream &stream, const KIdentityManagement::Identity &i)
 {
     return stream << static_cast<quint32>(i.uoid())
-           << i.mPropertiesMap[QLatin1String(s_identity)]
-           << i.mPropertiesMap[QLatin1String(s_name)]
-           << i.mPropertiesMap[QLatin1String(s_organization)]
-           << i.mPropertiesMap[QLatin1String(s_pgps)]
-           << i.mPropertiesMap[QLatin1String(s_pgpe)]
-           << i.mPropertiesMap[QLatin1String(s_smimes)]
-           << i.mPropertiesMap[QLatin1String(s_smimee)]
-           << i.mPropertiesMap[QLatin1String(s_primaryEmail)]
-           << i.mPropertiesMap[QLatin1String(s_emailAliases)]
-           << i.mPropertiesMap[QLatin1String(s_replyto)]
-           << i.mPropertiesMap[QLatin1String(s_bcc)]
-           << i.mPropertiesMap[QLatin1String(s_vcard)]
-           << i.mPropertiesMap[QLatin1String(s_transport)]
-           << i.mPropertiesMap[QLatin1String(s_fcc)]
-           << i.mPropertiesMap[QLatin1String(s_drafts)]
-           << i.mPropertiesMap[QLatin1String(s_templates)]
-           << i.mSignature
-           << i.mPropertiesMap[QLatin1String(s_dict)]
-           << i.mPropertiesMap[QLatin1String(s_xface)]
-           << i.mPropertiesMap[QLatin1String(s_xfaceenabled)]
-           << i.mPropertiesMap[QLatin1String(s_prefcrypt)]
-           << i.mPropertiesMap[QLatin1String(s_cc)]
-           << i.mPropertiesMap[QLatin1String(s_attachVcard)]
-           << i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
-           << i.mPropertiesMap[QLatin1String(s_disabledFcc)]
-           << i.mPropertiesMap[QLatin1String(s_pgpautosign)]
-           << i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
-           << i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
+                  << i.mPropertiesMap[QLatin1String(s_identity)]
+                  << i.mPropertiesMap[QLatin1String(s_name)]
+                  << i.mPropertiesMap[QLatin1String(s_organization)]
+                  << i.mPropertiesMap[QLatin1String(s_pgps)]
+                  << i.mPropertiesMap[QLatin1String(s_pgpe)]
+                  << i.mPropertiesMap[QLatin1String(s_smimes)]
+                  << i.mPropertiesMap[QLatin1String(s_smimee)]
+                  << i.mPropertiesMap[QLatin1String(s_primaryEmail)]
+                  << i.mPropertiesMap[QLatin1String(s_emailAliases)]
+                  << i.mPropertiesMap[QLatin1String(s_replyto)]
+                  << i.mPropertiesMap[QLatin1String(s_bcc)]
+                  << i.mPropertiesMap[QLatin1String(s_vcard)]
+                  << i.mPropertiesMap[QLatin1String(s_transport)]
+                  << i.mPropertiesMap[QLatin1String(s_fcc)]
+                  << i.mPropertiesMap[QLatin1String(s_drafts)]
+                  << i.mPropertiesMap[QLatin1String(s_templates)]
+                  << i.mSignature
+                  << i.mPropertiesMap[QLatin1String(s_dict)]
+                  << i.mPropertiesMap[QLatin1String(s_xface)]
+                  << i.mPropertiesMap[QLatin1String(s_xfaceenabled)]
+                  << i.mPropertiesMap[QLatin1String(s_prefcrypt)]
+                  << i.mPropertiesMap[QLatin1String(s_cc)]
+                  << i.mPropertiesMap[QLatin1String(s_attachVcard)]
+                  << i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
+                  << i.mPropertiesMap[QLatin1String(s_disabledFcc)]
+                  << i.mPropertiesMap[QLatin1String(s_pgpautosign)]
+                  << i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
+                  << i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
 }
 
 QDataStream &KIdentityManagement::operator>>
-(QDataStream &stream, KIdentityManagement::Identity &i)
+    (QDataStream &stream, KIdentityManagement::Identity &i)
 {
     quint32 uoid;
     stream
-            >> uoid
-            >> i.mPropertiesMap[QLatin1String(s_identity)]
-            >> i.mPropertiesMap[QLatin1String(s_name)]
-            >> i.mPropertiesMap[QLatin1String(s_organization)]
-            >> i.mPropertiesMap[QLatin1String(s_pgps)]
-            >> i.mPropertiesMap[QLatin1String(s_pgpe)]
-            >> i.mPropertiesMap[QLatin1String(s_smimes)]
-            >> i.mPropertiesMap[QLatin1String(s_smimee)]
-            >> i.mPropertiesMap[QLatin1String(s_primaryEmail)]
-            >> i.mPropertiesMap[QLatin1String(s_emailAliases)]
-            >> i.mPropertiesMap[QLatin1String(s_replyto)]
-            >> i.mPropertiesMap[QLatin1String(s_bcc)]
-            >> i.mPropertiesMap[QLatin1String(s_vcard)]
-            >> i.mPropertiesMap[QLatin1String(s_transport)]
-            >> i.mPropertiesMap[QLatin1String(s_fcc)]
-            >> i.mPropertiesMap[QLatin1String(s_drafts)]
-            >> i.mPropertiesMap[QLatin1String(s_templates)]
-            >> i.mSignature
-            >> i.mPropertiesMap[QLatin1String(s_dict)]
-            >> i.mPropertiesMap[QLatin1String(s_xface)]
-            >> i.mPropertiesMap[QLatin1String(s_xfaceenabled)]
-            >> i.mPropertiesMap[QLatin1String(s_prefcrypt)]
-            >> i.mPropertiesMap[QLatin1String(s_cc)]
-            >> i.mPropertiesMap[QLatin1String(s_attachVcard)]
-            >> i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
-            >> i.mPropertiesMap[QLatin1String(s_disabledFcc)]
-            >> i.mPropertiesMap[QLatin1String(s_pgpautosign)]
-            >> i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
-            >> i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
+    >> uoid
+    >> i.mPropertiesMap[QLatin1String(s_identity)]
+    >> i.mPropertiesMap[QLatin1String(s_name)]
+    >> i.mPropertiesMap[QLatin1String(s_organization)]
+    >> i.mPropertiesMap[QLatin1String(s_pgps)]
+    >> i.mPropertiesMap[QLatin1String(s_pgpe)]
+    >> i.mPropertiesMap[QLatin1String(s_smimes)]
+    >> i.mPropertiesMap[QLatin1String(s_smimee)]
+    >> i.mPropertiesMap[QLatin1String(s_primaryEmail)]
+    >> i.mPropertiesMap[QLatin1String(s_emailAliases)]
+    >> i.mPropertiesMap[QLatin1String(s_replyto)]
+    >> i.mPropertiesMap[QLatin1String(s_bcc)]
+    >> i.mPropertiesMap[QLatin1String(s_vcard)]
+    >> i.mPropertiesMap[QLatin1String(s_transport)]
+    >> i.mPropertiesMap[QLatin1String(s_fcc)]
+    >> i.mPropertiesMap[QLatin1String(s_drafts)]
+    >> i.mPropertiesMap[QLatin1String(s_templates)]
+    >> i.mSignature
+    >> i.mPropertiesMap[QLatin1String(s_dict)]
+    >> i.mPropertiesMap[QLatin1String(s_xface)]
+    >> i.mPropertiesMap[QLatin1String(s_xfaceenabled)]
+    >> i.mPropertiesMap[QLatin1String(s_prefcrypt)]
+    >> i.mPropertiesMap[QLatin1String(s_cc)]
+    >> i.mPropertiesMap[QLatin1String(s_attachVcard)]
+    >> i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
+    >> i.mPropertiesMap[QLatin1String(s_disabledFcc)]
+    >> i.mPropertiesMap[QLatin1String(s_pgpautosign)]
+    >> i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
+    >> i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
 
     i.setProperty(QLatin1String(s_uoid), uoid);
     return stream;
 }
 
-bool Identity::operator< (const Identity &other) const
+bool Identity::operator<(const Identity &other) const
 {
     if (isDefault()) {
         return true;
@@ -248,7 +246,7 @@ bool Identity::operator< (const Identity &other) const
     return identityName() < other.identityName();
 }
 
-bool Identity::operator> (const Identity &other) const
+bool Identity::operator>(const Identity &other) const
 {
     if (isDefault()) {
         return false;
@@ -259,17 +257,17 @@ bool Identity::operator> (const Identity &other) const
     return identityName() > other.identityName();
 }
 
-bool Identity::operator<= (const Identity &other) const
+bool Identity::operator<=(const Identity &other) const
 {
-    return !operator> (other);
+    return !operator>(other);
 }
 
-bool Identity::operator>= (const Identity &other) const
+bool Identity::operator>=(const Identity &other) const
 {
-    return !operator< (other);
+    return !operator<(other);
 }
 
-bool Identity::operator== (const Identity &other) const
+bool Identity::operator==(const Identity &other) const
 {
     // The deserializer fills in the QHash will lots of invalid variants, which
     // is OK, but the CTOR doesn't fill the hash with the missing fields, so
@@ -277,8 +275,8 @@ bool Identity::operator== (const Identity &other) const
     // This algo considers both maps equal even if one map does not contain the
     // key and the other one contains the key but with an invalid value
     for (const auto &pair : {
-    qMakePair(mPropertiesMap, other.mPropertiesMap),
-                  qMakePair(other.mPropertiesMap, mPropertiesMap)
+        qMakePair(mPropertiesMap, other.mPropertiesMap),
+        qMakePair(other.mPropertiesMap, mPropertiesMap)
     }) {
         const auto lhs = pair.first;
         const auto rhs = pair.second;
@@ -301,9 +299,9 @@ bool Identity::operator== (const Identity &other) const
     return mSignature == other.mSignature;
 }
 
-bool Identity::operator!= (const Identity &other) const
+bool Identity::operator!=(const Identity &other) const
 {
-    return !operator== (other);
+    return !operator==(other);
 }
 
 // --------------------- Getters -----------------------------//
@@ -533,8 +531,8 @@ void Identity::setProperty(const QString &key, const QVariant &value)
     if (key == QLatin1String(s_signature)) {
         mSignature = value.value<Signature>();
     } else {
-        if (value.isNull() ||
-                (value.type() == QVariant::String && value.toString().isEmpty())) {
+        if (value.isNull()
+            || (value.type() == QVariant::String && value.toString().isEmpty())) {
             mPropertiesMap.remove(key);
         } else {
             mPropertiesMap.insert(key, value);
@@ -772,4 +770,3 @@ QString Identity::verifyAkonadiId(const QString &str) const
         return QString();
     }
 }
-

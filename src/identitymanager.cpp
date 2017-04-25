@@ -44,9 +44,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include "identitymanageradaptor.h"
 
-namespace KIdentityManagement
-{
-
+namespace KIdentityManagement {
 static QString newDBusObjectName()
 {
     static int s_count = 0;
@@ -95,13 +93,13 @@ void IdentityManager::Private::writeConfig() const
     const QStringList identities = groupList(mConfig);
     QStringList::const_iterator groupEnd = identities.constEnd();
     for (QStringList::const_iterator group = identities.constBegin();
-            group != groupEnd; ++group) {
+         group != groupEnd; ++group) {
         mConfig->deleteGroup(*group);
     }
     int i = 0;
     ConstIterator end = mIdentities.constEnd();
     for (ConstIterator it = mIdentities.constBegin();
-            it != end; ++it, ++i) {
+         it != end; ++it, ++i) {
         KConfigGroup cg(mConfig, QStringLiteral("Identity #%1").arg(i));
         (*it).writeConfig(cg);
         if ((*it).isDefault()) {
@@ -118,7 +116,6 @@ void IdentityManager::Private::writeConfig() const
         }
     }
     mConfig->sync();
-
 }
 
 void IdentityManager::Private::readConfig(KConfig *config)
@@ -135,7 +132,7 @@ void IdentityManager::Private::readConfig(KConfig *config)
     bool haveDefault = false;
     QStringList::const_iterator groupEnd = identities.constEnd();
     for (QStringList::const_iterator group = identities.constBegin();
-            group != groupEnd; ++group) {
+         group != groupEnd; ++group) {
         KConfigGroup configGroup(config, *group);
         Identity identity;
         identity.readConfig(configGroup);
@@ -248,7 +245,7 @@ int IdentityManager::Private::newUoid()
     usedUOIDs.reserve(1 + mIdentities.count() + (q->hasPendingChanges() ? shadowIdentities.count() : 0));
     QList<Identity>::ConstIterator end(mIdentities.constEnd());
     for (QList<Identity>::ConstIterator it = mIdentities.constBegin();
-            it != end; ++it) {
+         it != end; ++it) {
         usedUOIDs << (*it).uoid();
     }
 
@@ -257,7 +254,7 @@ int IdentityManager::Private::newUoid()
         // UOIDs, but avoiding duplicate UOIDs isn't worth the effort.
         QList<Identity>::ConstIterator endShadow(shadowIdentities.constEnd());
         for (QList<Identity>::ConstIterator it = shadowIdentities.constBegin();
-                it != endShadow; ++it) {
+             it != endShadow; ++it) {
             usedUOIDs << (*it).uoid();
         }
     }
@@ -292,10 +289,9 @@ IdentityManager *IdentityManager::self()
     return s_self;
 }
 
-IdentityManager::IdentityManager(bool readonly, QObject *parent,
-                                 const char *name)
-    : QObject(parent),
-      d(new Private(this))
+IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *name)
+    : QObject(parent)
+    , d(new Private(this))
 {
     static bool triedMigration = false;
     if (!triedMigration) {
@@ -405,14 +401,14 @@ void IdentityManager::commit()
     seenUOIDs.reserve(d->mIdentities.count());
     QList<Identity>::ConstIterator end = d->mIdentities.constEnd();
     for (QList<Identity>::ConstIterator it = d->mIdentities.constBegin();
-            it != end; ++it) {
+         it != end; ++it) {
         seenUOIDs << (*it).uoid();
     }
 
     QList<uint> changedUOIDs;
     // find added and changed identities:
     for (QList<Identity>::ConstIterator it = d->shadowIdentities.constBegin();
-            it != d->shadowIdentities.constEnd(); ++it) {
+         it != d->shadowIdentities.constEnd(); ++it) {
         int index = seenUOIDs.indexOf((*it).uoid());
         if (index != -1) {
             uint uoid = seenUOIDs.at(index);
@@ -433,7 +429,7 @@ void IdentityManager::commit()
 
     // what's left are deleted identities:
     for (QList<uint>::ConstIterator it = seenUOIDs.constBegin();
-            it != seenUOIDs.constEnd(); ++it) {
+         it != seenUOIDs.constEnd(); ++it) {
         qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting deleted() for identity" << (*it);
         emit deleted(*it);
     }
@@ -446,7 +442,7 @@ void IdentityManager::commit()
     // identityForUoid(uoid)...
     QList<uint>::ConstIterator changedEnd(changedUOIDs.constEnd());
     for (QList<uint>::ConstIterator it = changedUOIDs.constBegin();
-            it != changedEnd; ++it) {
+         it != changedEnd; ++it) {
         emit changed(*it);
     }
 
@@ -474,7 +470,7 @@ QStringList IdentityManager::identities() const
     result.reserve(d->mIdentities.count());
     ConstIterator end = d->mIdentities.constEnd();
     for (ConstIterator it = d->mIdentities.constBegin();
-            it != end; ++it) {
+         it != end; ++it) {
         result << (*it).identityName();
     }
     return result;
@@ -486,7 +482,7 @@ QStringList IdentityManager::shadowIdentities() const
     result.reserve(d->shadowIdentities.count());
     ConstIterator end = d->shadowIdentities.constEnd();
     for (ConstIterator it = d->shadowIdentities.constBegin();
-            it != end; ++it) {
+         it != end; ++it) {
         result << (*it).identityName();
     }
     return result;
@@ -521,7 +517,7 @@ const Identity &IdentityManager::identityForUoid(uint uoid) const
 {
     for (ConstIterator it = begin(); it != end(); ++it) {
         if ((*it).uoid() == uoid) {
-            return (*it);
+            return *it;
         }
     }
     return Identity::null();
@@ -562,7 +558,7 @@ Identity &IdentityManager::modifyIdentityForName(const QString &name)
 {
     for (Iterator it = modifyBegin(); it != modifyEnd(); ++it) {
         if ((*it).identityName() == name) {
-            return (*it);
+            return *it;
         }
     }
 
@@ -576,7 +572,7 @@ Identity &IdentityManager::modifyIdentityForUoid(uint uoid)
 {
     for (Iterator it = modifyBegin(); it != modifyEnd(); ++it) {
         if ((*it).uoid() == uoid) {
-            return (*it);
+            return *it;
         }
     }
 
@@ -590,7 +586,7 @@ const Identity &IdentityManager::defaultIdentity() const
 {
     for (ConstIterator it = begin(); it != end(); ++it) {
         if ((*it).isDefault()) {
-            return (*it);
+            return *it;
         }
     }
 
@@ -608,7 +604,7 @@ bool IdentityManager::setAsDefault(uint uoid)
     bool found = false;
     ConstIterator end(d->shadowIdentities.constEnd());
     for (ConstIterator it = d->shadowIdentities.constBegin();
-            it != end; ++it) {
+         it != end; ++it) {
         if ((*it).uoid() == uoid) {
             found = true;
             break;
@@ -714,6 +710,5 @@ IdentityManager::Private::~Private()
 {
     delete mConfig;
 }
-
 }
 #include "moc_identitymanager.cpp"

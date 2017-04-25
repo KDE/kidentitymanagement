@@ -298,4 +298,3 @@ void SignatureTester::testLinebreaks()
     QEXPECT_FAIL("", "This test is probably bogus, since Qt doesn't seem to produce HTML like this anymore.", Continue);
     QCOMPARE(edit.toPlainText(), QStringLiteral("-- \nHans Mustermann\nMusterstr. 42"));
 }
-

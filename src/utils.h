@@ -25,8 +25,7 @@
 #include <QString>
 #include <QSet>
 
-namespace KIdentityManagement
-{
+namespace KIdentityManagement {
 /*
 * Very fast version of IdentityManager::thatIsMe, that is using an internal cache (allEmails)
 * - make sure that only an email address is used as parameter and NO name <email>

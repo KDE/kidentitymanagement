@@ -52,9 +52,7 @@
 
 using namespace KIdentityManagement;
 
-namespace KIdentityManagement
-{
-
+namespace KIdentityManagement {
 /**
    Private class that helps to provide binary compatibility between releases.
    @internal
@@ -72,21 +70,21 @@ public:
     SignatureConfigurator *q;
     bool inlinedHtml;
     QString imageLocation;
-    QCheckBox        *mEnableCheck;
-    QCheckBox        *mHtmlCheck;
-    KComboBox        *mSourceCombo;
-    KUrlRequester    *mFileRequester;
-    QPushButton      *mEditButton;
-    KLineEdit        *mCommandEdit;
-    KToolBar         *mEditToolBar;
-    KToolBar         *mFormatToolBar;
+    QCheckBox *mEnableCheck;
+    QCheckBox *mHtmlCheck;
+    KComboBox *mSourceCombo;
+    KUrlRequester *mFileRequester;
+    QPushButton *mEditButton;
+    KLineEdit *mCommandEdit;
+    KToolBar *mEditToolBar;
+    KToolBar *mFormatToolBar;
     KPIMTextEdit::RichTextComposer *mTextEdit;
-
 };
 //@endcond
 
 SignatureConfigurator::Private::Private(SignatureConfigurator *parent)
-    : q(parent), inlinedHtml(true)
+    : q(parent)
+    , inlinedHtml(true)
 {
 }
 
@@ -283,7 +281,8 @@ void SignatureConfigurator::Private::init()
 }
 
 SignatureConfigurator::SignatureConfigurator(QWidget *parent)
-    : QWidget(parent), d(new Private(this))
+    : QWidget(parent)
+    , d(new Private(this))
 {
     d->init();
 }
@@ -306,10 +305,14 @@ void SignatureConfigurator::setSignatureEnabled(bool enable)
 Signature::Type SignatureConfigurator::signatureType() const
 {
     switch (d->mSourceCombo->currentIndex()) {
-    case 0:  return Signature::Inlined;
-    case 1:  return Signature::FromFile;
-    case 2:  return Signature::FromCommand;
-    default: return Signature::Disabled;
+    case 0:
+        return Signature::Inlined;
+    case 1:
+        return Signature::FromFile;
+    case 2:
+        return Signature::FromCommand;
+    default:
+        return Signature::Disabled;
     }
 }
 
@@ -317,11 +320,19 @@ void SignatureConfigurator::setSignatureType(Signature::Type type)
 {
     int idx = 0;
     switch (type) {
-    case Signature::Inlined:     idx = 0; break;
-    case Signature::FromFile:    idx = 1; break;
-    case Signature::FromCommand: idx = 2; break;
-    default:                     idx = 0; break;
-    };
+    case Signature::Inlined:
+        idx = 0;
+        break;
+    case Signature::FromFile:
+        idx = 1;
+        break;
+    case Signature::FromCommand:
+        idx = 2;
+        break;
+    default:
+        idx = 0;
+        break;
+    }
 
     d->mSourceCombo->setCurrentIndex(idx);
 }
@@ -468,10 +479,8 @@ void SignatureConfigurator::setImageLocation(const QString &path)
 void SignatureConfigurator::setImageLocation(const Identity &identity)
 {
     const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + QStringLiteral("emailidentities/%1/").arg(
-                            QString::number(identity.uoid()));
+        QString::number(identity.uoid()));
     QDir().mkpath(dir);
     setImageLocation(dir);
 }
-
 }
-

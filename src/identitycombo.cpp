@@ -46,11 +46,11 @@ class KIdentityManagement::IdentityComboPrivate
 {
 public:
     IdentityComboPrivate(IdentityManager *manager, IdentityCombo *qq)
-        : mIdentityManager(manager),
-          q(qq)
+        : mIdentityManager(manager)
+        , q(qq)
     {
-
     }
+
     void reloadCombo();
     void reloadUoidList();
 
@@ -81,7 +81,8 @@ void KIdentityManagement::IdentityComboPrivate::reloadUoidList()
 //@endcond
 
 IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
-    : KComboBox(parent), d(new IdentityComboPrivate(manager, this))
+    : KComboBox(parent)
+    , d(new IdentityComboPrivate(manager, this))
 {
     d->reloadCombo();
     d->reloadUoidList();
@@ -174,4 +175,3 @@ IdentityManager *IdentityCombo::identityManager() const
 {
     return d->mIdentityManager;
 }
-
