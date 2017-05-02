@@ -154,7 +154,7 @@ void IdentityManager::Private::readConfig(KConfig *config)
                                            << "Marking first one as default.";
         mIdentities.first().setIsDefault(true);
     }
-    qSort(mIdentities);
+    std::sort(mIdentities.begin(), mIdentities.end());
 
     shadowIdentities = mIdentities;
 }
@@ -490,7 +490,7 @@ QStringList IdentityManager::shadowIdentities() const
 
 void IdentityManager::sort()
 {
-    qSort(d->shadowIdentities);
+    std::sort(d->shadowIdentities.begin(), d->shadowIdentities.end());
 }
 
 IdentityManager::ConstIterator IdentityManager::begin() const
