@@ -136,7 +136,11 @@ QString Identity::mimeDataType()
 
 bool Identity::canDecode(const QMimeData *md)
 {
-    return md->hasFormat(mimeDataType());
+    if (md) {
+        return md->hasFormat(mimeDataType());
+    } else {
+        return false;
+    }
 }
 
 void Identity::populateMimeData(QMimeData *md) const
