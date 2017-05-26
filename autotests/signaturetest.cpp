@@ -32,6 +32,7 @@
 #include <KConfig>
 #include <QDir>
 #include <KActionCollection>
+#include <KShell>
 
 #include <kpimtextedit/richtextcomposer.h>
 #include <kpimtextedit/richtextcomposercontroler.h>
@@ -91,7 +92,7 @@ void SignatureTester::testSignatures()
     QString fileContent = QString::fromUtf8(thisFile.readAll());
 
     Signature sig3;
-    sig3.setPath(QStringLiteral("cat ") + QStringLiteral(__FILE__), true);
+    sig3.setPath(QStringLiteral("cat ") + KShell::quoteArg(QStringLiteral(__FILE__)), true);
     QCOMPARE(sig3.rawText(), fileContent);
     QVERIFY(!sig3.isInlinedHtml());
     QVERIFY(sig3.text().isEmpty());
