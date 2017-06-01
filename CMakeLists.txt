@@ -46,8 +46,8 @@ find_package(KF5IconThemes ${KF5_VERSION} CONFIG REQUIRED)
 find_package(KF5PimTextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII")
-add_definitions( -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT )
-add_definitions( -DQT_DISABLE_DEPRECATED_BEFORE=0x060000 )
+add_definitions(-DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT)
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
 
 ########### Targets ###########
 add_subdirectory(src)
