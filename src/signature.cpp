@@ -33,7 +33,7 @@
 #include <QImage>
 
 #include <assert.h>
-#include <QtCore/QDir>
+#include <QDir>
 #include <kpimtextedit/richtextcomposer.h>
 #include <kpimtextedit/richtextcomposercontroler.h>
 #include <kpimtextedit/richtextcomposerimages.h>

@@ -22,7 +22,7 @@
 
 #include <kidentitymanagement_export.h>
 #include <kconfiggroup.h>
-#include <QtCore/QObject>
+#include <QObject>
 
 class QStringList;
 

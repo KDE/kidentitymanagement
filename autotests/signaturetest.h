@@ -21,7 +21,7 @@
 #ifndef SIGNATURETEST_H
 #define SIGNATURETEST_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 class SignatureTester : public QObject
 {

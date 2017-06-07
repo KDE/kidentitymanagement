@@ -25,11 +25,11 @@
 
 #include "kidentitymanagement_export.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QList>
-#include <QtCore/QHash>
-#include <QtCore/QVariant>
+#include <QString>
+#include <QStringList>
+#include <QList>
+#include <QHash>
+#include <QVariant>
 #include <QImage>
 
 namespace KIdentityManagement {

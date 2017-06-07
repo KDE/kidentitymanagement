@@ -25,11 +25,11 @@
 #include "kidentitymanagement_export.h"
 #include "signature.h"
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVector>
-#include <QtCore/QHash>
-#include <QtCore/QVariant>
+#include <QString>
+#include <QStringList>
+#include <QVector>
+#include <QHash>
+#include <QVariant>
 
 namespace KIdentityManagement {
 class Identity;

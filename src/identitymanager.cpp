@@ -35,7 +35,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <kdelibs4configmigrator.h>
 
 #include <QList>
-#include <QtDBus/QtDBus>
+#include <QtDBus>
 #include <QHostInfo>
 
 #include <QRegularExpression>
