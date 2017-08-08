@@ -148,8 +148,8 @@ void SignatureConfigurator::Private::init()
     QStackedWidget *widgetStack = new QStackedWidget(q);
     widgetStack->setEnabled(false);   // since !mEnableCheck->isChecked()
     vlay->addWidget(widgetStack, 1);
-    q->connect(mSourceCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
-    q->connect(mSourceCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::highlighted), widgetStack, &QStackedWidget::setCurrentIndex);
+    q->connect(mSourceCombo, QOverload<int>::of(&KComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
+    q->connect(mSourceCombo, QOverload<int>::of(&KComboBox::highlighted), widgetStack, &QStackedWidget::setCurrentIndex);
     // connects for the enabling of the widgets depending on
     // signatureEnabled:
     q->connect(mEnableCheck, &QCheckBox::toggled, mSourceCombo, &KComboBox::setEnabled);
