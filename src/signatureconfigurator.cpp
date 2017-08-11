@@ -442,7 +442,9 @@ void SignatureConfigurator::slotEdit()
     // slotEnableEditButton should prevent this assert from being hit:
     assert(!url.isEmpty());
 
-    (void)KRun::runUrl(QUrl::fromLocalFile(url), QStringLiteral("text/plain"), this);
+    KRun::RunFlags flags;
+    flags |= KRun::DeleteTemporaryFiles;
+    KRun::runUrl(QUrl::fromLocalFile(url), QStringLiteral("text/plain"), this, flags);
 }
 
 // "use HTML"-checkbox (un)checked
