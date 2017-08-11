@@ -81,7 +81,7 @@ void KIdentityManagement::IdentityComboPrivate::reloadUoidList()
 //@endcond
 
 IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
-    : KComboBox(parent)
+    : QComboBox(parent)
     , d(new IdentityComboPrivate(manager, this))
 {
     d->reloadCombo();

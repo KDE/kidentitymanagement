@@ -72,7 +72,7 @@ public:
     QString imageLocation;
     QCheckBox *mEnableCheck;
     QCheckBox *mHtmlCheck;
-    KComboBox *mSourceCombo;
+    QComboBox *mSourceCombo;
     KUrlRequester *mFileRequester;
     QPushButton *mEditButton;
     KLineEdit *mCommandEdit;
@@ -126,7 +126,7 @@ void SignatureConfigurator::Private::init()
     // "obtain signature text from" combo and label:
     hlay = new QHBoxLayout(); // inherits spacing
     vlay->addLayout(hlay);
-    mSourceCombo = new KComboBox(q);
+    mSourceCombo = new QComboBox(q);
     mSourceCombo->setEditable(false);
     mSourceCombo->setWhatsThis(
         i18n("Click on the widgets below to obtain help on the input methods."));
@@ -148,11 +148,11 @@ void SignatureConfigurator::Private::init()
     QStackedWidget *widgetStack = new QStackedWidget(q);
     widgetStack->setEnabled(false);   // since !mEnableCheck->isChecked()
     vlay->addWidget(widgetStack, 1);
-    q->connect(mSourceCombo, QOverload<int>::of(&KComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
-    q->connect(mSourceCombo, QOverload<int>::of(&KComboBox::highlighted), widgetStack, &QStackedWidget::setCurrentIndex);
+    q->connect(mSourceCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
+    q->connect(mSourceCombo, QOverload<int>::of(&QComboBox::highlighted), widgetStack, &QStackedWidget::setCurrentIndex);
     // connects for the enabling of the widgets depending on
     // signatureEnabled:
-    q->connect(mEnableCheck, &QCheckBox::toggled, mSourceCombo, &KComboBox::setEnabled);
+    q->connect(mEnableCheck, &QCheckBox::toggled, mSourceCombo, &QComboBox::setEnabled);
     q->connect(mEnableCheck, &QCheckBox::toggled, widgetStack, &QStackedWidget::setEnabled);
     q->connect(mEnableCheck, &QCheckBox::toggled, label, &QLabel::setEnabled);
     // The focus might be still in the widget that is disabled

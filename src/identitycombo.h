@@ -31,16 +31,15 @@
 #define KIDENTITYMANAGER_IDENTITYCOMBO_H
 
 #include "kidentitymanagement_export.h"
-#include <KComboBox>
+#include <QComboBox>
 
-class QString;
 
 namespace KIdentityManagement {
 class IdentityComboPrivate;
 class IdentityManager;
 class Identity;
 
-class KIDENTITYMANAGEMENT_EXPORT IdentityCombo : public KComboBox
+class KIDENTITYMANAGEMENT_EXPORT IdentityCombo : public QComboBox
 {
     Q_OBJECT
 public:
