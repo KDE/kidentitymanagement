@@ -68,17 +68,17 @@ public:
     QString asCleanedHTML() const;
 
     SignatureConfigurator *q;
-    bool inlinedHtml;
+    bool inlinedHtml = false;
     QString imageLocation;
-    QCheckBox *mEnableCheck;
-    QCheckBox *mHtmlCheck;
-    QComboBox *mSourceCombo;
-    KUrlRequester *mFileRequester;
-    QPushButton *mEditButton;
-    KLineEdit *mCommandEdit;
-    KToolBar *mEditToolBar;
-    KToolBar *mFormatToolBar;
-    KPIMTextEdit::RichTextComposer *mTextEdit;
+    QCheckBox *mEnableCheck = nullptr;
+    QCheckBox *mHtmlCheck = nullptr;
+    QComboBox *mSourceCombo = nullptr;
+    KUrlRequester *mFileRequester = nullptr;
+    QPushButton *mEditButton = nullptr;
+    KLineEdit *mCommandEdit = nullptr;
+    KToolBar *mEditToolBar = nullptr;
+    KToolBar *mFormatToolBar = nullptr;
+    KPIMTextEdit::RichTextComposer *mTextEdit = nullptr;
 };
 //@endcond
 
@@ -107,11 +107,11 @@ QString SignatureConfigurator::Private::asCleanedHTML() const
 void SignatureConfigurator::Private::init()
 {
     // tmp. vars:
-    QLabel *label;
-    QWidget *page;
-    QHBoxLayout *hlay;
-    QVBoxLayout *vlay;
-    QVBoxLayout *page_vlay;
+    QLabel *label = nullptr;
+    QWidget *page = nullptr;
+    QHBoxLayout *hlay = nullptr;
+    QVBoxLayout *vlay = nullptr;
+    QVBoxLayout *page_vlay = nullptr;
 
     vlay = new QVBoxLayout(q);
     vlay->setObjectName(QStringLiteral("main layout"));

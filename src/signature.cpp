@@ -64,12 +64,12 @@ public:
 
     /// The directory where the images will be saved to.
     QString saveLocation;
-    bool enabled;
+    bool enabled = false;
     QString path;
     QString text;
     Signature::Type type;
-    bool inlinedHtml;
-    Signature *q;
+    bool inlinedHtml = false;
+    Signature *q = nullptr;
 };
 
 static bool isCursorAtEndOfLine(const QTextCursor &cursor)

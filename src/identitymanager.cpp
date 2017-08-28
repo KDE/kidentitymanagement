@@ -71,7 +71,7 @@ public:
     void createDefaultIdentity();
     QStringList groupList(KConfig *config) const;
     void slotIdentitiesChanged(const QString &id);
-    KConfig *mConfig;
+    KConfig *mConfig = nullptr;
 
     QList<Identity> mIdentities;
     QList<Identity> shadowIdentities;
@@ -79,7 +79,7 @@ public:
     // returns a new Unique Object Identifier
     int newUoid();
 
-    bool mReadOnly;
+    bool mReadOnly = true;
     KIdentityManagement::IdentityManager *q;
 };
 
