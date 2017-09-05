@@ -124,7 +124,7 @@ public:
      **/
     const Identity &identityForUoid(uint uoid) const;
 
-    /** Convenience menthod.
+    /** Convenience method.
 
         @return the identity with Unique Object Identifier (UOID) @p
                 uoid or the default identity if not found.
