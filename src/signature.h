@@ -37,7 +37,6 @@ class Signature;
 class Identity;
 }
 class KConfigGroup;
-class KRichTextEdit;
 
 namespace KPIMTextEdit {
 class RichTextComposer;
