@@ -25,10 +25,8 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
-#include <QUrl>
 #include <kprocess.h>
 
-#include <QFileInfo>
 #include <QSharedPointer>
 #include <QImage>
 

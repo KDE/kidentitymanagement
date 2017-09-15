@@ -29,7 +29,6 @@
 #include <ktoolbar.h>
 #include <krun.h>
 #include <QUrl>
-#include <KComboBox>
 
 #include <KPIMTextEdit/RichTextComposer>
 #include <KPIMTextEdit/RichTextComposerImages>
@@ -39,7 +38,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QLabel>
-
+#include <QComboBox>
 #include <QStackedWidget>
 
 #include <QVBoxLayout>

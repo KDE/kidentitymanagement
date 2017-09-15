@@ -26,10 +26,8 @@
 #include "kidentitymanagement_export.h"
 
 #include <QString>
-#include <QStringList>
 #include <QList>
 #include <QHash>
-#include <QVariant>
 #include <QImage>
 
 namespace KIdentityManagement {
