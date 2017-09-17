@@ -26,7 +26,6 @@
 
 #include "signature.h"
 
-#include <KIconLoader>
 #include <KConfigGroup>
 #include <QStandardPaths>
 #include <KConfig>
@@ -213,7 +212,12 @@ void SignatureTester::testImages()
 {
     KPIMTextEdit::RichTextComposer edit;
     edit.createActions(new KActionCollection(this));
-    QString image1Path = KIconLoader::global()->iconPath(QStringLiteral("folder-new"), KIconLoader::Small, false);
+
+    QImage img(16, 16, QImage::Format_ARGB32_Premultiplied);
+    img.fill(Qt::green);
+    QString image1Path = QCoreApplication::applicationDirPath() + QLatin1String("/image.png");
+    img.save(image1Path);
+
     QImage image1, image2;
     QVERIFY(image1.load(image1Path));
     QVERIFY(image2.load(image1Path));
