@@ -216,9 +216,7 @@ protected:
      * values from KUser, but reimplementations of this method can give
      * them another value.
      */
-    virtual void createDefaultIdentity(QString & /*fullName*/, QString & /*emailAddress*/)
-    {
-    }
+    virtual void createDefaultIdentity(QString & /*fullName*/, QString & /*emailAddress*/);
 
 protected Q_SLOTS:
     void slotRollback();

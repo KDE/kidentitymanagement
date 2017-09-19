@@ -700,6 +700,10 @@ QStringList KIdentityManagement::IdentityManager::allEmails() const
     return lst;
 }
 
+void IdentityManager::createDefaultIdentity(QString &, QString &)
+{
+}
+
 void KIdentityManagement::IdentityManager::slotRollback()
 {
     rollback();
