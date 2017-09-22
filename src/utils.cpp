@@ -31,8 +31,7 @@ public:
     IdendentitiesCache()
         : mIdentityManager(/*ro=*/ true)
     {
-        connect(&mIdentityManager, SIGNAL(changed()),
-                SLOT(slotIdentitiesChanged()));
+        connect(&mIdentityManager, QOverload<>::of(&IdentityManager::changed), this, &IdendentitiesCache::slotIdentitiesChanged);
         slotIdentitiesChanged();
     }
 
@@ -41,7 +40,7 @@ public:
         return mEmails;
     }
 
-private Q_SLOTS:
+private:
     void slotIdentitiesChanged()
     {
         mEmails.clear();
@@ -52,7 +51,6 @@ private Q_SLOTS:
         }
     }
 
-private:
     IdentityManager mIdentityManager;
     QSet<QString> mEmails;
 };
