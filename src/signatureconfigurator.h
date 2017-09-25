@@ -142,12 +142,11 @@ public:
      */
     void setImageLocation(const Identity &identity);
 
-protected Q_SLOTS:
+private:
     void slotEnableEditButton(const QString &);
     void slotEdit();
     void slotSetHtml();
 
-private:
     //@cond PRIVATE
     class Private;
     Private *const d;
