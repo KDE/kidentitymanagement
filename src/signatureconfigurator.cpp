@@ -155,8 +155,7 @@ void SignatureConfigurator::Private::init()
     q->connect(mEnableCheck, &QCheckBox::toggled, widgetStack, &QStackedWidget::setEnabled);
     q->connect(mEnableCheck, &QCheckBox::toggled, label, &QLabel::setEnabled);
     // The focus might be still in the widget that is disabled
-    q->connect(mEnableCheck, SIGNAL(clicked()),
-               mEnableCheck, SLOT(setFocus()));
+    q->connect(mEnableCheck, &QCheckBox::clicked, mEnableCheck, QOverload<>::of(&QCheckBox::setFocus));
 
     int pageno = 0;
     // page 0: input field for direct entering:
