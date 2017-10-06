@@ -105,14 +105,7 @@ QString SignatureConfigurator::Private::asCleanedHTML() const
 
 void SignatureConfigurator::Private::init()
 {
-    // tmp. vars:
-    QLabel *label = nullptr;
-    QWidget *page = nullptr;
-    QHBoxLayout *hlay = nullptr;
-    QVBoxLayout *vlay = nullptr;
-    QVBoxLayout *page_vlay = nullptr;
-
-    vlay = new QVBoxLayout(q);
+    QVBoxLayout *vlay = new QVBoxLayout(q);
     vlay->setObjectName(QStringLiteral("main layout"));
 
     // "enable signatue" checkbox:
@@ -123,7 +116,7 @@ void SignatureConfigurator::Private::init()
     vlay->addWidget(mEnableCheck);
 
     // "obtain signature text from" combo and label:
-    hlay = new QHBoxLayout(); // inherits spacing
+    QHBoxLayout *hlay = new QHBoxLayout(); // inherits spacing
     vlay->addLayout(hlay);
     mSourceCombo = new QComboBox(q);
     mSourceCombo->setEditable(false);
@@ -137,7 +130,7 @@ void SignatureConfigurator::Private::init()
                                     "File")
                            << i18nc("continuation of \"obtain signature text from\"",
                                     "Output of Command"));
-    label = new QLabel(i18n("Obtain signature &text from:"), q);
+    QLabel *label = new QLabel(i18n("Obtain signature &text from:"), q);
     label->setBuddy(mSourceCombo);
     label->setEnabled(false);   // since !mEnableCheck->isChecked()
     hlay->addWidget(label);
@@ -159,9 +152,9 @@ void SignatureConfigurator::Private::init()
 
     int pageno = 0;
     // page 0: input field for direct entering:
-    page = new QWidget(widgetStack);
+    QWidget *page = new QWidget(widgetStack);
     widgetStack->insertWidget(pageno, page);
-    page_vlay = new QVBoxLayout(page);
+    QVBoxLayout *page_vlay = new QVBoxLayout(page);
     page_vlay->setMargin(0);
 
 #ifndef QT_NO_TOOLBAR
