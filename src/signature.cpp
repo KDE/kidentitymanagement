@@ -211,7 +211,7 @@ void SignaturePrivate::cleanupImages()
         QDir dir(saveLocation);
         const QStringList lst = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
         for (const QString &fileName : lst) {
-            if (fileName.toLower().endsWith(QLatin1String(".png"))) {
+            if (fileName.toLower().endsWith(QStringLiteral(".png"))) {
                 qCDebug(KIDENTITYMANAGEMENT_LOG) << "Deleting old image" << dir.path() + fileName;
                 dir.remove(fileName);
             }
@@ -475,7 +475,7 @@ void Signature::readConfig(const KConfigGroup &config)
         QDir dir(d->saveLocation);
         const QStringList lst = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
         for (const QString &fileName : lst) {
-            if (fileName.toLower().endsWith(QLatin1String(".png"))) {
+            if (fileName.toLower().endsWith(QStringLiteral(".png"))) {
                 QImage image;
                 if (image.load(dir.path() + QLatin1Char('/') + fileName)) {
                     addImage(image, fileName);
