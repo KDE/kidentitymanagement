@@ -36,6 +36,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include <QList>
 #include <QHostInfo>
+#include <QDBusConnection>
 
 #include <QRegularExpression>
 #include <assert.h>

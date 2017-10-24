@@ -68,6 +68,7 @@ Q_SIGNALS:
       IdentityManager::deleted and IdentityManager::added.
     */
     void identityChanged(uint uoid);
+    void identityDeleted(uint uoid);
 
 public Q_SLOTS:
     /**
