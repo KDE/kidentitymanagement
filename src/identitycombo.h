@@ -33,7 +33,6 @@
 #include "kidentitymanagement_export.h"
 #include <QComboBox>
 
-
 namespace KIdentityManagement {
 class IdentityComboPrivate;
 class IdentityManager;
