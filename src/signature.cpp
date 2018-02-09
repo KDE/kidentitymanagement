@@ -406,7 +406,7 @@ QString Signature::withSeparator(bool *ok) const
 
     const bool htmlSig = (isInlinedHtml() && d->type == Inlined);
     QString newline = htmlSig ? QStringLiteral("<br>") : QStringLiteral("\n");
-    if (htmlSig && signature.startsWith(QStringLiteral("<p"))) {
+    if (htmlSig && signature.startsWith(QLatin1String("<p"))) {
         newline.clear();
     }
 
