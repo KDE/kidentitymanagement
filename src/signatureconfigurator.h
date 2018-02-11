@@ -45,7 +45,7 @@ public:
     /**
       * destructor
       */
-    virtual ~SignatureConfigurator();
+    ~SignatureConfigurator() override;
 
     /**
       * Enum for the different viemodes.
