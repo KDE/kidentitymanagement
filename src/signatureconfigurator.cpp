@@ -66,9 +66,8 @@ public:
     // unnecessary tags Qt inserts
     QString asCleanedHTML() const;
 
-    SignatureConfigurator *q;
-    bool inlinedHtml = false;
     QString imageLocation;
+    SignatureConfigurator *q;
     QCheckBox *mEnableCheck = nullptr;
     QCheckBox *mHtmlCheck = nullptr;
     QComboBox *mSourceCombo = nullptr;
@@ -78,6 +77,7 @@ public:
     KToolBar *mEditToolBar = nullptr;
     KToolBar *mFormatToolBar = nullptr;
     KPIMTextEdit::RichTextComposer *mTextEdit = nullptr;
+    bool inlinedHtml = false;
 };
 //@endcond
 

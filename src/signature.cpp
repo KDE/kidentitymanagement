@@ -42,8 +42,8 @@ class Q_DECL_HIDDEN KIdentityManagement::SignaturePrivate
 {
 public:
     SignaturePrivate(Signature *qq)
-        : enabled(false)
-        , type(Signature::Disabled)
+        : type(Signature::Disabled)
+        , enabled(false)
         , inlinedHtml(false)
         , q(qq)
     {
@@ -62,10 +62,10 @@ public:
 
     /// The directory where the images will be saved to.
     QString saveLocation;
-    bool enabled = false;
     QString path;
     QString text;
     Signature::Type type;
+    bool enabled = false;
     bool inlinedHtml = false;
     Signature *q = nullptr;
 };
