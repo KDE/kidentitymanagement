@@ -255,7 +255,7 @@ void SignatureConfigurator::Private::init()
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout(hlay);
     mCommandEdit = new KLineEdit(page);
-    mCommandEdit->setClearButtonShown(true);
+    mCommandEdit->setClearButtonEnabled(true);
     mCommandEdit->setCompletionObject(new KShellCompletion());
     mCommandEdit->setAutoDeleteCompletionObject(true);
     mCommandEdit->setWhatsThis(
