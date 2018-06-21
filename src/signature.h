@@ -128,33 +128,33 @@ public:
     /** @return the raw signature text as entered resp. read from file.
         @param ok set to @c true if reading succeeded
      */
-    QString rawText(bool *ok = nullptr) const;
+    Q_REQUIRED_RESULT QString rawText(bool *ok = nullptr) const;
 
     /** @return the signature text with a "-- \n" separator added, if
         necessary. A newline will not be appended or prepended.
         @param ok set to @c true if reading succeeded
      */
-    QString withSeparator(bool *ok = nullptr) const;
+    Q_REQUIRED_RESULT QString withSeparator(bool *ok = nullptr) const;
 
     /** Set the signature text and mark this signature as being of
         "inline text" type. */
     void setText(const QString &text);
-    QString text() const;
+    Q_REQUIRED_RESULT QString text() const;
 
     /**
      * Returns the text of the signature. If the signature is HTML, the HTML
      * tags will be stripped.
      * @since 4.4
      */
-    QString toPlainText() const;
+    Q_REQUIRED_RESULT QString toPlainText() const;
 
     /** Set the signature URL and mark this signature as being of
         "from file" resp. "from output of command" type. */
     void setPath(const QString &path, bool isExecutable = false);
-    QString path() const;
+    Q_REQUIRED_RESULT QString path() const;
 
     /// @return the type of signature (ie. way to obtain the signature text)
-    Type type() const;
+    Q_REQUIRED_RESULT Type type() const;
     void setType(Type type);
 
     /**
@@ -168,7 +168,7 @@ public:
      * @return boolean whether the inlined signature is html
      * @since 4.1
      */
-    bool isInlinedHtml() const;
+    Q_REQUIRED_RESULT bool isInlinedHtml() const;
 
     /**
      * Sets the location where the copies of the signature images will be stored.
@@ -186,7 +186,7 @@ public:
      * @since 4.4
      */
     void setImageLocation(const QString &path);
-    QString imageLocation() const;
+    Q_REQUIRED_RESULT QString imageLocation() const;
 
     /**
      * Adds the given image to the signature.
@@ -207,7 +207,7 @@ public:
      * @since 4.9
      */
     void setEnabledSignature(bool enabled);
-    bool isEnabledSignature() const;
+    Q_REQUIRED_RESULT bool isEnabledSignature() const;
 
     enum AddedTextFlag {
         AddNothing = 0,         ///< Don't add any text to the signature
@@ -242,7 +242,7 @@ public:
     //                  with the deprecated method
     void insertIntoTextEdit(Placement placement, AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay = false) const;
 
-    QList<Signature::EmbeddedImagePtr> embeddedImages() const;
+    Q_REQUIRED_RESULT QList<Signature::EmbeddedImagePtr> embeddedImages() const;
     void setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embedded);
 
 protected:

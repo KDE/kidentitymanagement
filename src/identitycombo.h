@@ -45,7 +45,7 @@ public:
     explicit IdentityCombo(IdentityManager *manager, QWidget *parent = nullptr);
 
     ~IdentityCombo();
-    QString currentIdentityName() const;
+    Q_REQUIRED_RESULT QString currentIdentityName() const;
     uint currentIdentity() const;
     void setCurrentIdentity(const QString &identityName);
     void setCurrentIdentity(const Identity &identity);
@@ -54,7 +54,7 @@ public:
       Returns the IdentityManager used in this combo box.
       @since 4.5
     */
-    IdentityManager *identityManager() const;
+    Q_REQUIRED_RESULT IdentityManager *identityManager() const;
 
 Q_SIGNALS:
 

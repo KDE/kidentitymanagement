@@ -110,45 +110,45 @@ public:
     bool operator>=(const Identity &other) const;
 
     /** Tests if there are enough values set to allow mailing */
-    bool mailingAllowed() const;
+    Q_REQUIRED_RESULT bool mailingAllowed() const;
 
     /** Identity/nickname for this collection */
-    QString identityName() const;
+    Q_REQUIRED_RESULT QString identityName() const;
 
     /** Identity/nickname for this collection */
     void setIdentityName(const QString &name);
 
     /** @return whether this identity is the default identity */
-    bool isDefault() const;
+    Q_REQUIRED_RESULT bool isDefault() const;
 
     /** Unique Object Identifier for this identity */
-    uint uoid() const;
+    Q_REQUIRED_RESULT uint uoid() const;
 
     /** Full name of the user */
-    QString fullName() const;
+    Q_REQUIRED_RESULT QString fullName() const;
     void setFullName(const QString &);
 
     /** The user's organization (optional) */
-    QString organization() const;
+    Q_REQUIRED_RESULT QString organization() const;
     void setOrganization(const QString &);
 
     /** The user's OpenPGP encryption key */
-    QByteArray pgpEncryptionKey() const;
+    Q_REQUIRED_RESULT QByteArray pgpEncryptionKey() const;
     void setPGPEncryptionKey(const QByteArray &key);
 
     /** The user's OpenPGP signing key */
-    QByteArray pgpSigningKey() const;
+    Q_REQUIRED_RESULT QByteArray pgpSigningKey() const;
     void setPGPSigningKey(const QByteArray &key);
 
     /** The user's S/MIME encryption key */
-    QByteArray smimeEncryptionKey() const;
+    Q_REQUIRED_RESULT QByteArray smimeEncryptionKey() const;
     void setSMIMEEncryptionKey(const QByteArray &key);
 
     /** The user's S/MIME signing key */
-    QByteArray smimeSigningKey() const;
+    Q_REQUIRED_RESULT QByteArray smimeSigningKey() const;
     void setSMIMESigningKey(const QByteArray &key);
 
-    QString preferredCryptoMessageFormat() const;
+    Q_REQUIRED_RESULT QString preferredCryptoMessageFormat() const;
     void setPreferredCryptoMessageFormat(const QString &);
 
     /**
@@ -157,7 +157,7 @@ public:
      *
      * @since 4.6
      */
-    QString primaryEmailAddress() const;
+    Q_REQUIRED_RESULT QString primaryEmailAddress() const;
     void setPrimaryEmailAddress(const QString &email);
 
     /**
@@ -165,7 +165,7 @@ public:
      *
      * @since 4.6
      */
-    const QStringList emailAliases() const;
+    Q_REQUIRED_RESULT const QStringList emailAliases() const;
     void setEmailAliases(const QStringList &aliases);
 
     /**
@@ -175,35 +175,35 @@ public:
      *
      * @since 4.6
      */
-    bool matchesEmailAddress(const QString &addr) const;
+    Q_REQUIRED_RESULT bool matchesEmailAddress(const QString &addr) const;
 
     /** vCard to attach to outgoing emails */
-    QString vCardFile() const;
+    Q_REQUIRED_RESULT QString vCardFile() const;
     void setVCardFile(const QString &);
 
     /** email address in the format "username <name@host>" suitable
     for the "From:" field of email messages. */
-    QString fullEmailAddr() const;
+    Q_REQUIRED_RESULT QString fullEmailAddr() const;
 
     /** email address for the ReplyTo: field */
-    QString replyToAddr() const;
+    Q_REQUIRED_RESULT QString replyToAddr() const;
     void setReplyToAddr(const QString &);
 
     /** email addresses for the BCC: field */
-    QString bcc() const;
+    Q_REQUIRED_RESULT QString bcc() const;
     void setBcc(const QString &);
 
     /** email addresses for the CC: field
      * @since 4.9
      */
-    QString cc() const;
+    Q_REQUIRED_RESULT QString cc() const;
     void setCc(const QString &);
 
     /**
      *
      * @since 4.10
      */
-    bool attachVcard() const;
+    Q_REQUIRED_RESULT bool attachVcard() const;
     void setAttachVcard(bool attach);
 
     /**
@@ -215,29 +215,29 @@ public:
     /**
      * @since 4.11
      */
-    bool disabledFcc() const;
+    Q_REQUIRED_RESULT bool disabledFcc() const;
     void setDisabledFcc(bool);
 
     /**
      * @since 4.12
      */
-    bool pgpAutoSign() const;
+    Q_REQUIRED_RESULT bool pgpAutoSign() const;
     void setPgpAutoSign(bool);
 
     /**
      * @since 5.4
      */
-    bool pgpAutoEncrypt() const;
+    Q_REQUIRED_RESULT bool pgpAutoEncrypt() const;
     void setPgpAutoEncrypt(bool);
 
     /**
      * @since 4.14
      */
-    QString defaultDomainName() const;
+    Q_REQUIRED_RESULT QString defaultDomainName() const;
     void setDefaultDomainName(const QString &domainName);
 
     void setSignature(const Signature &sig);
-    Signature &signature(); /* _not_ const! */
+    Q_REQUIRED_RESULT Signature &signature(); /* _not_ const! */
 
     /**
     @return the signature with '-- \n' prepended to it if it is not
@@ -246,34 +246,34 @@ public:
     @param ok if a valid bool pointer, it is set to @c true or @c false depending
     on whether the signature could successfully be obtained.
     */
-    QString signatureText(bool *ok = nullptr) const;
+    Q_REQUIRED_RESULT QString signatureText(bool *ok = nullptr) const;
 
     /**
      * @since 4.1
      * @return true if the inlined signature is html formatted
      */
-    bool signatureIsInlinedHtml() const;
+    Q_REQUIRED_RESULT bool signatureIsInlinedHtml() const;
 
     /** The transport that is set for this identity. Used to link a
     transport with an identity. */
-    QString transport() const;
+    Q_REQUIRED_RESULT QString transport() const;
     void setTransport(const QString &);
 
     /** The folder where sent messages from this identity will be
     stored by default. */
-    QString fcc() const;
+    Q_REQUIRED_RESULT QString fcc() const;
     void setFcc(const QString &);
 
     /** The folder where draft messages from this identity will be
     stored by default.
     */
-    QString drafts() const;
+    Q_REQUIRED_RESULT QString drafts() const;
     void setDrafts(const QString &);
 
     /** The folder where template messages from this identity will be
     stored by default.
     */
-    QString templates() const;
+    Q_REQUIRED_RESULT QString templates() const;
     void setTemplates(const QString &);
 
     /**
@@ -282,19 +282,19 @@ public:
      * Note that this is the localized language name (e.g. "British English"),
      * _not_ the language code or dictionary name!
     */
-    QString dictionary() const;
+    Q_REQUIRED_RESULT QString dictionary() const;
     void setDictionary(const QString &);
 
     /** a X-Face header for this identity */
-    QString xface() const;
+    Q_REQUIRED_RESULT QString xface() const;
     void setXFace(const QString &);
-    bool isXFaceEnabled() const;
+    Q_REQUIRED_RESULT bool isXFaceEnabled() const;
     void setXFaceEnabled(const bool);
 
     /** Get random properties
      *  @param key the key of the property to get
      */
-    QVariant property(const QString &key) const;
+    Q_REQUIRED_RESULT QVariant property(const QString &key) const;
     /** Set random properties, when @p value is empty (for QStrings) or null,
     the property is deleted. */
     void setProperty(const QString &key, const QVariant &value);
@@ -302,10 +302,10 @@ public:
     static const Identity &null();
     /** Returns true when the identity contains no values, all null values or
     only empty values */
-    bool isNull() const;
+    Q_REQUIRED_RESULT bool isNull() const;
 
-    static QString mimeDataType();
-    static bool canDecode(const QMimeData *);
+    Q_REQUIRED_RESULT static QString mimeDataType();
+    Q_REQUIRED_RESULT static bool canDecode(const QMimeData *);
     void populateMimeData(QMimeData *) const;
     static Identity fromMimeData(const QMimeData *);
 
@@ -334,26 +334,26 @@ public:
 
 protected:
     /** during migration when it failed it can be a string => not a qlonglong akonadi::id => fix it*/
-    QString verifyAkonadiId(const QString &str) const;
+    Q_REQUIRED_RESULT QString verifyAkonadiId(const QString &str) const;
     /** @return true if the signature is read from the output of a command */
-    bool signatureIsCommand() const;
+    Q_REQUIRED_RESULT bool signatureIsCommand() const;
 
     /** @return true if the signature is read from a text file */
-    bool signatureIsPlainFile() const;
+    Q_REQUIRED_RESULT bool signatureIsPlainFile() const;
 
     /** @return true if the signature was specified directly */
-    bool signatureIsInline() const;
+    Q_REQUIRED_RESULT bool signatureIsInline() const;
 
     /** name of the signature file (with path) */
-    QString signatureFile() const;
+    Q_REQUIRED_RESULT QString signatureFile() const;
     void setSignatureFile(const QString &);
 
     /** inline signature */
-    QString signatureInlineText() const;
+    Q_REQUIRED_RESULT QString signatureInlineText() const;
     void setSignatureInlineText(const QString &);
 
     /** Inline or signature from a file */
-    bool useSignatureFile() const;
+    Q_REQUIRED_RESULT bool useSignatureFile() const;
 
     Signature mSignature;
     bool mIsDefault;
