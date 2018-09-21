@@ -115,8 +115,16 @@ void IdentityCombo::setCurrentIdentity(const Identity &identity)
 
 void IdentityCombo::setCurrentIdentity(const QString &name)
 {
-    int idx = d->mIdentityManager->identities().indexOf(name);
-    if ((idx < 0) || (idx == currentIndex())) {
+    if (name.isEmpty()) {
+        return;
+    }
+    const int idx = d->mIdentityManager->identities().indexOf(name);
+    if (idx < 0) {
+        Q_EMIT invalidIdentity();
+        return;
+    }
+
+    if (idx == currentIndex()) {
         return;
     }
 
@@ -129,8 +137,15 @@ void IdentityCombo::setCurrentIdentity(const QString &name)
 
 void IdentityCombo::setCurrentIdentity(uint uoid)
 {
-    int idx = d->mUoidList.indexOf(uoid);
-    if ((idx < 0) || (idx == currentIndex())) {
+    if (uoid == 0) {
+        return;
+    }
+    const int idx = d->mUoidList.indexOf(uoid);
+    if (idx < 0) {
+        Q_EMIT invalidIdentity();
+        return;
+    }
+    if (idx == currentIndex()) {
         return;
     }
 

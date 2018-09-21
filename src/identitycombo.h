@@ -68,6 +68,7 @@ Q_SIGNALS:
     */
     void identityChanged(uint uoid);
     void identityDeleted(uint uoid);
+    void invalidIdentity();
 
 public Q_SLOTS:
     /**
