@@ -27,6 +27,7 @@
 #include <kurlrequester.h>
 #include <kshellcompletion.h>
 #include <ktoolbar.h>
+#include <KMessageBox>
 #include <krun.h>
 #include <QUrl>
 
@@ -425,6 +426,10 @@ void SignatureConfigurator::setSignature(const Signature &sig)
 
 void SignatureConfigurator::slotUrlChanged(const QString &url)
 {
+    const QString file = filePath();
+    if (QFileInfo(file).size() > 1000) {
+        KMessageBox::information(this, i18n("This text file size exceeds 1kb."), i18n("Text File Size"));
+    }
     d->mEditButton->setDisabled(url.trimmed().isEmpty());
 }
 
