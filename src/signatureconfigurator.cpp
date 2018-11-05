@@ -238,7 +238,7 @@ void SignatureConfigurator::Private::init()
     hlay->addWidget(label);
     hlay->addWidget(mFileRequester, 1);
     mFileRequester->button()->setAutoDefault(false);
-    q->connect(mFileRequester, &KUrlRequester::textChanged, q, &SignatureConfigurator::slotEnableEditButton);
+    q->connect(mFileRequester, &KUrlRequester::textChanged, q, &SignatureConfigurator::slotUrlChanged);
     mEditButton = new QPushButton(i18n("Edit &File"), page);
     mEditButton->setWhatsThis(i18n("Opens the specified file in a text editor."));
     q->connect(mEditButton, &QPushButton::clicked, q, &SignatureConfigurator::slotEdit);
@@ -423,7 +423,7 @@ void SignatureConfigurator::setSignature(const Signature &sig)
     }
 }
 
-void SignatureConfigurator::slotEnableEditButton(const QString &url)
+void SignatureConfigurator::slotUrlChanged(const QString &url)
 {
     d->mEditButton->setDisabled(url.trimmed().isEmpty());
 }
