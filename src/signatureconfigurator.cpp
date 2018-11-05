@@ -239,7 +239,8 @@ void SignatureConfigurator::Private::init()
     hlay->addWidget(label);
     hlay->addWidget(mFileRequester, 1);
     mFileRequester->button()->setAutoDefault(false);
-    q->connect(mFileRequester, &KUrlRequester::textChanged, q, &SignatureConfigurator::slotUrlChanged);
+    q->connect(mFileRequester, &KUrlRequester::textEdited, q, &SignatureConfigurator::slotUrlChanged);
+    q->connect(mFileRequester, &KUrlRequester::urlSelected, q, &SignatureConfigurator::slotUrlChanged);
     mEditButton = new QPushButton(i18n("Edit &File"), page);
     mEditButton->setWhatsThis(i18n("Opens the specified file in a text editor."));
     q->connect(mEditButton, &QPushButton::clicked, q, &SignatureConfigurator::slotEdit);
@@ -350,6 +351,7 @@ QString SignatureConfigurator::filePath() const
 void SignatureConfigurator::setFileURL(const QString &url)
 {
     d->mFileRequester->setUrl(QUrl::fromLocalFile(url));
+    d->mEditButton->setDisabled(url.trimmed().isEmpty());
 }
 
 QString SignatureConfigurator::commandPath() const
@@ -424,13 +426,14 @@ void SignatureConfigurator::setSignature(const Signature &sig)
     }
 }
 
-void SignatureConfigurator::slotUrlChanged(const QString &url)
+void SignatureConfigurator::slotUrlChanged()
 {
     const QString file = filePath();
-    if (QFileInfo(file).size() > 1000) {
+    const QFileInfo infoFile = QFileInfo(file);
+    if (infoFile.isFile() && (infoFile.size() > 1000)) {
         KMessageBox::information(this, i18n("This text file size exceeds 1kb."), i18n("Text File Size"));
     }
-    d->mEditButton->setDisabled(url.trimmed().isEmpty());
+    d->mEditButton->setDisabled(file.isEmpty());
 }
 
 void SignatureConfigurator::slotEdit()

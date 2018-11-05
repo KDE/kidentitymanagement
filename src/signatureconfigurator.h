@@ -143,7 +143,7 @@ public:
     void setImageLocation(const Identity &identity);
 
 private:
-    void slotUrlChanged(const QString &);
+    void slotUrlChanged();
     void slotEdit();
     void slotSetHtml();
 
