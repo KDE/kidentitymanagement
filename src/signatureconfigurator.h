@@ -48,7 +48,7 @@ public:
     ~SignatureConfigurator() override;
 
     /**
-      * Enum for the different viemodes.
+      * Enum for the different viewmodes.
       */
     enum ViewMode {
         ShowCode, ShowHtml
@@ -110,7 +110,7 @@ public:
     void setCommandURL(const QString &url);
 
     /**
-       Conveniece method.
+       Convenience method.
        @return a Signature object representing the state of the widgets.
      **/
     Q_REQUIRED_RESULT Signature signature() const;

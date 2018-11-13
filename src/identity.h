@@ -19,8 +19,8 @@
     02110-1301, USA.
 */
 
-#ifndef KPIMIDENTITES_IDENTITY_H
-#define KPIMIDENTITES_IDENTITY_H
+#ifndef KPIMIDENTITIES_IDENTITY_H
+#define KPIMIDENTITIES_IDENTITY_H
 
 #include "kidentitymanagement_export.h"
 #include "signature.h"
@@ -318,7 +318,7 @@ public:
     void writeConfig(KConfigGroup &) const;
 
     /** Set whether this identity is the default identity. Since this
-        affects all other identites, too (most notably, the old default
+        affects all other identities, too (most notably, the old default
         identity), only the IdentityManager can change this.
         You should use
         <pre>
@@ -361,4 +361,4 @@ protected:
 };
 }
 
-#endif /*kpim_identity_h*/
+#endif /*identity_h*/

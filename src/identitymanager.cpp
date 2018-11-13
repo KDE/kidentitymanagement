@@ -682,7 +682,7 @@ Identity &IdentityManager::newFromExisting(const Identity &other, const QString 
     d->shadowIdentities << other;
     Identity &result = d->shadowIdentities.last();
     result.setIsDefault(false);    // we don't want two default identities!
-    result.setUoid(d->newUoid());    // we don't want two identies w/ same UOID
+    result.setUoid(d->newUoid());    // we don't want two identities w/ same UOID
     if (!name.isNull()) {
         result.setIdentityName(name);
     }

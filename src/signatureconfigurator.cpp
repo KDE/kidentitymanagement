@@ -109,7 +109,7 @@ void SignatureConfigurator::Private::init()
     QVBoxLayout *vlay = new QVBoxLayout(q);
     vlay->setObjectName(QStringLiteral("main layout"));
 
-    // "enable signatue" checkbox:
+    // "enable signature" checkbox:
     mEnableCheck = new QCheckBox(i18n("&Enable signature"), q);
     mEnableCheck->setWhatsThis(
         i18n("Check this box if you want KMail to append a signature to mails "

@@ -192,7 +192,7 @@ void IdentityTester::test_Aliases()
 {
     IdentityManager manager;
 
-    // It is picking up identities from older tests somethimes, so cleanup
+    // It is picking up identities from older tests sometimes, so cleanup
     while (manager.identities().size() > 1) {
         QVERIFY(manager.removeIdentity(manager.identities().at(0)));
         manager.commit();

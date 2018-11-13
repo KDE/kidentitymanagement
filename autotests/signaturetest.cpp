@@ -124,7 +124,7 @@ void SignatureTester::testTextEditInsertion()
     sig.setEnabledSignature(true);
     sig.setText(QStringLiteral("Hello World"));
 
-    // Test inserting signature at start, with seperators. Make sure two new
+    // Test inserting signature at start, with separators. Make sure two new
     // lines are inserted before the signature
 
     edit.setPlainText(QStringLiteral("Bla Bla"));
@@ -158,7 +158,7 @@ void SignatureTester::testTextEditInsertion()
     edit.undo();
     QCOMPARE(edit.toPlainText(), QStringLiteral("Bla Bla"));
 
-    // test inserting signature without seperator.
+    // test inserting signature without separator.
     // make sure cursor position and modified state is preserved.
     edit.clear();
     edit.setPlainText(QStringLiteral("Bla Bla"));
