@@ -319,7 +319,7 @@ QVariant Identity::property(const QString &key) const
     }
 }
 
-QString Identity::fullEmailAddr(void) const
+QString Identity::fullEmailAddr() const
 {
     const QString name = mPropertiesMap.value(QLatin1String(s_name)).toString();
     const QString mail = mPropertiesMap.value(QLatin1String(s_primaryEmail)).toString();
