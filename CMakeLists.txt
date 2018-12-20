@@ -4,9 +4,9 @@ set(PIM_VERSION "5.10.40")
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
 # ECM setup
-set(KF5_VERSION "5.53.0")
+set(KF5_MIN_VERSION "5.53.0")
 
-find_package(ECM ${KF5_VERSION} CONFIG REQUIRED)
+find_package(ECM ${KF5_MIN_VERSION} CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 include(GenerateExportHeader)
@@ -35,14 +35,14 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
 ########### Find packages ###########
 
 find_package(Qt5Network NO_MODULE REQUIRED)
-find_package(KF5CoreAddons ${KF5_VERSION} CONFIG REQUIRED)
-find_package(KF5Completion ${KF5_VERSION} CONFIG REQUIRED)
-find_package(KF5TextWidgets ${KF5_VERSION} CONFIG REQUIRED)
-find_package(KF5XmlGui ${KF5_VERSION} CONFIG REQUIRED)
-find_package(KF5KIO ${KF5_VERSION} CONFIG REQUIRED)
-find_package(KF5Config ${KF5_VERSION} CONFIG REQUIRED)
-find_package(KF5Codecs ${KF5_VERSION} CONFIG REQUIRED)
-find_package(KF5IconThemes ${KF5_VERSION} CONFIG REQUIRED)
+find_package(KF5CoreAddons ${KF5_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF5Completion ${KF5_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF5TextWidgets ${KF5_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF5XmlGui ${KF5_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF5KIO ${KF5_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF5Config ${KF5_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF5Codecs ${KF5_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF5IconThemes ${KF5_MIN_VERSION} CONFIG REQUIRED)
 
 find_package(KF5PimTextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
