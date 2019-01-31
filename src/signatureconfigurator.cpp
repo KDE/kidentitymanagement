@@ -266,8 +266,8 @@ void SignatureConfigurator::Private::init()
              "depending on whether or not the command is in your Path. For every "
              "new mail, KMail will execute the command and use what it outputs (to "
              "standard output) as a signature. Usual commands for use with this "
-             "mechanism are \"fortune\" or \"ksig -random\"."
-             "(Becareful script needs a shebang line)."));
+             "mechanism are \"fortune\" or \"ksig -random\". "
+             "(Be careful, script needs a shebang line)."));
     label = new QLabel(i18n("S&pecify command:"), page);
     label->setBuddy(mCommandEdit);
     hlay->addWidget(label);
