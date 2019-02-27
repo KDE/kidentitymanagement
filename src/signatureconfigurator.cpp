@@ -156,7 +156,7 @@ void SignatureConfigurator::Private::init()
     QWidget *page = new QWidget(widgetStack);
     widgetStack->insertWidget(pageno, page);
     QVBoxLayout *page_vlay = new QVBoxLayout(page);
-    page_vlay->setMargin(0);
+    page_vlay->setContentsMargins(0, 0, 0, 0);
 
 #ifndef QT_NO_TOOLBAR
     mEditToolBar = new KToolBar(q);
@@ -225,7 +225,7 @@ void SignatureConfigurator::Private::init()
     page = new QWidget(widgetStack);
     widgetStack->insertWidget(pageno, page);   // force sequential numbers (play safe)
     page_vlay = new QVBoxLayout(page);
-    page_vlay->setMargin(0);
+    page_vlay->setContentsMargins(0, 0, 0, 0);
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout(hlay);
     mFileRequester = new KUrlRequester(page);
@@ -254,7 +254,7 @@ void SignatureConfigurator::Private::init()
     page = new QWidget(widgetStack);
     widgetStack->insertWidget(pageno, page);
     page_vlay = new QVBoxLayout(page);
-    page_vlay->setMargin(0);
+    page_vlay->setContentsMargins(0, 0, 0, 0);
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout(hlay);
     mCommandEdit = new KLineEdit(page);
