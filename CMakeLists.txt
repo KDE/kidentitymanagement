@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-set(PIM_VERSION "5.10.80")
+set(PIM_VERSION "5.10.90")
 
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
@@ -48,7 +48,7 @@ find_package(KF5PimTextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
-
+add_definitions(-DQT_NO_FOREACH)
 ########### Targets ###########
 add_subdirectory(src)
 
