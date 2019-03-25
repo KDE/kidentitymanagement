@@ -191,19 +191,17 @@ void SignaturePrivate::cleanupImages()
 {
     // Remove any images from the internal structure that are no longer there
     if (inlinedHtml) {
-        foreach (const Signature::EmbeddedImagePtr &imageInList, embeddedImages) { //Don't use for(...:...) here.
-            bool found = false;
+        auto it = std::remove_if(embeddedImages.begin(), embeddedImages.end(),
+                                 [this](const Signature::EmbeddedImagePtr &imageInList){
             const QStringList lstImage = findImageNames(text);
             for (const QString &imageInHtml : lstImage) {
                 if (imageInHtml == imageInList->name) {
-                    found = true;
-                    break;
+                    return false;
                 }
             }
-            if (!found) {
-                embeddedImages.removeAll(imageInList);
-            }
-        }
+            return true;
+        });
+        embeddedImages.erase(it, embeddedImages.end());
     }
 
     // Delete all the old image files
