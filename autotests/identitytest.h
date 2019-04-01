@@ -20,7 +20,7 @@
 #ifndef IDENTITYTEST_H
 #define IDENTITYTEST_H
 
-#include <qobject.h>
+#include <QObject>
 
 namespace KIdentityManagement {
 class Identity;
