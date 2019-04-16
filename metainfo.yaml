@@ -11,4 +11,4 @@ libraries:
  - qmake: KIdentityManagement
    cmake: "KF5::IdentityManagement"
    cmakename: KF5IdentityManagement
-
+group: kdepim
