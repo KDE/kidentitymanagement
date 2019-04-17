@@ -12,3 +12,4 @@ libraries:
    cmake: "KF5::IdentityManagement"
    cmakename: KF5IdentityManagement
 group: kdepim
+public_lib: true
