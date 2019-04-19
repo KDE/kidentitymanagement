@@ -278,6 +278,7 @@ void IdentityManager::Private::slotIdentitiesChanged(const QString &id)
         mConfig->reparseConfiguration();
         Q_ASSERT(!q->hasPendingChanges());
         readConfig(mConfig);
+        emit q->needToReloadIdentitySettings();
         emit q->changed();
     }
 }

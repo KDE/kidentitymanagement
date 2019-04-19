@@ -209,6 +209,8 @@ Q_SIGNALS:
     /** Emitted on @ref commit() for each new identity */
     void added(const KIdentityManagement::Identity &ident);
 
+    void needToReloadIdentitySettings();
+
 protected:
     /**
      * This is called when no identity has been defined, so we need to
