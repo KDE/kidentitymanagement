@@ -23,6 +23,7 @@
 #include <kidentitymanagement_export.h>
 #include <kconfiggroup.h>
 #include <QObject>
+#include <QVector>
 
 class QStringList;
 
