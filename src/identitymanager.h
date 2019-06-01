@@ -57,8 +57,8 @@ public:
     static IdentityManager *self();
 
 public:
-    typedef QList<Identity>::Iterator Iterator;
-    typedef QList<Identity>::ConstIterator ConstIterator;
+    typedef QVector<Identity>::Iterator Iterator;
+    typedef QVector<Identity>::ConstIterator ConstIterator;
 
     /**
      * Typedef for STL style iterator

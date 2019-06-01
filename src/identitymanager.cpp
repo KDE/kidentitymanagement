@@ -73,8 +73,8 @@ public:
     void slotIdentitiesChanged(const QString &id);
     KConfig *mConfig = nullptr;
 
-    QList<Identity> mIdentities;
-    QList<Identity> shadowIdentities;
+    QVector<Identity> mIdentities;
+    QVector<Identity> shadowIdentities;
 
     // returns a new Unique Object Identifier
     int newUoid();
@@ -243,8 +243,8 @@ int IdentityManager::Private::newUoid()
     // determine the UOIDs of all saved identities
     QList<uint> usedUOIDs;
     usedUOIDs.reserve(1 + mIdentities.count() + (q->hasPendingChanges() ? shadowIdentities.count() : 0));
-    QList<Identity>::ConstIterator end(mIdentities.constEnd());
-    for (QList<Identity>::ConstIterator it = mIdentities.constBegin();
+    const QVector<Identity>::ConstIterator end(mIdentities.constEnd());
+    for (QVector<Identity>::ConstIterator it = mIdentities.constBegin();
          it != end; ++it) {
         usedUOIDs << (*it).uoid();
     }
@@ -252,8 +252,8 @@ int IdentityManager::Private::newUoid()
     if (q->hasPendingChanges()) {
         // add UOIDs of all shadow identities. Yes, we will add a lot of duplicate
         // UOIDs, but avoiding duplicate UOIDs isn't worth the effort.
-        QList<Identity>::ConstIterator endShadow(shadowIdentities.constEnd());
-        for (QList<Identity>::ConstIterator it = shadowIdentities.constBegin();
+        const QVector<Identity>::ConstIterator endShadow(shadowIdentities.constEnd());
+        for (QVector<Identity>::ConstIterator it = shadowIdentities.constBegin();
              it != endShadow; ++it) {
             usedUOIDs << (*it).uoid();
         }
@@ -329,8 +329,8 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *nam
             KConfigGroup composerGroup = kmailConf->group(QStringLiteral("Composer"));
             if (composerGroup.hasKey(QStringLiteral("pgp-auto-sign"))) {
                 const bool pgpAutoSign = composerGroup.readEntry(QStringLiteral("pgp-auto-sign"), false);
-                QList<Identity>::iterator end = d->mIdentities.end();
-                for (QList<Identity>::iterator it = d->mIdentities.begin(); it != end; ++it) {
+                const QVector<Identity>::iterator end = d->mIdentities.end();
+                for (QVector<Identity>::iterator it = d->mIdentities.begin(); it != end; ++it) {
                     it->setPgpAutoSign(pgpAutoSign);
                 }
                 composerGroup.deleteEntry(QStringLiteral("pgp-auto-sign"));
@@ -345,8 +345,8 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *nam
                 if (defaultDomain.isEmpty()) {
                     defaultDomain = QHostInfo::localHostName();
                 }
-                QList<Identity>::iterator end = d->mIdentities.end();
-                for (QList<Identity>::iterator it = d->mIdentities.begin(); it != end; ++it) {
+                const QVector<Identity>::iterator end = d->mIdentities.end();
+                for (QVector<Identity>::iterator it = d->mIdentities.begin(); it != end; ++it) {
                     it->setDefaultDomainName(defaultDomain);
                 }
                 generalGroup.deleteEntry(QStringLiteral("Default domain"));
@@ -400,15 +400,15 @@ void IdentityManager::commit()
 
     QList<uint> seenUOIDs;
     seenUOIDs.reserve(d->mIdentities.count());
-    QList<Identity>::ConstIterator end = d->mIdentities.constEnd();
-    for (QList<Identity>::ConstIterator it = d->mIdentities.constBegin();
+    const QVector<Identity>::ConstIterator end = d->mIdentities.constEnd();
+    for (QVector<Identity>::ConstIterator it = d->mIdentities.constBegin();
          it != end; ++it) {
         seenUOIDs << (*it).uoid();
     }
 
     QList<uint> changedUOIDs;
     // find added and changed identities:
-    for (QList<Identity>::ConstIterator it = d->shadowIdentities.constBegin();
+    for (QVector<Identity>::ConstIterator it = d->shadowIdentities.constBegin();
          it != d->shadowIdentities.constEnd(); ++it) {
         int index = seenUOIDs.indexOf((*it).uoid());
         if (index != -1) {
