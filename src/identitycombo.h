@@ -37,7 +37,10 @@ namespace KIdentityManagement {
 class IdentityComboPrivate;
 class IdentityManager;
 class Identity;
-
+/**
+ * @brief The IdentityCombo class
+ * @author Marc Mutz \<mutz@kde.org\>
+ */
 class KIDENTITYMANAGEMENT_EXPORT IdentityCombo : public QComboBox
 {
     Q_OBJECT
