@@ -48,7 +48,10 @@ find_package(KF5IconThemes ${KF5_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5PimTextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
+if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
+   add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)
+endif()
+
 add_definitions(-DQT_NO_FOREACH)
 
 ########### Targets ###########
