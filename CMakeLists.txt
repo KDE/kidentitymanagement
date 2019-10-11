@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-set(PIM_VERSION "5.12.2")
+set(PIM_VERSION "5.12.3")
 
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
@@ -25,7 +25,7 @@ include(ECMQtDeclareLoggingCategory)
 
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
-set(PIMTEXTEDIT_LIB_VERSION "5.12.1")
+set(PIMTEXTEDIT_LIB_VERSION "5.12.2")
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
