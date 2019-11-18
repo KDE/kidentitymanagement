@@ -314,6 +314,9 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *nam
 
     d->mReadOnly = readonly;
     d->mConfig = new KConfig(QStringLiteral("emailidentities"));
+    if (!d->mConfig->isConfigWritable(true)) {
+        qCWarning(KIDENTITYMANAGEMENT_LOG) << "impossible to write on this file";
+    }
     d->readConfig(d->mConfig);
     // we need at least a default identity:
     if (d->mIdentities.isEmpty()) {
