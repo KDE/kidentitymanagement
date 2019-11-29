@@ -27,7 +27,6 @@ PUBLIC
 PRIVATE
   KF5::Codecs
   Qt5::Network
-  KF5::Completion
   KF5::I18n
   KF5::WidgetsAddons
   KF5::XmlGui
