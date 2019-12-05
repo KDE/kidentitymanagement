@@ -31,7 +31,7 @@
 #include "identity.h"
 #include "identitymanager.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <assert.h>
 

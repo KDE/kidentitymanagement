@@ -23,16 +23,16 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include "identitymanager.h"
 #include "identity.h" // for IdentityList::{export,import}Data
 
-#include <kemailaddress.h> // for static helper functions
+#include <KEmailAddress> // for static helper functions
 
-#include <kemailsettings.h> // for IdentityEntry::fromControlCenter()
-#include <klocalizedstring.h>
+#include <KEMailSettings> // for IdentityEntry::fromControlCenter()
+#include <KLocalizedString>
 #include "kidentitymanagement_debug.h"
-#include <kconfig.h>
-#include <ksharedconfig.h>
+#include <KConfig>
+#include <KSharedConfig>
 #include <kuser.h>
-#include <kconfiggroup.h>
-#include <kdelibs4configmigrator.h>
+#include <KConfigGroup>
+#include <Kdelibs4ConfigMigrator>
 
 #include <QList>
 #include <QHostInfo>
@@ -40,7 +40,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include <QRegularExpression>
 #include <assert.h>
-#include <krandom.h>
+#include <KRandom>
 
 #include "identitymanageradaptor.h"
 

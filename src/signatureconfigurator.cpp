@@ -20,15 +20,15 @@
 #include "signatureconfigurator.h"
 #include "identity.h"
 
-#include <kactioncollection.h>
-#include <klocalizedstring.h>
+#include <KActionCollection>
+#include <KLocalizedString>
 #include "kidentitymanagement_debug.h"
-#include <klineedit.h>
-#include <kurlrequester.h>
-#include <kshellcompletion.h>
-#include <ktoolbar.h>
+#include <KLineEdit>
+#include <KUrlRequester>
+#include <KShellCompletion>
+#include <KToolBar>
 #include <KMessageBox>
-#include <krun.h>
+#include <KRun>
 #include <QUrl>
 
 #include <KPIMTextEdit/RichTextComposer>

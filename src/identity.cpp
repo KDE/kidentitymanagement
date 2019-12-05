@@ -22,8 +22,8 @@
 #include "signature.h"
 
 #include "kidentitymanagement_debug.h"
-#include <kconfiggroup.h>
-#include <kemailaddress.h>
+#include <KConfigGroup>
+#include <KEmailAddress>
 
 #include <QMimeData>
 #include <QByteArray>

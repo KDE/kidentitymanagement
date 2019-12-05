@@ -21,7 +21,7 @@
 #define KIDENTITYMANAGER_IDENTITYMANAGER_H
 
 #include <kidentitymanagement_export.h>
-#include <kconfiggroup.h>
+#include <KConfigGroup>
 #include <QObject>
 #include <QVector>
 

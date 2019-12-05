@@ -22,10 +22,10 @@
 #include "signature.h"
 
 #include "kidentitymanagement_debug.h"
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kconfiggroup.h>
-#include <kprocess.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KConfigGroup>
+#include <KProcess>
 
 #include <QSharedPointer>
 #include <QImage>
