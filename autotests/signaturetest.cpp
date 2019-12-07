@@ -90,14 +90,16 @@ void SignatureTester::testSignatures()
     thisFile.open(QIODevice::ReadOnly);
     QString fileContent = QString::fromUtf8(thisFile.readAll());
 
-    Signature sig3;
-    sig3.setPath(QStringLiteral("cat ") + KShell::quoteArg(QStringLiteral(__FILE__)), true);
-    QCOMPARE(sig3.rawText(), fileContent);
-    QVERIFY(!sig3.isInlinedHtml());
-    QVERIFY(sig3.text().isEmpty());
-    QCOMPARE(sig3.type(), Signature::FromCommand);
-    QCOMPARE(sig3.withSeparator(), QString(QStringLiteral("-- \n") + fileContent));
-    QVERIFY(!sig3.isEnabledSignature());
+    if (!QStandardPaths::findExecutable(QStringLiteral("cat")).isEmpty()) {
+        Signature sig3;
+        sig3.setPath(QStringLiteral("cat ") + KShell::quoteArg(QStringLiteral(__FILE__)), true);
+        QCOMPARE(sig3.rawText(), fileContent);
+        QVERIFY(!sig3.isInlinedHtml());
+        QVERIFY(sig3.text().isEmpty());
+        QCOMPARE(sig3.type(), Signature::FromCommand);
+        QCOMPARE(sig3.withSeparator(), QString(QStringLiteral("-- \n") + fileContent));
+        QVERIFY(!sig3.isEnabledSignature());
+    }
 
     Signature sig4;
     sig4.setPath(QStringLiteral(__FILE__), false);
