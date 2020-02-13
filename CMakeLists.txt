@@ -88,6 +88,8 @@ install(FILES
    COMPONENT Devel
 )
 
-install(FILES kidentitymanagement.categories kidentitymanagement.renamecategories  DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
+if (ECM_VERSION VERSION_LESS "5.68.0")
+    install(FILES kidentitymanagement.categories kidentitymanagement.renamecategories  DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
+endif()
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
