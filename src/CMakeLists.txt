@@ -8,14 +8,10 @@ set(kidentitymanagement_SRCS
 )
 
 
-if (ECM_VERSION VERSION_LESS "5.68.0")
-    ecm_qt_declare_logging_category(kidentitymanagement_SRCS HEADER kidentitymanagement_debug.h IDENTIFIER KIDENTITYMANAGEMENT_LOG CATEGORY_NAME org.kde.pim.kidentitymanagement)
-else()
-    ecm_qt_declare_logging_category(kidentitymanagement_SRCS HEADER kidentitymanagement_debug.h
+ecm_qt_declare_logging_category(kidentitymanagement_SRCS HEADER kidentitymanagement_debug.h
         IDENTIFIER KIDENTITYMANAGEMENT_LOG CATEGORY_NAME org.kde.pim.kidentitymanagement
         OLD_CATEGORY_NAMES log_kidentitymanagement
         DESCRIPTION "kidentitymanagement (pim lib)" EXPORT KIDENTITYMANAGEMENT)
-endif()
 
 
 qt5_add_dbus_adaptor(kidentitymanagement_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
@@ -83,6 +79,4 @@ install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${KDE_INSTALL_DBUSINTE
 ecm_generate_pri_file(BASE_NAME KIdentityManagement LIB_NAME KF5IdentityManagement DEPS "CoreAddons PimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
-if (NOT ECM_VERSION VERSION_LESS "5.68.0")
-   ecm_qt_install_logging_categories(EXPORT KIDENTITYMANAGEMENT FILE kidentitymanagement.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
-endif()
+ecm_qt_install_logging_categories(EXPORT KIDENTITYMANAGEMENT FILE kidentitymanagement.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
