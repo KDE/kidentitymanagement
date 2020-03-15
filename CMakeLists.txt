@@ -25,7 +25,7 @@ include(ECMQtDeclareLoggingCategory)
 
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
-set(PIMTEXTEDIT_LIB_VERSION "5.13.40")
+set(PIMTEXTEDIT_LIB_VERSION "5.13.80")
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
@@ -49,7 +49,7 @@ add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
 if (EXISTS "${CMAKE_SOURCE_DIR}/.git")
    add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00)
-   add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x058000)
+   add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054400)
 endif()
 
 add_definitions(-DQT_NO_FOREACH)
