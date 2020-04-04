@@ -150,8 +150,8 @@ void IdentityManager::Private::readConfig(KConfig *config)
             mIdentities << Identity();
         }
 
-        qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: There was no default identity."
-                                           << "Marking first one as default.";
+        qCDebug(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: There was no default identity."
+                                         << "Marking first one as default.";
         mIdentities.first().setIsDefault(true);
     }
     std::sort(mIdentities.begin(), mIdentities.end());
