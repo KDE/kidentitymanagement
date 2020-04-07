@@ -48,7 +48,7 @@
 #include <assert.h>
 #include <QStandardPaths>
 
-#include <KPIMTextEdit/RichTextEditorWidget>
+#include <kpimtextedit/richtexteditorwidget.h>
 
 using namespace KIdentityManagement;
 
@@ -344,7 +344,7 @@ QString SignatureConfigurator::filePath() const
     // Force the filename to be relative to ~ instead of $PWD depending
     // on the rest of the code (KRun::run in Edit and KFileItem on save)
     if (!file.isEmpty() && QFileInfo(file).isRelative()) {
-        file = QDir::home().absolutePath() + QDir::separator() + file;
+        file = QDir::home().absolutePath() + QLatin1Char('/') + file;
     }
     return file;
 }

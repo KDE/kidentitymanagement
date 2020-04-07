@@ -33,9 +33,9 @@
 #include <KActionCollection>
 #include <KShell>
 
-#include <KPIMTextEdit/RichTextComposer>
-#include <KPIMTextEdit/RichTextComposerControler>
-#include <KPIMTextEdit/RichTextComposerImages>
+#include <kpimtextedit/richtextcomposer.h>
+#include <kpimtextedit/richtextcomposercontroler.h>
+#include <kpimtextedit/richtextcomposerimages.h>
 using namespace KIdentityManagement;
 using namespace KPIMTextEdit;
 
