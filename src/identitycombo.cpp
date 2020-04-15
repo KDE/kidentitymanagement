@@ -178,7 +178,7 @@ void IdentityCombo::slotIdentityManagerChanged()
 
 void IdentityCombo::slotEmitChanged(int idx)
 {
-    emit identityChanged(d->mUoidList.at(idx));
+    Q_EMIT identityChanged(d->mUoidList.at(idx));
 }
 
 void IdentityCombo::slotUpdateTooltip(uint uoid)

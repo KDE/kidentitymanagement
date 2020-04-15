@@ -278,8 +278,8 @@ void IdentityManager::Private::slotIdentitiesChanged(const QString &id)
         mConfig->reparseConfiguration();
         Q_ASSERT(!q->hasPendingChanges());
         readConfig(mConfig);
-        emit q->needToReloadIdentitySettings();
-        emit q->changed();
+        Q_EMIT q->needToReloadIdentitySettings();
+        Q_EMIT q->changed();
     }
 }
 
@@ -420,14 +420,14 @@ void IdentityManager::commit()
             if (*it != orig) {
                 // changed identity
                 qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting changed() for identity" << uoid;
-                emit changed(*it);
+                Q_EMIT changed(*it);
                 changedUOIDs << uoid;
             }
             seenUOIDs.removeAll(uoid);
         } else {
             // new identity
             qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting added() for identity" << (*it).uoid();
-            emit added(*it);
+            Q_EMIT added(*it);
         }
     }
 
@@ -435,27 +435,27 @@ void IdentityManager::commit()
     for (QList<uint>::ConstIterator it = seenUOIDs.constBegin();
          it != seenUOIDs.constEnd(); ++it) {
         qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting deleted() for identity" << (*it);
-        emit deleted(*it);
+        Q_EMIT deleted(*it);
     }
 
     d->mIdentities = d->shadowIdentities;
     d->writeConfig();
 
-    // now that mIdentities has all the new info, we can emit the added/changed
+    // now that mIdentities has all the new info, we can Q_EMIT the added/changed
     // signals that ship a uoid. This is because the slots might use
     // identityForUoid(uoid)...
     QList<uint>::ConstIterator changedEnd(changedUOIDs.constEnd());
     for (QList<uint>::ConstIterator it = changedUOIDs.constBegin();
          it != changedEnd; ++it) {
-        emit changed(*it);
+        Q_EMIT changed(*it);
     }
 
-    emit changed(); // normal signal
+    Q_EMIT changed(); // normal signal
 
     // DBus signal for other IdentityManager instances
     const QString ourIdentifier = QStringLiteral("%1/%2").
                                   arg(QDBusConnection::sessionBus().baseService(), property("uniqueDBusPath").toString());
-    emit identitiesChanged(ourIdentifier);
+    Q_EMIT identitiesChanged(ourIdentifier);
 }
 
 void IdentityManager::rollback()
