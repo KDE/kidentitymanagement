@@ -28,7 +28,13 @@
 #include <KShellCompletion>
 #include <KToolBar>
 #include <KMessageBox>
+#include <kio_version.h>
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 71, 0)
+#include <KIO/JobUiDelegate>
+#include <KIO/OpenUrlJob>
+#else
 #include <KRun>
+#endif
 #include <QUrl>
 
 #include <KPIMTextEdit/RichTextComposer>
@@ -439,13 +445,20 @@ void SignatureConfigurator::slotUrlChanged()
 
 void SignatureConfigurator::slotEdit()
 {
-    QString url = filePath();
+    const QString url = filePath();
     // slotEnableEditButton should prevent this assert from being hit:
     assert(!url.isEmpty());
 
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 71, 0)
+    KIO::OpenUrlJob *job = new KIO::OpenUrlJob(QUrl::fromLocalFile(url), QStringLiteral("text/plain"));
+    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+    job->setDeleteTemporaryFile(true);
+    job->start();
+#else
     KRun::RunFlags flags;
     flags |= KRun::DeleteTemporaryFiles;
     KRun::runUrl(QUrl::fromLocalFile(url), QStringLiteral("text/plain"), this, flags);
+#endif
 }
 
 // "use HTML"-checkbox (un)checked
