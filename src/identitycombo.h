@@ -49,7 +49,7 @@ public:
 
     ~IdentityCombo();
     Q_REQUIRED_RESULT QString currentIdentityName() const;
-    uint currentIdentity() const;
+    Q_REQUIRED_RESULT uint currentIdentity() const;
     void setCurrentIdentity(const QString &identityName);
     void setCurrentIdentity(const Identity &identity);
     void setCurrentIdentity(uint uoid);
