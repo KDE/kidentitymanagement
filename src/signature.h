@@ -242,8 +242,8 @@ public:
     //                  with the deprecated method
     void insertIntoTextEdit(Placement placement, AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay = false) const;
 
-    Q_REQUIRED_RESULT QList<Signature::EmbeddedImagePtr> embeddedImages() const;
-    void setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embedded);
+    Q_REQUIRED_RESULT QVector<Signature::EmbeddedImagePtr> embeddedImages() const;
+    void setEmbeddedImages(const QVector<EmbeddedImagePtr> &embedded);
 
 protected:
 

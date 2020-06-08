@@ -42,29 +42,26 @@ class Q_DECL_HIDDEN KIdentityManagement::SignaturePrivate
 {
 public:
     SignaturePrivate(Signature *qq)
-        : type(Signature::Disabled)
-        , enabled(false)
-        , inlinedHtml(false)
-        , q(qq)
+        : q(qq)
     {
     }
 
     void assignFrom(const KIdentityManagement::Signature &that);
     void cleanupImages();
     void saveImages() const;
-    QString textFromFile(bool *ok) const;
-    QString textFromCommand(bool *ok) const;
+    Q_REQUIRED_RESULT QString textFromFile(bool *ok) const;
+    Q_REQUIRED_RESULT QString textFromCommand(bool *ok) const;
     void insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const;
 
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().
-    QList<Signature::EmbeddedImagePtr> embeddedImages;
+    QVector<Signature::EmbeddedImagePtr> embeddedImages;
 
     /// The directory where the images will be saved to.
     QString saveLocation;
     QString path;
     QString text;
-    Signature::Type type;
+    Signature::Type type = Signature::Disabled;
     bool enabled = false;
     bool inlinedHtml = false;
     Signature *q = nullptr;
@@ -516,12 +513,12 @@ void Signature::insertIntoTextEdit(Placement placement, AddedText addedText, KPI
     d->insertSignatureText(placement, addedText, textEdit, forceDisplay);
 }
 
-QList<Signature::EmbeddedImagePtr> Signature::embeddedImages() const
+QVector<Signature::EmbeddedImagePtr> Signature::embeddedImages() const
 {
     return d->embeddedImages;
 }
 
-void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embedded)
+void Signature::setEmbeddedImages(const QVector<Signature::EmbeddedImagePtr> &embedded)
 {
     d->embeddedImages = embedded;
 }
@@ -542,7 +539,7 @@ QDataStream &KIdentityManagement::operator>>
     QString path;
     QString text;
     QString saveLocation;
-    QList<Signature::EmbeddedImagePtr> lst;
+    QVector<Signature::EmbeddedImagePtr> lst;
     bool enabled;
     stream >> s  >> path >> text >> saveLocation >> lst >> enabled;
     sig.setText(text);
