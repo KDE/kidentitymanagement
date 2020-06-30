@@ -263,7 +263,7 @@ int IdentityManager::Private::newUoid()
     // default identity
 
     do {
-        uoid =  QRandomGenerator::global()->generate();
+        uoid = QRandomGenerator::global()->generate();
     } while (usedUOIDs.indexOf(uoid) != -1);
 
     return uoid;
