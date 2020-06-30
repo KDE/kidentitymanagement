@@ -37,10 +37,10 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <QList>
 #include <QHostInfo>
 #include <QDBusConnection>
+#include <QRandomGenerator>
 
 #include <QRegularExpression>
 #include <assert.h>
-#include <KRandom>
 
 #include "identitymanageradaptor.h"
 
@@ -263,7 +263,7 @@ int IdentityManager::Private::newUoid()
     // default identity
 
     do {
-        uoid = KRandom::random();
+        uoid =  QRandomGenerator::global()->generate();
     } while (usedUOIDs.indexOf(uoid) != -1);
 
     return uoid;
