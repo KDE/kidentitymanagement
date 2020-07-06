@@ -80,7 +80,7 @@ public:
     Q_REQUIRED_RESULT int newUoid();
 
     bool mReadOnly = true;
-    KIdentityManagement::IdentityManager *q;
+    KIdentityManagement::IdentityManager *const q;
 };
 
 IdentityManager::Private::Private(KIdentityManagement::IdentityManager *manager)
@@ -413,7 +413,7 @@ void IdentityManager::commit()
     // find added and changed identities:
     for (QVector<Identity>::ConstIterator it = d->shadowIdentities.constBegin();
          it != d->shadowIdentities.constEnd(); ++it) {
-        int index = seenUOIDs.indexOf((*it).uoid());
+        const int index = seenUOIDs.indexOf((*it).uoid());
         if (index != -1) {
             uint uoid = seenUOIDs.at(index);
             const Identity &orig = identityForUoid(uoid);    // look up in mIdentities

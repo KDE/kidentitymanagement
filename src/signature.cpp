@@ -64,7 +64,7 @@ public:
     Signature::Type type = Signature::Disabled;
     bool enabled = false;
     bool inlinedHtml = false;
-    Signature *q = nullptr;
+    Signature * const q = nullptr;
 };
 
 static bool isCursorAtEndOfLine(const QTextCursor &cursor)
@@ -218,7 +218,7 @@ void SignaturePrivate::saveImages() const
 {
     if (inlinedHtml && !saveLocation.isEmpty()) {
         for (const Signature::EmbeddedImagePtr &image : qAsConst(embeddedImages)) {
-            QString location = saveLocation + QLatin1Char('/') + image->name;
+            const QString location = saveLocation + QLatin1Char('/') + image->name;
             if (!image->image.save(location, "PNG")) {
                 qCWarning(KIDENTITYMANAGEMENT_LOG) << "Failed to save image" << location;
             }
@@ -281,7 +281,7 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
     }
 
     // get output:
-    QByteArray output = proc.readAllStandardOutput();
+    const QByteArray output = proc.readAllStandardOutput();
 
     // TODO: hmm, should we allow other encodings, too?
     return QString::fromLocal8Bit(output.data(), output.size());

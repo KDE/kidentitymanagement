@@ -67,23 +67,24 @@ bool Identity::isNull() const
     bool empty = true;
     QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
     while (i != mPropertiesMap.constEnd()) {
+        const QString &key = i.key();
         // Take into account that the defaultDomainName for a null identity is not empty
-        if (i.key() == QLatin1String(s_defaultDomainName)) {
+        if (key == QLatin1String(s_defaultDomainName)) {
             ++i;
             continue;
         }
         // Take into account that the dictionary for a null identity is not empty
-        if (i.key() == QLatin1String(s_dict)) {
+        if (key == QLatin1String(s_dict)) {
             ++i;
             continue;
         }
         // Take into account that disableFcc == false for a null identity
-        if (i.key() == QLatin1String(s_disabledFcc) && i.value().toBool() == false) {
+        if (key == QLatin1String(s_disabledFcc) && i.value().toBool() == false) {
             ++i;
             continue;
         }
         // The uoid is 0 by default, so ignore this
-        if (!(i.key() == QLatin1String(s_uoid) && i.value().toUInt() == 0)) {
+        if (!(key == QLatin1String(s_uoid) && i.value().toUInt() == 0)) {
             if (!i.value().isNull()
                 || (i.value().type() == QVariant::String && !i.value().toString().isEmpty())) {
                 empty = false;
@@ -101,11 +102,12 @@ void Identity::readConfig(const KConfigGroup &config)
     QMap<QString, QString>::const_iterator i = entries.constBegin();
     QMap<QString, QString>::const_iterator end = entries.constEnd();
     while (i != end) {
-        if (i.key() == QLatin1String(s_emailAliases)) {
+        const QString &key = i.key();
+        if (key == QLatin1String(s_emailAliases)) {
             // HACK: Read s_emailAliases as a stringlist
-            mPropertiesMap.insert(i.key(), config.readEntry(i.key(), QStringList()));
+            mPropertiesMap.insert(key, config.readEntry(key, QStringList()));
         } else {
-            mPropertiesMap.insert(i.key(), config.readEntry(i.key()));
+            mPropertiesMap.insert(key, config.readEntry(key));
         }
         ++i;
     }
