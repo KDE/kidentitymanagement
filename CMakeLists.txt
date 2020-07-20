@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-set(PIM_VERSION "5.14.80")
+set(PIM_VERSION "5.14.90")
 
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
