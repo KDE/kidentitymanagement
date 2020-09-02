@@ -343,7 +343,7 @@ protected:
     Q_REQUIRED_RESULT bool useSignatureFile() const;
 
     Signature mSignature;
-    bool mIsDefault;
+    bool mIsDefault = false;
     QHash<QString, QVariant> mPropertiesMap;
 };
 }

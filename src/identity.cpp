@@ -24,7 +24,6 @@ static Identity *identityNull = nullptr;
 Q_DECLARE_METATYPE(KIdentityManagement::Signature)
 
 Identity::Identity(const QString &id, const QString &fullName, const QString &emailAddr, const QString &organization, const QString &replyToAddr)
-    : mIsDefault(false)
 {
     qRegisterMetaType<Signature>();
     qRegisterMetaTypeStreamOperators<Signature>();

@@ -42,8 +42,8 @@ public:
     void reloadUoidList();
 
     QList<uint> mUoidList;
-    IdentityManager *const mIdentityManager = nullptr;
-    IdentityCombo *const q = nullptr;
+    IdentityManager *const mIdentityManager;
+    IdentityCombo *const q;
 };
 
 void KIdentityManagement::IdentityComboPrivate::reloadCombo()
