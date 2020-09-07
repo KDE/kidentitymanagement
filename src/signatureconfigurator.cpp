@@ -55,7 +55,7 @@ public:
     void init();
     // Returns the current text of the textedit as HTML code, but strips
     // unnecessary tags Qt inserts
-    QString asCleanedHTML() const;
+    Q_REQUIRED_RESULT QString asCleanedHTML() const;
 
     QString imageLocation;
     SignatureConfigurator *q;
