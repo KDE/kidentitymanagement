@@ -18,7 +18,6 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <KConfig>
 #include <KSharedConfig>
 #include <kuser.h>
-#include <KConfigGroup>
 #include <Kdelibs4ConfigMigrator>
 
 #include <QList>

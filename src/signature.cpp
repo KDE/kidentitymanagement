@@ -15,7 +15,6 @@
 #include <KProcess>
 
 #include <QSharedPointer>
-#include <QImage>
 
 #include <assert.h>
 #include <QDir>

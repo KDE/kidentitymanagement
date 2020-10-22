@@ -6,7 +6,6 @@
 */
 
 #include "identity.h"
-#include "signature.h"
 
 #include "kidentitymanagement_debug.h"
 #include <KConfigGroup>
