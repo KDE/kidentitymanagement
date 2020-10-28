@@ -16,8 +16,8 @@ class IdendentitiesCache : public QObject
     Q_OBJECT
 public:
     explicit IdendentitiesCache(QObject *parent = nullptr)
-        : QObject(parent),
-          mIdentityManager(/*ro=*/ true)
+        : QObject(parent)
+        , mIdentityManager(/*ro=*/ true)
     {
         connect(&mIdentityManager, QOverload<>::of(&IdentityManager::changed), this, &IdendentitiesCache::slotIdentitiesChanged);
         slotIdentitiesChanged();

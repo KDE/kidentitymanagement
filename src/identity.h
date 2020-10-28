@@ -75,8 +75,7 @@ public:
     typedef QVector<Identity> List;
 
     /** Constructor */
-    explicit Identity(const QString &id = QString(), const QString &realName = QString(), const QString &emailAddr = QString(),
-                      const QString &organization = QString(), const QString &replyToAddress = QString());
+    explicit Identity(const QString &id = QString(), const QString &realName = QString(), const QString &emailAddr = QString(), const QString &organization = QString(), const QString &replyToAddress = QString());
 
     /** used for comparison */
     bool operator==(const Identity &other) const;

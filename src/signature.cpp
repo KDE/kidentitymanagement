@@ -50,7 +50,7 @@ public:
     Signature::Type type = Signature::Disabled;
     bool enabled = false;
     bool inlinedHtml = false;
-    Signature * const q;
+    Signature *const q;
 };
 
 static bool isCursorAtEndOfLine(const QTextCursor &cursor)
