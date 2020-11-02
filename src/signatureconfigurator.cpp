@@ -96,7 +96,7 @@ QString SignatureConfigurator::Private::asCleanedHTML() const
 
 void SignatureConfigurator::Private::init()
 {
-    QVBoxLayout *vlay = new QVBoxLayout(q);
+    auto *vlay = new QVBoxLayout(q);
     vlay->setObjectName(QStringLiteral("main layout"));
 
     // "enable signature" checkbox:
@@ -107,7 +107,7 @@ void SignatureConfigurator::Private::init()
     vlay->addWidget(mEnableCheck);
 
     // "obtain signature text from" combo and label:
-    QHBoxLayout *hlay = new QHBoxLayout(); // inherits spacing
+    auto *hlay = new QHBoxLayout(); // inherits spacing
     vlay->addLayout(hlay);
     mSourceCombo = new QComboBox(q);
     mSourceCombo->setEditable(false);
@@ -128,7 +128,7 @@ void SignatureConfigurator::Private::init()
     hlay->addWidget(mSourceCombo, 1);
 
     // widget stack that is controlled by the source combo:
-    QStackedWidget *widgetStack = new QStackedWidget(q);
+    auto *widgetStack = new QStackedWidget(q);
     widgetStack->setEnabled(false);   // since !mEnableCheck->isChecked()
     vlay->addWidget(widgetStack, 1);
     q->connect(mSourceCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
@@ -145,7 +145,7 @@ void SignatureConfigurator::Private::init()
     // page 0: input field for direct entering:
     QWidget *page = new QWidget(widgetStack);
     widgetStack->insertWidget(pageno, page);
-    QVBoxLayout *page_vlay = new QVBoxLayout(page);
+    auto *page_vlay = new QVBoxLayout(page);
     page_vlay->setContentsMargins(0, 0, 0, 0);
 
 #ifndef QT_NO_TOOLBAR
@@ -160,7 +160,7 @@ void SignatureConfigurator::Private::init()
 
     mTextEdit = new KPIMTextEdit::RichTextComposer(q);
 
-    KPIMTextEdit::RichTextEditorWidget *richTextEditorwidget = new KPIMTextEdit::RichTextEditorWidget(mTextEdit, q);
+    auto *richTextEditorwidget = new KPIMTextEdit::RichTextEditorWidget(mTextEdit, q);
     page_vlay->addWidget(richTextEditorwidget, 2);
     mTextEdit->setWhatsThis(i18n("Use this field to enter an arbitrary static signature."));
 
