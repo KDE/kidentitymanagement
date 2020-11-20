@@ -754,7 +754,7 @@ QString Identity::verifyAkonadiId(const QString &str) const
     }
     bool ok = false;
     const qlonglong val = str.toLongLong(&ok);
-    Q_UNUSED(val);
+    Q_UNUSED(val)
     if (ok) {
         return str;
     } else {
