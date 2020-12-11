@@ -12,7 +12,7 @@
 #include <QObject>
 #include <QVector>
 
-class QStringList;
+#include <QStringList>
 
 namespace KIdentityManagement {
 class Identity;
