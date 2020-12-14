@@ -47,6 +47,17 @@ find_package(KF5IconThemes ${KF5_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5PimTextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
+option(USE_UNIFY_CMAKE_SUPPORT "Use UNIFY cmake support (speedup compile time)" FALSE)
+
+set(COMPILE_WITH_CMAKE_SUPPORT false)
+if (USE_UNIFY_CMAKE_SUPPORT)
+    if(${CMAKE_VERSION} VERSION_LESS "3.16.0")
+        message(STATUS "CMAKE version is less than 3.16.0 . We can't use cmake unify build support")
+    else()
+        set(COMPILE_WITH_CMAKE_SUPPORT true)
+    endif()
+endif()
+
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f00)
 add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054E00)
 
