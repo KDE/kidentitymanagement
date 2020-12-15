@@ -42,7 +42,6 @@ find_package(KF5XmlGui ${KF5_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5KIO ${KF5_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5Config ${KF5_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5Codecs ${KF5_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF5IconThemes ${KF5_MIN_VERSION} CONFIG REQUIRED)
 
 find_package(KF5PimTextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
