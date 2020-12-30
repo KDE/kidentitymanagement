@@ -65,12 +65,6 @@ public:
     void setSignatureType(Signature::Type type);
 
     /**
-      * Returns the inline text, only useful
-      * when this is the appropriate Signature::Type
-      */
-    Q_REQUIRED_RESULT QString inlineText() const;
-
-    /**
       * Make @p text the text for the signature.
       */
     void setInlineText(const QString &text);
