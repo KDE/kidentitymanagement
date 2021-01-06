@@ -56,6 +56,7 @@ static const char s_disabledFcc[] = "Disable Fcc";
 static const char s_pgpautosign[] = "Pgp Auto Sign";
 static const char s_pgpautoencrypt[] = "Pgp Auto Encrypt";
 static const char s_defaultDomainName[] = "Default Domain";
+static const char s_autocryptEnabled[] = "Autocrypt";
 
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Identity &ident);
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Identity &ident);
@@ -215,6 +216,12 @@ public:
      */
     Q_REQUIRED_RESULT bool pgpAutoEncrypt() const;
     void setPgpAutoEncrypt(bool);
+
+    /**
+     * @since 5.17
+     */
+    Q_REQUIRED_RESULT bool autocryptEnabled() const;
+    void setAutocryptEnabled(const bool);
 
     /**
      * @since 4.14

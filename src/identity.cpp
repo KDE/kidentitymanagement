@@ -184,6 +184,7 @@ QDataStream &KIdentityManagement::operator<<
                   << i.mPropertiesMap[QLatin1String(s_disabledFcc)]
                   << i.mPropertiesMap[QLatin1String(s_pgpautosign)]
                   << i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
+                  << i.mPropertiesMap[QLatin1String(s_autocryptEnabled)]
                   << i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
 }
 
@@ -220,6 +221,7 @@ QDataStream &KIdentityManagement::operator>>
     >> i.mPropertiesMap[QLatin1String(s_disabledFcc)]
     >> i.mPropertiesMap[QLatin1String(s_pgpautosign)]
     >> i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
+    >> i.mPropertiesMap[QLatin1String(s_autocryptEnabled)]
     >> i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
 
     i.setProperty(QLatin1String(s_uoid), uoid);
@@ -735,6 +737,21 @@ bool Identity::pgpAutoEncrypt() const
 void Identity::setPgpAutoEncrypt(bool autoEncrypt)
 {
     setProperty(QLatin1String(s_pgpautoencrypt), autoEncrypt);
+}
+
+bool KIdentityManagement::Identity::autocryptEnabled() const
+{
+    const auto var = property(QLatin1String(s_autocryptEnabled));
+    if (var.isNull()) {
+        return false;
+    } else {
+        return var.toBool();
+    }
+}
+
+void Identity::setAutocryptEnabled(const bool on)
+{
+    setProperty(QLatin1String(s_autocryptEnabled), on);
 }
 
 QString Identity::defaultDomainName() const

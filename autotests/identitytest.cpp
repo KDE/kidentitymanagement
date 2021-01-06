@@ -121,6 +121,9 @@ void IdentityTester::test_Identity()
     QCOMPARE(identity.pgpAutoSign(), true);
     identity.setPgpAutoEncrypt(true);
     QCOMPARE(identity.pgpAutoEncrypt(), true);
+    QCOMPARE(identity.autocryptEnabled(), false);
+    identity.setAutocryptEnabled(true);
+    QCOMPARE(identity.autocryptEnabled(), true);
     identity.setDefaultDomainName(QStringLiteral("kde.org"));
     QCOMPARE(identity.defaultDomainName(), QStringLiteral("kde.org"));
     Signature sig;
