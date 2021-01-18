@@ -554,11 +554,7 @@ Identity &IdentityManager::modifyIdentityForName(const QString &name)
 
     qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager::modifyIdentityForName() used as"
                                        << "newFromScratch() replacement!"
-                                      #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
-        << endl
-                                      #else
         << Qt::endl
-                                      #endif
         << "  name == \"" << name << "\"";
     return newFromScratch(name);
 }
@@ -573,11 +569,7 @@ Identity &IdentityManager::modifyIdentityForUoid(uint uoid)
 
     qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager::identityForUoid() used as"
                                        << "newFromScratch() replacement!"
-                                      #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
-        << endl
-                                      #else
         << Qt::endl
-                                      #endif
         << "  uoid == \"" << uoid << "\"";
     return newFromScratch(i18n("Unnamed"));
 }
