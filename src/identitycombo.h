@@ -20,7 +20,8 @@
 #include "kidentitymanagement_export.h"
 #include <QComboBox>
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 class IdentityComboPrivate;
 class IdentityManager;
 class Identity;

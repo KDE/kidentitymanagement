@@ -16,80 +16,79 @@
 
 using KIdentityManagement::Signature;
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 /**
-  * This widget gives an interface so users can edit their signature.
-  * You can set a signature via setSignature(), let the user edit the
-  * signature and when done, read the signature back.
-  */
+ * This widget gives an interface so users can edit their signature.
+ * You can set a signature via setSignature(), let the user edit the
+ * signature and when done, read the signature back.
+ */
 class KIDENTITYMANAGEMENT_EXPORT SignatureConfigurator : public QWidget
 {
     Q_OBJECT
 public:
     /**
-      * Constructor
-      */
+     * Constructor
+     */
     explicit SignatureConfigurator(QWidget *parent = nullptr);
 
     /**
-      * destructor
-      */
+     * destructor
+     */
     ~SignatureConfigurator() override;
 
     /**
-      * Enum for the different viewmodes.
-      */
-    enum ViewMode {
-        ShowCode, ShowHtml
-    };
+     * Enum for the different viewmodes.
+     */
+    enum ViewMode { ShowCode, ShowHtml };
 
     /**
-      * Indicated if the user wants a signature
-      */
+     * Indicated if the user wants a signature
+     */
     Q_REQUIRED_RESULT bool isSignatureEnabled() const;
 
     /**
-      * Use this to activate the signature.
-      */
+     * Use this to activate the signature.
+     */
     void setSignatureEnabled(bool enable);
 
     /**
-      * This returns the type of the signature,
-      * so that can be Disabled, Inline, fromFile, etc.
-      */
+     * This returns the type of the signature,
+     * so that can be Disabled, Inline, fromFile, etc.
+     */
     Q_REQUIRED_RESULT Signature::Type signatureType() const;
 
     /**
-      * Set the signature type to @p type.
-      */
+     * Set the signature type to @p type.
+     */
     void setSignatureType(Signature::Type type);
 
     /**
-      * Make @p text the text for the signature.
-      */
+     * Make @p text the text for the signature.
+     */
     void setInlineText(const QString &text);
 
     /**
-      * Returns the file url which the user wants
-      * to use as a signature.
-      */
+     * Returns the file url which the user wants
+     * to use as a signature.
+     */
     Q_REQUIRED_RESULT QString filePath() const;
 
     /**
-      * Set @p url for the file url part of the
-      * widget.
-      */
+     * Set @p url for the file url part of the
+     * widget.
+     */
     void setFileURL(const QString &url);
 
     /**
-      * Returns the url of the command which the
-      * users wants to use as signature.
-      */
+     * Returns the url of the command which the
+     * users wants to use as signature.
+     */
     Q_REQUIRED_RESULT QString commandPath() const;
 
     /**
-      * Sets @p url as the command to execute.
-      */
+     * Sets @p url as the command to execute.
+     */
     void setCommandURL(const QString &url);
 
     /**

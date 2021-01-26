@@ -12,22 +12,25 @@
 
 #include "kidentitymanagement_export.h"
 
-#include <QString>
-#include <QList>
 #include <QHash>
 #include <QImage>
+#include <QList>
+#include <QString>
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 class Signature;
 class Identity;
 }
 class KConfigGroup;
 
-namespace KPIMTextEdit {
+namespace KPIMTextEdit
+{
 class RichTextComposer;
 }
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 class SignaturePrivate;
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Signature &sig);
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Signature &sig);
@@ -73,21 +76,16 @@ class KIDENTITYMANAGEMENT_EXPORT Signature
 
 public:
     /** Type of signature (ie. way to obtain the signature text) */
-    enum Type {
-        Disabled = 0,
-        Inlined = 1,
-        FromFile = 2,
-        FromCommand = 3
-    };
+    enum Type { Disabled = 0, Inlined = 1, FromFile = 2, FromCommand = 3 };
 
     /**
      * Describes the placement of the signature text when it is to be inserted into a
      * text edit
      */
     enum Placement {
-        Start,                   ///< The signature is placed at the start of the textedit
-        End,                     ///< The signature is placed at the end of the textedit
-        AtCursor                 ///< The signature is placed at the current cursor position
+        Start, ///< The signature is placed at the start of the textedit
+        End, ///< The signature is placed at the end of the textedit
+        AtCursor ///< The signature is placed at the current cursor position
     };
 
     struct EmbeddedImage {
@@ -197,34 +195,34 @@ public:
     Q_REQUIRED_RESULT bool isEnabledSignature() const;
 
     enum AddedTextFlag {
-        AddNothing = 0,         ///< Don't add any text to the signature
-        AddSeparator = 1 << 0,  ///< The separator '-- \n' will be added in front
+        AddNothing = 0, ///< Don't add any text to the signature
+        AddSeparator = 1 << 0, ///< The separator '-- \n' will be added in front
         ///  of the signature
-        AddNewLines = 1 << 1    ///< Add a newline character in front or after the signature,
-                      ///  depending on the placement
+        AddNewLines = 1 << 1 ///< Add a newline character in front or after the signature,
+                             ///  depending on the placement
     };
 
     /// Describes which additional parts should be added to the signature
     typedef QFlags<AddedTextFlag> AddedText;
 
     /** Inserts this signature into the given text edit.
-      * If the signature is inserted at the beginning, a couple of new
-      * lines will be inserted before it, and the cursor is moved to
-      * the beginning. Otherwise, the cursor position is preserved.
-      * For undo/redo, this is treated as one operation.
-      *
-      * Rich text mode of the text edit will be enabled if the signature is in
-      * inlined HTML format.
-      *
-      * If this signature uses images, they will be added automatically.
-      *
-      * @param placement defines where in the text edit the signature should be
-      *                  inserted.
-      * @param addedText defines which other texts should be added to the signature
-      * @param textEdit the signature will be inserted into this text edit.
-      *
-      * @since 4.9
-      */
+     * If the signature is inserted at the beginning, a couple of new
+     * lines will be inserted before it, and the cursor is moved to
+     * the beginning. Otherwise, the cursor position is preserved.
+     * For undo/redo, this is treated as one operation.
+     *
+     * Rich text mode of the text edit will be enabled if the signature is in
+     * inlined HTML format.
+     *
+     * If this signature uses images, they will be added automatically.
+     *
+     * @param placement defines where in the text edit the signature should be
+     *                  inserted.
+     * @param addedText defines which other texts should be added to the signature
+     * @param textEdit the signature will be inserted into this text edit.
+     *
+     * @since 4.9
+     */
     // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
     //                  with the deprecated method
     void insertIntoTextEdit(Placement placement, AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay = false) const;
@@ -233,7 +231,6 @@ public:
     void setEmbeddedImages(const QVector<EmbeddedImagePtr> &embedded);
 
 protected:
-
     // TODO: KDE5: BIC: Move all to private class
     void writeConfig(KConfigGroup &config) const;
     void readConfig(const KConfigGroup &config);

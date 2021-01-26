@@ -115,7 +115,7 @@ void IdentityCombo::setCurrentIdentity(const QString &name)
         return;
     }
 
-    blockSignals(true);    // just in case Qt gets fixed to emit activated() here
+    blockSignals(true); // just in case Qt gets fixed to emit activated() here
     setCurrentIndex(idx);
     blockSignals(false);
 
@@ -136,7 +136,7 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
         return;
     }
 
-    blockSignals(true);    // just in case Qt gets fixed to emit activated() here
+    blockSignals(true); // just in case Qt gets fixed to emit activated() here
     setCurrentIndex(idx);
     blockSignals(false);
 

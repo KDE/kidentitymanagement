@@ -9,15 +9,15 @@
 #include "signature.h"
 
 #include "kidentitymanagement_debug.h"
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KConfigGroup>
 #include <KProcess>
 
 #include <QSharedPointer>
 
-#include <assert.h>
 #include <QDir>
+#include <assert.h>
 #include <kpimtextedit/richtextcomposer.h>
 #include <kpimtextedit/richtextcomposercontroler.h>
 #include <kpimtextedit/richtextcomposerimages.h>
@@ -60,7 +60,8 @@ static bool isCursorAtEndOfLine(const QTextCursor &cursor)
     return !testCursor.hasSelection();
 }
 
-static void insertSignatureHelper(const QString &signature, KPIMTextEdit::RichTextComposer *textEdit, Signature::Placement placement, bool isHtml, bool addNewlines)
+static void
+insertSignatureHelper(const QString &signature, KPIMTextEdit::RichTextComposer *textEdit, Signature::Placement placement, bool isHtml, bool addNewlines)
 {
     if (!signature.isEmpty()) {
         // Save the modified state of the document, as inserting a signature
@@ -174,8 +175,7 @@ void SignaturePrivate::cleanupImages()
 {
     // Remove any images from the internal structure that are no longer there
     if (inlinedHtml) {
-        auto it = std::remove_if(embeddedImages.begin(), embeddedImages.end(),
-                                 [this](const Signature::EmbeddedImagePtr &imageInList){
+        auto it = std::remove_if(embeddedImages.begin(), embeddedImages.end(), [this](const Signature::EmbeddedImagePtr &imageInList) {
             const QStringList lstImage = findImageNames(text);
             for (const QString &imageInHtml : lstImage) {
                 if (imageInHtml == imageInList->name) {
@@ -255,8 +255,11 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
         if (ok) {
             *ok = false;
         }
-        const QString wmsg = i18n("<qt>Failed to execute signature script<p><b>%1</b>:</p>"
-                                  "<p>%2</p></qt>", path, QString::fromUtf8(proc.readAllStandardError()));
+        const QString wmsg = i18n(
+            "<qt>Failed to execute signature script<p><b>%1</b>:</p>"
+            "<p>%2</p></qt>",
+            path,
+            QString::fromUtf8(proc.readAllStandardError()));
         KMessageBox::error(nullptr, wmsg);
         return QString();
     }
@@ -273,7 +276,10 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
     return QString::fromLocal8Bit(output.data(), output.size());
 }
 
-void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const
+void SignaturePrivate::insertSignatureText(Signature::Placement placement,
+                                           Signature::AddedText addedText,
+                                           KPIMTextEdit::RichTextComposer *textEdit,
+                                           bool forceDisplay) const
 {
     if (!forceDisplay) {
         if (!enabled) {
@@ -286,9 +292,10 @@ void SignaturePrivate::insertSignatureText(Signature::Placement placement, Signa
     } else {
         signature = q->rawText();
     }
-    insertSignatureHelper(signature, textEdit, placement,
-                          (inlinedHtml
-                           && type == KIdentityManagement::Signature::Inlined),
+    insertSignatureHelper(signature,
+                          textEdit,
+                          placement,
+                          (inlinedHtml && type == KIdentityManagement::Signature::Inlined),
                           (addedText & Signature::AddNewLines));
 
     // We added the text of the signature above, now it is time to add the images as well.
@@ -391,8 +398,7 @@ QString Signature::withSeparator(bool *ok) const
         newline.clear();
     }
 
-    if (signature.startsWith(QLatin1String("-- ") + newline)
-        || (signature.indexOf(newline + QLatin1String("-- ") + newline) != -1)) {
+    if (signature.startsWith(QLatin1String("-- ") + newline) || (signature.indexOf(newline + QLatin1String("-- ") + newline) != -1)) {
         // already have signature separator at start of sig or inside sig:
         return signature;
     } else {
@@ -511,15 +517,12 @@ void Signature::setEmbeddedImages(const QVector<Signature::EmbeddedImagePtr> &em
 
 // --------------------- Operators -------------------//
 
-QDataStream &KIdentityManagement::operator<<
-    (QDataStream &stream, const KIdentityManagement::Signature &sig)
+QDataStream &KIdentityManagement::operator<<(QDataStream &stream, const KIdentityManagement::Signature &sig)
 {
-    return stream << static_cast<quint8>(sig.type()) << sig.path() << sig.text()
-                  << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature();
+    return stream << static_cast<quint8>(sig.type()) << sig.path() << sig.text() << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature();
 }
 
-QDataStream &KIdentityManagement::operator>>
-    (QDataStream &stream, KIdentityManagement::Signature &sig)
+QDataStream &KIdentityManagement::operator>>(QDataStream &stream, KIdentityManagement::Signature &sig)
 {
     quint8 s;
     QString path;
@@ -527,7 +530,7 @@ QDataStream &KIdentityManagement::operator>>
     QString saveLocation;
     QVector<Signature::EmbeddedImagePtr> lst;
     bool enabled;
-    stream >> s  >> path >> text >> saveLocation >> lst >> enabled;
+    stream >> s >> path >> text >> saveLocation >> lst >> enabled;
     sig.setText(text);
     sig.setPath(path);
     sig.setImageLocation(saveLocation);

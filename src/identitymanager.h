@@ -7,14 +7,15 @@
 #ifndef KIDENTITYMANAGER_IDENTITYMANAGER_H
 #define KIDENTITYMANAGER_IDENTITYMANAGER_H
 
-#include <kidentitymanagement_export.h>
 #include <KConfigGroup>
 #include <QObject>
 #include <QVector>
+#include <kidentitymanagement_export.h>
 
 #include <QStringList>
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 class Identity;
 /**
  * @short Manages the list of identities.

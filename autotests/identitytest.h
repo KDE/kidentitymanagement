@@ -9,7 +9,8 @@
 
 #include <QObject>
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 class Identity;
 }
 

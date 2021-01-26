@@ -8,17 +8,17 @@
 #undef QT_USE_FAST_CONCATENATION
 #undef QT_USE_FAST_OPERATOR_PLUS
 
-#include "qtest.h"
 #include "signaturetest.h"
+#include "qtest.h"
 
 #include "signature.h"
 
-#include <KConfigGroup>
-#include <QStandardPaths>
-#include <KConfig>
-#include <QDir>
 #include <KActionCollection>
+#include <KConfig>
+#include <KConfigGroup>
 #include <KShell>
+#include <QDir>
+#include <QStandardPaths>
 
 #include <kpimtextedit/richtextcomposer.h>
 #include <kpimtextedit/richtextcomposercontroler.h>
@@ -117,8 +117,7 @@ void SignatureTester::testTextEditInsertion()
     // lines are inserted before the signature
 
     edit.setPlainText(QStringLiteral("Bla Bla"));
-    sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator | Signature::AddNewLines,
-                           &edit);
+    sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QVERIFY(edit.textMode() == KPIMTextEdit::RichTextComposer::Plain);
     QCOMPARE(edit.toPlainText(), QStringLiteral("\n\n-- \nHello World\nBla Bla"));
 
@@ -126,8 +125,7 @@ void SignatureTester::testTextEditInsertion()
     edit.clear();
     edit.setPlainText(QStringLiteral("Bla Bla"));
     setCursorPos(edit, 4);
-    sig.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines,
-                           &edit);
+    sig.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.toPlainText(), QStringLiteral("Bla Bla\n-- \nHello World"));
     QCOMPARE(edit.textCursor().position(), 4);
 
@@ -137,8 +135,7 @@ void SignatureTester::testTextEditInsertion()
     edit.setPlainText(QStringLiteral("Bla Bla"));
     setCursorPos(edit, 4);
     edit.document()->setModified(false);
-    sig.insertIntoTextEdit(Signature::AtCursor, Signature::AddSeparator | Signature::AddNewLines,
-                           &edit);
+    sig.insertIntoTextEdit(Signature::AtCursor, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.toPlainText(), QStringLiteral("-- \nHello World\nBla Bla"));
     QCOMPARE(edit.textCursor().position(), 20);
     QVERIFY(!edit.document()->isModified());
@@ -164,8 +161,7 @@ void SignatureTester::testTextEditInsertion()
     // test that html signatures turn html on and have correct line endings (<br> vs \n)
     edit.clear();
     edit.setPlainText(QStringLiteral("Bla Bla"));
-    sig.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines,
-                           &edit);
+    sig.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QVERIFY(edit.textMode() == KPIMTextEdit::RichTextComposer::Rich);
     QCOMPARE(edit.toPlainText(), QStringLiteral("Bla Bla\n-- \nHello\nWorld"));
 }
@@ -193,8 +189,8 @@ void SignatureTester::testBug167961()
 class MySignature : public Signature
 {
 public:
-    using Signature::writeConfig;
     using Signature::readConfig;
+    using Signature::writeConfig;
 };
 
 void SignatureTester::testImages()
@@ -252,8 +248,7 @@ void SignatureTester::testImages()
     // read the images, and it does not mess up
     MySignature sig2;
     sig2.readConfig(group1);
-    sig2.insertIntoTextEdit(KIdentityManagement::Signature::End, Signature::AddSeparator | Signature::AddNewLines,
-                            &edit);
+    sig2.insertIntoTextEdit(KIdentityManagement::Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.composerControler()->composerImages()->embeddedImages().count(), 2);
     QCOMPARE(sig2.text(), QStringLiteral("Bla<img src=\"folder-new.png\">Bla<img src=\"arrow-up.png\">Bla"));
     sig2.writeConfig(group1);
@@ -266,8 +261,7 @@ void SignatureTester::testImages()
     sig2.setText(QStringLiteral("<img src=\"folder-new.png\">"));
     sig2.writeConfig(group1);
     edit.clear();
-    sig2.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines,
-                            &edit);
+    sig2.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.composerControler()->composerImages()->embeddedImages().size(), 1);
     entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
     QCOMPARE(entryList.count(), 1);

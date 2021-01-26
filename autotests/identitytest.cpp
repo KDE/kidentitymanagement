@@ -3,17 +3,17 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#include "qtest.h"
 #include "identitytest.h"
-#include "identitymanager.h"
 #include "identity.h"
+#include "identitymanager.h"
+#include "qtest.h"
 
 #include <KConfig>
 #include <KConfigGroup>
 
+#include <QDataStream>
 #include <QMimeData>
 #include <QStandardPaths>
-#include <QDataStream>
 
 using namespace KIdentityManagement;
 
@@ -31,7 +31,7 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         QCOMPARE(actual.uoid(), expected.uoid());
         // Don't compare isDefault - only one copy can be default, so this property
         // is not copied! It does not affect result of operator==() either.
-        //QCOMPARE(actual.isDefault(), expected.isDefault());
+        // QCOMPARE(actual.isDefault(), expected.isDefault());
         QCOMPARE(actual.identityName(), expected.identityName());
         QCOMPARE(actual.fullName(), expected.fullName());
         QCOMPARE(actual.organization(), expected.organization());
@@ -62,7 +62,7 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         QCOMPARE(actual.isXFaceEnabled(), expected.isXFaceEnabled());
         QCOMPARE(actual.xface(), expected.xface());
         ok = true;
-    } ();
+    }();
 
     return ok;
 }
@@ -91,7 +91,7 @@ void IdentityTester::test_Identity()
     identity.setPreferredCryptoMessageFormat(QStringLiteral("PGP"));
     QCOMPARE(identity.preferredCryptoMessageFormat(), QStringLiteral("PGP"));
     identity.setPrimaryEmailAddress(QStringLiteral("dvratil@kde.org"));
-    const QStringList aliases = { QStringLiteral("dvratil1@kde.org"), QStringLiteral("example@example.org") };
+    const QStringList aliases = {QStringLiteral("dvratil1@kde.org"), QStringLiteral("example@example.org")};
     identity.setEmailAliases(aliases);
     QCOMPARE(identity.emailAliases(), aliases);
     QVERIFY(identity.matchesEmailAddress(QStringLiteral("dvratil@kde.org")));
@@ -99,10 +99,11 @@ void IdentityTester::test_Identity()
     QVERIFY(identity.matchesEmailAddress(aliases[1]));
 
     QCOMPARE(identity.primaryEmailAddress(), QStringLiteral("dvratil@kde.org"));
-    const auto vcardFile = QStringLiteral("BEGIN:VCARD\n"
-                                          "VERSION:2.1\n"
-                                          "N:Vrátil;Daniel;;\n"
-                                          "END:VCARD");
+    const auto vcardFile = QStringLiteral(
+        "BEGIN:VCARD\n"
+        "VERSION:2.1\n"
+        "N:Vrátil;Daniel;;\n"
+        "END:VCARD");
     identity.setVCardFile(vcardFile);
     QCOMPARE(identity.vCardFile(), vcardFile);
     identity.setReplyToAddr(QStringLiteral("dvratil+reply@kde.org"));

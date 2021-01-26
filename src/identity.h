@@ -12,13 +12,14 @@
 #include "kidentitymanagement_export.h"
 #include "signature.h"
 
+#include <QHash>
 #include <QString>
 #include <QStringList>
-#include <QVector>
-#include <QHash>
 #include <QVariant>
+#include <QVector>
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 class Identity;
 class Signature;
 }
@@ -26,7 +27,8 @@ class KConfigGroup;
 class QDataStream;
 class QMimeData;
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 static const char s_uoid[] = "uoid";
 static const char s_identity[] = "Identity";
 static const char s_name[] = "Name";
@@ -76,7 +78,11 @@ public:
     typedef QVector<Identity> List;
 
     /** Constructor */
-    explicit Identity(const QString &id = QString(), const QString &realName = QString(), const QString &emailAddr = QString(), const QString &organization = QString(), const QString &replyToAddress = QString());
+    explicit Identity(const QString &id = QString(),
+                      const QString &realName = QString(),
+                      const QString &emailAddr = QString(),
+                      const QString &organization = QString(),
+                      const QString &replyToAddress = QString());
 
     /** used for comparison */
     bool operator==(const Identity &other) const;
@@ -274,7 +280,7 @@ public:
      *
      * Note that this is the localized language name (e.g. "British English"),
      * _not_ the language code or dictionary name!
-    */
+     */
     Q_REQUIRED_RESULT QString dictionary() const;
     void setDictionary(const QString &);
 

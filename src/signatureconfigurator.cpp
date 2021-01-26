@@ -9,40 +9,41 @@
 #include "signatureconfigurator.h"
 #include "identity.h"
 
-#include <KActionCollection>
-#include <KLocalizedString>
 #include "kidentitymanagement_debug.h"
-#include <KLineEdit>
-#include <KUrlRequester>
-#include <KShellCompletion>
-#include <KToolBar>
-#include <KMessageBox>
+#include <KActionCollection>
 #include <KIO/JobUiDelegate>
 #include <KIO/OpenUrlJob>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KShellCompletion>
+#include <KToolBar>
+#include <KUrlRequester>
 #include <QUrl>
 
 #include <KPIMTextEdit/RichTextComposer>
-#include <KPIMTextEdit/RichTextComposerImages>
 #include <KPIMTextEdit/RichTextComposerControler>
+#include <KPIMTextEdit/RichTextComposerImages>
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDir>
 #include <QFileInfo>
 #include <QLabel>
-#include <QComboBox>
 #include <QStackedWidget>
 
-#include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
 
-#include <assert.h>
 #include <QStandardPaths>
+#include <assert.h>
 
 #include <kpimtextedit/richtexteditorwidget.h>
 
 using namespace KIdentityManagement;
 
-namespace KIdentityManagement {
+namespace KIdentityManagement
+{
 /**
    Private class that helps to provide binary compatibility between releases.
    @internal
@@ -111,25 +112,20 @@ void SignatureConfigurator::Private::init()
     vlay->addLayout(hlay);
     mSourceCombo = new QComboBox(q);
     mSourceCombo->setEditable(false);
-    mSourceCombo->setWhatsThis(
-        i18n("Click on the widgets below to obtain help on the input methods."));
-    mSourceCombo->setEnabled(false);   // since !mEnableCheck->isChecked()
-    mSourceCombo->addItems(QStringList()
-                           << i18nc("continuation of \"obtain signature text from\"",
-                                    "Input Field Below")
-                           << i18nc("continuation of \"obtain signature text from\"",
-                                    "File")
-                           << i18nc("continuation of \"obtain signature text from\"",
-                                    "Output of Command"));
+    mSourceCombo->setWhatsThis(i18n("Click on the widgets below to obtain help on the input methods."));
+    mSourceCombo->setEnabled(false); // since !mEnableCheck->isChecked()
+    mSourceCombo->addItems(QStringList() << i18nc("continuation of \"obtain signature text from\"", "Input Field Below")
+                                         << i18nc("continuation of \"obtain signature text from\"", "File")
+                                         << i18nc("continuation of \"obtain signature text from\"", "Output of Command"));
     QLabel *label = new QLabel(i18n("Obtain signature &text from:"), q);
     label->setBuddy(mSourceCombo);
-    label->setEnabled(false);   // since !mEnableCheck->isChecked()
+    label->setEnabled(false); // since !mEnableCheck->isChecked()
     hlay->addWidget(label);
     hlay->addWidget(mSourceCombo, 1);
 
     // widget stack that is controlled by the source combo:
     auto *widgetStack = new QStackedWidget(q);
-    widgetStack->setEnabled(false);   // since !mEnableCheck->isChecked()
+    widgetStack->setEnabled(false); // since !mEnableCheck->isChecked()
     vlay->addWidget(widgetStack, 1);
     q->connect(mSourceCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
     q->connect(mSourceCombo, QOverload<int>::of(&QComboBox::highlighted), widgetStack, &QStackedWidget::setCurrentIndex);
@@ -208,12 +204,12 @@ void SignatureConfigurator::Private::init()
     hlay->addWidget(mHtmlCheck);
     inlinedHtml = true;
 
-    widgetStack->setCurrentIndex(0);   // since mSourceCombo->currentItem() == 0
+    widgetStack->setCurrentIndex(0); // since mSourceCombo->currentItem() == 0
 
     // page 1: "signature file" requester, label, "edit file" button:
     ++pageno;
     page = new QWidget(widgetStack);
-    widgetStack->insertWidget(pageno, page);   // force sequential numbers (play safe)
+    widgetStack->insertWidget(pageno, page); // force sequential numbers (play safe)
     page_vlay = new QVBoxLayout(page);
     page_vlay->setContentsMargins(0, 0, 0, 0);
     hlay = new QHBoxLayout(); // inherits spacing
@@ -235,9 +231,9 @@ void SignatureConfigurator::Private::init()
     mEditButton->setWhatsThis(i18n("Opens the specified file in a text editor."));
     q->connect(mEditButton, &QPushButton::clicked, q, &SignatureConfigurator::slotEdit);
     mEditButton->setAutoDefault(false);
-    mEditButton->setEnabled(false);   // initially nothing to edit
+    mEditButton->setEnabled(false); // initially nothing to edit
     hlay->addWidget(mEditButton);
-    page_vlay->addStretch(1);   // spacer
+    page_vlay->addStretch(1); // spacer
 
     // page 2: "signature command" requester and label:
     ++pageno;
@@ -262,7 +258,7 @@ void SignatureConfigurator::Private::init()
     label->setBuddy(mCommandEdit);
     hlay->addWidget(label);
     hlay->addWidget(mCommandEdit, 1);
-    page_vlay->addStretch(1);   // spacer
+    page_vlay->addStretch(1); // spacer
 }
 
 SignatureConfigurator::SignatureConfigurator(QWidget *parent)
@@ -402,8 +398,7 @@ void SignatureConfigurator::setSignature(const Signature &sig)
 
     // Let insertIntoTextEdit() handle setting the text, as that function also adds the images.
     d->mTextEdit->clear();
-    sig.insertIntoTextEdit(KIdentityManagement::Signature::Start, KIdentityManagement::Signature::AddNothing,
-                           d->mTextEdit, true);
+    sig.insertIntoTextEdit(KIdentityManagement::Signature::Start, KIdentityManagement::Signature::AddNothing, d->mTextEdit, true);
     if (sig.type() == Signature::FromFile) {
         setFileURL(sig.path());
     } else {
@@ -472,8 +467,8 @@ void SignatureConfigurator::setImageLocation(const QString &path)
 
 void SignatureConfigurator::setImageLocation(const Identity &identity)
 {
-    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emailidentities/%1/").arg(
-        QString::number(identity.uoid()));
+    const QString dir =
+        QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emailidentities/%1/").arg(QString::number(identity.uoid()));
     QDir().mkpath(dir);
     setImageLocation(dir);
 }
