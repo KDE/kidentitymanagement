@@ -25,7 +25,7 @@ generate_export_header(KF5IdentityManagement BASE_NAME kidentitymanagement)
 
 add_library(KF5::IdentityManagement ALIAS KF5IdentityManagement)
 
-target_include_directories(KF5IdentityManagement INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement;${KF5_INCLUDE_INSTALL_DIR}/KIdentityManagement/kidentitymanagement;>")
+target_include_directories(KF5IdentityManagement INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement;${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement/kidentitymanagement;>")
 target_include_directories(KF5IdentityManagement PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
 
 target_link_libraries(KF5IdentityManagement
