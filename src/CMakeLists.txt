@@ -34,7 +34,7 @@ PUBLIC
   KF5::PimTextEdit
 PRIVATE
   KF5::Codecs
-  Qt5::Network
+  Qt::Network
   KF5::I18n
   KF5::WidgetsAddons
   KF5::XmlGui
