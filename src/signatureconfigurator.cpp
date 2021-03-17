@@ -415,7 +415,7 @@ void SignatureConfigurator::setSignature(const Signature &sig)
 void SignatureConfigurator::slotUrlChanged()
 {
     const QString file = filePath();
-    const QFileInfo infoFile = QFileInfo(file);
+    const QFileInfo infoFile(file);
     if (infoFile.isFile() && (infoFile.size() > 1000)) {
         KMessageBox::information(this, i18n("This text file size exceeds 1kb."), i18n("Text File Size"));
     }
