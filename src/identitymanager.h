@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KIDENTITYMANAGER_IDENTITYMANAGER_H
-#define KIDENTITYMANAGER_IDENTITYMANAGER_H
+#pragma once
 
 #include <KConfigGroup>
 #include <QObject>
@@ -224,4 +223,3 @@ private:
 };
 } // namespace
 
-#endif // _KMAIL_IDENTITYMANAGER_H_

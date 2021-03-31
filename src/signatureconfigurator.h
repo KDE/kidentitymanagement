@@ -7,8 +7,7 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#ifndef KIDENTITYMANAGER_SIGNATURECONFIGURATOR_H
-#define KIDENTITYMANAGER_SIGNATURECONFIGURATOR_H
+#pragma once
 
 #include "kidentitymanagement_export.h"
 #include "signature.h" // for Signature::Type
@@ -136,4 +135,3 @@ private:
 };
 }
 
-#endif

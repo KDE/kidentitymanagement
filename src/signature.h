@@ -7,8 +7,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KIDENTITYMANAGER_SIGNATURE_H
-#define KIDENTITYMANAGER_SIGNATURE_H
+#pragma once
 
 #include "kidentitymanagement_export.h"
 
@@ -244,4 +243,3 @@ private:
 Q_DECLARE_OPERATORS_FOR_FLAGS(Signature::AddedText)
 }
 
-#endif /*kpim_signature_h*/

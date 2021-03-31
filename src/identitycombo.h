@@ -14,8 +14,7 @@
   @author Marc Mutz \<mutz@kde.org\>
  */
 
-#ifndef KIDENTITYMANAGER_IDENTITYCOMBO_H
-#define KIDENTITYMANAGER_IDENTITYCOMBO_H
+#pragma once
 
 #include "kidentitymanagement_export.h"
 #include <QComboBox>
@@ -78,4 +77,3 @@ private:
 };
 }
 
-#endif

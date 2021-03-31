@@ -4,8 +4,7 @@
   SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KPIMIDENTITIES_UTILS_H
-#define KPIMIDENTITIES_UTILS_H
+#pragma once
 
 #include "kidentitymanagement_export.h"
 
@@ -29,4 +28,3 @@ Q_REQUIRED_RESULT KIDENTITYMANAGEMENT_EXPORT bool thatIsMe(const QString &email)
 Q_REQUIRED_RESULT KIDENTITYMANAGEMENT_EXPORT const QSet<QString> &allEmails();
 }
 
-#endif

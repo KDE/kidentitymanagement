@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef IDENTITYTEST_H
-#define IDENTITYTEST_H
+#pragma once
 
 #include <QObject>
 
@@ -29,4 +28,3 @@ private Q_SLOTS:
     void test_toMimeData();
 };
 
-#endif

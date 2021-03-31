@@ -6,8 +6,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KPIMIDENTITIES_IDENTITY_H
-#define KPIMIDENTITIES_IDENTITY_H
+#pragma once
 
 #include "kidentitymanagement_export.h"
 #include "signature.h"
@@ -360,4 +359,3 @@ protected:
 };
 }
 
-#endif /*identity_h*/
