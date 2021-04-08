@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 set(PIM_VERSION "5.17.40")
 
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
 # ECM setup
 set(KF5_MIN_VERSION "5.80.0")
-set(QT_REQUIRED_VERSION "5.14.0")
+set(QT_REQUIRED_VERSION "5.15.0")
 find_package(ECM ${KF5_MIN_VERSION} CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
@@ -47,15 +47,11 @@ find_package(KF5Codecs ${KF5_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5PimTextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
-option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" FALSE)
+option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" OFF)
 
-set(COMPILE_WITH_UNITY_CMAKE_SUPPORT false)
+set(COMPILE_WITH_UNITY_CMAKE_SUPPORT OFF)
 if (USE_UNITY_CMAKE_SUPPORT)
-    if(${CMAKE_VERSION} VERSION_LESS "3.16.0")
-        message(STATUS "CMAKE version is less than 3.16.0 . We can't use cmake unify build support")
-    else()
-        set(COMPILE_WITH_UNITY_CMAKE_SUPPORT true)
-    endif()
+    set(COMPILE_WITH_UNITY_CMAKE_SUPPORT ON)
 endif()
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f00)
