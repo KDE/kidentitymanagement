@@ -20,7 +20,6 @@
 namespace KIdentityManagement
 {
 class Identity;
-class Signature;
 }
 class KConfigGroup;
 class QDataStream;
