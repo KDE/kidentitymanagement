@@ -91,7 +91,7 @@ public:
         QImage image;
         QString name;
     };
-    typedef QSharedPointer<EmbeddedImage> EmbeddedImagePtr;
+    using EmbeddedImagePtr = QSharedPointer<EmbeddedImage>;
 
     /** Used for comparison */
     bool operator==(const Signature &other) const;
@@ -202,7 +202,7 @@ public:
     };
 
     /// Describes which additional parts should be added to the signature
-    typedef QFlags<AddedTextFlag> AddedText;
+    using AddedText = QFlags<AddedTextFlag>;
 
     /** Inserts this signature into the given text edit.
      * If the signature is inserted at the beginning, a couple of new

@@ -73,7 +73,7 @@ class KIDENTITYMANAGEMENT_EXPORT Identity
     friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Identity &ident);
 
 public:
-    typedef QVector<Identity> List;
+    using List = QVector<Identity>;
 
     /** Constructor */
     explicit Identity(const QString &id = QString(),

@@ -97,7 +97,7 @@ QString SignatureConfigurator::Private::asCleanedHTML() const
 
 void SignatureConfigurator::Private::init()
 {
-    auto *vlay = new QVBoxLayout(q);
+    auto vlay = new QVBoxLayout(q);
     vlay->setObjectName(QStringLiteral("main layout"));
 
     // "enable signature" checkbox:
@@ -108,7 +108,7 @@ void SignatureConfigurator::Private::init()
     vlay->addWidget(mEnableCheck);
 
     // "obtain signature text from" combo and label:
-    auto *hlay = new QHBoxLayout(); // inherits spacing
+    auto hlay = new QHBoxLayout(); // inherits spacing
     vlay->addLayout(hlay);
     mSourceCombo = new QComboBox(q);
     mSourceCombo->setEditable(false);
@@ -117,14 +117,14 @@ void SignatureConfigurator::Private::init()
     mSourceCombo->addItems(QStringList() << i18nc("continuation of \"obtain signature text from\"", "Input Field Below")
                                          << i18nc("continuation of \"obtain signature text from\"", "File")
                                          << i18nc("continuation of \"obtain signature text from\"", "Output of Command"));
-    QLabel *label = new QLabel(i18n("Obtain signature &text from:"), q);
+    auto label = new QLabel(i18n("Obtain signature &text from:"), q);
     label->setBuddy(mSourceCombo);
     label->setEnabled(false); // since !mEnableCheck->isChecked()
     hlay->addWidget(label);
     hlay->addWidget(mSourceCombo, 1);
 
     // widget stack that is controlled by the source combo:
-    auto *widgetStack = new QStackedWidget(q);
+    auto widgetStack = new QStackedWidget(q);
     widgetStack->setEnabled(false); // since !mEnableCheck->isChecked()
     vlay->addWidget(widgetStack, 1);
     q->connect(mSourceCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
@@ -139,9 +139,9 @@ void SignatureConfigurator::Private::init()
 
     int pageno = 0;
     // page 0: input field for direct entering:
-    QWidget *page = new QWidget(widgetStack);
+    auto page = new QWidget(widgetStack);
     widgetStack->insertWidget(pageno, page);
-    auto *page_vlay = new QVBoxLayout(page);
+    auto page_vlay = new QVBoxLayout(page);
     page_vlay->setContentsMargins(0, 0, 0, 0);
 
 #ifndef QT_NO_TOOLBAR
@@ -156,12 +156,12 @@ void SignatureConfigurator::Private::init()
 
     mTextEdit = new KPIMTextEdit::RichTextComposer(q);
 
-    auto *richTextEditorwidget = new KPIMTextEdit::RichTextEditorWidget(mTextEdit, q);
+    auto richTextEditorwidget = new KPIMTextEdit::RichTextEditorWidget(mTextEdit, q);
     page_vlay->addWidget(richTextEditorwidget, 2);
     mTextEdit->setWhatsThis(i18n("Use this field to enter an arbitrary static signature."));
 
     // Fill the toolbars.
-    KActionCollection *actionCollection = new KActionCollection(q);
+    auto actionCollection = new KActionCollection(q);
     mTextEdit->createActions(actionCollection);
 #ifndef QT_NO_TOOLBAR
     mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_bold")));
@@ -428,7 +428,7 @@ void SignatureConfigurator::slotEdit()
     // slotEnableEditButton should prevent this assert from being hit:
     assert(!url.isEmpty());
 
-    KIO::OpenUrlJob *job = new KIO::OpenUrlJob(QUrl::fromLocalFile(url), QStringLiteral("text/plain"));
+    auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(url), QStringLiteral("text/plain"));
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
     job->setDeleteTemporaryFile(true);
     job->start();

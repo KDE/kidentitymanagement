@@ -45,18 +45,18 @@ public:
     static IdentityManager *self();
 
 public:
-    typedef QVector<Identity>::Iterator Iterator;
-    typedef QVector<Identity>::ConstIterator ConstIterator;
+    using Iterator = QVector<Identity>::Iterator;
+    using ConstIterator = QVector<Identity>::ConstIterator;
 
     /**
      * Typedef for STL style iterator
      */
-    typedef Iterator iterator;
+    using iterator = Iterator;
 
     /**
      * Typedef for STL style iterator
      */
-    typedef ConstIterator const_iterator;
+    using const_iterator = ConstIterator;
 
     /** @return a unique name for a new identity based on @p name
      *  @param name the name of the base identity
