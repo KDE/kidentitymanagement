@@ -14,7 +14,7 @@ ecm_qt_declare_logging_category(kidentitymanagement_SRCS HEADER kidentitymanagem
         DESCRIPTION "kidentitymanagement (pim lib)" EXPORT KIDENTITYMANAGEMENT)
 
 
-qt5_add_dbus_adaptor(kidentitymanagement_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
+qt_add_dbus_adaptor(kidentitymanagement_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
 
 add_library(KF5IdentityManagement ${kidentitymanagement_SRCS})
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
