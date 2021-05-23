@@ -1,4 +1,10 @@
-set(kidentitymanagement_SRCS
+add_library(KF5IdentityManagement)
+add_library(KF5::IdentityManagement ALIAS KF5IdentityManagement)
+
+qt_add_dbus_adaptor(kidentity_dbs_adaptor_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
+
+target_sources(KF5IdentityManagement PRIVATE
+    ${kidentity_dbs_adaptor_SRCS}
   identity.cpp
   identitycombo.cpp
   identitymanager.cpp
@@ -8,22 +14,18 @@ set(kidentitymanagement_SRCS
 )
 
 
-ecm_qt_declare_logging_category(kidentitymanagement_SRCS HEADER kidentitymanagement_debug.h
+ecm_qt_declare_logging_category(KF5IdentityManagement HEADER kidentitymanagement_debug.h
         IDENTIFIER KIDENTITYMANAGEMENT_LOG CATEGORY_NAME org.kde.pim.kidentitymanagement
         OLD_CATEGORY_NAMES log_kidentitymanagement
         DESCRIPTION "kidentitymanagement (pim lib)" EXPORT KIDENTITYMANAGEMENT)
 
-
-qt_add_dbus_adaptor(kidentitymanagement_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )
-
-add_library(KF5IdentityManagement ${kidentitymanagement_SRCS})
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
     set_target_properties(KF5IdentityManagement PROPERTIES UNITY_BUILD ON)
 endif()
 
 generate_export_header(KF5IdentityManagement BASE_NAME kidentitymanagement)
 
-add_library(KF5::IdentityManagement ALIAS KF5IdentityManagement)
+
 
 target_include_directories(KF5IdentityManagement INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement;${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement/kidentitymanagement;>")
 target_include_directories(KF5IdentityManagement PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
