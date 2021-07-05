@@ -203,7 +203,7 @@ void SignaturePrivate::cleanupImages()
 void SignaturePrivate::saveImages() const
 {
     if (inlinedHtml && !saveLocation.isEmpty()) {
-        for (const Signature::EmbeddedImagePtr &image : qAsConst(embeddedImages)) {
+        for (const Signature::EmbeddedImagePtr &image : std::as_const(embeddedImages)) {
             const QString location = saveLocation + QLatin1Char('/') + image->name;
             if (!image->image.save(location, "PNG")) {
                 qCWarning(KIDENTITYMANAGEMENT_LOG) << "Failed to save image" << location;
@@ -300,7 +300,7 @@ void SignaturePrivate::insertSignatureText(Signature::Placement placement,
 
     // We added the text of the signature above, now it is time to add the images as well.
     if (inlinedHtml) {
-        for (const Signature::EmbeddedImagePtr &image : qAsConst(embeddedImages)) {
+        for (const Signature::EmbeddedImagePtr &image : std::as_const(embeddedImages)) {
             textEdit->composerControler()->composerImages()->loadImage(image->image, image->name, image->name);
         }
     }
