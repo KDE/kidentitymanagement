@@ -95,6 +95,11 @@ uint IdentityCombo::currentIdentity() const
     return d->mUoidList.at(currentIndex());
 }
 
+bool IdentityCombo::isDefaultIdentity() const
+{
+    return d->mUoidList.at(currentIndex()) == d->mIdentityManager->defaultIdentity().uoid();
+}
+
 void IdentityCombo::setCurrentIdentity(const Identity &identity)
 {
     setCurrentIdentity(identity.uoid());
