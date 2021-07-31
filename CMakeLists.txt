@@ -26,7 +26,7 @@ include(ECMQtDeclareLoggingCategory)
 
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
-set(PIMTEXTEDIT_LIB_VERSION "5.17.90")
+set(PIMTEXTEDIT_LIB_VERSION "5.18.0")
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
