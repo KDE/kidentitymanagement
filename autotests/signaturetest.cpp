@@ -72,14 +72,15 @@ void SignatureTester::testSignatures()
     QCOMPARE(sig2.withSeparator(), QStringLiteral("-- <br><b>Hello</b> World"));
     QVERIFY(!sig2.isEnabledSignature());
 
+    const QString dataFilePath = QStringLiteral(SIGNATURETEST_DATA_FILE);
     // Read this very file in, we use it for the tests
-    QFile thisFile(QStringLiteral(__FILE__));
+    QFile thisFile(dataFilePath);
     thisFile.open(QIODevice::ReadOnly);
     QString fileContent = QString::fromUtf8(thisFile.readAll());
 
     if (!QStandardPaths::findExecutable(QStringLiteral("cat")).isEmpty()) {
         Signature sig3;
-        const QString tempFile = KShell::quoteArg(QLatin1String(KIDENTITYMANAGER_DATA_DIR) + QStringLiteral(__FILE__));
+        const QString tempFile = KShell::quoteArg(dataFilePath);
         sig3.setPath(QStringLiteral("cat ") + KShell::quoteArg(tempFile), true);
         QCOMPARE(sig3.rawText(), fileContent);
         QVERIFY(!sig3.isInlinedHtml());
@@ -90,7 +91,7 @@ void SignatureTester::testSignatures()
     }
 
     Signature sig4;
-    sig4.setPath(QStringLiteral(__FILE__), false);
+    sig4.setPath(dataFilePath, false);
     QCOMPARE(sig4.rawText(), fileContent);
     QVERIFY(!sig4.isInlinedHtml());
     QVERIFY(sig4.text().isEmpty());
