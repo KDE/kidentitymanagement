@@ -228,7 +228,7 @@ int IdentityManager::Private::newUoid()
 
     // determine the UOIDs of all saved identities
     QList<uint> usedUOIDs;
-    usedUOIDs.reserve(1 + mIdentities.count() + (q->hasPendingChanges() ? shadowIdentities.count() : 0));
+    usedUOIDs.reserve(mIdentities.count() + (q->hasPendingChanges() ? shadowIdentities.count() : 0));
     const QVector<Identity>::ConstIterator end(mIdentities.constEnd());
     for (QVector<Identity>::ConstIterator it = mIdentities.constBegin(); it != end; ++it) {
         usedUOIDs << (*it).uoid();
@@ -243,12 +243,10 @@ int IdentityManager::Private::newUoid()
         }
     }
 
-    usedUOIDs << 0; // no UOID must be 0 because this value always refers to the
-    // default identity
-
     do {
-        uoid = QRandomGenerator::global()->bounded(RAND_MAX);
-    } while (usedUOIDs.indexOf(uoid) != -1);
+        // 0 refers to the default identity, so accept 1 only as lowest value
+        uoid = QRandomGenerator::global()->bounded(1, RAND_MAX);
+    } while (usedUOIDs.contains(uoid));
 
     return uoid;
 }
