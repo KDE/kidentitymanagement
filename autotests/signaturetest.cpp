@@ -80,8 +80,7 @@ void SignatureTester::testSignatures()
 
     if (!QStandardPaths::findExecutable(QStringLiteral("cat")).isEmpty()) {
         Signature sig3;
-        const QString tempFile = KShell::quoteArg(dataFilePath);
-        sig3.setPath(QStringLiteral("cat ") + KShell::quoteArg(tempFile), true);
+        sig3.setPath(QStringLiteral("cat ") + KShell::quoteArg(dataFilePath), true);
         QCOMPARE(sig3.rawText(), fileContent);
         QVERIFY(!sig3.isInlinedHtml());
         QVERIFY(sig3.text().isEmpty());
