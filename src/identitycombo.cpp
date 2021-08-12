@@ -44,11 +44,22 @@ public:
     QList<uint> mUoidList;
     IdentityManager *const mIdentityManager;
     IdentityCombo *const q;
+    bool showDefault = false;
 };
 
 void KIdentityManagement::IdentityComboPrivate::reloadCombo()
 {
-    const QStringList identities = mIdentityManager->identities();
+    QStringList identities;
+    identities.reserves(mIdentityManager->count());
+    IdentityManager::ConstIterator it;
+    IdentityManager::ConstIterator end(mIdentityManager->end());
+    for (it = mIdentityManager->begin(); it != end; ++it) {
+        if (showDefault && it->isDefault()) {
+            identities << QString(it->identityName() + i18nc("Default identity", " (default)"));
+        } else {
+            identities << it->identityName();
+        }
+    }
     // the IM should prevent this from happening:
     assert(!identities.isEmpty());
     q->clear();
@@ -181,4 +192,9 @@ void IdentityCombo::slotUpdateTooltip(uint uoid)
 IdentityManager *IdentityCombo::identityManager() const
 {
     return d->mIdentityManager;
+}
+
+void IdentityCombo::showDefault(bool showDefault)
+{
+    d->showDefault = showDefault;
 }

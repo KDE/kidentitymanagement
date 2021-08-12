@@ -41,6 +41,8 @@ public:
     void setCurrentIdentity(const QString &identityName);
     void setCurrentIdentity(const Identity &identity);
     void setCurrentIdentity(uint uoid);
+    /// Show (default) on the default identity. By default this behavior is disabled.
+    void showDefault(bool showDefault);
     /**
       Returns the IdentityManager used in this combo box.
       @since 4.5
