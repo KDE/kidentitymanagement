@@ -148,7 +148,8 @@ void IdentityManager::Private::readConfig(KConfig *config)
 
 void IdentityManager::Private::createDefaultIdentity()
 {
-    QString fullName, emailAddress;
+    QString fullName;
+    QString emailAddress;
     bool done = false;
 
     // Check if the application has any settings

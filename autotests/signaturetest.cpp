@@ -204,7 +204,8 @@ void SignatureTester::testImages()
     QString image1Path = QCoreApplication::applicationDirPath() + QLatin1String("/image.png");
     img.save(image1Path);
 
-    QImage image1, image2;
+    QImage image1;
+    QImage image2;
     QVERIFY(image1.load(image1Path));
     QVERIFY(image2.load(image1Path));
     QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emailidentities/unittest/");
