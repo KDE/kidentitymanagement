@@ -50,7 +50,7 @@ public:
 void KIdentityManagement::IdentityComboPrivate::reloadCombo()
 {
     QStringList identities;
-    identities.reserves(mIdentityManager->count());
+    identities.reserve(mIdentityManager->identities().count());
     IdentityManager::ConstIterator it;
     IdentityManager::ConstIterator end(mIdentityManager->end());
     for (it = mIdentityManager->begin(); it != end; ++it) {
