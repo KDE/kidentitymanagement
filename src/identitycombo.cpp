@@ -194,7 +194,10 @@ IdentityManager *IdentityCombo::identityManager() const
     return d->mIdentityManager;
 }
 
-void IdentityCombo::showDefault(bool showDefault)
+void IdentityCombo::setShowDefault(bool showDefault)
 {
-    d->showDefault = showDefault;
+    if (d->showDefault != showDefault) {
+        d->showDefault = showDefault;
+        d->reloadCombo();
+    }
 }
