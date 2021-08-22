@@ -52,7 +52,7 @@ namespace KIdentityManagement
 class Q_DECL_HIDDEN SignatureConfigurator::Private
 {
 public:
-    Private(SignatureConfigurator *parent);
+    explicit Private(SignatureConfigurator *parent);
     void init();
     // Returns the current text of the textedit as HTML code, but strips
     // unnecessary tags Qt inserts
@@ -85,7 +85,7 @@ QString SignatureConfigurator::Private::asCleanedHTML() const
 
     // Beautiful little hack to find the html headers produced by Qt.
     QTextDocument textDocument;
-    QString html = textDocument.toHtml();
+    const QString html = textDocument.toHtml();
 
     // Now remove each line from the text, the result is clean html.
     const QStringList lst = html.split(QLatin1Char('\n'));
