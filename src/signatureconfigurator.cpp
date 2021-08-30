@@ -127,15 +127,15 @@ void SignatureConfigurator::Private::init()
     auto widgetStack = new QStackedWidget(q);
     widgetStack->setEnabled(false); // since !mEnableCheck->isChecked()
     vlay->addWidget(widgetStack, 1);
-    q->connect(mSourceCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
-    q->connect(mSourceCombo, QOverload<int>::of(&QComboBox::highlighted), widgetStack, &QStackedWidget::setCurrentIndex);
+    q->connect(mSourceCombo, qOverload<int>(&QComboBox::currentIndexChanged), widgetStack, &QStackedWidget::setCurrentIndex);
+    q->connect(mSourceCombo, qOverload<int>(&QComboBox::highlighted), widgetStack, &QStackedWidget::setCurrentIndex);
     // connects for the enabling of the widgets depending on
     // signatureEnabled:
     q->connect(mEnableCheck, &QCheckBox::toggled, mSourceCombo, &QComboBox::setEnabled);
     q->connect(mEnableCheck, &QCheckBox::toggled, widgetStack, &QStackedWidget::setEnabled);
     q->connect(mEnableCheck, &QCheckBox::toggled, label, &QLabel::setEnabled);
     // The focus might be still in the widget that is disabled
-    q->connect(mEnableCheck, &QCheckBox::clicked, mEnableCheck, QOverload<>::of(&QCheckBox::setFocus));
+    q->connect(mEnableCheck, &QCheckBox::clicked, mEnableCheck, qOverload<>(&QCheckBox::setFocus));
 
     int pageno = 0;
     // page 0: input field for direct entering:

@@ -19,7 +19,7 @@ public:
         : QObject(parent)
         , mIdentityManager(/*ro=*/true)
     {
-        connect(&mIdentityManager, QOverload<>::of(&IdentityManager::changed), this, &IdendentitiesCache::slotIdentitiesChanged);
+        connect(&mIdentityManager, qOverload<>(&IdentityManager::changed), this, &IdendentitiesCache::slotIdentitiesChanged);
         slotIdentitiesChanged();
     }
 
