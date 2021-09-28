@@ -61,6 +61,8 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         QCOMPARE(actual.dictionary(), expected.dictionary());
         QCOMPARE(actual.isXFaceEnabled(), expected.isXFaceEnabled());
         QCOMPARE(actual.xface(), expected.xface());
+        QCOMPARE(actual.isFaceEnabled(), expected.isFaceEnabled());
+        QCOMPARE(actual.face(), expected.face());
         ok = true;
     }();
 
@@ -146,6 +148,10 @@ void IdentityTester::test_Identity()
     QCOMPARE(identity.isXFaceEnabled(), true);
     identity.setXFace(QStringLiteral(":-P"));
     QCOMPARE(identity.xface(), QStringLiteral(":-P"));
+    identity.setFaceEnabled(true);
+    QCOMPARE(identity.isFaceEnabled(), true);
+    identity.setFace(QStringLiteral(";-)"));
+    QCOMPARE(identity.face(), QStringLiteral(";-)"));
 
     // Test copy
     {
@@ -155,6 +161,9 @@ void IdentityTester::test_Identity()
         QVERIFY(compareIdentities(copy, identity));
 
         identity.setXFace(QStringLiteral(":-("));
+        QVERIFY(!(copy == identity));
+
+        identity.setFace(QStringLiteral(">:("));
         QVERIFY(!(copy == identity));
     }
 

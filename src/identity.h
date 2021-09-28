@@ -48,6 +48,8 @@ static const char s_templates[] = "Templates";
 static const char s_dict[] = "Dictionary";
 static const char s_xface[] = "X-Face";
 static const char s_xfaceenabled[] = "X-FaceEnabled";
+static const char s_face[] = "Face";
+static const char s_faceenabled[] = "FaceEnabled";
 static const char s_signature[] = "Signature";
 static const char s_emailAliases[] = "Email Aliases";
 static const char s_attachVcard[] = "Attach Vcard";
@@ -286,7 +288,13 @@ public:
     Q_REQUIRED_RESULT QString xface() const;
     void setXFace(const QString &);
     Q_REQUIRED_RESULT bool isXFaceEnabled() const;
-    void setXFaceEnabled(const bool);
+    void setXFaceEnabled(bool);
+
+    /** a Face header for this identity */
+    Q_REQUIRED_RESULT QString face() const;
+    void setFace(const QString &);
+    Q_REQUIRED_RESULT bool isFaceEnabled() const;
+    void setFaceEnabled(bool);
 
     /** Get random properties
      *  @param key the key of the property to get

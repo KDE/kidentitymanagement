@@ -164,7 +164,8 @@ QDataStream &KIdentityManagement::operator<<(QDataStream &stream, const KIdentit
                   << i.mPropertiesMap[QLatin1String(s_prefcrypt)] << i.mPropertiesMap[QLatin1String(s_cc)] << i.mPropertiesMap[QLatin1String(s_attachVcard)]
                   << i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)] << i.mPropertiesMap[QLatin1String(s_disabledFcc)]
                   << i.mPropertiesMap[QLatin1String(s_pgpautosign)] << i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
-                  << i.mPropertiesMap[QLatin1String(s_autocryptEnabled)] << i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
+                  << i.mPropertiesMap[QLatin1String(s_autocryptEnabled)] << i.mPropertiesMap[QLatin1String(s_defaultDomainName)]
+                  << i.mPropertiesMap[QLatin1String(s_face)] << i.mPropertiesMap[QLatin1String(s_faceenabled)];
 }
 
 QDataStream &KIdentityManagement::operator>>(QDataStream &stream, KIdentityManagement::Identity &i)
@@ -179,7 +180,8 @@ QDataStream &KIdentityManagement::operator>>(QDataStream &stream, KIdentityManag
         >> i.mPropertiesMap[QLatin1String(s_xfaceenabled)] >> i.mPropertiesMap[QLatin1String(s_prefcrypt)] >> i.mPropertiesMap[QLatin1String(s_cc)]
         >> i.mPropertiesMap[QLatin1String(s_attachVcard)] >> i.mPropertiesMap[QLatin1String(s_autocorrectionLanguage)]
         >> i.mPropertiesMap[QLatin1String(s_disabledFcc)] >> i.mPropertiesMap[QLatin1String(s_pgpautosign)] >> i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
-        >> i.mPropertiesMap[QLatin1String(s_autocryptEnabled)] >> i.mPropertiesMap[QLatin1String(s_defaultDomainName)];
+        >> i.mPropertiesMap[QLatin1String(s_autocryptEnabled)] >> i.mPropertiesMap[QLatin1String(s_defaultDomainName)]
+        >> i.mPropertiesMap[QLatin1String(s_face)] >> i.mPropertiesMap[QLatin1String(s_faceenabled)];
 
     i.setProperty(QLatin1String(s_uoid), uoid);
     return stream;
@@ -408,6 +410,16 @@ QString Identity::xface() const
     return property(QLatin1String(s_xface)).toString();
 }
 
+bool Identity::isFaceEnabled() const
+{
+    return property(QLatin1String(s_faceenabled)).toBool();
+}
+
+QString Identity::face() const
+{
+    return property(QLatin1String(s_face)).toString();
+}
+
 QString Identity::dictionary() const
 {
     return property(QLatin1String(s_dict)).toString();
@@ -615,9 +627,23 @@ void Identity::setXFace(const QString &str)
     setProperty(QLatin1String(s_xface), strNew);
 }
 
-void Identity::setXFaceEnabled(const bool on)
+void Identity::setXFaceEnabled(bool on)
 {
     setProperty(QLatin1String(s_xfaceenabled), on);
+}
+
+void Identity::setFace(const QString &str)
+{
+    QString strNew = str;
+    strNew.remove(QLatin1Char(' '));
+    strNew.remove(QLatin1Char('\n'));
+    strNew.remove(QLatin1Char('\r'));
+    setProperty(QLatin1String(s_face), strNew);
+}
+
+void Identity::setFaceEnabled(bool on)
+{
+    setProperty(QLatin1String(s_faceenabled), on);
 }
 
 void Identity::setSignature(const Signature &sig)
