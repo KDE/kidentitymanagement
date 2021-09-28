@@ -119,14 +119,14 @@ void IdentityTester::test_Identity()
     identity.setAutocorrectionLanguage(QStringLiteral("cs_CZ"));
     QCOMPARE(identity.autocorrectionLanguage(), QStringLiteral("cs_CZ"));
     identity.setDisabledFcc(true);
-    QCOMPARE(identity.disabledFcc(), true);
+    QVERIFY(identity.disabledFcc());
     identity.setPgpAutoSign(true);
-    QCOMPARE(identity.pgpAutoSign(), true);
+    QVERIFY(identity.pgpAutoSign());
     identity.setPgpAutoEncrypt(true);
-    QCOMPARE(identity.pgpAutoEncrypt(), true);
-    QCOMPARE(identity.autocryptEnabled(), false);
+    QVERIFY(identity.pgpAutoEncrypt());
+    QVERIFY(!identity.autocryptEnabled());
     identity.setAutocryptEnabled(true);
-    QCOMPARE(identity.autocryptEnabled(), true);
+    QVERIFY(identity.autocryptEnabled());
     identity.setDefaultDomainName(QStringLiteral("kde.org"));
     QCOMPARE(identity.defaultDomainName(), QStringLiteral("kde.org"));
     Signature sig;
@@ -145,11 +145,11 @@ void IdentityTester::test_Identity()
     identity.setDictionary(QStringLiteral("Čeština"));
     QCOMPARE(identity.dictionary(), QStringLiteral("Čeština"));
     identity.setXFaceEnabled(true);
-    QCOMPARE(identity.isXFaceEnabled(), true);
+    QVERIFY(identity.isXFaceEnabled());
     identity.setXFace(QStringLiteral(":-P"));
     QCOMPARE(identity.xface(), QStringLiteral(":-P"));
     identity.setFaceEnabled(true);
-    QCOMPARE(identity.isFaceEnabled(), true);
+    QVERIFY(identity.isFaceEnabled());
     identity.setFace(QStringLiteral(";-)"));
     QCOMPARE(identity.face(), QStringLiteral(";-)"));
 
@@ -161,10 +161,10 @@ void IdentityTester::test_Identity()
         QVERIFY(compareIdentities(copy, identity));
 
         identity.setXFace(QStringLiteral(":-("));
-        QVERIFY(!(copy == identity));
+        QVERIFY(copy != identity);
 
         identity.setFace(QStringLiteral(">:("));
-        QVERIFY(!(copy == identity));
+        QVERIFY(copy != identity);
     }
 
     // Test serialization
