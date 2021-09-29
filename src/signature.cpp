@@ -311,7 +311,7 @@ QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Signatur
     return stream << img->image << img->name;
 }
 
-QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Signature::EmbeddedImagePtr &img)
+QDataStream &operator>>(QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
 {
     return stream >> img->image >> img->name;
 }
