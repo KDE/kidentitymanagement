@@ -14,6 +14,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include "kidentitymanagement_debug.h"
 #include <KConfig>
+#include <KConfigGroup>
 #include <KEMailSettings> // for IdentityEntry::fromControlCenter()
 #include <KLocalizedString>
 #include <KSharedConfig>

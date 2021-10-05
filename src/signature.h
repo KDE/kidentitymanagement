@@ -13,7 +13,6 @@
 
 #include <QHash>
 #include <QImage>
-#include <QList>
 #include <QString>
 
 namespace KIdentityManagement

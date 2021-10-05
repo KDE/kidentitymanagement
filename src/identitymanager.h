@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include <KConfigGroup>
 #include <QObject>
 #include <QVector>
 #include <kidentitymanagement_export.h>
