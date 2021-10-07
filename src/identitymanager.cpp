@@ -52,11 +52,11 @@ static QString newDBusObjectName()
  *   @internal
  */
 //@cond PRIVATE
-class Q_DECL_HIDDEN KIdentityManagement::IdentityManager::Private
+class IdentityManagerPrivate
 {
 public:
-    Private(KIdentityManagement::IdentityManager *);
-    ~Private();
+    IdentityManagerPrivate(KIdentityManagement::IdentityManager *);
+    ~IdentityManagerPrivate();
     void writeConfig() const;
     void readConfig(KConfig *config);
     void createDefaultIdentity();
@@ -74,12 +74,12 @@ public:
     KIdentityManagement::IdentityManager *const q;
 };
 
-IdentityManager::Private::Private(KIdentityManagement::IdentityManager *manager)
+IdentityManagerPrivate::IdentityManagerPrivate(KIdentityManagement::IdentityManager *manager)
     : q(manager)
 {
 }
 
-void IdentityManager::Private::writeConfig() const
+void IdentityManagerPrivate::writeConfig() const
 {
     const QStringList identities = groupList(mConfig);
     QStringList::const_iterator groupEnd = identities.constEnd();
@@ -87,8 +87,8 @@ void IdentityManager::Private::writeConfig() const
         mConfig->deleteGroup(*group);
     }
     int i = 0;
-    ConstIterator end = mIdentities.constEnd();
-    for (ConstIterator it = mIdentities.constBegin(); it != end; ++it, ++i) {
+    IdentityManager::ConstIterator end = mIdentities.constEnd();
+    for (IdentityManager::ConstIterator it = mIdentities.constBegin(); it != end; ++it, ++i) {
         KConfigGroup cg(mConfig, QStringLiteral("Identity #%1").arg(i));
         (*it).writeConfig(cg);
         if ((*it).isDefault()) {
@@ -107,7 +107,7 @@ void IdentityManager::Private::writeConfig() const
     mConfig->sync();
 }
 
-void IdentityManager::Private::readConfig(KConfig *config)
+void IdentityManagerPrivate::readConfig(KConfig *config)
 {
     mIdentities.clear();
 
@@ -147,7 +147,7 @@ void IdentityManager::Private::readConfig(KConfig *config)
     shadowIdentities = mIdentities;
 }
 
-void IdentityManager::Private::createDefaultIdentity()
+void IdentityManagerPrivate::createDefaultIdentity()
 {
     QString fullName;
     QString emailAddress;
@@ -219,12 +219,12 @@ void IdentityManager::Private::createDefaultIdentity()
     }
 }
 
-QStringList IdentityManager::Private::groupList(KConfig *config) const
+QStringList IdentityManagerPrivate::groupList(KConfig *config) const
 {
     return config->groupList().filter(QRegularExpression(QStringLiteral("^Identity #\\d+$")));
 }
 
-int IdentityManager::Private::newUoid()
+int IdentityManagerPrivate::newUoid()
 {
     int uoid;
 
@@ -253,7 +253,7 @@ int IdentityManager::Private::newUoid()
     return uoid;
 }
 
-void IdentityManager::Private::slotIdentitiesChanged(const QString &id)
+void IdentityManagerPrivate::slotIdentitiesChanged(const QString &id)
 {
     qCDebug(KIDENTITYMANAGEMENT_LOG) << " KIdentityManagement::IdentityManager::slotIdentitiesChanged :" << id;
     const QString ourIdentifier = QStringLiteral("%1/%2").arg(QDBusConnection::sessionBus().baseService(), q->property("uniqueDBusPath").toString());
@@ -275,7 +275,7 @@ IdentityManager *IdentityManager::self()
 
 IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *name)
     : QObject(parent)
-    , d(new Private(this))
+    , d(new IdentityManagerPrivate(this))
 {
 #if KCOREADDONS_VERSION < QT_VERSION_CHECK(6, 0, 0)
     static bool triedMigration = false;
@@ -356,7 +356,6 @@ IdentityManager::~IdentityManager()
     if (hasPendingChanges()) {
         qCWarning(KIDENTITYMANAGEMENT_LOG) << "IdentityManager: There were uncommitted changes!";
     }
-    delete d;
 }
 
 QString IdentityManager::makeUnique(const QString &name) const
@@ -690,7 +689,7 @@ void KIdentityManagement::IdentityManager::slotRollback()
     rollback();
 }
 
-IdentityManager::Private::~Private()
+IdentityManagerPrivate::~IdentityManagerPrivate()
 {
     delete mConfig;
 }

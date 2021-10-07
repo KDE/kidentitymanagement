@@ -91,10 +91,7 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     slotUpdateTooltip(currentIdentity());
 }
 
-IdentityCombo::~IdentityCombo()
-{
-    delete d;
-}
+IdentityCombo::~IdentityCombo() = default;
 
 QString IdentityCombo::currentIdentityName() const
 {

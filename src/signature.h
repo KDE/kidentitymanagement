@@ -14,6 +14,7 @@
 #include <QHash>
 #include <QImage>
 #include <QString>
+#include <memory>
 
 namespace KIdentityManagement
 {
@@ -235,7 +236,7 @@ protected:
 
 private:
     //@cond PRIVATE
-    SignaturePrivate *const d;
+    std::unique_ptr<SignaturePrivate> const d;
     //@endcond
 };
 

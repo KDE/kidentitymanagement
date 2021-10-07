@@ -75,7 +75,7 @@ protected Q_SLOTS:
 
 private:
     //@cond PRIVATE
-    IdentityComboPrivate *const d;
+    std::unique_ptr<IdentityComboPrivate> const d;
     //@endcond
 };
 }

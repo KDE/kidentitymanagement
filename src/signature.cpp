@@ -24,7 +24,7 @@
 
 using namespace KIdentityManagement;
 
-class Q_DECL_HIDDEN KIdentityManagement::SignaturePrivate
+class KIdentityManagement::SignaturePrivate
 {
 public:
     SignaturePrivate(Signature *qq)
@@ -354,10 +354,7 @@ Signature &Signature::operator=(const KIdentityManagement::Signature &that)
     return *this;
 }
 
-Signature::~Signature()
-{
-    delete d;
-}
+Signature::~Signature() = default;
 
 QString Signature::rawText(bool *ok) const
 {

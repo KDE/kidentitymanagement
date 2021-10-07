@@ -11,9 +11,11 @@
 #include <kidentitymanagement_export.h>
 
 #include <QStringList>
+#include <memory>
 
 namespace KIdentityManagement
 {
+class IdentityManagerPrivate;
 class Identity;
 /**
  * @short Manages the list of identities.
@@ -215,8 +217,8 @@ Q_SIGNALS:
 
 private:
     //@cond PRIVATE
-    class Private;
-    Private *d;
+    friend class IdentityManagerPrivate;
+    std::unique_ptr<IdentityManagerPrivate> const d;
     //@endcond
     Q_PRIVATE_SLOT(d, void slotIdentitiesChanged(const QString &id))
 };

@@ -12,11 +12,13 @@
 #include "kidentitymanagement_export.h"
 #include "signature.h" // for Signature::Type
 #include <QWidget>
+#include <memory>
 
 using KIdentityManagement::Signature;
 
 namespace KIdentityManagement
 {
+class SignatureConfiguratorPrivate;
 /**
  * This widget gives an interface so users can edit their signature.
  * You can set a signature via setSignature(), let the user edit the
@@ -129,8 +131,8 @@ private:
     void slotSetHtml();
 
     //@cond PRIVATE
-    class Private;
-    Private *const d;
+    friend class SignatureConfiguratorPrivate;
+    std::unique_ptr<SignatureConfiguratorPrivate> const d;
     //@endcond
 };
 }

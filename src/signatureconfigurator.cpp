@@ -49,10 +49,10 @@ namespace KIdentityManagement
    @internal
   */
 //@cond PRIVATE
-class Q_DECL_HIDDEN SignatureConfigurator::Private
+class Q_DECL_HIDDEN SignatureConfiguratorPrivate
 {
 public:
-    explicit Private(SignatureConfigurator *parent);
+    explicit SignatureConfiguratorPrivate(SignatureConfigurator *parent);
     void init();
     // Returns the current text of the textedit as HTML code, but strips
     // unnecessary tags Qt inserts
@@ -73,13 +73,13 @@ public:
 };
 //@endcond
 
-SignatureConfigurator::Private::Private(SignatureConfigurator *parent)
+SignatureConfiguratorPrivate::SignatureConfiguratorPrivate(SignatureConfigurator *parent)
     : q(parent)
     , inlinedHtml(true)
 {
 }
 
-QString SignatureConfigurator::Private::asCleanedHTML() const
+QString SignatureConfiguratorPrivate::asCleanedHTML() const
 {
     QString text = mTextEdit->toHtml();
 
@@ -95,7 +95,7 @@ QString SignatureConfigurator::Private::asCleanedHTML() const
     return text;
 }
 
-void SignatureConfigurator::Private::init()
+void SignatureConfiguratorPrivate::init()
 {
     auto vlay = new QVBoxLayout(q);
     vlay->setObjectName(QStringLiteral("main layout"));
@@ -263,15 +263,12 @@ void SignatureConfigurator::Private::init()
 
 SignatureConfigurator::SignatureConfigurator(QWidget *parent)
     : QWidget(parent)
-    , d(new Private(this))
+    , d(new SignatureConfiguratorPrivate(this))
 {
     d->init();
 }
 
-SignatureConfigurator::~SignatureConfigurator()
-{
-    delete d;
-}
+SignatureConfigurator::~SignatureConfigurator() = default;
 
 bool SignatureConfigurator::isSignatureEnabled() const
 {
