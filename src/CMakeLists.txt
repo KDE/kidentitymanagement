@@ -11,6 +11,12 @@ target_sources(KF5IdentityManagement PRIVATE
   signature.cpp
   signatureconfigurator.cpp
   utils.cpp
+  utils.h
+  identitycombo.h
+  signature.h
+  identitymanager.h
+  identity.h
+  signatureconfigurator.h
 )
 
 
