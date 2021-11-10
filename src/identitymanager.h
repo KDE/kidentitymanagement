@@ -131,7 +131,7 @@ public:
         @param uoid the default identity to set
         @return false if an identity with UOID @p uoid was not found
     **/
-    Q_REQUIRED_RESULT bool setAsDefault(uint uoid);
+    bool setAsDefault(uint uoid);
 
     /** @return the identity named @p identityName. This method returns a
         reference to the identity that can be modified. To let others
