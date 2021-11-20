@@ -23,7 +23,7 @@ public:
         slotIdentitiesChanged();
     }
 
-    const QSet<QString> &emails() const
+    Q_REQUIRED_RESULT const QSet<QString> &emails() const
     {
         return mEmails;
     }
