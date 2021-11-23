@@ -753,6 +753,6 @@ QString Identity::verifyAkonadiId(const QString &str) const
     if (ok) {
         return str;
     } else {
-        return QString();
+        return {};
     }
 }

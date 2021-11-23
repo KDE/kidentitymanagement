@@ -17,7 +17,7 @@
 #include <QSharedPointer>
 
 #include <QDir>
-#include <assert.h>
+#include <cassert>
 #include <kpimtextedit/richtextcomposer.h>
 #include <kpimtextedit/richtextcomposercontroler.h>
 #include <kpimtextedit/richtextcomposerimages.h>
@@ -222,7 +222,7 @@ QString SignaturePrivate::textFromFile(bool *ok) const
         if (ok) {
             *ok = false;
         }
-        return QString();
+        return {};
     }
 
     if (ok) {
@@ -241,7 +241,7 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
         if (ok) {
             *ok = true;
         }
-        return QString();
+        return {};
     }
 
     // create a shell process:
@@ -261,7 +261,7 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
             path,
             QString::fromUtf8(proc.readAllStandardError()));
         KMessageBox::error(nullptr, wmsg);
-        return QString();
+        return {};
     }
 
     // no errors:
@@ -363,7 +363,7 @@ QString Signature::rawText(bool *ok) const
         if (ok) {
             *ok = true;
         }
-        return QString();
+        return {};
     case Inlined:
         if (ok) {
             *ok = true;
@@ -375,14 +375,14 @@ QString Signature::rawText(bool *ok) const
         return d->textFromCommand(ok);
     }
     qCritical() << "Signature::type() returned unknown value!";
-    return QString(); // make compiler happy
+    return {}; // make compiler happy
 }
 
 QString Signature::withSeparator(bool *ok) const
 {
     QString signature = rawText(ok);
     if (ok && (*ok) == false) {
-        return QString();
+        return {};
     }
 
     if (signature.isEmpty()) {

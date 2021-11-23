@@ -20,7 +20,7 @@
 
 #include <KLocalizedString>
 
-#include <assert.h>
+#include <cassert>
 
 using namespace KIdentityManagement;
 

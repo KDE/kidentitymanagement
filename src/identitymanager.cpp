@@ -30,7 +30,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <QRandomGenerator>
 
 #include <QRegularExpression>
-#include <assert.h>
+#include <cassert>
 
 #include "identitymanageradaptor.h"
 

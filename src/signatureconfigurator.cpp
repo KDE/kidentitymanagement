@@ -36,7 +36,7 @@
 #include <QVBoxLayout>
 
 #include <QStandardPaths>
-#include <assert.h>
+#include <cassert>
 
 #include <kpimtextedit/richtexteditorwidget.h>
 
