@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2014 Montel Laurent <montel@kde.org>
+# SPDX-License-Identifier: BSD-3-Clause
+
 @PACKAGE_INIT@
 include(CMakeFindDependencyMacro)
 find_dependency(KF5CoreAddons "@KF5_MIN_VERSION@")

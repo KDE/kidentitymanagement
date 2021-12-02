@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: none
+# SPDX-License-Identifier: BSD-3-Clause
 add_library(KF5IdentityManagement)
 add_library(KF5::IdentityManagement ALIAS KF5IdentityManagement)
 
