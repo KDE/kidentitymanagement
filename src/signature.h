@@ -13,6 +13,7 @@
 
 #include <QHash>
 #include <QImage>
+#include <QSharedPointer>
 #include <QString>
 #include <memory>
 

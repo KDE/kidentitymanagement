@@ -24,8 +24,9 @@ Q_DECLARE_METATYPE(KIdentityManagement::Signature)
 Identity::Identity(const QString &id, const QString &fullName, const QString &emailAddr, const QString &organization, const QString &replyToAddr)
 {
     qRegisterMetaType<Signature>();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     qRegisterMetaTypeStreamOperators<Signature>();
-
+#endif
     setProperty(QLatin1String(s_uoid), 0);
     setProperty(QLatin1String(s_identity), id);
     setProperty(QLatin1String(s_name), fullName);
