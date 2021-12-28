@@ -35,7 +35,7 @@ generate_export_header(KF5IdentityManagement BASE_NAME kidentitymanagement)
 
 
 
-target_include_directories(KF5IdentityManagement INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement;${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement/kidentitymanagement;>")
+target_include_directories(KF5IdentityManagement INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagement;${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagement/kidentitymanagement;>")
 target_include_directories(KF5IdentityManagement PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
 
 target_link_libraries(KF5IdentityManagement
@@ -44,7 +44,7 @@ PUBLIC
   KF5::PimTextEdit
 PRIVATE
   KF5::Codecs
-  Qt::Network
+  Qt${QT_MAJOR_VERSION}::Network
   KF5::I18n
   KF5::WidgetsAddons
   KF5::XmlGui
@@ -78,18 +78,18 @@ ecm_generate_headers(KIdentityManagement_CamelCase_HEADERS
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_export.h
   ${KIdentityManagement_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement/kidentitymanagement
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagement/kidentitymanagement
     COMPONENT Devel
 )
 install(FILES    ${KIdentityManagement_CamelCase_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement/KIdentityManagement/
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagement/KIdentityManagement/
     COMPONENT Devel
 )
 
 
 install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR} RENAME kf5_org.kde.pim.IdentityManager.xml)
 
-ecm_generate_pri_file(BASE_NAME KIdentityManagement LIB_NAME KF5IdentityManagement DEPS "KCoreAddons KPimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KIdentityManagement)
+ecm_generate_pri_file(BASE_NAME KIdentityManagement LIB_NAME KF5IdentityManagement DEPS "KCoreAddons KPimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagement)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
 ecm_qt_install_logging_categories(EXPORT KIDENTITYMANAGEMENT FILE kidentitymanagement.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})

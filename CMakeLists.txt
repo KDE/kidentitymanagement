@@ -44,7 +44,11 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
 
 ########### Find packages ###########
 
-find_package(Qt5Network NO_MODULE REQUIRED)
+find_package(Qt${QT_MAJOR_VERSION}Network NO_MODULE REQUIRED)
+if (QT_MAJOR_VERSION STREQUAL "6")
+    find_package(Qt6Core5Compat)
+endif()
+
 find_package(KF5CoreAddons ${KF5_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5TextWidgets ${KF5_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5XmlGui ${KF5_MIN_VERSION} CONFIG REQUIRED)
@@ -96,7 +100,7 @@ install(EXPORT KF5IdentityManagementTargets
 
 install(FILES
    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h
-   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}
    COMPONENT Devel
 )
 
