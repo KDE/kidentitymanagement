@@ -100,7 +100,7 @@ install(EXPORT KF5IdentityManagementTargets
 
 install(FILES
    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h
-   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagement
    COMPONENT Devel
 )
 
