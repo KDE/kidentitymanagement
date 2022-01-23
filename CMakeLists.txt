@@ -67,7 +67,7 @@ if (USE_UNITY_CMAKE_SUPPORT)
 endif()
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02)
-add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055A00)
+add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055B00)
 
 ########### Targets ###########
 add_subdirectory(src)
