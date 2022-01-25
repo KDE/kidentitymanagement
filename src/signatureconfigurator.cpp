@@ -38,7 +38,7 @@
 #include <QStandardPaths>
 #include <cassert>
 
-#include <kpimtextedit/richtexteditorwidget.h>
+#include <KPIMTextEdit/RichTextEditorWidget>
 
 using namespace KIdentityManagement;
 

@@ -16,11 +16,11 @@
 
 #include <QSharedPointer>
 
+#include <KPIMTextEdit/RichTextComposer>
+#include <KPIMTextEdit/RichTextComposerControler>
+#include <KPIMTextEdit/RichTextComposerImages>
 #include <QDir>
 #include <cassert>
-#include <kpimtextedit/richtextcomposer.h>
-#include <kpimtextedit/richtextcomposercontroler.h>
-#include <kpimtextedit/richtextcomposerimages.h>
 
 using namespace KIdentityManagement;
 

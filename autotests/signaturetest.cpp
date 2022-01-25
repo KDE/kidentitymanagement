@@ -20,9 +20,9 @@
 #include <QDir>
 #include <QStandardPaths>
 
-#include <kpimtextedit/richtextcomposer.h>
-#include <kpimtextedit/richtextcomposercontroler.h>
-#include <kpimtextedit/richtextcomposerimages.h>
+#include <KPIMTextEdit/RichTextComposer>
+#include <KPIMTextEdit/RichTextComposerControler>
+#include <KPIMTextEdit/RichTextComposerImages>
 using namespace KIdentityManagement;
 using namespace KPIMTextEdit;
 
