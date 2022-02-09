@@ -11,6 +11,7 @@
 #include "signaturetest.h"
 #include "qtest.h"
 
+#include "../src/signaturerichtexteditor.cpp"
 #include "signature.h"
 
 #include <KActionCollection>
@@ -118,7 +119,7 @@ void SignatureTester::testTextEditInsertion()
     // lines are inserted before the signature
 
     edit.setPlainText(QStringLiteral("Bla Bla"));
-    sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator | Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::Start, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QVERIFY(edit.textMode() == KPIMTextEdit::RichTextComposer::Plain);
     QCOMPARE(edit.toPlainText(), QStringLiteral("\n\n-- \nHello World\nBla Bla"));
 
@@ -126,7 +127,7 @@ void SignatureTester::testTextEditInsertion()
     edit.clear();
     edit.setPlainText(QStringLiteral("Bla Bla"));
     setCursorPos(edit, 4);
-    sig.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.toPlainText(), QStringLiteral("Bla Bla\n-- \nHello World"));
     QCOMPARE(edit.textCursor().position(), 4);
 
@@ -136,7 +137,7 @@ void SignatureTester::testTextEditInsertion()
     edit.setPlainText(QStringLiteral("Bla Bla"));
     setCursorPos(edit, 4);
     edit.document()->setModified(false);
-    sig.insertIntoTextEdit(Signature::AtCursor, Signature::AddSeparator | Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::AtCursor, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.toPlainText(), QStringLiteral("-- \nHello World\nBla Bla"));
     QCOMPARE(edit.textCursor().position(), 20);
     QVERIFY(!edit.document()->isModified());
@@ -151,7 +152,7 @@ void SignatureTester::testTextEditInsertion()
     edit.setPlainText(QStringLiteral("Bla Bla"));
     setCursorPos(edit, 4);
     edit.document()->setModified(true);
-    sig.insertIntoTextEdit(Signature::End, Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::End, Signature::AddNewLines, &edit);
     QCOMPARE(edit.toPlainText(), QStringLiteral("Bla Bla\nHello World"));
     QCOMPARE(edit.textCursor().position(), 4);
     QVERIFY(edit.document()->isModified());
@@ -162,7 +163,7 @@ void SignatureTester::testTextEditInsertion()
     // test that html signatures turn html on and have correct line endings (<br> vs \n)
     edit.clear();
     edit.setPlainText(QStringLiteral("Bla Bla"));
-    sig.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QVERIFY(edit.textMode() == KPIMTextEdit::RichTextComposer::Rich);
     QCOMPARE(edit.toPlainText(), QStringLiteral("Bla Bla\n-- \nHello\nWorld"));
 }
@@ -177,12 +178,12 @@ void SignatureTester::testBug167961()
 
     // Test that the cursor is still at the start when appending a sig into
     // an empty text edit
-    sig.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.textCursor().position(), 0);
 
     // When prepending a sig, the cursor should also be at the start, see bug 211634
     edit.clear();
-    sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator | Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::Start, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.textCursor().position(), 0);
 }
 
@@ -250,7 +251,7 @@ void SignatureTester::testImages()
     // read the images, and it does not mess up
     MySignature sig2;
     sig2.readConfig(group1);
-    sig2.insertIntoTextEdit(KIdentityManagement::Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig2, Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.composerControler()->composerImages()->embeddedImages().count(), 2);
     QCOMPARE(sig2.text(), QStringLiteral("Bla<img src=\"folder-new.png\">Bla<img src=\"arrow-up.png\">Bla"));
     sig2.writeConfig(group1);
@@ -263,7 +264,7 @@ void SignatureTester::testImages()
     sig2.setText(QStringLiteral("<img src=\"folder-new.png\">"));
     sig2.writeConfig(group1);
     edit.clear();
-    sig2.insertIntoTextEdit(Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig2, Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
     QCOMPARE(edit.composerControler()->composerImages()->embeddedImages().size(), 1);
     entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
     QCOMPARE(entryList.count(), 1);
@@ -279,12 +280,12 @@ void SignatureTester::testLinebreaks()
 
     KPIMTextEdit::RichTextComposer edit;
     edit.createActions(new KActionCollection(this));
-    sig.insertIntoTextEdit(Signature::Start, Signature::AddNothing, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::Start, Signature::AddNothing, &edit);
     QCOMPARE(edit.toPlainText(), QStringLiteral("Hans Mustermann\nMusterstr. 42"));
 
     edit.clear();
     sig.setText(QStringLiteral("<p>Hans Mustermann</p><br>Musterstr. 42"));
-    sig.insertIntoTextEdit(Signature::Start, Signature::AddSeparator, &edit);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::Start, Signature::AddSeparator, &edit);
     QEXPECT_FAIL("", "This test is probably bogus, since Qt doesn't seem to produce HTML like this anymore.", Continue);
     QCOMPARE(edit.toPlainText(), QStringLiteral("-- \nHans Mustermann\nMusterstr. 42"));
 }

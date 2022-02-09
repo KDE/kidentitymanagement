@@ -12,6 +12,8 @@ target_sources(KF5IdentityManagement PRIVATE
   identitymanager.cpp
   signature.cpp
   signatureconfigurator.cpp
+  signaturerichtexteditor.cpp
+  signaturerichtexteditor_p.h
   utils.cpp
   utils.h
   identitycombo.h

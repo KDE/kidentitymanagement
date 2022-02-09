@@ -24,11 +24,6 @@ class Identity;
 }
 class KConfigGroup;
 
-namespace KPIMTextEdit
-{
-class RichTextComposer;
-}
-
 namespace KIdentityManagement
 {
 class SignaturePrivate;
@@ -204,28 +199,6 @@ public:
 
     /// Describes which additional parts should be added to the signature
     using AddedText = QFlags<AddedTextFlag>;
-
-    /** Inserts this signature into the given text edit.
-     * If the signature is inserted at the beginning, a couple of new
-     * lines will be inserted before it, and the cursor is moved to
-     * the beginning. Otherwise, the cursor position is preserved.
-     * For undo/redo, this is treated as one operation.
-     *
-     * Rich text mode of the text edit will be enabled if the signature is in
-     * inlined HTML format.
-     *
-     * If this signature uses images, they will be added automatically.
-     *
-     * @param placement defines where in the text edit the signature should be
-     *                  inserted.
-     * @param addedText defines which other texts should be added to the signature
-     * @param textEdit the signature will be inserted into this text edit.
-     *
-     * @since 4.9
-     */
-    // TODO: KDE5: BIC: Reorder parameters, the order here is a workaround for ambiguous parameters
-    //                  with the deprecated method
-    void insertIntoTextEdit(Placement placement, AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay = false) const;
 
     Q_REQUIRED_RESULT QVector<Signature::EmbeddedImagePtr> embeddedImages() const;
     void setEmbeddedImages(const QVector<EmbeddedImagePtr> &embedded);

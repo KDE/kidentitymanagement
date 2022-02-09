@@ -37,7 +37,6 @@ public:
     void saveImages() const;
     Q_REQUIRED_RESULT QString textFromFile(bool *ok) const;
     Q_REQUIRED_RESULT QString textFromCommand(bool *ok) const;
-    void insertSignatureText(Signature::Placement placement, Signature::AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const;
 
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().
@@ -52,97 +51,6 @@ public:
     bool inlinedHtml = false;
     Signature *const q;
 };
-
-static bool isCursorAtEndOfLine(const QTextCursor &cursor)
-{
-    QTextCursor testCursor = cursor;
-    testCursor.movePosition(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
-    return !testCursor.hasSelection();
-}
-
-static void
-insertSignatureHelper(const QString &signature, KPIMTextEdit::RichTextComposer *textEdit, Signature::Placement placement, bool isHtml, bool addNewlines)
-{
-    if (!signature.isEmpty()) {
-        // Save the modified state of the document, as inserting a signature
-        // shouldn't change this. Restore it at the end of this function.
-        bool isModified = textEdit->document()->isModified();
-
-        // Move to the desired position, where the signature should be inserted
-        QTextCursor cursor = textEdit->textCursor();
-        QTextCursor oldCursor = cursor;
-        cursor.beginEditBlock();
-
-        if (placement == Signature::End) {
-            cursor.movePosition(QTextCursor::End);
-        } else if (placement == Signature::Start) {
-            cursor.movePosition(QTextCursor::Start);
-        } else if (placement == Signature::AtCursor) {
-            cursor.movePosition(QTextCursor::StartOfLine);
-        }
-        textEdit->setTextCursor(cursor);
-
-        QString lineSep;
-        if (addNewlines) {
-            if (isHtml) {
-                lineSep = QStringLiteral("<br>");
-            } else {
-                lineSep = QLatin1Char('\n');
-            }
-        }
-
-        // Insert the signature and newlines depending on where it was inserted.
-        int newCursorPos = -1;
-        QString headSep;
-        QString tailSep;
-
-        if (placement == Signature::End) {
-            // There is one special case when re-setting the old cursor: The cursor
-            // was at the end. In this case, QTextEdit has no way to know
-            // if the signature was added before or after the cursor, and just
-            // decides that it was added before (and the cursor moves to the end,
-            // but it should not when appending a signature). See bug 167961
-            if (oldCursor.position() == textEdit->toPlainText().length()) {
-                newCursorPos = oldCursor.position();
-            }
-            headSep = lineSep;
-        } else if (placement == Signature::Start) {
-            // When prepending signatures, add a couple of new lines before
-            // the signature, and move the cursor to the beginning of the QTextEdit.
-            // People tends to insert new text there.
-            newCursorPos = 0;
-            headSep = lineSep + lineSep;
-            if (!isCursorAtEndOfLine(cursor)) {
-                tailSep = lineSep;
-            }
-        } else if (placement == Signature::AtCursor) {
-            if (!isCursorAtEndOfLine(cursor)) {
-                tailSep = lineSep;
-            }
-        }
-
-        const QString full_signature = headSep + signature + tailSep;
-        if (isHtml) {
-            textEdit->insertHtml(full_signature);
-        } else {
-            textEdit->insertPlainText(full_signature);
-        }
-
-        cursor.endEditBlock();
-        if (newCursorPos != -1) {
-            oldCursor.setPosition(newCursorPos);
-        }
-
-        textEdit->setTextCursor(oldCursor);
-        textEdit->ensureCursorVisible();
-
-        textEdit->document()->setModified(isModified);
-
-        if (isHtml) {
-            textEdit->activateRichText();
-        }
-    }
-}
 
 // Returns the names of all images in the HTML code
 static QStringList findImageNames(const QString &htmlCode)
@@ -274,36 +182,6 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
 
     // TODO: hmm, should we allow other encodings, too?
     return QString::fromLocal8Bit(output.data(), output.size());
-}
-
-void SignaturePrivate::insertSignatureText(Signature::Placement placement,
-                                           Signature::AddedText addedText,
-                                           KPIMTextEdit::RichTextComposer *textEdit,
-                                           bool forceDisplay) const
-{
-    if (!forceDisplay) {
-        if (!enabled) {
-            return;
-        }
-    }
-    QString signature;
-    if (addedText & Signature::AddSeparator) {
-        signature = q->withSeparator();
-    } else {
-        signature = q->rawText();
-    }
-    insertSignatureHelper(signature,
-                          textEdit,
-                          placement,
-                          (inlinedHtml && type == KIdentityManagement::Signature::Inlined),
-                          (addedText & Signature::AddNewLines));
-
-    // We added the text of the signature above, now it is time to add the images as well.
-    if (inlinedHtml) {
-        for (const Signature::EmbeddedImagePtr &image : std::as_const(embeddedImages)) {
-            textEdit->composerControler()->composerImages()->loadImage(image->image, image->name, image->name);
-        }
-    }
 }
 
 QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
@@ -495,11 +373,6 @@ void Signature::writeConfig(KConfigGroup &config) const
 
     d->cleanupImages();
     d->saveImages();
-}
-
-void Signature::insertIntoTextEdit(Placement placement, AddedText addedText, KPIMTextEdit::RichTextComposer *textEdit, bool forceDisplay) const
-{
-    d->insertSignatureText(placement, addedText, textEdit, forceDisplay);
 }
 
 QVector<Signature::EmbeddedImagePtr> Signature::embeddedImages() const

@@ -8,6 +8,7 @@
 
 #include "signatureconfigurator.h"
 #include "identity.h"
+#include "signaturerichtexteditor_p.h"
 
 #include "kidentitymanagement_debug.h"
 #include <KActionCollection>
@@ -395,7 +396,7 @@ void SignatureConfigurator::setSignature(const Signature &sig)
 
     // Let insertIntoTextEdit() handle setting the text, as that function also adds the images.
     d->mTextEdit->clear();
-    sig.insertIntoTextEdit(KIdentityManagement::Signature::Start, KIdentityManagement::Signature::AddNothing, d->mTextEdit, true);
+    SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::Start, Signature::AddNothing, d->mTextEdit, true);
     if (sig.type() == Signature::FromFile) {
         setFileURL(sig.path());
     } else {
