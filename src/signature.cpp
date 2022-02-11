@@ -14,12 +14,11 @@
 #include <KMessageBox>
 #include <KProcess>
 
-#include <QSharedPointer>
-
-#include <KPIMTextEdit/RichTextComposer>
-#include <KPIMTextEdit/RichTextComposerControler>
-#include <KPIMTextEdit/RichTextComposerImages>
 #include <QDir>
+#include <QSharedPointer>
+#include <QTextBlock>
+#include <QTextDocument>
+
 #include <cassert>
 
 using namespace KIdentityManagement;
@@ -55,17 +54,21 @@ public:
 // Returns the names of all images in the HTML code
 static QStringList findImageNames(const QString &htmlCode)
 {
-    QStringList ret;
-
-    // To complicated for us, so cheat and let a text edit do the hard work
-    KPIMTextEdit::RichTextComposer edit;
-    edit.setHtml(htmlCode);
-    const KPIMTextEdit::ImageWithNameList images = edit.composerControler()->composerImages()->imagesWithName();
-    ret.reserve(images.count());
-    for (const KPIMTextEdit::ImageWithNamePtr &image : images) {
-        ret << image->name;
+    QStringList imageNames;
+    QTextDocument doc;
+    doc.setHtml(htmlCode);
+    for (auto block = doc.begin(); block.isValid(); block = block.next()) {
+        for (auto it = block.begin(); !it.atEnd(); ++it) {
+            const auto fragment = it.fragment();
+            if (fragment.isValid()) {
+                const auto imageFormat = fragment.charFormat().toImageFormat();
+                if (imageFormat.isValid() && !imageFormat.name().startsWith(QLatin1String("http")) && !imageNames.contains(imageFormat.name())) {
+                    imageNames.push_back(imageFormat.name());
+                }
+            }
+        }
     }
-    return ret;
+    return imageNames;
 }
 
 void SignaturePrivate::assignFrom(const KIdentityManagement::Signature &that)
