@@ -11,7 +11,6 @@
 #include "kidentitymanagement_debug.h"
 #include <KConfigGroup>
 #include <KLocalizedString>
-#include <KMessageBox>
 #include <KProcess>
 
 #include <QDir>
@@ -35,7 +34,7 @@ public:
     void cleanupImages();
     void saveImages() const;
     Q_REQUIRED_RESULT QString textFromFile(bool *ok) const;
-    Q_REQUIRED_RESULT QString textFromCommand(bool *ok) const;
+    Q_REQUIRED_RESULT QString textFromCommand(bool *ok, QString *errorMessage) const;
 
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().
@@ -143,7 +142,7 @@ QString SignaturePrivate::textFromFile(bool *ok) const
     return QString::fromLocal8Bit(ba.data(), ba.size());
 }
 
-QString SignaturePrivate::textFromCommand(bool *ok) const
+QString SignaturePrivate::textFromCommand(bool *ok, QString *errorMessage) const
 {
     assert(type == Signature::FromCommand);
 
@@ -166,12 +165,13 @@ QString SignaturePrivate::textFromCommand(bool *ok) const
         if (ok) {
             *ok = false;
         }
-        const QString wmsg = i18n(
-            "<qt>Failed to execute signature script<p><b>%1</b>:</p>"
-            "<p>%2</p></qt>",
-            path,
-            QString::fromUtf8(proc.readAllStandardError()));
-        KMessageBox::error(nullptr, wmsg);
+        if (errorMessage) {
+            *errorMessage = i18n(
+                "<qt>Failed to execute signature script<p><b>%1</b>:</p>"
+                "<p>%2</p></qt>",
+                path,
+                QString::fromUtf8(proc.readAllStandardError()));
+        }
         return {};
     }
 
@@ -237,7 +237,7 @@ Signature &Signature::operator=(const KIdentityManagement::Signature &that)
 
 Signature::~Signature() = default;
 
-QString Signature::rawText(bool *ok) const
+QString Signature::rawText(bool *ok, QString *errorMessage) const
 {
     switch (d->type) {
     case Disabled:
@@ -253,15 +253,15 @@ QString Signature::rawText(bool *ok) const
     case FromFile:
         return d->textFromFile(ok);
     case FromCommand:
-        return d->textFromCommand(ok);
+        return d->textFromCommand(ok, errorMessage);
     }
     qCritical() << "Signature::type() returned unknown value!";
     return {}; // make compiler happy
 }
 
-QString Signature::withSeparator(bool *ok) const
+QString Signature::withSeparator(bool *ok, QString *errorMessage) const
 {
-    QString signature = rawText(ok);
+    QString signature = rawText(ok, errorMessage);
     if (ok && (*ok) == false) {
         return {};
     }
