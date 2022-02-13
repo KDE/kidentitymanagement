@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "kidentitymanagement_export.h"
+#include "kidentitymanagementwidgets_export.h"
 #include "signature.h" // for Signature::Type
 #include <QWidget>
 #include <memory>
@@ -24,7 +24,7 @@ class SignatureConfiguratorPrivate;
  * You can set a signature via setSignature(), let the user edit the
  * signature and when done, read the signature back.
  */
-class KIDENTITYMANAGEMENT_EXPORT SignatureConfigurator : public QWidget
+class KIDENTITYMANAGEMENTWIDGETS_EXPORT SignatureConfigurator : public QWidget
 {
     Q_OBJECT
 public:
@@ -136,4 +136,3 @@ private:
     //@endcond
 };
 }
-

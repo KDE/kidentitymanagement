@@ -365,4 +365,3 @@ protected:
     QHash<QString, QVariant> mPropertiesMap;
 };
 }
-

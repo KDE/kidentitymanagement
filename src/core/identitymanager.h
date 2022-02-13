@@ -6,11 +6,12 @@
 
 #pragma once
 
-#include <QObject>
-#include <QVector>
-#include <kidentitymanagement_export.h>
+#include "kidentitymanagement_export.h"
 
+#include <QObject>
 #include <QStringList>
+#include <QVector>
+
 #include <memory>
 
 namespace KIdentityManagement
@@ -223,4 +224,3 @@ private:
     Q_PRIVATE_SLOT(d, void slotIdentitiesChanged(const QString &id))
 };
 } // namespace
-

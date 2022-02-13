@@ -11,7 +11,7 @@
 #include "signaturetest.h"
 #include "qtest.h"
 
-#include "../src/signaturerichtexteditor.cpp"
+#include "../src/widgets/signaturerichtexteditor.cpp"
 #include "signature.h"
 
 #include <KActionCollection>

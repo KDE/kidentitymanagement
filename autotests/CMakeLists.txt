@@ -3,7 +3,7 @@
 include(ECMAddTests)
 find_package(Qt${QT_MAJOR_VERSION}Test ${QT_REQUIRED_VERSION} CONFIG REQUIRED)
 
-ecm_add_tests( identitytest.cpp signaturetest.cpp NAME_PREFIX "kpimidentity-" LINK_LIBRARIES KF5IdentityManagement
+ecm_add_tests( identitytest.cpp signaturetest.cpp NAME_PREFIX "kpimidentity-" LINK_LIBRARIES KF5IdentityManagementWidgets
     KF5::PimTextEdit Qt${QT_MAJOR_VERSION}::Test KF5::ConfigCore   KF5::TextWidgets KF5::XmlGui KF5::CoreAddons)
 
 target_compile_definitions(signaturetest PRIVATE

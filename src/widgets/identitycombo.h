@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "kidentitymanagement_export.h"
+#include "kidentitymanagementwidgets_export.h"
 #include <QComboBox>
 
 namespace KIdentityManagement
@@ -28,7 +28,7 @@ class Identity;
  * @brief The IdentityCombo class
  * @author Marc Mutz \<mutz@kde.org\>
  */
-class KIDENTITYMANAGEMENT_EXPORT IdentityCombo : public QComboBox
+class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityCombo : public QComboBox
 {
     Q_OBJECT
 public:
@@ -79,4 +79,3 @@ private:
     //@endcond
 };
 }
-

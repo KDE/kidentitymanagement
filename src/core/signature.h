@@ -218,4 +218,3 @@ private:
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Signature::AddedText)
 }
-
