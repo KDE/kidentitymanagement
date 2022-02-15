@@ -18,7 +18,7 @@ endif()
 
 generate_export_header(KF5IdentityManagementWidgets BASE_NAME kidentitymanagementwidgets)
 
-target_include_directories(KF5IdentityManagementWidgets INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagementWidgets;${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagementWidgets/kidentitymanagement;>")
+target_include_directories(KF5IdentityManagementWidgets INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagementWidgets>")
 target_include_directories(KF5IdentityManagementWidgets PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
 
 target_link_libraries(KF5IdentityManagementWidgets

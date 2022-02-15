@@ -10,7 +10,7 @@
 #pragma once
 
 #include "kidentitymanagementwidgets_export.h"
-#include "signature.h" // for Signature::Type
+#include <KIdentityManagement/Signature> // for Signature::Type
 #include <QWidget>
 #include <memory>
 
