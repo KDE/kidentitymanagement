@@ -27,4 +27,3 @@ private Q_SLOTS:
     void test_Aliases();
     void test_toMimeData();
 };
-
