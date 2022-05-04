@@ -14,7 +14,6 @@
 #include <KProcess>
 
 #include <QDir>
-#include <QSharedPointer>
 #include <QTextBlock>
 #include <QTextDocument>
 
