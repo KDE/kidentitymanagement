@@ -3,8 +3,18 @@
 include(ECMAddTests)
 find_package(Qt${QT_MAJOR_VERSION}Test ${QT_REQUIRED_VERSION} CONFIG REQUIRED)
 
-ecm_add_tests( identitytest.cpp signaturetest.cpp NAME_PREFIX "kpimidentity-" LINK_LIBRARIES KF5IdentityManagementWidgets
-    KF5::PimTextEdit Qt${QT_MAJOR_VERSION}::Test KF5::ConfigCore   KF5::TextWidgets KF5::XmlGui KF5::CoreAddons)
+macro(add_identity_test _source)
+    get_filename_component(_name ${_source} NAME_WE)
+    ecm_add_test(${_source} ${_name}.h
+        TEST_NAME ${_name}
+        NAME_PREFIX "kpimidentity-"
+        LINK_LIBRARIES KF5IdentityManagementWidgets
+        KF5::PimTextEdit Qt${QT_MAJOR_VERSION}::Test KF5::ConfigCore   KF5::TextWidgets KF5::XmlGui KF5::CoreAddons
+    )
+endmacro ()
+
+add_identity_test(identitytest.cpp)
+add_identity_test(signaturetest.cpp)
 
 target_compile_definitions(signaturetest PRIVATE
     SIGNATURETEST_DATA_FILE="${CMAKE_CURRENT_SOURCE_DIR}/signaturetest.cpp"
