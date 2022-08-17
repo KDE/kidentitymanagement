@@ -9,7 +9,7 @@ macro(add_identity_test _source)
         TEST_NAME ${_name}
         NAME_PREFIX "kpimidentity-"
         LINK_LIBRARIES KF5IdentityManagementWidgets
-        KF5::PimTextEdit Qt${QT_MAJOR_VERSION}::Test KF5::ConfigCore   KF5::TextWidgets KF5::XmlGui KF5::CoreAddons
+        KF5::PimTextEdit Qt::Test KF5::ConfigCore   KF5::TextWidgets KF5::XmlGui KF5::CoreAddons
     )
 endmacro ()
 

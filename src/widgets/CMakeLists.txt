@@ -24,12 +24,12 @@ target_include_directories(KF5IdentityManagementWidgets PUBLIC "$<BUILD_INTERFAC
 target_link_libraries(KF5IdentityManagementWidgets
 PUBLIC
   KF5IdentityManagement
-  Qt${QT_MAJOR_VERSION}::Widgets
+  Qt::Widgets
 PRIVATE
   KF5::CoreAddons
   KF5::PimTextEdit
   KF5::Codecs
-  Qt${QT_MAJOR_VERSION}::Network
+  Qt::Network
   KF5::I18n
   KF5::WidgetsAddons
   KF5::XmlGui

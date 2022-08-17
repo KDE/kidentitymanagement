@@ -33,14 +33,14 @@ target_include_directories(KF5IdentityManagement PUBLIC "$<BUILD_INTERFACE:${KId
 
 target_link_libraries(KF5IdentityManagement
 PUBLIC
-  Qt${QT_MAJOR_VERSION}::Gui
+  Qt::Gui
 PRIVATE
   KF5::CoreAddons
   KF5::ConfigCore
   KF5::Codecs
   KF5::I18n
-  Qt${QT_MAJOR_VERSION}::DBus
-  Qt${QT_MAJOR_VERSION}::Network
+  Qt::DBus
+  Qt::Network
 )
 
 set_target_properties(KF5IdentityManagement PROPERTIES
