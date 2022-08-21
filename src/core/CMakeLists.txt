@@ -49,7 +49,7 @@ set_target_properties(KF5IdentityManagement PROPERTIES
     EXPORT_NAME IdentityManagement
 )
 
-install(TARGETS KF5IdentityManagement EXPORT KF5IdentityManagementTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5IdentityManagement EXPORT KF5IdentityManagementTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### Generate Headers ###############
 ecm_generate_headers(KIdentityManagement_CamelCase_HEADERS
