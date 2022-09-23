@@ -11,7 +11,6 @@
 
 #include "kidentitymanagement_export.h"
 
-#include <QHash>
 #include <QImage>
 #include <QSharedPointer>
 #include <QString>
