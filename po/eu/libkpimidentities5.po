@@ -1,0 +1,171 @@
+# Translation for libkpimidentities5.po to Euskara/Basque (eu).
+# Copyright (C) 2020-2021, This file is copyright:
+# This file is distributed under the same license as the kidentitymanagement package.
+# KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
+#
+# Translators:
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2020, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: kidentitymanagement\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"PO-Revision-Date: 2021-08-16 20:51+0200\n"
+"Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
+"Language-Team: Basque <kde-i18n-eu@kde.org>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 21.08.0\n"
+
+#: core/identitymanager.cpp:165
+#, kde-format
+msgctxt "use default address from control center"
+msgid "Default"
+msgstr "Lehenetsia"
+
+#: core/identitymanager.cpp:190
+#, kde-format
+msgctxt "Default name for new email accounts/identities."
+msgid "Unnamed"
+msgstr "Izengabea"
+
+#: core/identitymanager.cpp:368
+#, kde-format
+msgctxt ""
+"%1: name; %2: number appended to it to make it unique among a list of names"
+msgid "%1 #%2"
+msgstr "%1 #%2"
+
+#: core/identitymanager.cpp:562
+#, kde-format
+msgid "Unnamed"
+msgstr "Izengabea"
+
+#: core/signature.cpp:169
+#, kde-format
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr ""
+"<qt>Sinadura scripta exekutatzea huts egin du<p><b>%1</b>:</p><p>%2</p></qt>"
+
+#: widgets/identitycombo.cpp:58
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr "(Lehenetsia)"
+
+#: widgets/signatureconfigurator.cpp:104
+#, kde-format
+msgid "&Enable signature"
+msgstr "&Gaitu sinadura"
+
+#: widgets/signatureconfigurator.cpp:106
+#, kde-format
+msgid ""
+"Check this box if you want KMail to append a signature to mails written with "
+"this identity."
+msgstr ""
+"Markatu lauki hau, KMail-ek, nortasun honekin idatzitako postei sinadura "
+"eranstea nahi baduzu."
+
+#: widgets/signatureconfigurator.cpp:115
+#, kde-format
+msgid "Click on the widgets below to obtain help on the input methods."
+msgstr ""
+"Egin klik beheko trepetei sarrerako metodoaren gaineko laguntza jasotzeko."
+
+#: widgets/signatureconfigurator.cpp:117
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Input Field Below"
+msgstr "Beheko sarrerako eremua"
+
+#: widgets/signatureconfigurator.cpp:118
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "File"
+msgstr "Fitxategia"
+
+#: widgets/signatureconfigurator.cpp:119
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Output of Command"
+msgstr "Komandoaren irteerakoa"
+
+#: widgets/signatureconfigurator.cpp:120
+#, kde-format
+msgid "Obtain signature &text from:"
+msgstr "Lortu sinadura &testua hemendik:"
+
+#: widgets/signatureconfigurator.cpp:161
+#, kde-format
+msgid "Use this field to enter an arbitrary static signature."
+msgstr "Erabili eremu hau sinadura estatiko arbitrario bat sartzeko."
+
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Erabili HTML"
+
+#: widgets/signatureconfigurator.cpp:220
+#, kde-format
+msgid ""
+"Use this requester to specify a text file that contains your signature. It "
+"will be read every time you create a new mail or append a new signature."
+msgstr ""
+"Erabili eskatzaile hau zure sinadura duen testu-fitxategi bat zehazteko. "
+"Posta berri bat sortu edo sinadura berri bat eransten duzun bakoitzean "
+"irakurriko da."
+
+#: widgets/signatureconfigurator.cpp:223
+#, kde-format
+msgid "S&pecify file:"
+msgstr "&Zehaztu fitxategia:"
+
+#: widgets/signatureconfigurator.cpp:230
+#, kde-format
+msgid "Edit &File"
+msgstr "Editatu &fitxategia"
+
+#: widgets/signatureconfigurator.cpp:231
+#, kde-format
+msgid "Opens the specified file in a text editor."
+msgstr "Zehaztutako fitxategia testu editore batean irekitzen du."
+
+#: widgets/signatureconfigurator.cpp:251
+#, kde-format
+msgid ""
+"You can add an arbitrary command here, either with or without path depending "
+"on whether or not the command is in your Path. For every new mail, KMail "
+"will execute the command and use what it outputs (to standard output) as a "
+"signature. Usual commands for use with this mechanism are \"fortune\" or "
+"\"ksig -random\". (Be careful, script needs a shebang line)."
+msgstr ""
+"Komando arbitrario bat gehitu dezakezu hemen, bide-izenarekin edo gabe, "
+"komandoa zure bide-izenetan dagoen edo ez dagoen arabera. Posta berri "
+"bakoitzeko, KMail-ek komandoa exekutatuko du eta haren irteerakoa (irteera "
+"estandarrekoa) sinadura gisa erabiliko du. Mekanismo honekin erabiltzeko "
+"ohiko komandoak dira «fortune» edo «ksig -random». (Kontuz, scriptak "
+"«shebang» lerro bat (#!) behar du)."
+
+#: widgets/signatureconfigurator.cpp:257
+#, kde-format
+msgid "S&pecify command:"
+msgstr "&Zehaztu komandoa:"
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "This text file size exceeds 1kb."
+msgstr "Testu-fitxategi honek 1kb gainditzen du."
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "Text File Size"
+msgstr "Testu-fitxategiaren neurria"
+
+#: widgets/signatureconfigurator.cpp:448
+#, kde-format
+msgid "&Use HTML (disabling removes formatting)"
+msgstr "E&rabili HTML (ezgaitzea formatua kentzen du)"

@@ -1,0 +1,173 @@
+# Translation of libkpimidentities into Japanese.
+# This file is distributed under the same license as the kdepimlibs package.
+# Yukiko Bando <ybando@k6.dion.ne.jp>, 2007, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libkpimidentities\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"PO-Revision-Date: 2008-11-24 23:44+0900\n"
+"Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
+"Language-Team: Japanese <kde-jp@kde.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#: core/identitymanager.cpp:165
+#, kde-format
+msgctxt "use default address from control center"
+msgid "Default"
+msgstr "デフォルト"
+
+#: core/identitymanager.cpp:190
+#, kde-format
+msgctxt "Default name for new email accounts/identities."
+msgid "Unnamed"
+msgstr "名前なし"
+
+#: core/identitymanager.cpp:368
+#, kde-format
+msgctxt ""
+"%1: name; %2: number appended to it to make it unique among a list of names"
+msgid "%1 #%2"
+msgstr "%1 #%2"
+
+#: core/identitymanager.cpp:562
+#, kde-format
+msgid "Unnamed"
+msgstr "名前なし"
+
+#: core/signature.cpp:169
+#, kde-format
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr ""
+"<qt>署名スクリプトを実行できませんでした<p><b>%1</b>:</p><p>%2</p></qt>"
+
+#: widgets/identitycombo.cpp:58
+#, fuzzy, kde-format
+#| msgctxt "use default address from control center"
+#| msgid "Default"
+msgctxt "Default identity"
+msgid " (default)"
+msgstr "デフォルト"
+
+#: widgets/signatureconfigurator.cpp:104
+#, kde-format
+msgid "&Enable signature"
+msgstr "署名を有効にする(&E)"
+
+#: widgets/signatureconfigurator.cpp:106
+#, kde-format
+msgid ""
+"Check this box if you want KMail to append a signature to mails written with "
+"this identity."
+msgstr ""
+"この個人情報で作成したメッセージに署名を追加する場合、このボックスをチェック"
+"します。"
+
+#: widgets/signatureconfigurator.cpp:115
+#, kde-format
+msgid "Click on the widgets below to obtain help on the input methods."
+msgstr "下のウィジェットをクリックすると、それぞれの使い方が表示されます。"
+
+#: widgets/signatureconfigurator.cpp:117
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Input Field Below"
+msgstr "下の入力フィールドから"
+
+#: widgets/signatureconfigurator.cpp:118
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "File"
+msgstr "ファイルから"
+
+#: widgets/signatureconfigurator.cpp:119
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Output of Command"
+msgstr "コマンドの出力から"
+
+#: widgets/signatureconfigurator.cpp:120
+#, kde-format
+msgid "Obtain signature &text from:"
+msgstr "署名テキストの取得方法(&T):"
+
+#: widgets/signatureconfigurator.cpp:161
+#, kde-format
+msgid "Use this field to enter an arbitrary static signature."
+msgstr "このフィールドには固定的な署名テキストを自由に入力します。"
+
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#, kde-format
+msgid "&Use HTML"
+msgstr "HTML を使う(&U)"
+
+#: widgets/signatureconfigurator.cpp:220
+#, kde-format
+msgid ""
+"Use this requester to specify a text file that contains your signature. It "
+"will be read every time you create a new mail or append a new signature."
+msgstr ""
+"これをクリックして署名を含むテキストファイルを指定します。新しいメールを作成"
+"したり署名を追加するたびに、このファイルから署名を読み取ります。"
+
+#: widgets/signatureconfigurator.cpp:223
+#, kde-format
+msgid "S&pecify file:"
+msgstr "ファイルを指定(&P):"
+
+#: widgets/signatureconfigurator.cpp:230
+#, kde-format
+msgid "Edit &File"
+msgstr "ファイルを編集(&F)"
+
+#: widgets/signatureconfigurator.cpp:231
+#, kde-format
+msgid "Opens the specified file in a text editor."
+msgstr "指定したファイルをテキストエディタで開きます。"
+
+#: widgets/signatureconfigurator.cpp:251
+#, fuzzy, kde-format
+#| msgid ""
+#| "You can add an arbitrary command here, either with or without path "
+#| "depending on whether or not the command is in your Path. For every new "
+#| "mail, KMail will execute the command and use what it outputs (to standard "
+#| "output) as a signature. Usual commands for use with this mechanism are "
+#| "\"fortune\" or \"ksig -random\"."
+msgid ""
+"You can add an arbitrary command here, either with or without path depending "
+"on whether or not the command is in your Path. For every new mail, KMail "
+"will execute the command and use what it outputs (to standard output) as a "
+"signature. Usual commands for use with this mechanism are \"fortune\" or "
+"\"ksig -random\". (Be careful, script needs a shebang line)."
+msgstr ""
+"ここには任意のコマンドを追加できます。コマンドがあなたの $PATH にない場合は、"
+"パスも含めて入力してください。新しいメールを作成すると、KMail はこのコマンド"
+"を実行し、その標準出力への出力を署名として追加します。これによく使われるコマ"
+"ンドは fortune と ksig -random です。"
+
+#: widgets/signatureconfigurator.cpp:257
+#, kde-format
+msgid "S&pecify command:"
+msgstr "コマンドを指定(&P):"
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "This text file size exceeds 1kb."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "Text File Size"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:448
+#, kde-format
+msgid "&Use HTML (disabling removes formatting)"
+msgstr "HTML を使う(&U) (無効にすると書式情報が失われます)"

@@ -1,0 +1,174 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2010.
+# obsoleteman <tulliana@gmail.com>, 2008.
+# Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
+# Volkan Gezer <volkangezer@gmail.com>, 2017.
+# Emir SARI <emir_sari@icloud.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kdepimlibs-kde4\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"PO-Revision-Date: 2022-04-08 13:22+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 21.12.3\n"
+"(http: //www.transifex.com/projects/p/kdepimlibs-k-tr/language/tr/)\n"
+
+#: core/identitymanager.cpp:165
+#, kde-format
+msgctxt "use default address from control center"
+msgid "Default"
+msgstr "Öntanımlı"
+
+#: core/identitymanager.cpp:190
+#, kde-format
+msgctxt "Default name for new email accounts/identities."
+msgid "Unnamed"
+msgstr "Adsız"
+
+#: core/identitymanager.cpp:368
+#, kde-format
+msgctxt ""
+"%1: name; %2: number appended to it to make it unique among a list of names"
+msgid "%1 #%2"
+msgstr "%1 #%2"
+
+#: core/identitymanager.cpp:562
+#, kde-format
+msgid "Unnamed"
+msgstr "Adsız"
+
+#: core/signature.cpp:169
+#, kde-format
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr "<qt>İmzalama betiği çalıştırılamadı<p><b>%1</b>:</p><p>%2</p></qt>"
+
+#: widgets/identitycombo.cpp:58
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr " (öntanımlı)"
+
+#: widgets/signatureconfigurator.cpp:104
+#, kde-format
+msgid "&Enable signature"
+msgstr "İmzayı &Etkinleştir"
+
+#: widgets/signatureconfigurator.cpp:106
+#, kde-format
+msgid ""
+"Check this box if you want KMail to append a signature to mails written with "
+"this identity."
+msgstr ""
+"Eğer KMail uygulamasının bu kimlikle  göndereceğiniz iletilere bir imza "
+"eklemesini istiyorsanız bu kutuyu işaretleyin."
+
+#: widgets/signatureconfigurator.cpp:115
+#, kde-format
+msgid "Click on the widgets below to obtain help on the input methods."
+msgstr ""
+"Giriş yöntemleri hakkında yardım almak için aşağıdaki gereçlerin üzerine "
+"tıklayın."
+
+#: widgets/signatureconfigurator.cpp:117
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Input Field Below"
+msgstr "Aşağıdaki Giriş Alanından"
+
+#: widgets/signatureconfigurator.cpp:118
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "File"
+msgstr "Dosya"
+
+#: widgets/signatureconfigurator.cpp:119
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Output of Command"
+msgstr "Komut Çıktısı"
+
+#: widgets/signatureconfigurator.cpp:120
+#, kde-format
+msgid "Obtain signature &text from:"
+msgstr "İ&mza metnini buradan al:"
+
+#: widgets/signatureconfigurator.cpp:161
+#, kde-format
+msgid "Use this field to enter an arbitrary static signature."
+msgstr "Bu alanı sabit bir imza tanımlamak için kullanın."
+
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#, kde-format
+msgid "&Use HTML"
+msgstr "&HTML Kullan"
+
+#: widgets/signatureconfigurator.cpp:220
+#, kde-format
+msgid ""
+"Use this requester to specify a text file that contains your signature. It "
+"will be read every time you create a new mail or append a new signature."
+msgstr ""
+"İmzanızı içeren bir metin dosyası belirtmek için bu isteği kullanın. Bu her "
+"yeni ileti oluşturduğunuzda ya da yeni bir imza eklediğinizde yeniden okunur."
+
+#: widgets/signatureconfigurator.cpp:223
+#, kde-format
+msgid "S&pecify file:"
+msgstr "D&osya belirt:"
+
+#: widgets/signatureconfigurator.cpp:230
+#, kde-format
+msgid "Edit &File"
+msgstr "Dosya &Düzenle"
+
+#: widgets/signatureconfigurator.cpp:231
+#, kde-format
+msgid "Opens the specified file in a text editor."
+msgstr "Belirtilen dosyayı bir metin düzenleyicide açar."
+
+#: widgets/signatureconfigurator.cpp:251
+#, kde-format
+msgid ""
+"You can add an arbitrary command here, either with or without path depending "
+"on whether or not the command is in your Path. For every new mail, KMail "
+"will execute the command and use what it outputs (to standard output) as a "
+"signature. Usual commands for use with this mechanism are \"fortune\" or "
+"\"ksig -random\". (Be careful, script needs a shebang line)."
+msgstr ""
+"Buradan herhangi bir komut ekleyebilirsiniz; komutun PATH değeriniz "
+"içerisindeki dizinlerde olup olmadığına göre komutun tam yolunu veya "
+"yalnızca adını yazabilirsiniz. Her yeni gönderilen ileti için, KMail bu "
+"komutu çalıştıracak ve komutun çıktısını e-posta imzanız olarak "
+"kullanacaktır. Bu yöntemi kullananlar genellikle \"fortune\" veya \"ksig -"
+"random\" uygulamalarını  tercih ederler (Dikkatli olun, betiğe bir diyez "
+"satırı gerekir)."
+
+#: widgets/signatureconfigurator.cpp:257
+#, kde-format
+msgid "S&pecify command:"
+msgstr "Kom&ut belirt:"
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "This text file size exceeds 1kb."
+msgstr "Bu metin dosyası 1kb'ı aşıyor."
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "Text File Size"
+msgstr "Metin Dosyası Boyutu"
+
+#: widgets/signatureconfigurator.cpp:448
+#, kde-format
+msgid "&Use HTML (disabling removes formatting)"
+msgstr "&HTML Kullan (pasifleştirilirse biçimlendirmeyi siler)"

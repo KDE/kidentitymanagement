@@ -1,0 +1,167 @@
+# translation of libkpimidentities.po to Belarusian
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Darafei Praliaskouski <komzpa@licei2.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: libkpimidentities\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"PO-Revision-Date: 2007-07-10 13:20+0300\n"
+"Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
+"Language-Team: Belarusian <i18n@mova.org>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n"
+"%100>=11 && n%100<=14 ? 2 : 3);\n"
+
+#: core/identitymanager.cpp:165
+#, fuzzy, kde-format
+#| msgid "Default"
+msgctxt "use default address from control center"
+msgid "Default"
+msgstr "Прадвызначаны"
+
+#: core/identitymanager.cpp:190
+#, fuzzy, kde-format
+#| msgid "Unnamed"
+msgctxt "Default name for new email accounts/identities."
+msgid "Unnamed"
+msgstr "Безназоўнае"
+
+#: core/identitymanager.cpp:368
+#, kde-format
+msgctxt ""
+"%1: name; %2: number appended to it to make it unique among a list of names"
+msgid "%1 #%2"
+msgstr ""
+
+#: core/identitymanager.cpp:562
+#, kde-format
+msgid "Unnamed"
+msgstr "Безназоўнае"
+
+#: core/signature.cpp:169
+#, fuzzy, kde-format
+#| msgid "<qt>Failed to execute signature script<br><b>%1</b>:<p>%2</p></qt>"
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr "<qt>Немагчыма выканаць сцэнар подпісу<br><b>%1</b>:<br>%2</qt>"
+
+#: widgets/identitycombo.cpp:58
+#, fuzzy, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr "%1 (па змаўчанні)"
+
+#: widgets/signatureconfigurator.cpp:104
+#, kde-format
+msgid "&Enable signature"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:106
+#, kde-format
+msgid ""
+"Check this box if you want KMail to append a signature to mails written with "
+"this identity."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:115
+#, kde-format
+msgid "Click on the widgets below to obtain help on the input methods."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:117
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Input Field Below"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:118
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "File"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:119
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Output of Command"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:120
+#, kde-format
+msgid "Obtain signature &text from:"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:161
+#, kde-format
+msgid "Use this field to enter an arbitrary static signature."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#, kde-format
+msgid "&Use HTML"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:220
+#, kde-format
+msgid ""
+"Use this requester to specify a text file that contains your signature. It "
+"will be read every time you create a new mail or append a new signature."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:223
+#, kde-format
+msgid "S&pecify file:"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:230
+#, kde-format
+msgid "Edit &File"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:231
+#, kde-format
+msgid "Opens the specified file in a text editor."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:251
+#, kde-format
+msgid ""
+"You can add an arbitrary command here, either with or without path depending "
+"on whether or not the command is in your Path. For every new mail, KMail "
+"will execute the command and use what it outputs (to standard output) as a "
+"signature. Usual commands for use with this mechanism are \"fortune\" or "
+"\"ksig -random\". (Be careful, script needs a shebang line)."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:257
+#, kde-format
+msgid "S&pecify command:"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "This text file size exceeds 1kb."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "Text File Size"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:448
+#, kde-format
+msgid "&Use HTML (disabling removes formatting)"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Default"
+#~ msgctxt "show default identity"
+#~ msgid "Default"
+#~ msgstr "Прадвызначаны"

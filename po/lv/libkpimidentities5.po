@@ -1,0 +1,189 @@
+# translation of libkpimidentities.po to Latvian
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Viesturs Zarins <viesturs.zarins@mii.lu.lv>, 2007, 2008.
+# Maris Nartiss <maris.kde@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: libkpimidentities\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"PO-Revision-Date: 2008-11-26 19:08+0200\n"
+"Last-Translator: Viesturs Zarins <viesturs.zarins@mii.lu.lv>\n"
+"Language-Team: Latvian <locale@laka.lv>\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: core/identitymanager.cpp:165
+#, kde-format
+msgctxt "use default address from control center"
+msgid "Default"
+msgstr "Noklusētā"
+
+#: core/identitymanager.cpp:190
+#, kde-format
+msgctxt "Default name for new email accounts/identities."
+msgid "Unnamed"
+msgstr "Nenosaukts"
+
+#: core/identitymanager.cpp:368
+#, kde-format
+msgctxt ""
+"%1: name; %2: number appended to it to make it unique among a list of names"
+msgid "%1 #%2"
+msgstr "%1 #%2"
+
+#: core/identitymanager.cpp:562
+#, kde-format
+msgid "Unnamed"
+msgstr "Nenosaukts"
+
+#: core/signature.cpp:169
+#, kde-format
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr ""
+"<qt>Neizdevās izpildīt parakstīšanas skriptu<p><b>%1</b>:</p><p>%2</p></qt>"
+
+#: widgets/identitycombo.cpp:58
+#, fuzzy, kde-format
+#| msgctxt "use default address from control center"
+#| msgid "Default"
+msgctxt "Default identity"
+msgid " (default)"
+msgstr "Noklusētā"
+
+#: widgets/signatureconfigurator.cpp:104
+#, kde-format
+msgid "&Enable signature"
+msgstr "Li&etot parakstu"
+
+#: widgets/signatureconfigurator.cpp:106
+#, kde-format
+msgid ""
+"Check this box if you want KMail to append a signature to mails written with "
+"this identity."
+msgstr ""
+"Ieslēdziet šo, ja vēlaties ka KMail pievieno parakstus vēstulēm, kas sūtītas "
+"no šīs identitātes."
+
+#: widgets/signatureconfigurator.cpp:115
+#, kde-format
+msgid "Click on the widgets below to obtain help on the input methods."
+msgstr ""
+"Nospiediet uz zemāk esošajiem rīkiem, lai iegūtu palīdzību par ievades "
+"metodēm."
+
+#: widgets/signatureconfigurator.cpp:117
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Input Field Below"
+msgstr "Zemāk esošā lauka"
+
+#: widgets/signatureconfigurator.cpp:118
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "File"
+msgstr "Faila"
+
+#: widgets/signatureconfigurator.cpp:119
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Output of Command"
+msgstr "Komanas izvada"
+
+#: widgets/signatureconfigurator.cpp:120
+#, kde-format
+msgid "Obtain signature &text from:"
+msgstr "Iegūt paraksta &tekstu no:"
+
+#: widgets/signatureconfigurator.cpp:161
+#, kde-format
+msgid "Use this field to enter an arbitrary static signature."
+msgstr "Šajā laukā varat ievadīt jebkādu statisku parakstu."
+
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Lietot HTML"
+
+#: widgets/signatureconfigurator.cpp:220
+#, kde-format
+msgid ""
+"Use this requester to specify a text file that contains your signature. It "
+"will be read every time you create a new mail or append a new signature."
+msgstr ""
+"Izmantojiet šo pārlūku, lai norādītu parastu saturošo teksta failu. Tas tiks "
+"nolasīts katreiz, kad izveido jaunu vēstuli, vai pievieno jaunu parakstu."
+
+#: widgets/signatureconfigurator.cpp:223
+#, kde-format
+msgid "S&pecify file:"
+msgstr "No&rādiet failu:"
+
+#: widgets/signatureconfigurator.cpp:230
+#, kde-format
+msgid "Edit &File"
+msgstr "Rediģēt &failu"
+
+#: widgets/signatureconfigurator.cpp:231
+#, kde-format
+msgid "Opens the specified file in a text editor."
+msgstr "Atver norādīto failu teksta redaktorā."
+
+#: widgets/signatureconfigurator.cpp:251
+#, fuzzy, kde-format
+#| msgid ""
+#| "You can add an arbitrary command here, either with or without path "
+#| "depending on whether or not the command is in your Path. For every new "
+#| "mail, KMail will execute the command and use what it outputs (to standard "
+#| "output) as a signature. Usual commands for use with this mechanism are "
+#| "\"fortune\" or \"ksig -random\"."
+msgid ""
+"You can add an arbitrary command here, either with or without path depending "
+"on whether or not the command is in your Path. For every new mail, KMail "
+"will execute the command and use what it outputs (to standard output) as a "
+"signature. Usual commands for use with this mechanism are \"fortune\" or "
+"\"ksig -random\". (Be careful, script needs a shebang line)."
+msgstr ""
+"Šeit var norādīt patvaļīgu komandu,.ar vai bez ceļa, atkarībā no tā vai "
+"komanda ir sistēmas ceļā. Veidojot katru jaunu vēstuli, KMail izpildīs šo "
+"komandu un izmantos tās standarta izvadā izvadīto tekstu par parakstu. Jūs "
+"varat izmantot, piemēram, \"fortune\" vai \"ksig -random\"."
+
+#: widgets/signatureconfigurator.cpp:257
+#, kde-format
+msgid "S&pecify command:"
+msgstr "Norā&diet komandu:"
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "This text file size exceeds 1kb."
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "Text File Size"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:448
+#, kde-format
+msgid "&Use HTML (disabling removes formatting)"
+msgstr "&Lietot HTML (atslēgšana aizvāc formatējumu)"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Viesturs Zariņš"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "viesturs.zarins@mii.lu.lv"
+
+#~ msgctxt "show default identity"
+#~ msgid "Default"
+#~ msgstr "Noklusētā"

@@ -1,0 +1,168 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# g.sora <g.sora@tiscali.it>, 2011, 2012, 2020, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"PO-Revision-Date: 2021-08-31 18:32+0200\n"
+"Last-Translator: giovanni <g.sora@tiscali.it>\n"
+"Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
+"Language: ia\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.04.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: core/identitymanager.cpp:165
+#, kde-format
+msgctxt "use default address from control center"
+msgid "Default"
+msgstr "Predefinite"
+
+#: core/identitymanager.cpp:190
+#, kde-format
+msgctxt "Default name for new email accounts/identities."
+msgid "Unnamed"
+msgstr "Sin nomine"
+
+#: core/identitymanager.cpp:368
+#, kde-format
+msgctxt ""
+"%1: name; %2: number appended to it to make it unique among a list of names"
+msgid "%1 #%2"
+msgstr "%1 #%2"
+
+#: core/identitymanager.cpp:562
+#, kde-format
+msgid "Unnamed"
+msgstr "Sin nomine"
+
+#: core/signature.cpp:169
+#, kde-format
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr ""
+"<qt>Il falleva executar script de signatura<p><b>%1</b>:</p><p>%2</p></qt>"
+
+#: widgets/identitycombo.cpp:58
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr "(predefinite) "
+
+#: widgets/signatureconfigurator.cpp:104
+#, kde-format
+msgid "&Enable signature"
+msgstr "&Habilita signatura"
+
+#: widgets/signatureconfigurator.cpp:106
+#, kde-format
+msgid ""
+"Check this box if you want KMail to append a signature to mails written with "
+"this identity."
+msgstr ""
+"Marca iste quadrato si tu vole que KMail attacha un signatura a messages "
+"scribite con iste identitate."
+
+#: widgets/signatureconfigurator.cpp:115
+#, kde-format
+msgid "Click on the widgets below to obtain help on the input methods."
+msgstr ""
+"Pulsa sur le widgets a basso pro obtener adjuta sur le methodos de ingresso."
+
+#: widgets/signatureconfigurator.cpp:117
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Input Field Below"
+msgstr "Campo de insertar a basso"
+
+#: widgets/signatureconfigurator.cpp:118
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "File"
+msgstr "File"
+
+#: widgets/signatureconfigurator.cpp:119
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Output of Command"
+msgstr "Exito de commando"
+
+#: widgets/signatureconfigurator.cpp:120
+#, kde-format
+msgid "Obtain signature &text from:"
+msgstr "Obtene &testo de signatura ex:"
+
+#: widgets/signatureconfigurator.cpp:161
+#, kde-format
+msgid "Use this field to enter an arbitrary static signature."
+msgstr "Usa iste campo pro insertar un signatura static arbitrari."
+
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Usa HTML"
+
+#: widgets/signatureconfigurator.cpp:220
+#, kde-format
+msgid ""
+"Use this requester to specify a text file that contains your signature. It "
+"will be read every time you create a new mail or append a new signature."
+msgstr ""
+"Usa iste requiritor pro specificar un file de texto que contine tu "
+"signatura. Illo essera legit e cata vice que tu crea un nove message de e-"
+"posta o que tu attacha un nove signatura."
+
+#: widgets/signatureconfigurator.cpp:223
+#, kde-format
+msgid "S&pecify file:"
+msgstr "S&pecifica file:"
+
+#: widgets/signatureconfigurator.cpp:230
+#, kde-format
+msgid "Edit &File"
+msgstr "Modifica &File"
+
+#: widgets/signatureconfigurator.cpp:231
+#, kde-format
+msgid "Opens the specified file in a text editor."
+msgstr "Aperi le file specificate in un editor de texto."
+
+#: widgets/signatureconfigurator.cpp:251
+#, kde-format
+msgid ""
+"You can add an arbitrary command here, either with or without path depending "
+"on whether or not the command is in your Path. For every new mail, KMail "
+"will execute the command and use what it outputs (to standard output) as a "
+"signature. Usual commands for use with this mechanism are \"fortune\" or "
+"\"ksig -random\". (Be careful, script needs a shebang line)."
+msgstr ""
+"Tu pote adder hic un commando arbitrari, sia con o sin un percurso in "
+"dependentia si o non le commando es in tu percurso. Pro cata nove message de "
+"e-posta, KMail executara le commando e usara su exitos (al egresso standard) "
+"como un signatura. Commandos usual de usar se con iste mechanismo es "
+"\"fortune\" o \"ksig-random\".(sea prudente, script necessita de un linea "
+"shebang)."
+
+#: widgets/signatureconfigurator.cpp:257
+#, kde-format
+msgid "S&pecify command:"
+msgstr "S&pecifica commando:"
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "This text file size exceeds 1kb."
+msgstr "Iste grandr de file de texto excede 1kb."
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "Text File Size"
+msgstr "Grandor de file de texto"
+
+#: widgets/signatureconfigurator.cpp:448
+#, kde-format
+msgid "&Use HTML (disabling removes formatting)"
+msgstr "&Usa HTML (il dishabilita removes formatting)"

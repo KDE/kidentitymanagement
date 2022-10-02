@@ -1,0 +1,172 @@
+# translation of libkpimidentities.po to
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Mikko Piippo <piippo@cc.helsinki.fi>, 2007.
+# Tommi Nieminen <translator@legisign.org>, 2010, 2018, 2019, 2021.
+# Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2012, 2013.
+#
+# KDE Finnish translation sprint participants:
+msgid ""
+msgstr ""
+"Project-Id-Version: libkpimidentities\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"PO-Revision-Date: 2021-10-11 14:43+0300\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
+"Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-POT-Import-Date: 2012-12-01 22:25:20+0000\n"
+"X-Generator: Lokalize 20.04.2\n"
+
+#: core/identitymanager.cpp:165
+#, kde-format
+msgctxt "use default address from control center"
+msgid "Default"
+msgstr "Oletus"
+
+#: core/identitymanager.cpp:190
+#, kde-format
+msgctxt "Default name for new email accounts/identities."
+msgid "Unnamed"
+msgstr "Nimetön"
+
+#: core/identitymanager.cpp:368
+#, kde-format
+msgctxt ""
+"%1: name; %2: number appended to it to make it unique among a list of names"
+msgid "%1 #%2"
+msgstr "%1 %2"
+
+#: core/identitymanager.cpp:562
+#, kde-format
+msgid "Unnamed"
+msgstr "Nimetön"
+
+#: core/signature.cpp:169
+#, kde-format
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr ""
+"<qt>Allekirjoituskomentosarjan suoritus epäonnistui<p><b>%1</b>:</p><p>%2 </"
+"p></qt>"
+
+#: widgets/identitycombo.cpp:58
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr " (oletus)"
+
+#: widgets/signatureconfigurator.cpp:104
+#, kde-format
+msgid "&Enable signature"
+msgstr "&Allekirjoita"
+
+#: widgets/signatureconfigurator.cpp:106
+#, kde-format
+msgid ""
+"Check this box if you want KMail to append a signature to mails written with "
+"this identity."
+msgstr ""
+"Valitse tämä, jos haluat KMailin lisäävän allekirjoituksen tällä "
+"henkilöydellä kirjoitettuihin viesteihin."
+
+#: widgets/signatureconfigurator.cpp:115
+#, kde-format
+msgid "Click on the widgets below to obtain help on the input methods."
+msgstr "Napsauta alla olevia elementtejä saadaksesi ohjeita syöttötavoista."
+
+#: widgets/signatureconfigurator.cpp:117
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Input Field Below"
+msgstr "alla olevasta kentästä"
+
+#: widgets/signatureconfigurator.cpp:118
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "File"
+msgstr "tiedostosta"
+
+#: widgets/signatureconfigurator.cpp:119
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Output of Command"
+msgstr "komennon tulosteesta"
+
+#: widgets/signatureconfigurator.cpp:120
+#, kde-format
+msgid "Obtain signature &text from:"
+msgstr "&Nouda allekirjoituksen teksti:"
+
+#: widgets/signatureconfigurator.cpp:161
+#, kde-format
+msgid "Use this field to enter an arbitrary static signature."
+msgstr "Kirjoita tähän kenttään pysyvästi käytettävä allekirjoitus."
+
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Käytä HTML:ää"
+
+#: widgets/signatureconfigurator.cpp:220
+#, kde-format
+msgid ""
+"Use this requester to specify a text file that contains your signature. It "
+"will be read every time you create a new mail or append a new signature."
+msgstr ""
+"Käytä tätä toimintoa määrittämään allekirjoituksesi sisältävä tiedosto. Se "
+"luetaan aina kirjoittaessasi uutta viestiä tai lisätessäsi uuden "
+"allekirjoituksen."
+
+#: widgets/signatureconfigurator.cpp:223
+#, kde-format
+msgid "S&pecify file:"
+msgstr "&Määritä tiedosto:"
+
+#: widgets/signatureconfigurator.cpp:230
+#, kde-format
+msgid "Edit &File"
+msgstr "M&uokkaa tiedostoa"
+
+#: widgets/signatureconfigurator.cpp:231
+#, kde-format
+msgid "Opens the specified file in a text editor."
+msgstr "Avaa määritetty tiedosto tekstimuokkaimeen."
+
+#: widgets/signatureconfigurator.cpp:251
+#, kde-format
+msgid ""
+"You can add an arbitrary command here, either with or without path depending "
+"on whether or not the command is in your Path. For every new mail, KMail "
+"will execute the command and use what it outputs (to standard output) as a "
+"signature. Usual commands for use with this mechanism are \"fortune\" or "
+"\"ksig -random\". (Be careful, script needs a shebang line)."
+msgstr ""
+"Voit lisätä tähän mielivaltaisen komennon. Lisää tiedoston polku, ellei "
+"komento löydy hakupolusta. KMail suorittaa tämän komennon kullekin uudelle "
+"viestille ja käyttää komennon vakiotulostetta allekirjoituksena. "
+"Tavanomaisia komentoja tälle mekanismille ovat ”fortune” ja ”ksig -random”. "
+"(Huomaa, että skripti vaatii #!-rivin.)"
+
+#: widgets/signatureconfigurator.cpp:257
+#, kde-format
+msgid "S&pecify command:"
+msgstr "&Määritä komento:"
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "This text file size exceeds 1kb."
+msgstr "Tekstin tiedostokoko on yli 1 kt."
+
+#: widgets/signatureconfigurator.cpp:417
+#, kde-format
+msgid "Text File Size"
+msgstr "Tekstitiedoston koko"
+
+#: widgets/signatureconfigurator.cpp:448
+#, kde-format
+msgid "&Use HTML (disabling removes formatting)"
+msgstr "&Käytä HTML:ää (ellei käytössä, muotoilu poistetaan)"

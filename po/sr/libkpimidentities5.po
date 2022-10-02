@@ -1,0 +1,174 @@
+# Translation of libkpimidentities5.po into Serbian.
+# Chusslove Illich <caslav.ilic@gmx.net>, 2007, 2008, 2009, 2017.
+# Dalibor Djuric <dalibor.djuric@mozilla-srbija.org>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: libkpimidentities5\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2020-06-15 02:17+0200\n"
+"PO-Revision-Date: 2017-09-28 18:00+0200\n"
+"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+"X-Environment: kde\n"
+
+# >> @item Default address
+#: identitymanager.cpp:178
+#, kde-format
+msgctxt "use default address from control center"
+msgid "Default"
+msgstr "подразумевана"
+
+# >> @item +
+#: identitymanager.cpp:203
+#, kde-format
+msgctxt "Default name for new email accounts/identities."
+msgid "Unnamed"
+msgstr "неименован"
+
+#: identitymanager.cpp:385
+#, kde-format
+msgctxt ""
+"%1: name; %2: number appended to it to make it unique among a list of names"
+msgid "%1 #%2"
+msgstr "%1 #%2"
+
+# >> @item Unnamed identity
+#: identitymanager.cpp:596
+#, kde-format
+msgid "Unnamed"
+msgstr "неименован"
+
+#: signature.cpp:272
+#, kde-format
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr ""
+"<qt>Неуспело извршавање скрипте потписа<br/><p><b>%1</b>:</p><p>%2</p></qt>"
+
+# >> @option:check
+#: signatureconfigurator.cpp:114
+#, kde-format
+msgid "&Enable signature"
+msgstr "&Укључи потпис"
+
+#: signatureconfigurator.cpp:116
+#, kde-format
+msgid ""
+"Check this box if you want KMail to append a signature to mails written with "
+"this identity."
+msgstr ""
+"Попуните ако желите да К‑пошта додаје потпис порукама писаним под овим "
+"идентитетом."
+
+#: signatureconfigurator.cpp:126
+#, kde-format
+msgid "Click on the widgets below to obtain help on the input methods."
+msgstr "Помоћ за методе уноса можете добити кликтањем на доње виџете."
+
+# >> @item:inlistbox ...
+#: signatureconfigurator.cpp:130
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Input Field Below"
+msgstr "поља испод"
+
+# >> @item:inlistbox ...
+#: signatureconfigurator.cpp:132
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "File"
+msgstr "фајла"
+
+# >> @item:inlistbox ...
+#: signatureconfigurator.cpp:134
+#, kde-format
+msgctxt "continuation of \"obtain signature text from\""
+msgid "Output of Command"
+msgstr "излаза наредбе"
+
+#: signatureconfigurator.cpp:135
+#, kde-format
+msgid "Obtain signature &text from:"
+msgstr "Добави &текст потписа из:"
+
+#: signatureconfigurator.cpp:176
+#, kde-format
+msgid "Use this field to enter an arbitrary static signature."
+msgstr "Унесите произвољан статични потпис."
+
+# >> @option:check
+#: signatureconfigurator.cpp:217 signatureconfigurator.cpp:457
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Користи ХТМЛ"
+
+#: signatureconfigurator.cpp:235
+#, kde-format
+msgid ""
+"Use this requester to specify a text file that contains your signature. It "
+"will be read every time you create a new mail or append a new signature."
+msgstr ""
+"Овим упитником задајете текстуални фајл који садржи потпис. Читаће се кад "
+"год пишете нову поруку или додајете нов потпис."
+
+#: signatureconfigurator.cpp:238
+#, kde-format
+msgid "S&pecify file:"
+msgstr "&Одреди фајл:"
+
+#: signatureconfigurator.cpp:245
+#, kde-format
+msgid "Edit &File"
+msgstr "&Уреди фајл"
+
+#: signatureconfigurator.cpp:246
+#, kde-format
+msgid "Opens the specified file in a text editor."
+msgstr "Отвара задати фајл уређивачем текста."
+
+#: signatureconfigurator.cpp:266
+#, fuzzy, kde-format
+#| msgid ""
+#| "You can add an arbitrary command here, either with or without path "
+#| "depending on whether or not the command is in your Path. For every new "
+#| "mail, KMail will execute the command and use what it outputs (to standard "
+#| "output) as a signature. Usual commands for use with this mechanism are "
+#| "\"fortune\" or \"ksig -random\"."
+msgid ""
+"You can add an arbitrary command here, either with or without path depending "
+"on whether or not the command is in your Path. For every new mail, KMail "
+"will execute the command and use what it outputs (to standard output) as a "
+"signature. Usual commands for use with this mechanism are \"fortune\" or "
+"\"ksig -random\". (Be careful, script needs a shebang line)."
+msgstr ""
+"<html>Упишите произвољну наредбу, са или без апсолутне путање у зависности "
+"од тога да ли је наредба већ у путањи. За сваку нову поруку, К‑пошта ће "
+"извршити наредбу и употребити њен стандардни излаз као потпис. Уобичајене "
+"наредбе за ову намену су <tt>fortune</tt> или <tt>ksig -random</tt>.</html>"
+
+#: signatureconfigurator.cpp:272
+#, kde-format
+msgid "S&pecify command:"
+msgstr "&Одреди наредбу:"
+
+#: signatureconfigurator.cpp:436
+#, kde-format
+msgid "This text file size exceeds 1kb."
+msgstr ""
+
+#: signatureconfigurator.cpp:436
+#, kde-format
+msgid "Text File Size"
+msgstr ""
+
+#: signatureconfigurator.cpp:467
+#, kde-format
+msgid "&Use HTML (disabling removes formatting)"
+msgstr "&Користи ХТМЛ (иначе уклања форматирање)"
