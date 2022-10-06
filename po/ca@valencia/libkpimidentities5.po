@@ -109,7 +109,7 @@ msgstr "Utilitzeu este camp per a introduir una signatura estàtica arbitrària.
 #: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
-msgstr "&Utilitza HTML"
+msgstr "Utilit&za HTML"
 
 #: widgets/signatureconfigurator.cpp:220
 #, kde-format
@@ -170,4 +170,4 @@ msgstr "Mida del fitxer de text"
 #: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
-msgstr "&Utilitza HTML (la inhabilitació elimina el format)"
+msgstr "Utilit&za HTML (la inhabilitació elimina el format)"
