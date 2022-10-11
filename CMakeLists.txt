@@ -6,7 +6,7 @@ set(PIM_VERSION "5.21.40")
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
 # ECM setup
-set(KF5_MIN_VERSION "5.98.0")
+set(KF5_MIN_VERSION "5.99.0")
 set(QT_REQUIRED_VERSION "5.15.2")
 if (QT_MAJOR_VERSION STREQUAL "6")
     set(QT_REQUIRED_VERSION "6.4.0")
