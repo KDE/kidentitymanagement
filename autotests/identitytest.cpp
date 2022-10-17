@@ -40,6 +40,11 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         QCOMPARE(actual.smimeEncryptionKey(), expected.smimeEncryptionKey());
         QCOMPARE(actual.smimeSigningKey(), expected.smimeSigningKey());
         QCOMPARE(actual.preferredCryptoMessageFormat(), expected.preferredCryptoMessageFormat());
+        QCOMPARE(actual.autocryptEnabled(), expected.autocryptEnabled());
+        QCOMPARE(actual.autocryptPrefer(), expected.autocryptPrefer());
+        QCOMPARE(actual.encryptionOverride(), expected.encryptionOverride());
+        QCOMPARE(actual.warnNotEncrypt(), expected.warnNotEncrypt());
+        QCOMPARE(actual.warnNotSign(), expected.warnNotSign());
         QCOMPARE(actual.emailAliases(), expected.emailAliases());
         QCOMPARE(actual.primaryEmailAddress(), expected.primaryEmailAddress());
         QCOMPARE(actual.vCardFile(), expected.vCardFile());
@@ -127,6 +132,23 @@ void IdentityTester::test_Identity()
     QVERIFY(!identity.autocryptEnabled());
     identity.setAutocryptEnabled(true);
     QVERIFY(identity.autocryptEnabled());
+
+    QVERIFY(!identity.autocryptPrefer());
+    identity.setAutocryptPrefer(true);
+    QVERIFY(identity.autocryptPrefer());
+
+    QVERIFY(!identity.encryptionOverride());
+    identity.setEncryptionOverride(true);
+    QVERIFY(identity.encryptionOverride());
+
+    QVERIFY(!identity.warnNotEncrypt());
+    identity.setWarnNotEncrypt(true);
+    QVERIFY(identity.warnNotEncrypt());
+
+    QVERIFY(!identity.warnNotSign());
+    identity.setWarnNotSign(true);
+    QVERIFY(identity.warnNotSign());
+
     identity.setDefaultDomainName(QStringLiteral("kde.org"));
     QCOMPARE(identity.defaultDomainName(), QStringLiteral("kde.org"));
     Signature sig;
@@ -239,4 +261,45 @@ void IdentityTester::test_toMimeData()
     QCOMPARE(identity, identity2);
 
     QCOMPARE(identity.fullName(), identity2.fullName());
+}
+
+void IdentityTester::test_migration()
+{
+    Identity identity(QStringLiteral("Test1"));
+    identity.setFullName(QStringLiteral("name"));
+    QVERIFY(!identity.encryptionOverride());
+    {
+        KConfig config(QStringLiteral("test"));
+        QVERIFY(config.isConfigWritable(true));
+        KConfigGroup cg(&config, QStringLiteral("test"));
+        identity.writeConfig(cg);
+        config.sync();
+    }
+    {   // Generate a config that triggers the migration code
+        KConfig config(QStringLiteral("test_old"));
+        QVERIFY(config.isConfigWritable(true));
+        KConfigGroup cg(&config, QStringLiteral("test"));
+        identity.writeConfig(cg);
+        cg.deleteEntry(s_encryptionOverride);
+        cg.deleteEntry(s_warnnotencrypt);
+        cg.deleteEntry(s_warnnotsign);
+        config.sync();
+    }
+    {   // The migration is not triggerd
+        KConfig config(QStringLiteral("test"));
+        KConfigGroup cg(&config, QStringLiteral("test"));
+        Identity i2;
+        i2.readConfig(cg);
+        QVERIFY(compareIdentities(i2, identity));
+    }
+    {   // The migration is triggered
+        // for old config files (< v5.21.41)
+        KConfig config(QStringLiteral("test_old"));
+        KConfigGroup cg(&config, QStringLiteral("test"));
+        Identity i2;
+        i2.readConfig(cg);
+        QVERIFY(i2.encryptionOverride());
+        i2.setEncryptionOverride(false);
+        QVERIFY(compareIdentities(i2, identity));
+    }
 }

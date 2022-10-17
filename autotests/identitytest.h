@@ -26,4 +26,5 @@ private Q_SLOTS:
     void test_NullIdentity();
     void test_Aliases();
     void test_toMimeData();
+    void test_migration();
 };
