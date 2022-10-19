@@ -6,7 +6,7 @@
 #include "identitytest.h"
 #include "identity.h"
 #include "identitymanager.h"
-#include "qtest.h"
+#include <QTest>
 
 #include <KConfig>
 #include <KConfigGroup>

@@ -9,7 +9,7 @@
 #undef QT_USE_FAST_OPERATOR_PLUS
 
 #include "signaturetest.h"
-#include "qtest.h"
+#include <QTest>
 
 #include "../src/widgets/signaturerichtexteditor.cpp"
 #include "signature.h"
