@@ -55,10 +55,14 @@ static const char s_emailAliases[] = "Email Aliases";
 static const char s_attachVcard[] = "Attach Vcard";
 static const char s_autocorrectionLanguage[] = "Autocorrection Language";
 static const char s_disabledFcc[] = "Disable Fcc";
+static const char s_encryptionOverride[] = "Override Encryption Defaults";
 static const char s_pgpautosign[] = "Pgp Auto Sign";
 static const char s_pgpautoencrypt[] = "Pgp Auto Encrypt";
+static const char s_warnnotsign[] = "Warn not Sign";
+static const char s_warnnotencrypt[] = "Warn not Encrypt";
 static const char s_defaultDomainName[] = "Default Domain";
 static const char s_autocryptEnabled[] = "Autocrypt";
+static const char s_autocryptPrefer[] = "Autocrypt Prefer";
 
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Identity &ident);
 KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Identity &ident);
@@ -228,6 +232,30 @@ public:
      */
     Q_REQUIRED_RESULT bool autocryptEnabled() const;
     void setAutocryptEnabled(const bool);
+
+    /**
+     * @since 5.22
+     */
+    Q_REQUIRED_RESULT bool autocryptPrefer() const;
+    void setAutocryptPrefer(const bool);
+
+    /**
+     * @since 5.22
+     */
+    Q_REQUIRED_RESULT bool encryptionOverride() const;
+    void setEncryptionOverride(const bool);
+
+    /**
+     * @since 5.22
+     */
+    Q_REQUIRED_RESULT bool warnNotSign() const;
+    void setWarnNotSign(const bool);
+
+    /**
+     * @since 5.22
+     */
+    Q_REQUIRED_RESULT bool warnNotEncrypt() const;
+    void setWarnNotEncrypt(const bool);
 
     /**
      * @since 4.14
