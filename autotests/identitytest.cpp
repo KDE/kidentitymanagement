@@ -275,7 +275,7 @@ void IdentityTester::test_migration()
         identity.writeConfig(cg);
         config.sync();
     }
-    {   // Generate a config that triggers the migration code
+    { // Generate a config that triggers the migration code
         KConfig config(QStringLiteral("test_old"));
         QVERIFY(config.isConfigWritable(true));
         KConfigGroup cg(&config, QStringLiteral("test"));
@@ -285,14 +285,14 @@ void IdentityTester::test_migration()
         cg.deleteEntry(s_warnnotsign);
         config.sync();
     }
-    {   // The migration is not triggerd
+    { // The migration is not triggerd
         KConfig config(QStringLiteral("test"));
         KConfigGroup cg(&config, QStringLiteral("test"));
         Identity i2;
         i2.readConfig(cg);
         QVERIFY(compareIdentities(i2, identity));
     }
-    {   // The migration is triggered
+    { // The migration is triggered
         // for old config files (< v5.21.41)
         KConfig config(QStringLiteral("test_old"));
         KConfigGroup cg(&config, QStringLiteral("test"));
