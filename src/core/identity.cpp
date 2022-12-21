@@ -70,7 +70,14 @@ bool Identity::isNull() const
         }
         // The uoid is 0 by default, so ignore this
         if (!(key == QLatin1String(s_uoid) && i.value().toUInt() == 0)) {
-            if (!i.value().isNull() || (i.value().type() == QVariant::String && !i.value().toString().isEmpty())) {
+            if (!i.value().isNull()
+                || (
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+                    i.value().type() == QVariant::String
+#else
+                    i.value().metaType().id() == QMetaType::QString
+#endif
+                    && !i.value().toString().isEmpty())) {
                 empty = false;
             }
         }
@@ -505,7 +512,13 @@ void Identity::setProperty(const QString &key, const QVariant &value)
     if (key == QLatin1String(s_signature)) {
         mSignature = value.value<Signature>();
     } else {
-        if (value.isNull() || (value.type() == QVariant::String && value.toString().isEmpty())) {
+        if (value.isNull() ||
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+            (value.type() == QVariant::String
+#else
+            (value.metaType().id() == QMetaType::QString
+#endif
+             && value.toString().isEmpty())) {
             mPropertiesMap.remove(key);
         } else {
             mPropertiesMap.insert(key, value);
