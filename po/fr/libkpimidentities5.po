@@ -7,20 +7,21 @@
 # Vincent Pinon <vpinon@kde.org>, 2018.
 # Simon Depiets <sdepiets@gmail.com>, 2019.
 #
+# Xavier BESNARD <xavier.besnard]neuf.fr>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-25 00:45+0000\n"
-"PO-Revision-Date: 2021-08-17 09:33+0200\n"
-"Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"PO-Revision-Date: 2023-01-05 12:27+0100\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
+"Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 22.12.0\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -155,7 +156,7 @@ msgstr ""
 "« PATH ». Pour chaque nouveau message, KMail exécutera la commande et "
 "utilisera les messages de la sortie standard comme signature. Les commandes "
 "habituellement utilisées sont « fortune » et « ksig -random ». (Attention, "
-"le script doit comporter une ligne avec un shebang)"
+"le script doit comporter une ligne avec un shebang (« #!»)"
 
 #: widgets/signatureconfigurator.cpp:257
 #, kde-format
@@ -165,7 +166,7 @@ msgstr "S&pécifiez la commande :"
 #: widgets/signatureconfigurator.cpp:417
 #, kde-format
 msgid "This text file size exceeds 1kb."
-msgstr "La taille de ce fichier texte excède 1kb."
+msgstr "La taille de ce fichier texte excède 1 Ko."
 
 #: widgets/signatureconfigurator.cpp:417
 #, kde-format
