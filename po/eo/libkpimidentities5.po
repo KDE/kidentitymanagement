@@ -1,13 +1,16 @@
-# Translation of libkpimidentities into esperanto.
+# Translation of libkpimidentities5.pot to esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kidentitymanagement package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-25 00:45+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-01-08 21:45+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +23,7 @@ msgstr ""
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
-msgstr ""
+msgstr "Defaŭlto"
 
 #: core/identitymanager.cpp:190
 #, kde-format
@@ -36,11 +39,9 @@ msgid "%1 #%2"
 msgstr "%1 #%2"
 
 #: core/identitymanager.cpp:562
-#, fuzzy, kde-format
-#| msgctxt "Username for audioscrobbler login"
-#| msgid "Username"
+#, kde-format
 msgid "Unnamed"
-msgstr "Uzantnomo"
+msgstr "Sennoma"
 
 #: core/signature.cpp:169
 #, kde-format
@@ -51,7 +52,7 @@ msgstr ""
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr ""
+msgstr "(defaŭlto)"
 
 #: widgets/signatureconfigurator.cpp:104
 #, kde-format
@@ -82,7 +83,7 @@ msgstr "malsupra enigejo"
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
-msgstr ""
+msgstr "Dosiero"
 
 #: widgets/signatureconfigurator.cpp:119
 #, kde-format
@@ -101,10 +102,9 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Uzi la enigejon por enigi arbitran neŝanĝeman subskribon."
 
 #: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
-#, fuzzy, kde-format
-#| msgid "Use HTML"
+#, kde-format
 msgid "&Use HTML"
-msgstr "Uzi HTMLon"
+msgstr "&Uzi HTMLon"
 
 #: widgets/signatureconfigurator.cpp:220
 #, kde-format
@@ -131,13 +131,7 @@ msgid "Opens the specified file in a text editor."
 msgstr "Malfermas la elektitan dosieron en tekstredaktilo."
 
 #: widgets/signatureconfigurator.cpp:251
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can add an arbitrary command here, either with or without path "
-#| "depending on whether or not the command is in your Path. For every new "
-#| "mail, KMail will execute the command and use what it outputs (to standard "
-#| "output) as a signature. Usual commands for use with this mechanism are "
-#| "\"fortune\" or \"ksig -random\"."
+#, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
 "on whether or not the command is in your Path. For every new mail, KMail "
@@ -148,7 +142,8 @@ msgstr ""
 "Vi povas aldoni ĉi tie arbitran komandon aŭ kun aŭ sen vojo, kio dependas de "
 "tio, ke vi la komando estas en via vojo. Por ĉiu nova letero, Poŝtilo lanĉos "
 "la komandon kaj uzos ĝian eldonaĵon kiel subskribo. Kutimaj komandoj uzatajn "
-"estas \"fortune\" aŭ \"ksig-random\"."
+"estas \"fortune\" aŭ \"ksig-random\". (Atentu, la skripto bezonas 'shebang' "
+"linion)."
 
 #: widgets/signatureconfigurator.cpp:257
 #, kde-format
@@ -158,14 +153,14 @@ msgstr "Donu &komandon:"
 #: widgets/signatureconfigurator.cpp:417
 #, kde-format
 msgid "This text file size exceeds 1kb."
-msgstr ""
+msgstr "Tiu tekstdosiera grandeco superas 1kb."
 
 #: widgets/signatureconfigurator.cpp:417
 #, kde-format
 msgid "Text File Size"
-msgstr ""
+msgstr "Tekstdosiera Grandeco"
 
 #: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
-msgstr ""
+msgstr "&Uzi HTMLon (malebligo forigas formatadon)"
