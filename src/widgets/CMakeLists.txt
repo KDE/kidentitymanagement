@@ -26,15 +26,15 @@ PUBLIC
   KF5IdentityManagement
   Qt::Widgets
 PRIVATE
-  KF5::CoreAddons
+  KF${KF_MAJOR_VERSION}::CoreAddons
   KF5::PimTextEdit
-  KF5::Codecs
+  KF${KF_MAJOR_VERSION}::Codecs
   Qt::Network
-  KF5::I18n
-  KF5::WidgetsAddons
-  KF5::XmlGui
-  KF5::KIOWidgets
-  KF5::ConfigCore
+  KF${KF_MAJOR_VERSION}::I18n
+  KF${KF_MAJOR_VERSION}::WidgetsAddons
+  KF${KF_MAJOR_VERSION}::XmlGui
+  KF${KF_MAJOR_VERSION}::KIOWidgets
+  KF${KF_MAJOR_VERSION}::ConfigCore
 )
 
 set_target_properties(KF5IdentityManagementWidgets PROPERTIES

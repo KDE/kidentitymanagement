@@ -35,10 +35,10 @@ target_link_libraries(KF5IdentityManagement
 PUBLIC
   Qt::Gui
 PRIVATE
-  KF5::CoreAddons
-  KF5::ConfigCore
-  KF5::Codecs
-  KF5::I18n
+  KF${KF_MAJOR_VERSION}::CoreAddons
+  KF${KF_MAJOR_VERSION}::ConfigCore
+  KF${KF_MAJOR_VERSION}::Codecs
+  KF${KF_MAJOR_VERSION}::I18n
   Qt::DBus
   Qt::Network
 )
