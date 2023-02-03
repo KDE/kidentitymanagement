@@ -427,7 +427,6 @@ void SignatureConfigurator::slotEdit()
 
     auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(url), QStringLiteral("text/plain"));
     job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
-    job->setDeleteTemporaryFile(true);
     job->start();
 }
 
