@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2021-09-10 13:27+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -99,7 +99,7 @@ msgstr "Obtain signature &text from:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Use this field to enter an arbitrary static signature."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Use HTML"
@@ -158,7 +158,7 @@ msgstr "This text file size exceeds 1kb."
 msgid "Text File Size"
 msgstr "Text File Size"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Use HTML (disabling removes formatting)"

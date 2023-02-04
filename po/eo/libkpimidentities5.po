@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2023-01-08 21:45+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -101,7 +101,7 @@ msgstr "Haviĝi la subskriban &tekston de:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Uzi la enigejon por enigi arbitran neŝanĝeman subskribon."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Uzi HTMLon"
@@ -160,7 +160,7 @@ msgstr "Tiu tekstdosiera grandeco superas 1kb."
 msgid "Text File Size"
 msgstr "Tekstdosiera Grandeco"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Uzi HTMLon (malebligo forigas formatadon)"

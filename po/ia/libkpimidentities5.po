@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2021-08-31 18:32+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -101,7 +101,7 @@ msgstr "Obtene &testo de signatura ex:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Usa iste campo pro insertar un signatura static arbitrari."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Usa HTML"
@@ -162,7 +162,7 @@ msgstr "Iste grandr de file de texto excede 1kb."
 msgid "Text File Size"
 msgstr "Grandor de file de texto"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Usa HTML (il dishabilita removes formatting)"

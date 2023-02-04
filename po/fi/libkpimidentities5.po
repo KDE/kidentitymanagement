@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2021-10-11 14:43+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -106,7 +106,7 @@ msgstr "&Nouda allekirjoituksen teksti:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Kirjoita tähän kenttään pysyvästi käytettävä allekirjoitus."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Käytä HTML:ää"
@@ -166,7 +166,7 @@ msgstr "Tekstin tiedostokoko on yli 1 kt."
 msgid "Text File Size"
 msgstr "Tekstitiedoston koko"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Käytä HTML:ää (ellei käytössä, muotoilu poistetaan)"

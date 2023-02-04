@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2021-09-03 09:47+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -105,7 +105,7 @@ msgstr "Λήψη &κειμένου υπογραφής από:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Χρησιμοποιήστε αυτό το πεδίο για την εισαγωγή μιας στατικής υπογραφής."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Χρήση HTML"
@@ -166,7 +166,7 @@ msgstr "Το μέγεθος αυτού του αρχείου κειμένου υ
 msgid "Text File Size"
 msgstr "Μέγεθος αρχείου κειμένου"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Χρήση HTML (ανενεργό αφαιρεί τη μορφοποίηση)"

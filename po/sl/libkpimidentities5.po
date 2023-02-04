@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2021-08-17 09:00+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -105,7 +105,7 @@ msgstr "Pridobi besedilo podpisa iz:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Uporabite to polje, da vnesete poljuben statičen podpis."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Uporabi HTML"
@@ -164,7 +164,7 @@ msgstr "Velikost te besedilne datoteke presega 1kb."
 msgid "Text File Size"
 msgstr "Velikost besedilne datoteke"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Uporabi HTML (onemogočitev odstrani oblikovanje sporočila)"

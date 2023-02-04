@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2021-10-31 20:20+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -106,7 +106,7 @@ msgstr "Obtín el &text de la signatura des de:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Utilitzeu este camp per a introduir una signatura estàtica arbitrària."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "Utilit&za HTML"
@@ -167,7 +167,7 @@ msgstr "La mida d'este fitxer de text excedix l'1 kb."
 msgid "Text File Size"
 msgstr "Mida del fitxer de text"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Utilit&za HTML (la inhabilitació elimina el format)"

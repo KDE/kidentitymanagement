@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2021-08-21 10:42+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -102,7 +102,7 @@ msgstr "हस्ताक्षर यहाँ से प्राप्त �
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "इच्छाधीन तथा स्थिर हस्ताक्षर प्रवेश करने के लिए इस क्षेत्र का प्रयोग करें।"
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "एचटीएमएल का प्रयोग करें(&U)"
@@ -161,7 +161,7 @@ msgstr "इस पाठ फ़ाइल का आकार १ केबी �
 msgid "Text File Size"
 msgstr "पाठ फ़ाइल आकार"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "एचटीएमएल का प्रयोग करें (निष्क्रिय करने पर फ़ॉरमैटिंग हटा देता है) (&U)"

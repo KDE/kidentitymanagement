@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2023-01-12 10:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -98,7 +98,7 @@ msgstr "签名文本获取来源(&T)："
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "使用此字段输入任意的静态签名。"
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "使用 HTML(&U)"
@@ -154,7 +154,7 @@ msgstr "此文本文件大小超过 1kb。"
 msgid "Text File Size"
 msgstr "文本文件大小"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "使用 HTML(禁用此项会去除格式)(&H)"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2010-12-13 09:21+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -103,7 +103,7 @@ msgstr "ទទួល​យក​អត្ថបទ​ហត្ថលេខា​
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "ប្រើ​វាល​នេះ​ដើម្បី​បញ្ចូល​​ហត្ថលេខា​ថេរ​​​​ដោយ​បំពាន​​ ។"
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "ប្រើ HTML"
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Text File Size"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "ប្រើ HTML (បិទ​ការ​យក​ទ្រង់ទ្រាយ​ចេញ)"

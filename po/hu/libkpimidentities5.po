@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-04 01:00+0000\n"
 "PO-Revision-Date: 2022-02-08 09:28+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -103,7 +103,7 @@ msgstr "Az aláírás szö&vegének forrása:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Itt lehet beírni a kívánt aláírást."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&HTML formátumban"
@@ -162,7 +162,7 @@ msgstr "A szövegfájl nagyobb, mint 1kb."
 msgid "Text File Size"
 msgstr "Szövegfájl mérete"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&HTML formátumban (ha le van tiltva, nincs formázás)"
