@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-05 02:42+0000\n"
 "PO-Revision-Date: 2019-03-22 00:32+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -103,7 +103,7 @@ msgstr "取得簽名文字的來源(&T)："
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "此欄位用於任意輸入固定的簽章文字。"
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "使用 HTML(&U)"
@@ -158,7 +158,7 @@ msgstr "此文字檔案大小大於 1KB。"
 msgid "Text File Size"
 msgstr "文字檔案大小"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "使用 HTML（關閉的話會移除格式）(&U)"

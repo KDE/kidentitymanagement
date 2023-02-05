@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-05 02:42+0000\n"
 "PO-Revision-Date: 2013-10-23 13:26+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -106,7 +106,7 @@ msgstr "Dobavi &tekst potpisa iz:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Koristite ovo polje da unesete bilo koji statični potpis."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Koristi HTML"
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Text File Size"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Koristi HTML (inače uklanja formatiranje)"

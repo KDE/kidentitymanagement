@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-05 02:42+0000\n"
 "PO-Revision-Date: 2022-02-04 13:01+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -105,7 +105,7 @@ msgstr "Obține &textul semnăturii de la:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Utilizați acest câmp pentru a introduce o semnătură statică arbitrară."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Utilizează HTML"
@@ -157,7 +157,7 @@ msgstr "Dimensiunea acestui fișier textual depășește 1kb."
 msgid "Text File Size"
 msgstr "Dimensiune fișier textual"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Folosește HTML (dezactivarea elimină formatarea)"

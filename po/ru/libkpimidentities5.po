@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-05 02:42+0000\n"
 "PO-Revision-Date: 2022-10-02 14:41+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -106,7 +106,7 @@ msgstr "&Добавлять подпись:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Укажите подпись, которая будет добавляться в письмо."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Использовать HTML"
@@ -164,7 +164,7 @@ msgstr "Размер этого текстового файла превышае
 msgid "Text File Size"
 msgstr "Размер текстового файла"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Использовать HTML (отключение удаляет форматирование)"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-05 02:42+0000\n"
 "PO-Revision-Date: 2021-08-16 20:51+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -104,7 +104,7 @@ msgstr "Lortu sinadura &testua hemendik:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Erabili eremu hau sinadura estatiko arbitrario bat sartzeko."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Erabili HTML"
@@ -165,7 +165,7 @@ msgstr "Testu-fitxategi honek 1kb gainditzen du."
 msgid "Text File Size"
 msgstr "Testu-fitxategiaren neurria"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "E&rabili HTML (ezgaitzea formatua kentzen du)"

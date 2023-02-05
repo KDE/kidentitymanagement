@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-25 00:45+0000\n"
+"POT-Creation-Date: 2023-02-05 02:42+0000\n"
 "PO-Revision-Date: 2021-08-16 18:49+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -99,7 +99,7 @@ msgstr "İmza mə&tnini buradan alın:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "İxtiyari imza əlavə etmək üçün bu sahəni istifadə edin."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "HTML &istifadə edin"
@@ -158,7 +158,7 @@ msgstr "Bu mətn faylının ölçüsü 1kb-dan artıqdır."
 msgid "Text File Size"
 msgstr "Mətn faylının ölçüsü"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "HTML &istifadə edin (söndürdükdə formatlama ləğv olunur)"
