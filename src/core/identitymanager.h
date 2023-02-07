@@ -192,6 +192,7 @@ Q_SIGNALS:
         fine-grained change notifications than what is possible with the
         standard @ref changed() signal. */
     void changed(const KIdentityManagement::Identity &ident);
+    void identityChanged(const KIdentityManagement::Identity &ident);
     /** Emitted on @ref commit() for each deleted identity. At the time
         this signal is emitted, the identity does still exist and can be
         retrieved by @ref identityForUoid() if needed */

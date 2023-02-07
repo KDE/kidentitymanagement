@@ -403,6 +403,7 @@ void IdentityManager::commit()
                 // changed identity
                 qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting changed() for identity" << uoid;
                 Q_EMIT changed(*it);
+                Q_EMIT identityChanged(*it);
                 changedUOIDs << uoid;
             }
             seenUOIDs.removeAll(uoid);
