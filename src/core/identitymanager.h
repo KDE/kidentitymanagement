@@ -183,6 +183,7 @@ public:
 Q_SIGNALS:
     /** Emitted whenever a commit changes any configure option */
     void changed();
+    void identitiesWereChanged();
     /** Emitted whenever the identity with Unique Object Identifier
         (UOID) @p uoid changed. Useful for more fine-grained change
         notifications than what is possible with the standard @ref
@@ -202,6 +203,8 @@ Q_SIGNALS:
 
     void needToReloadIdentitySettings();
 
+    void identitiesChanged(const QString &id);
+
 protected:
     /**
      * This is called when no identity has been defined, so we need to
@@ -213,9 +216,6 @@ protected:
 
 protected Q_SLOTS:
     void slotRollback();
-
-Q_SIGNALS:
-    void identitiesChanged(const QString &id);
 
 private:
     //@cond PRIVATE

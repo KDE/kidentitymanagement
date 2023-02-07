@@ -262,6 +262,7 @@ void IdentityManagerPrivate::slotIdentitiesChanged(const QString &id)
         readConfig(mConfig);
         Q_EMIT q->needToReloadIdentitySettings();
         Q_EMIT q->changed();
+        Q_EMIT q->identitiesWereChanged();
     }
 }
 
@@ -432,6 +433,7 @@ void IdentityManager::commit()
     }
 
     Q_EMIT changed(); // normal signal
+    Q_EMIT identitiesWereChanged(); // normal signal
 
     // DBus signal for other IdentityManager instances
     const QString ourIdentifier = QStringLiteral("%1/%2").arg(QDBusConnection::sessionBus().baseService(), property("uniqueDBusPath").toString());

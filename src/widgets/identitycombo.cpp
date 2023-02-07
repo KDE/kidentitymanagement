@@ -86,7 +86,7 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     d->reloadUoidList();
     connect(this, &IdentityCombo::activated, this, &IdentityCombo::slotEmitChanged);
     connect(this, &IdentityCombo::identityChanged, this, &IdentityCombo::slotUpdateTooltip);
-    connect(manager, qOverload<>(&IdentityManager::changed), this, &IdentityCombo::slotIdentityManagerChanged);
+    connect(manager, &IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
     connect(manager, &IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
     slotUpdateTooltip(currentIdentity());
 }
