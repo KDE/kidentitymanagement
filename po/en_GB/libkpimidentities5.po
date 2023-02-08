@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-04 01:00+0000\n"
+"POT-Creation-Date: 2023-02-08 01:00+0000\n"
 "PO-Revision-Date: 2021-09-10 13:27+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -29,14 +29,14 @@ msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "Unnamed"
 
-#: core/identitymanager.cpp:368
+#: core/identitymanager.cpp:369
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:562
+#: core/identitymanager.cpp:565
 #, kde-format
 msgid "Unnamed"
 msgstr "Unnamed"

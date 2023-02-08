@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-04 01:00+0000\n"
+"POT-Creation-Date: 2023-02-08 01:00+0000\n"
 "PO-Revision-Date: 2009-09-27 03:24+0000\n"
 "Last-Translator: Vilson Gjeci <vilsongjeci@gmail.com>\n"
 "Language-Team: Albanian <sq@li.org>\n"
@@ -31,14 +31,14 @@ msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "I Pa Emërtuar"
 
-#: core/identitymanager.cpp:368
+#: core/identitymanager.cpp:369
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:562
+#: core/identitymanager.cpp:565
 #, kde-format
 msgid "Unnamed"
 msgstr "I Pa Emërtuar"
