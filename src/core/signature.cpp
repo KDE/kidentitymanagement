@@ -24,7 +24,7 @@ using namespace KIdentityManagement;
 class KIdentityManagement::SignaturePrivate
 {
 public:
-    SignaturePrivate(Signature *qq)
+    explicit SignaturePrivate(Signature *qq)
         : q(qq)
     {
     }
