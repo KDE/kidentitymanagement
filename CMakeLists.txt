@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
-set(PIM_VERSION "5.22.41")
+set(PIM_VERSION "5.22.42")
 
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
@@ -47,7 +47,7 @@ set(PIMTEXTEDIT_LIB_VERSION "5.22.40")
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
-                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfigVersion.cmake"
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfigVersion.cmake"
                         SOVERSION 5
 )
 
@@ -86,43 +86,71 @@ if(BUILD_TESTING)
 endif()
 
 ########### CMake Config Files ###########
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5IdentityManagement")
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim${KF_MAJOR_VERSION}IdentityManagement")
 
 configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KF5IdentityManagementConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfig.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfig.cmake"
   INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfigVersion.cmake"
   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
   COMPONENT Devel
 )
 
-install(EXPORT KF5IdentityManagementTargets
+install(EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets
     DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-    FILE KF5IdentityManagementTargets.cmake
-    NAMESPACE KF5::
+    FILE KPim${KF_MAJOR_VERSION}IdentityManagementTargets.cmake
+    NAMESPACE KPim${KF_MAJOR_VERSION}::
 )
 
 install(FILES
    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h
-   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagement
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagement
    COMPONENT Devel
 )
 
 if (BUILD_QCH)
     ecm_install_qch_export(
-        TARGETS KF5IdentityManagement_QCH
-        FILE KF5IdentityManagementQchTargets.cmake
+        TARGETS KPim${KF_MAJOR_VERSION}IdentityManagement_QCH
+        FILE KPim${KF_MAJOR_VERSION}IdentityManagementQchTargets.cmake
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
     )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF5IdentityManagementQchTargets.cmake\")")
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQchTargets.cmake\")")
 endif()
 
+
+##
+# TODO: Backwards compatiblity. Remove in next major version
+##
+set(CMAKECONFIG_INSTALL_DIR_KF5 "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5IdentityManagement")
+set(KIDENTIFY_KF5_COMPAT TRUE)
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfig.cmake"
+    INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR_KF5}
+)
+
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfig.cmake"
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR_KF5}"
+    COMPONENT Devel
+)
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfigVersion.cmake"
+    RENAME "KF5IdentityManagementConfigVersion.cmake"
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR_KF5}"
+    COMPONENT Devel
+)
+install(EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR_KF5}"
+    FILE KPim${KF_MAJOR_VERSION}IdentityManagementTargets.cmake
+    NAMESPACE KF5::
+)
 
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
 ki18n_install(po)

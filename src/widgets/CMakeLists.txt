@@ -1,9 +1,10 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
-add_library(KF5IdentityManagementWidgets)
-add_library(KF5::IdentityManagementWidgets ALIAS KF5IdentityManagementWidgets)
+add_library(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets)
+add_library(KPim${KF_MAJOR_VERSION}::IdentityManagementWidgets ALIAS KPim${KF_MAJOR_VERSION}IdentityManagementWidgets)
+add_library(KF5::IdentityManagementWidgets ALIAS KPim${KF_MAJOR_VERSION}IdentityManagementWidgets)
 
-target_sources(KF5IdentityManagementWidgets PRIVATE
+target_sources(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets PRIVATE
   identitycombo.cpp
   signatureconfigurator.cpp
   signaturerichtexteditor.cpp
@@ -13,17 +14,17 @@ target_sources(KF5IdentityManagementWidgets PRIVATE
 )
 
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
-    set_target_properties(KF5IdentityManagementWidgets PROPERTIES UNITY_BUILD ON)
+    set_target_properties(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets PROPERTIES UNITY_BUILD ON)
 endif()
 
-generate_export_header(KF5IdentityManagementWidgets BASE_NAME kidentitymanagementwidgets)
+generate_export_header(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets BASE_NAME kidentitymanagementwidgets)
 
-target_include_directories(KF5IdentityManagementWidgets INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagementWidgets>")
-target_include_directories(KF5IdentityManagementWidgets PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
+target_include_directories(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementWidgets>")
+target_include_directories(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
 
-target_link_libraries(KF5IdentityManagementWidgets
+target_link_libraries(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets
 PUBLIC
-  KF5IdentityManagement
+  KPim${KF_MAJOR_VERSION}IdentityManagement
   Qt::Widgets
 PRIVATE
   KF${KF_MAJOR_VERSION}::CoreAddons
@@ -37,13 +38,13 @@ PRIVATE
   KF${KF_MAJOR_VERSION}::ConfigCore
 )
 
-set_target_properties(KF5IdentityManagementWidgets PROPERTIES
+set_target_properties(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets PROPERTIES
     VERSION ${KIDENTITYMANAGEMENT_VERSION}
     SOVERSION ${KIDENTITYMANAGEMENT_SOVERSION}
     EXPORT_NAME IdentityManagementWidgets
 )
 
-install(TARGETS KF5IdentityManagementWidgets EXPORT KF5IdentityManagementTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KPim${KF_MAJOR_VERSION}IdentityManagementWidgets EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### Generate Headers ###############
 ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
@@ -59,22 +60,23 @@ ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementwidgets_export.h
   ${KIdentityManagementWidgets_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagementWidgets/kidentitymanagement
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementWidgets/kidentitymanagement
     COMPONENT Devel
 )
 install(FILES ${KIdentityManagementWidgets_CamelCase_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagementWidgets/KIdentityManagement/
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementWidgets/KIdentityManagement/
     COMPONENT Devel
 )
 
-ecm_generate_pri_file(BASE_NAME KIdentityManagementWidgets LIB_NAME KF5IdentityManagementWidgets DEPS "KIdentityManagement KPimTextEdit" FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/KIdentityManagementWidgets)
+ecm_generate_pri_file(BASE_NAME KIdentityManagementWidgets LIB_NAME KF5IdentityManagementWidgets DEPS "KIdentityManagement KPimTextEdit"
+    FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementWidgets)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
 if (BUILD_QCH)
     ecm_add_qch(
-        KF5IdentityManagementWidgets_QCH
+        KPim${KF_MAJOR_VERSION}IdentityManagementWidgets_QCH
         NAME KIdentityManagementWidgets
-        BASE_NAME KF5IdentityManagementWidgets
+        BASE_NAME KPim${KF_MAJOR_VERSION}IdentityManagementWidgets
         VERSION ${PIM_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
