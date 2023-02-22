@@ -87,7 +87,7 @@ endif()
 
 ########### CMake Config Files ###########
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim${KF_MAJOR_VERSION}IdentityManagement")
-
+set(KIDENTIFY_KF5_COMPAT FALSE)
 configure_package_config_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementConfig.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfig.cmake"
