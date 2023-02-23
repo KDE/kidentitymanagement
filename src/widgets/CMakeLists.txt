@@ -28,7 +28,7 @@ PUBLIC
   Qt::Widgets
 PRIVATE
   KF${KF_MAJOR_VERSION}::CoreAddons
-  KF5::PimTextEdit
+  KPim${KF_MAJOR_VERSION}::PimTextEdit
   KF${KF_MAJOR_VERSION}::Codecs
   Qt::Network
   KF${KF_MAJOR_VERSION}::I18n
