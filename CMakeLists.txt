@@ -123,7 +123,7 @@ if (BUILD_QCH)
     set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQchTargets.cmake\")")
 endif()
 
-
+if (QT_MAJOR_VERSION STREQUAL "5")
 ##
 # TODO: Backwards compatiblity. Remove in next major version
 ##
@@ -151,6 +151,7 @@ install(EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets
     FILE KPim${KF_MAJOR_VERSION}IdentityManagementTargets.cmake
     NAMESPACE KF5::
 )
+endif()
 
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
 ki18n_install(po)
