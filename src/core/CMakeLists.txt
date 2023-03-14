@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 add_library(KPim${KF_MAJOR_VERSION}IdentityManagement)
 add_library(KPim${KF_MAJOR_VERSION}::IdentityManagement ALIAS KPim${KF_MAJOR_VERSION}IdentityManagement)
-add_library(KF5::IdentityManagement ALIAS KPim${KF_MAJOR_VERSION}IdentityManagement)
 
 
 qt_add_dbus_adaptor(kidentity_dbs_adaptor_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagement::IdentityManager )

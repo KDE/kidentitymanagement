@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 add_library(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets)
 add_library(KPim${KF_MAJOR_VERSION}::IdentityManagementWidgets ALIAS KPim${KF_MAJOR_VERSION}IdentityManagementWidgets)
-add_library(KF5::IdentityManagementWidgets ALIAS KPim${KF_MAJOR_VERSION}IdentityManagementWidgets)
 
 target_sources(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets PRIVATE
   identitycombo.cpp
