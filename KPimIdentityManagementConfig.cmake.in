@@ -5,5 +5,15 @@
 include(CMakeFindDependencyMacro)
 find_dependency(KF@KF_MAJOR_VERSION@CoreAddons "@KF_MIN_VERSION@")
 find_dependency(KPim@KF_MAJOR_VERSION@TextEdit "@PIMTEXTEDIT_LIB_VERSION@")
+
+if (@KIDENTIFY_KF5_COMPAT@)
+    message(WARNING "\n"
+                    "************* DEPRECATION WARNING *************\n"
+		    "Using find_package(KF5Identity) and KF5::Identity targets is deprecated. "
+		    "Please use find_package(KPim@KF_MAJOR_VERSION@Identity) and KPim@KF_MAJOR_VERSION@::Identity instead. This backwards "
+                    "compatibility will be removed in the next major version.\n"
+                    "***********************************************\n")
+endif()
+
 include("${CMAKE_CURRENT_LIST_DIR}/KPim@KF_MAJOR_VERSION@IdentityManagementTargets.cmake")
 @PACKAGE_INCLUDE_QCHTARGETS@
