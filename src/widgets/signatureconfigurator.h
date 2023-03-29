@@ -126,9 +126,9 @@ public:
     void setImageLocation(const Identity &identity);
 
 private:
-    void slotUrlChanged();
-    void slotEdit();
-    void slotSetHtml();
+    KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotUrlChanged();
+    KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotEdit();
+    KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotSetHtml();
 
     //@cond PRIVATE
     friend class SignatureConfiguratorPrivate;
