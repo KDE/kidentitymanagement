@@ -18,9 +18,6 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 #include <KEMailSettings> // for IdentityEntry::fromControlCenter()
 #include <KLocalizedString>
 #include <KSharedConfig>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <Kdelibs4ConfigMigrator>
-#endif
 #include <kuser.h>
 
 #include <QDBusConnection>
@@ -277,15 +274,6 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *nam
     : QObject(parent)
     , d(new IdentityManagerPrivate(this))
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    static bool triedMigration = false;
-    if (!triedMigration) {
-        triedMigration = true;
-        Kdelibs4ConfigMigrator migrate(QStringLiteral("identitymanager"));
-        migrate.setConfigFiles(QStringList() << QStringLiteral("emailidentities"));
-        migrate.migrate();
-    }
-#endif
     setObjectName(QLatin1String(name));
     new IdentityManagerAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();

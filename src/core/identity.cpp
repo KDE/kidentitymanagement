@@ -24,9 +24,6 @@ Q_DECLARE_METATYPE(KIdentityManagement::Signature)
 Identity::Identity(const QString &id, const QString &fullName, const QString &emailAddr, const QString &organization, const QString &replyToAddr)
 {
     qRegisterMetaType<Signature>();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    qRegisterMetaTypeStreamOperators<Signature>();
-#endif
     setProperty(QLatin1String(s_uoid), 0);
     setProperty(QLatin1String(s_identity), id);
     setProperty(QLatin1String(s_name), fullName);
@@ -70,14 +67,7 @@ bool Identity::isNull() const
         }
         // The uoid is 0 by default, so ignore this
         if (!(key == QLatin1String(s_uoid) && i.value().toUInt() == 0)) {
-            if (!i.value().isNull()
-                || (
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-                    i.value().type() == QVariant::String
-#else
-                    i.value().metaType().id() == QMetaType::QString
-#endif
-                    && !i.value().toString().isEmpty())) {
+            if (!i.value().isNull() || (i.value().metaType().id() == QMetaType::QString && !i.value().toString().isEmpty())) {
                 empty = false;
             }
         }
@@ -512,13 +502,7 @@ void Identity::setProperty(const QString &key, const QVariant &value)
     if (key == QLatin1String(s_signature)) {
         mSignature = value.value<Signature>();
     } else {
-        if (value.isNull() ||
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-            (value.type() == QVariant::String
-#else
-            (value.metaType().id() == QMetaType::QString
-#endif
-             && value.toString().isEmpty())) {
+        if (value.isNull() || (value.metaType().id() == QMetaType::QString && value.toString().isEmpty())) {
             mPropertiesMap.remove(key);
         } else {
             mPropertiesMap.insert(key, value);
