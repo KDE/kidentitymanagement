@@ -201,8 +201,8 @@ public:
     /// Describes which additional parts should be added to the signature
     using AddedText = QFlags<AddedTextFlag>;
 
-    Q_REQUIRED_RESULT QVector<Signature::EmbeddedImagePtr> embeddedImages() const;
-    void setEmbeddedImages(const QVector<EmbeddedImagePtr> &embedded);
+    Q_REQUIRED_RESULT QList<Signature::EmbeddedImagePtr> embeddedImages() const;
+    void setEmbeddedImages(const QList<EmbeddedImagePtr> &embedded);
 
 protected:
     // TODO: KDE5: BIC: Move all to private class

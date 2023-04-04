@@ -37,7 +37,7 @@ public:
 
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().
-    QVector<Signature::EmbeddedImagePtr> embeddedImages;
+    QList<Signature::EmbeddedImagePtr> embeddedImages;
 
     /// The directory where the images will be saved to.
     QString saveLocation;
@@ -377,12 +377,12 @@ void Signature::writeConfig(KConfigGroup &config) const
     d->saveImages();
 }
 
-QVector<Signature::EmbeddedImagePtr> Signature::embeddedImages() const
+QList<Signature::EmbeddedImagePtr> Signature::embeddedImages() const
 {
     return d->embeddedImages;
 }
 
-void Signature::setEmbeddedImages(const QVector<Signature::EmbeddedImagePtr> &embedded)
+void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embedded)
 {
     d->embeddedImages = embedded;
 }
@@ -400,7 +400,7 @@ QDataStream &KIdentityManagement::operator>>(QDataStream &stream, KIdentityManag
     QString path;
     QString text;
     QString saveLocation;
-    QVector<Signature::EmbeddedImagePtr> lst;
+    QList<Signature::EmbeddedImagePtr> lst;
     bool enabled;
     stream >> s >> path >> text >> saveLocation >> lst >> enabled;
     sig.setText(text);

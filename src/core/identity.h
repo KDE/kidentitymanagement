@@ -12,10 +12,10 @@
 #include "signature.h"
 
 #include <QHash>
+#include <QList>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
-#include <QVector>
 
 namespace KIdentityManagement
 {
@@ -79,7 +79,7 @@ class KIDENTITYMANAGEMENT_EXPORT Identity
     friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Identity &ident);
 
 public:
-    using List = QVector<Identity>;
+    using List = QList<Identity>;
 
     /** Constructor */
     explicit Identity(const QString &id = QString(),

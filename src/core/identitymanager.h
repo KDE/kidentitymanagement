@@ -8,9 +8,9 @@
 
 #include "kidentitymanagement_export.h"
 
+#include <QList>
 #include <QObject>
 #include <QStringList>
-#include <QVector>
 
 #include <memory>
 
@@ -47,8 +47,8 @@ public:
     static IdentityManager *self();
 
 public:
-    using Iterator = QVector<Identity>::Iterator;
-    using ConstIterator = QVector<Identity>::ConstIterator;
+    using Iterator = QList<Identity>::Iterator;
+    using ConstIterator = QList<Identity>::ConstIterator;
 
     /**
      * Typedef for STL style iterator
