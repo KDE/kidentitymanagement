@@ -45,9 +45,7 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
 ########### Find packages ###########
 
 find_package(Qt6Network NO_MODULE REQUIRED)
-if (QT_MAJOR_VERSION STREQUAL "6")
-    find_package(Qt6Core5Compat)
-endif()
+find_package(Qt6Core5Compat)
 
 find_package(KF6CoreAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6TextWidgets ${KF_MIN_VERSION} CONFIG REQUIRED)
