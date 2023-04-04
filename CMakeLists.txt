@@ -6,8 +6,8 @@ set(PIM_VERSION "5.23.40")
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
 # ECM setup
-set(KF_MIN_VERSION "5.105.0")
-set(QT_REQUIRED_VERSION "5.15.2")
+set(KF_MIN_VERSION "5.240.0")
+set(QT_MIN_VERSION "6.4.0")
 find_package(ECM ${KF_MIN_VERSION} CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
@@ -30,14 +30,6 @@ include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
 include(ECMAddQch)
 
-if (QT_MAJOR_VERSION STREQUAL "6")
-    set(QT_MIN_VERSION "6.4.0")
-    set(KF_MIN_VERSION "5.240.0")
-    set(KF_MAJOR_VERSION "6")
-else()
-    set(KF_MAJOR_VERSION "5")
-endif()
-
 option(BUILD_WITH_COMPAT_LIBS "Generate compat cmake file (Set at false will allow to co-install lib)" ON)
 
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
@@ -48,25 +40,25 @@ set(PIMTEXTEDIT_LIB_VERSION "5.23.40")
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
-                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfigVersion.cmake"
-                        SOVERSION 5
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementConfigVersion.cmake"
+                        SOVERSION 6
 )
 
 ########### Find packages ###########
 
-find_package(Qt${QT_MAJOR_VERSION}Network NO_MODULE REQUIRED)
+find_package(Qt6Network NO_MODULE REQUIRED)
 if (QT_MAJOR_VERSION STREQUAL "6")
     find_package(Qt6Core5Compat)
 endif()
 
-find_package(KF${KF_MAJOR_VERSION}CoreAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF${KF_MAJOR_VERSION}TextWidgets ${KF_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF${KF_MAJOR_VERSION}XmlGui ${KF_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF${KF_MAJOR_VERSION}KIO ${KF_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF${KF_MAJOR_VERSION}Config ${KF_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF${KF_MAJOR_VERSION}Codecs ${KF_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF6CoreAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF6TextWidgets ${KF_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF6XmlGui ${KF_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF6KIO ${KF_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF6Config ${KF_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF6Codecs ${KF_MIN_VERSION} CONFIG REQUIRED)
 
-find_package(KPim${KF_MAJOR_VERSION}TextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
+find_package(KPim6TextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
 option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" OFF)
@@ -87,83 +79,40 @@ if(BUILD_TESTING)
 endif()
 
 ########### CMake Config Files ###########
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim${KF_MAJOR_VERSION}IdentityManagement")
-set(KIDENTIFY_KF5_COMPAT FALSE)
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim6IdentityManagement")
 configure_package_config_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementConfig.cmake"
   INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementConfigVersion.cmake"
   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
   COMPONENT Devel
 )
 
-install(EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets
+install(EXPORT KPim6IdentityManagementTargets
     DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-    FILE KPim${KF_MAJOR_VERSION}IdentityManagementTargets.cmake
-    NAMESPACE KPim${KF_MAJOR_VERSION}::
+    FILE KPim6IdentityManagementTargets.cmake
+    NAMESPACE KPim6::
 )
 
 install(FILES
    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h
-   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagement
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagement
    COMPONENT Devel
 )
 
 if (BUILD_QCH)
     ecm_install_qch_export(
-        TARGETS KPim${KF_MAJOR_VERSION}IdentityManagement_QCH
-        FILE KPim${KF_MAJOR_VERSION}IdentityManagementQchTargets.cmake
+        TARGETS KPim6IdentityManagement_QCH
+        FILE KPim6IdentityManagementQchTargets.cmake
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
     )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQchTargets.cmake\")")
-endif()
-
-if (BUILD_WITH_COMPAT_LIBS)
-if (QT_MAJOR_VERSION STREQUAL "5")
-##
-# TODO: Backwards compatiblity. Remove in next major version
-##
-set(CMAKECONFIG_INSTALL_DIR_KF5 "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5IdentityManagement")
-set(KIDENTIFY_KF5_COMPAT TRUE)
-configure_package_config_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfig.cmake"
-    INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR_KF5}
-)
-
-install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/KF5IdentityManagementConfig.cmake"
-    DESTINATION "${CMAKECONFIG_INSTALL_DIR_KF5}"
-    COMPONENT Devel
-)
-install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementConfigVersion.cmake"
-    RENAME "KF5IdentityManagementConfigVersion.cmake"
-    DESTINATION "${CMAKECONFIG_INSTALL_DIR_KF5}"
-    COMPONENT Devel
-)
-install(EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets
-    DESTINATION "${CMAKECONFIG_INSTALL_DIR_KF5}"
-    FILE KPim${KF_MAJOR_VERSION}IdentityManagementTargets.cmake
-    NAMESPACE KF5::
-)
-
-if (BUILD_QCH)
-    install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQchTargets.cmake"
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR_KF5}"
-        COMPONENT Devel
-    )
-endif()
-
-
-endif()
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementQchTargets.cmake\")")
 endif()
 
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)

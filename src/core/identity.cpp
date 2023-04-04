@@ -33,7 +33,7 @@ Identity::Identity(const QString &id, const QString &fullName, const QString &em
     setProperty(QLatin1String(s_primaryEmail), emailAddr);
     setProperty(QLatin1String(s_organization), organization);
     setProperty(QLatin1String(s_replyto), replyToAddr);
-    // FIXME KF5: Sonnet::defaultLanguageName is gone
+    // FIXME KF6: Sonnet::defaultLanguageName is gone
     // setDictionary( Sonnet::defaultLanguageName() );
     setProperty(QLatin1String(s_disabledFcc), false);
     setProperty(QLatin1String(s_defaultDomainName), QHostInfo::localHostName());

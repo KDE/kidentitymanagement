@@ -9,7 +9,7 @@ deprecated: false
 release: false
 libraries:
  - qmake: KIdentityManagement
-   cmake: "KF5::IdentityManagement"
-cmakename: KF5IdentityManagement
+   cmake: "KPim6::IdentityManagement"
+cmakename: KPim6IdentityManagement
 group: kdepim
 public_lib: true
