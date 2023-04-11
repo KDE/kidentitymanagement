@@ -16,7 +16,7 @@ namespace KPIMTextEdit
 class RichTextComposer;
 }
 
-namespace KIdentityManagement
+namespace KIdentityManagementWidgets
 {
 
 /** Helper methods for rich text signature editing .*/
@@ -40,12 +40,11 @@ namespace SignatureRichTextEditor
  *
  * @since 4.9
  */
-void insertIntoTextEdit(const Signature &sig,
-                        Signature::Placement placement,
-                        Signature::AddedText addedText,
+void insertIntoTextEdit(const KIdentityManagement::Signature &sig,
+                        KIdentityManagement::Signature::Placement placement,
+                        KIdentityManagement::Signature::AddedText addedText,
                         KPIMTextEdit::RichTextComposer *textEdit,
                         bool forceDisplay = false);
-
 }
 
 }

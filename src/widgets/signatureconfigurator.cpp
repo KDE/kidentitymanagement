@@ -40,9 +40,9 @@
 
 #include <KPIMTextEdit/RichTextEditorWidget>
 
-using namespace KIdentityManagement;
+using namespace KIdentityManagementWidgets;
 
-namespace KIdentityManagement
+namespace KIdentityManagementWidgets
 {
 /**
    Private class that helps to provide binary compatibility between releases.
@@ -461,7 +461,7 @@ void SignatureConfigurator::setImageLocation(const QString &path)
     d->imageLocation = path;
 }
 
-void SignatureConfigurator::setImageLocation(const Identity &identity)
+void SignatureConfigurator::setImageLocation(const KIdentityManagement::Identity &identity)
 {
     const QString dir =
         QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emailidentities/%1/").arg(QString::number(identity.uoid()));

@@ -16,7 +16,7 @@
 
 using KIdentityManagement::Signature;
 
-namespace KIdentityManagement
+namespace KIdentityManagementWidgets
 {
 class SignatureConfiguratorPrivate;
 /**
@@ -123,7 +123,7 @@ public:
      *                 location.
      * @since 4.4
      */
-    void setImageLocation(const Identity &identity);
+    void setImageLocation(const KIdentityManagement::Identity &identity);
 
 private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotUrlChanged();

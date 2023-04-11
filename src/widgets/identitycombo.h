@@ -21,9 +21,12 @@
 
 namespace KIdentityManagement
 {
-class IdentityComboPrivate;
 class IdentityManager;
 class Identity;
+}
+namespace KIdentityManagementWidgets
+{
+class IdentityComboPrivate;
 /**
  * @brief The IdentityCombo class
  * @author Marc Mutz \<mutz@kde.org\>
@@ -32,14 +35,14 @@ class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityCombo : public QComboBox
 {
     Q_OBJECT
 public:
-    explicit IdentityCombo(IdentityManager *manager, QWidget *parent = nullptr);
+    explicit IdentityCombo(KIdentityManagement::IdentityManager *manager, QWidget *parent = nullptr);
 
     ~IdentityCombo() override;
     Q_REQUIRED_RESULT QString currentIdentityName() const;
     Q_REQUIRED_RESULT uint currentIdentity() const;
     Q_REQUIRED_RESULT bool isDefaultIdentity() const;
     void setCurrentIdentity(const QString &identityName);
-    void setCurrentIdentity(const Identity &identity);
+    void setCurrentIdentity(const KIdentityManagement::Identity &identity);
     void setCurrentIdentity(uint uoid);
     /// Show (default) on the default identity. By default this behavior is disabled.
     void setShowDefault(bool showDefault);
@@ -47,7 +50,7 @@ public:
       Returns the IdentityManager used in this combo box.
       @since 4.5
     */
-    Q_REQUIRED_RESULT IdentityManager *identityManager() const;
+    Q_REQUIRED_RESULT KIdentityManagement::IdentityManager *identityManager() const;
 
 Q_SIGNALS:
 

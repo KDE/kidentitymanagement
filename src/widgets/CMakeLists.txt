@@ -50,7 +50,7 @@ ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
   HEADER_NAMES
   IdentityCombo
   SignatureConfigurator
-  PREFIX KIdentityManagement
+  PREFIX KIdentityManagementWidgets
   REQUIRED_HEADERS KIdentityManagementWidgets_HEADERS
 )
 
@@ -59,11 +59,11 @@ ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementwidgets_export.h
   ${KIdentityManagementWidgets_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementWidgets/kidentitymanagement
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementWidgets/kidentitymanagementwidgets
     COMPONENT Devel
 )
 install(FILES ${KIdentityManagementWidgets_CamelCase_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementWidgets/KIdentityManagement/
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementWidgets/KIdentityManagementWidgets/
     COMPONENT Devel
 )
 
