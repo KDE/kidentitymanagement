@@ -77,9 +77,9 @@ install(FILES    ${KIdentityManagement_CamelCase_HEADERS}
 )
 
 
-install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR} RENAME kf5_org.kde.pim.IdentityManager.xml)
+install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR} RENAME kf6_org.kde.pim.IdentityManager.xml)
 
-ecm_generate_pri_file(BASE_NAME KIdentityManagement LIB_NAME KF6IdentityManagement DEPS "KCoreAddons KPimTextEdit"
+ecm_generate_pri_file(BASE_NAME KIdentityManagement LIB_NAME KF6IdentityManagement DEPS "KCoreAddons"
     FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagement)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
