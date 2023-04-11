@@ -94,12 +94,8 @@ if (BUILD_QCH)
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
             ${KIdentityManagement_HEADERS}
-        #MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
-        #IMAGE_DIRS "${CMAKE_SOURCE_DIR}/docs/pics"
         LINK_QCHS
-            Qt6Core_QCH
             Qt6Gui_QCH
-            Qt6Widgets_QCH
         INCLUDE_DIRS
             ${CMAKE_CURRENT_BINARY_DIR}
         BLANK_MACROS
