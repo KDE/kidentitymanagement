@@ -59,7 +59,7 @@ public:
     Q_REQUIRED_RESULT QString asCleanedHTML() const;
 
     QString imageLocation;
-    SignatureConfigurator *q;
+    SignatureConfigurator *const q;
     QCheckBox *mEnableCheck = nullptr;
     QCheckBox *mHtmlCheck = nullptr;
     QComboBox *mSourceCombo = nullptr;
