@@ -1,7 +1,21 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
+
+
+ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENTWIDGETS
+                        VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementwidgets_version.h"
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementWidgetsConfigVersion.cmake"
+                        SOVERSION 6
+)
+
+
 add_library(KPim6IdentityManagementWidgets)
 add_library(KPim6::IdentityManagementWidgets ALIAS KPim6IdentityManagementWidgets)
+set_target_properties(KPim6IdentityManagementWidgets PROPERTIES
+    VERSION ${KIDENTITYMANAGEMENTWIDGETS_VERSION}
+    SOVERSION ${KIDENTITYMANAGEMENTWIDGETS_SOVERSION}
+    EXPORT_NAME IdentityManagementWidgets
+)
 
 target_sources(KPim6IdentityManagementWidgets PRIVATE
   identitycombo.cpp
@@ -37,13 +51,46 @@ PRIVATE
   KF6::ConfigCore
 )
 
-set_target_properties(KPim6IdentityManagementWidgets PROPERTIES
-    VERSION ${KIDENTITYMANAGEMENT_VERSION}
-    SOVERSION ${KIDENTITYMANAGEMENT_SOVERSION}
-    EXPORT_NAME IdentityManagementWidgets
+
+
+########### CMake Config Files ###########
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim6IdentityManagementWidgets")
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementWidgetsConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementWidgetsConfig.cmake"
+  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
 
-install(TARGETS KPim6IdentityManagementWidgets EXPORT KPim6IdentityManagementTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementWidgetsConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementWidgetsConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT Devel
+)
+
+install(EXPORT KPim6IdentityManagementWidgetsTargets
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    FILE KPim6IdentityManagementWidgetsTargets.cmake
+    NAMESPACE KPim6::
+)
+
+install(FILES
+   ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementwidgets_version.h
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementWidgets
+   COMPONENT Devel
+)
+
+if (BUILD_QCH)
+    ecm_install_qch_export(
+        TARGETS KPim6IdentityManagementWidgets_QCH
+        FILE KPim6IdentityManagementWidgetsQchTargets.cmake
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel
+    )
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementWidgetsQchTargets.cmake\")")
+endif()
+
+install(TARGETS KPim6IdentityManagementWidgets EXPORT KPim6IdentityManagementWidgetsTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### Generate Headers ###############
 ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS

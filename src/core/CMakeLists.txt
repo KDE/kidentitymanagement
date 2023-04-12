@@ -1,5 +1,50 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
+ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
+                        VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h"
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementConfigVersion.cmake"
+                        SOVERSION 6
+)
+
+########### CMake Config Files ###########
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim6IdentityManagement")
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementConfig.cmake"
+  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+)
+
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT Devel
+)
+
+install(EXPORT KPim6IdentityManagementTargets
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    FILE KPim6IdentityManagementTargets.cmake
+    NAMESPACE KPim6::
+)
+
+install(FILES
+   ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagement_version.h
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagement
+   COMPONENT Devel
+)
+
+if (BUILD_QCH)
+    ecm_install_qch_export(
+        TARGETS KPim6IdentityManagement_QCH
+        FILE KPim6IdentityManagementQchTargets.cmake
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel
+    )
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementQchTargets.cmake\")")
+endif()
+
+
+
 add_library(KPim6IdentityManagement)
 add_library(KPim6::IdentityManagement ALIAS KPim6IdentityManagement)
 
