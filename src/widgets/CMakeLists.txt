@@ -51,15 +51,9 @@ PRIVATE
   KF6::ConfigCore
 )
 
-
-
 ########### CMake Config Files ###########
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim6IdentityManagementWidgets")
-configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementWidgetsConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementWidgetsConfig.cmake"
-  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
-)
+
 
 install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementWidgetsConfig.cmake"
@@ -80,15 +74,7 @@ install(FILES
    COMPONENT Devel
 )
 
-if (BUILD_QCH)
-    ecm_install_qch_export(
-        TARGETS KPim6IdentityManagementWidgets_QCH
-        FILE KPim6IdentityManagementWidgetsQchTargets.cmake
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        COMPONENT Devel
-    )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementWidgetsQchTargets.cmake\")")
-endif()
+
 
 install(TARGETS KPim6IdentityManagementWidgets EXPORT KPim6IdentityManagementWidgetsTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -140,3 +126,19 @@ if (BUILD_QCH)
         COMPONENT Devel
     )
 endif()
+
+if (BUILD_QCH)
+    ecm_install_qch_export(
+        TARGETS KPim6IdentityManagementWidgets_QCH
+        FILE KPim6IdentityManagementWidgetsQchTargets.cmake
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel
+    )
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementWidgetsQchTargets.cmake\")")
+endif()
+
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementWidgetsConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementWidgetsConfig.cmake"
+  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+)
