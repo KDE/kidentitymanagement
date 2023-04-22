@@ -44,7 +44,7 @@ set_target_properties(KPim${KF_MAJOR_VERSION}IdentityManagementWidgets PROPERTIE
     EXPORT_NAME IdentityManagementWidgets
 )
 
-install(TARGETS KPim${KF_MAJOR_VERSION}IdentityManagementWidgets EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KPim${KF_MAJOR_VERSION}IdentityManagementWidgets EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### Generate Headers ###############
 ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS

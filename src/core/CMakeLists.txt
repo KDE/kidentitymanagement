@@ -51,7 +51,7 @@ set_target_properties(KPim${KF_MAJOR_VERSION}IdentityManagement PROPERTIES
     EXPORT_NAME IdentityManagement
 )
 
-install(TARGETS KPim${KF_MAJOR_VERSION}IdentityManagement EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KPim${KF_MAJOR_VERSION}IdentityManagement EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### Generate Headers ###############
 ecm_generate_headers(KIdentityManagement_CamelCase_HEADERS
