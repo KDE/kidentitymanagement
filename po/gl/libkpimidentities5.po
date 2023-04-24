@@ -1,25 +1,26 @@
 # translation of libkpimidentities.po to galician
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # mvillarino <mvillarino@users.sourceforge.net>, 2007, 2008, 2009.
 # marce villarino <mvillarino@users.sourceforge.net>, 2009.
 # Marce Villarino <mvillarino@gmail.com>, 2009.
 # Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-08 01:00+0000\n"
-"PO-Revision-Date: 2019-02-01 17:57+0100\n"
+"PO-Revision-Date: 2023-04-23 06:48+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
-"Language-Team: Galician <kde-i18n-doc@kde.org>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: core/identitymanager.cpp:165
 #, kde-format
@@ -52,12 +53,10 @@ msgstr ""
 "<qt>Non se puido executar o script de sinatura<p><b>%1</b>:</p><p>%2</p></qt>"
 
 #: widgets/identitycombo.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr "Predeterminado"
+msgstr " (predeterminado)"
 
 #: widgets/signatureconfigurator.cpp:104
 #, kde-format
