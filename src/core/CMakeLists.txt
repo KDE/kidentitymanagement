@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
-ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
+ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENTCORE
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementcore_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfigVersion.cmake"
                         SOVERSION 6
@@ -54,8 +54,8 @@ PRIVATE
 )
 
 set_target_properties(KPim6IdentityManagementCore PROPERTIES
-    VERSION ${KIDENTITYMANAGEMENT_VERSION}
-    SOVERSION ${KIDENTITYMANAGEMENT_SOVERSION}
+    VERSION ${KIDENTITYMANAGEMENTCORE_VERSION}
+    SOVERSION ${KIDENTITYMANAGEMENTCORE_SOVERSION}
     EXPORT_NAME IdentityManagementCore
 )
 
