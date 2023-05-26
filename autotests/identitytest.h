@@ -8,7 +8,7 @@
 
 #include <QObject>
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 class Identity;
 }
@@ -18,7 +18,7 @@ class IdentityTester : public QObject
     Q_OBJECT
 
 private:
-    bool compareIdentities(const KIdentityManagement::Identity &actual, const KIdentityManagement::Identity &expected);
+    bool compareIdentities(const KIdentityManagementCore::Identity &actual, const KIdentityManagementCore::Identity &expected);
 
 private Q_SLOTS:
     void initTestCase();

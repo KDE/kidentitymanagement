@@ -9,25 +9,21 @@
 
 #pragma once
 
-#include "kidentitymanagement_export.h"
+#include "kidentitymanagementcore_export.h"
 
 #include <QImage>
 #include <QSharedPointer>
 #include <QString>
 #include <memory>
 
-namespace KIdentityManagement
+class KConfigGroup;
+namespace KIdentityManagementCore
 {
 class Signature;
 class Identity;
-}
-class KConfigGroup;
-
-namespace KIdentityManagement
-{
 class SignaturePrivate;
-KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Signature &sig);
-KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Signature &sig);
+KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagementCore::Signature &sig);
+KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagementCore::Signature &sig);
 
 /**
  * @short Abstraction of a signature (aka "footer").
@@ -57,16 +53,16 @@ KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentit
  * htmlSig.addImage( image, "hello.png" );
  * ...
  * KTextEdit edit;
- * htmlSig.insertIntoTextEdit( KIdentityManagement::Signature::End,
- *                             KIdentityManagement::Signature::AddSeparator, &edit );
+ * htmlSig.insertIntoTextEdit( KIdentityManagementCore::Signature::End,
+ *                             KIdentityManagementCore::Signature::AddSeparator, &edit );
  * @endcode
  */
-class KIDENTITYMANAGEMENT_EXPORT Signature
+class KIDENTITYMANAGEMENTCORE_EXPORT Signature
 {
     friend class Identity;
 
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const Signature &sig);
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, Signature &sig);
+    friend KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator<<(QDataStream &stream, const Signature &sig);
+    friend KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, Signature &sig);
 
 public:
     /** Type of signature (ie. way to obtain the signature text) */

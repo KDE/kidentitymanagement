@@ -15,7 +15,7 @@
 #include <QMimeData>
 #include <QStandardPaths>
 
-using namespace KIdentityManagement;
+using namespace KIdentityManagementCore;
 
 QTEST_GUILESS_MAIN(IdentityTester)
 

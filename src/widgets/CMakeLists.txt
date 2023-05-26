@@ -37,7 +37,7 @@ target_include_directories(KPim6IdentityManagementWidgets PUBLIC "$<BUILD_INTERF
 
 target_link_libraries(KPim6IdentityManagementWidgets
 PUBLIC
-  KPim6IdentityManagement
+  KPim6IdentityManagementCore
   Qt::Widgets
 PRIVATE
   KF6::CoreAddons

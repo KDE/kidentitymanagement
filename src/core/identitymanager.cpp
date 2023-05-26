@@ -12,7 +12,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include <KEmailAddress> // for static helper functions
 
-#include "kidentitymanagement_debug.h"
+#include "kidentitymanagementcore_debug.h"
 #include <KConfig>
 #include <KConfigGroup>
 #include <KEMailSettings> // for IdentityEntry::fromControlCenter()
@@ -30,7 +30,7 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include "identitymanageradaptor.h"
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 static QString newDBusObjectName()
 {
@@ -51,7 +51,7 @@ static QString newDBusObjectName()
 class IdentityManagerPrivate
 {
 public:
-    IdentityManagerPrivate(KIdentityManagement::IdentityManager *);
+    IdentityManagerPrivate(KIdentityManagementCore::IdentityManager *);
     ~IdentityManagerPrivate();
     void writeConfig() const;
     void readConfig(KConfig *config);
@@ -67,10 +67,10 @@ public:
     Q_REQUIRED_RESULT int newUoid();
 
     bool mReadOnly = true;
-    KIdentityManagement::IdentityManager *const q;
+    KIdentityManagementCore::IdentityManager *const q;
 };
 
-IdentityManagerPrivate::IdentityManagerPrivate(KIdentityManagement::IdentityManager *manager)
+IdentityManagerPrivate::IdentityManagerPrivate(KIdentityManagementCore::IdentityManager *manager)
     : q(manager)
 {
 }
@@ -251,7 +251,7 @@ int IdentityManagerPrivate::newUoid()
 
 void IdentityManagerPrivate::slotIdentitiesChanged(const QString &id)
 {
-    qCDebug(KIDENTITYMANAGEMENT_LOG) << " KIdentityManagement::IdentityManager::slotIdentitiesChanged :" << id;
+    qCDebug(KIDENTITYMANAGEMENT_LOG) << " KIdentityManagementCore::IdentityManager::slotIdentitiesChanged :" << id;
     const QString ourIdentifier = QStringLiteral("%1/%2").arg(QDBusConnection::sessionBus().baseService(), q->property("uniqueDBusPath").toString());
     if (id != ourIdentifier) {
         mConfig->reparseConfiguration();
@@ -658,7 +658,7 @@ Identity &IdentityManager::newFromExisting(const Identity &other, const QString 
     return result;
 }
 
-QStringList KIdentityManagement::IdentityManager::allEmails() const
+QStringList KIdentityManagementCore::IdentityManager::allEmails() const
 {
     QStringList lst;
     for (ConstIterator it = begin(); it != end(); ++it) {
@@ -674,7 +674,7 @@ void IdentityManager::createDefaultIdentity(QString &, QString &)
 {
 }
 
-void KIdentityManagement::IdentityManager::slotRollback()
+void KIdentityManagementCore::IdentityManager::slotRollback()
 {
     rollback();
 }

@@ -8,7 +8,7 @@
 
 #include "signature.h"
 
-#include "kidentitymanagement_debug.h"
+#include "kidentitymanagementcore_debug.h"
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KProcess>
@@ -19,9 +19,9 @@
 
 #include <cassert>
 
-using namespace KIdentityManagement;
+using namespace KIdentityManagementCore;
 
-class KIdentityManagement::SignaturePrivate
+class KIdentityManagementCore::SignaturePrivate
 {
 public:
     explicit SignaturePrivate(Signature *qq)
@@ -29,7 +29,7 @@ public:
     {
     }
 
-    void assignFrom(const KIdentityManagement::Signature &that);
+    void assignFrom(const KIdentityManagementCore::Signature &that);
     void cleanupImages();
     void saveImages() const;
     Q_REQUIRED_RESULT QString textFromFile(bool *ok) const;
@@ -69,7 +69,7 @@ static QStringList findImageNames(const QString &htmlCode)
     return imageNames;
 }
 
-void SignaturePrivate::assignFrom(const KIdentityManagement::Signature &that)
+void SignaturePrivate::assignFrom(const KIdentityManagementCore::Signature &that)
 {
     path = that.path();
     inlinedHtml = that.isInlinedHtml();
@@ -186,12 +186,12 @@ QString SignaturePrivate::textFromCommand(bool *ok, QString *errorMessage) const
     return QString::fromLocal8Bit(output.data(), output.size());
 }
 
-QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
+QDataStream &operator<<(QDataStream &stream, const KIdentityManagementCore::Signature::EmbeddedImagePtr &img)
 {
     return stream << img->image << img->name;
 }
 
-QDataStream &operator>>(QDataStream &stream, const KIdentityManagement::Signature::EmbeddedImagePtr &img)
+QDataStream &operator>>(QDataStream &stream, const KIdentityManagementCore::Signature::EmbeddedImagePtr &img)
 {
     return stream >> img->image >> img->name;
 }
@@ -224,7 +224,7 @@ Signature::Signature(const Signature &that)
     d->assignFrom(that);
 }
 
-Signature &Signature::operator=(const KIdentityManagement::Signature &that)
+Signature &Signature::operator=(const KIdentityManagementCore::Signature &that)
 {
     if (this == &that) {
         return *this;
@@ -389,12 +389,12 @@ void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embe
 
 // --------------------- Operators -------------------//
 
-QDataStream &KIdentityManagement::operator<<(QDataStream &stream, const KIdentityManagement::Signature &sig)
+QDataStream &KIdentityManagementCore::operator<<(QDataStream &stream, const KIdentityManagementCore::Signature &sig)
 {
     return stream << static_cast<quint8>(sig.type()) << sig.path() << sig.text() << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature();
 }
 
-QDataStream &KIdentityManagement::operator>>(QDataStream &stream, KIdentityManagement::Signature &sig)
+QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityManagementCore::Signature &sig)
 {
     quint8 s;
     QString path;

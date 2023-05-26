@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include <KIdentityManagement/Signature>
+#include <KIdentityManagementCore/Signature>
 
 namespace KPIMTextEdit
 {
@@ -40,9 +40,9 @@ namespace SignatureRichTextEditor
  *
  * @since 4.9
  */
-void insertIntoTextEdit(const KIdentityManagement::Signature &sig,
-                        KIdentityManagement::Signature::Placement placement,
-                        KIdentityManagement::Signature::AddedText addedText,
+void insertIntoTextEdit(const KIdentityManagementCore::Signature &sig,
+                        KIdentityManagementCore::Signature::Placement placement,
+                        KIdentityManagementCore::Signature::AddedText addedText,
                         KPIMTextEdit::RichTextComposer *textEdit,
                         bool forceDisplay = false);
 }

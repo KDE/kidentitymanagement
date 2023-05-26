@@ -7,7 +7,7 @@
 
 #include "identity.h"
 
-#include "kidentitymanagement_debug.h"
+#include "kidentitymanagementcore_debug.h"
 #include <KConfigGroup>
 #include <KEmailAddress>
 
@@ -15,11 +15,11 @@
 #include <QHostInfo>
 #include <QMimeData>
 
-using namespace KIdentityManagement;
+using namespace KIdentityManagementCore;
 
 static Identity *identityNull = nullptr;
 
-Q_DECLARE_METATYPE(KIdentityManagement::Signature)
+Q_DECLARE_METATYPE(KIdentityManagementCore::Signature)
 
 Identity::Identity(const QString &id, const QString &fullName, const QString &emailAddr, const QString &organization, const QString &replyToAddr)
 {
@@ -160,7 +160,7 @@ Identity Identity::fromMimeData(const QMimeData *md)
 
 // ------------------ Operators --------------------------//
 
-QDataStream &KIdentityManagement::operator<<(QDataStream &stream, const KIdentityManagement::Identity &i)
+QDataStream &KIdentityManagementCore::operator<<(QDataStream &stream, const KIdentityManagementCore::Identity &i)
 {
     return stream << static_cast<quint32>(i.uoid()) << i.mPropertiesMap[QLatin1String(s_identity)] << i.mPropertiesMap[QLatin1String(s_name)]
                   << i.mPropertiesMap[QLatin1String(s_organization)] << i.mPropertiesMap[QLatin1String(s_pgps)] << i.mPropertiesMap[QLatin1String(s_pgpe)]
@@ -178,7 +178,7 @@ QDataStream &KIdentityManagement::operator<<(QDataStream &stream, const KIdentit
                   << i.mPropertiesMap[QLatin1String(s_warnnotencrypt)] << i.mPropertiesMap[QLatin1String(s_warnnotsign)];
 }
 
-QDataStream &KIdentityManagement::operator>>(QDataStream &stream, KIdentityManagement::Identity &i)
+QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityManagementCore::Identity &i)
 {
     quint32 uoid;
     stream >> uoid >> i.mPropertiesMap[QLatin1String(s_identity)] >> i.mPropertiesMap[QLatin1String(s_name)] >> i.mPropertiesMap[QLatin1String(s_organization)]
@@ -730,7 +730,7 @@ void Identity::setPgpAutoEncrypt(bool autoEncrypt)
     setProperty(QLatin1String(s_pgpautoencrypt), autoEncrypt);
 }
 
-bool KIdentityManagement::Identity::autocryptEnabled() const
+bool KIdentityManagementCore::Identity::autocryptEnabled() const
 {
     const auto var = property(QLatin1String(s_autocryptEnabled));
     if (var.isNull()) {
@@ -745,7 +745,7 @@ void Identity::setAutocryptEnabled(const bool on)
     setProperty(QLatin1String(s_autocryptEnabled), on);
 }
 
-bool KIdentityManagement::Identity::autocryptPrefer() const
+bool KIdentityManagementCore::Identity::autocryptPrefer() const
 {
     const auto var = property(QLatin1String(s_autocryptPrefer));
     if (var.isNull()) {
@@ -760,7 +760,7 @@ void Identity::setAutocryptPrefer(const bool on)
     setProperty(QLatin1String(s_autocryptPrefer), on);
 }
 
-bool KIdentityManagement::Identity::encryptionOverride() const
+bool KIdentityManagementCore::Identity::encryptionOverride() const
 {
     const auto var = property(QLatin1String(s_encryptionOverride));
     if (var.isNull()) {
@@ -775,7 +775,7 @@ void Identity::setEncryptionOverride(const bool on)
     setProperty(QLatin1String(s_encryptionOverride), on);
 }
 
-bool KIdentityManagement::Identity::warnNotEncrypt() const
+bool KIdentityManagementCore::Identity::warnNotEncrypt() const
 {
     const auto var = property(QLatin1String(s_warnnotencrypt));
     if (var.isNull()) {
@@ -790,7 +790,7 @@ void Identity::setWarnNotEncrypt(const bool on)
     setProperty(QLatin1String(s_warnnotencrypt), on);
 }
 
-bool KIdentityManagement::Identity::warnNotSign() const
+bool KIdentityManagementCore::Identity::warnNotSign() const
 {
     const auto var = property(QLatin1String(s_warnnotsign));
     if (var.isNull()) {

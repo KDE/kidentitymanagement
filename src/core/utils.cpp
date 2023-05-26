@@ -9,7 +9,7 @@
 
 #include <QObject>
 
-using namespace KIdentityManagement;
+using namespace KIdentityManagementCore;
 
 class IdendentitiesCache : public QObject
 {
@@ -45,12 +45,12 @@ private:
 
 Q_GLOBAL_STATIC(IdendentitiesCache, sIdentitiesCache)
 
-bool KIdentityManagement::thatIsMe(const QString &email)
+bool KIdentityManagementCore::thatIsMe(const QString &email)
 {
     return allEmails().contains(email.toLower());
 }
 
-const QSet<QString> &KIdentityManagement::allEmails()
+const QSet<QString> &KIdentityManagementCore::allEmails()
 {
     return sIdentitiesCache()->emails();
 }

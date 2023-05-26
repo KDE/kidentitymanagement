@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "kidentitymanagement_export.h"
+#include "kidentitymanagementcore_export.h"
 #include "signature.h"
 
 #include <QHash>
@@ -17,7 +17,7 @@
 #include <QStringList>
 #include <QVariant>
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 class Identity;
 }
@@ -25,7 +25,7 @@ class KConfigGroup;
 class QDataStream;
 class QMimeData;
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 static const char s_uoid[] = "uoid";
 static const char s_identity[] = "Identity";
@@ -64,19 +64,19 @@ static const char s_defaultDomainName[] = "Default Domain";
 static const char s_autocryptEnabled[] = "Autocrypt";
 static const char s_autocryptPrefer[] = "Autocrypt Prefer";
 
-KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Identity &ident);
-KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Identity &ident);
+KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagementCore::Identity &ident);
+KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagementCore::Identity &ident);
 
 /** User identity information */
-class KIDENTITYMANAGEMENT_EXPORT Identity
+class KIDENTITYMANAGEMENTCORE_EXPORT Identity
 {
     // only the identity manager should be able to construct and
     // destruct us, but then we get into problems with using
     // QValueList<Identity> and especially qHeapSort().
     friend class IdentityManager;
 
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagement::Identity &ident);
-    friend KIDENTITYMANAGEMENT_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagement::Identity &ident);
+    friend KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagementCore::Identity &ident);
+    friend KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagementCore::Identity &ident);
 
 public:
     using List = QList<Identity>;

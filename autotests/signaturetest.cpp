@@ -24,7 +24,7 @@
 #include <KPIMTextEdit/RichTextComposer>
 #include <KPIMTextEdit/RichTextComposerControler>
 #include <KPIMTextEdit/RichTextComposerImages>
-using namespace KIdentityManagement;
+using namespace KIdentityManagementCore;
 using namespace KPIMTextEdit;
 
 QTEST_MAIN(SignatureTester)

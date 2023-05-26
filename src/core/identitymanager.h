@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "kidentitymanagement_export.h"
+#include "kidentitymanagementcore_export.h"
 
 #include <QList>
 #include <QObject>
@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 class IdentityManagerPrivate;
 class Identity;
@@ -22,7 +22,7 @@ class Identity;
  * @short Manages the list of identities.
  * @author Marc Mutz <mutz@kde.org>
  **/
-class KIDENTITYMANAGEMENT_EXPORT IdentityManager : public QObject
+class KIDENTITYMANAGEMENTCORE_EXPORT IdentityManager : public QObject
 {
     Q_OBJECT
 public:
@@ -192,14 +192,14 @@ Q_SIGNALS:
     /** Emitted whenever the identity @p ident changed. Useful for more
         fine-grained change notifications than what is possible with the
         standard @ref changed() signal. */
-    void changed(const KIdentityManagement::Identity &ident);
-    void identityChanged(const KIdentityManagement::Identity &ident);
+    void changed(const KIdentityManagementCore::Identity &ident);
+    void identityChanged(const KIdentityManagementCore::Identity &ident);
     /** Emitted on @ref commit() for each deleted identity. At the time
         this signal is emitted, the identity does still exist and can be
         retrieved by @ref identityForUoid() if needed */
     void deleted(uint uoid);
     /** Emitted on @ref commit() for each new identity */
-    void added(const KIdentityManagement::Identity &ident);
+    void added(const KIdentityManagementCore::Identity &ident);
 
     void needToReloadIdentitySettings();
 

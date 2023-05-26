@@ -10,11 +10,11 @@
 #pragma once
 
 #include "kidentitymanagementwidgets_export.h"
-#include <KIdentityManagement/Signature> // for Signature::Type
+#include <KIdentityManagementCore/Signature> // for Signature::Type
 #include <QWidget>
 #include <memory>
 
-using KIdentityManagement::Signature;
+using KIdentityManagementCore::Signature;
 
 namespace KIdentityManagementWidgets
 {
@@ -123,7 +123,7 @@ public:
      *                 location.
      * @since 4.4
      */
-    void setImageLocation(const KIdentityManagement::Identity &identity);
+    void setImageLocation(const KIdentityManagementCore::Identity &identity);
 
 private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotUrlChanged();

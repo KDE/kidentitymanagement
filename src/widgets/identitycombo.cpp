@@ -23,7 +23,7 @@
 #include <cassert>
 
 using namespace KIdentityManagementWidgets;
-using namespace KIdentityManagement;
+using namespace KIdentityManagementCore;
 /**
   IdentityComboPrivate class that helps to provide binary compatibility between releases.
   @internal
@@ -32,7 +32,7 @@ using namespace KIdentityManagement;
 class KIdentityManagementWidgets::IdentityComboPrivate
 {
 public:
-    IdentityComboPrivate(KIdentityManagement::IdentityManager *manager, IdentityCombo *qq)
+    IdentityComboPrivate(KIdentityManagementCore::IdentityManager *manager, IdentityCombo *qq)
         : mIdentityManager(manager)
         , q(qq)
     {
@@ -42,7 +42,7 @@ public:
     void reloadUoidList();
 
     QList<uint> mUoidList;
-    KIdentityManagement::IdentityManager *const mIdentityManager;
+    KIdentityManagementCore::IdentityManager *const mIdentityManager;
     IdentityCombo *const q;
     bool showDefault = false;
 };
@@ -51,8 +51,8 @@ void KIdentityManagementWidgets::IdentityComboPrivate::reloadCombo()
 {
     QStringList identities;
     identities.reserve(mIdentityManager->identities().count());
-    KIdentityManagement::IdentityManager::ConstIterator it;
-    KIdentityManagement::IdentityManager::ConstIterator end(mIdentityManager->end());
+    KIdentityManagementCore::IdentityManager::ConstIterator it;
+    KIdentityManagementCore::IdentityManager::ConstIterator end(mIdentityManager->end());
     for (it = mIdentityManager->begin(); it != end; ++it) {
         if (showDefault && it->isDefault()) {
             identities << QString(it->identityName() + i18nc("Default identity", " (default)"));
@@ -69,8 +69,8 @@ void KIdentityManagementWidgets::IdentityComboPrivate::reloadCombo()
 void KIdentityManagementWidgets::IdentityComboPrivate::reloadUoidList()
 {
     mUoidList.clear();
-    KIdentityManagement::IdentityManager::ConstIterator it;
-    KIdentityManagement::IdentityManager::ConstIterator end(mIdentityManager->end());
+    KIdentityManagementCore::IdentityManager::ConstIterator it;
+    KIdentityManagementCore::IdentityManager::ConstIterator end(mIdentityManager->end());
     for (it = mIdentityManager->begin(); it != end; ++it) {
         mUoidList << (*it).uoid();
     }
@@ -86,8 +86,8 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     d->reloadUoidList();
     connect(this, &IdentityCombo::activated, this, &IdentityCombo::slotEmitChanged);
     connect(this, &IdentityCombo::identityChanged, this, &IdentityCombo::slotUpdateTooltip);
-    connect(manager, &KIdentityManagement::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
-    connect(manager, &KIdentityManagement::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
+    connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
+    connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
     slotUpdateTooltip(currentIdentity());
 }
 
