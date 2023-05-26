@@ -12,7 +12,7 @@ deprecated: false
 release: false
 libraries:
  - qmake: KIdentityManagement
-   cmake: "KPim6::IdentityManagement"
-cmakename: KPim6IdentityManagement
+   cmake: "KPim6::IdentityManagementCore"
+cmakename: KPim6IdentityManagementCore
 group: kdepim
 public_lib: true
