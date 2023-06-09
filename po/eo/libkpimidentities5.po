@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-08 01:00+0000\n"
-"PO-Revision-Date: 2023-01-08 21:45+0100\n"
+"PO-Revision-Date: 2023-06-08 19:23+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -47,6 +47,7 @@ msgstr "Sennoma"
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
+"<qt>Malsukcesis efektivigi subskriban skripton<p><b>%1</b>:</p><p>%2</p></qt>"
 
 #: widgets/identitycombo.cpp:58
 #, kde-format
