@@ -104,12 +104,12 @@ msgstr "Obter o &texto da sinatura desde:"
 #: widgets/signatureconfigurator.cpp:161
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
-msgstr "Empregue este campo para inserir unha sinatura estática arbitraria."
+msgstr "Use este campo para inserir unha sinatura estática arbitraria."
 
 #: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
-msgstr "Empregar &HTML"
+msgstr "Usar &HTML"
 
 #: widgets/signatureconfigurator.cpp:220
 #, kde-format
@@ -168,4 +168,4 @@ msgstr "Tamaño do ficheiro de texto"
 #: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
-msgstr "Empregar &HTML (se o desactiva retira o formatado)"
+msgstr "Usar &HTML (se o desactiva retira o formatado)"
