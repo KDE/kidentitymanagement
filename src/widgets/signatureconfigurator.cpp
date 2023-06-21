@@ -469,3 +469,5 @@ void SignatureConfigurator::setImageLocation(const KIdentityManagementCore::Iden
     setImageLocation(dir);
 }
 }
+
+#include "moc_signatureconfigurator.cpp"

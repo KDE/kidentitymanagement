@@ -303,3 +303,5 @@ void IdentityTester::test_migration()
         QVERIFY(compareIdentities(i2, identity));
     }
 }
+
+#include "moc_identitytest.cpp"

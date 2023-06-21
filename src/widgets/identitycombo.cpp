@@ -198,3 +198,5 @@ void IdentityCombo::setShowDefault(bool showDefault)
         d->reloadCombo();
     }
 }
+
+#include "moc_identitycombo.cpp"
