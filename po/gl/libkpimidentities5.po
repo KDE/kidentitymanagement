@@ -50,7 +50,7 @@ msgstr "Sen nome"
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
-"<qt>Non se puido executar o script de sinatura<p><b>%1</b>:</p><p>%2</p></qt>"
+"<qt>Non se puido executar o guión de sinatura<p><b>%1</b>:</p><p>%2</p></qt>"
 
 #: widgets/identitycombo.cpp:58
 #, kde-format
@@ -147,7 +147,7 @@ msgstr ""
 "Aquí pode engadir unha orde arbitraria, con ou sen ruta en función de se a "
 "orde está na súa ruta ou non. Con cada novo correo, KMail executará a orde e "
 "usará a súa saída (á saída estándar) como sinatura. As ordes máis habituais "
-"deste sistema son «fortune» ou «ksig --random». (coidado, o script necesita "
+"deste sistema son «fortune» ou «ksig --random». (coidado, o guión necesita "
 "unha liña de intérprete)"
 
 #: widgets/signatureconfigurator.cpp:257
