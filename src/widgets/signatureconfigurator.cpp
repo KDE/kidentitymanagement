@@ -215,7 +215,7 @@ void SignatureConfiguratorPrivate::init()
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout(hlay);
     mFileRequester = new KUrlRequester(page);
-    mFileRequester->setFilter(QStringLiteral("*.txt"));
+    mFileRequester->setNameFilters({QStringLiteral("*.txt")});
     mFileRequester->setWhatsThis(
         i18n("Use this requester to specify a text file that contains your "
              "signature. It will be read every time you create a new mail or "
