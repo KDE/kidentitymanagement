@@ -49,8 +49,8 @@ const Identity &Identity::null()
 
 bool Identity::isNull() const
 {
-    bool empty = true;
     QHash<QString, QVariant>::const_iterator i = mPropertiesMap.constBegin();
+
     while (i != mPropertiesMap.constEnd()) {
         const QString &key = i.key();
         // Take into account that the defaultDomainName for a null identity is not empty
@@ -78,12 +78,13 @@ bool Identity::isNull() const
                     i.value().metaType().id() == QMetaType::QString
 #endif
                     && !i.value().toString().isEmpty())) {
-                empty = false;
+                return false;
             }
         }
         ++i;
     }
-    return empty;
+
+    return true;
 }
 
 void Identity::readConfig(const KConfigGroup &config)
