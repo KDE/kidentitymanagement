@@ -22,7 +22,6 @@ static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include <QDBusConnection>
 #include <QHostInfo>
-#include <QList>
 #include <QRandomGenerator>
 
 #include <QRegularExpression>
