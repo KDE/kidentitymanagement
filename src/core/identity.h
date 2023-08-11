@@ -149,8 +149,9 @@ public:
     void setPreferredCryptoMessageFormat(const QString &);
 
     /**
-     * primary email address (without the user name - only name\@host).
-     * The primary email address is used for all outgoing mail.
+     * The primary email address (without the user name - only name\@host).
+     *
+     * This email address is used for all outgoing mail.
      *
      * @since 4.6
      */
@@ -158,7 +159,7 @@ public:
     void setPrimaryEmailAddress(const QString &email);
 
     /**
-     * email address aliases
+     * The email address aliases
      *
      * @since 4.6
      */
@@ -178,106 +179,125 @@ public:
     Q_REQUIRED_RESULT QString vCardFile() const;
     void setVCardFile(const QString &);
 
-    /** email address in the format "username <name@host>" suitable
-    for the "From:" field of email messages. */
+    /**
+     * The email address in the format "username <name@host>" suitable
+     * for the "From:" field of email messages.
+     */
     Q_REQUIRED_RESULT QString fullEmailAddr() const;
 
-    /** email address for the ReplyTo: field */
+    /** @return The email address for the ReplyTo: field */
     Q_REQUIRED_RESULT QString replyToAddr() const;
     void setReplyToAddr(const QString &);
 
-    /** email addresses for the BCC: field */
+    /** @return The email addresses for the BCC: field */
     Q_REQUIRED_RESULT QString bcc() const;
     void setBcc(const QString &);
 
-    /** email addresses for the CC: field
+    /**
+     * @return The email addresses for the CC: field
      * @since 4.9
      */
     Q_REQUIRED_RESULT QString cc() const;
     void setCc(const QString &);
 
     /**
-     *
+     * @return true if the Vcard of this identity should be attached to outgoing mail.
      * @since 4.10
      */
     Q_REQUIRED_RESULT bool attachVcard() const;
     void setAttachVcard(bool attach);
 
     /**
+     * @return The default language for spell checking of this identity.
      * @since 4.10
      */
     QString autocorrectionLanguage() const;
     void setAutocorrectionLanguage(const QString &language);
 
     /**
+     * @return true if Fcc is disabled for this identity.
      * @since 4.11
      */
     Q_REQUIRED_RESULT bool disabledFcc() const;
     void setDisabledFcc(bool);
 
     /**
+     * @return true if we should sign message sent by this identity by default.
      * @since 4.12
      */
     Q_REQUIRED_RESULT bool pgpAutoSign() const;
     void setPgpAutoSign(bool);
 
     /**
+     * @return true if we should encrypt message sent by this identity by default.
      * @since 5.4
      */
     Q_REQUIRED_RESULT bool pgpAutoEncrypt() const;
     void setPgpAutoEncrypt(bool);
 
     /**
+     * @return true if Autocrypt is enabled for this identity.
      * @since 5.17
      */
     Q_REQUIRED_RESULT bool autocryptEnabled() const;
     void setAutocryptEnabled(const bool);
 
     /**
+     * @return true if Autocrypt is preferred for this identity.
      * @since 5.22
      */
     Q_REQUIRED_RESULT bool autocryptPrefer() const;
     void setAutocryptPrefer(const bool);
 
     /**
+     * @return true if the warnNotSign and warnNotEncrypt identity configuration should
+     * overwrite the global app-wide configuration.
      * @since 5.22
      */
     Q_REQUIRED_RESULT bool encryptionOverride() const;
     void setEncryptionOverride(const bool);
 
     /**
+     * @return true if we should warn if parts of the message this identity is about to send are not signed.
      * @since 5.22
      */
     Q_REQUIRED_RESULT bool warnNotSign() const;
     void setWarnNotSign(const bool);
 
     /**
+     * @return true if we should warn if parts of the message this identity is about to send are not encrypted.
      * @since 5.22
      */
     Q_REQUIRED_RESULT bool warnNotEncrypt() const;
     void setWarnNotEncrypt(const bool);
 
     /**
+     * @return The default domain name
      * @since 4.14
      */
     Q_REQUIRED_RESULT QString defaultDomainName() const;
     void setDefaultDomainName(const QString &domainName);
 
+    /**
+     * @return The signature of the identity.
+     *
+     * @warning This method is not const.
+     */
+    Q_REQUIRED_RESULT Signature &signature();
     void setSignature(const Signature &sig);
-    Q_REQUIRED_RESULT Signature &signature(); /* _not_ const! */
 
     /**
-    @return the signature with '-- \n' prepended to it if it is not
-    present already.
-    No newline in front of or after the signature is added.
-    @param ok if a valid bool pointer, it is set to @c true or @c false depending
-    on whether the signature could successfully be obtained.
-    */
+     * @return the signature with '-- \n' prepended to it if it is not
+     * present already.
+     * No newline in front of or after the signature is added.
+     * @param ok if a valid bool pointer, it is set to @c true or @c false depending
+     * on whether the signature could successfully be obtained.
+     */
     Q_REQUIRED_RESULT QString signatureText(bool *ok = nullptr) const;
 
     /**
-     * @since 4.1
      * @return true if the inlined signature is html formatted
+     * @since 4.1
      */
     Q_REQUIRED_RESULT bool signatureIsInlinedHtml() const;
 
@@ -360,8 +380,9 @@ public:
         instead.  */
     void setIsDefault(bool flag);
 
-    /** set the uiod
-     *  @param aUoid the uoid to set
+    /**
+     * Set the uiod
+     * @param aUoid the uoid to set
      */
     void setUoid(uint aUoid);
 
