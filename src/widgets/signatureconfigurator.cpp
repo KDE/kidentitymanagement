@@ -38,7 +38,7 @@
 #include <QStandardPaths>
 #include <cassert>
 
-#include <KPIMTextEdit/RichTextEditorWidget>
+#include <TextCustomEditor/RichTextEditorWidget>
 
 using namespace KIdentityManagementWidgets;
 
@@ -156,7 +156,7 @@ void SignatureConfiguratorPrivate::init()
 
     mTextEdit = new KPIMTextEdit::RichTextComposer(q);
 
-    auto richTextEditorwidget = new KPIMTextEdit::RichTextEditorWidget(mTextEdit, q);
+    auto richTextEditorwidget = new TextCustomEditor::RichTextEditorWidget(mTextEdit, q);
     page_vlay->addWidget(richTextEditorwidget, 2);
     mTextEdit->setWhatsThis(i18n("Use this field to enter an arbitrary static signature."));
 

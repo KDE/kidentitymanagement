@@ -35,7 +35,7 @@ add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt 
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
 set(PIMTEXTEDIT_LIB_VERSION "5.240.40")
-
+set(KTEXTADDONS_MIN_VERSION "1.4.42")
 
 ########### Find packages ###########
 
@@ -49,6 +49,7 @@ find_package(KF6KIO ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6Config ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6Codecs ${KF_MIN_VERSION} CONFIG REQUIRED)
 
+find_package(KF6TextCustomEditor ${KTEXTADDONS_MIN_VERSION} CONFIG REQUIRED)
 find_package(KPim6TextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
