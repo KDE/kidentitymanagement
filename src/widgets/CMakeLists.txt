@@ -49,6 +49,7 @@ PRIVATE
   KF6::XmlGui
   KF6::KIOWidgets
   KF6::ConfigCore
+  KF6::TextCustomEditor
 )
 
 ########### CMake Config Files ###########
