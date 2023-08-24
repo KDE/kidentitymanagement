@@ -29,6 +29,7 @@ kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
 include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
 include(ECMAddQch)
+include(ECMQmlModule)
 
 if (QT_MAJOR_VERSION STREQUAL "6")
     set(QT_MIN_VERSION "6.4.0")
@@ -55,6 +56,8 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENT
 ########### Find packages ###########
 
 find_package(Qt${QT_MAJOR_VERSION}Network NO_MODULE REQUIRED)
+find_package(Qt${QT_MAJOR_VERSION}Quick NO_MODULE REQUIRED)
+
 if (QT_MAJOR_VERSION STREQUAL "6")
     find_package(Qt6Core5Compat)
 endif()
