@@ -62,11 +62,9 @@ Kirigami.ScrollablePage {
     rightPadding: 0
 
     ColumnLayout {
-        /*
         BasicIdentityEditorCard {
             identityEditorBackend: backend
         }
-        */
     }
 
     footer: ColumnLayout {
