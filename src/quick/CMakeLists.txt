@@ -5,6 +5,8 @@
 ecm_add_qml_module(kidentitymanagement_quick_plugin URI "org.kde.kidentitymanagement" VERSION 1.0)
 
 target_sources(kidentitymanagement_quick_plugin PRIVATE
+    identitymodel.h
+    identitymodel.cpp
     identityutils.h
     identityutils.cpp
     kidentitymanagementquickplugin.cpp
@@ -21,6 +23,7 @@ ecm_qt_declare_logging_category(kidentitymanagement_quick_plugin
 
 target_link_libraries(kidentitymanagement_quick_plugin PRIVATE
     Qt::Quick
+    KF${KF_MAJOR_VERSION}::I18n
     KPim${KF_MAJOR_VERSION}IdentityManagement
 )
 

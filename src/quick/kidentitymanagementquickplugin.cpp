@@ -5,15 +5,18 @@
 
 #include <QQmlEngine>
 
+#include "identitymodel.h"
 #include "identityutils.h"
+
+using namespace KIdentityManagement;
 
 void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
 {
-    Q_UNUSED(uri);
-
-    qmlRegisterSingletonType<KIdentityManagement::Quick::IdentityUtils>(uri, 1, 0, "IdentityUtils", [](QQmlEngine *engine, QJSEngine *scriptEngine) {
+    qmlRegisterSingletonType<Quick::IdentityUtils>(uri, 1, 0, "IdentityUtils", [](QQmlEngine *engine, QJSEngine *scriptEngine) {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
-        return new KIdentityManagement::Quick::IdentityUtils;
+        return new Quick::IdentityUtils;
     });
+
+    qmlRegisterType<Quick::IdentityModel>(uri, 1, 0, "IdentityModel");
 }
