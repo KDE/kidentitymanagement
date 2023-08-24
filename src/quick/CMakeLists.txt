@@ -5,6 +5,8 @@
 ecm_add_qml_module(kidentitymanagement_quick_plugin URI "org.kde.kidentitymanagement" VERSION 1.0)
 
 target_sources(kidentitymanagement_quick_plugin PRIVATE
+    identityutils.h
+    identityutils.cpp
     kidentitymanagementquickplugin.cpp
     kidentitymanagementquickplugin.h
 )
