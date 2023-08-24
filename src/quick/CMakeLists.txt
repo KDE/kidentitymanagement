@@ -15,6 +15,10 @@ target_sources(kidentitymanagement_quick_plugin PRIVATE
     kidentitymanagementquickplugin.h
 )
 
+ecm_target_qml_sources(kidentitymanagement_quick_plugin SOURCES
+    qml/IdentityConfigurationForm.qml
+)
+
 ecm_qt_declare_logging_category(kidentitymanagement_quick_plugin
     HEADER kidentitymanagement_quick_debug.h
     IDENTIFIER KIDENTITYMANAGEMENT_QUICK_LOG
