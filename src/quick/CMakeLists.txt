@@ -17,6 +17,7 @@ target_sources(kidentitymanagement_quick_plugin PRIVATE
 
 ecm_target_qml_sources(kidentitymanagement_quick_plugin SOURCES
     qml/IdentityConfigurationForm.qml
+    qml/IdentityEditorPage.qml
 )
 
 ecm_qt_declare_logging_category(kidentitymanagement_quick_plugin
