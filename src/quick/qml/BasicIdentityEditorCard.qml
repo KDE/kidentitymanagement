@@ -54,7 +54,7 @@ MobileForm.FormCard {
         Repeater {
             id: emailAliasesRepeater
 
-            readonly property var emailAliases: root.identity.emailAliases
+            property var emailAliases: root.identity.emailAliases
 
             model: emailAliases
 
@@ -70,8 +70,10 @@ MobileForm.FormCard {
                         text: modelData
                         inputMethodHints: Qt.ImhEmailCharactersOnly
                         onEditingFinished: {
-                            emailAliasesRepeater.emailAliases[model.index] = text;
-                            identity.emailAliases = emailAliasesRepeater.emailAliases;
+                            let emailAliases = emailAliasesRepeater.emailAliases;
+                            emailAliases[model.index] = text;
+                            identity.emailAliases = emailAliases;
+                            emailAliasesRepeater.emailAliases = emailAliases;
                         }
                     }
 
@@ -85,6 +87,7 @@ MobileForm.FormCard {
                             let emailAliases = emailAliasesRepeater.emailAliases;
                             emailAliases = Array.from(emailAliases).filter(email => email !== modelData);
                             identity.emailAliases = emailAliases;
+                            emailAliasesRepeater.emailAliases = emailAliases;
                         }
                     }
                 }
@@ -109,8 +112,10 @@ MobileForm.FormCard {
                         text: i18n("Add email alias")
                     }
                     onClicked: {
-                        emailAliasesRepeater.emailAliases.push(toAddEmail.text);
+                        let emailAliases = emailAliasesRepeater.emailAliases;
+                        emailAliases.push(toAddEmail.text);
                         identity.emailAliases = emailAliasesRepeater.emailAliases;
+                        emailAliasesRepeater.emailAliases = emailAliases;
                         toAddEmail.clear();
                     }
                 }
