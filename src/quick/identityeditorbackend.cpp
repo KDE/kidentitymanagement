@@ -26,12 +26,12 @@ void IdentityEditorBackend::setMode(Mode mode)
     Q_EMIT modeChanged();
 }
 
-Identity *IdentityEditorBackend::identity() const
+Identity IdentityEditorBackend::identity() const
 {
     return m_identity;
 }
 
-void IdentityEditorBackend::setIdentity(Identity *identity)
+void IdentityEditorBackend::setIdentity(const Identity &identity)
 {
     if (m_identity == identity) {
         return;
@@ -43,21 +43,17 @@ void IdentityEditorBackend::setIdentity(Identity *identity)
 
 uint IdentityEditorBackend::identityUoid() const
 {
-    if (!m_identity) {
-        return 0;
-    }
-
-    return m_identity->uoid();
+    return m_identity.uoid();
 }
 
 void IdentityEditorBackend::setIdentityUoid(uint identityUoid)
 {
-    if (m_identity && m_identity->uoid() == identityUoid) {
+    if (m_identity.uoid() == identityUoid) {
         return;
     }
 
-    auto &identity = m_identityManager->modifyIdentityForUoid(identityUoid);
-    setIdentity(&identity);
+    const auto &identity = m_identityManager->modifyIdentityForUoid(identityUoid);
+    setIdentity(identity);
 }
 
 void IdentityEditorBackend::saveIdentity()
@@ -67,35 +63,23 @@ void IdentityEditorBackend::saveIdentity()
 
 void IdentityEditorBackend::addEmailAlias(const QString &alias)
 {
-    if (!m_identity) {
-        return;
-    }
-
-    auto aliases = m_identity->emailAliases();
+    auto aliases = m_identity.emailAliases();
     aliases.append(alias);
-    m_identity->setEmailAliases(aliases);
+    m_identity.setEmailAliases(aliases);
 }
 
 void IdentityEditorBackend::modifyEmailAlias(const QString &originalAlias, const QString &modifiedAlias)
 {
-    if (!m_identity) {
-        return;
-    }
-
-    auto aliases = m_identity->emailAliases();
+    auto aliases = m_identity.emailAliases();
     std::replace(aliases.begin(), aliases.end(), originalAlias, modifiedAlias);
-    m_identity->setEmailAliases(aliases);
+    m_identity.setEmailAliases(aliases);
 }
 
 void IdentityEditorBackend::removeEmailAlias(const QString &alias)
 {
-    if (!m_identity) {
-        return;
-    }
-
-    auto aliases = m_identity->emailAliases();
+    auto aliases = m_identity.emailAliases();
     aliases.removeAll(alias);
-    m_identity->setEmailAliases(aliases);
+    m_identity.setEmailAliases(aliases);
 }
 }
 }

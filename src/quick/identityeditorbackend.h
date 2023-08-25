@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <KIdentityManagement/Identity>
 #include <KIdentityManagement/IdentityManager>
 #include <QObject>
 
@@ -16,7 +17,7 @@ class IdentityEditorBackend : public QObject
     Q_OBJECT
 
     Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged)
-    Q_PROPERTY(Identity *identity READ identity NOTIFY identityChanged NOTIFY modeChanged)
+    Q_PROPERTY(Identity identity READ identity WRITE setIdentity NOTIFY identityChanged NOTIFY modeChanged)
     Q_PROPERTY(uint identityUoid READ identityUoid WRITE setIdentityUoid NOTIFY identityChanged)
 
 public:
@@ -28,8 +29,8 @@ public:
     Q_REQUIRED_RESULT Mode mode() const;
     void setMode(Mode mode);
 
-    Q_REQUIRED_RESULT Identity *identity() const;
-    void setIdentity(Identity *identity);
+    Q_REQUIRED_RESULT Identity identity() const;
+    void setIdentity(const Identity &identity);
 
     Q_REQUIRED_RESULT uint identityUoid() const;
     void setIdentityUoid(uint identityUoid);
@@ -46,7 +47,7 @@ Q_SIGNALS:
 
 private:
     IdentityManager *const m_identityManager = IdentityManager::self();
-    Identity *m_identity;
+    Identity m_identity;
     Mode m_mode = CreateMode;
 };
 }
