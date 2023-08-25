@@ -76,6 +76,12 @@ public:
     /** Re-read the config from disk and forget changes. */
     void rollback();
 
+    /** Store a new identity or modify an existing identity based on an
+     *  independent identity object
+     *  @param ident the identity to be saved
+     */
+    void saveIdentity(const Identity &ident);
+
     /** Check whether there are any unsaved changes. */
     Q_REQUIRED_RESULT bool hasPendingChanges() const;
 
