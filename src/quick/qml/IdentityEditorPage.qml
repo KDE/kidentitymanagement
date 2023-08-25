@@ -22,10 +22,11 @@ Kirigami.ScrollablePage {
         id: backend
         mode: IdentityEditorBackend.CreateMode
     }
+    readonly property var identity: backend.identity
 
     QQC2.Action {
         id: submitAction
-        enabled: !root.backend.identity.isNull
+        enabled: !root.identity.isNull
         shortcut: "Return"
         onTriggered: {
             root.backend.saveIdentity();
@@ -63,7 +64,7 @@ Kirigami.ScrollablePage {
 
     ColumnLayout {
         BasicIdentityEditorCard {
-            identityEditorBackend: backend
+            identity: root.identity
         }
     }
 

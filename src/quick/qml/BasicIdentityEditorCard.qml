@@ -13,7 +13,7 @@ import org.kde.kidentitymanagement 1.0
 MobileForm.FormCard {
     id: root
 
-    required property IdentityEditorBackend identityEditorBackend
+    required property var identity
     property alias toAddEmailText: toAddEmail.text
 
     function isNotEmptyStr(str) {
@@ -34,16 +34,16 @@ MobileForm.FormCard {
             id: nameDelegate
             Layout.fillWidth: true
             label: i18n("Your name")
-            text: root.identityEditorBackend.identity.fullName
-            onTextChanged: root.identityEditorBackend.identity.fullName = text
+            text: root.identity.fullName
+            onTextChanged: root.identity.fullName = text
         }
 
         MobileForm.FormTextFieldDelegate {
             id: emailDelegate
             Layout.fillWidth: true
             label: i18n("Email address")
-            text: root.identityEditorBackend.identity.primaryEmailAddress
-            onTextChanged: root.identityEditorBackend.identity.primaryEmailAddress = text
+            text: root.identity.primaryEmailAddress
+            onTextChanged: root.identity.primaryEmailAddress = text
             inputMethodHints: Qt.ImhEmailCharactersOnly
         }
 
