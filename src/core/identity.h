@@ -458,3 +458,7 @@ protected:
     QHash<QString, QVariant> mPropertiesMap;
 };
 }
+
+#ifndef UNITY_CMAKE_SUPPORT
+Q_DECLARE_METATYPE(KIdentityManagement::Identity)
+#endif
