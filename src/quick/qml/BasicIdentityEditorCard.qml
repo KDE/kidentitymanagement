@@ -53,7 +53,10 @@ MobileForm.FormCard {
 
         Repeater {
             id: emailAliasesRepeater
-            model: root.identityEditorBackend.identity.emailAliases
+
+            readonly property var emailAliases: root.identity.emailAliases
+
+            model: emailAliases
 
             delegate: MobileForm.AbstractFormDelegate {
                 id: emailRow
@@ -66,7 +69,10 @@ MobileForm.FormCard {
                         Layout.fillWidth: true
                         text: modelData
                         inputMethodHints: Qt.ImhEmailCharactersOnly
-                        onEditingFinished: identityEditorBackend.modifyEmailAlias(modelData, text)
+                        onEditingFinished: {
+                            emailAliasesRepeater.emailAliases[model.index] = text;
+                            identity.emailAliases = emailAliasesRepeater.emailAliases;
+                        }
                     }
 
                     QQC2.Button {
@@ -75,7 +81,11 @@ MobileForm.FormCard {
                         QQC2.ToolTip {
                             text: i18n("Remove email alias")
                         }
-                        onClicked: identityEditorBackend.removeEmailAlias(modelData)
+                        onClicked: {
+                            let emailAliases = emailAliasesRepeater.emailAliases;
+                            emailAliases = Array.from(emailAliases).filter(email => email !== modelData);
+                            identity.emailAliases = emailAliases;
+                        }
                     }
                 }
             }
@@ -99,7 +109,8 @@ MobileForm.FormCard {
                         text: i18n("Add email alias")
                     }
                     onClicked: {
-                        identityEditorBackend.addEmailAlias(toAddEmail.text);
+                        emailAliasesRepeater.emailAliases.push(toAddEmail.text);
+                        identity.emailAliases = emailAliasesRepeater.emailAliases;
                         toAddEmail.clear();
                     }
                 }
