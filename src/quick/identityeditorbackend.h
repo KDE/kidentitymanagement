@@ -35,7 +35,7 @@ public:
     Q_REQUIRED_RESULT uint identityUoid() const;
     void setIdentityUoid(uint identityUoid);
 
-    Q_INVOKABLE void saveIdentity();
+    Q_INVOKABLE void saveIdentity(const Identity &modifiedIdentity);
 
     Q_INVOKABLE void addEmailAlias(const QString &alias);
     Q_INVOKABLE void modifyEmailAlias(const QString &originalAlias, const QString &modifiedAlias);

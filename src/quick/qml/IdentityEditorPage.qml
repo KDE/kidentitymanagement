@@ -29,7 +29,7 @@ Kirigami.ScrollablePage {
         enabled: !root.identity.isNull
         shortcut: "Return"
         onTriggered: {
-            root.backend.saveIdentity();
+            root.backend.saveIdentity(root.identity);
             root.closeDialog();
         }
     }

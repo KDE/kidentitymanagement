@@ -56,9 +56,9 @@ void IdentityEditorBackend::setIdentityUoid(uint identityUoid)
     setIdentity(identity);
 }
 
-void IdentityEditorBackend::saveIdentity()
+void IdentityEditorBackend::saveIdentity(const Identity &modifiedIdentity)
 {
-    m_identityManager->commit();
+    m_identityManager->saveIdentity(modifiedIdentity);
 }
 
 void IdentityEditorBackend::addEmailAlias(const QString &alias)
