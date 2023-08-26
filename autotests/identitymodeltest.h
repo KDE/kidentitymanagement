@@ -15,6 +15,7 @@ private Q_SLOTS:
     void initTestCase();
     void testModelCount();
     void testModelData();
+    void testEmailFromUoid();
 
 private:
     KIdentityManagement::IdentityManager manager;
