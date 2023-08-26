@@ -15,6 +15,9 @@ using namespace KIdentityManagement;
 
 void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
 {
+    // @uri org.kde.kidentitymanagement
+    Q_ASSERT(uri == QByteArray("org.kde.kidentitymanagement"));
+
     qmlRegisterSingletonType<Quick::IdentityUtils>(uri, 1, 0, "IdentityUtils", [](QQmlEngine *engine, QJSEngine *scriptEngine) {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
