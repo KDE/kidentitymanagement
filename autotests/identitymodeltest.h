@@ -14,6 +14,7 @@ class IdentityModelTester : public QObject
 private Q_SLOTS:
     void initTestCase();
     void testModelCount();
+    void testModelData();
 
 private:
     KIdentityManagement::IdentityManager manager;

@@ -13,6 +13,9 @@ using namespace KIdentityManagement;
 
 namespace
 {
+const auto i1Name = QStringLiteral("Test1");
+const auto i1Email = QStringLiteral("firstname.lastname@example.com");
+
 void cleanupIdentities(IdentityManager *const manager)
 {
     QVERIFY(manager);
@@ -35,9 +38,9 @@ void IdentityModelTester::initTestCase()
     QCOMPARE(manager.identities().count(), 1); // Can't remove all identities
 
     {
-        auto &i1 = manager.newFromScratch(QStringLiteral("Test1"));
-        i1.setPrimaryEmailAddress(QStringLiteral("firstname.lastname@example.com"));
-        i1.setEmailAliases({QStringLiteral("firstname@example.com"), QStringLiteral("lastname@example.com")});
+        auto &i1 = manager.newFromScratch(i1Name);
+        i1.setPrimaryEmailAddress(i1Email);
+        i1.setEmailAliases(QStringList{QStringLiteral("firstname@example.com"), QStringLiteral("lastname@example.com")});
     }
 
     {
@@ -56,4 +59,14 @@ void IdentityModelTester::testModelCount()
 {
     IdentityModel model;
     QCOMPARE(model.rowCount(), 2);
+}
+
+void IdentityModelTester::testModelData()
+{
+    IdentityModel model;
+    const auto &i1 = IdentityManager::self()->modifyIdentityForName(i1Name);
+    const auto i1Index = model.index(0, 0);
+    QCOMPARE(i1Index.data(IdentityModel::IdentityNameRole), i1Name);
+    QCOMPARE(i1Index.data(IdentityModel::EmailRole), i1Email);
+    QCOMPARE(i1Index.data(IdentityModel::UoidRole).toUInt(), i1.uoid());
 }
