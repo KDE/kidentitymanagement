@@ -5,6 +5,8 @@ add_library(KPim${KF_MAJOR_VERSION}::IdentityManagementQuick ALIAS KPim${KF_MAJO
 
 set(QUICK_SRCS
     PRIVATE
+    abstractcryptographybackend.h
+    abstractcryptographybackend.cpp
     abstractkeylistmodel.h
     abstractkeylistmodel.cpp
     identityeditorbackend.h
@@ -61,7 +63,7 @@ ecm_finalize_qml_module(kidentitymanagement_quick_plugin
 
 # ########## Generate Headers ###############
 ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
-    HEADER_NAMES AbstractKeyListModel
+    HEADER_NAMES AbstractCryptographyBackend AbstractKeyListModel
     PREFIX KIdentityManagement
     REQUIRED_HEADERS KIdentityManagementQuick_HEADERS
 )
