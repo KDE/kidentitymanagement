@@ -52,6 +52,7 @@ target_link_libraries(kidentitymanagement_quick_plugin PRIVATE ${QUICK_LIBS})
 
 ecm_target_qml_sources(kidentitymanagement_quick_plugin SOURCES
     qml/BasicIdentityEditorCard.qml
+    qml/CryptographyEditorCard.qml
     qml/IdentityConfigurationForm.qml
     qml/IdentityEditorPage.qml
 )
