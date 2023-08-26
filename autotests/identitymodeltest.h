@@ -5,10 +5,16 @@
 
 #include <QObject>
 
+#include <KIdentityManagement/IdentityManager>
+
 class IdentityModelTester : public QObject
 {
     Q_OBJECT
 
 private Q_SLOTS:
     void initTestCase();
+    void testModelCount();
+
+private:
+    KIdentityManagement::IdentityManager manager;
 };

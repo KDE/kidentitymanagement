@@ -6,8 +6,8 @@
 #include <QStandardPaths>
 #include <QTest>
 
-#include "identity.h"
-#include "identitymanager.h"
+#include <KIdentityManagement/Identity>
+#include <KIdentityManagement/IdentityModel>
 
 using namespace KIdentityManagement;
 
@@ -31,8 +31,6 @@ void IdentityModelTester::initTestCase()
 {
     QStandardPaths::setTestModeEnabled(true);
 
-    IdentityManager manager;
-
     cleanupIdentities(&manager);
     QCOMPARE(manager.identities().count(), 1); // Can't remove all identities
 
@@ -52,4 +50,10 @@ void IdentityModelTester::initTestCase()
 
     manager.commit();
     QCOMPARE(manager.identities().count(), 2);
+}
+
+void IdentityModelTester::testModelCount()
+{
+    IdentityModel model;
+    QCOMPARE(model.rowCount(), 2);
 }
