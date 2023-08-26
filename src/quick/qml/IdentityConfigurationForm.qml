@@ -13,6 +13,7 @@ MobileForm.FormCard {
     id: root
 
     readonly property IdentityModel _identityModel: IdentityModel {}
+    property var cryptographyIdentity: null
 
     contentItem: ColumnLayout {
         spacing: 0
@@ -30,7 +31,8 @@ MobileForm.FormCard {
                         mode: IdentityEditorBackend.EditMode,
                         identityUoid: model.uoid,
                         allowDelete: identityRepeater.count > 1,
-                        identityName: model.display
+                        identityName: model.display,
+                        cryptographyIdentity: root.cryptographyIdentity
                     }, {title: i18nc("@title", "Edit Identity")});
                 }
             }

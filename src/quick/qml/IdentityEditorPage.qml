@@ -17,6 +17,7 @@ Kirigami.ScrollablePage {
 
     required property bool allowDelete
     required property string identityName
+    required property var cryptographyIdentity
 
     readonly property IdentityEditorBackend backend: IdentityEditorBackend {
         id: backend
@@ -65,6 +66,16 @@ Kirigami.ScrollablePage {
     ColumnLayout {
         BasicIdentityEditorCard {
             identity: root.identity
+        }
+        Loader {
+            Layout.fillWidth: true
+            Layout.topMargin: Kirigami.Units.largeSpacing
+
+            active: root.cryptographyIdentity !== null
+            sourceComponent: CryptographyEditorCard {
+                identity: root.identity
+                cryptographyBackend: root.cryptographyIdentity
+            }
         }
     }
 
