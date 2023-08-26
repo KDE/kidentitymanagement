@@ -18,5 +18,10 @@ private Q_SLOTS:
     void testEmailFromUoid();
 
 private:
-    KIdentityManagement::IdentityManager manager;
+    uint pretestIdentityCount = 0;
+    /**
+     * Initialise in constructor to ensure we are A) using test paths
+     * so that we B) do not modify the user's real identity configs
+     */
+    std::unique_ptr<KIdentityManagement::IdentityManager> manager;
 };

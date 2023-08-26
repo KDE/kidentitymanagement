@@ -16,7 +16,7 @@ namespace
 const auto i1Name = QStringLiteral("Test1");
 const auto i1Email = QStringLiteral("firstname.lastname@example.com");
 
-void cleanupIdentities(IdentityManager *const manager)
+void cleanupIdentities(std::unique_ptr<IdentityManager> &manager)
 {
     QVERIFY(manager);
     // It is picking up identities from older tests sometimes, so cleanup
@@ -33,26 +33,27 @@ QTEST_GUILESS_MAIN(IdentityModelTester)
 void IdentityModelTester::initTestCase()
 {
     QStandardPaths::setTestModeEnabled(true);
+    manager = std::make_unique<IdentityManager>();
 
-    cleanupIdentities(&manager);
-    QCOMPARE(manager.identities().count(), 1); // Can't remove all identities
+    cleanupIdentities(manager);
+    QCOMPARE(manager->identities().count(), 1); // Can't remove all identities
 
     {
-        auto &i1 = manager.newFromScratch(i1Name);
+        auto &i1 = manager->newFromScratch(i1Name);
         i1.setPrimaryEmailAddress(i1Email);
         i1.setEmailAliases(QStringList{QStringLiteral("firstname@example.com"), QStringLiteral("lastname@example.com")});
     }
 
     {
-        auto &i2 = manager.newFromScratch(QStringLiteral("Test2"));
+        auto &i2 = manager->newFromScratch(QStringLiteral("Test2"));
         i2.setPrimaryEmailAddress(QStringLiteral("test@test.de"));
     }
 
     // Remove the first identity, which we couldn't remove above
-    QVERIFY(manager.removeIdentity(manager.identities().at(0)));
+    QVERIFY(manager->removeIdentity(manager->identities().at(0)));
 
-    manager.commit();
-    QCOMPARE(manager.identities().count(), 2);
+    manager->commit();
+    QCOMPARE(manager->identities().count(), 2);
 }
 
 void IdentityModelTester::testModelCount()
