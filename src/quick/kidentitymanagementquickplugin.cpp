@@ -28,5 +28,6 @@ void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
     qmlRegisterType<Quick::IdentityEditorBackend>(uri, 1, 0, "IdentityEditorBackend");
     qmlRegisterType<IdentityModel>(uri, 1, 0, "IdentityModel");
 
+    qRegisterMetaType<Quick::CryptographyBackendInterfacePtr>("CryptographyBackendInterfacePtr");
     qRegisterMetaType<Identity>("Identity");
 }

@@ -6,7 +6,7 @@
 #include "kidentitymanagementquick_export.h"
 
 #include <QObject>
-#include <memory>
+#include <QSharedPointer>
 
 class QAbstractItemModel;
 
@@ -40,8 +40,9 @@ public:
     virtual QAbstractItemModel *smimeKeyListModel() const = 0;
 };
 
-using CryptographyBackendInterfacePtr = std::shared_ptr<CryptographyBackendInterface>;
+using CryptographyBackendInterfacePtr = QSharedPointer<CryptographyBackendInterface>;
 }
 }
 
 Q_DECLARE_INTERFACE(KIdentityManagement::Quick::CryptographyBackendInterface, "CryptographyBackendInterface")
+Q_DECLARE_METATYPE(KIdentityManagement::Quick::CryptographyBackendInterfacePtr);
