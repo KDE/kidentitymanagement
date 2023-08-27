@@ -17,7 +17,7 @@ Kirigami.ScrollablePage {
 
     required property bool allowDelete
     required property string identityName
-    required property CryptographyEditorBackend cryptographyEditorBackend
+    required property var cryptographyEditorBackend
 
     readonly property IdentityEditorBackend backend: IdentityEditorBackend {
         id: backend

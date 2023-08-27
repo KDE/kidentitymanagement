@@ -13,7 +13,7 @@ MobileForm.FormCard {
     id: root
 
     required property var identity
-    required property CryptographyEditorBackend cryptographyEditorBackend
+    required property var cryptographyEditorBackend
 
     Layout.fillWidth: true
     Layout.topMargin: Kirigami.Units.largeSpacing

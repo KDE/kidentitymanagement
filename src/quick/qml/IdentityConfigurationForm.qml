@@ -13,7 +13,7 @@ MobileForm.FormCard {
     id: root
 
     readonly property IdentityModel _identityModel: IdentityModel {}
-    property CryptographyEditorBackend cryptographyEditorBackend: CryptographyEditorBackend {}
+    property var cryptographyEditorBackend: CryptographyEditorBackend {}
 
     contentItem: ColumnLayout {
         spacing: 0
