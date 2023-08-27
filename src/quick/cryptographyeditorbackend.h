@@ -25,14 +25,22 @@ class CryptographyEditorBackend : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QAbstractItemModel *openPgpKeyListModel READ openPgpKeyListModel NOTIFY openPgpKeyListModelChanged)
+    Q_PROPERTY(QAbstractItemModel *smimeKeyListModel READ smimeKeyListModel NOTIFY smimeKeyListModelChanged)
+
 public:
     explicit CryptographyEditorBackend(QObject *parent = nullptr, const CryptographyBackendInterfacePtr &backend = {});
 
     CryptographyBackendInterfacePtr cryptographyBackend() const;
     void setCryptographyBackend(const CryptographyBackendInterfacePtr &cryptographyBackend);
 
+    QAbstractItemModel *openPgpKeyListModel() const;
+    QAbstractItemModel *smimeKeyListModel() const;
+
 Q_SIGNALS:
     void cryptographyBackendChanged();
+    void openPgpKeyListModelChanged();
+    void smimeKeyListModelChanged();
 
 private:
     CryptographyBackendInterfacePtr m_cryptoBackend;

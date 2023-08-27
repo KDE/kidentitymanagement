@@ -14,6 +14,8 @@ CryptographyEditorBackend::CryptographyEditorBackend(QObject *parent, const Cryp
     : QObject{parent}
     , m_cryptoBackend(cryptoBackend)
 {
+    connect(this, &CryptographyEditorBackend::cryptographyBackendChanged, this, &CryptographyEditorBackend::openPgpKeyListModelChanged);
+    connect(this, &CryptographyEditorBackend::cryptographyBackendChanged, this, &CryptographyEditorBackend::smimeKeyListModelChanged);
 }
 
 CryptographyBackendInterfacePtr CryptographyEditorBackend::cryptographyBackend() const
@@ -29,6 +31,22 @@ void CryptographyEditorBackend::setCryptographyBackend(const CryptographyBackend
 
     m_cryptoBackend = cryptoBackend;
     Q_EMIT cryptographyBackendChanged();
+}
+
+QAbstractItemModel *CryptographyEditorBackend::openPgpKeyListModel() const
+{
+    if (!m_cryptoBackend) {
+        return nullptr;
+    }
+    return m_cryptoBackend->openPgpKeyListModel();
+}
+
+QAbstractItemModel *CryptographyEditorBackend::smimeKeyListModel() const
+{
+    if (!m_cryptoBackend) {
+        return nullptr;
+    }
+    return m_cryptoBackend->smimeKeyListModel();
 }
 }
 }
