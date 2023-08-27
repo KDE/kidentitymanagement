@@ -6,6 +6,8 @@ add_library(KPim${KF_MAJOR_VERSION}::IdentityManagementQuick ALIAS KPim${KF_MAJO
 set(QUICK_SRCS
     PRIVATE
     cryptographybackendinterface.h
+    cryptographyeditorbackend.h
+    cryptographyeditorbackend.cpp
     identityeditorbackend.h
     identityeditorbackend.cpp
     identityutils.h
