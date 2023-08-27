@@ -19,8 +19,11 @@ namespace Quick
 namespace KeyListModel
 {
 enum Roles { KeyIdentifierRole = Qt::UserRole + 1, KeyByteArrayRole };
-static const QHash<int, QByteArray> roleNames = {{KeyIdentifierRole, "keyIdentifier"}, {KeyByteArrayRole, "keyByteArray"}};
-}
 
+inline QHash<int, QByteArray> roleNames()
+{
+    return {{KeyIdentifierRole, "keyIdentifier"}, {KeyByteArrayRole, "keyByteArray"}};
+}
+}
 }
 }

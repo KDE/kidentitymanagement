@@ -12,9 +12,9 @@ set(QUICK_SRCS
     identityeditorbackend.cpp
     identityutils.h
     identityutils.cpp
-    keylistmodel.h
     kidentitymanagementquickplugin.cpp
     kidentitymanagementquickplugin.h
+    keylistmodel.h
 )
 
 set(QUICK_LIBS
