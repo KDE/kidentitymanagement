@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QObject>
+#include <memory>
 
 class QAbstractItemModel;
 
@@ -13,9 +14,10 @@ namespace Quick
 {
 
 /**
- * Defines the interface expected by the Cryptography Editor Backend.
- * This class is instantiated by the CryptographyBackend, which exposes
- * what is needed to the Cryptography Editor QtQuick UI.
+ * @brief Defines the interface used by the Cryptography Editor Backend.
+ *
+ * This class is held by the CryptographyBackend, which exposes what is
+ * needed to the Cryptography Editor QtQuick UI.
  *
  * Contains utility methods to access required objects and data for
  * identity-related cryptography editing.
@@ -36,6 +38,7 @@ public:
     virtual QAbstractItemModel *smimeKeyListModel() const = 0;
 };
 
+using CryptographyBackendInterfacePtr = std::shared_ptr<CryptographyBackendInterface>;
 }
 }
 

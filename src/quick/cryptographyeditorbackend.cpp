@@ -3,15 +3,32 @@
 
 #include "cryptographyeditorbackend.h"
 
+#include "cryptographybackendinterface.h"
+
 namespace KIdentityManagement
 {
 namespace Quick
 {
 
-CryptographyEditorBackend::CryptographyEditorBackend(QObject *parent)
+CryptographyEditorBackend::CryptographyEditorBackend(QObject *parent, const CryptographyBackendInterfacePtr &cryptoBackend)
     : QObject{parent}
+    , m_cryptoBackend(cryptoBackend)
 {
 }
 
+CryptographyBackendInterfacePtr CryptographyEditorBackend::cryptographyBackend() const
+{
+    return m_cryptoBackend;
+}
+
+void CryptographyEditorBackend::setCryptographyBackend(const CryptographyBackendInterfacePtr &cryptoBackend)
+{
+    if (cryptoBackend.get() == m_cryptoBackend.get()) {
+        return;
+    }
+
+    m_cryptoBackend = cryptoBackend;
+    Q_EMIT cryptographyBackendChanged();
+}
 }
 }
