@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "kidentitymanagementquick_export.h"
+
 #include <QObject>
 
 #include "cryptographybackendinterface.h"
@@ -21,7 +23,7 @@ namespace Quick
  * and then feed it into the QML side of the editor with a valid backend
  * already set!
  */
-class CryptographyEditorBackend : public QObject
+class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyEditorBackend : public QObject
 {
     Q_OBJECT
 

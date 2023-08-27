@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "kidentitymanagementquick_export.h"
+
 #include <QObject>
 #include <memory>
 
@@ -22,7 +24,7 @@ namespace Quick
  * Contains utility methods to access required objects and data for
  * identity-related cryptography editing.
  */
-class CryptographyBackendInterface
+class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyBackendInterface
 {
 public:
     virtual ~CryptographyBackendInterface(){};

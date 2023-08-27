@@ -64,7 +64,7 @@ ecm_finalize_qml_module(kidentitymanagement_quick_plugin
 
 # ########## Generate Headers ###############
 ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
-    HEADER_NAMES CryptographyBackendInterface KeyListModel
+    HEADER_NAMES CryptographyBackendInterface CryptographyEditorBackend KeyListModel
     PREFIX KIdentityManagement
     REQUIRED_HEADERS KIdentityManagementQuick_HEADERS
 )
