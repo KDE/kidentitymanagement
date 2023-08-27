@@ -5,6 +5,7 @@
 
 #include "kidentitymanagementquick_export.h"
 
+#include <KIdentityManagement/Identity>
 #include <QObject>
 
 #include "cryptographybackendinterface.h"
@@ -27,6 +28,7 @@ class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyEditorBackend : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(Identity identity READ identity WRITE setIdentity NOTIFY identityChanged)
     Q_PROPERTY(QAbstractItemModel *openPgpKeyListModel READ openPgpKeyListModel NOTIFY openPgpKeyListModelChanged)
     Q_PROPERTY(QAbstractItemModel *smimeKeyListModel READ smimeKeyListModel NOTIFY smimeKeyListModelChanged)
 
@@ -39,10 +41,14 @@ public:
     QAbstractItemModel *openPgpKeyListModel() const;
     QAbstractItemModel *smimeKeyListModel() const;
 
+    Identity identity() const;
+    void setIdentity(const Identity &identity);
+
 Q_SIGNALS:
     void cryptographyBackendChanged();
     void openPgpKeyListModelChanged();
     void smimeKeyListModelChanged();
+    void identityChanged();
 
 private:
     CryptographyBackendInterfacePtr m_cryptoBackend;

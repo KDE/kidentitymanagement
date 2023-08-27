@@ -48,5 +48,16 @@ QAbstractItemModel *CryptographyEditorBackend::smimeKeyListModel() const
     }
     return m_cryptoBackend->smimeKeyListModel();
 }
+
+Identity CryptographyEditorBackend::identity() const
+{
+    return m_cryptoBackend->identity();
+}
+
+void CryptographyEditorBackend::setIdentity(const Identity &identity)
+{
+    m_cryptoBackend->setIdentity(identity);
+    Q_EMIT identityChanged();
+}
 }
 }

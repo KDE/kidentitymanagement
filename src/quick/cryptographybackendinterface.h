@@ -5,6 +5,7 @@
 
 #include "kidentitymanagementquick_export.h"
 
+#include <KIdentityManagement/Identity>
 #include <QObject>
 #include <QSharedPointer>
 
@@ -26,6 +27,8 @@ namespace Quick
  */
 class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyBackendInterface
 {
+    friend class CryptographyEditorBackend;
+
 public:
     virtual ~CryptographyBackendInterface(){};
 
@@ -38,6 +41,13 @@ public:
      * A list model providing a list of S/MIME keys.
      */
     virtual QAbstractItemModel *smimeKeyListModel() const = 0;
+
+protected:
+    /**
+     * @brief The identity that affects what data to show.
+     */
+    virtual Identity identity() const = 0;
+    virtual void setIdentity(const Identity &identity) = 0;
 };
 
 using CryptographyBackendInterfacePtr = QSharedPointer<CryptographyBackendInterface>;
