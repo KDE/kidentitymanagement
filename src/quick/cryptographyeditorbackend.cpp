@@ -59,5 +59,13 @@ void CryptographyEditorBackend::setIdentity(const Identity &identity)
     m_cryptoBackend->setIdentity(identity);
     Q_EMIT identityChanged();
 }
+
+QModelIndex CryptographyEditorBackend::indexForIdentity(QAbstractItemModel *model, const Identity &identity, const KeyUseTypes::KeyUse keyUse)
+{
+    Q_ASSERT(model);
+    const auto klmInterface = dynamic_cast<const KeyListModelInterface *>(model);
+    Q_ASSERT(klmInterface);
+    return klmInterface->indexForIdentity(identity, keyUse);
+}
 }
 }

@@ -6,9 +6,11 @@
 #include "kidentitymanagementquick_export.h"
 
 #include <KIdentityManagement/Identity>
+#include <QModelIndex>
 #include <QObject>
 
 #include "cryptographybackendinterface.h"
+#include "keylistmodelinterface.h"
 
 namespace KIdentityManagement
 {
@@ -43,6 +45,8 @@ public:
 
     Identity identity() const;
     void setIdentity(const Identity &identity);
+
+    Q_INVOKABLE QModelIndex indexForIdentity(QAbstractItemModel *model, const Identity &identity, const KeyUseTypes::KeyUse keyUse);
 
 Q_SIGNALS:
     void cryptographyBackendChanged();

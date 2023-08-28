@@ -31,6 +31,7 @@ void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
 
     qRegisterMetaType<Quick::CryptographyBackendInterfacePtr>("CryptographyBackendInterfacePtr");
     qRegisterMetaType<Identity>("Identity");
+    qRegisterMetaType<Quick::KeyUseTypes::KeyUse>("KeyUseTypes::KeyUse");
 
     qmlRegisterUncreatableType<Quick::KeyUseTypes>(uri, 1, 0, "KeyUseTypes", QStringLiteral("Cannot instantiate KeyUseTypes wrapper!"));
 }
