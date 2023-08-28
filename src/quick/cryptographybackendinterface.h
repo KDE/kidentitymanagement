@@ -8,12 +8,13 @@
 #include <QObject>
 #include <QSharedPointer>
 
-#include "identity.h"
-
 class QAbstractItemModel;
 
 namespace KIdentityManagement
 {
+
+class Identity;
+
 namespace Quick
 {
 

@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2023 Claudio Cambra <claudio.cambra@kde.org>
 # SPDX-License-Identifier: BSD-2-Clause
-add_library(KPim${KF_MAJOR_VERSION}IdentityManagementQuick)
+
+add_library(KPim${KF_MAJOR_VERSION}IdentityManagementQuick STATIC)
 add_library(KPim${KF_MAJOR_VERSION}::IdentityManagementQuick ALIAS KPim${KF_MAJOR_VERSION}IdentityManagementQuick)
 
 set(QUICK_SRCS
@@ -12,8 +13,6 @@ set(QUICK_SRCS
     identityeditorbackend.cpp
     identityutils.h
     identityutils.cpp
-    kidentitymanagementquickplugin.cpp
-    kidentitymanagementquickplugin.h
     keylistmodelinterface.h
 )
 
@@ -35,8 +34,8 @@ generate_export_header(KPim${KF_MAJOR_VERSION}IdentityManagementQuick BASE_NAME 
 target_include_directories(KPim${KF_MAJOR_VERSION}IdentityManagementQuick INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementQuick>")
 target_include_directories(KPim${KF_MAJOR_VERSION}IdentityManagementQuick PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
 
-target_sources(KPim${KF_MAJOR_VERSION}IdentityManagementQuick PRIVATE ${QUICK_SRCS})
-target_link_libraries(KPim${KF_MAJOR_VERSION}IdentityManagementQuick PRIVATE ${QUICK_LIBS})
+target_sources(KPim${KF_MAJOR_VERSION}IdentityManagementQuick ${QUICK_SRCS})
+target_link_libraries(KPim${KF_MAJOR_VERSION}IdentityManagementQuick ${QUICK_LIBS})
 
 set_target_properties(KPim${KF_MAJOR_VERSION}IdentityManagementQuick PROPERTIES
     VERSION ${KIDENTITYMANAGEMENT_VERSION}
@@ -45,23 +44,6 @@ set_target_properties(KPim${KF_MAJOR_VERSION}IdentityManagementQuick PROPERTIES
 )
 
 install(TARGETS KPim${KF_MAJOR_VERSION}IdentityManagementQuick EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-
-ecm_add_qml_module(kidentitymanagement_quick_plugin URI "org.kde.kidentitymanagement" VERSION 1.0)
-
-target_sources(kidentitymanagement_quick_plugin PRIVATE ${QUICK_SRCS})
-target_link_libraries(kidentitymanagement_quick_plugin PRIVATE ${QUICK_LIBS})
-
-ecm_target_qml_sources(kidentitymanagement_quick_plugin SOURCES
-    qml/BasicIdentityEditorCard.qml
-    qml/CryptographyEditorCard.qml
-    qml/IdentityConfigurationForm.qml
-    qml/IdentityEditorPage.qml
-)
-
-ecm_finalize_qml_module(kidentitymanagement_quick_plugin
-    DESTINATION ${KDE_INSTALL_QMLDIR}
-    BUILD_SHARED_LIBS OFF
-)
 
 # ########## Generate Headers ###############
 ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
@@ -109,3 +91,31 @@ if(BUILD_QCH)
         COMPONENT Devel
     )
 endif()
+
+
+# ########## QML Plugin s###############
+
+ecm_add_qml_module(kidentitymanagement_quick_plugin URI "org.kde.kidentitymanagement" VERSION 1.0)
+
+target_sources(kidentitymanagement_quick_plugin
+    PRIVATE
+    kidentitymanagementquickplugin.cpp
+    kidentitymanagementquickplugin.h)
+
+target_link_libraries(kidentitymanagement_quick_plugin
+    PRIVATE
+    KPim${KF_MAJOR_VERSION}IdentityManagementQuick
+    Qt::Core
+    Qt::Quick)
+
+ecm_target_qml_sources(kidentitymanagement_quick_plugin SOURCES
+    qml/BasicIdentityEditorCard.qml
+    qml/CryptographyEditorCard.qml
+    qml/IdentityConfigurationForm.qml
+    qml/IdentityEditorPage.qml
+)
+
+ecm_finalize_qml_module(kidentitymanagement_quick_plugin
+    DESTINATION ${KDE_INSTALL_QMLDIR}
+    BUILD_SHARED_LIBS OFF
+)

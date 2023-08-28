@@ -8,9 +8,9 @@
 #include <QModelIndex>
 #include <QObject>
 
-#include "cryptographybackendinterface.h"
-#include "identity.h"
-#include "keylistmodelinterface.h"
+#include <KIdentityManagement/CryptographyBackendInterface>
+#include <KIdentityManagement/Identity>
+#include <KIdentityManagement/KeyListModelInterface>
 
 namespace KIdentityManagement
 {

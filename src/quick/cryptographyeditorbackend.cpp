@@ -4,6 +4,7 @@
 #include "cryptographyeditorbackend.h"
 
 #include "cryptographybackendinterface.h"
+#include "identity.h"
 
 namespace KIdentityManagement
 {
