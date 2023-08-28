@@ -18,11 +18,12 @@ set(QUICK_SRCS
 )
 
 set(QUICK_LIBS
-    PRIVATE
+    PUBLIC
+    KPim${KF_MAJOR_VERSION}IdentityManagement
     Qt::Core
     Qt::Quick
+    PRIVATE
     KF${KF_MAJOR_VERSION}::I18n
-    KPim${KF_MAJOR_VERSION}IdentityManagement
 )
 
 if(COMPILE_WITH_UNITY_CMAKE_SUPPORT)
