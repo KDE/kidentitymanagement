@@ -5,8 +5,7 @@
 
 #include <QQmlEngine>
 
-#include <KIdentityManagement/Identity>
-
+#include "identity.h"
 #include "identityeditorbackend.h"
 #include "identitymodel.h"
 #include "identityutils.h"
@@ -25,7 +24,7 @@ void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
     });
 
     qmlRegisterType<Quick::IdentityEditorBackend>(uri, 1, 0, "IdentityEditorBackend");
-    qmlRegisterType<Quick::IdentityModel>(uri, 1, 0, "IdentityModel");
+    qmlRegisterType<IdentityModel>(uri, 1, 0, "IdentityModel");
 
     qRegisterMetaType<Identity>("Identity");
 }

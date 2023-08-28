@@ -4,27 +4,33 @@
 
 #pragma once
 
-#include <KIdentityManagement/IdentityManager>
+#include "kidentitymanagement_export.h"
+
 #include <QAbstractListModel>
 
 namespace KIdentityManagement
 {
-namespace Quick
-{
-class IdentityModel : public QAbstractListModel
+
+class IdentityManager;
+
+class KIDENTITYMANAGEMENT_EXPORT IdentityModel : public QAbstractListModel
 {
     Q_OBJECT
 
 public:
     enum Roles { EmailRole = Qt::UserRole, UoidRole, IdentityNameRole };
 
-public:
     IdentityModel(QObject *parent = nullptr);
     ~IdentityModel();
+
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-    int rowCount(const QModelIndex &parent) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QHash<int, QByteArray> roleNames() const override;
 
+    /**
+     * @return the email address of the identity with the given uoid.
+     * @param uiod for the identity in question
+     */
     Q_INVOKABLE QString email(uint uoid);
 
 private Q_SLOTS:
@@ -34,5 +40,4 @@ private:
     QList<int> m_identitiesUoid;
     IdentityManager *const m_identityManager;
 };
-}
 }

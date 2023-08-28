@@ -4,13 +4,14 @@
 
 #include "identitymodel.h"
 
-#include <KIdentityManagement/Identity>
 #include <KLocalizedString>
+
+#include "identity.h"
+#include "identitymanager.h"
 
 namespace KIdentityManagement
 {
-namespace Quick
-{
+
 IdentityModel::IdentityModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_identityManager(IdentityManager::self())
@@ -79,5 +80,4 @@ QHash<int, QByteArray> IdentityModel::roleNames() const
     return roles;
 }
 
-}
 }

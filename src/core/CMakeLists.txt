@@ -10,6 +10,7 @@ target_sources(KPim${KF_MAJOR_VERSION}IdentityManagement PRIVATE
     ${kidentity_dbs_adaptor_SRCS}
   identity.cpp
   identitymanager.cpp
+  identitymodel.cpp
   signature.cpp
   utils.cpp
   utils.h
@@ -57,6 +58,7 @@ ecm_generate_headers(KIdentityManagement_CamelCase_HEADERS
   HEADER_NAMES
   Identity
   IdentityManager
+  IdentityModel
   Signature
   Utils
   PREFIX KIdentityManagement

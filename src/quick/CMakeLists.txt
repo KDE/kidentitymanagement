@@ -7,8 +7,6 @@ ecm_add_qml_module(kidentitymanagement_quick_plugin URI "org.kde.kidentitymanage
 target_sources(kidentitymanagement_quick_plugin PRIVATE
     identityeditorbackend.h
     identityeditorbackend.cpp
-    identitymodel.h
-    identitymodel.cpp
     identityutils.h
     identityutils.cpp
     kidentitymanagementquickplugin.cpp
