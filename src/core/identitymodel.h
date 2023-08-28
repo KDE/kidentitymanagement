@@ -8,6 +8,8 @@
 
 #include <QAbstractListModel>
 
+#include "identitymanager.h"
+
 namespace KIdentityManagement
 {
 

@@ -5,9 +5,10 @@
 
 #include "kidentitymanagementquick_export.h"
 
-#include <KIdentityManagement/Identity>
 #include <QObject>
 #include <QSharedPointer>
+
+#include "identity.h"
 
 class QAbstractItemModel;
 

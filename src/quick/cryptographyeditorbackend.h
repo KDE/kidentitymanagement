@@ -5,11 +5,11 @@
 
 #include "kidentitymanagementquick_export.h"
 
-#include <KIdentityManagement/Identity>
 #include <QModelIndex>
 #include <QObject>
 
 #include "cryptographybackendinterface.h"
+#include "identity.h"
 #include "keylistmodelinterface.h"
 
 namespace KIdentityManagement

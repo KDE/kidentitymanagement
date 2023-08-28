@@ -7,7 +7,6 @@
 #include <KLocalizedString>
 
 #include "identity.h"
-#include "identitymanager.h"
 
 namespace KIdentityManagement
 {
