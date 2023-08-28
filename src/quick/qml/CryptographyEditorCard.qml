@@ -26,12 +26,39 @@ MobileForm.FormCard {
         }
 
         MobileForm.FormComboBoxDelegate {
+            id: pgpSigningDelegate
+            text: i18n("OpenPGP signing key")
+            model: cryptographyEditorBackend.openPgpKeyListModel
+            textRole: "display"
+            valueRole: "keyByteArray"
+            onCurrentValueChanged: root.identity.pgpSigningKey = currentValue
+        }
+
+        MobileForm.FormComboBoxDelegate {
             id: identityDelegate
-            text: i18n("OpenPGP key")
+            text: i18n("OpenPGP encryption key")
             model: cryptographyEditorBackend.openPgpKeyListModel
             textRole: "display"
             valueRole: "keyByteArray"
             onCurrentValueChanged: root.identity.pgpEncryptionKey = currentValue
+        }
+
+        MobileForm.FormComboBoxDelegate {
+            id: smimeSigningDelegate
+            text: i18n("S/MIME signing key")
+            model: cryptographyEditorBackend.smimeKeyListModel
+            textRole: "display"
+            valueRole: "keyByteArray"
+            onCurrentValueChanged: root.identity.smimeSigningKey = currentValue
+        }
+
+        MobileForm.FormComboBoxDelegate {
+            id: smimeEncryptionDelegate
+            text: i18n("S/MIME encryption key")
+            model: cryptographyEditorBackend.smimeKeyListModel
+            textRole: "display"
+            valueRole: "keyByteArray"
+            onCurrentValueChanged: root.identity.smimeEncryptionKey = currentValue
         }
     }
 }
