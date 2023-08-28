@@ -26,30 +26,61 @@ MobileForm.FormCard {
         }
 
         MobileForm.FormComboBoxDelegate {
-            id: pgpSigningDelegate
-            text: i18n("OpenPGP signing key")
+            id: pgpSigningOrCombinedDelegate
+
+            readonly property bool combinedMode: combinedPgpModeCheckBox.checked
+
+            text: combinedMode ? i18n("OpenPGP key") : i18n("OpenPGP signing key")
             model: cryptographyEditorBackend.openPgpKeyListModel
             textRole: "display"
             valueRole: "keyByteArray"
-            onCurrentValueChanged: root.identity.pgpSigningKey = currentValue
+            onActivated: {
+                root.identity.pgpSigningKey = currentValue;
+
+                if (combinedMode) {
+                    root.identity.pgpEncryptionKey = currentValue;
+                }
+            }
+        }
+
+        MobileForm.FormCheckDelegate {
+            id: combinedPgpModeCheckBox
+            text: i18n("Use same OpenPGP key for encryption and signing")
+            checked: pgpSigningOrCombinedDelegate.currentValue === pgpEncryptionDelegate.currentValue
         }
 
         MobileForm.FormComboBoxDelegate {
-            id: identityDelegate
+            id: pgpEncryptionDelegate
             text: i18n("OpenPGP encryption key")
             model: cryptographyEditorBackend.openPgpKeyListModel
             textRole: "display"
             valueRole: "keyByteArray"
-            onCurrentValueChanged: root.identity.pgpEncryptionKey = currentValue
+            onActivated: root.identity.pgpEncryptionKey = currentValue
+            visible: !combinedPgpModeCheckBox.checked
         }
 
         MobileForm.FormComboBoxDelegate {
-            id: smimeSigningDelegate
+            id: smimeSigningOrCombinedDelegate
+
+            property bool combinedMode: combinedSmimeModeCheckBox.checked
+
             text: i18n("S/MIME signing key")
             model: cryptographyEditorBackend.smimeKeyListModel
             textRole: "display"
             valueRole: "keyByteArray"
-            onCurrentValueChanged: root.identity.smimeSigningKey = currentValue
+            onActivated: {
+                root.identity.smimeSigningKey = currentValue;
+
+                if (combinedMode) {
+                    root.identity.smimeEncryptionKey = currentValue;
+                }
+            }
+        }
+
+        MobileForm.FormCheckDelegate {
+            id: combinedSmimeModeCheckBox
+            text: i18n("Use same S/MIME key for encryption and signing")
+            checked: smimeSigningOrCombinedDelegate.currentValue === smimeEncryptionDelegate.currentValue
         }
 
         MobileForm.FormComboBoxDelegate {
@@ -58,7 +89,8 @@ MobileForm.FormCard {
             model: cryptographyEditorBackend.smimeKeyListModel
             textRole: "display"
             valueRole: "keyByteArray"
-            onCurrentValueChanged: root.identity.smimeEncryptionKey = currentValue
+            onActivated: root.identity.smimeEncryptionKey = currentValue
+            visible: !combinedSmimeModeCheckBox.checked
         }
     }
 }
