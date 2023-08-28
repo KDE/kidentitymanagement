@@ -3,7 +3,6 @@
 
 #include "identityeditorbackend.h"
 
-#include <KIdentityManagement/Identity>
 #include <memory>
 
 namespace KIdentityManagement

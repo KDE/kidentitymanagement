@@ -3,9 +3,10 @@
 
 #pragma once
 
-#include <KIdentityManagement/Identity>
-#include <KIdentityManagement/IdentityManager>
 #include <QObject>
+
+#include "identity.h"
+#include "identitymanager.h"
 
 namespace KIdentityManagement
 {
