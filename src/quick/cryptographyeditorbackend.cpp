@@ -67,5 +67,10 @@ QModelIndex CryptographyEditorBackend::indexForIdentity(QAbstractItemModel *mode
     Q_ASSERT(klmInterface);
     return klmInterface->indexForIdentity(identity, keyUse);
 }
+
+QString CryptographyEditorBackend::stringFromKeyByteArray(const QByteArray &key)
+{
+    return QString::fromUtf8(key);
+}
 }
 }

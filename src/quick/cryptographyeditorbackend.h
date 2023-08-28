@@ -48,6 +48,8 @@ public:
 
     Q_INVOKABLE QModelIndex indexForIdentity(QAbstractItemModel *model, const Identity &identity, const KeyUseTypes::KeyUse keyUse);
 
+    Q_INVOKABLE static QString stringFromKeyByteArray(const QByteArray &key);
+
 Q_SIGNALS:
     void cryptographyBackendChanged();
     void openPgpKeyListModelChanged();
