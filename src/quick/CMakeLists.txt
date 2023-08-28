@@ -14,7 +14,7 @@ set(QUICK_SRCS
     identityutils.cpp
     kidentitymanagementquickplugin.cpp
     kidentitymanagementquickplugin.h
-    keylistmodel.h
+    keylistmodelinterface.h
 )
 
 set(QUICK_LIBS
@@ -64,7 +64,7 @@ ecm_finalize_qml_module(kidentitymanagement_quick_plugin
 
 # ########## Generate Headers ###############
 ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
-    HEADER_NAMES CryptographyBackendInterface CryptographyEditorBackend KeyListModel
+    HEADER_NAMES CryptographyBackendInterface CryptographyEditorBackend KeyListModelInterface
     PREFIX KIdentityManagement
     REQUIRED_HEADERS KIdentityManagementQuick_HEADERS
 )
