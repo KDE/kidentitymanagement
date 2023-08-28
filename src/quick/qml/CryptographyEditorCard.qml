@@ -79,6 +79,19 @@ MobileForm.FormCard {
             }
 
             text: i18n("Use same OpenPGP key for encryption and signing")
+            onClicked: {
+                if (!checked) {
+                    return;
+                }
+
+                const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpEncryptionKey);
+                const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpSigningKey);
+
+                // Use the signing key as this is represented by the top combo box
+                if (pgpEncryptionKey !== pgpSigningKey) {
+                    root.identity.pgpEncryptionKey = root.identity.pgpSigningKey;
+                }
+            }
         }
 
         MobileForm.FormComboBoxDelegate {
@@ -129,6 +142,19 @@ MobileForm.FormCard {
             }
 
             text: i18n("Use same S/MIME key for encryption and signing")
+            onClicked: {
+                if (!checked) {
+                    return;
+                }
+
+                const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeEncryptionKey);
+                const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeSigningKey);
+
+                // Use the signing key as this is represented by the top combo box
+                if (smimeEncryptionKey !== smimeSigningKey) {
+                    root.identity.smimeEncryptionKey = root.identity.smimeSigningKey;
+                }
+            }
         }
 
         MobileForm.FormComboBoxDelegate {
