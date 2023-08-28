@@ -18,12 +18,14 @@ Kirigami.ScrollablePage {
     required property bool allowDelete
     required property string identityName
     required property var cryptographyEditorBackend
+    onCryptographyEditorBackendChanged: cryptographyEditorBackend.identity = identity
 
     readonly property IdentityEditorBackend backend: IdentityEditorBackend {
         id: backend
         mode: IdentityEditorBackend.CreateMode
     }
     readonly property var identity: backend.identity
+    onIdentityChanged: cryptographyEditorBackend.identity = identity
 
     QQC2.Action {
         id: submitAction
