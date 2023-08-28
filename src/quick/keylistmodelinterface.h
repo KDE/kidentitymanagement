@@ -16,6 +16,15 @@ namespace KIdentityManagement
 namespace Quick
 {
 
+class KeyUseTypes
+{
+    Q_GADGET
+
+public:
+    enum class KeyUse { KeySigningUse, KeyEncryptionUse };
+    Q_ENUM(KeyUse)
+};
+
 /**
  * @brief This interface defines the roles and rolenames that are expected
  * in the QtQuick Cryptography editor.

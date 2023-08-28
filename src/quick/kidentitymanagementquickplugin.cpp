@@ -10,6 +10,7 @@
 #include "identityeditorbackend.h"
 #include "identitymodel.h"
 #include "identityutils.h"
+#include "keylistmodelinterface.h"
 
 using namespace KIdentityManagement;
 
@@ -30,4 +31,6 @@ void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
 
     qRegisterMetaType<Quick::CryptographyBackendInterfacePtr>("CryptographyBackendInterfacePtr");
     qRegisterMetaType<Identity>("Identity");
+
+    qmlRegisterUncreatableType<Quick::KeyUseTypes>(uri, 1, 0, "KeyUseTypes", QStringLiteral("Cannot instantiate KeyUseTypes wrapper!"));
 }
