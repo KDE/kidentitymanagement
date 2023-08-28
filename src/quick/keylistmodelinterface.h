@@ -13,6 +13,8 @@ class QModelIndex;
 namespace KIdentityManagement
 {
 
+class Identity;
+
 namespace Quick
 {
 
@@ -39,6 +41,8 @@ public:
     {
         return {{KeyIdentifierRole, "keyIdentifier"}, {KeyByteArrayRole, "keyByteArray"}};
     }
+
+    virtual QModelIndex indexForIdentity(const Identity &identity, const KeyUseTypes::KeyUse keyUse) const = 0;
 };
 }
 }
