@@ -24,5 +24,14 @@ MobileForm.FormCard {
         MobileForm.FormCardHeader {
             title: i18n("Cryptography")
         }
+
+        MobileForm.FormComboBoxDelegate {
+            id: identityDelegate
+            text: i18n("OpenPGP key")
+            model: cryptographyEditorBackend.openPgpKeyListModel
+            textRole: "display"
+            valueRole: "keyByteArray"
+            onCurrentValueChanged: root.identity.pgpEncryptionKey = currentValue
+        }
     }
 }
