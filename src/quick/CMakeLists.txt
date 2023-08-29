@@ -44,7 +44,7 @@ set_target_properties(KPim6IdentityManagementQuick PROPERTIES
     EXPORT_NAME IdentityManagementQuick
 )
 
-install(TARGETS KPim6IdentityManagementQuick EXPORT KPim6IdentityManagementTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KPim6IdentityManagementQuick EXPORT KPim6IdentityManagementCoreTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 # ########## Generate Headers ###############
 ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
@@ -57,7 +57,7 @@ ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_export.h
     ${KIdentityManagementQuick_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/kidentitymanagement
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/kidentitymanagementcore
     COMPONENT Devel
 )
 install(FILES ${KIdentityManagementQuick_CamelCase_HEADERS}
