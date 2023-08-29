@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-08 01:00+0000\n"
+"POT-Creation-Date: 2023-08-29 00:46+0000\n"
 "PO-Revision-Date: 2021-08-31 18:32+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -36,10 +36,16 @@ msgctxt ""
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:565
+#: core/identitymanager.cpp:580
 #, kde-format
 msgid "Unnamed"
 msgstr "Sin nomine"
+
+#: core/identitymodel.cpp:45
+#, kde-format
+msgctxt "Separator between identity name and email address"
+msgid " - "
+msgstr ""
 
 #: core/signature.cpp:169
 #, kde-format

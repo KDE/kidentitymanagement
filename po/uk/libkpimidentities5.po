@@ -4,13 +4,13 @@
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Ivan Petrouchtchak <fr.ivan@ukrainian-orthodox.org>, 2007.
-# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2013, 2018, 2019, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2013, 2018, 2019, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-08 01:00+0000\n"
-"PO-Revision-Date: 2021-08-16 09:58+0300\n"
+"POT-Creation-Date: 2023-08-29 00:46+0000\n"
+"PO-Revision-Date: 2023-08-26 08:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -40,10 +40,16 @@ msgctxt ""
 msgid "%1 #%2"
 msgstr "%1 №%2"
 
-#: core/identitymanager.cpp:565
+#: core/identitymanager.cpp:580
 #, kde-format
 msgid "Unnamed"
 msgstr "Без назви"
+
+#: core/identitymodel.cpp:45
+#, kde-format
+msgctxt "Separator between identity name and email address"
+msgid " - "
+msgstr " – "
 
 #: core/signature.cpp:169
 #, kde-format

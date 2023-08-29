@@ -9,18 +9,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-08 01:00+0000\n"
-"PO-Revision-Date: 2021-08-17 09:00+0200\n"
+"POT-Creation-Date: 2023-08-29 00:46+0000\n"
+"PO-Revision-Date: 2023-08-26 06:46+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Lokalize 20.12.2\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
+"Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: core/identitymanager.cpp:165
 #, kde-format
@@ -41,10 +41,16 @@ msgctxt ""
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:565
+#: core/identitymanager.cpp:580
 #, kde-format
 msgid "Unnamed"
 msgstr "Neimenovano"
+
+#: core/identitymodel.cpp:45
+#, kde-format
+msgctxt "Separator between identity name and email address"
+msgid " - "
+msgstr " - "
 
 #: core/signature.cpp:169
 #, kde-format

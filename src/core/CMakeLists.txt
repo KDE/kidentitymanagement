@@ -19,6 +19,7 @@ target_sources(KPim6IdentityManagementCore PRIVATE
     ${kidentity_dbs_adaptor_SRCS}
   identity.cpp
   identitymanager.cpp
+  identitymodel.cpp
   signature.cpp
   utils.cpp
   utils.h
@@ -92,6 +93,7 @@ ecm_generate_headers(KIdentityManagementCore_CamelCase_HEADERS
   HEADER_NAMES
   Identity
   IdentityManager
+  IdentityModel
   Signature
   Utils
   PREFIX KIdentityManagementCore

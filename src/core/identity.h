@@ -70,6 +70,50 @@ KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIde
 /** User identity information */
 class KIDENTITYMANAGEMENTCORE_EXPORT Identity
 {
+    Q_GADGET
+
+    Q_PROPERTY(bool mailingAllowed READ mailingAllowed)
+    Q_PROPERTY(QString identityName READ identityName WRITE setIdentityName)
+    Q_PROPERTY(QString fullName READ fullName WRITE setFullName)
+    Q_PROPERTY(QString organization READ organization WRITE setOrganization)
+    Q_PROPERTY(QByteArray pgpEncryptionKey READ pgpEncryptionKey WRITE setPGPEncryptionKey)
+    Q_PROPERTY(QByteArray pgpSigningKey READ pgpSigningKey WRITE setPGPSigningKey)
+    Q_PROPERTY(QByteArray smimeEncryptionKey READ smimeEncryptionKey WRITE setSMIMEEncryptionKey)
+    Q_PROPERTY(QByteArray smimeSigningKey READ smimeSigningKey WRITE setSMIMESigningKey)
+    Q_PROPERTY(QString preferredCryptoMessageFormat READ preferredCryptoMessageFormat WRITE setPreferredCryptoMessageFormat)
+    Q_PROPERTY(QString primaryEmailAddress READ primaryEmailAddress WRITE setPrimaryEmailAddress)
+    Q_PROPERTY(QStringList emailAliases READ emailAliases WRITE setEmailAliases)
+    Q_PROPERTY(QString vCardFile READ vCardFile WRITE setVCardFile)
+    Q_PROPERTY(QString fullEmailAddr READ fullEmailAddr)
+    Q_PROPERTY(QString replyToAddr READ replyToAddr WRITE setReplyToAddr)
+    Q_PROPERTY(QString bcc READ bcc WRITE setBcc)
+    Q_PROPERTY(QString cc READ cc WRITE setCc)
+    Q_PROPERTY(bool attachVcard READ attachVcard WRITE setAttachVcard)
+    Q_PROPERTY(QString autocorrectionLanguage READ autocorrectionLanguage WRITE setAutocorrectionLanguage)
+    Q_PROPERTY(bool disabledFcc READ disabledFcc WRITE setDisabledFcc)
+    Q_PROPERTY(bool pgpAutoSign READ pgpAutoSign WRITE setPgpAutoSign)
+    Q_PROPERTY(bool pgpAutoEncrypt READ pgpAutoEncrypt WRITE setPgpAutoEncrypt)
+    Q_PROPERTY(bool autocryptEnabled READ autocryptEnabled WRITE setAutocryptEnabled)
+    Q_PROPERTY(bool autocryptPrefer READ autocryptPrefer WRITE setAutocryptPrefer)
+    Q_PROPERTY(bool encryptionOverride READ encryptionOverride WRITE setEncryptionOverride)
+    Q_PROPERTY(bool warnNotSign READ warnNotSign WRITE setWarnNotSign)
+    Q_PROPERTY(bool warnNotEncrypt READ warnNotEncrypt WRITE setWarnNotEncrypt)
+    Q_PROPERTY(QString defaultDomainName READ defaultDomainName WRITE setDefaultDomainName)
+    Q_PROPERTY(Signature signature READ signature WRITE setSignature)
+    Q_PROPERTY(QString signatureText READ signatureText)
+    Q_PROPERTY(bool signatureIsInlinedHtml READ signatureIsInlinedHtml)
+    Q_PROPERTY(QString transport READ transport WRITE setTransport)
+    Q_PROPERTY(QString fcc READ fcc WRITE setFcc)
+    Q_PROPERTY(QString drafts READ drafts WRITE setDrafts)
+    Q_PROPERTY(QString templates READ templates WRITE setTemplates)
+    Q_PROPERTY(QString dictionary READ dictionary WRITE setDictionary)
+    Q_PROPERTY(QString xface READ xface WRITE setXFace)
+    Q_PROPERTY(bool isXFaceEnabled READ isXFaceEnabled WRITE setXFaceEnabled)
+    Q_PROPERTY(QString face READ face WRITE setFace)
+    Q_PROPERTY(bool isFaceEnabled READ isFaceEnabled WRITE setFaceEnabled)
+    Q_PROPERTY(uint uoid READ uoid CONSTANT)
+    Q_PROPERTY(bool isNull READ isNull)
+
     // only the identity manager should be able to construct and
     // destruct us, but then we get into problems with using
     // QValueList<Identity> and especially qHeapSort().
@@ -414,3 +458,7 @@ protected:
     QHash<QString, QVariant> mPropertiesMap;
 };
 }
+
+#ifndef UNITY_CMAKE_SUPPORT
+Q_DECLARE_METATYPE(KIdentityManagement::Identity)
+#endif

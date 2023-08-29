@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
-set(PIM_VERSION "5.240.41")
+set(PIM_VERSION "5.240.42")
 
 project(KIdentityManagement VERSION ${PIM_VERSION})
 
@@ -29,6 +29,7 @@ kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
 include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
 include(ECMAddQch)
+include(ECMQmlModule)
 
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
@@ -40,7 +41,9 @@ set(KTEXTADDONS_MIN_VERSION "1.4.45")
 ########### Find packages ###########
 
 find_package(Qt6Network NO_MODULE REQUIRED)
+
 find_package(Qt6Core5Compat)
+find_package(Qt6Quick NO_MODULE REQUIRED)
 
 find_package(KF6CoreAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6TextWidgets ${KF_MIN_VERSION} CONFIG REQUIRED)

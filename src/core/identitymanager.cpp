@@ -432,6 +432,21 @@ void IdentityManager::rollback()
     d->shadowIdentities = d->mIdentities;
 }
 
+void IdentityManager::saveIdentity(const Identity &ident)
+{
+    const auto existing = std::find_if(modifyBegin(), modifyEnd(), [ident](const auto &existingIdentity) {
+        return existingIdentity.uoid() == ident.uoid();
+    });
+
+    if (existing != modifyEnd()) {
+        d->shadowIdentities.replace(existing - modifyBegin(), ident);
+    } else {
+        d->shadowIdentities << ident;
+    }
+
+    commit();
+}
+
 bool IdentityManager::hasPendingChanges() const
 {
     return d->mIdentities != d->shadowIdentities;
