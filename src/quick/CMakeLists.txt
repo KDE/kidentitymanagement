@@ -5,7 +5,16 @@ add_library(KPim6IdentityManagementQuick STATIC)
 add_library(KPim6::IdentityManagementQuick ALIAS KPim6IdentityManagementQuick)
 set_property(TARGET KPim6IdentityManagementQuick PROPERTY POSITION_INDEPENDENT_CODE ON)
 
-set(QUICK_SRCS
+if(COMPILE_WITH_UNITY_CMAKE_SUPPORT)
+    set_target_properties(KPim6IdentityManagementQuick PROPERTIES UNITY_BUILD ON)
+endif()
+
+generate_export_header(KPim6IdentityManagementQuick BASE_NAME kidentitymanagementquick)
+
+target_include_directories(KPim6IdentityManagementQuick INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick>")
+target_include_directories(KPim6IdentityManagementQuick PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
+
+target_sources(KPim6IdentityManagementQuick
     PRIVATE
     cryptographybackendinterface.h
     cryptographyeditorbackend.h
@@ -16,8 +25,7 @@ set(QUICK_SRCS
     identityutils.cpp
     keylistmodelinterface.h
 )
-
-set(QUICK_LIBS
+target_link_libraries(KPim6IdentityManagementQuick
     PUBLIC
     KPim6IdentityManagementCore
     Qt::Core
@@ -25,18 +33,6 @@ set(QUICK_LIBS
     PRIVATE
     KF6::I18n
 )
-
-if(COMPILE_WITH_UNITY_CMAKE_SUPPORT)
-    set_target_properties(KPim6IdentityManagementQuick PROPERTIES UNITY_BUILD ON)
-endif()
-
-generate_export_header(KPim6IdentityManagementQuick BASE_NAME kidentitymanagementquick)
-
-target_include_directories(KPim6IdentityManagementQuick INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick>")
-target_include_directories(KPim6IdentityManagementQuick PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
-
-target_sources(KPim6IdentityManagementQuick ${QUICK_SRCS})
-target_link_libraries(KPim6IdentityManagementQuick ${QUICK_LIBS})
 
 set_target_properties(KPim6IdentityManagementQuick PROPERTIES
     VERSION ${KIDENTITYMANAGEMENT_VERSION}
