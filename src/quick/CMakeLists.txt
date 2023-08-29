@@ -3,6 +3,7 @@
 
 add_library(KPim6IdentityManagementQuick STATIC)
 add_library(KPim6::IdentityManagementQuick ALIAS KPim6IdentityManagementQuick)
+set_property(TARGET KPim6IdentityManagementQuick PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 set(QUICK_SRCS
     PRIVATE
