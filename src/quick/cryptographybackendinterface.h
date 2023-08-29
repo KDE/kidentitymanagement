@@ -10,7 +10,7 @@
 
 class QAbstractItemModel;
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 
 class Identity;
@@ -56,5 +56,5 @@ using CryptographyBackendInterfacePtr = QSharedPointer<CryptographyBackendInterf
 }
 }
 
-Q_DECLARE_INTERFACE(KIdentityManagement::Quick::CryptographyBackendInterface, "CryptographyBackendInterface")
-Q_DECLARE_METATYPE(KIdentityManagement::Quick::CryptographyBackendInterfacePtr);
+Q_DECLARE_INTERFACE(KIdentityManagementCore::Quick::CryptographyBackendInterface, "CryptographyBackendInterface")
+Q_DECLARE_METATYPE(KIdentityManagementCore::Quick::CryptographyBackendInterfacePtr);

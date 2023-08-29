@@ -5,7 +5,7 @@
 
 #include <memory>
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 namespace Quick
 {

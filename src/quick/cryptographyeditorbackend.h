@@ -8,11 +8,11 @@
 #include <QModelIndex>
 #include <QObject>
 
-#include <KIdentityManagement/CryptographyBackendInterface>
-#include <KIdentityManagement/Identity>
-#include <KIdentityManagement/KeyListModelInterface>
+#include <KIdentityManagementCore/CryptographyBackendInterface>
+#include <KIdentityManagementCore/Identity>
+#include <KIdentityManagementCore/KeyListModelInterface>
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 namespace Quick
 {

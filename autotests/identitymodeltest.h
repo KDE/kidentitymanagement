@@ -5,7 +5,7 @@
 
 #include <QObject>
 
-#include <KIdentityManagement/IdentityManager>
+#include <KIdentityManagementCore/IdentityManager>
 
 class IdentityModelTester : public QObject
 {
@@ -23,5 +23,5 @@ private:
      * Initialise in constructor to ensure we are A) using test paths
      * so that we B) do not modify the user's real identity configs
      */
-    std::unique_ptr<KIdentityManagement::IdentityManager> manager;
+    std::unique_ptr<KIdentityManagementCore::IdentityManager> manager;
 };

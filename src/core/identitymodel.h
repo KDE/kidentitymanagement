@@ -4,18 +4,18 @@
 
 #pragma once
 
-#include "kidentitymanagement_export.h"
+#include "kidentitymanagementcore_export.h"
 
 #include <QAbstractListModel>
 
 #include "identitymanager.h"
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 
 class IdentityManager;
 
-class KIDENTITYMANAGEMENT_EXPORT IdentityModel : public QAbstractListModel
+class KIDENTITYMANAGEMENTCORE_EXPORT IdentityModel : public QAbstractListModel
 {
     Q_OBJECT
 

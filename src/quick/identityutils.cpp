@@ -5,7 +5,7 @@
 
 #include <QTimer>
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 namespace Quick
 {

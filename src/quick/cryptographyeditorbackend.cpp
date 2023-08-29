@@ -6,7 +6,7 @@
 #include "cryptographybackendinterface.h"
 #include "identity.h"
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 namespace Quick
 {

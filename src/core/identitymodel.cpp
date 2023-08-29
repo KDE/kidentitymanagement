@@ -8,7 +8,7 @@
 
 #include "identity.h"
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 
 IdentityModel::IdentityModel(QObject *parent)

@@ -10,7 +10,7 @@
 
 class QModelIndex;
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 
 class Identity;
@@ -47,4 +47,4 @@ public:
 }
 }
 
-Q_DECLARE_INTERFACE(KIdentityManagement::Quick::KeyListModelInterface, "KeyListModelInterface")
+Q_DECLARE_INTERFACE(KIdentityManagementCore::Quick::KeyListModelInterface, "KeyListModelInterface")

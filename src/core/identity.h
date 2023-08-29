@@ -460,5 +460,5 @@ protected:
 }
 
 #ifndef UNITY_CMAKE_SUPPORT
-Q_DECLARE_METATYPE(KIdentityManagement::Identity)
+Q_DECLARE_METATYPE(KIdentityManagementCore::Identity)
 #endif

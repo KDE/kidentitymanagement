@@ -7,7 +7,7 @@
 
 #include "identitymanager.h"
 
-namespace KIdentityManagement
+namespace KIdentityManagementCore
 {
 namespace Quick
 {

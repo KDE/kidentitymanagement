@@ -6,10 +6,10 @@
 #include <QStandardPaths>
 #include <QTest>
 
-#include <KIdentityManagement/Identity>
-#include <KIdentityManagement/IdentityModel>
+#include <KIdentityManagementCore/Identity>
+#include <KIdentityManagementCore/IdentityModel>
 
-using namespace KIdentityManagement;
+using namespace KIdentityManagementCore;
 
 namespace
 {

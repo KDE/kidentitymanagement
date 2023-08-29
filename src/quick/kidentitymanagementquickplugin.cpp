@@ -12,7 +12,7 @@
 #include "identityutils.h"
 #include "keylistmodelinterface.h"
 
-using namespace KIdentityManagement;
+using namespace KIdentityManagementCore;
 
 void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
 {
