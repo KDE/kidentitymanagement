@@ -76,7 +76,7 @@ ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
         CryptographyEditorBackend
         KeyListModelInterface
     PREFIX
-        KIdentityManagement
+        KIdentityManagementQuick
     REQUIRED_HEADERS
         KIdentityManagementQuick_HEADERS
 )
