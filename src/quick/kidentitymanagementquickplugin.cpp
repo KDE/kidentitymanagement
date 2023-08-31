@@ -12,26 +12,26 @@
 #include "keylistmodelinterface.h"
 #include <KIdentityManagementQuick/CryptographyEditorBackend>
 
-using namespace KIdentityManagement;
+using namespace KIdentityManagementQuick;
 
 void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
 {
     // @uri org.kde.kidentitymanagement
     Q_ASSERT(uri == QByteArray("org.kde.kidentitymanagement"));
 
-    qmlRegisterSingletonType<Quick::IdentityUtils>(uri, 1, 0, "IdentityUtils", [](QQmlEngine *engine, QJSEngine *scriptEngine) {
+    qmlRegisterSingletonType<IdentityUtils>(uri, 1, 0, "IdentityUtils", [](QQmlEngine *engine, QJSEngine *scriptEngine) {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
-        return new Quick::IdentityUtils;
+        return new IdentityUtils;
     });
 
-    qmlRegisterType<Quick::CryptographyEditorBackend>(uri, 1, 0, "CryptographyEditorBackend");
-    qmlRegisterType<Quick::IdentityEditorBackend>(uri, 1, 0, "IdentityEditorBackend");
-    qmlRegisterType<IdentityModel>(uri, 1, 0, "IdentityModel");
+    qmlRegisterType<CryptographyEditorBackend>(uri, 1, 0, "CryptographyEditorBackend");
+    qmlRegisterType<IdentityEditorBackend>(uri, 1, 0, "IdentityEditorBackend");
+    qmlRegisterType<KIdentityManagement::IdentityModel>(uri, 1, 0, "IdentityModel");
 
-    qRegisterMetaType<Quick::CryptographyBackendInterfacePtr>("CryptographyBackendInterfacePtr");
-    qRegisterMetaType<Identity>("Identity");
-    qRegisterMetaType<Quick::KeyUseTypes::KeyUse>("KeyUseTypes::KeyUse");
+    qRegisterMetaType<CryptographyBackendInterfacePtr>("CryptographyBackendInterfacePtr");
+    qRegisterMetaType<KIdentityManagement::Identity>("Identity");
+    qRegisterMetaType<KeyUseTypes::KeyUse>("KeyUseTypes::KeyUse");
 
-    qmlRegisterUncreatableType<Quick::KeyUseTypes>(uri, 1, 0, "KeyUseTypes", QStringLiteral("Cannot instantiate KeyUseTypes wrapper!"));
+    qmlRegisterUncreatableType<KeyUseTypes>(uri, 1, 0, "KeyUseTypes", QStringLiteral("Cannot instantiate KeyUseTypes wrapper!"));
 }

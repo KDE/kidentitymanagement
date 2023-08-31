@@ -12,10 +12,9 @@ class QModelIndex;
 
 namespace KIdentityManagement
 {
-
 class Identity;
-
-namespace Quick
+}
+namespace KIdentityManagementQuick
 {
 
 class KeyUseTypes
@@ -42,9 +41,8 @@ public:
         return {{KeyIdentifierRole, "keyIdentifier"}, {KeyByteArrayRole, "keyByteArray"}};
     }
 
-    virtual QModelIndex indexForIdentity(const Identity &identity, const KeyUseTypes::KeyUse keyUse) const = 0;
+    virtual QModelIndex indexForIdentity(const KIdentityManagement::Identity &identity, const KeyUseTypes::KeyUse keyUse) const = 0;
 };
 }
-}
 
-Q_DECLARE_INTERFACE(KIdentityManagement::Quick::KeyListModelInterface, "KeyListModelInterface")
+Q_DECLARE_INTERFACE(KIdentityManagementQuick::KeyListModelInterface, "KeyListModelInterface")

@@ -12,11 +12,8 @@
 #include <KIdentityManagementQuick/CryptographyBackendInterface>
 #include <KIdentityManagementQuick/KeyListModelInterface>
 
-namespace KIdentityManagement
+namespace KIdentityManagementQuick
 {
-namespace Quick
-{
-
 /**
  * @brief The CryptographyEditorBackend class.
  *
@@ -30,7 +27,7 @@ class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyEditorBackend : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(Identity identity READ identity WRITE setIdentity NOTIFY identityChanged)
+    Q_PROPERTY(KIdentityManagement::Identity identity READ identity WRITE setIdentity NOTIFY identityChanged)
     Q_PROPERTY(QAbstractItemModel *openPgpKeyListModel READ openPgpKeyListModel NOTIFY openPgpKeyListModelChanged)
     Q_PROPERTY(QAbstractItemModel *smimeKeyListModel READ smimeKeyListModel NOTIFY smimeKeyListModelChanged)
 
@@ -43,10 +40,10 @@ public:
     QAbstractItemModel *openPgpKeyListModel() const;
     QAbstractItemModel *smimeKeyListModel() const;
 
-    Identity identity() const;
-    void setIdentity(const Identity &identity);
+    KIdentityManagement::Identity identity() const;
+    void setIdentity(const KIdentityManagement::Identity &identity);
 
-    Q_INVOKABLE QModelIndex indexForIdentity(QAbstractItemModel *model, const Identity &identity, const KeyUseTypes::KeyUse keyUse);
+    Q_INVOKABLE QModelIndex indexForIdentity(QAbstractItemModel *model, const KIdentityManagement::Identity &identity, const KeyUseTypes::KeyUse keyUse);
 
     Q_INVOKABLE static QString stringFromKeyByteArray(const QByteArray &key);
 
@@ -60,5 +57,4 @@ private:
     CryptographyBackendInterfacePtr m_cryptoBackend;
 };
 
-}
 }

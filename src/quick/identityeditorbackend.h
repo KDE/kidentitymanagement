@@ -8,17 +8,14 @@
 #include "identity.h"
 #include "identitymanager.h"
 
-namespace KIdentityManagement
+namespace KIdentityManagementQuick
 {
-namespace Quick
-{
-
 class IdentityEditorBackend : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged)
-    Q_PROPERTY(Identity identity READ identity WRITE setIdentity NOTIFY identityChanged NOTIFY modeChanged)
+    Q_PROPERTY(KIdentityManagement::Identity identity READ identity WRITE setIdentity NOTIFY identityChanged NOTIFY modeChanged)
     Q_PROPERTY(uint identityUoid READ identityUoid WRITE setIdentityUoid NOTIFY identityChanged)
 
 public:
@@ -30,13 +27,13 @@ public:
     Q_REQUIRED_RESULT Mode mode() const;
     void setMode(Mode mode);
 
-    Q_REQUIRED_RESULT Identity identity() const;
-    void setIdentity(const Identity &identity);
+    Q_REQUIRED_RESULT KIdentityManagement::Identity identity() const;
+    void setIdentity(const KIdentityManagement::Identity &identity);
 
     Q_REQUIRED_RESULT uint identityUoid() const;
     void setIdentityUoid(uint identityUoid);
 
-    Q_INVOKABLE void saveIdentity(const Identity &modifiedIdentity);
+    Q_INVOKABLE void saveIdentity(const KIdentityManagement::Identity &modifiedIdentity);
 
     Q_INVOKABLE void addEmailAlias(const QString &alias);
     Q_INVOKABLE void modifyEmailAlias(const QString &originalAlias, const QString &modifiedAlias);
@@ -47,9 +44,8 @@ Q_SIGNALS:
     void identityChanged();
 
 private:
-    IdentityManager *const m_identityManager = IdentityManager::self();
-    Identity m_identity;
+    KIdentityManagement::IdentityManager *const m_identityManager = KIdentityManagement::IdentityManager::self();
+    KIdentityManagement::Identity m_identity;
     Mode m_mode = CreateMode;
 };
-}
 }
