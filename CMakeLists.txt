@@ -69,6 +69,12 @@ find_package(KF${KF_MAJOR_VERSION}KIO ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF${KF_MAJOR_VERSION}Config ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF${KF_MAJOR_VERSION}Codecs ${KF_MIN_VERSION} CONFIG REQUIRED)
 
+find_package(KF${QT_MAJOR_VERSION}KirigamiAddons 0.11 REQUIRED)
+set_package_properties(KF${QT_MAJOR_VERSION}KirigamiAddons PROPERTIES
+    TYPE REQUIRED
+    PURPOSE "Addons for the Kirigami application UI framework"
+)
+
 find_package(KPim${KF_MAJOR_VERSION}TextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 

@@ -5,6 +5,7 @@ Dependencies:
 - 'on': ['Linux/Qt5', 'FreeBSD/Qt5', 'Windows/Qt5']
   'require':
     'frameworks/extra-cmake-modules': '@latest'
+    'libraries/kirigami-addons': '@latest'
     'pim/kpimtextedit' : '@same'
 
 Options:
