@@ -54,6 +54,12 @@ find_package(KF6Codecs ${KF_MIN_VERSION} CONFIG REQUIRED)
 
 find_package(KF6TextCustomEditor ${KTEXTADDONS_MIN_VERSION} CONFIG REQUIRED)
 find_package(KPim6TextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
+find_package(KF6KirigamiAddons 0.11 REQUIRED)
+set_package_properties(KF6KirigamiAddons PROPERTIES
+    TYPE REQUIRED
+    PURPOSE "Addons for the Kirigami application UI framework"
+)
+
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
 
 option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" OFF)

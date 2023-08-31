@@ -7,6 +7,7 @@ Dependencies:
     'pim/kpimtextedit' : '@latest-kf6'
     'frameworks/extra-cmake-modules': '@latest-kf6'
     'libraries/ktextaddons': '@latest-kf6'
+    'libraries/kirigami-addons': '@latest-kf6'
 
 Options:
   require-passing-tests-on: [ 'Linux', 'FreeBSD' ]      

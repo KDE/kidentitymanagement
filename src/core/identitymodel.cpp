@@ -42,6 +42,7 @@ QVariant IdentityModel::data(const QModelIndex &index, int role) const
     const auto &identity = m_identityManager->modifyIdentityForUoid(m_identitiesUoid[index.row()]);
     switch (role) {
     case Qt::DisplayRole:
+    case DisplayNameRole:
         return QString(identity.identityName() + i18nc("Separator between identity name and email address", " - ") + identity.fullEmailAddr());
     case EmailRole:
         return identity.primaryEmailAddress();

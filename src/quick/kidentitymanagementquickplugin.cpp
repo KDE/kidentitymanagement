@@ -5,12 +5,12 @@
 
 #include <QQmlEngine>
 
-#include "cryptographyeditorbackend.h"
 #include "identity.h"
 #include "identityeditorbackend.h"
 #include "identitymodel.h"
 #include "identityutils.h"
 #include "keylistmodelinterface.h"
+#include <KIdentityManagement/CryptographyEditorBackend>
 
 using namespace KIdentityManagementCore;
 
