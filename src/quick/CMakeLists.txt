@@ -3,6 +3,13 @@
 
 ## identitymanagentprivate target
 
+ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENTQUICK
+                        VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h"
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementQuickConfigVersion.cmake"
+                        SOVERSION 6
+)
+
+
 add_library(identitymanagentprivate STATIC)
 
 target_sources(identitymanagentprivate
@@ -55,8 +62,8 @@ target_include_directories(KPim6IdentityManagementQuick
 target_include_directories(KPim6IdentityManagementQuick PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src;${KIdentityManagement_BINARY_DIR}/src>")
 
 set_target_properties(KPim6IdentityManagementQuick PROPERTIES
-    VERSION ${KIDENTITYMANAGEMENT_VERSION}
-    SOVERSION ${KIDENTITYMANAGEMENT_SOVERSION}
+	VERSION ${KIDENTITYMANAGEMENTQUICK_VERSION}
+	SOVERSION ${KIDENTITYMANAGEMENTQUICK_SOVERSION}
     EXPORT_NAME IdentityManagementQuick
 )
 
@@ -157,3 +164,10 @@ ecm_finalize_qml_module(kidentitymanagement_quick_plugin
     DESTINATION ${KDE_INSTALL_QMLDIR}
     BUILD_SHARED_LIBS OFF
 )
+
+install(FILES
+   ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick
+   COMPONENT Devel
+)
+
