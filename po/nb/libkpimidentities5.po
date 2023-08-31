@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-26 00:47+0000\n"
+"POT-Creation-Date: 2023-08-29 00:46+0000\n"
 "PO-Revision-Date: 2008-11-30 19:21+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -44,16 +44,16 @@ msgstr "%1 nr. %2"
 msgid "Unnamed"
 msgstr "Uten navn"
 
-#: core/signature.cpp:169
-#, kde-format
-msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
-msgstr "<qt>Kunne ikke kjøre signaturskriptet<p><b>%1</b>:</p><p>%2</p></qt>"
-
-#: quick/identitymodel.cpp:45
+#: core/identitymodel.cpp:45
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr ""
+
+#: core/signature.cpp:169
+#, kde-format
+msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr "<qt>Kunne ikke kjøre signaturskriptet<p><b>%1</b>:</p><p>%2</p></qt>"
 
 #: widgets/identitycombo.cpp:58
 #, kde-format
