@@ -12,12 +12,10 @@ class QAbstractItemModel;
 
 namespace KIdentityManagementCore
 {
-
 class Identity;
-
-namespace Quick
+}
+namespace KIdentityManagementQuick
 {
-
 /**
  * @brief Defines the interface used by the Cryptography Editor Backend.
  *
@@ -48,13 +46,12 @@ protected:
     /**
      * @brief The identity that affects what data to show.
      */
-    virtual Identity identity() const = 0;
-    virtual void setIdentity(const Identity &identity) = 0;
+    virtual KIdentityManagementCore::Identity identity() const = 0;
+    virtual void setIdentity(const KIdentityManagementCore::Identity &identity) = 0;
 };
 
 using CryptographyBackendInterfacePtr = QSharedPointer<CryptographyBackendInterface>;
 }
-}
 
-Q_DECLARE_INTERFACE(KIdentityManagementCore::Quick::CryptographyBackendInterface, "CryptographyBackendInterface")
-Q_DECLARE_METATYPE(KIdentityManagementCore::Quick::CryptographyBackendInterfacePtr);
+Q_DECLARE_INTERFACE(KIdentityManagementQuick::CryptographyBackendInterface, "CryptographyBackendInterface")
+Q_DECLARE_METATYPE(KIdentityManagementQuick::CryptographyBackendInterfacePtr);

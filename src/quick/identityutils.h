@@ -7,9 +7,7 @@
 
 #include "identitymanager.h"
 
-namespace KIdentityManagementCore
-{
-namespace Quick
+namespace KIdentityManagementQuick
 {
 class IdentityUtils : public QObject
 {
@@ -21,7 +19,6 @@ public:
     Q_INVOKABLE bool removeIdentity(const QString &identityName);
 
 private:
-    IdentityManager *const m_identityManager = IdentityManager::self();
+    KIdentityManagementCore::IdentityManager *const m_identityManager = KIdentityManagementCore::IdentityManager::self();
 };
-}
 }

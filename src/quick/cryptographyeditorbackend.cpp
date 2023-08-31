@@ -6,9 +6,7 @@
 #include "cryptographybackendinterface.h"
 #include "identity.h"
 
-namespace KIdentityManagementCore
-{
-namespace Quick
+namespace KIdentityManagementQuick
 {
 
 CryptographyEditorBackend::CryptographyEditorBackend(QObject *parent, const CryptographyBackendInterfacePtr &cryptoBackend)
@@ -50,18 +48,19 @@ QAbstractItemModel *CryptographyEditorBackend::smimeKeyListModel() const
     return m_cryptoBackend->smimeKeyListModel();
 }
 
-Identity CryptographyEditorBackend::identity() const
+KIdentityManagementCore::Identity CryptographyEditorBackend::identity() const
 {
     return m_cryptoBackend->identity();
 }
 
-void CryptographyEditorBackend::setIdentity(const Identity &identity)
+void CryptographyEditorBackend::setIdentity(const KIdentityManagementCore::Identity &identity)
 {
     m_cryptoBackend->setIdentity(identity);
     Q_EMIT identityChanged();
 }
 
-QModelIndex CryptographyEditorBackend::indexForIdentity(QAbstractItemModel *model, const Identity &identity, const KeyUseTypes::KeyUse keyUse)
+QModelIndex
+CryptographyEditorBackend::indexForIdentity(QAbstractItemModel *model, const KIdentityManagementCore::Identity &identity, const KeyUseTypes::KeyUse keyUse)
 {
     Q_ASSERT(model);
     const auto klmInterface = dynamic_cast<const KeyListModelInterface *>(model);
@@ -72,7 +71,6 @@ QModelIndex CryptographyEditorBackend::indexForIdentity(QAbstractItemModel *mode
 QString CryptographyEditorBackend::stringFromKeyByteArray(const QByteArray &key)
 {
     return QString::fromUtf8(key);
-}
 }
 }
 

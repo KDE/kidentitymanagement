@@ -5,11 +5,8 @@
 
 #include <memory>
 
-namespace KIdentityManagementCore
+namespace KIdentityManagementQuick
 {
-namespace Quick
-{
-
 IdentityEditorBackend::Mode IdentityEditorBackend::mode() const
 {
     return m_mode;
@@ -25,12 +22,12 @@ void IdentityEditorBackend::setMode(Mode mode)
     Q_EMIT modeChanged();
 }
 
-Identity IdentityEditorBackend::identity() const
+KIdentityManagementCore::Identity IdentityEditorBackend::identity() const
 {
     return m_identity;
 }
 
-void IdentityEditorBackend::setIdentity(const Identity &identity)
+void IdentityEditorBackend::setIdentity(const KIdentityManagementCore::Identity &identity)
 {
     if (m_identity == identity) {
         return;
@@ -55,7 +52,7 @@ void IdentityEditorBackend::setIdentityUoid(uint identityUoid)
     setIdentity(identity);
 }
 
-void IdentityEditorBackend::saveIdentity(const Identity &modifiedIdentity)
+void IdentityEditorBackend::saveIdentity(const KIdentityManagementCore::Identity &modifiedIdentity)
 {
     m_identityManager->saveIdentity(modifiedIdentity);
 }
@@ -79,6 +76,5 @@ void IdentityEditorBackend::removeEmailAlias(const QString &alias)
     auto aliases = m_identity.emailAliases();
     aliases.removeAll(alias);
     m_identity.setEmailAliases(aliases);
-}
 }
 }
