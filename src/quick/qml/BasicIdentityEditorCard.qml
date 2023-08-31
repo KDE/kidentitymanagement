@@ -7,10 +7,10 @@ import QtQuick.Layouts 1.15
 import Qt.labs.platform 1.1
 
 import org.kde.kirigami 2.19 as Kirigami
-import org.kde.kirigamiaddons.labs.mobileform 0.1 as MobileForm
+import org.kde.kirigamiaddons.formcard 1.0 as FormCard
 import org.kde.kidentitymanagement 1.0
 
-MobileForm.FormCard {
+ColumnLayout {
     id: root
 
     required property var identity
@@ -20,17 +20,14 @@ MobileForm.FormCard {
         return str.trim().length > 0;
     }
 
-    Layout.fillWidth: true
-    Layout.topMargin: Kirigami.Units.largeSpacing
+    spacing: 0
 
-    contentItem: ColumnLayout {
-        spacing: 0
+    FormCard.FormHeader {
+        title: i18n("Identity")
+    }
 
-        MobileForm.FormCardHeader {
-            title: i18n("Identity")
-        }
-
-        MobileForm.FormTextFieldDelegate {
+    FormCard.FormCard {
+        FormCard.FormTextFieldDelegate {
             id: nameDelegate
             Layout.fillWidth: true
             label: i18n("Your name")
@@ -38,19 +35,20 @@ MobileForm.FormCard {
             onTextChanged: root.identity.fullName = text
         }
 
-        MobileForm.FormTextFieldDelegate {
+        FormCard.FormTextFieldDelegate {
             id: emailDelegate
-            Layout.fillWidth: true
             label: i18n("Email address")
             text: root.identity.primaryEmailAddress
             onTextChanged: root.identity.primaryEmailAddress = text
             inputMethodHints: Qt.ImhEmailCharactersOnly
         }
+    }
 
-        MobileForm.FormCardHeader {
-            title: i18n("E-mail aliases")
-        }
+    FormCard.FormHeader {
+        title: i18n("E-mail aliases")
+    }
 
+    FormCard.FormCard {
         Repeater {
             id: emailAliasesRepeater
 
@@ -58,7 +56,7 @@ MobileForm.FormCard {
 
             model: emailAliases
 
-            delegate: MobileForm.AbstractFormDelegate {
+            delegate: FormCard.AbstractFormDelegate {
                 id: emailRow
 
                 Layout.fillWidth: true
@@ -93,7 +91,8 @@ MobileForm.FormCard {
                 }
             }
         }
-        MobileForm.AbstractFormDelegate {
+
+        FormCard.AbstractFormDelegate {
             Layout.fillWidth: true
 
             contentItem: RowLayout {

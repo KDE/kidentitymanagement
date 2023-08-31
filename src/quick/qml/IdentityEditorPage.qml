@@ -6,10 +6,10 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15 as QQC2
 
 import org.kde.kirigami 2.20 as Kirigami
-import org.kde.kirigamiaddons.labs.mobileform 0.1 as MobileForm
 import org.kde.kidentitymanagement 1.0
+import org.kde.kirigamiaddons.formcard 1.0 as FormCard
 
-Kirigami.ScrollablePage {
+FormCard.FormCardPage {
     id: root
 
     property alias mode: backend.mode
@@ -27,7 +27,7 @@ Kirigami.ScrollablePage {
     readonly property var identity: backend.identity
     onIdentityChanged: cryptographyEditorBackend.identity = identity
 
-    QQC2.Action {
+    readonly property QQC2.Action submitAction: QQC2.Action {
         id: submitAction
         enabled: !root.identity.isNull
         shortcut: "Return"
@@ -62,22 +62,21 @@ Kirigami.ScrollablePage {
         }
     }
 
-    leftPadding: 0
-    rightPadding: 0
+    BasicIdentityEditorCard {
+        identity: root.identity
+    }
 
-    ColumnLayout {
-        BasicIdentityEditorCard {
+    FormCard.FormHeader {
+        visible: root.cryptographyEditorBackend.validBackend
+        title: i18ndc("libkpimidentities5", "@title:group", "Cryptography")
+    }
+
+    Loader {
+        Layout.fillWidth: true
+        active: root.cryptographyEditorBackend.validBackend
+        sourceComponent: CryptographyEditorCard {
             identity: root.identity
-        }
-        Loader {
-            Layout.fillWidth: true
-            Layout.topMargin: Kirigami.Units.largeSpacing
-
-            active: root.cryptographyEditorBackend.validBackend
-            sourceComponent: CryptographyEditorCard {
-                identity: root.identity
-                cryptographyEditorBackend: root.cryptographyEditorBackend
-            }
+            cryptographyEditorBackend: root.cryptographyEditorBackend
         }
     }
 

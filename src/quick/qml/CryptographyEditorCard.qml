@@ -6,10 +6,10 @@ import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.15
 
 import org.kde.kirigami 2.19 as Kirigami
-import org.kde.kirigamiaddons.labs.mobileform 0.1 as MobileForm
+import org.kde.kirigamiaddons.formcard 1.0 as FormCard
 import org.kde.kidentitymanagement 1.0
 
-MobileForm.FormCard {
+FormCard.FormCard {
     id: root
 
     // Since Identity is not a QObject and its properties do not emit signals,
@@ -36,140 +36,152 @@ MobileForm.FormCard {
 
     Component.onCompleted: _updateComboIndices()
 
-    Layout.fillWidth: true
-    Layout.topMargin: Kirigami.Units.largeSpacing
+    FormCard.FormComboBoxDelegate {
+        id: pgpSigningOrCombinedDelegate
 
-    contentItem: ColumnLayout {
-        spacing: 0
-
-        MobileForm.FormCardHeader {
-            title: i18n("Cryptography")
+        function updateIndex() {
+            currentIndex = root._index(cryptographyEditorBackend.openPgpKeyListModel, KeyUseTypes.KeySigningUse);
         }
 
-        MobileForm.FormComboBoxDelegate {
-            id: pgpSigningOrCombinedDelegate
+        readonly property bool combinedMode: combinedPgpModeCheckBox.checked
 
-            function updateIndex() {
-                currentIndex = root._index(cryptographyEditorBackend.openPgpKeyListModel, KeyUseTypes.KeySigningUse);
-            }
+        text: combinedMode ? i18ndc("libkpimidentities5", "@label", "OpenPGP key") : i18ndc("libkpimidentities5", "@label", "OpenPGP signing key")
+        model: cryptographyEditorBackend.openPgpKeyListModel
+        textRole: "display"
+        valueRole: "keyByteArray"
+        onActivated: {
+            root.identity.pgpSigningKey = currentValue;
 
-            readonly property bool combinedMode: combinedPgpModeCheckBox.checked
-
-            text: combinedMode ? i18n("OpenPGP key") : i18n("OpenPGP signing key")
-            model: cryptographyEditorBackend.openPgpKeyListModel
-            textRole: "display"
-            valueRole: "keyByteArray"
-            onActivated: {
-                root.identity.pgpSigningKey = currentValue;
-
-                if (combinedMode) {
-                    root.identity.pgpEncryptionKey = currentValue;
-                    pgpEncryptionDelegate.updateIndex();
-                }
+            if (combinedMode) {
+                root.identity.pgpEncryptionKey = currentValue;
+                pgpEncryptionDelegate.updateIndex();
             }
         }
+    }
 
-        MobileForm.FormCheckDelegate {
-            id: combinedPgpModeCheckBox
+    FormCard.FormDelegateSeparator {
+        above: combinedPgpModeCheckBox; below: pgpSigningOrCombinedDelegate
+    }
 
-            function updateChecked() {
-                const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpEncryptionKey);
-                const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpSigningKey);
-                checked = pgpEncryptionKey === pgpSigningKey;
-            }
+    FormCard.FormCheckDelegate {
+        id: combinedPgpModeCheckBox
 
-            text: i18n("Use same OpenPGP key for encryption and signing")
-            onClicked: {
-                if (!checked) {
-                    return;
-                }
-
-                const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpEncryptionKey);
-                const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpSigningKey);
-
-                // Use the signing key as this is represented by the top combo box
-                if (pgpEncryptionKey !== pgpSigningKey) {
-                    root.identity.pgpEncryptionKey = root.identity.pgpSigningKey;
-                }
-            }
+        function updateChecked() {
+            const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpEncryptionKey);
+            const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpSigningKey);
+            checked = pgpEncryptionKey === pgpSigningKey;
         }
 
-        MobileForm.FormComboBoxDelegate {
-            id: pgpEncryptionDelegate
-
-            function updateIndex() {
-                currentIndex = root._index(cryptographyEditorBackend.openPgpKeyListModel, KeyUseTypes.KeyEncryptionUse);
+        text: i18ndc("libkpimidentities5", "@label", "Use same OpenPGP key for encryption and signing")
+        onClicked: {
+            if (!checked) {
+                return;
             }
 
-            text: i18n("OpenPGP encryption key")
-            model: cryptographyEditorBackend.openPgpKeyListModel
-            textRole: "display"
-            valueRole: "keyByteArray"
-            onActivated: root.identity.pgpEncryptionKey = currentValue
-            visible: !combinedPgpModeCheckBox.checked
-        }
+            const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpEncryptionKey);
+            const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpSigningKey);
 
-        MobileForm.FormComboBoxDelegate {
-            id: smimeSigningOrCombinedDelegate
-
-            function updateIndex() {
-                currentIndex = root._index(cryptographyEditorBackend.smimeKeyListModel, KeyUseTypes.KeySigningUse);
-            }
-
-            property bool combinedMode: combinedSmimeModeCheckBox.checked
-
-            text: i18n("S/MIME signing key")
-            model: cryptographyEditorBackend.smimeKeyListModel
-            textRole: "display"
-            valueRole: "keyByteArray"
-            onActivated: {
-                root.identity.smimeSigningKey = currentValue;
-
-                if (combinedMode) {
-                    root.identity.smimeEncryptionKey = currentValue;
-                    smimeEncryptionDelegate.updateIndex();
-                }
+            // Use the signing key as this is represented by the top combo box
+            if (pgpEncryptionKey !== pgpSigningKey) {
+                root.identity.pgpEncryptionKey = root.identity.pgpSigningKey;
             }
         }
+    }
 
-        MobileForm.FormCheckDelegate {
-            id: combinedSmimeModeCheckBox
+    FormCard.FormDelegateSeparator {
+        below: combinedPgpModeCheckBox
+        above: pgpEncryptionDelegate
+        visible: pgpEncryptionDelegate.visible
+    }
 
-            function updateChecked() {
-                const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeEncryptionKey);
-                const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeSigningKey);
-                checked = smimeEncryptionKey === smimeSigningKey;
-            }
+    FormCard.FormComboBoxDelegate {
+        id: pgpEncryptionDelegate
 
-            text: i18n("Use same S/MIME key for encryption and signing")
-            onClicked: {
-                if (!checked) {
-                    return;
-                }
-
-                const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeEncryptionKey);
-                const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeSigningKey);
-
-                // Use the signing key as this is represented by the top combo box
-                if (smimeEncryptionKey !== smimeSigningKey) {
-                    root.identity.smimeEncryptionKey = root.identity.smimeSigningKey;
-                }
-            }
+        function updateIndex() {
+            currentIndex = root._index(cryptographyEditorBackend.openPgpKeyListModel, KeyUseTypes.KeyEncryptionUse);
         }
 
-        MobileForm.FormComboBoxDelegate {
-            id: smimeEncryptionDelegate
+        text: i18ndc("libkpimidentities5", "@label", "OpenPGP encryption key")
+        model: cryptographyEditorBackend.openPgpKeyListModel
+        textRole: "display"
+        valueRole: "keyByteArray"
+        onActivated: root.identity.pgpEncryptionKey = currentValue
+        visible: !combinedPgpModeCheckBox.checked
+    }
 
-            function updateIndex() {
-                currentIndex = root._index(cryptographyEditorBackend.smimeKeyListModel, KeyUseTypes.KeyEncryptionUse);
+    FormCard.FormDelegateSeparator {
+        above: smimeSigningOrCombinedDelegate
+        below: pgpEncryptionDelegate.visible ? pgpEncryptionDelegate : combinedPgpModeCheckBox
+    }
+
+    FormCard.FormComboBoxDelegate {
+        id: smimeSigningOrCombinedDelegate
+
+        function updateIndex() {
+            currentIndex = root._index(cryptographyEditorBackend.smimeKeyListModel, KeyUseTypes.KeySigningUse);
+        }
+
+        property bool combinedMode: combinedSmimeModeCheckBox.checked
+
+        text: i18ndc("libkpimidentities5", "@label", "S/MIME signing key")
+        model: cryptographyEditorBackend.smimeKeyListModel
+        textRole: "display"
+        valueRole: "keyByteArray"
+        onActivated: {
+            root.identity.smimeSigningKey = currentValue;
+
+            if (combinedMode) {
+                root.identity.smimeEncryptionKey = currentValue;
+                smimeEncryptionDelegate.updateIndex();
+            }
+        }
+    }
+
+    FormCard.FormDelegateSeparator { above: combinedSmimeModeCheckBox; below: smimeSigningOrCombinedDelegate }
+
+    FormCard.FormCheckDelegate {
+        id: combinedSmimeModeCheckBox
+
+        function updateChecked() {
+            const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeEncryptionKey);
+            const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeSigningKey);
+            checked = smimeEncryptionKey === smimeSigningKey;
+        }
+
+        text: i18ndc("libkpimidentities5", "@label", "Use same S/MIME key for encryption and signing")
+        onClicked: {
+            if (!checked) {
+                return;
             }
 
-            text: i18n("S/MIME encryption key")
-            model: cryptographyEditorBackend.smimeKeyListModel
-            textRole: "display"
-            valueRole: "keyByteArray"
-            onActivated: root.identity.smimeEncryptionKey = currentValue
-            visible: !combinedSmimeModeCheckBox.checked
+            const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeEncryptionKey);
+            const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeSigningKey);
+
+            // Use the signing key as this is represented by the top combo box
+            if (smimeEncryptionKey !== smimeSigningKey) {
+                root.identity.smimeEncryptionKey = root.identity.smimeSigningKey;
+            }
         }
+    }
+
+    FormCard.FormDelegateSeparator {
+        above: smimeEncryptionDelegate
+        below: combinedSmimeModeCheckBox
+        visible: !combinedSmimeModeCheckBox.checked
+    }
+
+    FormCard.FormComboBoxDelegate {
+        id: smimeEncryptionDelegate
+
+        function updateIndex() {
+            currentIndex = root._index(cryptographyEditorBackend.smimeKeyListModel, KeyUseTypes.KeyEncryptionUse);
+        }
+
+        text: i18ndc("libkpimidentities5", "@label", "S/MIME encryption key")
+        model: cryptographyEditorBackend.smimeKeyListModel
+        textRole: "display"
+        valueRole: "keyByteArray"
+        onActivated: root.identity.smimeEncryptionKey = currentValue
+        visible: !combinedSmimeModeCheckBox.checked
     }
 }

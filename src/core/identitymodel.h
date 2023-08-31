@@ -20,7 +20,12 @@ class KIDENTITYMANAGEMENT_EXPORT IdentityModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    enum Roles { EmailRole = Qt::UserRole, UoidRole, IdentityNameRole };
+    enum Roles {
+        EmailRole = Qt::UserRole,
+        UoidRole,
+        IdentityNameRole,
+        DisplayNameRole,
+    };
 
     IdentityModel(QObject *parent = nullptr);
     ~IdentityModel();
