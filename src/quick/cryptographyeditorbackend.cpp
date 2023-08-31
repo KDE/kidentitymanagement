@@ -75,3 +75,5 @@ QString CryptographyEditorBackend::stringFromKeyByteArray(const QByteArray &key)
 }
 }
 }
+
+#include "moc_cryptographyeditorbackend.cpp"
