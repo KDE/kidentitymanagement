@@ -13,6 +13,7 @@ target_sources(identitymanagentprivate
         identityeditorbackend.h
         identityeditorbackend.cpp
 )
+set_property(TARGET identitymanagentprivate PROPERTY POSITION_INDEPENDENT_CODE ON)
 target_link_libraries(identitymanagentprivate
     PUBLIC
         Qt::Core
@@ -141,7 +142,7 @@ target_link_libraries(kidentitymanagement_quick_plugin
         Qt::Core
         Qt::Quick
         identitymanagentprivate
-        KPim6IdentityManagement
+	KPim6IdentityManagementCore
         KPim6IdentityManagementQuick
 )
 
