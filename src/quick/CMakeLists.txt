@@ -167,7 +167,7 @@ ecm_finalize_qml_module(kidentitymanagement_quick_plugin
 
 install(FILES
    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h
-   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementQuick
    COMPONENT Devel
 )
 
