@@ -85,11 +85,11 @@ ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_export.h
     ${KIdentityManagementQuick_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/kidentitymanagementcore
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/kidentitymanagementquick
     COMPONENT Devel
 )
 install(FILES ${KIdentityManagementQuick_CamelCase_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/KIdentityManagementCore/
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/KIdentityManagementQuick/
     COMPONENT Devel
 )
 

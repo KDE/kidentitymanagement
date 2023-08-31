@@ -10,7 +10,7 @@
 #include "identitymodel.h"
 #include "identityutils.h"
 #include "keylistmodelinterface.h"
-#include <KIdentityManagement/CryptographyEditorBackend>
+#include <KIdentityManagementQuick/CryptographyEditorBackend>
 
 using namespace KIdentityManagementCore;
 
