@@ -125,6 +125,15 @@ if (BUILD_QCH)
         COMPONENT Devel
     )
     set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQchTargets.cmake\")")
+
+    ecm_install_qch_export(
+        TARGETS KPim${KF_MAJOR_VERSION}IdentityManagementQuick_QCH
+        FILE KPim${KF_MAJOR_VERSION}IdentityManagementQuickQchTargets.cmake
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel
+    )
+
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQuickQchTargets.cmake\")")
 endif()
 
 if (BUILD_WITH_COMPAT_LIBS)
