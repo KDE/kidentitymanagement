@@ -124,7 +124,7 @@ FormCard.FormCardPage {
                     customFooterActions: [
                         Kirigami.Action {
                             text: i18n("Delete")
-                            iconName: "delete"
+                            icon.name: "delete"
                             onTriggered: {
                                 IdentityUtils.removeIdentity(root.identityName);
                                 dialog.close();
@@ -132,7 +132,7 @@ FormCard.FormCardPage {
                         },
                         Kirigami.Action {
                             text: i18n("Cancel")
-                            iconName: "dialog-cancel"
+                            icon.name: "dialog-cancel"
                             onTriggered: dialog.close()
                         }
                     ]
