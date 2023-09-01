@@ -116,7 +116,7 @@ install(FILES    ${KIdentityManagementCore_CamelCase_HEADERS}
 
 install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR} RENAME kf6_org.kde.pim.IdentityManager.xml)
 
-ecm_generate_pri_file(BASE_NAME KIdentityManagementCore LIB_NAME KF6IdentityManagementCore DEPS "KCoreAddons"
+ecm_generate_pri_file(BASE_NAME KIdentityManagementCore LIB_NAME KPim6IdentityManagementCore DEPS "KCoreAddons"
     FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementCore)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 

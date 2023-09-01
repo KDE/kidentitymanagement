@@ -5,8 +5,8 @@
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENTQUICK
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h"
-                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementQuickConfigVersion.cmake"
-                        SOVERSION 6
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQuickConfigVersion.cmake"
+                        SOVERSION ${KF_MAJOR_VERSION}
 )
 
 
@@ -111,7 +111,7 @@ install(FILES ${KIdentityManagementQuick_CamelCase_HEADERS}
 
 ecm_generate_pri_file(
     BASE_NAME KIdentityManagementQuick
-    LIB_NAME KF6IdentityManagementQuick
+    LIB_NAME KPim6IdentityManagementQuick
     DEPS "KIdentityManagement"
     FILENAME_VAR PRI_FILENAME
     INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick)
@@ -183,7 +183,7 @@ ecm_finalize_qml_module(kidentitymanagement_quick_plugin
 
 install(FILES
    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h
-   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementQuick
    COMPONENT Devel
 )
 
