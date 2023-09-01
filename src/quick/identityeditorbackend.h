@@ -44,8 +44,8 @@ Q_SIGNALS:
     void identityChanged();
 
 private:
-    KIdentityManagementCore::IdentityManager *const m_identityManager = KIdentityManagementCore::IdentityManager::self();
-    KIdentityManagementCore::Identity m_identity;
-    Mode m_mode = CreateMode;
+    KIdentityManagementCore::IdentityManager *const mIdentityManager = KIdentityManagementCore::IdentityManager::self();
+    KIdentityManagementCore::Identity mIdentity;
+    Mode mMode = CreateMode;
 };
 }

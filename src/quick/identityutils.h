@@ -19,6 +19,6 @@ public:
     Q_INVOKABLE bool removeIdentity(const QString &identityName);
 
 private:
-    KIdentityManagementCore::IdentityManager *const m_identityManager = KIdentityManagementCore::IdentityManager::self();
+    KIdentityManagementCore::IdentityManager *const mIdentityManager = KIdentityManagementCore::IdentityManager::self();
 };
 }

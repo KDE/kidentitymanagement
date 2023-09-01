@@ -11,7 +11,7 @@ namespace KIdentityManagementQuick
 
 CryptographyEditorBackend::CryptographyEditorBackend(QObject *parent, const CryptographyBackendInterfacePtr &cryptoBackend)
     : QObject{parent}
-    , m_cryptoBackend(cryptoBackend)
+    , mCryptoBackend(cryptoBackend)
 {
     connect(this, &CryptographyEditorBackend::cryptographyBackendChanged, this, &CryptographyEditorBackend::openPgpKeyListModelChanged);
     connect(this, &CryptographyEditorBackend::cryptographyBackendChanged, this, &CryptographyEditorBackend::smimeKeyListModelChanged);
@@ -19,43 +19,43 @@ CryptographyEditorBackend::CryptographyEditorBackend(QObject *parent, const Cryp
 
 CryptographyBackendInterfacePtr CryptographyEditorBackend::cryptographyBackend() const
 {
-    return m_cryptoBackend;
+    return mCryptoBackend;
 }
 
 void CryptographyEditorBackend::setCryptographyBackend(const CryptographyBackendInterfacePtr &cryptoBackend)
 {
-    if (cryptoBackend.get() == m_cryptoBackend.get()) {
+    if (cryptoBackend.get() == mCryptoBackend.get()) {
         return;
     }
 
-    m_cryptoBackend = cryptoBackend;
+    mCryptoBackend = cryptoBackend;
     Q_EMIT cryptographyBackendChanged();
 }
 
 QAbstractItemModel *CryptographyEditorBackend::openPgpKeyListModel() const
 {
-    if (!m_cryptoBackend) {
+    if (!mCryptoBackend) {
         return nullptr;
     }
-    return m_cryptoBackend->openPgpKeyListModel();
+    return mCryptoBackend->openPgpKeyListModel();
 }
 
 QAbstractItemModel *CryptographyEditorBackend::smimeKeyListModel() const
 {
-    if (!m_cryptoBackend) {
+    if (!mCryptoBackend) {
         return nullptr;
     }
-    return m_cryptoBackend->smimeKeyListModel();
+    return mCryptoBackend->smimeKeyListModel();
 }
 
 KIdentityManagementCore::Identity CryptographyEditorBackend::identity() const
 {
-    return m_cryptoBackend->identity();
+    return mCryptoBackend->identity();
 }
 
 void CryptographyEditorBackend::setIdentity(const KIdentityManagementCore::Identity &identity)
 {
-    m_cryptoBackend->setIdentity(identity);
+    mCryptoBackend->setIdentity(identity);
     Q_EMIT identityChanged();
 }
 

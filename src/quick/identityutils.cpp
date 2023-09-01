@@ -9,13 +9,13 @@ namespace KIdentityManagementQuick
 {
 bool IdentityUtils::removeIdentity(const QString &identityName)
 {
-    if (!m_identityManager) {
+    if (!mIdentityManager) {
         return false;
     }
 
-    const auto result = m_identityManager->removeIdentity(identityName);
+    const auto result = mIdentityManager->removeIdentity(identityName);
     // Need to run async or will crash the UI if this is called from QML
-    QTimer::singleShot(0, m_identityManager, &KIdentityManagementCore::IdentityManager::commit);
+    QTimer::singleShot(0, mIdentityManager, &KIdentityManagementCore::IdentityManager::commit);
     return result;
 }
 

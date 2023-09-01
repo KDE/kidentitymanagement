@@ -54,7 +54,7 @@ Q_SIGNALS:
     void identityChanged();
 
 private:
-    CryptographyBackendInterfacePtr m_cryptoBackend;
+    CryptographyBackendInterfacePtr mCryptoBackend;
 };
 
 }
