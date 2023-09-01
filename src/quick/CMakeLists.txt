@@ -67,7 +67,23 @@ set_target_properties(KPim${KF_MAJOR_VERSION}IdentityManagementQuick PROPERTIES
     EXPORT_NAME IdentityManagementQuick
 )
 
-install(TARGETS KPim${KF_MAJOR_VERSION}IdentityManagementQuick EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQuick")
+
+
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQuickConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQuickConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT Devel
+)
+
+install(EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementQuickTargets
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    FILE KPim${KF_MAJOR_VERSION}IdentityManagementQuickTargets.cmake
+    NAMESPACE KPim${KF_MAJOR_VERSION}::
+)
+
+install(TARGETS KPim${KF_MAJOR_VERSION}IdentityManagementQuick EXPORT KPim${KF_MAJOR_VERSION}IdentityManagementQuickTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 # ########## Generate Headers ###############
 ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
@@ -169,5 +185,21 @@ install(FILES
    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h
    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementQuick
    COMPONENT Devel
+)
+
+if (BUILD_QCH)
+    ecm_install_qch_export(
+        TARGETS KPim${KF_MAJOR_VERSION}IdentityManagementQuick_QCH
+        FILE KPim${KF_MAJOR_VERSION}IdentityManagementQuickQchTargets.cmake
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel
+    )
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQuickQchTargets.cmake\")")
+endif()
+
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementQuickConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim${KF_MAJOR_VERSION}IdentityManagementQuickConfig.cmake"
+  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
 
