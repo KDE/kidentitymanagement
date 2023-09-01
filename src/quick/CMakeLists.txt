@@ -67,7 +67,23 @@ set_target_properties(KPim6IdentityManagementQuick PROPERTIES
     EXPORT_NAME IdentityManagementQuick
 )
 
-install(TARGETS KPim6IdentityManagementQuick EXPORT KPim6IdentityManagementCoreTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim6IdentityManagementQuick")
+
+
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementQuickConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementQuickConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT Devel
+)
+
+install(EXPORT KPim6IdentityManagementQuickTargets
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    FILE KPim6IdentityManagementQuickTargets.cmake
+    NAMESPACE KPim6::
+)
+
+install(TARGETS KPim6IdentityManagementQuick EXPORT KPim6IdentityManagementQuickTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 # ########## Generate Headers ###############
 ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
@@ -169,5 +185,21 @@ install(FILES
    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h
    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick
    COMPONENT Devel
+)
+
+if (BUILD_QCH)
+    ecm_install_qch_export(
+        TARGETS KPim6IdentityManagementQuick_QCH
+        FILE KPim6IdentityManagementQuickQchTargets.cmake
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel
+    )
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementQuickQchTargets.cmake\")")
+endif()
+
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementQuickConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementQuickConfig.cmake"
+  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
 
