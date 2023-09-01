@@ -30,7 +30,9 @@ class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyBackendInterface
     friend class CryptographyEditorBackend;
 
 public:
-    virtual ~CryptographyBackendInterface() {}
+    virtual ~CryptographyBackendInterface()
+    {
+    }
 
     /**
      * A list model providing a list of OpenPGP keys.
