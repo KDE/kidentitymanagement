@@ -67,7 +67,7 @@ install(FILES ${KIdentityManagementWidgets_CamelCase_HEADERS}
     COMPONENT Devel
 )
 
-ecm_generate_pri_file(BASE_NAME KIdentityManagementWidgets LIB_NAME KF${KF_MAJOR_VERSION}IdentityManagementWidgets DEPS "KIdentityManagement KPimTextEdit"
+ecm_generate_pri_file(BASE_NAME KIdentityManagementWidgets LIB_NAME KPim${KF_MAJOR_VERSION}IdentityManagementWidgets DEPS "KIdentityManagement KPimTextEdit"
     FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementWidgets)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 

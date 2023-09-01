@@ -111,7 +111,7 @@ install(FILES ${KIdentityManagementQuick_CamelCase_HEADERS}
 
 ecm_generate_pri_file(
     BASE_NAME KIdentityManagementQuick
-    LIB_NAME KF${KF_MAJOR_VERSION}IdentityManagementQuick
+    LIB_NAME KPim${KF_MAJOR_VERSION}IdentityManagementQuick
     DEPS "KIdentityManagement"
     FILENAME_VAR PRI_FILENAME
     INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}/KPim${KF_MAJOR_VERSION}/KIdentityManagementQuick)
