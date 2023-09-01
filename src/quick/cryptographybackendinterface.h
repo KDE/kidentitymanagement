@@ -30,7 +30,7 @@ class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyBackendInterface
     friend class CryptographyEditorBackend;
 
 public:
-    virtual ~CryptographyBackendInterface(){};
+    virtual ~CryptographyBackendInterface() {}
 
     /**
      * A list model providing a list of OpenPGP keys.
@@ -54,4 +54,4 @@ using CryptographyBackendInterfacePtr = QSharedPointer<CryptographyBackendInterf
 }
 
 Q_DECLARE_INTERFACE(KIdentityManagementQuick::CryptographyBackendInterface, "CryptographyBackendInterface")
-Q_DECLARE_METATYPE(KIdentityManagementQuick::CryptographyBackendInterfacePtr);
+Q_DECLARE_METATYPE(KIdentityManagementQuick::CryptographyBackendInterfacePtr)
