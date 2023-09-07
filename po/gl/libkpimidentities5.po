@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-01 00:47+0000\n"
-"PO-Revision-Date: 2023-04-23 06:48+0200\n"
+"PO-Revision-Date: 2023-09-03 11:24+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: core/identitymanager.cpp:165
 #, kde-format
@@ -50,7 +50,7 @@ msgstr "Sen nome"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " — "
 
 #: core/signature.cpp:169
 #, kde-format
@@ -129,7 +129,7 @@ msgstr ""
 #: widgets/signatureconfigurator.cpp:223
 #, kde-format
 msgid "S&pecify file:"
-msgstr "&Especificar un ficheiro:"
+msgstr "&Indicar un ficheiro:"
 
 #: widgets/signatureconfigurator.cpp:230
 #, kde-format
@@ -139,7 +139,7 @@ msgstr "Editar o &ficheiro"
 #: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgid "Opens the specified file in a text editor."
-msgstr "Abre o ficheiro especificado nun editor de texto."
+msgstr "Abre o ficheiro indicado nun editor de texto."
 
 #: widgets/signatureconfigurator.cpp:251
 #, kde-format
@@ -159,7 +159,7 @@ msgstr ""
 #: widgets/signatureconfigurator.cpp:257
 #, kde-format
 msgid "S&pecify command:"
-msgstr "Especificar unha &orde:"
+msgstr "Indicar unha &orde:"
 
 #: widgets/signatureconfigurator.cpp:417
 #, kde-format
