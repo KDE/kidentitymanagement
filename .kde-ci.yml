@@ -4,7 +4,7 @@
 Dependencies:
 - 'on': ['Linux', 'FreeBSD', 'Windows']
   'require':
-    'pim/kpimtextedit' : '@latest-kf6'
+    'pim/kpimtextedit' : '@same'
     'frameworks/extra-cmake-modules': '@latest-kf6'
     'libraries/ktextaddons': '@latest-kf6'
     'libraries/kirigami-addons': '@latest-kf6'
