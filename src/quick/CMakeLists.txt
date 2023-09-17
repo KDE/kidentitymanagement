@@ -135,7 +135,7 @@ if(BUILD_QCH)
         # MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
         # IMAGE_DIRS "${CMAKE_SOURCE_DIR}/docs/pics"
         LINK_QCHS
-            Qt${QT_MAJOR_VERSION}Quick_QCH
+            Qt6Quick_QCH
         INCLUDE_DIRS
             ${CMAKE_CURRENT_BINARY_DIR}
         BLANK_MACROS
