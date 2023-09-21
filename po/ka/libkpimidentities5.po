@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-01 00:47+0000\n"
+"POT-Creation-Date: 2023-09-21 00:45+0000\n"
 "PO-Revision-Date: 2023-08-27 11:02+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -18,26 +18,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.3.2\n"
 
-#: core/identitymanager.cpp:165
+#: core/identitymanager.cpp:161
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "ნაგულისხმები"
 
-#: core/identitymanager.cpp:190
+#: core/identitymanager.cpp:186
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "უსახელო"
 
-#: core/identitymanager.cpp:369
+#: core/identitymanager.cpp:356
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:580
+#: core/identitymanager.cpp:567
 #, kde-format
 msgid "Unnamed"
 msgstr "უსახელო"
@@ -60,57 +60,63 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (ნაგულისხმები)"
 
-#: widgets/signatureconfigurator.cpp:104
+#: widgets/signatureconfigurator.cpp:105
 #, kde-format
 msgid "&Enable signature"
 msgstr "&ხელმოწერის ჩართვა"
 
-#: widgets/signatureconfigurator.cpp:106
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr "ჩართეთ თუ გნებავთ, რომ KMail-მა ეს ხელმოწერა გამოიყენოს."
 
-#: widgets/signatureconfigurator.cpp:115
+#: widgets/signatureconfigurator.cpp:116
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr "შეყვანის მეთოდებზე დახმარების მისაღებად შესაბამის ვიჯეტს დააწკაპუნეთ."
 
-#: widgets/signatureconfigurator.cpp:117
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "შეიყვანეთ ქვედა ველში"
 
-#: widgets/signatureconfigurator.cpp:118
+#: widgets/signatureconfigurator.cpp:119
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "ფაილი"
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "გამოტანის ბრძანება"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgid "Obtain signature &text from:"
 msgstr "ხელმოწერის მიღების &წყარო:"
 
-#: widgets/signatureconfigurator.cpp:161
+#: widgets/signatureconfigurator.cpp:162
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "ამ ველში შეიყვანეთ თქვენი ჩვეულებრივი სტატიკური ხელმოწერა."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
+#: widgets/signatureconfigurator.cpp:203 widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "&HTML-ის გამოყენება"
 
-#: widgets/signatureconfigurator.cpp:220
+#: widgets/signatureconfigurator.cpp:219
+#, fuzzy, kde-format
+#| msgid "Text File Size"
+msgid "Text File (*.txt)"
+msgstr "ტექსტური ფაილის ზომა"
+
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -120,22 +126,22 @@ msgstr ""
 "ხელმოწერას შეიცავს. ის წაიკითხება ყოველ ჯერზე, როცა შექმნით ახალ ფოსტას ან "
 "ახალ ხელმოწერას დაუმატებთ."
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgid "S&pecify file:"
 msgstr "&ფაილის მითითება:"
 
-#: widgets/signatureconfigurator.cpp:230
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgid "Edit &File"
 msgstr "ფაილის &ჩასწორება"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "ფაილის მითითებულ რედაქტორში გახსნა."
 
-#: widgets/signatureconfigurator.cpp:251
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -150,22 +156,22 @@ msgstr ""
 "როგორც ელფოსტის ხელმოწერას გამოიყენებს. ჩვეულებრივ, ბრძანებებია \"fortune\" "
 "an \"ksig -random\". (ფრთხილად, სკრიპტი #! -ით უნდა იწყებოდეს)."
 
-#: widgets/signatureconfigurator.cpp:257
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgid "S&pecify command:"
 msgstr "&ბრძანების მითითება:"
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "ტექსტური ფაილის ზომა 1 კბ-ს აჭარბებს."
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "Text File Size"
 msgstr "ტექსტური ფაილის ზომა"
 
-#: widgets/signatureconfigurator.cpp:447
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&HTML-ის გამოყენება (თუ გამორთავთ, გაითიშება ტექსტის ფორმატირებაც)"

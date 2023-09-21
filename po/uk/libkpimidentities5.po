@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-01 00:47+0000\n"
+"POT-Creation-Date: 2023-09-21 00:45+0000\n"
 "PO-Revision-Date: 2023-08-26 08:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -21,26 +21,26 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: core/identitymanager.cpp:165
+#: core/identitymanager.cpp:161
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "Типова"
 
-#: core/identitymanager.cpp:190
+#: core/identitymanager.cpp:186
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "Без назви"
 
-#: core/identitymanager.cpp:369
+#: core/identitymanager.cpp:356
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 №%2"
 
-#: core/identitymanager.cpp:580
+#: core/identitymanager.cpp:567
 #, kde-format
 msgid "Unnamed"
 msgstr "Без назви"
@@ -62,12 +62,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (типовий)"
 
-#: widgets/signatureconfigurator.cpp:104
+#: widgets/signatureconfigurator.cpp:105
 #, kde-format
 msgid "&Enable signature"
 msgstr "&Увімкнути підпис"
 
-#: widgets/signatureconfigurator.cpp:106
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
@@ -76,47 +76,53 @@ msgstr ""
 "Позначте це поле, якщо ви бажаєте, щоб KMail додавав підпис до всіх листів "
 "написаних від цього профілю."
 
-#: widgets/signatureconfigurator.cpp:115
+#: widgets/signatureconfigurator.cpp:116
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr ""
 "Клацніть по віджетах, розташованих нижче, щоб отримати довідку з способів "
 "вводу."
 
-#: widgets/signatureconfigurator.cpp:117
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "Поля вводу нижче"
 
-#: widgets/signatureconfigurator.cpp:118
+#: widgets/signatureconfigurator.cpp:119
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "Файла"
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "Виводу команди"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgid "Obtain signature &text from:"
 msgstr "Отримувати &текст підпису з:"
 
-#: widgets/signatureconfigurator.cpp:161
+#: widgets/signatureconfigurator.cpp:162
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Скористайтеся цим полем, щоб ввести довільний сталий підпис."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
+#: widgets/signatureconfigurator.cpp:203 widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Використовувати HTML"
 
-#: widgets/signatureconfigurator.cpp:220
+#: widgets/signatureconfigurator.cpp:219
+#, fuzzy, kde-format
+#| msgid "Text File Size"
+msgid "Text File (*.txt)"
+msgstr "Розмір текстового файла"
+
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -126,22 +132,22 @@ msgstr ""
 "підпис. Його буде перечитано кожного разу, коли ви створюєте новий лист або "
 "додаєте новий підпис."
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgid "S&pecify file:"
 msgstr "В&кажіть файл:"
 
-#: widgets/signatureconfigurator.cpp:230
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgid "Edit &File"
 msgstr "Змінити &файл"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "Відкриває файл у текстовому редакторі."
 
-#: widgets/signatureconfigurator.cpp:251
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -158,22 +164,22 @@ msgstr ""
 "механізму, це «fortune» або «ksig -random». (Зверніть увагу, що у скрипті "
 "має бути рядок визначення інтерпретатора)."
 
-#: widgets/signatureconfigurator.cpp:257
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgid "S&pecify command:"
 msgstr "Вк&ажіть команду:"
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "Розмір цього текстового файла перевищує 1 кБ."
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "Text File Size"
 msgstr "Розмір текстового файла"
 
-#: widgets/signatureconfigurator.cpp:447
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Користуватися HTML (якщо вимкнути, зникне форматування)"

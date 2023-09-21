@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-01 00:47+0000\n"
+"POT-Creation-Date: 2023-09-21 00:45+0000\n"
 "PO-Revision-Date: 2023-08-27 01:15+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 22.12.3\n"
 
-#: core/identitymanager.cpp:165
+#: core/identitymanager.cpp:161
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "기본"
 
-#: core/identitymanager.cpp:190
+#: core/identitymanager.cpp:186
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "이름 없음"
 
-#: core/identitymanager.cpp:369
+#: core/identitymanager.cpp:356
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:580
+#: core/identitymanager.cpp:567
 #, kde-format
 msgid "Unnamed"
 msgstr "이름 없음"
@@ -58,57 +58,63 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (기본값)"
 
-#: widgets/signatureconfigurator.cpp:104
+#: widgets/signatureconfigurator.cpp:105
 #, kde-format
 msgid "&Enable signature"
 msgstr "서명 사용(&E)"
 
-#: widgets/signatureconfigurator.cpp:106
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr "KMail에서 이 프로필로 보낸 메시지에 서명을 추가하려면 선택하십시오."
 
-#: widgets/signatureconfigurator.cpp:115
+#: widgets/signatureconfigurator.cpp:116
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr "입력 방법에 대하여 도움을 얻으려면 아래 위젯을 클릭하십시오."
 
-#: widgets/signatureconfigurator.cpp:117
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "아래의 입력란에서"
 
-#: widgets/signatureconfigurator.cpp:118
+#: widgets/signatureconfigurator.cpp:119
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "파일"
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "명령 실행 결과에서"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgid "Obtain signature &text from:"
 msgstr "다음에서 서명 텍스트 가져오기(&T):"
 
-#: widgets/signatureconfigurator.cpp:161
+#: widgets/signatureconfigurator.cpp:162
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "임의의 정적 서명을 여기에 입력하십시오."
 
-#: widgets/signatureconfigurator.cpp:202 widgets/signatureconfigurator.cpp:437
+#: widgets/signatureconfigurator.cpp:203 widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "HTML 사용(&U)"
 
-#: widgets/signatureconfigurator.cpp:220
+#: widgets/signatureconfigurator.cpp:219
+#, fuzzy, kde-format
+#| msgid "Text File Size"
+msgid "Text File (*.txt)"
+msgstr "텍스트 파일 크기"
+
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -117,22 +123,22 @@ msgstr ""
 "서명이 들어 있는 텍스트 파일을 지정하려면 사용하십시오. 새 메일을 작성하거나 "
 "새 서명을 덧붙일 때 사용됩니다."
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgid "S&pecify file:"
 msgstr "파일 지정(&P):"
 
-#: widgets/signatureconfigurator.cpp:230
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgid "Edit &File"
 msgstr "파일 편집(&F)"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "텍스트 편집기에 지정한 파일을 엽니다."
 
-#: widgets/signatureconfigurator.cpp:251
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -147,22 +153,22 @@ msgstr ""
 "용합니다. 이 기능을 사용할 때 주로 사용하는 명령은 \"fortune\"이나 \"ksig -"
 "random\"입니다.(스크립트를 사용하려면 shebang 줄이 있어야 합니다)"
 
-#: widgets/signatureconfigurator.cpp:257
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgid "S&pecify command:"
 msgstr "명령 지정(&P):"
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "텍스트 파일 크기가 1kB를 초과합니다."
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "Text File Size"
 msgstr "텍스트 파일 크기"
 
-#: widgets/signatureconfigurator.cpp:447
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "HTML 사용 (비활성화 시 형식 삭제)(&U)"
