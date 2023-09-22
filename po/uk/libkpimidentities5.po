@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-21 00:45+0000\n"
-"PO-Revision-Date: 2023-08-26 08:48+0300\n"
+"PO-Revision-Date: 2023-09-21 13:24+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -117,10 +117,9 @@ msgid "&Use HTML"
 msgstr "&Використовувати HTML"
 
 #: widgets/signatureconfigurator.cpp:219
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "Розмір текстового файла"
+msgstr "текстовий файл (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
