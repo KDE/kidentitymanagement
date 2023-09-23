@@ -119,10 +119,9 @@ msgid "&Use HTML"
 msgstr "&HTML Kullan"
 
 #: widgets/signatureconfigurator.cpp:219
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "Metin Dosyası Boyutu"
+msgstr "Metin Dosyası (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
