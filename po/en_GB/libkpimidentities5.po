@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 00:45+0000\n"
+"POT-Creation-Date: 2023-09-25 01:40+0000\n"
 "PO-Revision-Date: 2021-09-10 13:27+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -166,7 +166,9 @@ msgid "This text file size exceeds 1kb."
 msgstr "This text file size exceeds 1kb."
 
 #: widgets/signatureconfigurator.cpp:418
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Text File Size"
+msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Text File Size"
 

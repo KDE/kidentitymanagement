@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 00:45+0000\n"
+"POT-Creation-Date: 2023-09-25 01:40+0000\n"
 "PO-Revision-Date: 2023-09-21 15:13+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -174,7 +174,9 @@ msgid "This text file size exceeds 1kb."
 msgstr "La mida d'este fitxer de text excedix l'1 kb."
 
 #: widgets/signatureconfigurator.cpp:418
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Text File Size"
+msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Mida del fitxer de text"
 

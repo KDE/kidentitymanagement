@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-21 00:45+0000\n"
+"POT-Creation-Date: 2023-09-25 01:40+0000\n"
 "PO-Revision-Date: 2023-08-26 07:37+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -169,7 +169,9 @@ msgid "This text file size exceeds 1kb."
 msgstr "Textfilens storlek överskrider 1 Kibyte."
 
 #: widgets/signatureconfigurator.cpp:418
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Text File Size"
+msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Textfilens storlek"
 
