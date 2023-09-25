@@ -5,14 +5,14 @@
 # marce villarino <mvillarino@users.sourceforge.net>, 2009.
 # Marce Villarino <mvillarino@gmail.com>, 2009.
 # Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2023.
+# SPDX-FileCopyrightText: 2023 Adrián Chaves (Gallaecio)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-08 01:00+0000\n"
-"PO-Revision-Date: 2023-09-03 11:24+0200\n"
+"PO-Revision-Date: 2023-09-24 14:43+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 23.08.1\n"
 
 #: core/identitymanager.cpp:165
 #, kde-format
@@ -117,8 +117,8 @@ msgid ""
 "Use this requester to specify a text file that contains your signature. It "
 "will be read every time you create a new mail or append a new signature."
 msgstr ""
-"Utilice este pedidor para indicar un ficheiro de texto que contén a "
-"sinatura. Lerase cada vez que cree un correo ou engada unha sinatura nova."
+"Use este pedidor para indicar un ficheiro de texto que contén a sinatura. "
+"Lerase cada vez que cree un correo ou engada unha sinatura nova."
 
 #: widgets/signatureconfigurator.cpp:223
 #, kde-format
