@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
 "PO-Revision-Date: 2021-08-16 16:45+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -114,10 +114,9 @@ msgid "&Use HTML"
 msgstr "Po&užít HTML"
 
 #: widgets/signatureconfigurator.cpp:219
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "Velikost textového souboru"
+msgstr "Textový soubor (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -169,11 +168,10 @@ msgid "This text file size exceeds 1kb."
 msgstr ""
 
 #: widgets/signatureconfigurator.cpp:418
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
-msgstr "Velikost textového souboru"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:448
 #, kde-format
