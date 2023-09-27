@@ -6,13 +6,13 @@
 # obsoleteman <tulliana@gmail.com>, 2008.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2023-08-26 11:38+0300\n"
+"PO-Revision-Date: 2023-09-26 06:33+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 23.08.1\n"
 "(http: //www.transifex.com/projects/p/kdepimlibs-k-tr/language/tr/)\n"
 
 #: core/identitymanager.cpp:161
@@ -175,8 +175,7 @@ msgid "This text file size exceeds 1kb."
 msgstr "Bu metin dosyası 1kb'ı aşıyor."
 
 #: widgets/signatureconfigurator.cpp:418
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Metin Dosyası Boyutu"
