@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2023-09-09 14:24+0200\n"
+"PO-Revision-Date: 2023-09-26 10:08+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.0\n"
+"X-Generator: Lokalize 23.08.1\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -124,10 +124,9 @@ msgid "&Use HTML"
 msgstr "&Utiliser le HTML"
 
 #: widgets/signatureconfigurator.cpp:219
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "Taille du fichier texte"
+msgstr "Fichier texte (*.txt) "
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -181,11 +180,10 @@ msgid "This text file size exceeds 1kb."
 msgstr "La taille de ce fichier texte excède 1 Ko."
 
 #: widgets/signatureconfigurator.cpp:418
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
-msgstr "Taille du fichier texte"
+msgstr "Taille du fichier de texte"
 
 #: widgets/signatureconfigurator.cpp:448
 #, kde-format
