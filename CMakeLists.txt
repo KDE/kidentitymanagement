@@ -17,7 +17,6 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 
 include(GenerateExportHeader)
 include(ECMGenerateHeaders)
-include(ECMGeneratePriFile)
 
 include(ECMSetupVersion)
 include(FeatureSummary)

@@ -101,10 +101,6 @@ install(FILES ${KIdentityManagementWidgets_CamelCase_HEADERS}
     COMPONENT Devel
 )
 
-ecm_generate_pri_file(BASE_NAME KIdentityManagementWidgets LIB_NAME KPim6IdentityManagementWidgets DEPS "KIdentityManagementCore KPimTextEdit"
-    FILENAME_VAR PRI_FILENAME  INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementWidgets)
-install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
-
 if (BUILD_QCH)
     ecm_add_qch(
         KPim6IdentityManagementWidgets_QCH
