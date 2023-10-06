@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2023-09-18 09:37-0300\n"
+"PO-Revision-Date: 2023-10-05 18:24-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -117,10 +117,9 @@ msgid "&Use HTML"
 msgstr "&Usar HTML"
 
 #: widgets/signatureconfigurator.cpp:219
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "Tamanho do arquivo de texto"
+msgstr "Arquivo de texto (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -174,8 +173,7 @@ msgid "This text file size exceeds 1kb."
 msgstr "Este arquivo de texto excede 1kb."
 
 #: widgets/signatureconfigurator.cpp:418
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Tamanho do arquivo de texto"
