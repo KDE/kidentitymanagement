@@ -32,8 +32,8 @@ public:
     void assignFrom(const KIdentityManagementCore::Signature &that);
     void cleanupImages();
     void saveImages() const;
-    Q_REQUIRED_RESULT QString textFromFile(bool *ok) const;
-    Q_REQUIRED_RESULT QString textFromCommand(bool *ok, QString *errorMessage) const;
+    [[nodiscard]] QString textFromFile(bool *ok) const;
+    [[nodiscard]] QString textFromCommand(bool *ok, QString *errorMessage) const;
 
     /// List of images that belong to this signature. Either added by addImage() or
     /// by readConfig().

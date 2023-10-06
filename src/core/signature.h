@@ -104,34 +104,34 @@ public:
         @param ok set to @c true if reading succeeded
         @param errorMessage If available, contains a human readable explanation for @p ok being @c false.
      */
-    Q_REQUIRED_RESULT QString rawText(bool *ok = nullptr, QString *errorMessage = nullptr) const;
+    [[nodiscard]] QString rawText(bool *ok = nullptr, QString *errorMessage = nullptr) const;
 
     /** @return the signature text with a "-- \n" separator added, if
         necessary. A newline will not be appended or prepended.
         @param ok set to @c true if reading succeeded
         @param errorMessage If available, contains a human readable explanation for @p ok being @c false.
      */
-    Q_REQUIRED_RESULT QString withSeparator(bool *ok = nullptr, QString *errorMessage = nullptr) const;
+    [[nodiscard]] QString withSeparator(bool *ok = nullptr, QString *errorMessage = nullptr) const;
 
     /** Set the signature text and mark this signature as being of
         "inline text" type. */
     void setText(const QString &text);
-    Q_REQUIRED_RESULT QString text() const;
+    [[nodiscard]] QString text() const;
 
     /**
      * Returns the text of the signature. If the signature is HTML, the HTML
      * tags will be stripped.
      * @since 4.4
      */
-    Q_REQUIRED_RESULT QString toPlainText() const;
+    [[nodiscard]] QString toPlainText() const;
 
     /** Set the signature URL and mark this signature as being of
         "from file" resp. "from output of command" type. */
     void setPath(const QString &path, bool isExecutable = false);
-    Q_REQUIRED_RESULT QString path() const;
+    [[nodiscard]] QString path() const;
 
     /// @return the type of signature (ie. way to obtain the signature text)
-    Q_REQUIRED_RESULT Type type() const;
+    [[nodiscard]] Type type() const;
     void setType(Type type);
 
     /**
@@ -145,7 +145,7 @@ public:
      * @return boolean whether the inlined signature is html
      * @since 4.1
      */
-    Q_REQUIRED_RESULT bool isInlinedHtml() const;
+    [[nodiscard]] bool isInlinedHtml() const;
 
     /**
      * Sets the location where the copies of the signature images will be stored.
@@ -163,7 +163,7 @@ public:
      * @since 4.4
      */
     void setImageLocation(const QString &path);
-    Q_REQUIRED_RESULT QString imageLocation() const;
+    [[nodiscard]] QString imageLocation() const;
 
     /**
      * Adds the given image to the signature.
@@ -184,7 +184,7 @@ public:
      * @since 4.9
      */
     void setEnabledSignature(bool enabled);
-    Q_REQUIRED_RESULT bool isEnabledSignature() const;
+    [[nodiscard]] bool isEnabledSignature() const;
 
     enum AddedTextFlag {
         AddNothing = 0, ///< Don't add any text to the signature
@@ -197,7 +197,7 @@ public:
     /// Describes which additional parts should be added to the signature
     using AddedText = QFlags<AddedTextFlag>;
 
-    Q_REQUIRED_RESULT QList<Signature::EmbeddedImagePtr> embeddedImages() const;
+    [[nodiscard]] QList<Signature::EmbeddedImagePtr> embeddedImages() const;
     void setEmbeddedImages(const QList<EmbeddedImagePtr> &embedded);
 
 protected:

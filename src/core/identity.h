@@ -151,45 +151,45 @@ public:
     bool operator>=(const Identity &other) const;
 
     /** Tests if there are enough values set to allow mailing */
-    Q_REQUIRED_RESULT bool mailingAllowed() const;
+    [[nodiscard]] bool mailingAllowed() const;
 
     /** Identity/nickname for this collection */
-    Q_REQUIRED_RESULT QString identityName() const;
+    [[nodiscard]] QString identityName() const;
 
     /** Identity/nickname for this collection */
     void setIdentityName(const QString &name);
 
     /** @return whether this identity is the default identity */
-    Q_REQUIRED_RESULT bool isDefault() const;
+    [[nodiscard]] bool isDefault() const;
 
     /** Unique Object Identifier for this identity */
-    Q_REQUIRED_RESULT uint uoid() const;
+    [[nodiscard]] uint uoid() const;
 
     /** Full name of the user */
-    Q_REQUIRED_RESULT QString fullName() const;
+    [[nodiscard]] QString fullName() const;
     void setFullName(const QString &);
 
     /** The user's organization (optional) */
-    Q_REQUIRED_RESULT QString organization() const;
+    [[nodiscard]] QString organization() const;
     void setOrganization(const QString &);
 
     /** The user's OpenPGP encryption key */
-    Q_REQUIRED_RESULT QByteArray pgpEncryptionKey() const;
+    [[nodiscard]] QByteArray pgpEncryptionKey() const;
     void setPGPEncryptionKey(const QByteArray &key);
 
     /** The user's OpenPGP signing key */
-    Q_REQUIRED_RESULT QByteArray pgpSigningKey() const;
+    [[nodiscard]] QByteArray pgpSigningKey() const;
     void setPGPSigningKey(const QByteArray &key);
 
     /** The user's S/MIME encryption key */
-    Q_REQUIRED_RESULT QByteArray smimeEncryptionKey() const;
+    [[nodiscard]] QByteArray smimeEncryptionKey() const;
     void setSMIMEEncryptionKey(const QByteArray &key);
 
     /** The user's S/MIME signing key */
-    Q_REQUIRED_RESULT QByteArray smimeSigningKey() const;
+    [[nodiscard]] QByteArray smimeSigningKey() const;
     void setSMIMESigningKey(const QByteArray &key);
 
-    Q_REQUIRED_RESULT QString preferredCryptoMessageFormat() const;
+    [[nodiscard]] QString preferredCryptoMessageFormat() const;
     void setPreferredCryptoMessageFormat(const QString &);
 
     /**
@@ -199,7 +199,7 @@ public:
      *
      * @since 4.6
      */
-    Q_REQUIRED_RESULT QString primaryEmailAddress() const;
+    [[nodiscard]] QString primaryEmailAddress() const;
     void setPrimaryEmailAddress(const QString &email);
 
     /**
@@ -207,7 +207,7 @@ public:
      *
      * @since 4.6
      */
-    Q_REQUIRED_RESULT const QStringList emailAliases() const;
+    [[nodiscard]] const QStringList emailAliases() const;
     void setEmailAliases(const QStringList &aliases);
 
     /**
@@ -217,38 +217,38 @@ public:
      *
      * @since 4.6
      */
-    Q_REQUIRED_RESULT bool matchesEmailAddress(const QString &addr) const;
+    [[nodiscard]] bool matchesEmailAddress(const QString &addr) const;
 
     /** vCard to attach to outgoing emails */
-    Q_REQUIRED_RESULT QString vCardFile() const;
+    [[nodiscard]] QString vCardFile() const;
     void setVCardFile(const QString &);
 
     /**
      * The email address in the format "username <name@host>" suitable
      * for the "From:" field of email messages.
      */
-    Q_REQUIRED_RESULT QString fullEmailAddr() const;
+    [[nodiscard]] QString fullEmailAddr() const;
 
     /** @return The email address for the ReplyTo: field */
-    Q_REQUIRED_RESULT QString replyToAddr() const;
+    [[nodiscard]] QString replyToAddr() const;
     void setReplyToAddr(const QString &);
 
     /** @return The email addresses for the BCC: field */
-    Q_REQUIRED_RESULT QString bcc() const;
+    [[nodiscard]] QString bcc() const;
     void setBcc(const QString &);
 
     /**
      * @return The email addresses for the CC: field
      * @since 4.9
      */
-    Q_REQUIRED_RESULT QString cc() const;
+    [[nodiscard]] QString cc() const;
     void setCc(const QString &);
 
     /**
      * @return true if the Vcard of this identity should be attached to outgoing mail.
      * @since 4.10
      */
-    Q_REQUIRED_RESULT bool attachVcard() const;
+    [[nodiscard]] bool attachVcard() const;
     void setAttachVcard(bool attach);
 
     /**
@@ -262,35 +262,35 @@ public:
      * @return true if Fcc is disabled for this identity.
      * @since 4.11
      */
-    Q_REQUIRED_RESULT bool disabledFcc() const;
+    [[nodiscard]] bool disabledFcc() const;
     void setDisabledFcc(bool);
 
     /**
      * @return true if we should sign message sent by this identity by default.
      * @since 4.12
      */
-    Q_REQUIRED_RESULT bool pgpAutoSign() const;
+    [[nodiscard]] bool pgpAutoSign() const;
     void setPgpAutoSign(bool);
 
     /**
      * @return true if we should encrypt message sent by this identity by default.
      * @since 5.4
      */
-    Q_REQUIRED_RESULT bool pgpAutoEncrypt() const;
+    [[nodiscard]] bool pgpAutoEncrypt() const;
     void setPgpAutoEncrypt(bool);
 
     /**
      * @return true if Autocrypt is enabled for this identity.
      * @since 5.17
      */
-    Q_REQUIRED_RESULT bool autocryptEnabled() const;
+    [[nodiscard]] bool autocryptEnabled() const;
     void setAutocryptEnabled(const bool);
 
     /**
      * @return true if Autocrypt is preferred for this identity.
      * @since 5.22
      */
-    Q_REQUIRED_RESULT bool autocryptPrefer() const;
+    [[nodiscard]] bool autocryptPrefer() const;
     void setAutocryptPrefer(const bool);
 
     /**
@@ -298,28 +298,28 @@ public:
      * overwrite the global app-wide configuration.
      * @since 5.22
      */
-    Q_REQUIRED_RESULT bool encryptionOverride() const;
+    [[nodiscard]] bool encryptionOverride() const;
     void setEncryptionOverride(const bool);
 
     /**
      * @return true if we should warn if parts of the message this identity is about to send are not signed.
      * @since 5.22
      */
-    Q_REQUIRED_RESULT bool warnNotSign() const;
+    [[nodiscard]] bool warnNotSign() const;
     void setWarnNotSign(const bool);
 
     /**
      * @return true if we should warn if parts of the message this identity is about to send are not encrypted.
      * @since 5.22
      */
-    Q_REQUIRED_RESULT bool warnNotEncrypt() const;
+    [[nodiscard]] bool warnNotEncrypt() const;
     void setWarnNotEncrypt(const bool);
 
     /**
      * @return The default domain name
      * @since 4.14
      */
-    Q_REQUIRED_RESULT QString defaultDomainName() const;
+    [[nodiscard]] QString defaultDomainName() const;
     void setDefaultDomainName(const QString &domainName);
 
     /**
@@ -327,7 +327,7 @@ public:
      *
      * @warning This method is not const.
      */
-    Q_REQUIRED_RESULT Signature &signature();
+    [[nodiscard]] Signature &signature();
     void setSignature(const Signature &sig);
 
     /**
@@ -337,34 +337,34 @@ public:
      * @param ok if a valid bool pointer, it is set to @c true or @c false depending
      * on whether the signature could successfully be obtained.
      */
-    Q_REQUIRED_RESULT QString signatureText(bool *ok = nullptr) const;
+    [[nodiscard]] QString signatureText(bool *ok = nullptr) const;
 
     /**
      * @return true if the inlined signature is html formatted
      * @since 4.1
      */
-    Q_REQUIRED_RESULT bool signatureIsInlinedHtml() const;
+    [[nodiscard]] bool signatureIsInlinedHtml() const;
 
     /** The transport that is set for this identity. Used to link a
     transport with an identity. */
-    Q_REQUIRED_RESULT QString transport() const;
+    [[nodiscard]] QString transport() const;
     void setTransport(const QString &);
 
     /** The folder where sent messages from this identity will be
     stored by default. */
-    Q_REQUIRED_RESULT QString fcc() const;
+    [[nodiscard]] QString fcc() const;
     void setFcc(const QString &);
 
     /** The folder where draft messages from this identity will be
     stored by default.
     */
-    Q_REQUIRED_RESULT QString drafts() const;
+    [[nodiscard]] QString drafts() const;
     void setDrafts(const QString &);
 
     /** The folder where template messages from this identity will be
     stored by default.
     */
-    Q_REQUIRED_RESULT QString templates() const;
+    [[nodiscard]] QString templates() const;
     void setTemplates(const QString &);
 
     /**
@@ -373,25 +373,25 @@ public:
      * Note that this is the localized language name (e.g. "British English"),
      * _not_ the language code or dictionary name!
      */
-    Q_REQUIRED_RESULT QString dictionary() const;
+    [[nodiscard]] QString dictionary() const;
     void setDictionary(const QString &);
 
     /** a X-Face header for this identity */
-    Q_REQUIRED_RESULT QString xface() const;
+    [[nodiscard]] QString xface() const;
     void setXFace(const QString &);
-    Q_REQUIRED_RESULT bool isXFaceEnabled() const;
+    [[nodiscard]] bool isXFaceEnabled() const;
     void setXFaceEnabled(bool);
 
     /** a Face header for this identity */
-    Q_REQUIRED_RESULT QString face() const;
+    [[nodiscard]] QString face() const;
     void setFace(const QString &);
-    Q_REQUIRED_RESULT bool isFaceEnabled() const;
+    [[nodiscard]] bool isFaceEnabled() const;
     void setFaceEnabled(bool);
 
     /** Get random properties
      *  @param key the key of the property to get
      */
-    Q_REQUIRED_RESULT QVariant property(const QString &key) const;
+    [[nodiscard]] QVariant property(const QString &key) const;
     /** Set random properties, when @p value is empty (for QStrings) or null,
     the property is deleted. */
     void setProperty(const QString &key, const QVariant &value);
@@ -399,10 +399,10 @@ public:
     static const Identity &null();
     /** Returns true when the identity contains no values, all null values or
     only empty values */
-    Q_REQUIRED_RESULT bool isNull() const;
+    [[nodiscard]] bool isNull() const;
 
-    Q_REQUIRED_RESULT static QString mimeDataType();
-    Q_REQUIRED_RESULT static bool canDecode(const QMimeData *);
+    [[nodiscard]] static QString mimeDataType();
+    [[nodiscard]] static bool canDecode(const QMimeData *);
     void populateMimeData(QMimeData *) const;
     static Identity fromMimeData(const QMimeData *);
 
@@ -432,26 +432,26 @@ public:
 
 protected:
     /** during migration when it failed it can be a string => not a qlonglong akonadi::id => fix it*/
-    Q_REQUIRED_RESULT QString verifyAkonadiId(const QString &str) const;
+    [[nodiscard]] QString verifyAkonadiId(const QString &str) const;
     /** @return true if the signature is read from the output of a command */
-    Q_REQUIRED_RESULT bool signatureIsCommand() const;
+    [[nodiscard]] bool signatureIsCommand() const;
 
     /** @return true if the signature is read from a text file */
-    Q_REQUIRED_RESULT bool signatureIsPlainFile() const;
+    [[nodiscard]] bool signatureIsPlainFile() const;
 
     /** @return true if the signature was specified directly */
-    Q_REQUIRED_RESULT bool signatureIsInline() const;
+    [[nodiscard]] bool signatureIsInline() const;
 
     /** name of the signature file (with path) */
-    Q_REQUIRED_RESULT QString signatureFile() const;
+    [[nodiscard]] QString signatureFile() const;
     void setSignatureFile(const QString &);
 
     /** inline signature */
-    Q_REQUIRED_RESULT QString signatureInlineText() const;
+    [[nodiscard]] QString signatureInlineText() const;
     void setSignatureInlineText(const QString &);
 
     /** Inline or signature from a file */
-    Q_REQUIRED_RESULT bool useSignatureFile() const;
+    [[nodiscard]] bool useSignatureFile() const;
 
     Signature mSignature;
     bool mIsDefault = false;

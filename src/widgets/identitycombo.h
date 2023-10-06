@@ -38,9 +38,9 @@ public:
     explicit IdentityCombo(KIdentityManagementCore::IdentityManager *manager, QWidget *parent = nullptr);
 
     ~IdentityCombo() override;
-    Q_REQUIRED_RESULT QString currentIdentityName() const;
-    Q_REQUIRED_RESULT uint currentIdentity() const;
-    Q_REQUIRED_RESULT bool isDefaultIdentity() const;
+    [[nodiscard]] QString currentIdentityName() const;
+    [[nodiscard]] uint currentIdentity() const;
+    [[nodiscard]] bool isDefaultIdentity() const;
     void setCurrentIdentity(const QString &identityName);
     void setCurrentIdentity(const KIdentityManagementCore::Identity &identity);
     void setCurrentIdentity(uint uoid);
@@ -50,7 +50,7 @@ public:
       Returns the IdentityManager used in this combo box.
       @since 4.5
     */
-    Q_REQUIRED_RESULT KIdentityManagementCore::IdentityManager *identityManager() const;
+    [[nodiscard]] KIdentityManagementCore::IdentityManager *identityManager() const;
 
 Q_SIGNALS:
 

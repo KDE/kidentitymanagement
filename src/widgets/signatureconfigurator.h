@@ -46,7 +46,7 @@ public:
     /**
      * Indicated if the user wants a signature
      */
-    Q_REQUIRED_RESULT bool isSignatureEnabled() const;
+    [[nodiscard]] bool isSignatureEnabled() const;
 
     /**
      * Use this to activate the signature.
@@ -57,7 +57,7 @@ public:
      * This returns the type of the signature,
      * so that can be Disabled, Inline, fromFile, etc.
      */
-    Q_REQUIRED_RESULT Signature::Type signatureType() const;
+    [[nodiscard]] Signature::Type signatureType() const;
 
     /**
      * Set the signature type to @p type.
@@ -73,7 +73,7 @@ public:
      * Returns the file url which the user wants
      * to use as a signature.
      */
-    Q_REQUIRED_RESULT QString filePath() const;
+    [[nodiscard]] QString filePath() const;
 
     /**
      * Set @p url for the file url part of the
@@ -85,7 +85,7 @@ public:
      * Returns the url of the command which the
      * users wants to use as signature.
      */
-    Q_REQUIRED_RESULT QString commandPath() const;
+    [[nodiscard]] QString commandPath() const;
 
     /**
      * Sets @p url as the command to execute.
@@ -96,7 +96,7 @@ public:
        Convenience method.
        @return a Signature object representing the state of the widgets.
      **/
-    Q_REQUIRED_RESULT Signature signature() const;
+    [[nodiscard]] Signature signature() const;
 
     /**
        Convenience method. Sets the widgets according to @p sig

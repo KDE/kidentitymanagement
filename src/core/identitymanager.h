@@ -63,12 +63,12 @@ public:
     /** @return a unique name for a new identity based on @p name
      *  @param name the name of the base identity
      */
-    Q_REQUIRED_RESULT QString makeUnique(const QString &name) const;
+    [[nodiscard]] QString makeUnique(const QString &name) const;
 
     /** @return whether the @p name is unique
      *  @param name the name to be examined
      */
-    Q_REQUIRED_RESULT bool isUnique(const QString &name) const;
+    [[nodiscard]] bool isUnique(const QString &name) const;
 
     /** Commit changes to disk and emit changed() if necessary. */
     void commit();
@@ -83,17 +83,17 @@ public:
     void saveIdentity(const Identity &ident);
 
     /** Check whether there are any unsaved changes. */
-    Q_REQUIRED_RESULT bool hasPendingChanges() const;
+    [[nodiscard]] bool hasPendingChanges() const;
 
     /** @return the list of identities */
-    Q_REQUIRED_RESULT QStringList identities() const;
+    [[nodiscard]] QStringList identities() const;
 
     /** Convenience method.
 
         @return the list of (shadow) identities, ie. the ones currently
         under configuration.
     */
-    Q_REQUIRED_RESULT QStringList shadowIdentities() const;
+    [[nodiscard]] QStringList shadowIdentities() const;
 
     /** Sort the identities by name (the default is always first). This
         operates on the @em shadow list, so you need to @ref commit for
@@ -112,7 +112,7 @@ public:
         @param addressList the addressList to examine
         @see #identityForAddress
     **/
-    Q_REQUIRED_RESULT bool thatIsMe(const QString &addressList) const;
+    [[nodiscard]] bool thatIsMe(const QString &addressList) const;
 
     /** @return the identity with Unique Object Identifier (UOID) @p
                 uoid or @ref Identity::null if not found.
@@ -158,7 +158,7 @@ public:
         or when one tries to remove the last identity.
         @param identityName the identity to remove
      **/
-    Q_REQUIRED_RESULT bool removeIdentity(const QString &identityName);
+    [[nodiscard]] bool removeIdentity(const QString &identityName);
 
     /**
      * Removes the identity with name @p identityName
@@ -169,7 +169,7 @@ public:
      *
      * @since 4.6
      */
-    Q_REQUIRED_RESULT bool removeIdentityForced(const QString &identityName);
+    [[nodiscard]] bool removeIdentityForced(const QString &identityName);
 
     ConstIterator begin() const;
     ConstIterator end() const;
@@ -184,7 +184,7 @@ public:
 
     /** Returns the list of all email addresses (only name@host) from all
         identities */
-    Q_REQUIRED_RESULT QStringList allEmails() const;
+    [[nodiscard]] QStringList allEmails() const;
 
 Q_SIGNALS:
     /** Emitted whenever a commit changes any configure option */

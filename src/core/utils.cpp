@@ -23,7 +23,7 @@ public:
         slotIdentitiesChanged();
     }
 
-    Q_REQUIRED_RESULT const QSet<QString> &emails() const
+    [[nodiscard]] const QSet<QString> &emails() const
     {
         return mEmails;
     }

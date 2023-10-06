@@ -24,13 +24,13 @@ public:
 
     explicit IdentityEditorBackend() = default;
 
-    Q_REQUIRED_RESULT Mode mode() const;
+    [[nodiscard]] Mode mode() const;
     void setMode(Mode mode);
 
-    Q_REQUIRED_RESULT KIdentityManagementCore::Identity identity() const;
+    [[nodiscard]] KIdentityManagementCore::Identity identity() const;
     void setIdentity(const KIdentityManagementCore::Identity &identity);
 
-    Q_REQUIRED_RESULT uint identityUoid() const;
+    [[nodiscard]] uint identityUoid() const;
     void setIdentityUoid(uint identityUoid);
 
     Q_INVOKABLE void saveIdentity(const KIdentityManagementCore::Identity &modifiedIdentity);
