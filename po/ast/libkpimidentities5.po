@@ -1,47 +1,45 @@
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2010, 2011, 2019, 2023 Vít Pelčák <vit@pelcak.org>
-# Tomáš Chvátal <tomas.chvatal@gmail.com>, 2013.
-# Vit Pelcak <vit@pelcak.org>, 2021.
+# Copyright (C) 2023 This file is copyright:
+# This file is distributed under the same license as the kidentitymanagement package.
 #
+# SPDX-FileCopyrightText: 2023 Enol P. <enolp@softastur.org>
 msgid ""
 msgstr ""
-"Project-Id-Version: libkpimidentities\n"
+"Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2023-10-19 14:30+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
-"Language: cs\n"
+"PO-Revision-Date: 2023-10-25 13:05+0200\n"
+"Last-Translator: Enol P. <enolp@softastur.org>\n"
+"Language-Team: \n"
+"Language: ast_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 23.08.2\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
-msgstr "Výchozí"
+msgstr ""
 
 #: core/identitymanager.cpp:186
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
-msgstr "Nepojmenované"
+msgstr ""
 
 #: core/identitymanager.cpp:356
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
-msgstr "%1 #%2"
+msgstr ""
 
 #: core/identitymanager.cpp:567
 #, kde-format
 msgid "Unnamed"
-msgstr "Nepojmenované"
+msgstr ""
 
 #: core/identitymodel.cpp:46
 #, kde-format
@@ -52,18 +50,18 @@ msgstr " - "
 #: core/signature.cpp:169
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
-msgstr "<qt>Spuštění skriptu s podpisem selhalo<p><b>%1</b>:</p><p>%2</p></qt>"
+msgstr ""
 
 #: widgets/identitycombo.cpp:58
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr " (výchozí)"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:105
 #, kde-format
 msgid "&Enable signature"
-msgstr "&Povolit podpis"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
@@ -71,52 +69,49 @@ msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr ""
-"Zaškrtněte toto políčko pokud si přejete aby KMail přiřadil podpis poště "
-"napsané s touto identitou."
 
 #: widgets/signatureconfigurator.cpp:116
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr ""
-"Kliknutím na prvky umístěné níže získáte nápovědu k jednotlivým možnostem."
 
 #: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
-msgstr "Vstupní pole níže"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:119
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
-msgstr "Soubor"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
-msgstr "Výstup z příkazu"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgid "Obtain signature &text from:"
-msgstr "Získa&t text podpisu z:"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:162
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
-msgstr "Toto pole použijte pro zadání libovolného statického podpisu."
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:203 widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
-msgstr "Po&užít HTML"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
-msgstr "Textový soubor (*.txt)"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -124,23 +119,21 @@ msgid ""
 "Use this requester to specify a text file that contains your signature. It "
 "will be read every time you create a new mail or append a new signature."
 msgstr ""
-"Použijte tento požadavek k určení textového souboru obsahujícího váš podpis. "
-"Bude přečten vždy když vytvoříte nový mail nebo připojíte nový podpis."
 
 #: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgid "S&pecify file:"
-msgstr "Zadat sou&bor:"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgid "Edit &File"
-msgstr "&Upravit soubor"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
-msgstr "Otevře vybraný soubor v textovém editoru."
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:252
 #, kde-format
@@ -151,16 +144,11 @@ msgid ""
 "signature. Usual commands for use with this mechanism are \"fortune\" or "
 "\"ksig -random\". (Be careful, script needs a shebang line)."
 msgstr ""
-"Zde můžete přidat libovolný příkaz, s cestou nebo bez v závislosti na tom "
-"zda příkaz je nebo není ve vaší Path. Pro každý nový e-mail KMail vykoná "
-"příkaz a použije jeho výstup (do standardního výstupu) jako podpis. Obvyklé "
-"příkazy pro použití s tímto mechanismem jsou \"fortune\" nebo \"ksig -random"
-"\". (Opatrně, skript vyžaduje řádek shebang)."
 
 #: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgid "S&pecify command:"
-msgstr "Zadat &příkaz:"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:418
 #, kde-format
@@ -171,9 +159,9 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
-msgstr "Velikost textového souboru"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
-msgstr "Po&užít HTML (zakázáním vypnete formátování)"
+msgstr ""
