@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "identity.h"
 #include "kidentitymanagementwidgets_export.h"
+#include <KIdentityManagementCore/Identity>
 
 #include <QComboBox>
 
