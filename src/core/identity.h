@@ -124,6 +124,7 @@ class KIDENTITYMANAGEMENTCORE_EXPORT Identity
 
 public:
     using List = QList<Identity>;
+    using Id = uint;
 
     /** Constructor */
     explicit Identity(const QString &id = QString(),
