@@ -228,7 +228,7 @@ void IdentityTester::test_Aliases()
     QCOMPARE(i1.emailAliases().size(), 2);
 
     KConfig testConfig(QStringLiteral("test"));
-    KConfigGroup testGroup(&testConfig, "testGroup");
+    KConfigGroup testGroup(&testConfig, QLatin1String("testGroup"));
     i1.writeConfig(testGroup);
     i1.readConfig(testGroup);
     QCOMPARE(i1.emailAliases().size(), 2);
