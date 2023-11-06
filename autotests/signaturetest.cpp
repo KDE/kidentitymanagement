@@ -214,7 +214,7 @@ void SignatureTester::testImages()
     QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QStringLiteral("/signaturetest");
     QDir().mkpath(configPath);
     KConfig config(configPath);
-    KConfigGroup group1 = config.group(QLatin1String("Signature1"));
+    KConfigGroup group1 = config.group(QStringLiteral("Signature1"));
 
     MySignature sig;
     sig.setEnabledSignature(true);

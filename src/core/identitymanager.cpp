@@ -88,7 +88,7 @@ void IdentityManagerPrivate::writeConfig() const
         (*it).writeConfig(cg);
         if ((*it).isDefault()) {
             // remember which one is default:
-            KConfigGroup general(mConfig, QLatin1String("General"));
+            KConfigGroup general(mConfig, QStringLiteral("General"));
             general.writeEntry(configKeyDefaultIdentity, (*it).uoid());
 
             // Also write the default identity to emailsettings
@@ -111,7 +111,7 @@ void IdentityManagerPrivate::readConfig(KConfig *config)
         return; // nothing to be done...
     }
 
-    KConfigGroup general(config, QLatin1String("General"));
+    KConfigGroup general(config, QStringLiteral("General"));
     uint defaultIdentity = general.readEntry(configKeyDefaultIdentity, 0);
     bool haveDefault = false;
     QStringList::const_iterator groupEnd = identities.constEnd();
@@ -169,7 +169,7 @@ void IdentityManagerPrivate::createDefaultIdentity()
             if (emailAddress.isEmpty()) {
                 emailAddress = user.loginName();
                 if (!emailAddress.isEmpty()) {
-                    KConfigGroup general(mConfig, QLatin1String("General"));
+                    KConfigGroup general(mConfig, QStringLiteral("General"));
                     QString defaultdomain = general.readEntry("Default domain");
                     if (!defaultdomain.isEmpty()) {
                         emailAddress += QLatin1Char('@') + defaultdomain;
