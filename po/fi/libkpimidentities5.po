@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Mikko Piippo <piippo@cc.helsinki.fi>, 2007.
-# Tommi Nieminen <translator@legisign.org>, 2010, 2018, 2019, 2021.
+# Tommi Nieminen <translator@legisign.org>, 2010, 2018, 2019, 2021, 2023.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2012, 2013.
 #
 # KDE Finnish translation sprint participants:
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2021-10-11 14:43+0300\n"
+"PO-Revision-Date: 2023-09-26 10:48+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2012-12-01 22:25:20+0000\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -50,7 +50,7 @@ msgstr "Nimetön"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " – "
 
 #: core/signature.cpp:169
 #, kde-format
@@ -118,10 +118,9 @@ msgid "&Use HTML"
 msgstr "&Käytä HTML:ää"
 
 #: widgets/signatureconfigurator.cpp:219
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "Tekstitiedoston koko"
+msgstr "Tekstitiedosto (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -174,8 +173,7 @@ msgid "This text file size exceeds 1kb."
 msgstr "Tekstin tiedostokoko on yli 1 kt."
 
 #: widgets/signatureconfigurator.cpp:418
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Tekstitiedoston koko"
