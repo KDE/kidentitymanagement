@@ -34,7 +34,7 @@ option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, 
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
-set(PIMTEXTEDIT_LIB_VERSION "5.240.40")
+set(PIMTEXTEDIT_LIB_VERSION "5.240.81")
 set(KTEXTADDONS_MIN_VERSION "1.5.2")
 
 ########### Find packages ###########
