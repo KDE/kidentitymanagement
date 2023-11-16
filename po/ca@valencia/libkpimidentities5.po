@@ -69,7 +69,7 @@ msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr ""
-"Marqueu esta casella si voleu que KMail afija una signatura als correus "
+"Seleccioneu esta casella si voleu que KMail afija una signatura als correus "
 "escrits amb esta identitat."
 
 #: widgets/signatureconfigurator.cpp:115
