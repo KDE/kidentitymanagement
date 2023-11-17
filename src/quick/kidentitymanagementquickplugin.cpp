@@ -35,3 +35,5 @@ void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
 
     qmlRegisterUncreatableType<KeyUseTypes>(uri, 1, 0, "KeyUseTypes", QStringLiteral("Cannot instantiate KeyUseTypes wrapper!"));
 }
+
+#include "moc_kidentitymanagementquickplugin.cpp"

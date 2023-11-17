@@ -830,3 +830,5 @@ QString Identity::verifyAkonadiId(const QString &str) const
         return {};
     }
 }
+
+#include "moc_identity.cpp"

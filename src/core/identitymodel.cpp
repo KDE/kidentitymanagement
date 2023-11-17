@@ -81,3 +81,5 @@ QHash<int, QByteArray> IdentityModel::roleNames() const
 }
 
 }
+
+#include "moc_identitymodel.cpp"

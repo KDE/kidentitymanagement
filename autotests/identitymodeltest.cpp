@@ -78,3 +78,5 @@ void IdentityModelTester::testEmailFromUoid()
     const auto &i1 = IdentityManager::self()->modifyIdentityForName(i1Name);
     QCOMPARE(model.email(i1.uoid()), i1Email);
 }
+
+#include "moc_identitymodeltest.cpp"

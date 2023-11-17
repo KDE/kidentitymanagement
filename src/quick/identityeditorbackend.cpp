@@ -78,3 +78,5 @@ void IdentityEditorBackend::removeEmailAlias(const QString &alias)
     mIdentity.setEmailAliases(aliases);
 }
 }
+
+#include "moc_identityeditorbackend.cpp"
