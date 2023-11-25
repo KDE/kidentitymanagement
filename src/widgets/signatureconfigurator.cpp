@@ -99,7 +99,7 @@ QString SignatureConfiguratorPrivate::asCleanedHTML() const
 void SignatureConfiguratorPrivate::init()
 {
     auto vlay = new QVBoxLayout(q);
-    vlay->setObjectName(QStringLiteral("main layout"));
+    vlay->setObjectName(QLatin1StringView("main layout"));
 
     // "enable signature" checkbox:
     mEnableCheck = new QCheckBox(i18n("&Enable signature"), q);
