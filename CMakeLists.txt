@@ -44,7 +44,6 @@ find_package(Qt6Network NO_MODULE REQUIRED)
 find_package(Qt6Quick NO_MODULE REQUIRED)
 
 find_package(KF6CoreAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF6TextWidgets ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6XmlGui ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6KIO ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6Config ${KF_MIN_VERSION} CONFIG REQUIRED)
