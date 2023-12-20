@@ -68,7 +68,7 @@ FormCard.FormCardPage {
 
     FormCard.FormHeader {
         visible: root.cryptographyEditorBackend.validBackend
-        title: i18ndc("libkpimidentities5", "@title:group", "Cryptography")
+        title: i18ndc("libkpimidentities6", "@title:group", "Cryptography")
     }
 
     Loader {

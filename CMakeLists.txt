@@ -58,7 +58,7 @@ set_package_properties(KF6KirigamiAddons PROPERTIES
     PURPOSE "Addons for the Kirigami application UI framework"
 )
 
-add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities5\")
+add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities6\")
 
 option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" OFF)
 

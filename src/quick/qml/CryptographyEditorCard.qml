@@ -45,7 +45,7 @@ FormCard.FormCard {
 
         readonly property bool combinedMode: combinedPgpModeCheckBox.checked
 
-        text: combinedMode ? i18ndc("libkpimidentities5", "@label", "OpenPGP key") : i18ndc("libkpimidentities5", "@label", "OpenPGP signing key")
+        text: combinedMode ? i18ndc("libkpimidentities6", "@label", "OpenPGP key") : i18ndc("libkpimidentities6", "@label", "OpenPGP signing key")
         model: cryptographyEditorBackend.openPgpKeyListModel
         textRole: "display"
         valueRole: "keyByteArray"
@@ -72,7 +72,7 @@ FormCard.FormCard {
             checked = pgpEncryptionKey === pgpSigningKey;
         }
 
-        text: i18ndc("libkpimidentities5", "@label", "Use same OpenPGP key for encryption and signing")
+        text: i18ndc("libkpimidentities6", "@label", "Use same OpenPGP key for encryption and signing")
         onClicked: {
             if (!checked) {
                 return;
@@ -101,7 +101,7 @@ FormCard.FormCard {
             currentIndex = root._index(cryptographyEditorBackend.openPgpKeyListModel, KeyUseTypes.KeyEncryptionUse);
         }
 
-        text: i18ndc("libkpimidentities5", "@label", "OpenPGP encryption key")
+        text: i18ndc("libkpimidentities6", "@label", "OpenPGP encryption key")
         model: cryptographyEditorBackend.openPgpKeyListModel
         textRole: "display"
         valueRole: "keyByteArray"
@@ -123,7 +123,7 @@ FormCard.FormCard {
 
         property bool combinedMode: combinedSmimeModeCheckBox.checked
 
-        text: i18ndc("libkpimidentities5", "@label", "S/MIME signing key")
+        text: i18ndc("libkpimidentities6", "@label", "S/MIME signing key")
         model: cryptographyEditorBackend.smimeKeyListModel
         textRole: "display"
         valueRole: "keyByteArray"
@@ -148,7 +148,7 @@ FormCard.FormCard {
             checked = smimeEncryptionKey === smimeSigningKey;
         }
 
-        text: i18ndc("libkpimidentities5", "@label", "Use same S/MIME key for encryption and signing")
+        text: i18ndc("libkpimidentities6", "@label", "Use same S/MIME key for encryption and signing")
         onClicked: {
             if (!checked) {
                 return;
@@ -177,7 +177,7 @@ FormCard.FormCard {
             currentIndex = root._index(cryptographyEditorBackend.smimeKeyListModel, KeyUseTypes.KeyEncryptionUse);
         }
 
-        text: i18ndc("libkpimidentities5", "@label", "S/MIME encryption key")
+        text: i18ndc("libkpimidentities6", "@label", "S/MIME encryption key")
         model: cryptographyEditorBackend.smimeKeyListModel
         textRole: "display"
         valueRole: "keyByteArray"
