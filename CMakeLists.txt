@@ -68,7 +68,7 @@ if (USE_UNITY_CMAKE_SUPPORT)
 endif()
 
 add_definitions(-DQT_NO_CONTEXTLESS_CONNECT)
-ecm_set_disabled_deprecation_versions(QT 6.6  KF 5.246.0)
+ecm_set_disabled_deprecation_versions(QT 6.6.0 KF 5.246.0)
 
 
 ########### Targets ###########
