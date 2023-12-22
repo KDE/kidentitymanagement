@@ -2,20 +2,21 @@
 # Thomas Reitelbach <tr@erdfunkstelle.de>, 2008, 2010.
 # Frederik Schwarzer <schwarzer@kde.org>, 2008.
 # Burkhard Lück <lueck@hube-lueck.de>, 2008, 2014, 2018, 2019, 2021.
+# SPDX-FileCopyrightText: 2023 Johannes Obermayr <johannesobermayr@gmx.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2021-08-25 15:52+0200\n"
-"Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
+"PO-Revision-Date: 2023-12-20 22:47+0100\n"
+"Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -45,7 +46,7 @@ msgstr "Unbenannt"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " - "
 
 #: core/signature.cpp:169
 #, kde-format
@@ -115,10 +116,9 @@ msgid "&Use HTML"
 msgstr "&HTML verwenden"
 
 #: widgets/signatureconfigurator.cpp:219
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "Größe der Textdatei"
+msgstr "Textdatei (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -171,8 +171,7 @@ msgid "This text file size exceeds 1kb."
 msgstr "Die Größe der Textdatei überschreitet 1 kB."
 
 #: widgets/signatureconfigurator.cpp:418
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Größe der Textdatei"
