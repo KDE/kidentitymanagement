@@ -2,5 +2,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 add_subdirectory(core)
-add_subdirectory(quick)
+if (BUILD_QUICK_SUPPORT)
+    add_subdirectory(quick)
+endif()
 add_subdirectory(widgets)

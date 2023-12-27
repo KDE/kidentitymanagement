@@ -33,6 +33,8 @@ include(ECMQmlModule)
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
 
+option(BUILD_QUICK_SUPPORT "Build quick support. Needed for merkuro project" ON)
+
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
 set(PIMTEXTEDIT_LIB_VERSION "5.240.90")
 set(KTEXTADDONS_MIN_VERSION "1.5.2")
@@ -41,7 +43,9 @@ set(KTEXTADDONS_MIN_VERSION "1.5.2")
 
 find_package(Qt6Network NO_MODULE REQUIRED)
 
+if (BUILD_QUICK_SUPPORT)
 find_package(Qt6Quick NO_MODULE REQUIRED)
+endif()
 
 find_package(KF6CoreAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6XmlGui ${KF_MIN_VERSION} CONFIG REQUIRED)
@@ -52,12 +56,13 @@ find_package(KF6I18n   ${KF_MIN_VERSION} CONFIG REQUIRED)
 
 find_package(KF6TextCustomEditor ${KTEXTADDONS_MIN_VERSION} CONFIG REQUIRED)
 find_package(KPim6TextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
-find_package(KF6KirigamiAddons 0.11 REQUIRED)
-set_package_properties(KF6KirigamiAddons PROPERTIES
-    TYPE REQUIRED
-    PURPOSE "Addons for the Kirigami application UI framework"
-)
-
+if (BUILD_QUICK_SUPPORT)
+   find_package(KF6KirigamiAddons 0.11 REQUIRED)
+   set_package_properties(KF6KirigamiAddons PROPERTIES
+       TYPE REQUIRED
+       PURPOSE "Addons for the Kirigami application UI framework"
+   )
+endif()
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities6\")
 
 option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" OFF)
