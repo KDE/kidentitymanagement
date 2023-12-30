@@ -2,7 +2,6 @@
 # Thomas Reitelbach <tr@erdfunkstelle.de>, 2008, 2010.
 # Frederik Schwarzer <schwarzer@kde.org>, 2008.
 # Burkhard Lück <lueck@hube-lueck.de>, 2008, 2014, 2018, 2019, 2021.
-# SPDX-FileCopyrightText: 2023 Johannes Obermayr <johannesobermayr@gmx.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
