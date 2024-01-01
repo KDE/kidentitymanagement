@@ -44,7 +44,7 @@ set(KTEXTADDONS_MIN_VERSION "1.5.2")
 find_package(Qt6Network NO_MODULE REQUIRED)
 
 if (BUILD_QUICK_SUPPORT)
-find_package(Qt6Quick NO_MODULE REQUIRED)
+   find_package(Qt6Quick NO_MODULE REQUIRED)
 endif()
 
 find_package(KF6CoreAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
