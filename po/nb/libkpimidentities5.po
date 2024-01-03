@@ -1,4 +1,4 @@
-# Translation of libkpimidentities5 to Norwegian Bokmål
+# Translation of libkpimidentities6 to Norwegian Bokmål
 #
 # Nils Kristian Tomren <slx@nilsk.net>, 2007.
 # Bjørn Steensrud <bjornst@skogkatt.homelinux.org>, 2008.

@@ -1,4 +1,4 @@
-# Translation of libkpimidentities5 to Norwegian Nynorsk
+# Translation of libkpimidentities6 to Norwegian Nynorsk
 #
 # Karl Ove Hufthammer <karl@huftis.org>, 2008, 2013, 2020, 2022.
 # Eirik U. Birkeland <eirbir@gmail.com>, 2008, 2009.
