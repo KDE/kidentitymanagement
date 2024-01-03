@@ -1,4 +1,4 @@
-# Translation of libkpimidentities5 to Northern Sami
+# Translation of libkpimidentities6 to Northern Sami
 #
 msgid ""
 msgstr ""
