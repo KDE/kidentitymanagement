@@ -2,20 +2,20 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# A S Alam <aalam@users.sf.net>, 2007, 2009.
+# SPDX-FileCopyrightText: 2007, 2009, 2024 A S Alam <aalam@users.sf.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2009-01-20 09:04+0530\n"
-"Last-Translator: A S Alam <aalam@users.sf.net>\n"
-"Language-Team: Punjabi <punjabi-l10n@users.sf.net>\n"
+"PO-Revision-Date: 2024-01-03 14:31-0600\n"
+"Last-Translator: A S Alam <aalam@punlinux.org>\n"
+"Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: core/identitymanager.cpp:161
@@ -46,7 +46,7 @@ msgstr "ਬਿਨ-ਨਾਂ"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " - "
 
 #: core/signature.cpp:169
 #, kde-format
@@ -54,12 +54,10 @@ msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
 
 #: widgets/identitycombo.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr "ਡਿਫਾਲਟ"
+msgstr " (ਡਿਫਾਲਟ)"
 
 #: widgets/signatureconfigurator.cpp:105
 #, kde-format
@@ -114,7 +112,7 @@ msgstr "HTML ਵਰਤੋਂ(&U)"
 #: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
-msgstr ""
+msgstr "ਲਿਖਤ ਫਾਇਲ (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -126,7 +124,7 @@ msgstr ""
 #: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgid "S&pecify file:"
-msgstr ""
+msgstr "ਫਾਇਲ ਦਿਓ(&p):"
 
 #: widgets/signatureconfigurator.cpp:231
 #, kde-format
@@ -156,13 +154,13 @@ msgstr "ਕਮਾਂਡ ਦਿਓ(&p):"
 #: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
-msgstr ""
+msgstr "ਇਸ ਲਿਖਤ ਫਾਇਲ ਦਾ ਆਕਾਰ 1kb ਤੋਂ ਵੱਧ ਹੈ।"
 
 #: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
-msgstr ""
+msgstr "ਲਿਖਤ ਫਾਇਲ ਦਾ ਆਕਾਰ"
 
 #: widgets/signatureconfigurator.cpp:448
 #, kde-format
