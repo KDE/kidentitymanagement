@@ -60,7 +60,7 @@ static QStringList findImageNames(const QString &htmlCode)
             const auto fragment = it.fragment();
             if (fragment.isValid()) {
                 const auto imageFormat = fragment.charFormat().toImageFormat();
-                if (imageFormat.isValid() && !imageFormat.name().startsWith(QLatin1String("http")) && !imageNames.contains(imageFormat.name())) {
+                if (imageFormat.isValid() && !imageFormat.name().startsWith(QLatin1StringView("http")) && !imageNames.contains(imageFormat.name())) {
                     imageNames.push_back(imageFormat.name());
                 }
             }
@@ -101,7 +101,7 @@ void SignaturePrivate::cleanupImages()
         QDir dir(saveLocation);
         const QStringList lst = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
         for (const QString &fileName : lst) {
-            if (fileName.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
+            if (fileName.endsWith(QLatin1StringView(".png"), Qt::CaseInsensitive)) {
                 qCDebug(KIDENTITYMANAGEMENT_LOG) << "Deleting old image" << dir.path() + fileName;
                 dir.remove(fileName);
             }
@@ -271,16 +271,16 @@ QString Signature::withSeparator(bool *ok, QString *errorMessage) const
 
     const bool htmlSig = (isInlinedHtml() && d->type == Inlined);
     QString newline = htmlSig ? QStringLiteral("<br>") : QStringLiteral("\n");
-    if (htmlSig && signature.startsWith(QLatin1String("<p"))) {
+    if (htmlSig && signature.startsWith(QLatin1StringView("<p"))) {
         newline.clear();
     }
 
-    if (signature.startsWith(QLatin1String("-- ") + newline) || (signature.indexOf(newline + QLatin1String("-- ") + newline) != -1)) {
+    if (signature.startsWith(QLatin1StringView("-- ") + newline) || (signature.indexOf(newline + QLatin1String("-- ") + newline) != -1)) {
         // already have signature separator at start of sig or inside sig:
         return signature;
     } else {
         // need to prepend one:
-        return QLatin1String("-- ") + newline + signature;
+        return QLatin1StringView("-- ") + newline + signature;
     }
 }
 
@@ -316,16 +316,16 @@ static const char sigEnabled[] = "Signature Enabled";
 void Signature::readConfig(const KConfigGroup &config)
 {
     QString sigType = config.readEntry(sigTypeKey);
-    if (sigType == QLatin1String(sigTypeInlineValue)) {
+    if (sigType == QLatin1StringView(sigTypeInlineValue)) {
         d->type = Inlined;
         d->inlinedHtml = config.readEntry(sigTypeInlinedHtmlKey, false);
-    } else if (sigType == QLatin1String(sigTypeFileValue)) {
+    } else if (sigType == QLatin1StringView(sigTypeFileValue)) {
         d->type = FromFile;
         d->path = config.readPathEntry(sigFileKey, QString());
-    } else if (sigType == QLatin1String(sigTypeCommandValue)) {
+    } else if (sigType == QLatin1StringView(sigTypeCommandValue)) {
         d->type = FromCommand;
         d->path = config.readPathEntry(sigCommandKey, QString());
-    } else if (sigType == QLatin1String(sigTypeDisabledValue)) {
+    } else if (sigType == QLatin1StringView(sigTypeDisabledValue)) {
         d->enabled = false;
     }
     if (d->type != Disabled) {
@@ -339,7 +339,7 @@ void Signature::readConfig(const KConfigGroup &config)
         QDir dir(d->saveLocation);
         const QStringList lst = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
         for (const QString &fileName : lst) {
-            if (fileName.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
+            if (fileName.endsWith(QLatin1StringView(".png"), Qt::CaseInsensitive)) {
                 QImage image;
                 if (image.load(dir.path() + QLatin1Char('/') + fileName)) {
                     addImage(image, fileName);

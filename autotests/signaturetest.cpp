@@ -202,7 +202,7 @@ void SignatureTester::testImages()
 
     QImage img(16, 16, QImage::Format_ARGB32_Premultiplied);
     img.fill(Qt::green);
-    QString image1Path = QCoreApplication::applicationDirPath() + QLatin1String("/image.png");
+    QString image1Path = QCoreApplication::applicationDirPath() + QLatin1StringView("/image.png");
     img.save(image1Path);
 
     QImage image1;

@@ -273,7 +273,7 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *nam
     : QObject(parent)
     , d(new IdentityManagerPrivate(this))
 {
-    setObjectName(QLatin1String(name));
+    setObjectName(QLatin1StringView(name));
     new IdentityManagerAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
     const QString dbusPath = newDBusObjectName();
