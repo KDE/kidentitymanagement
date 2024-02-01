@@ -96,7 +96,7 @@ void Identity::readConfig(const KConfigGroup &config)
     // needs to update to v5.21.41
     // Check if we update to to encryption override mode
     // before we had only auto_encrypt and auto_sign and no global setting
-    if (!mPropertiesMap.contains(QLatin1StringView(s_encryptionOverride)) && !mPropertiesMap.contains(QLatin1String(s_warnnotencrypt))
+    if (!mPropertiesMap.contains(QLatin1StringView(s_encryptionOverride)) && !mPropertiesMap.contains(QLatin1StringView(s_warnnotencrypt))
         && !mPropertiesMap.contains(QLatin1StringView(s_warnnotsign))) {
         setEncryptionOverride(true);
     }
@@ -163,40 +163,42 @@ Identity Identity::fromMimeData(const QMimeData *md)
 
 QDataStream &KIdentityManagementCore::operator<<(QDataStream &stream, const KIdentityManagementCore::Identity &i)
 {
-    return stream << static_cast<quint32>(i.uoid()) << i.mPropertiesMap[QLatin1StringView(s_identity)] << i.mPropertiesMap[QLatin1String(s_name)]
-                  << i.mPropertiesMap[QLatin1StringView(s_organization)] << i.mPropertiesMap[QLatin1String(s_pgps)] << i.mPropertiesMap[QLatin1String(s_pgpe)]
-                  << i.mPropertiesMap[QLatin1StringView(s_smimes)] << i.mPropertiesMap[QLatin1String(s_smimee)]
-                  << i.mPropertiesMap[QLatin1String(s_primaryEmail)] << i.mPropertiesMap[QLatin1StringView(s_emailAliases)]
-                  << i.mPropertiesMap[QLatin1String(s_replyto)] << i.mPropertiesMap[QLatin1String(s_bcc)] << i.mPropertiesMap[QLatin1StringView(s_vcard)]
-                  << i.mPropertiesMap[QLatin1String(s_transport)] << i.mPropertiesMap[QLatin1String(s_fcc)] << i.mPropertiesMap[QLatin1StringView(s_drafts)]
-                  << i.mPropertiesMap[QLatin1String(s_templates)] << i.mSignature << i.mPropertiesMap[QLatin1StringView(s_dict)]
-                  << i.mPropertiesMap[QLatin1String(s_xface)] << i.mPropertiesMap[QLatin1String(s_xfaceenabled)] << i.mPropertiesMap[QLatin1StringView(s_face)]
-                  << i.mPropertiesMap[QLatin1String(s_faceenabled)] << i.mPropertiesMap[QLatin1String(s_prefcrypt)] << i.mPropertiesMap[QLatin1StringView(s_cc)]
-                  << i.mPropertiesMap[QLatin1String(s_attachVcard)] << i.mPropertiesMap[QLatin1StringView(s_autocorrectionLanguage)]
-                  << i.mPropertiesMap[QLatin1String(s_disabledFcc)] << i.mPropertiesMap[QLatin1StringView(s_defaultDomainName)]
-                  << i.mPropertiesMap[QLatin1String(s_autocryptEnabled)] << i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)]
-                  << i.mPropertiesMap[QLatin1String(s_encryptionOverride)] << i.mPropertiesMap[QLatin1StringView(s_pgpautosign)]
-                  << i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)] << i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)]
-                  << i.mPropertiesMap[QLatin1String(s_warnnotsign)];
+    return stream << static_cast<quint32>(i.uoid()) << i.mPropertiesMap[QLatin1StringView(s_identity)] << i.mPropertiesMap[QLatin1StringView(s_name)]
+                  << i.mPropertiesMap[QLatin1StringView(s_organization)] << i.mPropertiesMap[QLatin1StringView(s_pgps)]
+                  << i.mPropertiesMap[QLatin1StringView(s_pgpe)] << i.mPropertiesMap[QLatin1StringView(s_smimes)]
+                  << i.mPropertiesMap[QLatin1StringView(s_smimee)] << i.mPropertiesMap[QLatin1StringView(s_primaryEmail)]
+                  << i.mPropertiesMap[QLatin1StringView(s_emailAliases)] << i.mPropertiesMap[QLatin1StringView(s_replyto)]
+                  << i.mPropertiesMap[QLatin1StringView(s_bcc)] << i.mPropertiesMap[QLatin1StringView(s_vcard)]
+                  << i.mPropertiesMap[QLatin1StringView(s_transport)] << i.mPropertiesMap[QLatin1StringView(s_fcc)]
+                  << i.mPropertiesMap[QLatin1StringView(s_drafts)] << i.mPropertiesMap[QLatin1StringView(s_templates)] << i.mSignature
+                  << i.mPropertiesMap[QLatin1StringView(s_dict)] << i.mPropertiesMap[QLatin1StringView(s_xface)]
+                  << i.mPropertiesMap[QLatin1StringView(s_xfaceenabled)] << i.mPropertiesMap[QLatin1StringView(s_face)]
+                  << i.mPropertiesMap[QLatin1StringView(s_faceenabled)] << i.mPropertiesMap[QLatin1StringView(s_prefcrypt)]
+                  << i.mPropertiesMap[QLatin1StringView(s_cc)] << i.mPropertiesMap[QLatin1StringView(s_attachVcard)]
+                  << i.mPropertiesMap[QLatin1StringView(s_autocorrectionLanguage)] << i.mPropertiesMap[QLatin1StringView(s_disabledFcc)]
+                  << i.mPropertiesMap[QLatin1StringView(s_defaultDomainName)] << i.mPropertiesMap[QLatin1StringView(s_autocryptEnabled)]
+                  << i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] << i.mPropertiesMap[QLatin1StringView(s_encryptionOverride)]
+                  << i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] << i.mPropertiesMap[QLatin1StringView(s_pgpautoencrypt)]
+                  << i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] << i.mPropertiesMap[QLatin1StringView(s_warnnotsign)];
 }
 
 QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityManagementCore::Identity &i)
 {
     quint32 uoid;
-    stream >> uoid >> i.mPropertiesMap[QLatin1StringView(s_identity)] >> i.mPropertiesMap[QLatin1String(s_name)]
-        >> i.mPropertiesMap[QLatin1String(s_organization)] >> i.mPropertiesMap[QLatin1StringView(s_pgps)] >> i.mPropertiesMap[QLatin1String(s_pgpe)]
-        >> i.mPropertiesMap[QLatin1String(s_smimes)] >> i.mPropertiesMap[QLatin1StringView(s_smimee)] >> i.mPropertiesMap[QLatin1String(s_primaryEmail)]
-        >> i.mPropertiesMap[QLatin1String(s_emailAliases)] >> i.mPropertiesMap[QLatin1StringView(s_replyto)] >> i.mPropertiesMap[QLatin1String(s_bcc)]
-        >> i.mPropertiesMap[QLatin1String(s_vcard)] >> i.mPropertiesMap[QLatin1StringView(s_transport)] >> i.mPropertiesMap[QLatin1String(s_fcc)]
-        >> i.mPropertiesMap[QLatin1String(s_drafts)] >> i.mPropertiesMap[QLatin1StringView(s_templates)] >> i.mSignature
-        >> i.mPropertiesMap[QLatin1String(s_dict)] >> i.mPropertiesMap[QLatin1String(s_xface)] >> i.mPropertiesMap[QLatin1StringView(s_xfaceenabled)]
-        >> i.mPropertiesMap[QLatin1String(s_face)] >> i.mPropertiesMap[QLatin1String(s_faceenabled)] >> i.mPropertiesMap[QLatin1StringView(s_prefcrypt)]
-        >> i.mPropertiesMap[QLatin1String(s_cc)] >> i.mPropertiesMap[QLatin1String(s_attachVcard)]
-        >> i.mPropertiesMap[QLatin1StringView(s_autocorrectionLanguage)] >> i.mPropertiesMap[QLatin1String(s_disabledFcc)]
-        >> i.mPropertiesMap[QLatin1StringView(s_defaultDomainName)] >> i.mPropertiesMap[QLatin1String(s_autocryptEnabled)]
-        >> i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] >> i.mPropertiesMap[QLatin1String(s_encryptionOverride)]
-        >> i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] >> i.mPropertiesMap[QLatin1String(s_pgpautoencrypt)]
-        >> i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] >> i.mPropertiesMap[QLatin1String(s_warnnotsign)];
+    stream >> uoid >> i.mPropertiesMap[QLatin1StringView(s_identity)] >> i.mPropertiesMap[QLatin1StringView(s_name)]
+        >> i.mPropertiesMap[QLatin1StringView(s_organization)] >> i.mPropertiesMap[QLatin1StringView(s_pgps)] >> i.mPropertiesMap[QLatin1StringView(s_pgpe)]
+        >> i.mPropertiesMap[QLatin1StringView(s_smimes)] >> i.mPropertiesMap[QLatin1StringView(s_smimee)] >> i.mPropertiesMap[QLatin1StringView(s_primaryEmail)]
+        >> i.mPropertiesMap[QLatin1StringView(s_emailAliases)] >> i.mPropertiesMap[QLatin1StringView(s_replyto)] >> i.mPropertiesMap[QLatin1StringView(s_bcc)]
+        >> i.mPropertiesMap[QLatin1StringView(s_vcard)] >> i.mPropertiesMap[QLatin1StringView(s_transport)] >> i.mPropertiesMap[QLatin1StringView(s_fcc)]
+        >> i.mPropertiesMap[QLatin1StringView(s_drafts)] >> i.mPropertiesMap[QLatin1StringView(s_templates)] >> i.mSignature
+        >> i.mPropertiesMap[QLatin1StringView(s_dict)] >> i.mPropertiesMap[QLatin1StringView(s_xface)] >> i.mPropertiesMap[QLatin1StringView(s_xfaceenabled)]
+        >> i.mPropertiesMap[QLatin1StringView(s_face)] >> i.mPropertiesMap[QLatin1StringView(s_faceenabled)] >> i.mPropertiesMap[QLatin1StringView(s_prefcrypt)]
+        >> i.mPropertiesMap[QLatin1StringView(s_cc)] >> i.mPropertiesMap[QLatin1StringView(s_attachVcard)]
+        >> i.mPropertiesMap[QLatin1StringView(s_autocorrectionLanguage)] >> i.mPropertiesMap[QLatin1StringView(s_disabledFcc)]
+        >> i.mPropertiesMap[QLatin1StringView(s_defaultDomainName)] >> i.mPropertiesMap[QLatin1StringView(s_autocryptEnabled)]
+        >> i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] >> i.mPropertiesMap[QLatin1StringView(s_encryptionOverride)]
+        >> i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] >> i.mPropertiesMap[QLatin1StringView(s_pgpautoencrypt)]
+        >> i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] >> i.mPropertiesMap[QLatin1StringView(s_warnnotsign)];
 
     i.setProperty(QLatin1StringView(s_uoid), uoid);
     return stream;
@@ -535,22 +537,22 @@ void Identity::setOrganization(const QString &str)
 
 void Identity::setPGPSigningKey(const QByteArray &str)
 {
-    setProperty(QLatin1StringView(s_pgps), QLatin1String(str));
+    setProperty(QLatin1StringView(s_pgps), QLatin1StringView(str));
 }
 
 void Identity::setPGPEncryptionKey(const QByteArray &str)
 {
-    setProperty(QLatin1StringView(s_pgpe), QLatin1String(str));
+    setProperty(QLatin1StringView(s_pgpe), QLatin1StringView(str));
 }
 
 void Identity::setSMIMESigningKey(const QByteArray &str)
 {
-    setProperty(QLatin1StringView(s_smimes), QLatin1String(str));
+    setProperty(QLatin1StringView(s_smimes), QLatin1StringView(str));
 }
 
 void Identity::setSMIMEEncryptionKey(const QByteArray &str)
 {
-    setProperty(QLatin1StringView(s_smimee), QLatin1String(str));
+    setProperty(QLatin1StringView(s_smimee), QLatin1StringView(str));
 }
 
 void Identity::setPrimaryEmailAddress(const QString &email)

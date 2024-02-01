@@ -275,7 +275,7 @@ QString Signature::withSeparator(bool *ok, QString *errorMessage) const
         newline.clear();
     }
 
-    if (signature.startsWith(QLatin1StringView("-- ") + newline) || (signature.indexOf(newline + QLatin1String("-- ") + newline) != -1)) {
+    if (signature.startsWith(QLatin1StringView("-- ") + newline) || (signature.indexOf(newline + QLatin1StringView("-- ") + newline) != -1)) {
         // already have signature separator at start of sig or inside sig:
         return signature;
     } else {
