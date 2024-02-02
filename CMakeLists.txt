@@ -36,7 +36,7 @@ add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt 
 option(BUILD_QUICK_SUPPORT "Build quick support. Needed for merkuro project" ON)
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
-set(PIMTEXTEDIT_LIB_VERSION "5.240.95")
+set(PIMTEXTEDIT_LIB_VERSION "6.0.0")
 set(KTEXTADDONS_MIN_VERSION "1.5.2")
 
 ########### Find packages ###########
