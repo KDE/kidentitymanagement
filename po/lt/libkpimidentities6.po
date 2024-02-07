@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2009-03-07 16:23+0300\n"
+"PO-Revision-Date: 2024-02-07 00:52+0200\n"
 "Last-Translator: Andrius Štikonas <andrius@stikonas.eu>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -16,12 +16,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
-msgstr "Numatyta"
+msgstr "Numatytasis"
 
 #: core/identitymanager.cpp:186
 #, kde-format
@@ -45,7 +46,7 @@ msgstr "Be pavadinimo"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " – "
 
 #: core/signature.cpp:169
 #, kde-format
@@ -54,12 +55,10 @@ msgstr ""
 "<qt>Nepavyko įvykdyti parašo scenarijaus<p><b>%1</b>:</p><p>%2</p></qt>"
 
 #: widgets/identitycombo.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr "Numatyta"
+msgstr " (numatytoji)"
 
 #: widgets/signatureconfigurator.cpp:105
 #, kde-format
@@ -73,7 +72,7 @@ msgid ""
 "this identity."
 msgstr ""
 "Pažymėkite parinktį, jei norite, kad KMail pridėtų parašą prie laiškų, "
-"siunčiamų šia tapatybe."
+"siunčiamų naudojant šią tapatybę."
 
 #: widgets/signatureconfigurator.cpp:116
 #, kde-format
@@ -86,7 +85,7 @@ msgstr ""
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
-msgstr "Įvedimo lauko žemiau"
+msgstr "Žemiau esančio įvedimo lauko"
 
 #: widgets/signatureconfigurator.cpp:119
 #, kde-format
@@ -118,7 +117,7 @@ msgstr "&Naudoti HTML"
 #: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
-msgstr ""
+msgstr "Tekstinis failas (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -126,8 +125,9 @@ msgid ""
 "Use this requester to specify a text file that contains your signature. It "
 "will be read every time you create a new mail or append a new signature."
 msgstr ""
-"Nurodykite failą, kurio tekstas bus pridedamas kaip parašas po kiekvienu "
-"naujai sukuriamo laiško tekstu."
+"Naudokite šį užklausiklį, kad nurodytumėte tekstinį failą, kuriame yra jūsų "
+"parašas. Jis bus perskaitomas kas kartą, kai kursite naują laišką ar "
+"pridėsite naują parašą."
 
 #: widgets/signatureconfigurator.cpp:224
 #, kde-format
@@ -137,21 +137,15 @@ msgstr "Nu&rodyti failą:"
 #: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgid "Edit &File"
-msgstr "Redaguoti &failą"
+msgstr "Taisyti &failą"
 
 #: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
-msgstr "Atverti nurodytą failą teksto redaktoriumi."
+msgstr "Atveria nurodytą failą tekstų redaktoriuje."
 
 #: widgets/signatureconfigurator.cpp:252
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can add an arbitrary command here, either with or without path "
-#| "depending on whether or not the command is in your Path. For every new "
-#| "mail, KMail will execute the command and use what it outputs (to standard "
-#| "output) as a signature. Usual commands for use with this mechanism are "
-#| "\"fortune\" or \"ksig -random\"."
+#, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
 "on whether or not the command is in your Path. For every new mail, KMail "
@@ -160,10 +154,11 @@ msgid ""
 "\"ksig -random\". (Be careful, script needs a shebang line)."
 msgstr ""
 "Čia galima nurodyti pasirinktą komandą, tiek su, tiek ir be kelio, "
-"priklausomai nuo to, ar ši komanda yra Jūsų Kelyje. Kiekvienam naujam "
-"laiškui KMail vykdys šią komandą ir naudos ką ji pateiks (į standartinę "
-"išvestį) kaip parašą. Paprastai šiame mechanizme naudojamos komandos yra "
-"„fortune“ arba „ksig -random“."
+"priklausomai nuo to, ar ši komanda yra jūsų Kelyje. Kiekvienam naujam "
+"laiškui KMail vykdys šią komandą ir tai, ką ji išves (į standartinę išvestį) "
+"naudos kaip parašą. Įprastai, šiame mechanizme naudojamos komandos yra "
+"„fortune“ arba „ksig -random“. (Būkite atsargūs, scenarijuje reikės "
+"„shebang“ (#!) eilutės)."
 
 #: widgets/signatureconfigurator.cpp:258
 #, kde-format
@@ -173,13 +168,13 @@ msgstr "&Nurodyti komandą:"
 #: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
-msgstr ""
+msgstr "Šis tekstinis failas viršija 1kb."
 
 #: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
-msgstr ""
+msgstr "Tekstinio failo dydis"
 
 #: widgets/signatureconfigurator.cpp:448
 #, kde-format
