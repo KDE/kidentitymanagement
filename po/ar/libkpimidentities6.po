@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016, 2018.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021.
+# SPDX-FileCopyrightText: 2021, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-25 01:40+0000\n"
-"PO-Revision-Date: 2021-12-08 21:06+0400\n"
+"PO-Revision-Date: 2024-02-10 21:45+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Lokalize 21.07.70\n"
+"X-Generator: Lokalize 23.08.1\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -48,7 +48,7 @@ msgstr "غير معنون"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " - "
 
 #: core/signature.cpp:169
 #, kde-format
@@ -114,10 +114,9 @@ msgid "&Use HTML"
 msgstr "ا&ستخدم HTML"
 
 #: widgets/signatureconfigurator.cpp:219
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "حجم الملف النصي"
+msgstr "ملف نصي (‎*.txt)"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -168,8 +167,7 @@ msgid "This text file size exceeds 1kb."
 msgstr "حجم الملف النصي تجاوز 1 كيلوبت"
 
 #: widgets/signatureconfigurator.cpp:418
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "حجم الملف النصي"
