@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-25 01:40+0000\n"
+"POT-Creation-Date: 2024-02-20 02:27+0000\n"
 "PO-Revision-Date: 2024-02-10 13:11+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -60,6 +60,156 @@ msgstr " - "
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>Невозможно запустить скрипт подписи<p><b>%1</b>:</p><p>%2</p></qt>"
+
+#: quick/qml/BasicIdentityEditorCard.qml:26
+#, fuzzy, kde-format
+#| msgid "Identity:"
+msgid "Identity"
+msgstr "Профиль:"
+
+#: quick/qml/BasicIdentityEditorCard.qml:33
+#, fuzzy, kde-format
+#| msgctxt "NAME OF TRANSLATORS"
+#| msgid "Your names"
+msgid "Your name"
+msgstr "Андрей Черепанов"
+
+#: quick/qml/BasicIdentityEditorCard.qml:40
+#, fuzzy, kde-format
+#| msgid "&Email address:"
+msgid "Email address"
+msgstr "&Электронный адрес:"
+
+#: quick/qml/BasicIdentityEditorCard.qml:48
+#, fuzzy, kde-format
+#| msgid "E-mail address:"
+msgid "E-mail aliases"
+msgstr "Адрес электронной почты:"
+
+#: quick/qml/BasicIdentityEditorCard.qml:82
+#, fuzzy, kde-format
+#| msgid "Remove From Favorites"
+msgid "Remove email alias"
+msgstr "Удалить из избранных"
+
+#: quick/qml/BasicIdentityEditorCard.qml:102
+#, kde-format
+msgid "user@example.org"
+msgstr ""
+
+#: quick/qml/BasicIdentityEditorCard.qml:111
+#, fuzzy, kde-format
+#| msgid "Add Permissions"
+msgid "Add email alias"
+msgstr "Добавить права доступа"
+
+#: quick/qml/CryptographyEditorCard.qml:48
+#, fuzzy, kde-format
+#| msgid "OpenPGP key 0x%1"
+msgctxt "@label"
+msgid "OpenPGP key"
+msgstr "Ключ OpenPGP 0x%1"
+
+#: quick/qml/CryptographyEditorCard.qml:48
+#, fuzzy, kde-format
+#| msgid "OpenPGP signing key:"
+msgctxt "@label"
+msgid "OpenPGP signing key"
+msgstr "Ключ подписи OpenPGP:"
+
+#: quick/qml/CryptographyEditorCard.qml:75
+#, kde-format
+msgctxt "@label"
+msgid "Use same OpenPGP key for encryption and signing"
+msgstr ""
+
+#: quick/qml/CryptographyEditorCard.qml:104
+#, fuzzy, kde-format
+#| msgid "OpenPGP encryption key:"
+msgctxt "@label"
+msgid "OpenPGP encryption key"
+msgstr "Ключ шифрования OpenPGP:"
+
+#: quick/qml/CryptographyEditorCard.qml:126
+#, fuzzy, kde-format
+#| msgid "S/MIME signing certificate:"
+msgctxt "@label"
+msgid "S/MIME signing key"
+msgstr "Сертификат подписи S/MIME:"
+
+#: quick/qml/CryptographyEditorCard.qml:151
+#, kde-format
+msgctxt "@label"
+msgid "Use same S/MIME key for encryption and signing"
+msgstr ""
+
+#: quick/qml/CryptographyEditorCard.qml:180
+#, fuzzy, kde-format
+#| msgid "S/MIME encryption certificate:"
+msgctxt "@label"
+msgid "S/MIME encryption key"
+msgstr "Сертификат шифрования S/MIME:"
+
+#: quick/qml/IdentityConfigurationForm.qml:33
+#, fuzzy, kde-format
+#| msgid "Edit Identity"
+msgctxt "@title"
+msgid "Edit Identity"
+msgstr "Изменить профиль"
+
+#: quick/qml/IdentityEditorPage.qml:41
+#, fuzzy, kde-format
+#| msgid "Edit Identity"
+msgid "Add Identity"
+msgstr "Изменить профиль"
+
+#: quick/qml/IdentityEditorPage.qml:43
+#, kde-format
+msgid "Edit Identity"
+msgstr "Изменить профиль"
+
+#: quick/qml/IdentityEditorPage.qml:71
+#, fuzzy, kde-format
+#| msgid "Cryptograph&y"
+msgctxt "@title:group"
+msgid "Cryptography"
+msgstr "&Шифрование"
+
+#: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgid "Delete"
+msgstr "Удалённое"
+
+#: quick/qml/IdentityEditorPage.qml:105
+#, fuzzy, kde-format
+#| msgid "Save List"
+msgid "Save"
+msgstr "Сохранить список"
+
+#: quick/qml/IdentityEditorPage.qml:105
+#, fuzzy, kde-format
+#| msgid "&Add"
+msgid "Add"
+msgstr "&Добавить"
+
+#: quick/qml/IdentityEditorPage.qml:120
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgid "Delete %1"
+msgstr "Удалённое"
+
+#: quick/qml/IdentityEditorPage.qml:121
+#, fuzzy, kde-format
+#| msgid "Are you sure you want to empty the trash folder?"
+msgid "Are you sure you want to delete this identity?"
+msgstr "Очистить корзину?"
+
+#: quick/qml/IdentityEditorPage.qml:134
+#, fuzzy, kde-format
+#| msgid "C&ancel"
+msgid "Cancel"
+msgstr "О&тменить"
 
 #: widgets/identitycombo.cpp:58
 #, kde-format
@@ -180,10 +330,6 @@ msgstr "Размер текстового файла"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Использовать HTML (отключение удаляет форматирование)"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Андрей Черепанов"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"
@@ -339,9 +485,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "&Pre-command:"
 #~ msgstr "Предварительная &команда:"
-
-#~ msgid "Identity:"
-#~ msgstr "Профиль:"
 
 #~ msgid "Account Type: Maildir Account"
 #~ msgstr "Тип почтового ящика: maildir"
@@ -787,9 +930,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "Real name:"
 #~ msgstr "Настоящее имя:"
-
-#~ msgid "E-mail address:"
-#~ msgstr "Адрес электронной почты:"
 
 #~ msgid "Organization:"
 #~ msgstr "Организация:"
@@ -2389,9 +2529,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ msgid "Save Distribution List"
 #~ msgstr "Сохранить список рассылки"
 
-#~ msgid "Save List"
-#~ msgstr "Сохранить список"
-
 #~ msgid "Name:"
 #~ msgstr "Название:"
 
@@ -2586,9 +2723,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "Favorite Folders"
 #~ msgstr "Избранные папки"
-
-#~ msgid "Remove From Favorites"
-#~ msgstr "Удалить из избранных"
 
 #~ msgid "Rename Favorite"
 #~ msgstr "Переименовать в избранных"
@@ -2787,9 +2921,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ msgid "Modify Permissions"
 #~ msgstr "Изменить права доступа"
 
-#~ msgid "Add Permissions"
-#~ msgstr "Добавить права доступа"
-
 #~ msgid ""
 #~ "Do you really want to remove your own permissions for this folder? You "
 #~ "will not be able to access it afterwards."
@@ -2852,9 +2983,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "&Copy Here"
 #~ msgstr "Копировать с&юда"
-
-#~ msgid "C&ancel"
-#~ msgstr "О&тменить"
 
 #~ msgid "Unknown"
 #~ msgstr "неизв."
@@ -2940,9 +3068,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ "<qt><br>Н<br>е<br>т<br> <br>к <br>о <br>д <br>а <br><br>H<br>T<br>M<br>L</"
 #~ "b> </qt>"
 
-#~ msgid "Edit Identity"
-#~ msgstr "Изменить профиль"
-
 #~ msgid ""
 #~ "<qt><h3>Your name</h3><p>This field should contain your name as you would "
 #~ "like it to appear in the email header that is sent out;</p><p>if you "
@@ -2966,9 +3091,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ "вы работаете, если вы хотите, чтобы оно добавлялось в заголовки писем, "
 #~ "отправляемых вами.</p><p>Можно оставить это поле пустым.</p></qt>"
 
-#~ msgid "&Email address:"
-#~ msgstr "&Электронный адрес:"
-
 #~ msgid ""
 #~ "<qt><h3>Email address</h3><p>This field should have your full email "
 #~ "address.</p><p>If you leave this blank, or get it wrong, people will have "
@@ -2976,9 +3098,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ msgstr ""
 #~ "<qt><h3>Электронный адрес</h3><p>Если вы оставите это поле пустым или "
 #~ "заполните его неправильно, у отвечающих вам возникнут трудности.</p></qt>"
-
-#~ msgid "Cryptograph&y"
-#~ msgstr "&Шифрование"
 
 #~ msgid "Chang&e..."
 #~ msgstr "И&зменить..."
@@ -3006,9 +3125,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ "</p><p>Подробнее о ключах можно прочитать на <a>http://www.gnupg.org</a></"
 #~ "p></qt>"
 
-#~ msgid "OpenPGP signing key:"
-#~ msgstr "Ключ подписи OpenPGP:"
-
 #~ msgid "Your OpenPGP Encryption Key"
 #~ msgstr "Ваш ключ шифрования OpenPGP"
 
@@ -3034,9 +3150,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ "p><p>Подробнее о ключах можно прочитать на <a>http://www.gnupg.org</a></"
 #~ "p></qt>"
 
-#~ msgid "OpenPGP encryption key:"
-#~ msgstr "Ключ шифрования OpenPGP:"
-
 #~ msgid "Your S/MIME Signature Certificate"
 #~ msgstr "Ваш сертификат подписи S/MIME"
 
@@ -3056,9 +3169,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ "<qt><p>Ключ S/MIME (X.509) будет использован для подписывания сообщений.</"
 #~ "p><p>Если оставить это поле пустым, то можно будет отправлять обычную "
 #~ "почту, для которой не требуется шифрование.</p></qt>"
-
-#~ msgid "S/MIME signing certificate:"
-#~ msgstr "Сертификат подписи S/MIME:"
 
 #~ msgid "Your S/MIME Encryption Certificate"
 #~ msgstr "Ваш сертификат шифрования S/MIME"
@@ -3081,9 +3191,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ "и для команды \"Добавить открытый ключ\" в редакторе.</p><p>Если оставить "
 #~ "это поле пустым, то можно будет отправлять обычную почту, для которой не "
 #~ "требуется шифрование.</p></qt>"
-
-#~ msgid "S/MIME encryption certificate:"
-#~ msgstr "Сертификат шифрования S/MIME:"
 
 #~ msgid "Preferred crypto message format:"
 #~ msgstr "Предпочитаемый формат шифрования:"
@@ -4535,9 +4642,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "Exporting key..."
 #~ msgstr "Экспорт ключа..."
-
-#~ msgid "OpenPGP key 0x%1"
-#~ msgstr "Ключ OpenPGP 0x%1"
 
 #~ msgid "Attach Public OpenPGP Key"
 #~ msgstr "Добавить открытый ключ OpenPGP"
@@ -6251,9 +6355,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "Move to Trash"
 #~ msgstr "Выбросить в корзину"
-
-#~ msgid "Are you sure you want to empty the trash folder?"
-#~ msgstr "Очистить корзину?"
 
 #~ msgid ""
 #~ "<qt>Are you sure you want to move all messages from folder <b>%1</b> to "
@@ -9011,9 +9112,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ msgid "Add Snippet"
 #~ msgstr "Добавить фразу"
 
-#~ msgid "&Add"
-#~ msgstr "&Добавить"
-
 #~ msgid "&Snippet:"
 #~ msgstr "&Фраза:"
 
@@ -10931,9 +11029,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "Old"
 #~ msgstr "Устаревшее"
-
-#~ msgid "Deleted"
-#~ msgstr "Удалённое"
 
 #~ msgid "Replied"
 #~ msgstr "Отвеченное"
