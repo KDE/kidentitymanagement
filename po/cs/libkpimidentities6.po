@@ -57,7 +57,7 @@ msgstr "<qt>Spuštění skriptu s podpisem selhalo<p><b>%1</b>:</p><p>%2</p></qt
 #: quick/qml/BasicIdentityEditorCard.qml:26
 #, kde-format
 msgid "Identity"
-msgstr ""
+msgstr "Identita"
 
 #: quick/qml/BasicIdentityEditorCard.qml:33
 #, kde-format
@@ -67,7 +67,7 @@ msgstr ""
 #: quick/qml/BasicIdentityEditorCard.qml:40
 #, kde-format
 msgid "Email address"
-msgstr ""
+msgstr "E-mailová adresa"
 
 #: quick/qml/BasicIdentityEditorCard.qml:48
 #, kde-format
@@ -82,7 +82,7 @@ msgstr ""
 #: quick/qml/BasicIdentityEditorCard.qml:102
 #, kde-format
 msgid "user@example.org"
-msgstr ""
+msgstr "uzivatel@priklad.cz"
 
 #: quick/qml/BasicIdentityEditorCard.qml:111
 #, kde-format
@@ -140,12 +140,12 @@ msgstr ""
 #: quick/qml/IdentityEditorPage.qml:41
 #, kde-format
 msgid "Add Identity"
-msgstr ""
+msgstr "Přidat identitu"
 
 #: quick/qml/IdentityEditorPage.qml:43
 #, kde-format
 msgid "Edit Identity"
-msgstr ""
+msgstr "Upravit identitu"
 
 #: quick/qml/IdentityEditorPage.qml:71
 #, kde-format
@@ -156,22 +156,22 @@ msgstr ""
 #: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Uložit"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "Přidat"
 
 #: quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete %1"
-msgstr ""
+msgstr "Smazat %1"
 
 #: quick/qml/IdentityEditorPage.qml:121
 #, kde-format
@@ -181,7 +181,7 @@ msgstr ""
 #: quick/qml/IdentityEditorPage.qml:134
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 #: widgets/identitycombo.cpp:58
 #, kde-format
