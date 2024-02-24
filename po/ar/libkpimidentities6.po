@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-20 00:38+0000\n"
-"PO-Revision-Date: 2024-02-10 21:45+0400\n"
+"PO-Revision-Date: 2024-02-23 18:01+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -58,131 +58,131 @@ msgstr "<qt>فشل تنفيذ سكربت التّوقيع <p><b>%1</b>:</p><p>%2
 #: quick/qml/BasicIdentityEditorCard.qml:26
 #, kde-format
 msgid "Identity"
-msgstr ""
+msgstr "الهويّة"
 
 #: quick/qml/BasicIdentityEditorCard.qml:33
 #, kde-format
 msgid "Your name"
-msgstr ""
+msgstr "اسمك"
 
 #: quick/qml/BasicIdentityEditorCard.qml:40
 #, kde-format
 msgid "Email address"
-msgstr ""
+msgstr "عنوان بريد إلكتروني"
 
 #: quick/qml/BasicIdentityEditorCard.qml:48
 #, kde-format
 msgid "E-mail aliases"
-msgstr ""
+msgstr "اسم  للبريد"
 
 #: quick/qml/BasicIdentityEditorCard.qml:82
 #, kde-format
 msgid "Remove email alias"
-msgstr ""
+msgstr "أزل اسم البريد"
 
 #: quick/qml/BasicIdentityEditorCard.qml:102
 #, kde-format
 msgid "user@example.org"
-msgstr ""
+msgstr "user@example.org"
 
 #: quick/qml/BasicIdentityEditorCard.qml:111
 #, kde-format
 msgid "Add email alias"
-msgstr ""
+msgstr "أضف اسم للبريد"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
-msgstr ""
+msgstr "مفتاح OpenPGP"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
-msgstr ""
+msgstr "مفتاح توقيع OpenPGP"
 
 #: quick/qml/CryptographyEditorCard.qml:75
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
-msgstr ""
+msgstr "استخدم نفس مفتاح OpenPGP للتعمية والتوقيع"
 
 #: quick/qml/CryptographyEditorCard.qml:104
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
-msgstr ""
+msgstr "مفتاح تعمية OpenPGP"
 
 #: quick/qml/CryptographyEditorCard.qml:126
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
-msgstr ""
+msgstr "مفتاح توقيع S/MIME"
 
 #: quick/qml/CryptographyEditorCard.qml:151
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
-msgstr ""
+msgstr "استخدم نفس مفتاح S/MIME للتعمية والتوقيع"
 
 #: quick/qml/CryptographyEditorCard.qml:180
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
-msgstr ""
+msgstr "مفتاح تعمية S/MIME"
 
 #: quick/qml/IdentityConfigurationForm.qml:33
 #, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
-msgstr ""
+msgstr "حرّر الهويّة"
 
 #: quick/qml/IdentityEditorPage.qml:41
 #, kde-format
 msgid "Add Identity"
-msgstr ""
+msgstr "أضف هويّة"
 
 #: quick/qml/IdentityEditorPage.qml:43
 #, kde-format
 msgid "Edit Identity"
-msgstr ""
+msgstr "حرّر الهويّة"
 
 #: quick/qml/IdentityEditorPage.qml:71
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
-msgstr ""
+msgstr "التّعمية"
 
 #: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "احذف"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "احفظ"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "أضف"
 
 #: quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete %1"
-msgstr ""
+msgstr "احذف %1"
 
 #: quick/qml/IdentityEditorPage.qml:121
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
-msgstr ""
+msgstr "أتريد حقًّا حذف هذه الهويّة؟"
 
 #: quick/qml/IdentityEditorPage.qml:134
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "ألغِ"
 
 #: widgets/identitycombo.cpp:58
 #, kde-format
