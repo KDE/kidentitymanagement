@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-20 00:38+0000\n"
-"PO-Revision-Date: 2023-09-25 23:06+0100\n"
+"PO-Revision-Date: 2024-02-24 21:13+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -58,131 +58,131 @@ msgstr ""
 #: quick/qml/BasicIdentityEditorCard.qml:26
 #, kde-format
 msgid "Identity"
-msgstr ""
+msgstr "Identeco"
 
 #: quick/qml/BasicIdentityEditorCard.qml:33
 #, kde-format
 msgid "Your name"
-msgstr ""
+msgstr "Via nomo"
 
 #: quick/qml/BasicIdentityEditorCard.qml:40
 #, kde-format
 msgid "Email address"
-msgstr ""
+msgstr "Retpoŝta adreso"
 
 #: quick/qml/BasicIdentityEditorCard.qml:48
 #, kde-format
 msgid "E-mail aliases"
-msgstr ""
+msgstr "Retpoŝtaj alinomoj"
 
 #: quick/qml/BasicIdentityEditorCard.qml:82
 #, kde-format
 msgid "Remove email alias"
-msgstr ""
+msgstr "Forigi retadresan alinomon"
 
 #: quick/qml/BasicIdentityEditorCard.qml:102
 #, kde-format
 msgid "user@example.org"
-msgstr ""
+msgstr "uzul@ekzemplo.org"
 
 #: quick/qml/BasicIdentityEditorCard.qml:111
 #, kde-format
 msgid "Add email alias"
-msgstr ""
+msgstr "Aldoni retpoŝtan adreson"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
-msgstr ""
+msgstr "OpenPGP-ŝlosilo"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
-msgstr ""
+msgstr "OpenPGP-subskriba ŝlosilo"
 
 #: quick/qml/CryptographyEditorCard.qml:75
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
-msgstr ""
+msgstr "Uzi saman OpenPGP-ŝlosilon por ĉifrado kaj subskribado"
 
 #: quick/qml/CryptographyEditorCard.qml:104
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
-msgstr ""
+msgstr "OpenPGP-ĉifradŝlosilo"
 
 #: quick/qml/CryptographyEditorCard.qml:126
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
-msgstr ""
+msgstr "S/MIME-subskriba ŝlosilo"
 
 #: quick/qml/CryptographyEditorCard.qml:151
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
-msgstr ""
+msgstr "Uzi saman S/MIME-ŝlosilon por ĉifrado kaj subskribado"
 
 #: quick/qml/CryptographyEditorCard.qml:180
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
-msgstr ""
+msgstr "S/MIME-ĉifradŝlosilo"
 
 #: quick/qml/IdentityConfigurationForm.qml:33
 #, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
-msgstr ""
+msgstr "Redakti identecon"
 
 #: quick/qml/IdentityEditorPage.qml:41
 #, kde-format
 msgid "Add Identity"
-msgstr ""
+msgstr "Aldoni Identecon"
 
 #: quick/qml/IdentityEditorPage.qml:43
 #, kde-format
 msgid "Edit Identity"
-msgstr ""
+msgstr "Redakti identecon"
 
 #: quick/qml/IdentityEditorPage.qml:71
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
-msgstr ""
+msgstr "Kriptografio"
 
 #: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Forigi"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Konservi"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "Aldoni"
 
 #: quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete %1"
-msgstr ""
+msgstr "Forigi %1"
 
 #: quick/qml/IdentityEditorPage.qml:121
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
-msgstr ""
+msgstr "Ĉu vi certas ke vi volas forigi tiun ĉi identecon?"
 
 #: quick/qml/IdentityEditorPage.qml:134
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Nuligi"
 
 #: widgets/identitycombo.cpp:58
 #, kde-format
