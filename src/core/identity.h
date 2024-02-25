@@ -256,7 +256,7 @@ public:
      * @return The default language for spell checking of this identity.
      * @since 4.10
      */
-    QString autocorrectionLanguage() const;
+    [[nodiscard]] QString autocorrectionLanguage() const;
     void setAutocorrectionLanguage(const QString &language);
 
     /**
