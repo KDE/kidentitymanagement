@@ -66,7 +66,12 @@ class KIDENTITYMANAGEMENTCORE_EXPORT Signature
 
 public:
     /** Type of signature (ie. way to obtain the signature text) */
-    enum Type { Disabled = 0, Inlined = 1, FromFile = 2, FromCommand = 3 };
+    enum Type {
+        Disabled = 0,
+        Inlined = 1,
+        FromFile = 2,
+        FromCommand = 3,
+    };
 
     /**
      * Describes the placement of the signature text when it is to be inserted into a
