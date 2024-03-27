@@ -3,8 +3,6 @@
 
 #include "identityeditorbackend.h"
 
-#include <memory>
-
 namespace KIdentityManagementQuick
 {
 IdentityEditorBackend::Mode IdentityEditorBackend::mode() const
