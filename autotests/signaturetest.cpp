@@ -9,6 +9,8 @@
 #undef QT_USE_FAST_OPERATOR_PLUS
 
 #include "signaturetest.h"
+using namespace Qt::Literals::StringLiterals;
+
 #include <QTest>
 
 #include "../src/widgets/signaturerichtexteditor.cpp"
@@ -202,7 +204,7 @@ void SignatureTester::testImages()
 
     QImage img(16, 16, QImage::Format_ARGB32_Premultiplied);
     img.fill(Qt::green);
-    QString image1Path = QCoreApplication::applicationDirPath() + QLatin1StringView("/image.png");
+    QString image1Path = QCoreApplication::applicationDirPath() + "/image.png"_L1;
     img.save(image1Path);
 
     QImage image1;

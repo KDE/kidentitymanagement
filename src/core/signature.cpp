@@ -20,6 +20,7 @@
 #include <cassert>
 
 using namespace KIdentityManagementCore;
+using namespace Qt::Literals::StringLiterals;
 
 class KIdentityManagementCore::SignaturePrivate
 {
@@ -60,7 +61,7 @@ static QStringList findImageNames(const QString &htmlCode)
             const auto fragment = it.fragment();
             if (fragment.isValid()) {
                 const auto imageFormat = fragment.charFormat().toImageFormat();
-                if (imageFormat.isValid() && !imageFormat.name().startsWith(QLatin1StringView("http")) && !imageNames.contains(imageFormat.name())) {
+                if (imageFormat.isValid() && !imageFormat.name().startsWith("http"_L1) && !imageNames.contains(imageFormat.name())) {
                     imageNames.push_back(imageFormat.name());
                 }
             }
@@ -101,7 +102,7 @@ void SignaturePrivate::cleanupImages()
         QDir dir(saveLocation);
         const QStringList lst = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
         for (const QString &fileName : lst) {
-            if (fileName.endsWith(QLatin1StringView(".png"), Qt::CaseInsensitive)) {
+            if (fileName.endsWith(".png"_L1, Qt::CaseInsensitive)) {
                 qCDebug(KIDENTITYMANAGEMENT_LOG) << "Deleting old image" << dir.path() + fileName;
                 dir.remove(fileName);
             }
@@ -271,16 +272,16 @@ QString Signature::withSeparator(bool *ok, QString *errorMessage) const
 
     const bool htmlSig = (isInlinedHtml() && d->type == Inlined);
     QString newline = htmlSig ? QStringLiteral("<br>") : QStringLiteral("\n");
-    if (htmlSig && signature.startsWith(QLatin1StringView("<p"))) {
+    if (htmlSig && signature.startsWith("<p"_L1)) {
         newline.clear();
     }
 
-    if (signature.startsWith(QLatin1StringView("-- ") + newline) || (signature.indexOf(newline + QLatin1StringView("-- ") + newline) != -1)) {
+    if (signature.startsWith("-- "_L1 + newline) || (signature.indexOf(newline + "-- "_L1 + newline) != -1)) {
         // already have signature separator at start of sig or inside sig:
         return signature;
     } else {
         // need to prepend one:
-        return QLatin1StringView("-- ") + newline + signature;
+        return "-- "_L1 + newline + signature;
     }
 }
 
@@ -339,7 +340,7 @@ void Signature::readConfig(const KConfigGroup &config)
         QDir dir(d->saveLocation);
         const QStringList lst = dir.entryList(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
         for (const QString &fileName : lst) {
-            if (fileName.endsWith(QLatin1StringView(".png"), Qt::CaseInsensitive)) {
+            if (fileName.endsWith(".png"_L1, Qt::CaseInsensitive)) {
                 QImage image;
                 if (image.load(dir.path() + QLatin1Char('/') + fileName)) {
                     addImage(image, fileName);

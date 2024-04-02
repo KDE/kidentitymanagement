@@ -7,6 +7,8 @@
 */
 
 #include "signatureconfigurator.h"
+using namespace Qt::Literals::StringLiterals;
+
 #include "identity.h"
 #include "signaturerichtexteditor_p.h"
 
@@ -99,7 +101,7 @@ QString SignatureConfiguratorPrivate::asCleanedHTML() const
 void SignatureConfiguratorPrivate::init()
 {
     auto vlay = new QVBoxLayout(q);
-    vlay->setObjectName(QLatin1StringView("main layout"));
+    vlay->setObjectName("main layout"_L1);
 
     // "enable signature" checkbox:
     mEnableCheck = new QCheckBox(i18n("&Enable signature"), q);

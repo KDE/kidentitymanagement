@@ -6,6 +6,7 @@
 */
 
 #include "identity.h"
+using namespace Qt::Literals::StringLiterals;
 
 #include "kidentitymanagementcore_debug.h"
 #include <KConfigGroup>
@@ -312,7 +313,7 @@ QString Identity::fullEmailAddr() const
         result += QLatin1Char('"');
     }
 
-    result += QLatin1StringView(" <") + mail + QLatin1Char('>');
+    result += " <"_L1 + mail + QLatin1Char('>');
 
     return result;
 }
