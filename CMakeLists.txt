@@ -80,10 +80,6 @@ ecm_set_disabled_deprecation_versions(QT 6.6.1 KF 6.1.0)
 ########### Targets ###########
 add_subdirectory(src)
 
-if(BUILD_TESTING)
-    add_subdirectory(autotests)
-endif()
-
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
 ki18n_install(po)
 ecm_feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

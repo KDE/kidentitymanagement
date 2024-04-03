@@ -154,3 +154,8 @@ configure_package_config_file(
     "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfig.cmake"
     INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
+
+if(BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()
+
