@@ -25,9 +25,10 @@ public:
         UoidRole,
         IdentityNameRole,
         DisplayNameRole,
+        DefaultRole,
     };
 
-    IdentityModel(QObject *parent = nullptr);
+    explicit IdentityModel(QObject *parent = nullptr);
     ~IdentityModel();
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
