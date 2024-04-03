@@ -82,6 +82,8 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     : QComboBox(parent)
     , d(new KIdentityManagementWidgets::IdentityComboPrivate(manager, this))
 {
+    // TODO use IdentityModel
+
     d->reloadCombo();
     d->reloadUoidList();
     connect(this, &IdentityCombo::activated, this, &IdentityCombo::slotEmitChanged);
