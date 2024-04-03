@@ -50,6 +50,8 @@ QVariant IdentityModel::data(const QModelIndex &index, int role) const
         return identity.identityName();
     case DefaultRole:
         return identity.isDefault();
+    case Qt::ToolTipRole:
+        return identity.primaryEmailAddress();
     }
 
     return {};
