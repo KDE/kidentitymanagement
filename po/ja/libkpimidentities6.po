@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-20 00:38+0000\n"
+"POT-Creation-Date: 2024-04-03 00:38+0000\n"
 "PO-Revision-Date: 2008-11-24 23:44+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -48,7 +48,7 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr ""
 
-#: core/signature.cpp:169
+#: core/signature.cpp:170
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
@@ -191,12 +191,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "デフォルト"
 
-#: widgets/signatureconfigurator.cpp:105
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
 msgstr "署名を有効にする(&E)"
 
-#: widgets/signatureconfigurator.cpp:107
+#: widgets/signatureconfigurator.cpp:109
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
@@ -205,50 +205,50 @@ msgstr ""
 "この個人情報で作成したメッセージに署名を追加する場合、このボックスをチェック"
 "します。"
 
-#: widgets/signatureconfigurator.cpp:116
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr "下のウィジェットをクリックすると、それぞれの使い方が表示されます。"
 
-#: widgets/signatureconfigurator.cpp:118
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "下の入力フィールドから"
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "ファイルから"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "コマンドの出力から"
 
-#: widgets/signatureconfigurator.cpp:121
+#: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgid "Obtain signature &text from:"
 msgstr "署名テキストの取得方法(&T):"
 
-#: widgets/signatureconfigurator.cpp:162
+#: widgets/signatureconfigurator.cpp:164
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "このフィールドには固定的な署名テキストを自由に入力します。"
 
-#: widgets/signatureconfigurator.cpp:203 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
 #, kde-format
 msgid "&Use HTML"
 msgstr "HTML を使う(&U)"
 
-#: widgets/signatureconfigurator.cpp:219
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:223
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -257,22 +257,22 @@ msgstr ""
 "これをクリックして署名を含むテキストファイルを指定します。新しいメールを作成"
 "したり署名を追加するたびに、このファイルから署名を読み取ります。"
 
-#: widgets/signatureconfigurator.cpp:224
+#: widgets/signatureconfigurator.cpp:226
 #, kde-format
 msgid "S&pecify file:"
 msgstr "ファイルを指定(&P):"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:233
 #, kde-format
 msgid "Edit &File"
 msgstr "ファイルを編集(&F)"
 
-#: widgets/signatureconfigurator.cpp:232
+#: widgets/signatureconfigurator.cpp:234
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "指定したファイルをテキストエディタで開きます。"
 
-#: widgets/signatureconfigurator.cpp:252
+#: widgets/signatureconfigurator.cpp:254
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can add an arbitrary command here, either with or without path "
@@ -292,23 +292,23 @@ msgstr ""
 "を実行し、その標準出力への出力を署名として追加します。これによく使われるコマ"
 "ンドは fortune と ksig -random です。"
 
-#: widgets/signatureconfigurator.cpp:258
+#: widgets/signatureconfigurator.cpp:260
 #, kde-format
 msgid "S&pecify command:"
 msgstr "コマンドを指定(&P):"
 
-#: widgets/signatureconfigurator.cpp:418
+#: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:418
+#: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:450
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "HTML を使う(&U) (無効にすると書式情報が失われます)"

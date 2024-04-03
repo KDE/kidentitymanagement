@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-20 00:38+0000\n"
+"POT-Creation-Date: 2024-04-03 00:38+0000\n"
 "PO-Revision-Date: 2013-10-23 13:26+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -50,7 +50,7 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr ""
 
-#: core/signature.cpp:169
+#: core/signature.cpp:170
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
@@ -193,12 +193,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "Podrazumijevano"
 
-#: widgets/signatureconfigurator.cpp:105
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
 msgstr "&Uključi potpisivanje"
 
-#: widgets/signatureconfigurator.cpp:107
+#: widgets/signatureconfigurator.cpp:109
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
@@ -207,51 +207,51 @@ msgstr ""
 "Aktivirajte ovu opciju ako želite da KMail pridruži potpis porukama pisanim "
 "ovim identitetom."
 
-#: widgets/signatureconfigurator.cpp:116
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr ""
 "Kliknite na grafičke elemente ispod da biste dobili pomoć o ulaznim metodama."
 
-#: widgets/signatureconfigurator.cpp:118
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "donjeg polja sa unos"
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "datoteke"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "izlaza naredbe"
 
-#: widgets/signatureconfigurator.cpp:121
+#: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgid "Obtain signature &text from:"
 msgstr "Dobavi &tekst potpisa iz:"
 
-#: widgets/signatureconfigurator.cpp:162
+#: widgets/signatureconfigurator.cpp:164
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Koristite ovo polje da unesete bilo koji statični potpis."
 
-#: widgets/signatureconfigurator.cpp:203 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Koristi HTML"
 
-#: widgets/signatureconfigurator.cpp:219
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:223
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -261,22 +261,22 @@ msgstr ""
 "potpis. Ona će biti pročitana svaki put kada kreirate novu poruku ili "
 "zakačite novi potpis."
 
-#: widgets/signatureconfigurator.cpp:224
+#: widgets/signatureconfigurator.cpp:226
 #, kde-format
 msgid "S&pecify file:"
 msgstr "Na&vedite datoteku:"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:233
 #, kde-format
 msgid "Edit &File"
 msgstr "Uredi &datoteku"
 
-#: widgets/signatureconfigurator.cpp:232
+#: widgets/signatureconfigurator.cpp:234
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "Otvara navedenu datoteku u uređivaču teksta."
 
-#: widgets/signatureconfigurator.cpp:252
+#: widgets/signatureconfigurator.cpp:254
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can add an arbitrary command here, either with or without path "
@@ -297,23 +297,23 @@ msgstr ""
 "kao potpis. Uobičajene naredbe koje se koriste sa ovim mehanizmom su "
 "\"fortune\" ili \"ksig -random\"."
 
-#: widgets/signatureconfigurator.cpp:258
+#: widgets/signatureconfigurator.cpp:260
 #, kde-format
 msgid "S&pecify command:"
 msgstr "Navedite &naredbu:"
 
-#: widgets/signatureconfigurator.cpp:418
+#: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:418
+#: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:450
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Koristi HTML (inače uklanja formatiranje)"

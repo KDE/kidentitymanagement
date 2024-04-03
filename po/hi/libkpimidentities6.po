@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-20 00:38+0000\n"
+"POT-Creation-Date: 2024-04-03 00:38+0000\n"
 "PO-Revision-Date: 2021-08-21 10:42+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -50,7 +50,7 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr ""
 
-#: core/signature.cpp:169
+#: core/signature.cpp:170
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>हस्ताक्षर स्क्रिप्ट चलाने में असफल<p><b>%1</b>:</p><p>%2</p></qt>"
@@ -190,12 +190,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "(पूर्वन्यस्त)"
 
-#: widgets/signatureconfigurator.cpp:105
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
 msgstr "हस्ताक्षर सक्षम करें (&E)"
 
-#: widgets/signatureconfigurator.cpp:107
+#: widgets/signatureconfigurator.cpp:109
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
@@ -204,51 +204,51 @@ msgstr ""
 "यदि आप चाहते हैं कि केमेल आपके इस पहचान से लिखे गए संदेशों में हस्ताक्षर जोड़े तब इस बक्से में "
 "निशान लगाएँ."
 
-#: widgets/signatureconfigurator.cpp:116
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr "इनपुट क्षेत्र पर सहायता के लिए नीचे विजेेट्स पर क्लिक करें।"
 
-#: widgets/signatureconfigurator.cpp:118
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "इनपुट क्षेत्र नीचे है"
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "फ़ाइल"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "समादेश का आउटपुट"
 
-#: widgets/signatureconfigurator.cpp:121
+#: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgid "Obtain signature &text from:"
 msgstr "हस्ताक्षर यहाँ से प्राप्त करें:(&t)"
 
-#: widgets/signatureconfigurator.cpp:162
+#: widgets/signatureconfigurator.cpp:164
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "इच्छाधीन तथा स्थिर हस्ताक्षर प्रवेश करने के लिए इस क्षेत्र का प्रयोग करें।"
 
-#: widgets/signatureconfigurator.cpp:203 widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
 #, kde-format
 msgid "&Use HTML"
 msgstr "एचटीएमएल का प्रयोग करें(&U)"
 
-#: widgets/signatureconfigurator.cpp:219
+#: widgets/signatureconfigurator.cpp:221
 #, fuzzy, kde-format
 #| msgid "Text File Size"
 msgid "Text File (*.txt)"
 msgstr "पाठ फ़ाइल आकार"
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:223
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -257,22 +257,22 @@ msgstr ""
 "आपके हस्ताक्षर वाली पाठ फाइल को निर्दिष्ट करने के लिए इस निवेदक का प्रयोग करें। यह हर "
 "नए संदेश तथा हस्ताक्षर के सृजन पर पढ़ा जाएगा।"
 
-#: widgets/signatureconfigurator.cpp:224
+#: widgets/signatureconfigurator.cpp:226
 #, kde-format
 msgid "S&pecify file:"
 msgstr "फ़ाइल निर्धारित करें (&p):"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:233
 #, kde-format
 msgid "Edit &File"
 msgstr "फ़ाइल का सम्पादन करें (&F)"
 
-#: widgets/signatureconfigurator.cpp:232
+#: widgets/signatureconfigurator.cpp:234
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "निर्दिष्ट फ़ाइल को किसी पाठ सम्पादक में खोलें।"
 
-#: widgets/signatureconfigurator.cpp:252
+#: widgets/signatureconfigurator.cpp:254
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -287,24 +287,24 @@ msgstr ""
 "क्रियाविधि के साथ सामान्य समादेश हैं \"फ़ॉरचून\" या\"केएसआइजी-रैंडम\". (इस बात का ध्यान "
 "रहे कि स्क्रिप्ट को शीबैंग पंक्ति की आवश्यकता है)।"
 
-#: widgets/signatureconfigurator.cpp:258
+#: widgets/signatureconfigurator.cpp:260
 #, kde-format
 msgid "S&pecify command:"
 msgstr "समादेश निर्दिष्ट करें (&p):"
 
-#: widgets/signatureconfigurator.cpp:418
+#: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "इस पाठ फ़ाइल का आकार १ केबी से अधिक है।"
 
-#: widgets/signatureconfigurator.cpp:418
+#: widgets/signatureconfigurator.cpp:420
 #, fuzzy, kde-format
 #| msgid "Text File Size"
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "पाठ फ़ाइल आकार"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:450
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "एचटीएमएल का प्रयोग करें (निष्क्रिय करने पर फ़ॉरमैटिंग हटा देता है) (&U)"
