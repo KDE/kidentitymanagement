@@ -8,7 +8,7 @@ macro(add_identity_test _source)
     ecm_add_test(${_source} ${_name}.h
         TEST_NAME ${_name}
         NAME_PREFIX "kpimidentity-"
-        LINK_LIBRARIES KPim6::IdentityManagementWidgets
+	LINK_LIBRARIES KPim6::IdentityManagementCore
         KPim6::PimTextEdit Qt::Test KF6::ConfigCore KF6::XmlGui KF6::CoreAddons
     )
 endmacro ()
