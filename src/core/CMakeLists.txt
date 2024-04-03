@@ -26,6 +26,7 @@ target_sources(KPim6IdentityManagementCore PRIVATE
   signature.h
   identitymanager.h
   identity.h
+  identitymodel.h
 )
 
 ecm_qt_declare_logging_category(KPim6IdentityManagementCore HEADER kidentitymanagementcore_debug.h
