@@ -41,10 +41,8 @@ public:
      */
     Q_INVOKABLE QString email(uint uoid);
 
-private Q_SLOTS:
-    void reloadUoidList();
-
 private:
+    KIDENTITYMANAGEMENTCORE_NO_EXPORT void reloadUoidList();
     QList<int> m_identitiesUoid;
     IdentityManager *const m_identityManager;
 };
