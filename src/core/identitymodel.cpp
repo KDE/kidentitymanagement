@@ -30,9 +30,7 @@ void IdentityModel::reloadUoidList()
     endResetModel();
 }
 
-IdentityModel::~IdentityModel()
-{
-}
+IdentityModel::~IdentityModel() = default;
 
 QVariant IdentityModel::data(const QModelIndex &index, int role) const
 {
