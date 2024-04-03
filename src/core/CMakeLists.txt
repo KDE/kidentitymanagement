@@ -1,9 +1,9 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
 ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENTCORE
-                        VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementcore_version.h"
-                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfigVersion.cmake"
-                        SOVERSION 6
+    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementcore_version.h"
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfigVersion.cmake"
+    SOVERSION 6
 )
 
 
@@ -17,22 +17,22 @@ qt_add_dbus_adaptor(kidentity_dbs_adaptor_SRCS org.kde.pim.IdentityManager.xml i
 
 target_sources(KPim6IdentityManagementCore PRIVATE
     ${kidentity_dbs_adaptor_SRCS}
-  identity.cpp
-  identitymanager.cpp
-  identitymodel.cpp
-  signature.cpp
-  utils.cpp
-  utils.h
-  signature.h
-  identitymanager.h
-  identity.h
-  identitymodel.h
+    identity.cpp
+    identitymanager.cpp
+    identitymodel.cpp
+    signature.cpp
+    utils.cpp
+    utils.h
+    signature.h
+    identitymanager.h
+    identity.h
+    identitymodel.h
 )
 
 ecm_qt_declare_logging_category(KPim6IdentityManagementCore HEADER kidentitymanagementcore_debug.h
-        IDENTIFIER KIDENTITYMANAGEMENT_LOG CATEGORY_NAME org.kde.pim.kidentitymanagement
-        OLD_CATEGORY_NAMES log_kidentitymanagement
-        DESCRIPTION "kidentitymanagement (pim lib)" EXPORT KIDENTITYMANAGEMENT)
+    IDENTIFIER KIDENTITYMANAGEMENT_LOG CATEGORY_NAME org.kde.pim.kidentitymanagement
+    OLD_CATEGORY_NAMES log_kidentitymanagement
+    DESCRIPTION "kidentitymanagement (pim lib)" EXPORT KIDENTITYMANAGEMENT)
 
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
     set_target_properties(KPim6IdentityManagementCore PROPERTIES UNITY_BUILD ON)
@@ -44,15 +44,15 @@ target_include_directories(KPim6IdentityManagementCore INTERFACE "$<INSTALL_INTE
 target_include_directories(KPim6IdentityManagementCore PUBLIC "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src/;${KIdentityManagement_BINARY_DIR}/src/>")
 
 target_link_libraries(KPim6IdentityManagementCore
-PUBLIC
-  Qt::Gui
-PRIVATE
-  KF6::CoreAddons
-  KF6::ConfigCore
-  KF6::Codecs
-  KF6::I18n
-  Qt::DBus
-  Qt::Network
+    PUBLIC
+    Qt::Gui
+    PRIVATE
+    KF6::CoreAddons
+    KF6::ConfigCore
+    KF6::Codecs
+    KF6::I18n
+    Qt::DBus
+    Qt::Network
 )
 
 set_target_properties(KPim6IdentityManagementCore PROPERTIES
@@ -66,10 +66,10 @@ set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim6IdentityManagem
 
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfigVersion.cmake"
-  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-  COMPONENT Devel
+    "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfigVersion.cmake"
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    COMPONENT Devel
 )
 
 install(EXPORT KPim6IdentityManagementCoreTargets
@@ -79,9 +79,9 @@ install(EXPORT KPim6IdentityManagementCoreTargets
 )
 
 install(FILES
-   ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementcore_version.h
-   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementCore
-   COMPONENT Devel
+    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementcore_version.h
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementCore
+    COMPONENT Devel
 )
 
 
@@ -91,21 +91,21 @@ install(TARGETS KPim6IdentityManagementCore EXPORT KPim6IdentityManagementCoreTa
 
 ########### Generate Headers ###############
 ecm_generate_headers(KIdentityManagementCore_CamelCase_HEADERS
-  HEADER_NAMES
-  Identity
-  IdentityManager
-  IdentityModel
-  Signature
-  Utils
-  PREFIX KIdentityManagementCore
-  REQUIRED_HEADERS KIdentityManagementCore_HEADERS
+    HEADER_NAMES
+    Identity
+    IdentityManager
+    IdentityModel
+    Signature
+    Utils
+    PREFIX KIdentityManagementCore
+    REQUIRED_HEADERS KIdentityManagementCore_HEADERS
 )
 
 ########### install files ###############
 
 install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementcore_export.h
-  ${KIdentityManagementCore_HEADERS}
+    ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementcore_export.h
+    ${KIdentityManagementCore_HEADERS}
     DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementCore/kidentitymanagementcore
     COMPONENT Devel
 )
@@ -127,13 +127,13 @@ if (BUILD_QCH)
         VERSION ${PIM_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
-            ${KIdentityManagementCore_HEADERS}
+        ${KIdentityManagementCore_HEADERS}
         LINK_QCHS
-            Qt6Gui_QCH
+        Qt6Gui_QCH
         INCLUDE_DIRS
-            ${CMAKE_CURRENT_BINARY_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}
         BLANK_MACROS
-            KIDENTITYMANAGEMENTCORE_EXPORT
+        KIDENTITYMANAGEMENTCORE_EXPORT
         TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
         QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
         COMPONENT Devel
@@ -147,10 +147,10 @@ if (BUILD_QCH)
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
     )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementCoreQchTargets.cmake\")")
+set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementCoreQchTargets.cmake\")")
 endif()
 configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementCoreConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfig.cmake"
-  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+    "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementCoreConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfig.cmake"
+    INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
