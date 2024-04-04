@@ -57,6 +57,11 @@ find_package(KF6I18n   ${KF_MIN_VERSION} CONFIG REQUIRED)
 
 find_package(KF6TextCustomEditor ${KTEXTADDONS_MIN_VERSION} CONFIG REQUIRED)
 find_package(KPim6TextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
+
+if(BUILD_TESTING)
+    find_package(Qt6Test ${QT_REQUIRED_VERSION} CONFIG REQUIRED)
+endif()
+
 if (BUILD_QUICK_SUPPORT)
    find_package(KF6KirigamiAddons 1.0 REQUIRED)
    set_package_properties(KF6KirigamiAddons PROPERTIES

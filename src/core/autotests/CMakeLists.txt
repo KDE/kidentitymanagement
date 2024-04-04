@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
 include(ECMAddTests)
-find_package(Qt6Test ${QT_REQUIRED_VERSION} CONFIG REQUIRED)
 
 macro(add_identitycore_test _source)
     get_filename_component(_name ${_source} NAME_WE)
