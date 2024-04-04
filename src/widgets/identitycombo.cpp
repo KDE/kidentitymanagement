@@ -17,6 +17,7 @@
 #include "identitycombo.h"
 #include "identity.h"
 #include "identitymanager.h"
+#include "identitymodel.h"
 
 #include <KLocalizedString>
 
@@ -43,6 +44,7 @@ public:
 
     QList<uint> mUoidList;
     KIdentityManagementCore::IdentityManager *const mIdentityManager;
+    KIdentityManagementCore::IdentityModel *mIdentityModel = nullptr;
     IdentityCombo *const q;
     bool showDefault = false;
 };
@@ -82,8 +84,12 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     : QComboBox(parent)
     , d(new KIdentityManagementWidgets::IdentityComboPrivate(manager, this))
 {
+#if 0
     // TODO use IdentityModel
-
+    d->mIdentityModel = new KIdentityManagementCore::IdentityModel(this);
+    setModelColumn(1);
+    setModel(d->mIdentityModel);
+#else
     d->reloadCombo();
     d->reloadUoidList();
     connect(this, &IdentityCombo::activated, this, &IdentityCombo::slotEmitChanged);
@@ -91,6 +97,7 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
     connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
     slotUpdateTooltip(currentIdentity());
+#endif
 }
 
 IdentityCombo::~IdentityCombo() = default;
