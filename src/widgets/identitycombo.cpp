@@ -88,9 +88,9 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
 #if 0
     // TODO use IdentityModel
     d->mIdentityModel = new KIdentityManagementCore::IdentityModel(this);
+    setModel(d->mIdentityModel);
     // qDebug() << " d->mIdentityModel " << d->mIdentityModel->rowCount();
     setModelColumn(KIdentityManagementCore::IdentityModel::IdentityNameRole);
-    setModel(d->mIdentityModel);
 #else
     d->reloadCombo();
     d->reloadUoidList();
