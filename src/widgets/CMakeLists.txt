@@ -139,3 +139,8 @@ configure_package_config_file(
   "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementWidgetsConfig.cmake"
   INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
+
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
+
