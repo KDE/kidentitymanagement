@@ -22,13 +22,13 @@ FormCard.FormCard {
 
         delegate: FormCard.FormButtonDelegate {
             leadingPadding: Kirigami.Units.largeSpacing
-            text: model.display
+            text: model.displayName
             onClicked: {
                 pageStack.pushDialogLayer(Qt.resolvedUrl("IdentityEditorPage.qml"), {
                     mode: IdentityEditorBackend.EditMode,
                     identityUoid: model.uoid,
                     allowDelete: identityRepeater.count > 1,
-                    identityName: model.display,
+                    identityName: model.displayName,
                     cryptographyEditorBackend: root.cryptographyEditorBackend
                 }, {title: i18nc("@title", "Edit Identity")});
             }

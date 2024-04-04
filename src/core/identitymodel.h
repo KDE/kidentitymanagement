@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2021 Carl Schwan <carlschwan@kde.org>
 // SPDX-FileCopyrightText: 2023 Claudio Cambra <claudio.cambra@kde.org>
+// SPDX-FileCopyrightText: 2024 Laurent Montel <montel@kde.org>
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 
 #pragma once
@@ -20,20 +21,22 @@ class KIDENTITYMANAGEMENTCORE_EXPORT IdentityModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    enum Roles {
-        EmailRole = Qt::UserRole,
+    enum IdentityRoles {
+        EmailRole,
         UoidRole,
         IdentityNameRole,
         DisplayNameRole,
         DefaultRole,
+        LastColumn = DefaultRole,
     };
 
     explicit IdentityModel(QObject *parent = nullptr);
     ~IdentityModel();
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    QHash<int, QByteArray> roleNames() const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
+    [[nodiscard]] int columnCount(const QModelIndex &parent) const override;
 
     /**
      * @return the email address of the identity with the given uoid.
