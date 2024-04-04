@@ -1,5 +1,6 @@
 /*
   SPDX-FileCopyrightText: 2002 Marc Mutz <mutz@kde.org>
+  SPDX-FileCopyrightText: 2024 Laurent Montel <montel@kde.org>
 
   SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -87,7 +88,8 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
 #if 0
     // TODO use IdentityModel
     d->mIdentityModel = new KIdentityManagementCore::IdentityModel(this);
-    setModelColumn(1);
+    // qDebug() << " d->mIdentityModel " << d->mIdentityModel->rowCount();
+    setModelColumn(KIdentityManagementCore::IdentityModel::IdentityNameRole);
     setModel(d->mIdentityModel);
 #else
     d->reloadCombo();
