@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-03 00:38+0000\n"
+"POT-Creation-Date: 2024-04-04 00:39+0000\n"
 "PO-Revision-Date: 2023-10-25 13:05+0200\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Unnamed"
 msgstr ""
 
-#: core/identitymodel.cpp:46
+#: core/identitymodel.cpp:44
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "

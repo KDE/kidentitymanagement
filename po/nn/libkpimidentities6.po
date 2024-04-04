@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-03 00:38+0000\n"
+"POT-Creation-Date: 2024-04-04 00:39+0000\n"
 "PO-Revision-Date: 2022-06-19 14:06+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -44,7 +44,7 @@ msgstr "%1, nr. %2"
 msgid "Unnamed"
 msgstr "Namnlaus"
 
-#: core/identitymodel.cpp:46
+#: core/identitymodel.cpp:44
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "

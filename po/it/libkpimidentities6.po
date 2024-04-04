@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-03 00:38+0000\n"
+"POT-Creation-Date: 2024-04-04 00:39+0000\n"
 "PO-Revision-Date: 2024-02-20 13:51+0100\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -44,7 +44,7 @@ msgstr "%1 #%2"
 msgid "Unnamed"
 msgstr "Senza nome"
 
-#: core/identitymodel.cpp:46
+#: core/identitymodel.cpp:44
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "

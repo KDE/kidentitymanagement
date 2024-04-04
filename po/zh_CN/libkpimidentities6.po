@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-03 00:38+0000\n"
+"POT-Creation-Date: 2024-04-04 00:39+0000\n"
 "PO-Revision-Date: 2024-03-30 19:37\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -42,7 +42,7 @@ msgstr "%1 #%2"
 msgid "Unnamed"
 msgstr "未命名"
 
-#: core/identitymodel.cpp:46
+#: core/identitymodel.cpp:44
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
