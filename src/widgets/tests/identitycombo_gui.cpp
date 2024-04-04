@@ -11,6 +11,7 @@ class IdentityComboboxWidget : public QWidget
 {
 public:
     explicit IdentityComboboxWidget(QWidget *parent = nullptr);
+    ~IdentityComboboxWidget() override = default;
 };
 
 IdentityComboboxWidget::IdentityComboboxWidget(QWidget *parent)
