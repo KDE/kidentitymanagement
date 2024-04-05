@@ -69,7 +69,7 @@ QVariant IdentityTableModel::data(const QModelIndex &index, int role) const
 QString IdentityTableModel::generateIdentityName(const Identity &identity) const
 {
     QString str = identity.identityName();
-    if (identity.isDefault()) {
+    if (mShowDefault && identity.isDefault()) {
         str += QLatin1Char(' ') + i18nc("Default identity", " (default)");
     }
     return str;
