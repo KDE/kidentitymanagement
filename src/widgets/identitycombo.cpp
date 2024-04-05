@@ -23,7 +23,7 @@
 #include <KLocalizedString>
 
 #include <cassert>
-// #define USE_MODEL 1
+
 using namespace KIdentityManagementWidgets;
 using namespace KIdentityManagementCore;
 /**
@@ -40,54 +40,10 @@ public:
     {
     }
 
-    void reloadCombo();
-    void reloadUoidList();
-#ifndef USE_MODEL
-    QList<uint> mUoidList;
-#endif
     KIdentityManagementCore::IdentityManager *const mIdentityManager;
-
-#ifdef USE_MODEL
     KIdentityManagementWidgets::IdentityTableModel *mIdentityModel = nullptr;
-#endif
     IdentityCombo *const q;
-#ifndef USE_MODEL
-    bool showDefault = false;
-#endif
 };
-
-void KIdentityManagementWidgets::IdentityComboPrivate::reloadCombo()
-{
-#ifndef USE_MODEL
-    QStringList identities;
-    identities.reserve(mIdentityManager->identities().count());
-    KIdentityManagementCore::IdentityManager::ConstIterator it;
-    KIdentityManagementCore::IdentityManager::ConstIterator end(mIdentityManager->end());
-    for (it = mIdentityManager->begin(); it != end; ++it) {
-        if (showDefault && it->isDefault()) {
-            identities << QString(it->identityName() + i18nc("Default identity", " (default)"));
-        } else {
-            identities << it->identityName();
-        }
-    }
-    // the IM should prevent this from happening:
-    assert(!identities.isEmpty());
-    q->clear();
-    q->addItems(identities);
-#endif
-}
-
-void KIdentityManagementWidgets::IdentityComboPrivate::reloadUoidList()
-{
-#ifndef USE_MODEL
-    mUoidList.clear();
-    KIdentityManagementCore::IdentityManager::ConstIterator it;
-    KIdentityManagementCore::IdentityManager::ConstIterator end(mIdentityManager->end());
-    for (it = mIdentityManager->begin(); it != end; ++it) {
-        mUoidList << (*it).uoid();
-    }
-#endif
-}
 
 //@endcond
 
@@ -95,7 +51,6 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     : QComboBox(parent)
     , d(new KIdentityManagementWidgets::IdentityComboPrivate(manager, this))
 {
-#ifdef USE_MODEL
     d->mIdentityModel = new KIdentityManagementWidgets::IdentityTableModel(this);
     connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
     connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
@@ -105,15 +60,6 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     // qDebug() << " d->mIdentityModel " << d->mIdentityModel->rowCount();
     setModelColumn(KIdentityManagementWidgets::IdentityTableModel::IdentityNameRole);
     slotUpdateTooltip(currentIdentity());
-#else
-    d->reloadCombo();
-    d->reloadUoidList();
-    connect(this, &IdentityCombo::activated, this, &IdentityCombo::slotEmitChanged);
-    connect(this, &IdentityCombo::identityChanged, this, &IdentityCombo::slotUpdateTooltip);
-    connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
-    connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
-    slotUpdateTooltip(currentIdentity());
-#endif
 }
 
 IdentityCombo::~IdentityCombo() = default;
@@ -125,11 +71,7 @@ QString IdentityCombo::currentIdentityName() const
 
 uint IdentityCombo::currentIdentity() const
 {
-#ifdef USE_MODEL
     return d->mIdentityModel->identityUoid(currentIndex());
-#else
-    return d->mUoidList.at(currentIndex());
-#endif
 }
 
 bool IdentityCombo::isDefaultIdentity() const
@@ -169,11 +111,7 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
     if (uoid == 0) {
         return;
     }
-#ifdef USE_MODEL
     const int idx = d->mIdentityModel->uoidIndex(uoid);
-#else
-    const int idx = d->mUoidList.indexOf(uoid);
-#endif
 
     if (idx < 0) {
         Q_EMIT invalidIdentity();
@@ -192,22 +130,11 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
 
 void IdentityCombo::slotIdentityManagerChanged()
 {
-#ifdef USE_MODEL
     uint oldIdentity = d->mIdentityModel->identityUoid(currentIndex());
-#else
-    uint oldIdentity = d->mUoidList.at(currentIndex());
-#endif
 
-    d->reloadUoidList();
-
-#ifdef USE_MODEL
     int idx = d->mIdentityModel->uoidIndex(oldIdentity);
-#else
-    int idx = d->mUoidList.indexOf(oldIdentity);
-#endif
 
     blockSignals(true);
-    d->reloadCombo();
     setCurrentIndex(idx < 0 ? 0 : idx);
     blockSignals(false);
 
@@ -221,11 +148,7 @@ void IdentityCombo::slotIdentityManagerChanged()
 
 void IdentityCombo::slotEmitChanged(int idx)
 {
-#ifdef USE_MODEL
     Q_EMIT identityChanged(d->mIdentityModel->identityUoid(idx));
-#else
-    Q_EMIT identityChanged(d->mUoidList.at(idx));
-#endif
 }
 
 void IdentityCombo::slotUpdateTooltip(uint uoid)
@@ -240,14 +163,7 @@ IdentityManager *IdentityCombo::identityManager() const
 
 void IdentityCombo::setShowDefault(bool showDefault)
 {
-#ifdef USE_MODEL
     d->mIdentityModel->setShowDefault(showDefault);
-#else
-    if (d->showDefault != showDefault) {
-        d->showDefault = showDefault;
-        d->reloadCombo();
-    }
-#endif
 }
 
 #include "moc_identitycombo.cpp"
