@@ -31,7 +31,7 @@ public:
     };
 
     explicit IdentityModel(QObject *parent = nullptr);
-    ~IdentityModel();
+    ~IdentityModel() override;
 
     [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
