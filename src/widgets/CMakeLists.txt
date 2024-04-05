@@ -24,6 +24,8 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
   signaturerichtexteditor_p.h
   identitycombo.h
   signatureconfigurator.h
+  identitytablemodel.h
+  identitytablemodel.cpp
 )
 
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
