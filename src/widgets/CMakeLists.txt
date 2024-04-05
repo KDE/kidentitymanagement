@@ -24,8 +24,12 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
   signaturerichtexteditor_p.h
   identitycombo.h
   signatureconfigurator.h
-  identitytablemodel.h
-  identitytablemodel.cpp
+
+  identitytreemodel.h
+  identitytreemodel.cpp
+
+  identitytreeview.h
+  identitytreeview.cpp
 )
 
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
@@ -86,7 +90,8 @@ ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
   HEADER_NAMES
   IdentityCombo
   SignatureConfigurator
-  IdentityTableModel
+  IdentityTreeModel
+  IdentityTreeView
   PREFIX KIdentityManagementWidgets
   REQUIRED_HEADERS KIdentityManagementWidgets_HEADERS
 )

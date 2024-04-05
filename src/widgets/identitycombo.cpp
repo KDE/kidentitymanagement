@@ -18,7 +18,7 @@
 #include "identitycombo.h"
 #include "identity.h"
 #include "identitymanager.h"
-#include "identitytablemodel.h"
+#include "identitytreemodel.h"
 
 #include <KLocalizedString>
 
@@ -41,7 +41,7 @@ public:
     }
 
     KIdentityManagementCore::IdentityManager *const mIdentityManager;
-    KIdentityManagementWidgets::IdentityTableModel *mIdentityModel = nullptr;
+    KIdentityManagementWidgets::IdentityTreeModel *mIdentityModel = nullptr;
     IdentityCombo *const q;
 };
 
@@ -51,14 +51,14 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     : QComboBox(parent)
     , d(new KIdentityManagementWidgets::IdentityComboPrivate(manager, this))
 {
-    d->mIdentityModel = new KIdentityManagementWidgets::IdentityTableModel(this);
+    d->mIdentityModel = new KIdentityManagementWidgets::IdentityTreeModel(this);
     connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
     connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
     connect(this, &IdentityCombo::activated, this, &IdentityCombo::slotEmitChanged);
     connect(this, &IdentityCombo::identityChanged, this, &IdentityCombo::slotUpdateTooltip);
     setModel(d->mIdentityModel);
     // qDebug() << " d->mIdentityModel " << d->mIdentityModel->rowCount();
-    setModelColumn(KIdentityManagementWidgets::IdentityTableModel::IdentityNameRole);
+    setModelColumn(KIdentityManagementWidgets::IdentityTreeModel::IdentityNameRole);
     slotUpdateTooltip(currentIdentity());
 }
 
