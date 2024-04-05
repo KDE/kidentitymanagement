@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-04 00:39+0000\n"
+"POT-Creation-Date: 2024-04-05 00:38+0000\n"
 "PO-Revision-Date: 2024-02-20 10:21+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -45,7 +45,7 @@ msgstr "%1 #%2"
 msgid "Unnamed"
 msgstr "Naamloos"
 
-#: core/identitymodel.cpp:44
+#: core/identitymodel.cpp:58
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
@@ -186,7 +186,7 @@ msgstr "Wilt u deze identiteit verwijderen?"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: widgets/identitycombo.cpp:58
+#: widgets/identitycombo.cpp:61
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"

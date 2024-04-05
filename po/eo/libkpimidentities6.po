@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-04 00:39+0000\n"
+"POT-Creation-Date: 2024-04-05 00:38+0000\n"
 "PO-Revision-Date: 2024-02-24 21:13+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -43,7 +43,7 @@ msgstr "%1 #%2"
 msgid "Unnamed"
 msgstr "Sennoma"
 
-#: core/identitymodel.cpp:44
+#: core/identitymodel.cpp:58
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
@@ -184,7 +184,7 @@ msgstr "Ĉu vi certas ke vi volas forigi tiun ĉi identecon?"
 msgid "Cancel"
 msgstr "Nuligi"
 
-#: widgets/identitycombo.cpp:58
+#: widgets/identitycombo.cpp:61
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"

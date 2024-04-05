@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-04 00:39+0000\n"
+"POT-Creation-Date: 2024-04-05 00:38+0000\n"
 "PO-Revision-Date: 2024-03-28 16:34+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -41,7 +41,7 @@ msgstr "%1 #%2"
 msgid "Unnamed"
 msgstr "Sin nomine"
 
-#: core/identitymodel.cpp:44
+#: core/identitymodel.cpp:58
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
@@ -182,7 +182,7 @@ msgstr "Tu es secur que tu vole deler iste identitate?"
 msgid "Cancel"
 msgstr "Cancella"
 
-#: widgets/identitycombo.cpp:58
+#: widgets/identitycombo.cpp:61
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
