@@ -11,16 +11,16 @@
 
 using namespace KIdentityManagementWidgets;
 using namespace KIdentityManagementCore;
-IdentityModel::IdentityModel(QObject *parent)
+IdentityTableModel::IdentityTableModel(QObject *parent)
     : QAbstractListModel(parent)
     , mIdentityManager(IdentityManager::self())
 {
-    connect(mIdentityManager, &IdentityManager::needToReloadIdentitySettings, this, &IdentityModel::reloadUoidList);
-    connect(mIdentityManager, &IdentityManager::identitiesWereChanged, this, &IdentityModel::reloadUoidList);
+    connect(mIdentityManager, &IdentityManager::needToReloadIdentitySettings, this, &IdentityTableModel::reloadUoidList);
+    connect(mIdentityManager, &IdentityManager::identitiesWereChanged, this, &IdentityTableModel::reloadUoidList);
     reloadUoidList();
 }
 
-void IdentityModel::reloadUoidList()
+void IdentityTableModel::reloadUoidList()
 {
     beginResetModel();
     mIdentitiesUoid.clear();
@@ -30,16 +30,16 @@ void IdentityModel::reloadUoidList()
     endResetModel();
 }
 
-IdentityModel::~IdentityModel() = default;
+IdentityTableModel::~IdentityTableModel() = default;
 
-int IdentityModel::columnCount(const QModelIndex &parent) const
+int IdentityTableModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
     constexpr int nbCol = static_cast<int>(IdentityRoles::LastColumn) + 1;
     return nbCol;
 }
 
-QVariant IdentityModel::data(const QModelIndex &index, int role) const
+QVariant IdentityTableModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
         return {};
@@ -68,7 +68,7 @@ QVariant IdentityModel::data(const QModelIndex &index, int role) const
     return {};
 }
 
-int IdentityModel::rowCount(const QModelIndex &parent) const
+int IdentityTableModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
     return mIdentitiesUoid.count();

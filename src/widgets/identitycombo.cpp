@@ -18,7 +18,7 @@
 #include "identitycombo.h"
 #include "identity.h"
 #include "identitymanager.h"
-#include "identitymodel.h"
+#include "identitytablemodel.h"
 
 #include <KLocalizedString>
 
@@ -45,7 +45,7 @@ public:
 
     QList<uint> mUoidList;
     KIdentityManagementCore::IdentityManager *const mIdentityManager;
-    KIdentityManagementCore::IdentityModel *mIdentityModel = nullptr;
+    KIdentityManagementWidgets::IdentityTableModel *mIdentityModel = nullptr;
     IdentityCombo *const q;
     bool showDefault = false;
 };
@@ -86,11 +86,15 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     , d(new KIdentityManagementWidgets::IdentityComboPrivate(manager, this))
 {
 #if 0
-    // TODO use IdentityModel
-    d->mIdentityModel = new KIdentityManagementCore::IdentityModel(this);
+    d->mIdentityModel = new KIdentityManagementWidgets::IdentityTableModel(this);
+    connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
+    connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
+    connect(this, &IdentityCombo::activated, this, &IdentityCombo::slotEmitChanged);
+    connect(this, &IdentityCombo::identityChanged, this, &IdentityCombo::slotUpdateTooltip);
     setModel(d->mIdentityModel);
     // qDebug() << " d->mIdentityModel " << d->mIdentityModel->rowCount();
-    setModelColumn(KIdentityManagementCore::IdentityModel::IdentityNameRole);
+    setModelColumn(KIdentityManagementWidgets::IdentityTableModel::IdentityNameRole);
+    slotUpdateTooltip(currentIdentity());
 #else
     d->reloadCombo();
     d->reloadUoidList();

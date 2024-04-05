@@ -17,7 +17,7 @@ class IdentityManager;
 }
 namespace KIdentityManagementWidgets
 {
-class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityModel : public QAbstractListModel
+class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTableModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -26,13 +26,12 @@ public:
         EmailRole,
         UoidRole,
         IdentityNameRole,
-        DisplayNameRole,
         DefaultRole,
         LastColumn = DefaultRole,
     };
 
-    explicit IdentityModel(QObject *parent = nullptr);
-    ~IdentityModel() override;
+    explicit IdentityTableModel(QObject *parent = nullptr);
+    ~IdentityTableModel() override;
 
     [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
