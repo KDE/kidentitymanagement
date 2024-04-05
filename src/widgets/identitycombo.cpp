@@ -23,7 +23,7 @@
 #include <KLocalizedString>
 
 #include <cassert>
-
+// #define USE_MODEL 1
 using namespace KIdentityManagementWidgets;
 using namespace KIdentityManagementCore;
 /**
@@ -85,7 +85,7 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     : QComboBox(parent)
     , d(new KIdentityManagementWidgets::IdentityComboPrivate(manager, this))
 {
-#if 0
+#ifdef USE_MODEL
     d->mIdentityModel = new KIdentityManagementWidgets::IdentityTableModel(this);
     connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
     connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
@@ -208,10 +208,14 @@ IdentityManager *IdentityCombo::identityManager() const
 
 void IdentityCombo::setShowDefault(bool showDefault)
 {
+#ifdef USE_MODEL
+    d->mIdentityModel->setShowDefault(showDefault);
+#else
     if (d->showDefault != showDefault) {
         d->showDefault = showDefault;
         d->reloadCombo();
     }
+#endif
 }
 
 #include "moc_identitycombo.cpp"

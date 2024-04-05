@@ -37,9 +37,13 @@ public:
     [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     [[nodiscard]] int columnCount(const QModelIndex &parent) const override;
 
+    void setShowDefault(bool show);
+
 private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void reloadUoidList();
+    KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT QString generateIdentityName(const KIdentityManagementCore::Identity &identity) const;
     QList<int> mIdentitiesUoid;
+    bool mShowDefault = false;
     KIdentityManagementCore::IdentityManager *const mIdentityManager;
 };
 }

@@ -53,14 +53,12 @@ QVariant IdentityTableModel::data(const QModelIndex &index, int role) const
         return {};
     }
     switch (static_cast<IdentityRoles>(index.column())) {
-    case DisplayNameRole:
-        return QString(identity.identityName() + i18nc("Separator between identity name and email address", " - ") + identity.fullEmailAddr());
     case EmailRole:
         return identity.primaryEmailAddress();
     case UoidRole:
         return identity.uoid();
     case IdentityNameRole:
-        return identity.identityName();
+        return generateIdentityName(identity);
     case DefaultRole:
         return identity.isDefault();
     }
@@ -68,10 +66,24 @@ QVariant IdentityTableModel::data(const QModelIndex &index, int role) const
     return {};
 }
 
+QString IdentityTableModel::generateIdentityName(const Identity &identity) const
+{
+    QString str = identity.identityName();
+    if (identity.isDefault()) {
+        str += i18nc("Default identity", " (default)");
+    }
+    return str;
+}
+
 int IdentityTableModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
     return mIdentitiesUoid.count();
+}
+
+void IdentityTableModel::setShowDefault(bool show)
+{
+    mShowDefault = show;
 }
 
 #include "moc_identitytablemodel.cpp"
