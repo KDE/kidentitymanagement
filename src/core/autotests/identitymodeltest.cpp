@@ -66,9 +66,10 @@ void IdentityModelTester::testModelData()
 {
     IdentityModel model;
     const auto &i1 = IdentityManager::self()->modifyIdentityForName(i1Name);
-    QCOMPARE(model.index(0, IdentityModel::IdentityNameRole).data(), i1Name);
-    QCOMPARE(model.index(0, IdentityModel::EmailRole).data(), i1Email);
-    QCOMPARE(model.index(0, IdentityModel::UoidRole).data().toUInt(), i1.uoid());
+    const auto i1Index = model.index(0, 0);
+    QCOMPARE(i1Index.data(IdentityModel::IdentityNameRole), i1Name);
+    QCOMPARE(i1Index.data(IdentityModel::EmailRole), i1Email);
+    QCOMPARE(i1Index.data(IdentityModel::UoidRole).toUInt(), i1.uoid());
 }
 
 void IdentityModelTester::testEmailFromUoid()
