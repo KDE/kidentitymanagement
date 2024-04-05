@@ -40,6 +40,7 @@ public:
     void setShowDefault(bool show);
 
     [[nodiscard]] uint identityUoid(int index) const;
+    [[nodiscard]] int uoidIndex(int uoid) const;
 
 private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void reloadUoidList();

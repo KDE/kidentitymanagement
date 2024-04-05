@@ -169,7 +169,12 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
     if (uoid == 0) {
         return;
     }
+#ifdef USE_MODEL
+    const int idx = d->mIdentityModel->uoidIndex(uoid);
+#else
     const int idx = d->mUoidList.indexOf(uoid);
+#endif
+
     if (idx < 0) {
         Q_EMIT invalidIdentity();
         return;
@@ -187,10 +192,19 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
 
 void IdentityCombo::slotIdentityManagerChanged()
 {
+#ifdef USE_MODEL
+    uint oldIdentity = d->mIdentityModel->identityUoid(currentIndex());
+#else
     uint oldIdentity = d->mUoidList.at(currentIndex());
+#endif
 
     d->reloadUoidList();
+
+#ifdef USE_MODEL
+    int idx = d->mIdentityModel->uoidIndex(oldIdentity);
+#else
     int idx = d->mUoidList.indexOf(oldIdentity);
+#endif
 
     blockSignals(true);
     d->reloadCombo();

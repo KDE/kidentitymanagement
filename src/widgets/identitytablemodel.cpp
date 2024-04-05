@@ -70,7 +70,7 @@ QString IdentityTableModel::generateIdentityName(const Identity &identity) const
 {
     QString str = identity.identityName();
     if (identity.isDefault()) {
-        str += i18nc("Default identity", " (default)");
+        str += QLatin1Char(' ') + i18nc("Default identity", " (default)");
     }
     return str;
 }
@@ -89,6 +89,11 @@ void IdentityTableModel::setShowDefault(bool show)
 uint IdentityTableModel::identityUoid(int index) const
 {
     return mIdentitiesUoid.at(index);
+}
+
+int IdentityTableModel::uoidIndex(int uoid) const
+{
+    return mIdentitiesUoid.indexOf(uoid);
 }
 
 #include "moc_identitytablemodel.cpp"
