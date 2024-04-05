@@ -39,6 +39,8 @@ public:
 
     void setShowDefault(bool show);
 
+    [[nodiscard]] uint identityUoid(int index) const;
+
 private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void reloadUoidList();
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT QString generateIdentityName(const KIdentityManagementCore::Identity &identity) const;

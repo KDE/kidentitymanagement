@@ -42,16 +42,23 @@ public:
 
     void reloadCombo();
     void reloadUoidList();
-
+#ifndef USE_MODEL
     QList<uint> mUoidList;
+#endif
     KIdentityManagementCore::IdentityManager *const mIdentityManager;
+
+#ifdef USE_MODEL
     KIdentityManagementWidgets::IdentityTableModel *mIdentityModel = nullptr;
+#endif
     IdentityCombo *const q;
+#ifndef USE_MODEL
     bool showDefault = false;
+#endif
 };
 
 void KIdentityManagementWidgets::IdentityComboPrivate::reloadCombo()
 {
+#ifndef USE_MODEL
     QStringList identities;
     identities.reserve(mIdentityManager->identities().count());
     KIdentityManagementCore::IdentityManager::ConstIterator it;
@@ -67,16 +74,19 @@ void KIdentityManagementWidgets::IdentityComboPrivate::reloadCombo()
     assert(!identities.isEmpty());
     q->clear();
     q->addItems(identities);
+#endif
 }
 
 void KIdentityManagementWidgets::IdentityComboPrivate::reloadUoidList()
 {
+#ifndef USE_MODEL
     mUoidList.clear();
     KIdentityManagementCore::IdentityManager::ConstIterator it;
     KIdentityManagementCore::IdentityManager::ConstIterator end(mIdentityManager->end());
     for (it = mIdentityManager->begin(); it != end; ++it) {
         mUoidList << (*it).uoid();
     }
+#endif
 }
 
 //@endcond
@@ -115,12 +125,16 @@ QString IdentityCombo::currentIdentityName() const
 
 uint IdentityCombo::currentIdentity() const
 {
+#ifdef USE_MODEL
+    return d->mIdentityModel->identityUoid(currentIndex());
+#else
     return d->mUoidList.at(currentIndex());
+#endif
 }
 
 bool IdentityCombo::isDefaultIdentity() const
 {
-    return d->mUoidList.at(currentIndex()) == d->mIdentityManager->defaultIdentity().uoid();
+    return currentIdentity() == d->mIdentityManager->defaultIdentity().uoid();
 }
 
 void IdentityCombo::setCurrentIdentity(const Identity &identity)
@@ -193,7 +207,11 @@ void IdentityCombo::slotIdentityManagerChanged()
 
 void IdentityCombo::slotEmitChanged(int idx)
 {
+#ifdef USE_MODEL
+    Q_EMIT d->mIdentityModel->identityUoid(idx);
+#else
     Q_EMIT identityChanged(d->mUoidList.at(idx));
+#endif
 }
 
 void IdentityCombo::slotUpdateTooltip(uint uoid)

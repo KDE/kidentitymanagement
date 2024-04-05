@@ -86,4 +86,9 @@ void IdentityTableModel::setShowDefault(bool show)
     mShowDefault = show;
 }
 
+uint IdentityTableModel::identityUoid(int index) const
+{
+    return mIdentitiesUoid.at(index);
+}
+
 #include "moc_identitytablemodel.cpp"
