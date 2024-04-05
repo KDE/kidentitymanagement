@@ -208,7 +208,7 @@ void IdentityCombo::slotIdentityManagerChanged()
 void IdentityCombo::slotEmitChanged(int idx)
 {
 #ifdef USE_MODEL
-    Q_EMIT d->mIdentityModel->identityUoid(idx);
+    Q_EMIT identityChanged(d->mIdentityModel->identityUoid(idx));
 #else
     Q_EMIT identityChanged(d->mUoidList.at(idx));
 #endif
