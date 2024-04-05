@@ -130,9 +130,9 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
 
 void IdentityCombo::slotIdentityManagerChanged()
 {
-    uint oldIdentity = d->mIdentityModel->identityUoid(currentIndex());
+    const uint oldIdentity = d->mIdentityModel->identityUoid(currentIndex());
 
-    int idx = d->mIdentityModel->uoidIndex(oldIdentity);
+    const int idx = d->mIdentityModel->uoidIndex(oldIdentity);
 
     blockSignals(true);
     setCurrentIndex(idx < 0 ? 0 : idx);
