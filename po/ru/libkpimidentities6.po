@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-05 00:38+0000\n"
+"POT-Creation-Date: 2024-04-06 00:38+0000\n"
 "PO-Revision-Date: 2024-01-27 18:55+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -50,7 +50,7 @@ msgstr "%1 № %2"
 msgid "Unnamed"
 msgstr "Безымянный"
 
-#: core/identitymodel.cpp:58
+#: core/identitymodel.cpp:44
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
@@ -211,7 +211,7 @@ msgstr "Очистить корзину?"
 msgid "Cancel"
 msgstr "О&тменить"
 
-#: widgets/identitycombo.cpp:61
+#: widgets/identitytreemodel.cpp:73
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"

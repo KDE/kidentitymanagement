@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-05 00:38+0000\n"
+"POT-Creation-Date: 2024-04-06 00:38+0000\n"
 "PO-Revision-Date: 2024-02-07 00:52+0200\n"
 "Last-Translator: Andrius Štikonas <andrius@stikonas.eu>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -42,7 +42,7 @@ msgstr "%1 #%2"
 msgid "Unnamed"
 msgstr "Be pavadinimo"
 
-#: core/identitymodel.cpp:58
+#: core/identitymodel.cpp:44
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: widgets/identitycombo.cpp:61
+#: widgets/identitytreemodel.cpp:73
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"

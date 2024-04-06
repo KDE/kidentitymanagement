@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-05 00:38+0000\n"
+"POT-Creation-Date: 2024-04-06 00:38+0000\n"
 "PO-Revision-Date: 2024-02-21 23:30+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -44,7 +44,7 @@ msgstr "%1 #%2"
 msgid "Unnamed"
 msgstr "Izengabea"
 
-#: core/identitymodel.cpp:58
+#: core/identitymodel.cpp:44
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
@@ -185,7 +185,7 @@ msgstr "Ziur zaude nortasun hori ezabatu nahi duzula?"
 msgid "Cancel"
 msgstr "Utzi"
 
-#: widgets/identitycombo.cpp:61
+#: widgets/identitytreemodel.cpp:73
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
