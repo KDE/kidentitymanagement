@@ -10,3 +10,5 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
 }
 
 IdentityTreeView::~IdentityTreeView() = default;
+
+#include "moc_identitytreeview.cpp"
