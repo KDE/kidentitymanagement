@@ -28,6 +28,9 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
   identitytreemodel.h
   identitytreemodel.cpp
 
+  identitytreesortproxymodel.h
+  identitytreesortproxymodel.cpp
+
   identitytreeview.h
   identitytreeview.cpp
 )
