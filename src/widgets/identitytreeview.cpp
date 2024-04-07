@@ -7,6 +7,12 @@ using namespace KIdentityManagementWidgets;
 IdentityTreeView::IdentityTreeView(QWidget *parent)
     : QTreeView(parent)
 {
+    setAlternatingRowColors(true);
+    setSelectionMode(SingleSelection);
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+    setRootIsDecorated(false);
+    setSortingEnabled(true);
 }
 
 IdentityTreeView::~IdentityTreeView() = default;
