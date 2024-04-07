@@ -12,3 +12,4 @@ macro(add_identitywidget_test _source)
     )
 endmacro ()
 
+add_identitywidget_test(identitytreeviewtest.cpp)

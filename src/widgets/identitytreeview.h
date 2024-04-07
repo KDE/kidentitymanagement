@@ -11,7 +11,7 @@ class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit IdentityTreeView(QWidget *parent);
+    explicit IdentityTreeView(QWidget *parent = nullptr);
     ~IdentityTreeView() override;
 };
 }

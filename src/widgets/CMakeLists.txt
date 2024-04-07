@@ -9,8 +9,7 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENTWIDGETS
 )
 
 
-add_library(KPim6IdentityManagementWidgets
-    identitywidget.h identitywidget.cpp)
+add_library(KPim6IdentityManagementWidgets)
 add_library(KPim6::IdentityManagementWidgets ALIAS KPim6IdentityManagementWidgets)
 set_target_properties(KPim6IdentityManagementWidgets PROPERTIES
     VERSION ${KIDENTITYMANAGEMENTWIDGETS_VERSION}
@@ -34,6 +33,8 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
 
   identitytreeview.h
   identitytreeview.cpp
+  identitywidget.h
+  identitywidget.cpp
 )
 
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
