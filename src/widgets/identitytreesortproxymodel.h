@@ -13,5 +13,8 @@ class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeSortProxyModel : public QSor
 public:
     explicit IdentityTreeSortProxyModel(QObject *parent);
     ~IdentityTreeSortProxyModel() override;
+
+protected:
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 };
 }

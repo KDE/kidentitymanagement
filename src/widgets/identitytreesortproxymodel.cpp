@@ -10,3 +10,9 @@ IdentityTreeSortProxyModel::IdentityTreeSortProxyModel(QObject *parent)
 }
 
 IdentityTreeSortProxyModel::~IdentityTreeSortProxyModel() = default;
+
+bool IdentityTreeSortProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+{
+    // TODO
+    return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+}
