@@ -7,11 +7,15 @@
 #include <QTreeView>
 namespace KIdentityManagementWidgets
 {
+class IdentityTreeSortProxyModel;
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeView : public QTreeView
 {
     Q_OBJECT
 public:
     explicit IdentityTreeView(QWidget *parent = nullptr);
     ~IdentityTreeView() override;
+
+private:
+    IdentityTreeSortProxyModel *const mIdentityProxyModel;
 };
 }

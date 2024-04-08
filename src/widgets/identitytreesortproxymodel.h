@@ -8,13 +8,20 @@
 
 namespace KIdentityManagementWidgets
 {
+class IdentityActivitiesAbstract;
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeSortProxyModel : public QSortFilterProxyModel
 {
 public:
     explicit IdentityTreeSortProxyModel(QObject *parent);
     ~IdentityTreeSortProxyModel() override;
 
+    [[nodiscard]] IdentityActivitiesAbstract *identityActivitiesAbstract() const;
+    void setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
+
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+
+private:
+    IdentityActivitiesAbstract *mIdentityActivitiesAbstract = nullptr;
 };
 }
