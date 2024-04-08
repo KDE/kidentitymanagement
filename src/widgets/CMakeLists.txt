@@ -35,6 +35,9 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
   identitytreeview.cpp
   identitywidget.h
   identitywidget.cpp
+
+  identityactivitiesabstract.h
+  identityactivitiesabstract.cpp
 )
 
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
@@ -98,6 +101,7 @@ ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
   IdentityTreeModel
   IdentityTreeView
   IdentityWidget
+  IdentityActivitiesAbstract
   PREFIX KIdentityManagementWidgets
   REQUIRED_HEADERS KIdentityManagementWidgets_HEADERS
 )
