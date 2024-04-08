@@ -3,6 +3,9 @@
 
 #include "identitytreeview.h"
 #include "identitytreemodel.h"
+#include "identitytreesortproxymodel.h"
+
+#include <QHeaderView>
 
 using namespace KIdentityManagementWidgets;
 IdentityTreeView::IdentityTreeView(QWidget *parent)
@@ -14,10 +17,19 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setRootIsDecorated(false);
     setSortingEnabled(true);
-    setModel(new IdentityTreeModel(this));
+    setAllColumnsShowFocus(true);
+    header()->setSectionsMovable(false);
+    header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+    auto model = new IdentityTreeModel(this);
+    model->setShowDefault(true);
+    auto proxyModel = new IdentityTreeSortProxyModel(this);
+    proxyModel->setSourceModel(model);
+    setModel(proxyModel);
 
     setColumnHidden(IdentityTreeModel::DefaultRole, true);
     setColumnHidden(IdentityTreeModel::UoidRole, true);
+    setColumnHidden(IdentityTreeModel::EmailRole, true);
 }
 
 IdentityTreeView::~IdentityTreeView() = default;
