@@ -10,6 +10,7 @@
 using namespace KIdentityManagementWidgets;
 IdentityTreeView::IdentityTreeView(QWidget *parent)
     : QTreeView(parent)
+    , mIdentityProxyModel(new IdentityTreeSortProxyModel(this))
 {
     setAlternatingRowColors(true);
     setSelectionMode(SingleSelection);
@@ -23,9 +24,9 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
 
     auto model = new IdentityTreeModel(this);
     model->setShowDefault(true);
-    auto proxyModel = new IdentityTreeSortProxyModel(this);
-    proxyModel->setSourceModel(model);
-    setModel(proxyModel);
+
+    mIdentityProxyModel->setSourceModel(model);
+    setModel(mIdentityProxyModel);
 
     setColumnHidden(IdentityTreeModel::DefaultRole, true);
     setColumnHidden(IdentityTreeModel::UoidRole, true);
