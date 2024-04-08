@@ -97,6 +97,7 @@ ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
   SignatureConfigurator
   IdentityTreeModel
   IdentityTreeView
+  IdentityWidget
   PREFIX KIdentityManagementWidgets
   REQUIRED_HEADERS KIdentityManagementWidgets_HEADERS
 )
