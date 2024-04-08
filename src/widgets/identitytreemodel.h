@@ -23,9 +23,10 @@ class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeModel : public QAbstractList
 
 public:
     enum IdentityRoles {
+        IdentityNameRole,
+        FullEmailRole,
         EmailRole,
         UoidRole,
-        IdentityNameRole,
         DefaultRole,
         LastColumn = DefaultRole,
     };
@@ -36,6 +37,7 @@ public:
     [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     [[nodiscard]] int columnCount(const QModelIndex &parent) const override;
+    [[nodiscard]] QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
     void setShowDefault(bool show);
 
