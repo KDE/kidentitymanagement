@@ -4,8 +4,8 @@
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 
 #include "identitytreemodel.h"
-
 #include <KLocalizedString>
+#include <QFont>
 
 #include "identity.h"
 
@@ -49,10 +49,21 @@ QVariant IdentityTreeModel::data(const QModelIndex &index, int role) const
     if (role == Qt::ToolTipRole) {
         return identity.primaryEmailAddress();
     }
+    if (role == Qt::FontRole) {
+        if (static_cast<IdentityRoles>(index.column()) == IdentityNameRole) {
+            if (identity.isDefault()) {
+                QFont f;
+                f.setBold(true);
+                return f;
+            }
+        }
+    }
     if (role != Qt::DisplayRole) {
         return {};
     }
     switch (static_cast<IdentityRoles>(index.column())) {
+    case FullEmailRole:
+        return identity.fullEmailAddr();
     case EmailRole:
         return identity.primaryEmailAddress();
     case UoidRole:
