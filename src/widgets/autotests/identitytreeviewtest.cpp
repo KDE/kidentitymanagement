@@ -19,3 +19,5 @@ void IdentityTreeViewTest::shouldHaveDefaultValues()
     QCOMPARE(w.selectionBehavior(), QAbstractItemView::SelectRows);
     QCOMPARE(w.contextMenuPolicy(), Qt::CustomContextMenu);
 }
+
+#include "moc_identitytreeviewtest.cpp"

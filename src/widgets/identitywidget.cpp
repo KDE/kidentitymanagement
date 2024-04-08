@@ -18,3 +18,5 @@ IdentityWidget::IdentityWidget(QWidget *parent)
 }
 
 IdentityWidget::~IdentityWidget() = default;
+
+#include "moc_identitywidget.cpp"
