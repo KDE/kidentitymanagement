@@ -13,12 +13,9 @@ void IdentityTreeViewTest::shouldHaveDefaultValues()
 {
     KIdentityManagementWidgets::IdentityTreeView w;
     QVERIFY(w.alternatingRowColors());
-    QVERIFY(w.rootIsDecorated());
-#if 0
-    setSelectionMode(SingleSelection);
-    setContextMenuPolicy(Qt::CustomContextMenu);
-    setSelectionBehavior(QAbstractItemView::SelectRows);
-    setSortingEnabled(true);
-#endif
-    // TODO
+    QVERIFY(!w.rootIsDecorated());
+    QVERIFY(w.isSortingEnabled());
+    QCOMPARE(w.selectionMode(), QAbstractItemView::SingleSelection);
+    QCOMPARE(w.selectionBehavior(), QAbstractItemView::SelectRows);
+    QCOMPARE(w.contextMenuPolicy(), Qt::CustomContextMenu);
 }
