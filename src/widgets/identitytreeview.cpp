@@ -15,6 +15,9 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     setRootIsDecorated(false);
     setSortingEnabled(true);
     setModel(new IdentityTreeModel(this));
+
+    setColumnHidden(IdentityTreeModel::DefaultRole, true);
+    setColumnHidden(IdentityTreeModel::UoidRole, true);
 }
 
 IdentityTreeView::~IdentityTreeView() = default;
