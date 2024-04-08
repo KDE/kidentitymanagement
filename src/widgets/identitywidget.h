@@ -6,12 +6,16 @@
 #include <QWidget>
 namespace KIdentityManagementWidgets
 {
+class IdentityTreeView;
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit IdentityWidget(QWidget *parent = nullptr);
     ~IdentityWidget() override;
+
+private:
+    IdentityTreeView *const mIdentityTreeView;
 };
 
 }
