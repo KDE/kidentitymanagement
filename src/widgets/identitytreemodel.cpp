@@ -107,4 +107,21 @@ int IdentityTreeModel::uoidIndex(int uoid) const
     return mIdentitiesUoid.indexOf(uoid);
 }
 
+QVariant IdentityTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
+        switch (static_cast<IdentityRoles>(section)) {
+        case IdentityNameRole:
+            return i18n("Identity Name");
+        case FullEmailRole:
+        case EmailRole:
+            return i18n("Email Address");
+        case UoidRole:
+        case DefaultRole:
+            return {};
+        }
+    }
+    return {};
+}
+
 #include "moc_identitytreemodel.cpp"
