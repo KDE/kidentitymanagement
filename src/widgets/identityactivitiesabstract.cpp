@@ -10,3 +10,5 @@ IdentityActivitiesAbstract::IdentityActivitiesAbstract(QObject *parent)
 }
 
 IdentityActivitiesAbstract::~IdentityActivitiesAbstract() = default;
+
+#include "moc_identityactivitiesabstract.cpp"
