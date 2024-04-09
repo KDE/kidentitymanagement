@@ -68,6 +68,16 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
 
 IdentityCombo::~IdentityCombo() = default;
 
+IdentityActivitiesAbstract *IdentityCombo::identityActivitiesAbstract() const
+{
+    return d->mIdentityProxyModel->identityActivitiesAbstract();
+}
+
+void IdentityCombo::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
+{
+    d->mIdentityProxyModel->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
+}
+
 QString IdentityCombo::currentIdentityName() const
 {
     return d->mIdentityManager->identities().at(currentIndex());
