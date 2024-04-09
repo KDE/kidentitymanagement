@@ -35,4 +35,14 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
 
 IdentityTreeView::~IdentityTreeView() = default;
 
+IdentityActivitiesAbstract *IdentityTreeView::identityActivitiesAbstract() const
+{
+    return mIdentityProxyModel->identityActivitiesAbstract();
+}
+
+void IdentityTreeView::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
+{
+    mIdentityProxyModel->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
+}
+
 #include "moc_identitytreeview.cpp"

@@ -7,12 +7,16 @@
 namespace KIdentityManagementWidgets
 {
 class IdentityTreeView;
+class IdentityActivitiesAbstract;
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit IdentityWidget(QWidget *parent = nullptr);
     ~IdentityWidget() override;
+
+    void setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
+    [[nodiscard]] IdentityActivitiesAbstract *identityActivitiesAbstract() const;
 
 private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotCustomContextMenuRequested(const QPoint &pos);

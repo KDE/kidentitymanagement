@@ -21,6 +21,16 @@ IdentityWidget::IdentityWidget(QWidget *parent)
     connect(mIdentityTreeView, &QTreeView::customContextMenuRequested, this, &IdentityWidget::slotCustomContextMenuRequested);
 }
 
+void IdentityWidget::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
+{
+    mIdentityTreeView->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
+}
+
+IdentityActivitiesAbstract *IdentityWidget::identityActivitiesAbstract() const
+{
+    return mIdentityTreeView->identityActivitiesAbstract();
+}
+
 IdentityWidget::~IdentityWidget() = default;
 
 void IdentityWidget::slotCustomContextMenuRequested(const QPoint &pos)

@@ -8,12 +8,16 @@
 namespace KIdentityManagementWidgets
 {
 class IdentityTreeSortProxyModel;
+class IdentityActivitiesAbstract;
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeView : public QTreeView
 {
     Q_OBJECT
 public:
     explicit IdentityTreeView(QWidget *parent = nullptr);
     ~IdentityTreeView() override;
+
+    void setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
+    [[nodiscard]] IdentityActivitiesAbstract *identityActivitiesAbstract() const;
 
 private:
     IdentityTreeSortProxyModel *const mIdentityProxyModel;
