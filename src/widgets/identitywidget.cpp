@@ -10,35 +10,39 @@ using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementWidgets;
 IdentityWidget::IdentityWidget(QWidget *parent)
     : QWidget{parent}
-    , mIdentityTreeView(new IdentityTreeView(this))
 {
-    auto mainLayout = new QVBoxLayout(this);
-    mainLayout->setObjectName("mainLayout"_L1);
-    mainLayout->setContentsMargins({});
+    mUi = new Ui::IdentityWidget();
+    mUi->setupUi(this);
+    // auto mainLayout = new QVBoxLayout(this);
+    // mainLayout->setObjectName("mainLayout"_L1);
+    // mainLayout->setContentsMargins({});
 
-    mIdentityTreeView->setObjectName("mIdentityTreeView"_L1);
-    mainLayout->addWidget(mIdentityTreeView);
-    connect(mIdentityTreeView, &QTreeView::customContextMenuRequested, this, &IdentityWidget::slotCustomContextMenuRequested);
+    // mIdentityTreeView->setObjectName("mIdentityTreeView"_L1);
+    // mainLayout->addWidget(mIdentityTreeView);
+    // connect(mIdentityTreeView, &QTreeView::customContextMenuRequested, this, &IdentityWidget::slotCustomContextMenuRequested);
+}
+
+IdentityWidget::~IdentityWidget()
+{
+    delete mUi;
 }
 
 void IdentityWidget::setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
 {
-    mIdentityTreeView->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
+    mUi->mIdentityView->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
 }
 
 KIdentityManagementCore::IdentityActivitiesAbstract *IdentityWidget::identityActivitiesAbstract() const
 {
-    return mIdentityTreeView->identityActivitiesAbstract();
+    return mUi->mIdentityView->identityActivitiesAbstract();
 }
-
-IdentityWidget::~IdentityWidget() = default;
 
 void IdentityWidget::slotCustomContextMenuRequested(const QPoint &pos)
 {
+#if 0
     const QModelIndex index = mIdentityTreeView->indexAt(pos);
     QMenu menu(this);
     menu.addAction(QIcon::fromTheme(QStringLiteral("list-add")), i18n("Add..."), this, &IdentityWidget::slotNewIdentity);
-#if 0
     if (item) {
         menu.addAction(QIcon::fromTheme(QStringLiteral("document-edit")), i18n("Modify..."), this, &IdentityPage::slotModifyIdentity);
         menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("Rename"), this, &IdentityPage::slotRenameIdentity);
@@ -50,8 +54,8 @@ void IdentityWidget::slotCustomContextMenuRequested(const QPoint &pos)
             menu.addAction(i18n("Set as Default"), this, &IdentityPage::slotSetAsDefault);
         }
     }
-#endif
     menu.exec(pos);
+#endif
 }
 
 void IdentityWidget::slotNewIdentity()

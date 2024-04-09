@@ -11,7 +11,6 @@ class IdentityActivitiesAbstract;
 }
 namespace KIdentityManagementWidgets
 {
-class IdentityTreeView;
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityWidget : public QWidget
 {
     Q_OBJECT
@@ -26,8 +25,7 @@ private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotCustomContextMenuRequested(const QPoint &pos);
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotNewIdentity();
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void updateButtons();
-    // Ui::IdentityWidget ui;
-    IdentityTreeView *const mIdentityTreeView;
+    Ui::IdentityWidget *mUi = nullptr;
 };
 
 }
