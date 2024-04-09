@@ -31,6 +31,12 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
   identitywidget.cpp
 )
 
+ki18n_wrap_ui(KPim6IdentityManagementWidgets
+    ui/identitywidget.ui
+    )
+
+
+
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
     set_target_properties(KPim6IdentityManagementWidgets PROPERTIES UNITY_BUILD ON)
 endif()

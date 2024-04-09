@@ -3,6 +3,7 @@
 #pragma once
 
 #include "kidentitymanagementwidgets_export.h"
+#include "ui_identitywidget.h"
 #include <QWidget>
 namespace KIdentityManagementCore
 {
@@ -25,6 +26,7 @@ private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotCustomContextMenuRequested(const QPoint &pos);
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotNewIdentity();
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void updateButtons();
+    // Ui::IdentityWidget ui;
     IdentityTreeView *const mIdentityTreeView;
 };
 
