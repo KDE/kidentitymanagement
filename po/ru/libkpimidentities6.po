@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-06 00:38+0000\n"
+"POT-Creation-Date: 2024-04-09 00:38+0000\n"
 "PO-Revision-Date: 2024-01-27 18:55+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -211,11 +211,48 @@ msgstr "Очистить корзину?"
 msgid "Cancel"
 msgstr "О&тменить"
 
-#: widgets/identitytreemodel.cpp:73
+#: widgets/identitytreemodel.cpp:84
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr " (по умолчанию)"
+
+#: widgets/identitytreemodel.cpp:115
+#, kde-format
+msgid "Identity Name"
+msgstr "Имя профиля"
+
+#: widgets/identitytreemodel.cpp:118
+#, kde-format
+msgid "Email Address"
+msgstr "Электронный адрес"
+
+#: widgets/identitywidget.cpp:30
+#, kde-format
+msgid "Add..."
+msgstr "Добавить..."
+
+#: widgets/identitywidget.cpp:33
+#, kde-format
+msgid "Modify..."
+msgstr "Изменить..."
+
+#: widgets/identitywidget.cpp:34
+#, fuzzy, kde-format
+#| msgid "&Rename"
+msgid "Rename"
+msgstr "&Переименовать"
+
+#: widgets/identitywidget.cpp:36
+#, fuzzy, kde-format
+#| msgid "R&emove"
+msgid "Remove"
+msgstr "&Удалить"
+
+#: widgets/identitywidget.cpp:40
+#, kde-format
+msgid "Set as Default"
+msgstr "Сделать основным"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
@@ -1231,9 +1268,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ msgid "&Modify..."
 #~ msgstr "&Изменить..."
 
-#~ msgid "&Rename"
-#~ msgstr "&Переименовать"
-
 #~ msgid "Remo&ve"
 #~ msgstr "Удалит&ь"
 
@@ -1245,15 +1279,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "Remove Identity"
 #~ msgstr "Удалить профиль"
-
-#~ msgid "Add..."
-#~ msgstr "Добавить..."
-
-#~ msgid "Modify..."
-#~ msgstr "Изменить..."
-
-#~ msgid "Set as Default"
-#~ msgstr "Сделать основным"
 
 #~ msgid "&Receiving"
 #~ msgstr "По&лучение"
@@ -1272,9 +1297,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 
 #~ msgid "A&dd..."
 #~ msgstr "&Добавить..."
-
-#~ msgid "R&emove"
-#~ msgstr "&Удалить"
 
 #~ msgid "Common Options"
 #~ msgstr "Общие параметры"
@@ -3336,12 +3358,6 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ "indicate the default identity\n"
 #~ "%1 (Default)"
 #~ msgstr "%1 (основной)"
-
-#~ msgid "Identity Name"
-#~ msgstr "Имя профиля"
-
-#~ msgid "Email Address"
-#~ msgstr "Электронный адрес"
 
 #~ msgid "You need to supply a username and a password to access this mailbox."
 #~ msgstr ""

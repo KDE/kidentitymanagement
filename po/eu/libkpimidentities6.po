@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-06 00:38+0000\n"
+"POT-Creation-Date: 2024-04-09 00:38+0000\n"
 "PO-Revision-Date: 2024-02-21 23:30+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -185,11 +185,51 @@ msgstr "Ziur zaude nortasun hori ezabatu nahi duzula?"
 msgid "Cancel"
 msgstr "Utzi"
 
-#: widgets/identitytreemodel.cpp:73
+#: widgets/identitytreemodel.cpp:84
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr "(Lehenetsia)"
+
+#: widgets/identitytreemodel.cpp:115
+#, fuzzy, kde-format
+#| msgid "Identity"
+msgid "Identity Name"
+msgstr "Nortasuna"
+
+#: widgets/identitytreemodel.cpp:118
+#, fuzzy, kde-format
+#| msgid "Email address"
+msgid "Email Address"
+msgstr "Zure e-posta helbideak"
+
+#: widgets/identitywidget.cpp:30
+#, kde-format
+msgid "Add..."
+msgstr ""
+
+#: widgets/identitywidget.cpp:33
+#, kde-format
+msgid "Modify..."
+msgstr ""
+
+#: widgets/identitywidget.cpp:34
+#, fuzzy, kde-format
+#| msgid "Unnamed"
+msgid "Rename"
+msgstr "Izengabea"
+
+#: widgets/identitywidget.cpp:36
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#: widgets/identitywidget.cpp:40
+#, fuzzy, kde-format
+#| msgctxt "use default address from control center"
+#| msgid "Default"
+msgid "Set as Default"
+msgstr "Lehenetsia"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format

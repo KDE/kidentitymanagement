@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-06 00:38+0000\n"
+"POT-Creation-Date: 2024-04-09 00:38+0000\n"
 "PO-Revision-Date: 2024-02-29 03:16+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -186,11 +186,51 @@ msgstr "您確定要刪除這個身份嗎？"
 msgid "Cancel"
 msgstr "取消"
 
-#: widgets/identitytreemodel.cpp:73
+#: widgets/identitytreemodel.cpp:84
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr "（預設）"
+
+#: widgets/identitytreemodel.cpp:115
+#, fuzzy, kde-format
+#| msgid "Identity"
+msgid "Identity Name"
+msgstr "身份"
+
+#: widgets/identitytreemodel.cpp:118
+#, fuzzy, kde-format
+#| msgid "Email address"
+msgid "Email Address"
+msgstr "電子郵件地址"
+
+#: widgets/identitywidget.cpp:30
+#, kde-format
+msgid "Add..."
+msgstr ""
+
+#: widgets/identitywidget.cpp:33
+#, kde-format
+msgid "Modify..."
+msgstr ""
+
+#: widgets/identitywidget.cpp:34
+#, fuzzy, kde-format
+#| msgid "Unnamed"
+msgid "Rename"
+msgstr "未命名"
+
+#: widgets/identitywidget.cpp:36
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#: widgets/identitywidget.cpp:40
+#, fuzzy, kde-format
+#| msgctxt "use default address from control center"
+#| msgid "Default"
+msgid "Set as Default"
+msgstr "預設"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format

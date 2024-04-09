@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-06 00:38+0000\n"
+"POT-Creation-Date: 2024-04-09 00:38+0000\n"
 "PO-Revision-Date: 2024-02-27 19:40\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
 "Language-Team: Belarusian\n"
@@ -186,11 +186,51 @@ msgstr "Сапраўды хочаце выдаліць гэтыя асабіст
 msgid "Cancel"
 msgstr "Скасаваць"
 
-#: widgets/identitytreemodel.cpp:73
+#: widgets/identitytreemodel.cpp:84
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr " (прадвызначана)"
+
+#: widgets/identitytreemodel.cpp:115
+#, fuzzy, kde-format
+#| msgid "Identity"
+msgid "Identity Name"
+msgstr "Асабістыя даныя"
+
+#: widgets/identitytreemodel.cpp:118
+#, fuzzy, kde-format
+#| msgid "Email address"
+msgid "Email Address"
+msgstr "Адрас электроннай пошты"
+
+#: widgets/identitywidget.cpp:30
+#, kde-format
+msgid "Add..."
+msgstr ""
+
+#: widgets/identitywidget.cpp:33
+#, kde-format
+msgid "Modify..."
+msgstr ""
+
+#: widgets/identitywidget.cpp:34
+#, fuzzy, kde-format
+#| msgid "Unnamed"
+msgid "Rename"
+msgstr "Без назвы"
+
+#: widgets/identitywidget.cpp:36
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#: widgets/identitywidget.cpp:40
+#, fuzzy, kde-format
+#| msgctxt "use default address from control center"
+#| msgid "Default"
+msgid "Set as Default"
+msgstr "Прадвызначаны"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format

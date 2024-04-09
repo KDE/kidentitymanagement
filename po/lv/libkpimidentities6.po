@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-06 00:38+0000\n"
+"POT-Creation-Date: 2024-04-09 00:38+0000\n"
 "PO-Revision-Date: 2008-11-26 19:08+0200\n"
 "Last-Translator: Viesturs Zarins <viesturs.zarins@mii.lu.lv>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -187,12 +187,50 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: widgets/identitytreemodel.cpp:73
+#: widgets/identitytreemodel.cpp:84
 #, fuzzy, kde-format
 #| msgctxt "use default address from control center"
 #| msgid "Default"
 msgctxt "Default identity"
 msgid " (default)"
+msgstr "Noklusētā"
+
+#: widgets/identitytreemodel.cpp:115
+#, kde-format
+msgid "Identity Name"
+msgstr ""
+
+#: widgets/identitytreemodel.cpp:118
+#, kde-format
+msgid "Email Address"
+msgstr ""
+
+#: widgets/identitywidget.cpp:30
+#, kde-format
+msgid "Add..."
+msgstr ""
+
+#: widgets/identitywidget.cpp:33
+#, kde-format
+msgid "Modify..."
+msgstr ""
+
+#: widgets/identitywidget.cpp:34
+#, fuzzy, kde-format
+#| msgid "Unnamed"
+msgid "Rename"
+msgstr "Nenosaukts"
+
+#: widgets/identitywidget.cpp:36
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#: widgets/identitywidget.cpp:40
+#, fuzzy, kde-format
+#| msgctxt "use default address from control center"
+#| msgid "Default"
+msgid "Set as Default"
 msgstr "Noklusētā"
 
 #: widgets/signatureconfigurator.cpp:107
