@@ -5,6 +5,7 @@
 #include "identitytreeview.h"
 #include <KLocalizedString>
 #include <QMenu>
+#include <QPushButton>
 #include <QVBoxLayout>
 using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementWidgets;
@@ -20,6 +21,12 @@ IdentityWidget::IdentityWidget(QWidget *parent)
     // mIdentityTreeView->setObjectName("mIdentityTreeView"_L1);
     // mainLayout->addWidget(mIdentityTreeView);
     // connect(mIdentityTreeView, &QTreeView::customContextMenuRequested, this, &IdentityWidget::slotCustomContextMenuRequested);
+
+    connect(mUi->mButtonAdd, &QPushButton::clicked, this, &IdentityWidget::slotNewIdentity);
+    connect(mUi->mModifyButton, &QPushButton::clicked, this, &IdentityWidget::slotModifyIdentity);
+    connect(mUi->mRenameButton, &QPushButton::clicked, this, &IdentityWidget::slotRenameIdentity);
+    connect(mUi->mRemoveButton, &QPushButton::clicked, this, &IdentityWidget::slotRemoveIdentity);
+    connect(mUi->mSetAsDefaultButton, &QPushButton::clicked, this, &IdentityWidget::slotSetAsDefault);
 }
 
 IdentityWidget::~IdentityWidget()
@@ -64,6 +71,26 @@ void IdentityWidget::slotNewIdentity()
 }
 
 void IdentityWidget::updateButtons()
+{
+    // TODO
+}
+
+void IdentityWidget::slotModifyIdentity()
+{
+    // TODO
+}
+
+void IdentityWidget::slotRenameIdentity()
+{
+    // TODO
+}
+
+void IdentityWidget::slotRemoveIdentity()
+{
+    // TODO
+}
+
+void IdentityWidget::slotSetAsDefault()
 {
     // TODO
 }
