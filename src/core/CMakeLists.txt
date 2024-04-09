@@ -27,6 +27,15 @@ target_sources(KPim6IdentityManagementCore PRIVATE
     identitymanager.h
     identity.h
     identitymodel.h
+
+
+    identitytreemodel.h
+    identitytreemodel.cpp
+
+    identitytreesortproxymodel.h
+    identitytreesortproxymodel.cpp
+    identityactivitiesabstract.h
+    identityactivitiesabstract.cpp
 )
 
 ecm_qt_declare_logging_category(KPim6IdentityManagementCore HEADER kidentitymanagementcore_debug.h
@@ -97,6 +106,8 @@ ecm_generate_headers(KIdentityManagementCore_CamelCase_HEADERS
     IdentityModel
     Signature
     Utils
+    IdentityTreeModel
+    IdentityActivitiesAbstract
     PREFIX KIdentityManagementCore
     REQUIRED_HEADERS KIdentityManagementCore_HEADERS
 )

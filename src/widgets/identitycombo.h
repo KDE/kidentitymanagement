@@ -13,11 +13,11 @@ namespace KIdentityManagementCore
 {
 class IdentityManager;
 class Identity;
+class IdentityActivitiesAbstract;
 }
 namespace KIdentityManagementWidgets
 {
 class IdentityComboPrivate;
-class IdentityActivitiesAbstract;
 /// \brief A combo box that always shows the up-to-date identity list.
 /// \author Marc Mutz \<mutz@kde.org\>
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityCombo : public QComboBox
@@ -55,9 +55,9 @@ public:
     [[nodiscard]] KIdentityManagementCore::IdentityManager *identityManager() const;
 
     /// @since 6.1
-    [[nodiscard]] KIdentityManagementWidgets::IdentityActivitiesAbstract *identityActivitiesAbstract() const;
+    [[nodiscard]] KIdentityManagementCore::IdentityActivitiesAbstract *identityActivitiesAbstract() const;
     /// @since 6.1
-    void setIdentityActivitiesAbstract(KIdentityManagementWidgets::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
+    void setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
 
 Q_SIGNALS:
 

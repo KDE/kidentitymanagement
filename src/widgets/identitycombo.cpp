@@ -42,8 +42,8 @@ public:
     }
 
     KIdentityManagementCore::IdentityManager *const mIdentityManager;
-    KIdentityManagementWidgets::IdentityTreeModel *mIdentityModel = nullptr;
-    KIdentityManagementWidgets::IdentityTreeSortProxyModel *mIdentityProxyModel = nullptr;
+    KIdentityManagementCore::IdentityTreeModel *mIdentityModel = nullptr;
+    KIdentityManagementCore::IdentityTreeSortProxyModel *mIdentityProxyModel = nullptr;
     IdentityCombo *const q;
 };
 
@@ -53,8 +53,8 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     : QComboBox(parent)
     , d(new KIdentityManagementWidgets::IdentityComboPrivate(manager, this))
 {
-    d->mIdentityModel = new KIdentityManagementWidgets::IdentityTreeModel(this);
-    d->mIdentityProxyModel = new KIdentityManagementWidgets::IdentityTreeSortProxyModel(this);
+    d->mIdentityModel = new KIdentityManagementCore::IdentityTreeModel(this);
+    d->mIdentityProxyModel = new KIdentityManagementCore::IdentityTreeSortProxyModel(this);
     d->mIdentityProxyModel->setSourceModel(d->mIdentityModel);
     connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
     connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
@@ -62,7 +62,7 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     connect(this, &IdentityCombo::identityChanged, this, &IdentityCombo::slotUpdateTooltip);
     setModel(d->mIdentityProxyModel);
     // qDebug() << " d->mIdentityModel " << d->mIdentityModel->rowCount();
-    setModelColumn(KIdentityManagementWidgets::IdentityTreeModel::IdentityNameRole);
+    setModelColumn(KIdentityManagementCore::IdentityTreeModel::IdentityNameRole);
     slotUpdateTooltip(currentIdentity());
 }
 

@@ -3,7 +3,7 @@
 
 #include "identityactivitiesabstract.h"
 
-using namespace KIdentityManagementWidgets;
+using namespace KIdentityManagementCore;
 IdentityActivitiesAbstract::IdentityActivitiesAbstract(QObject *parent)
     : QObject{parent}
 {

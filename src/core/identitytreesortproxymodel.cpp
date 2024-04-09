@@ -3,7 +3,7 @@
 
 #include "identitytreesortproxymodel.h"
 #include "identityactivitiesabstract.h"
-using namespace KIdentityManagementWidgets;
+using namespace KIdentityManagementCore;
 IdentityTreeSortProxyModel::IdentityTreeSortProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
 {

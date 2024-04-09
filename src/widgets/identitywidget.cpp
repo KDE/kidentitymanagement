@@ -21,12 +21,12 @@ IdentityWidget::IdentityWidget(QWidget *parent)
     connect(mIdentityTreeView, &QTreeView::customContextMenuRequested, this, &IdentityWidget::slotCustomContextMenuRequested);
 }
 
-void IdentityWidget::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
+void IdentityWidget::setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
 {
     mIdentityTreeView->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
 }
 
-IdentityActivitiesAbstract *IdentityWidget::identityActivitiesAbstract() const
+KIdentityManagementCore::IdentityActivitiesAbstract *IdentityWidget::identityActivitiesAbstract() const
 {
     return mIdentityTreeView->identityActivitiesAbstract();
 }

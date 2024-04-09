@@ -3,12 +3,12 @@
 
 #pragma once
 
-#include "kidentitymanagementwidgets_export.h"
+#include "kidentitymanagementcore_export.h"
 #include <QObject>
 
-namespace KIdentityManagementWidgets
+namespace KIdentityManagementCore
 {
-class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityActivitiesAbstract : public QObject
+class KIDENTITYMANAGEMENTCORE_EXPORT IdentityActivitiesAbstract : public QObject
 {
     Q_OBJECT
 public:

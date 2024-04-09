@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "kidentitymanagementwidgets_export.h"
+#include "kidentitymanagementcore_export.h"
 
 #include <QAbstractListModel>
 
@@ -14,10 +14,7 @@
 namespace KIdentityManagementCore
 {
 class IdentityManager;
-}
-namespace KIdentityManagementWidgets
-{
-class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeModel : public QAbstractListModel
+class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -45,8 +42,8 @@ public:
     [[nodiscard]] int uoidIndex(int uoid) const;
 
 private:
-    KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void reloadUoidList();
-    KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT QString generateIdentityName(const KIdentityManagementCore::Identity &identity) const;
+    KIDENTITYMANAGEMENTCORE_NO_EXPORT void reloadUoidList();
+    KIDENTITYMANAGEMENTCORE_NO_EXPORT QString generateIdentityName(const KIdentityManagementCore::Identity &identity) const;
     QList<int> mIdentitiesUoid;
     bool mShowDefault = false;
     KIdentityManagementCore::IdentityManager *const mIdentityManager;

@@ -10,7 +10,7 @@
 using namespace KIdentityManagementWidgets;
 IdentityTreeView::IdentityTreeView(QWidget *parent)
     : QTreeView(parent)
-    , mIdentityProxyModel(new IdentityTreeSortProxyModel(this))
+    , mIdentityProxyModel(new KIdentityManagementCore::IdentityTreeSortProxyModel(this))
 {
     setAlternatingRowColors(true);
     setSelectionMode(SingleSelection);
@@ -22,25 +22,25 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     header()->setSectionsMovable(false);
     header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-    auto model = new IdentityTreeModel(this);
+    auto model = new KIdentityManagementCore::IdentityTreeModel(this);
     model->setShowDefault(true);
 
     mIdentityProxyModel->setSourceModel(model);
     setModel(mIdentityProxyModel);
 
-    setColumnHidden(IdentityTreeModel::DefaultRole, true);
-    setColumnHidden(IdentityTreeModel::UoidRole, true);
-    setColumnHidden(IdentityTreeModel::EmailRole, true);
+    setColumnHidden(KIdentityManagementCore::IdentityTreeModel::DefaultRole, true);
+    setColumnHidden(KIdentityManagementCore::IdentityTreeModel::UoidRole, true);
+    setColumnHidden(KIdentityManagementCore::IdentityTreeModel::EmailRole, true);
 }
 
 IdentityTreeView::~IdentityTreeView() = default;
 
-IdentityActivitiesAbstract *IdentityTreeView::identityActivitiesAbstract() const
+KIdentityManagementCore::IdentityActivitiesAbstract *IdentityTreeView::identityActivitiesAbstract() const
 {
     return mIdentityProxyModel->identityActivitiesAbstract();
 }
 
-void IdentityTreeView::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
+void IdentityTreeView::setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
 {
     mIdentityProxyModel->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
 }

@@ -5,10 +5,13 @@
 
 #include "kidentitymanagementwidgets_export.h"
 #include <QTreeView>
-namespace KIdentityManagementWidgets
+namespace KIdentityManagementCore
 {
 class IdentityTreeSortProxyModel;
 class IdentityActivitiesAbstract;
+}
+namespace KIdentityManagementWidgets
+{
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeView : public QTreeView
 {
     Q_OBJECT
@@ -16,10 +19,10 @@ public:
     explicit IdentityTreeView(QWidget *parent = nullptr);
     ~IdentityTreeView() override;
 
-    void setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
-    [[nodiscard]] IdentityActivitiesAbstract *identityActivitiesAbstract() const;
+    void setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
+    [[nodiscard]] KIdentityManagementCore::IdentityActivitiesAbstract *identityActivitiesAbstract() const;
 
 private:
-    IdentityTreeSortProxyModel *const mIdentityProxyModel;
+    KIdentityManagementCore::IdentityTreeSortProxyModel *const mIdentityProxyModel;
 };
 }
