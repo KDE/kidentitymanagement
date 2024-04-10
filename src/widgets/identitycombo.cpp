@@ -62,7 +62,7 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     connect(this, &IdentityCombo::identityChanged, this, &IdentityCombo::slotUpdateTooltip);
     setModel(d->mIdentityProxyModel);
     // qDebug() << " d->mIdentityModel " << d->mIdentityModel->rowCount();
-    setModelColumn(KIdentityManagementCore::IdentityTreeModel::IdentityNameRole);
+    setModelColumn(KIdentityManagementCore::IdentityTreeModel::DisplayIdentityNameRole);
     slotUpdateTooltip(currentIdentity());
 }
 
@@ -80,12 +80,12 @@ void IdentityCombo::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *ne
 
 QString IdentityCombo::currentIdentityName() const
 {
-    return d->mIdentityManager->identities().at(currentIndex());
+    return currentData(KIdentityManagementCore::IdentityTreeModel::IdentityNameRole).toString();
 }
 
 uint IdentityCombo::currentIdentity() const
 {
-    return d->mIdentityModel->identityUoid(currentIndex());
+    return currentData(KIdentityManagementCore::IdentityTreeModel::UoidRole).toInt();
 }
 
 bool IdentityCombo::isDefaultIdentity() const
@@ -144,7 +144,7 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
 
 void IdentityCombo::slotIdentityManagerChanged()
 {
-    const uint oldIdentity = d->mIdentityModel->identityUoid(currentIndex());
+    const uint oldIdentity = currentIdentity();
 
     const int idx = d->mIdentityModel->uoidIndex(oldIdentity);
 

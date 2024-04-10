@@ -49,7 +49,7 @@ QVariant IdentityTreeModel::data(const QModelIndex &index, int role) const
         return identity.primaryEmailAddress();
     }
     if (role == Qt::FontRole) {
-        if (static_cast<IdentityRoles>(index.column()) == IdentityNameRole) {
+        if (static_cast<IdentityRoles>(index.column()) == DisplayIdentityNameRole) {
             if (identity.isDefault()) {
                 QFont f;
                 f.setBold(true);
@@ -68,6 +68,8 @@ QVariant IdentityTreeModel::data(const QModelIndex &index, int role) const
     case UoidRole:
         return identity.uoid();
     case IdentityNameRole:
+        return identity.identityName();
+    case DisplayIdentityNameRole:
         return generateIdentityName(identity);
     case DefaultRole:
         return identity.isDefault();
@@ -110,13 +112,14 @@ QVariant IdentityTreeModel::headerData(int section, Qt::Orientation orientation,
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         switch (static_cast<IdentityRoles>(section)) {
-        case IdentityNameRole:
+        case DisplayIdentityNameRole:
             return i18n("Identity Name");
         case FullEmailRole:
         case EmailRole:
             return i18n("Email Address");
         case UoidRole:
         case DefaultRole:
+        case IdentityNameRole:
             return {};
         }
     }

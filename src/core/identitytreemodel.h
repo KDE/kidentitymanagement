@@ -21,6 +21,7 @@ class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeModel : public QAbstractListMod
 public:
     enum IdentityRoles {
         IdentityNameRole,
+        DisplayIdentityNameRole,
         FullEmailRole,
         EmailRole,
         UoidRole,

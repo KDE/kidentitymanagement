@@ -31,6 +31,7 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     setColumnHidden(KIdentityManagementCore::IdentityTreeModel::DefaultRole, true);
     setColumnHidden(KIdentityManagementCore::IdentityTreeModel::UoidRole, true);
     setColumnHidden(KIdentityManagementCore::IdentityTreeModel::EmailRole, true);
+    setColumnHidden(KIdentityManagementCore::IdentityTreeModel::IdentityNameRole, true);
 }
 
 IdentityTreeView::~IdentityTreeView() = default;
