@@ -14,12 +14,6 @@ IdentityWidget::IdentityWidget(QWidget *parent)
 {
     mUi = new Ui::IdentityWidget();
     mUi->setupUi(this);
-    // auto mainLayout = new QVBoxLayout(this);
-    // mainLayout->setObjectName("mainLayout"_L1);
-    // mainLayout->setContentsMargins({});
-
-    // mIdentityTreeView->setObjectName("mIdentityTreeView"_L1);
-    // mainLayout->addWidget(mIdentityTreeView);
     // connect(mIdentityTreeView, &QTreeView::customContextMenuRequested, this, &IdentityWidget::slotCustomContextMenuRequested);
 
     connect(mUi->mButtonAdd, &QPushButton::clicked, this, &IdentityWidget::slotNewIdentity);
@@ -46,10 +40,10 @@ KIdentityManagementCore::IdentityActivitiesAbstract *IdentityWidget::identityAct
 
 void IdentityWidget::slotCustomContextMenuRequested(const QPoint &pos)
 {
-#if 0
-    const QModelIndex index = mIdentityTreeView->indexAt(pos);
+    const QModelIndex index = mUi->mIdentityView->indexAt(pos);
     QMenu menu(this);
     menu.addAction(QIcon::fromTheme(QStringLiteral("list-add")), i18n("Add..."), this, &IdentityWidget::slotNewIdentity);
+#if 0
     if (item) {
         menu.addAction(QIcon::fromTheme(QStringLiteral("document-edit")), i18n("Modify..."), this, &IdentityPage::slotModifyIdentity);
         menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("Rename"), this, &IdentityPage::slotRenameIdentity);
@@ -61,8 +55,8 @@ void IdentityWidget::slotCustomContextMenuRequested(const QPoint &pos)
             menu.addAction(i18n("Set as Default"), this, &IdentityPage::slotSetAsDefault);
         }
     }
-    menu.exec(pos);
 #endif
+    menu.exec(pos);
 }
 
 void IdentityWidget::slotNewIdentity()
@@ -92,6 +86,19 @@ void IdentityWidget::slotRemoveIdentity()
 
 void IdentityWidget::slotSetAsDefault()
 {
+#if 0
+    IdentityListViewItem *item = nullptr;
+    if (!mIPage.mIdentityList->selectedItems().isEmpty()) {
+        item = dynamic_cast<IdentityListViewItem *>(mIPage.mIdentityList->selectedItems().first());
+    }
+    if (!item) {
+        return;
+    }
+
+    mIdentityManager->setAsDefault(item->identity().uoid());
+    refreshList();
+    mUi->mSetAsDefaultButton->setEnabled(false);
+#endif
     // TODO
 }
 
