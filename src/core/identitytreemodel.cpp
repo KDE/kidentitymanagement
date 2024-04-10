@@ -10,7 +10,6 @@
 #include "identity.h"
 
 using namespace KIdentityManagementCore;
-using namespace KIdentityManagementCore;
 IdentityTreeModel::IdentityTreeModel(QObject *parent)
     : QAbstractListModel(parent)
     , mIdentityManager(IdentityManager::self())
