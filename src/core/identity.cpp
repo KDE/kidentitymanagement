@@ -86,7 +86,7 @@ void Identity::readConfig(const KConfigGroup &config)
     QMap<QString, QString>::const_iterator end = entries.constEnd();
     while (i != end) {
         const QString &key = i.key();
-        if (key == QLatin1StringView(s_emailAliases)) {
+        if (key == QLatin1StringView(s_emailAliases) || key == QLatin1StringView(s_activities)) {
             // HACK: Read s_emailAliases as a stringlist
             mPropertiesMap.insert(key, config.readEntry(key, QStringList()));
         } else {
@@ -180,7 +180,8 @@ QDataStream &KIdentityManagementCore::operator<<(QDataStream &stream, const KIde
                   << i.mPropertiesMap[QLatin1StringView(s_defaultDomainName)] << i.mPropertiesMap[QLatin1StringView(s_autocryptEnabled)]
                   << i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] << i.mPropertiesMap[QLatin1StringView(s_encryptionOverride)]
                   << i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] << i.mPropertiesMap[QLatin1StringView(s_pgpautoencrypt)]
-                  << i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] << i.mPropertiesMap[QLatin1StringView(s_warnnotsign)];
+                  << i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] << i.mPropertiesMap[QLatin1StringView(s_warnnotsign)]
+                  << i.mPropertiesMap[QLatin1StringView(s_activities)];
 }
 
 QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityManagementCore::Identity &i)
@@ -199,7 +200,8 @@ QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityM
         >> i.mPropertiesMap[QLatin1StringView(s_defaultDomainName)] >> i.mPropertiesMap[QLatin1StringView(s_autocryptEnabled)]
         >> i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] >> i.mPropertiesMap[QLatin1StringView(s_encryptionOverride)]
         >> i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] >> i.mPropertiesMap[QLatin1StringView(s_pgpautoencrypt)]
-        >> i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] >> i.mPropertiesMap[QLatin1StringView(s_warnnotsign)];
+        >> i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] >> i.mPropertiesMap[QLatin1StringView(s_warnnotsign)]
+        >> i.mPropertiesMap[QLatin1StringView(s_activities)];
 
     i.setProperty(QLatin1StringView(s_uoid), uoid);
     return stream;
@@ -564,6 +566,16 @@ void Identity::setPrimaryEmailAddress(const QString &email)
 void Identity::setEmailAliases(const QStringList &aliases)
 {
     setProperty(QLatin1StringView(s_emailAliases), aliases);
+}
+
+const QStringList Identity::activities() const
+{
+    return property(QLatin1StringView(s_activities)).toStringList();
+}
+
+void Identity::setActivities(const QStringList &a)
+{
+    setProperty(QLatin1StringView(s_activities), a);
 }
 
 void Identity::setVCardFile(const QString &str)

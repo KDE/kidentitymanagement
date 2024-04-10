@@ -68,6 +68,7 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         QCOMPARE(actual.xface(), expected.xface());
         QCOMPARE(actual.isFaceEnabled(), expected.isFaceEnabled());
         QCOMPARE(actual.face(), expected.face());
+        QCOMPARE(actual.activities(), expected.activities());
         ok = true;
     }();
 
@@ -174,6 +175,10 @@ void IdentityTester::test_Identity()
     QVERIFY(identity.isFaceEnabled());
     identity.setFace(QStringLiteral(";-)"));
     QCOMPARE(identity.face(), QStringLiteral(";-)"));
+
+    const QStringList activities = {QStringLiteral("foo1"), QStringLiteral("bla2")};
+    identity.setActivities(activities);
+    QCOMPARE(identity.activities(), activities);
 
     // Test copy
     {
