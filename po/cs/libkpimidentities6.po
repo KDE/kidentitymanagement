@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:38+0000\n"
+"POT-Creation-Date: 2024-04-10 00:38+0000\n"
 "PO-Revision-Date: 2024-04-03 11:26+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -48,6 +48,22 @@ msgstr "Nepojmenované"
 msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
+
+#: core/identitytreemodel.cpp:84
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr " (výchozí)"
+
+#: core/identitytreemodel.cpp:115
+#, kde-format
+msgid "Identity Name"
+msgstr "Název identity"
+
+#: core/identitytreemodel.cpp:118
+#, kde-format
+msgid "Email Address"
+msgstr ""
 
 #: core/signature.cpp:170
 #, kde-format
@@ -183,51 +199,30 @@ msgstr "Opravdu si přejete smazat tuto identitu?"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: widgets/identitytreemodel.cpp:84
-#, kde-format
-msgctxt "Default identity"
-msgid " (default)"
-msgstr " (výchozí)"
-
-#: widgets/identitytreemodel.cpp:115
-#, fuzzy, kde-format
-#| msgid "Identity"
-msgid "Identity Name"
-msgstr "Identita"
-
-#: widgets/identitytreemodel.cpp:118
-#, fuzzy, kde-format
-#| msgid "Email address"
-msgid "Email Address"
-msgstr "E-mailová adresa"
-
-#: widgets/identitywidget.cpp:30
+#: widgets/identitywidget.cpp:52
 #, kde-format
 msgid "Add..."
-msgstr ""
+msgstr "Přidat..."
 
-#: widgets/identitywidget.cpp:33
+#: widgets/identitywidget.cpp:54
 #, kde-format
 msgid "Modify..."
-msgstr ""
+msgstr "Změnit..."
 
-#: widgets/identitywidget.cpp:34
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#: widgets/identitywidget.cpp:55
+#, kde-format
 msgid "Rename"
-msgstr "Nepojmenované"
+msgstr "Přejmenovat"
 
-#: widgets/identitywidget.cpp:36
+#: widgets/identitywidget.cpp:57
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
-#: widgets/identitywidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#: widgets/identitywidget.cpp:61
+#, kde-format
 msgid "Set as Default"
-msgstr "Výchozí"
+msgstr "Nastavit jako výchozí"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format

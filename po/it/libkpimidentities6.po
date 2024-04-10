@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:38+0000\n"
+"POT-Creation-Date: 2024-04-10 00:38+0000\n"
 "PO-Revision-Date: 2024-02-20 13:51+0100\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -49,6 +49,24 @@ msgstr "Senza nome"
 msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
+
+#: core/identitytreemodel.cpp:84
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr " (predefinito)"
+
+#: core/identitytreemodel.cpp:115
+#, fuzzy, kde-format
+#| msgid "Identity"
+msgid "Identity Name"
+msgstr "Identità"
+
+#: core/identitytreemodel.cpp:118
+#, fuzzy, kde-format
+#| msgid "Email address"
+msgid "Email Address"
+msgstr "Indirizzo di posta elettronica"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -186,46 +204,28 @@ msgstr "Se sicuro di voler eliminare questa identità?"
 msgid "Cancel"
 msgstr "Annulla"
 
-#: widgets/identitytreemodel.cpp:84
-#, kde-format
-msgctxt "Default identity"
-msgid " (default)"
-msgstr " (predefinito)"
-
-#: widgets/identitytreemodel.cpp:115
-#, fuzzy, kde-format
-#| msgid "Identity"
-msgid "Identity Name"
-msgstr "Identità"
-
-#: widgets/identitytreemodel.cpp:118
-#, fuzzy, kde-format
-#| msgid "Email address"
-msgid "Email Address"
-msgstr "Indirizzo di posta elettronica"
-
-#: widgets/identitywidget.cpp:30
+#: widgets/identitywidget.cpp:52
 #, kde-format
 msgid "Add..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:33
+#: widgets/identitywidget.cpp:54
 #, kde-format
 msgid "Modify..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:34
+#: widgets/identitywidget.cpp:55
 #, fuzzy, kde-format
 #| msgid "Unnamed"
 msgid "Rename"
 msgstr "Senza nome"
 
-#: widgets/identitywidget.cpp:36
+#: widgets/identitywidget.cpp:57
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: widgets/identitywidget.cpp:40
+#: widgets/identitywidget.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "use default address from control center"
 #| msgid "Default"

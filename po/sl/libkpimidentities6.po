@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:38+0000\n"
-"PO-Revision-Date: 2024-02-20 08:38+0100\n"
+"POT-Creation-Date: 2024-04-10 00:38+0000\n"
+"PO-Revision-Date: 2024-04-09 07:18+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -51,6 +51,22 @@ msgstr "Neimenovano"
 msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
+
+#: core/identitytreemodel.cpp:84
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr " (privzeto)"
+
+#: core/identitytreemodel.cpp:115
+#, kde-format
+msgid "Identity Name"
+msgstr "Ime identitete"
+
+#: core/identitytreemodel.cpp:118
+#, kde-format
+msgid "Email Address"
+msgstr "Naslov e-pošte"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -187,51 +203,30 @@ msgstr "Ali ste prepričani, da želite zbrisati to identiteto?"
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: widgets/identitytreemodel.cpp:84
-#, kde-format
-msgctxt "Default identity"
-msgid " (default)"
-msgstr " (privzeto)"
-
-#: widgets/identitytreemodel.cpp:115
-#, fuzzy, kde-format
-#| msgid "Identity"
-msgid "Identity Name"
-msgstr "Identiteta"
-
-#: widgets/identitytreemodel.cpp:118
-#, fuzzy, kde-format
-#| msgid "Email address"
-msgid "Email Address"
-msgstr "Naslov e-pošte"
-
-#: widgets/identitywidget.cpp:30
+#: widgets/identitywidget.cpp:52
 #, kde-format
 msgid "Add..."
-msgstr ""
+msgstr "Dodaj..."
 
-#: widgets/identitywidget.cpp:33
+#: widgets/identitywidget.cpp:54
 #, kde-format
 msgid "Modify..."
-msgstr ""
+msgstr "Spremeni..."
 
-#: widgets/identitywidget.cpp:34
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#: widgets/identitywidget.cpp:55
+#, kde-format
 msgid "Rename"
-msgstr "Neimenovano"
+msgstr "Preimenuj"
 
-#: widgets/identitywidget.cpp:36
+#: widgets/identitywidget.cpp:57
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Odstrani"
 
-#: widgets/identitywidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#: widgets/identitywidget.cpp:61
+#, kde-format
 msgid "Set as Default"
-msgstr "Privzeto"
+msgstr "Nastavi kot privzeto"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format

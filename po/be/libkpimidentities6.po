@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:38+0000\n"
+"POT-Creation-Date: 2024-04-10 00:38+0000\n"
 "PO-Revision-Date: 2024-02-27 19:40\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
 "Language-Team: Belarusian\n"
@@ -51,6 +51,24 @@ msgstr "Без назвы"
 msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
+
+#: core/identitytreemodel.cpp:84
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr " (прадвызначана)"
+
+#: core/identitytreemodel.cpp:115
+#, fuzzy, kde-format
+#| msgid "Identity"
+msgid "Identity Name"
+msgstr "Асабістыя даныя"
+
+#: core/identitytreemodel.cpp:118
+#, fuzzy, kde-format
+#| msgid "Email address"
+msgid "Email Address"
+msgstr "Адрас электроннай пошты"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -186,46 +204,28 @@ msgstr "Сапраўды хочаце выдаліць гэтыя асабіст
 msgid "Cancel"
 msgstr "Скасаваць"
 
-#: widgets/identitytreemodel.cpp:84
-#, kde-format
-msgctxt "Default identity"
-msgid " (default)"
-msgstr " (прадвызначана)"
-
-#: widgets/identitytreemodel.cpp:115
-#, fuzzy, kde-format
-#| msgid "Identity"
-msgid "Identity Name"
-msgstr "Асабістыя даныя"
-
-#: widgets/identitytreemodel.cpp:118
-#, fuzzy, kde-format
-#| msgid "Email address"
-msgid "Email Address"
-msgstr "Адрас электроннай пошты"
-
-#: widgets/identitywidget.cpp:30
+#: widgets/identitywidget.cpp:52
 #, kde-format
 msgid "Add..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:33
+#: widgets/identitywidget.cpp:54
 #, kde-format
 msgid "Modify..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:34
+#: widgets/identitywidget.cpp:55
 #, fuzzy, kde-format
 #| msgid "Unnamed"
 msgid "Rename"
 msgstr "Без назвы"
 
-#: widgets/identitywidget.cpp:36
+#: widgets/identitywidget.cpp:57
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: widgets/identitywidget.cpp:40
+#: widgets/identitywidget.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "use default address from control center"
 #| msgid "Default"

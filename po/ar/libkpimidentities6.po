@@ -1,24 +1,25 @@
 # translation of libkpimidentities.po to
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
+# SPDX-FileCopyrightText: 2021, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016, 2018.
-# SPDX-FileCopyrightText: 2021, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:38+0000\n"
-"PO-Revision-Date: 2024-02-23 18:01+0400\n"
+"POT-Creation-Date: 2024-04-10 00:38+0000\n"
+"PO-Revision-Date: 2024-04-09 11:57+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
-"Language-Team: ar\n"
+"Language-Team: \n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -49,6 +50,22 @@ msgstr "غير معنون"
 msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
+
+#: core/identitytreemodel.cpp:84
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr " (المبدئيّ)"
+
+#: core/identitytreemodel.cpp:115
+#, kde-format
+msgid "Identity Name"
+msgstr "اسم الهويّة"
+
+#: core/identitytreemodel.cpp:118
+#, kde-format
+msgid "Email Address"
+msgstr "عنوان بريد إلكتروني"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -184,51 +201,30 @@ msgstr "أتريد حقًّا حذف هذه الهويّة؟"
 msgid "Cancel"
 msgstr "ألغِ"
 
-#: widgets/identitytreemodel.cpp:84
-#, kde-format
-msgctxt "Default identity"
-msgid " (default)"
-msgstr " (المبدئيّ)"
-
-#: widgets/identitytreemodel.cpp:115
-#, fuzzy, kde-format
-#| msgid "Identity"
-msgid "Identity Name"
-msgstr "الهويّة"
-
-#: widgets/identitytreemodel.cpp:118
-#, fuzzy, kde-format
-#| msgid "Email address"
-msgid "Email Address"
-msgstr "عنوان بريد إلكتروني"
-
-#: widgets/identitywidget.cpp:30
+#: widgets/identitywidget.cpp:52
 #, kde-format
 msgid "Add..."
-msgstr ""
+msgstr "أضف…"
 
-#: widgets/identitywidget.cpp:33
+#: widgets/identitywidget.cpp:54
 #, kde-format
 msgid "Modify..."
-msgstr ""
+msgstr "عدّل…"
 
-#: widgets/identitywidget.cpp:34
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#: widgets/identitywidget.cpp:55
+#, kde-format
 msgid "Rename"
-msgstr "غير معنون"
+msgstr "أعد التّسمية"
 
-#: widgets/identitywidget.cpp:36
+#: widgets/identitywidget.cpp:57
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "أزل"
 
-#: widgets/identitywidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#: widgets/identitywidget.cpp:61
+#, kde-format
 msgid "Set as Default"
-msgstr "المبدئيّ"
+msgstr "اضبطها كمبدئيّة"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:38+0000\n"
+"POT-Creation-Date: 2024-04-10 00:38+0000\n"
 "PO-Revision-Date: 2024-02-21 14:20+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
@@ -55,6 +55,24 @@ msgstr "Sans nom"
 msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
+
+#: core/identitytreemodel.cpp:84
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr "(Par défaut)"
+
+#: core/identitytreemodel.cpp:115
+#, fuzzy, kde-format
+#| msgid "Identity"
+msgid "Identity Name"
+msgstr "Identité"
+
+#: core/identitytreemodel.cpp:118
+#, fuzzy, kde-format
+#| msgid "Email address"
+msgid "Email Address"
+msgstr "Adresse de courriel"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -192,46 +210,28 @@ msgstr "Voulez-vous vraiment supprimer cette identité ?"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: widgets/identitytreemodel.cpp:84
-#, kde-format
-msgctxt "Default identity"
-msgid " (default)"
-msgstr "(Par défaut)"
-
-#: widgets/identitytreemodel.cpp:115
-#, fuzzy, kde-format
-#| msgid "Identity"
-msgid "Identity Name"
-msgstr "Identité"
-
-#: widgets/identitytreemodel.cpp:118
-#, fuzzy, kde-format
-#| msgid "Email address"
-msgid "Email Address"
-msgstr "Adresse de courriel"
-
-#: widgets/identitywidget.cpp:30
+#: widgets/identitywidget.cpp:52
 #, kde-format
 msgid "Add..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:33
+#: widgets/identitywidget.cpp:54
 #, kde-format
 msgid "Modify..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:34
+#: widgets/identitywidget.cpp:55
 #, fuzzy, kde-format
 #| msgid "Unnamed"
 msgid "Rename"
 msgstr "Sans nom"
 
-#: widgets/identitywidget.cpp:36
+#: widgets/identitywidget.cpp:57
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: widgets/identitywidget.cpp:40
+#: widgets/identitywidget.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "use default address from control center"
 #| msgid "Default"

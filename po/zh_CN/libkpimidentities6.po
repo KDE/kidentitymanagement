@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:38+0000\n"
-"PO-Revision-Date: 2024-04-07 14:29\n"
+"POT-Creation-Date: 2024-04-10 00:38+0000\n"
+"PO-Revision-Date: 2024-04-09 19:25\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -47,6 +47,22 @@ msgstr "未命名"
 msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
+
+#: core/identitytreemodel.cpp:84
+#, kde-format
+msgctxt "Default identity"
+msgid " (default)"
+msgstr " (默认)"
+
+#: core/identitytreemodel.cpp:115
+#, kde-format
+msgid "Identity Name"
+msgstr ""
+
+#: core/identitytreemodel.cpp:118
+#, kde-format
+msgid "Email Address"
+msgstr ""
 
 #: core/signature.cpp:170
 #, kde-format
@@ -182,51 +198,30 @@ msgstr "您确定要删除这个身份吗？"
 msgid "Cancel"
 msgstr "取消"
 
-#: widgets/identitytreemodel.cpp:84
-#, kde-format
-msgctxt "Default identity"
-msgid " (default)"
-msgstr " (默认)"
-
-#: widgets/identitytreemodel.cpp:115
-#, fuzzy, kde-format
-#| msgid "Identity"
-msgid "Identity Name"
-msgstr "身份"
-
-#: widgets/identitytreemodel.cpp:118
-#, fuzzy, kde-format
-#| msgid "Email address"
-msgid "Email Address"
-msgstr "电子邮件地址"
-
-#: widgets/identitywidget.cpp:30
+#: widgets/identitywidget.cpp:52
 #, kde-format
 msgid "Add..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:33
+#: widgets/identitywidget.cpp:54
 #, kde-format
 msgid "Modify..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:34
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#: widgets/identitywidget.cpp:55
+#, kde-format
 msgid "Rename"
-msgstr "未命名"
+msgstr ""
 
-#: widgets/identitywidget.cpp:36
+#: widgets/identitywidget.cpp:57
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: widgets/identitywidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#: widgets/identitywidget.cpp:61
+#, kde-format
 msgid "Set as Default"
-msgstr "默认"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format

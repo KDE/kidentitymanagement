@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-09 00:38+0000\n"
+"POT-Creation-Date: 2024-04-10 00:38+0000\n"
 "PO-Revision-Date: 2013-10-23 13:26+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -48,6 +48,24 @@ msgstr "Neimenovano"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
+msgstr ""
+
+#: core/identitytreemodel.cpp:84
+#, fuzzy, kde-format
+#| msgctxt "use default address from control center"
+#| msgid "Default"
+msgctxt "Default identity"
+msgid " (default)"
+msgstr "Podrazumijevano"
+
+#: core/identitytreemodel.cpp:115
+#, kde-format
+msgid "Identity Name"
+msgstr ""
+
+#: core/identitytreemodel.cpp:118
+#, kde-format
+msgid "Email Address"
 msgstr ""
 
 #: core/signature.cpp:170
@@ -185,46 +203,28 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: widgets/identitytreemodel.cpp:84
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
-msgctxt "Default identity"
-msgid " (default)"
-msgstr "Podrazumijevano"
-
-#: widgets/identitytreemodel.cpp:115
-#, kde-format
-msgid "Identity Name"
-msgstr ""
-
-#: widgets/identitytreemodel.cpp:118
-#, kde-format
-msgid "Email Address"
-msgstr ""
-
-#: widgets/identitywidget.cpp:30
+#: widgets/identitywidget.cpp:52
 #, kde-format
 msgid "Add..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:33
+#: widgets/identitywidget.cpp:54
 #, kde-format
 msgid "Modify..."
 msgstr ""
 
-#: widgets/identitywidget.cpp:34
+#: widgets/identitywidget.cpp:55
 #, fuzzy, kde-format
 #| msgid "Unnamed"
 msgid "Rename"
 msgstr "Neimenovano"
 
-#: widgets/identitywidget.cpp:36
+#: widgets/identitywidget.cpp:57
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: widgets/identitywidget.cpp:40
+#: widgets/identitywidget.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "use default address from control center"
 #| msgid "Default"
