@@ -10,9 +10,9 @@
 #include "identity.h"
 
 using namespace KIdentityManagementCore;
-IdentityTreeModel::IdentityTreeModel(QObject *parent)
+IdentityTreeModel::IdentityTreeModel(IdentityManager *manager, QObject *parent)
     : QAbstractListModel(parent)
-    , mIdentityManager(IdentityManager::self())
+    , mIdentityManager(manager)
 {
     connect(mIdentityManager, &IdentityManager::needToReloadIdentitySettings, this, &IdentityTreeModel::reloadUoidList);
     connect(mIdentityManager, &IdentityManager::identitiesWereChanged, this, &IdentityTreeModel::reloadUoidList);
@@ -85,6 +85,11 @@ QString IdentityTreeModel::generateIdentityName(const Identity &identity) const
         str += QLatin1Char(' ') + i18nc("Default identity", " (default)");
     }
     return str;
+}
+
+KIdentityManagementCore::IdentityManager *IdentityTreeModel::identityManager() const
+{
+    return mIdentityManager;
 }
 
 int IdentityTreeModel::rowCount(const QModelIndex &parent) const

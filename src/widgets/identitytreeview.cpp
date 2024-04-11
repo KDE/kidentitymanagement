@@ -22,7 +22,7 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     header()->setSectionsMovable(false);
     header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-    auto model = new KIdentityManagementCore::IdentityTreeModel(this);
+    auto model = new KIdentityManagementCore::IdentityTreeModel(KIdentityManagementCore::IdentityManager::self(), this);
     model->setShowDefault(true);
 
     mIdentityProxyModel->setSourceModel(model);

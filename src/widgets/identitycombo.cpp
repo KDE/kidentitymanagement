@@ -36,13 +36,12 @@ class KIdentityManagementWidgets::IdentityComboPrivate
 {
 public:
     IdentityComboPrivate(KIdentityManagementCore::IdentityManager *manager, IdentityCombo *qq)
-        : mIdentityManager(manager)
+        : mIdentityModel(new KIdentityManagementCore::IdentityTreeModel(manager, qq))
         , q(qq)
     {
     }
 
-    KIdentityManagementCore::IdentityManager *const mIdentityManager;
-    KIdentityManagementCore::IdentityTreeModel *mIdentityModel = nullptr;
+    KIdentityManagementCore::IdentityTreeModel *const mIdentityModel;
     KIdentityManagementCore::IdentityTreeSortProxyModel *mIdentityProxyModel = nullptr;
     IdentityCombo *const q;
 };
@@ -53,7 +52,6 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     : QComboBox(parent)
     , d(new KIdentityManagementWidgets::IdentityComboPrivate(manager, this))
 {
-    d->mIdentityModel = new KIdentityManagementCore::IdentityTreeModel(this);
     d->mIdentityProxyModel = new KIdentityManagementCore::IdentityTreeSortProxyModel(this);
     d->mIdentityProxyModel->setSourceModel(d->mIdentityModel);
     connect(manager, &KIdentityManagementCore::IdentityManager::identitiesWereChanged, this, &IdentityCombo::slotIdentityManagerChanged);
@@ -90,7 +88,7 @@ uint IdentityCombo::currentIdentity() const
 
 bool IdentityCombo::isDefaultIdentity() const
 {
-    return currentIdentity() == d->mIdentityManager->defaultIdentity().uoid();
+    return currentIdentity() == d->mIdentityModel->identityManager()->defaultIdentity().uoid();
 }
 
 void IdentityCombo::setCurrentIdentity(const Identity &identity)
@@ -103,7 +101,7 @@ void IdentityCombo::setCurrentIdentity(const QString &name)
     if (name.isEmpty()) {
         return;
     }
-    const int idx = d->mIdentityManager->identities().indexOf(name);
+    const int idx = d->mIdentityModel->identityManager()->identities().indexOf(name);
     if (idx < 0) {
         Q_EMIT invalidIdentity();
         return;
@@ -167,12 +165,12 @@ void IdentityCombo::slotEmitChanged(int idx)
 
 void IdentityCombo::slotUpdateTooltip(uint uoid)
 {
-    setToolTip(d->mIdentityManager->identityForUoid(uoid).fullEmailAddr());
+    setToolTip(d->mIdentityModel->identityManager()->identityForUoid(uoid).fullEmailAddr());
 }
 
 IdentityManager *IdentityCombo::identityManager() const
 {
-    return d->mIdentityManager;
+    return d->mIdentityModel->identityManager();
 }
 
 void IdentityCombo::setShowDefault(bool showDefault)

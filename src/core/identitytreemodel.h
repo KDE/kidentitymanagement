@@ -29,7 +29,7 @@ public:
         LastColumn = DefaultRole,
     };
 
-    explicit IdentityTreeModel(QObject *parent = nullptr);
+    explicit IdentityTreeModel(IdentityManager *manager, QObject *parent = nullptr);
     ~IdentityTreeModel() override;
 
     [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -41,6 +41,8 @@ public:
 
     [[nodiscard]] uint identityUoid(int index) const;
     [[nodiscard]] int uoidIndex(int uoid) const;
+
+    [[nodiscard]] KIdentityManagementCore::IdentityManager *identityManager() const;
 
 private:
     KIDENTITYMANAGEMENTCORE_NO_EXPORT void reloadUoidList();
