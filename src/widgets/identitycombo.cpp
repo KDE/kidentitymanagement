@@ -123,8 +123,7 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
     if (uoid == 0) {
         return;
     }
-
-    const int idx = findData(uoid, IdentityTreeModel::UoidRole);
+    const int idx = d->mIdentityModel->uoidIndex(uoid);
 
     if (idx < 0) {
         Q_EMIT invalidIdentity();
@@ -145,7 +144,7 @@ void IdentityCombo::slotIdentityManagerChanged()
 {
     const uint oldIdentity = currentIdentity();
 
-    const int idx = findData(oldIdentity, IdentityTreeModel::UoidRole);
+    const int idx = d->mIdentityModel->uoidIndex(oldIdentity);
 
     blockSignals(true);
     setCurrentIndex(idx < 0 ? 0 : idx);
