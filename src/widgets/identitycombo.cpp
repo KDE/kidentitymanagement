@@ -101,7 +101,7 @@ void IdentityCombo::setCurrentIdentity(const QString &name)
     if (name.isEmpty()) {
         return;
     }
-    const int idx = d->mIdentityModel->identityManager()->identities().indexOf(name);
+    const int idx = findData(name, IdentityTreeModel::IdentityNameRole);
     if (idx < 0) {
         Q_EMIT invalidIdentity();
         return;
