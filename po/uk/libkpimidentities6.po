@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-10 00:38+0000\n"
+"POT-Creation-Date: 2024-04-11 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 15:54+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
@@ -51,18 +51,18 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " – "
 
-#: core/identitytreemodel.cpp:84
+#: core/identitytreemodel.cpp:85
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr " (типовий)"
 
-#: core/identitytreemodel.cpp:115
+#: core/identitytreemodel.cpp:116
 #, kde-format
 msgid "Identity Name"
 msgstr "Назва профілю"
 
-#: core/identitytreemodel.cpp:118
+#: core/identitytreemodel.cpp:119
 #, kde-format
 msgid "Email Address"
 msgstr "Поштова адреса"
@@ -201,27 +201,27 @@ msgstr "Ви справді хочете вилучити цей профіль?
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: widgets/identitywidget.cpp:52
+#: widgets/identitywidget.cpp:45
 #, kde-format
 msgid "Add..."
 msgstr "Додати…"
 
-#: widgets/identitywidget.cpp:54
+#: widgets/identitywidget.cpp:48
 #, kde-format
 msgid "Modify..."
 msgstr "Змінити…"
 
-#: widgets/identitywidget.cpp:55
+#: widgets/identitywidget.cpp:49
 #, kde-format
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: widgets/identitywidget.cpp:57
+#: widgets/identitywidget.cpp:51
 #, kde-format
 msgid "Remove"
 msgstr "Вилучити"
 
-#: widgets/identitywidget.cpp:61
+#: widgets/identitywidget.cpp:55
 #, kde-format
 msgid "Set as Default"
 msgstr "Зробити типовим"

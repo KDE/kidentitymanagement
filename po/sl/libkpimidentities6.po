@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-10 00:38+0000\n"
+"POT-Creation-Date: 2024-04-11 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 07:18+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -52,18 +52,18 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
 
-#: core/identitytreemodel.cpp:84
+#: core/identitytreemodel.cpp:85
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr " (privzeto)"
 
-#: core/identitytreemodel.cpp:115
+#: core/identitytreemodel.cpp:116
 #, kde-format
 msgid "Identity Name"
 msgstr "Ime identitete"
 
-#: core/identitytreemodel.cpp:118
+#: core/identitytreemodel.cpp:119
 #, kde-format
 msgid "Email Address"
 msgstr "Naslov e-pošte"
@@ -203,27 +203,27 @@ msgstr "Ali ste prepričani, da želite zbrisati to identiteto?"
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: widgets/identitywidget.cpp:52
+#: widgets/identitywidget.cpp:45
 #, kde-format
 msgid "Add..."
 msgstr "Dodaj..."
 
-#: widgets/identitywidget.cpp:54
+#: widgets/identitywidget.cpp:48
 #, kde-format
 msgid "Modify..."
 msgstr "Spremeni..."
 
-#: widgets/identitywidget.cpp:55
+#: widgets/identitywidget.cpp:49
 #, kde-format
 msgid "Rename"
 msgstr "Preimenuj"
 
-#: widgets/identitywidget.cpp:57
+#: widgets/identitywidget.cpp:51
 #, kde-format
 msgid "Remove"
 msgstr "Odstrani"
 
-#: widgets/identitywidget.cpp:61
+#: widgets/identitywidget.cpp:55
 #, kde-format
 msgid "Set as Default"
 msgstr "Nastavi kot privzeto"

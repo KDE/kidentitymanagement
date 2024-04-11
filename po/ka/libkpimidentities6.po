@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-10 00:38+0000\n"
+"POT-Creation-Date: 2024-04-11 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 07:02+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -48,18 +48,18 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
 
-#: core/identitytreemodel.cpp:84
+#: core/identitytreemodel.cpp:85
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr " (ნაგულისხმები)"
 
-#: core/identitytreemodel.cpp:115
+#: core/identitytreemodel.cpp:116
 #, kde-format
 msgid "Identity Name"
 msgstr "იდენტიფიკატორის სახელი"
 
-#: core/identitytreemodel.cpp:118
+#: core/identitytreemodel.cpp:119
 #, kde-format
 msgid "Email Address"
 msgstr "ელფოსტის მისამართი"
@@ -200,27 +200,27 @@ msgstr "დარწმუნებული ბრძანდებით, რ
 msgid "Cancel"
 msgstr "გაუქმება"
 
-#: widgets/identitywidget.cpp:52
+#: widgets/identitywidget.cpp:45
 #, kde-format
 msgid "Add..."
 msgstr "დამატება..."
 
-#: widgets/identitywidget.cpp:54
+#: widgets/identitywidget.cpp:48
 #, kde-format
 msgid "Modify..."
 msgstr "ჩასწორება..."
 
-#: widgets/identitywidget.cpp:55
+#: widgets/identitywidget.cpp:49
 #, kde-format
 msgid "Rename"
 msgstr "გადარქმევა"
 
-#: widgets/identitywidget.cpp:57
+#: widgets/identitywidget.cpp:51
 #, kde-format
 msgid "Remove"
 msgstr "წაშლა"
 
-#: widgets/identitywidget.cpp:61
+#: widgets/identitywidget.cpp:55
 #, kde-format
 msgid "Set as Default"
 msgstr "ნაგულისხმევად დაყენება"
