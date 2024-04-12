@@ -77,7 +77,9 @@ void IdentityCombo::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *ne
 
 QString IdentityCombo::currentIdentityName() const
 {
-    return currentData(KIdentityManagementCore::IdentityTreeModel::IdentityNameRole).toString();
+    return d->mIdentityProxyModel->mapToSource(d->mIdentityProxyModel->index(currentIndex(), KIdentityManagementCore::IdentityTreeModel::IdentityNameRole))
+        .data()
+        .toString();
 }
 
 uint IdentityCombo::currentIdentity() const

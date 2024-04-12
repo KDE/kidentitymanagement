@@ -27,6 +27,12 @@ IdentityComboboxWidget::IdentityComboboxWidget(QWidget *parent)
         label->setText(QString::number(id));
     });
     mainLayout->addWidget(label);
+
+    auto labelIdentity = new QLabel(this);
+    connect(combobox, &KIdentityManagementWidgets::IdentityCombo::identityChanged, this, [combobox, labelIdentity](KIdentityManagementCore::Identity::Id id) {
+        labelIdentity->setText(combobox->currentIdentityName());
+    });
+    mainLayout->addWidget(labelIdentity);
 }
 
 int main(int argc, char *argv[])
