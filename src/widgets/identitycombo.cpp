@@ -104,7 +104,10 @@ void IdentityCombo::setCurrentIdentity(const QString &name)
     if (name.isEmpty()) {
         return;
     }
+
     const int idx = d->mIdentityModel->identityManager()->identities().indexOf(name);
+    // const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
+
     if (idx < 0) {
         Q_EMIT invalidIdentity();
         return;
@@ -127,6 +130,7 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
         return;
     }
     const int idx = d->mIdentityModel->uoidIndex(uoid);
+    // const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
 
     if (idx < 0) {
         Q_EMIT invalidIdentity();
@@ -148,6 +152,7 @@ void IdentityCombo::slotIdentityManagerChanged()
     const uint oldIdentity = currentIdentity();
 
     const int idx = d->mIdentityModel->uoidIndex(oldIdentity);
+    // const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
 
     blockSignals(true);
     setCurrentIndex(idx < 0 ? 0 : idx);
