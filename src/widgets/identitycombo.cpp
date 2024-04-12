@@ -106,22 +106,22 @@ void IdentityCombo::setCurrentIdentity(const QString &name)
     }
 
     const int idx = d->mIdentityModel->identityManager()->identities().indexOf(name);
-    // const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
+    const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
 
-    if (idx < 0) {
+    if (newIndex < 0) {
         Q_EMIT invalidIdentity();
         return;
     }
 
-    if (idx == currentIndex()) {
+    if (newIndex == currentIndex()) {
         return;
     }
 
     blockSignals(true); // just in case Qt gets fixed to emit activated() here
-    setCurrentIndex(idx);
+    setCurrentIndex(newIndex);
     blockSignals(false);
 
-    slotEmitChanged(idx);
+    slotEmitChanged(newIndex);
 }
 
 void IdentityCombo::setCurrentIdentity(uint uoid)
@@ -130,21 +130,21 @@ void IdentityCombo::setCurrentIdentity(uint uoid)
         return;
     }
     const int idx = d->mIdentityModel->uoidIndex(uoid);
-    // const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
+    const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
 
-    if (idx < 0) {
+    if (newIndex < 0) {
         Q_EMIT invalidIdentity();
         return;
     }
-    if (idx == currentIndex()) {
+    if (newIndex == currentIndex()) {
         return;
     }
 
     blockSignals(true); // just in case Qt gets fixed to emit activated() here
-    setCurrentIndex(idx);
+    setCurrentIndex(newIndex);
     blockSignals(false);
 
-    slotEmitChanged(idx);
+    slotEmitChanged(newIndex);
 }
 
 void IdentityCombo::slotIdentityManagerChanged()
@@ -152,15 +152,15 @@ void IdentityCombo::slotIdentityManagerChanged()
     const uint oldIdentity = currentIdentity();
 
     const int idx = d->mIdentityModel->uoidIndex(oldIdentity);
-    // const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
+    const int newIndex = d->mIdentityProxyModel->mapFromSource(d->mIdentityModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
 
     blockSignals(true);
-    setCurrentIndex(idx < 0 ? 0 : idx);
+    setCurrentIndex(newIndex < 0 ? 0 : newIndex);
     blockSignals(false);
 
     slotUpdateTooltip(currentIdentity());
 
-    if (idx < 0) {
+    if (newIndex < 0) {
         // apparently our oldIdentity got deleted:
         slotEmitChanged(currentIndex());
     }

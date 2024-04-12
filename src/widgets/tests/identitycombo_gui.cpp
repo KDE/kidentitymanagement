@@ -5,6 +5,8 @@
 #include <KIdentityManagementWidgets/IdentityCombo>
 #include <QApplication>
 #include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -33,6 +35,40 @@ IdentityComboboxWidget::IdentityComboboxWidget(QWidget *parent)
         labelIdentity->setText(combobox->currentIdentityName());
     });
     mainLayout->addWidget(labelIdentity);
+
+    {
+        auto hbox = new QHBoxLayout;
+        auto identityNameLineEdit = new QLineEdit(this);
+
+        hbox->addWidget(new QLabel(QStringLiteral("set identity name:"), this));
+        hbox->addWidget(identityNameLineEdit);
+
+        auto identityNameButton = new QPushButton(QStringLiteral("Apply"), this);
+        hbox->addWidget(identityNameButton);
+
+        connect(identityNameButton, &QPushButton::clicked, this, [identityNameLineEdit, combobox]() {
+            combobox->setCurrentIdentity(identityNameLineEdit->text());
+        });
+
+        mainLayout->addLayout(hbox);
+    }
+
+    {
+        auto hbox = new QHBoxLayout;
+        auto identityNameLineEdit = new QLineEdit(this);
+
+        hbox->addWidget(new QLabel(QStringLiteral("set identity identifier:"), this));
+        hbox->addWidget(identityNameLineEdit);
+
+        auto identityNameButton = new QPushButton(QStringLiteral("Apply"), this);
+        hbox->addWidget(identityNameButton);
+
+        connect(identityNameButton, &QPushButton::clicked, this, [identityNameLineEdit, combobox]() {
+            combobox->setCurrentIdentity(identityNameLineEdit->text().toInt());
+        });
+
+        mainLayout->addLayout(hbox);
+    }
 }
 
 int main(int argc, char *argv[])
