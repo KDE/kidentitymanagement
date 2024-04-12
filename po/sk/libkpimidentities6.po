@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-11 00:38+0000\n"
+"POT-Creation-Date: 2024-04-12 00:38+0000\n"
 "PO-Revision-Date: 2022-04-09 19:29+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -52,12 +52,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (predvolené)"
 
-#: core/identitytreemodel.cpp:116
+#: core/identitytreemodel.cpp:121
 #, kde-format
 msgid "Identity Name"
 msgstr ""
 
-#: core/identitytreemodel.cpp:119
+#: core/identitytreemodel.cpp:124
 #, kde-format
 msgid "Email Address"
 msgstr ""

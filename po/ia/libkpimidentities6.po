@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-11 00:38+0000\n"
+"POT-Creation-Date: 2024-04-12 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 11:34+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -53,12 +53,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "(predefinite) "
 
-#: core/identitytreemodel.cpp:116
+#: core/identitytreemodel.cpp:121
 #, kde-format
 msgid "Identity Name"
 msgstr "Nomine de identitate"
 
-#: core/identitytreemodel.cpp:119
+#: core/identitytreemodel.cpp:124
 #, kde-format
 msgid "Email Address"
 msgstr "Adresse de E-Posta"

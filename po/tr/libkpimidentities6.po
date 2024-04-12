@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-11 00:38+0000\n"
+"POT-Creation-Date: 2024-04-12 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 14:00+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -59,12 +59,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (öntanımlı)"
 
-#: core/identitytreemodel.cpp:116
+#: core/identitytreemodel.cpp:121
 #, kde-format
 msgid "Identity Name"
 msgstr "Kimlik Adı"
 
-#: core/identitytreemodel.cpp:119
+#: core/identitytreemodel.cpp:124
 #, kde-format
 msgid "Email Address"
 msgstr "E-posta Adresi"
