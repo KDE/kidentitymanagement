@@ -83,7 +83,9 @@ QString IdentityCombo::currentIdentityName() const
 
 uint IdentityCombo::currentIdentity() const
 {
-    return currentData(KIdentityManagementCore::IdentityTreeModel::UoidRole).toInt();
+    return d->mIdentityProxyModel->mapToSource(d->mIdentityProxyModel->index(currentIndex(), KIdentityManagementCore::IdentityTreeModel::UoidRole))
+        .data()
+        .toInt();
 }
 
 bool IdentityCombo::isDefaultIdentity() const
