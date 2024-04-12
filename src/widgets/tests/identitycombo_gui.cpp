@@ -4,6 +4,7 @@
 #include <KIdentityManagementCore/IdentityManager>
 #include <KIdentityManagementWidgets/IdentityCombo>
 #include <QApplication>
+#include <QLabel>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -20,6 +21,12 @@ IdentityComboboxWidget::IdentityComboboxWidget(QWidget *parent)
     auto mainLayout = new QVBoxLayout(this);
     auto combobox = new KIdentityManagementWidgets::IdentityCombo(KIdentityManagementCore::IdentityManager::self(), this);
     mainLayout->addWidget(combobox);
+
+    auto label = new QLabel(this);
+    connect(combobox, &KIdentityManagementWidgets::IdentityCombo::identityChanged, this, [label](KIdentityManagementCore::Identity::Id id) {
+        label->setText(QString::number(id));
+    });
+    mainLayout->addWidget(label);
 }
 
 int main(int argc, char *argv[])
