@@ -59,7 +59,6 @@ IdentityCombo::IdentityCombo(IdentityManager *manager, QWidget *parent)
     connect(manager, &KIdentityManagementCore::IdentityManager::deleted, this, &IdentityCombo::identityDeleted);
     connect(this, &IdentityCombo::activated, this, &IdentityCombo::slotEmitChanged);
     connect(this, &IdentityCombo::identityChanged, this, &IdentityCombo::slotUpdateTooltip);
-    // qDebug() << " d->mIdentityModel " << d->mIdentityModel->rowCount();
     setModelColumn(KIdentityManagementCore::IdentityTreeModel::DisplayIdentityNameRole);
     slotUpdateTooltip(currentIdentity());
 }
