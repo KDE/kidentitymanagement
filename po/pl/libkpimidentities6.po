@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-12 00:38+0000\n"
-"PO-Revision-Date: 2024-02-24 16:28+0100\n"
+"PO-Revision-Date: 2024-04-13 19:29+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -55,16 +55,14 @@ msgid " (default)"
 msgstr " (domyślna)"
 
 #: core/identitytreemodel.cpp:121
-#, fuzzy, kde-format
-#| msgid "Identity"
+#, kde-format
 msgid "Identity Name"
-msgstr "Tożsamość"
+msgstr "Nazwa tożsamości"
 
 #: core/identitytreemodel.cpp:124
-#, fuzzy, kde-format
-#| msgid "Email address"
+#, kde-format
 msgid "Email Address"
-msgstr "Adresy pocztowe"
+msgstr "Adres pocztowy"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -204,30 +202,27 @@ msgstr "Anuluj"
 #: widgets/identitywidget.cpp:45
 #, kde-format
 msgid "Add..."
-msgstr ""
+msgstr "Dodaj..."
 
 #: widgets/identitywidget.cpp:48
 #, kde-format
 msgid "Modify..."
-msgstr ""
+msgstr "Zmień..."
 
 #: widgets/identitywidget.cpp:49
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Nienazwany"
+msgstr "Przemianuj"
 
 #: widgets/identitywidget.cpp:51
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Usuń"
 
 #: widgets/identitywidget.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#, kde-format
 msgid "Set as Default"
-msgstr "Domyślne"
+msgstr "Ustaw jako domyślne"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
