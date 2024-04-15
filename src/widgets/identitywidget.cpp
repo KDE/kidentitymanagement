@@ -11,8 +11,8 @@ using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementWidgets;
 IdentityWidget::IdentityWidget(QWidget *parent)
     : QWidget{parent}
+    , mUi(new Ui::IdentityWidget())
 {
-    mUi = new Ui::IdentityWidget();
     mUi->setupUi(this);
     // connect(mIdentityTreeView, &QTreeView::customContextMenuRequested, this, &IdentityWidget::slotCustomContextMenuRequested);
 

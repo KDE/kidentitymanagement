@@ -29,7 +29,7 @@ private:
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotModifyIdentity();
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotRenameIdentity();
     KIDENTITYMANAGEMENTWIDGETS_NO_EXPORT void slotSetAsDefault();
-    Ui::IdentityWidget *mUi = nullptr;
+    Ui::IdentityWidget *const mUi;
 };
 
 }
