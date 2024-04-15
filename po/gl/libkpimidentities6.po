@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-12 00:38+0000\n"
-"PO-Revision-Date: 2024-02-20 16:44+0100\n"
+"PO-Revision-Date: 2024-04-14 15:20+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -59,14 +59,12 @@ msgid " (default)"
 msgstr " (predeterminado)"
 
 #: core/identitytreemodel.cpp:121
-#, fuzzy, kde-format
-#| msgid "Identity"
+#, kde-format
 msgid "Identity Name"
-msgstr "Identidade"
+msgstr "Nome da identidade"
 
 #: core/identitytreemodel.cpp:124
-#, fuzzy, kde-format
-#| msgid "Email address"
+#, kde-format
 msgid "Email Address"
 msgstr "Enderezo de correo electrónico"
 
@@ -208,30 +206,27 @@ msgstr "Cancelar"
 #: widgets/identitywidget.cpp:45
 #, kde-format
 msgid "Add..."
-msgstr ""
+msgstr "Engadir…"
 
 #: widgets/identitywidget.cpp:48
 #, kde-format
 msgid "Modify..."
-msgstr ""
+msgstr "Modificar…"
 
 #: widgets/identitywidget.cpp:49
-#, fuzzy, kde-format
-#| msgid "Unnamed"
+#, kde-format
 msgid "Rename"
-msgstr "Sen nome"
+msgstr "Renomear"
 
 #: widgets/identitywidget.cpp:51
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Retirar"
 
 #: widgets/identitywidget.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#, kde-format
 msgid "Set as Default"
-msgstr "Predeterminado"
+msgstr "Facer predeterminada"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
