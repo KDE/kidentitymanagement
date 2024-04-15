@@ -26,7 +26,9 @@ IdentityActivitiesAbstract *IdentityTreeSortProxyModel::identityActivitiesAbstra
 
 void IdentityTreeSortProxyModel::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
 {
-    mIdentityActivitiesAbstract = newIdentityActivitiesAbstract;
-    connect(mIdentityActivitiesAbstract, &IdentityActivitiesAbstract::activitiesChanged, this, &IdentityTreeSortProxyModel::invalidateFilter);
-    invalidateFilter();
+    if (mIdentityActivitiesAbstract != newIdentityActivitiesAbstract) {
+        mIdentityActivitiesAbstract = newIdentityActivitiesAbstract;
+        connect(mIdentityActivitiesAbstract, &IdentityActivitiesAbstract::activitiesChanged, this, &IdentityTreeSortProxyModel::invalidateFilter);
+        invalidateFilter();
+    }
 }
