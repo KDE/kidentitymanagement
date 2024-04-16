@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 
 #include "identitytreeview.h"
+#include "identitytreedelegate.h"
 #include "identitytreemodel.h"
 #include "identitytreesortproxymodel.h"
 
@@ -32,6 +33,7 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     setColumnHidden(KIdentityManagementCore::IdentityTreeModel::UoidRole, true);
     setColumnHidden(KIdentityManagementCore::IdentityTreeModel::EmailRole, true);
     setColumnHidden(KIdentityManagementCore::IdentityTreeModel::IdentityNameRole, true);
+    setItemDelegateForColumn(KIdentityManagementCore::IdentityTreeModel::DisplayIdentityNameRole, new IdentityTreeDelegate(this));
 }
 
 IdentityTreeView::~IdentityTreeView() = default;

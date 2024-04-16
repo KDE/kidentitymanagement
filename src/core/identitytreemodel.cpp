@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 
 #include "identitytreemodel.h"
+#include "kidentitymanagementcore_debug.h"
 #include <KLocalizedString>
 #include <QFont>
 
@@ -129,6 +130,42 @@ QVariant IdentityTreeModel::headerData(int section, Qt::Orientation orientation,
         }
     }
     return {};
+}
+
+Qt::ItemFlags IdentityTreeModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::NoItemFlags;
+
+    if (static_cast<IdentityRoles>(index.column()) == DisplayIdentityNameRole) {
+        return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+    }
+    return QAbstractItemModel::flags(index);
+}
+
+bool IdentityTreeModel::setData(const QModelIndex &modelIndex, const QVariant &value, int role)
+{
+    if (!modelIndex.isValid()) {
+        qCWarning(KIDENTITYMANAGEMENT_LOG) << "ERROR: invalid index";
+        return false;
+    }
+    if (role != Qt::EditRole) {
+        return false;
+    }
+    const int idx = modelIndex.row();
+    auto &identity = mIdentityManager->modifyIdentityForUoid(mIdentitiesUoid[idx]);
+    switch (static_cast<IdentityRoles>(modelIndex.column())) {
+    case DisplayIdentityNameRole: {
+        const QModelIndex newIndex = index(modelIndex.row(), DisplayIdentityNameRole);
+        Q_EMIT dataChanged(newIndex, newIndex);
+        identity.setIdentityName(value.toString());
+        // TODO save ???
+        return true;
+    }
+    default:
+        break;
+    }
+    return false;
 }
 
 #include "moc_identitytreemodel.cpp"
