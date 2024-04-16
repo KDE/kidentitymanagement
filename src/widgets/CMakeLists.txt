@@ -29,6 +29,9 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
   identitytreeview.cpp
   identitywidget.h
   identitywidget.cpp
+
+  identitytreedelegate.h
+  identitytreedelegate.cpp
 )
 
 ki18n_wrap_ui(KPim6IdentityManagementWidgets
