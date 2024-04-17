@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-12 00:38+0000\n"
+"POT-Creation-Date: 2024-04-17 00:38+0000\n"
 "PO-Revision-Date: 2023-10-25 13:05+0200\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -47,18 +47,18 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
 
-#: core/identitytreemodel.cpp:85
+#: core/identitytreemodel.cpp:86
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr ""
 
-#: core/identitytreemodel.cpp:121
+#: core/identitytreemodel.cpp:122
 #, kde-format
 msgid "Identity Name"
 msgstr ""
 
-#: core/identitytreemodel.cpp:124
+#: core/identitytreemodel.cpp:125
 #, kde-format
 msgid "Email Address"
 msgstr ""
