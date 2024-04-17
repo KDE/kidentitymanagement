@@ -27,18 +27,10 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
 
   identitytreeview.h
   identitytreeview.cpp
-  identitywidget.h
-  identitywidget.cpp
 
   identitytreedelegate.h
   identitytreedelegate.cpp
 )
-
-ki18n_wrap_ui(KPim6IdentityManagementWidgets
-    ui/identitywidget.ui
-    )
-
-
 
 if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
     set_target_properties(KPim6IdentityManagementWidgets PROPERTIES UNITY_BUILD ON)
@@ -99,7 +91,6 @@ ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
   IdentityCombo
   SignatureConfigurator
   IdentityTreeView
-  IdentityWidget
   PREFIX KIdentityManagementWidgets
   REQUIRED_HEADERS KIdentityManagementWidgets_HEADERS
 )

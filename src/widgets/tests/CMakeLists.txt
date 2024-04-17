@@ -12,9 +12,3 @@ add_executable(identitytreeview_gui identitytreeview_gui.cpp)
 
 target_link_libraries(identitytreeview_gui KPim6::IdentityManagementWidgets)
 
-########## next target ###############
-
-add_executable(identitywidget_gui identitywidget_gui.cpp)
-
-target_link_libraries(identitywidget_gui KPim6::IdentityManagementWidgets KF6::I18n KF6::WidgetsAddons)
-
