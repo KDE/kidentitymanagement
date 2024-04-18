@@ -26,7 +26,8 @@ public:
         EmailRole,
         UoidRole,
         DefaultRole,
-        LastColumn = DefaultRole,
+        ActivitiesRole,
+        LastColumn = ActivitiesRole,
     };
 
     explicit IdentityTreeModel(IdentityManager *manager, QObject *parent = nullptr);
