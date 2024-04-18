@@ -3,6 +3,7 @@
 
 #include "identitytreesortproxymodel.h"
 #include "identityactivitiesabstract.h"
+#include "identitytreemodel.h"
 using namespace KIdentityManagementCore;
 IdentityTreeSortProxyModel::IdentityTreeSortProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
@@ -14,7 +15,8 @@ IdentityTreeSortProxyModel::~IdentityTreeSortProxyModel() = default;
 bool IdentityTreeSortProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     if (mIdentityActivitiesAbstract) {
-        return mIdentityActivitiesAbstract->filterAcceptsRow(source_row, source_parent);
+        const auto activities = sourceModel()->index(source_row, 0).data(IdentityTreeModel::ActivitiesRole).toStringList();
+        return mIdentityActivitiesAbstract->filterAcceptsRow(activities);
     }
     return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
 }
