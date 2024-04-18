@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2022-02-04 13:01+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -205,34 +205,6 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:49
-#, fuzzy, kde-format
-#| msgid "Unnamed"
-msgid "Rename"
-msgstr "Anonim"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr ""
-
-#: widgets/identitywidget.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
-msgid "Set as Default"
-msgstr "Implicită"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -344,6 +316,17 @@ msgstr "Dimensiune fișier textual"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Folosește HTML (dezactivarea elimină formatarea)"
+
+#, fuzzy
+#~| msgid "Unnamed"
+#~ msgid "Rename"
+#~ msgstr "Anonim"
+
+#, fuzzy
+#~| msgctxt "use default address from control center"
+#~| msgid "Default"
+#~ msgid "Set as Default"
+#~ msgstr "Implicită"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"

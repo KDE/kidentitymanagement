@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-02-20 23:52+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -199,34 +199,6 @@ msgstr "이 프로필을 삭제하시겠습니까?"
 msgid "Cancel"
 msgstr "취소"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:49
-#, fuzzy, kde-format
-#| msgid "Unnamed"
-msgid "Rename"
-msgstr "이름 없음"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr ""
-
-#: widgets/identitywidget.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
-msgid "Set as Default"
-msgstr "기본"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -341,3 +313,14 @@ msgstr "텍스트 파일 크기"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "HTML 사용 (비활성화 시 형식 삭제)(&U)"
+
+#, fuzzy
+#~| msgid "Unnamed"
+#~ msgid "Rename"
+#~ msgstr "이름 없음"
+
+#, fuzzy
+#~| msgctxt "use default address from control center"
+#~| msgid "Default"
+#~ msgid "Set as Default"
+#~ msgstr "기본"

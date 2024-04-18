@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2021-08-16 18:49+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -197,34 +197,6 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:49
-#, fuzzy, kde-format
-#| msgid "Unnamed"
-msgid "Rename"
-msgstr "Adsız"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr ""
-
-#: widgets/identitywidget.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
-msgid "Set as Default"
-msgstr "İlkin"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -343,3 +315,14 @@ msgstr "Mətn faylının ölçüsü"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "HTML &istifadə edin (söndürdükdə formatlama ləğv olunur)"
+
+#, fuzzy
+#~| msgid "Unnamed"
+#~ msgid "Rename"
+#~ msgstr "Adsız"
+
+#, fuzzy
+#~| msgctxt "use default address from control center"
+#~| msgid "Default"
+#~ msgid "Set as Default"
+#~ msgstr "İlkin"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-02-07 00:52+0200\n"
 "Last-Translator: Andrius Štikonas <andrius@stikonas.eu>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -199,34 +199,6 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:49
-#, fuzzy, kde-format
-#| msgid "Unnamed"
-msgid "Rename"
-msgstr "Be pavadinimo"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr ""
-
-#: widgets/identitywidget.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
-msgid "Set as Default"
-msgstr "Numatytasis"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -347,3 +319,14 @@ msgstr "Tekstinio failo dydis"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Naudoti HTML (išjungimas pašalina formatavimą)"
+
+#, fuzzy
+#~| msgid "Unnamed"
+#~ msgid "Rename"
+#~ msgstr "Be pavadinimo"
+
+#, fuzzy
+#~| msgctxt "use default address from control center"
+#~| msgid "Default"
+#~ msgid "Set as Default"
+#~ msgstr "Numatytasis"

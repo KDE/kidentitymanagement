@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2023-09-26 10:48+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -204,34 +204,6 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr ""
-
-#: widgets/identitywidget.cpp:49
-#, fuzzy, kde-format
-#| msgid "Unnamed"
-msgid "Rename"
-msgstr "Nimetön"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr ""
-
-#: widgets/identitywidget.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
-msgid "Set as Default"
-msgstr "Oletus"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -349,3 +321,14 @@ msgstr "Tekstitiedoston koko"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Käytä HTML:ää (ellei käytössä, muotoilu poistetaan)"
+
+#, fuzzy
+#~| msgid "Unnamed"
+#~ msgid "Rename"
+#~ msgstr "Nimetön"
+
+#, fuzzy
+#~| msgctxt "use default address from control center"
+#~| msgid "Default"
+#~ msgid "Set as Default"
+#~ msgstr "Oletus"

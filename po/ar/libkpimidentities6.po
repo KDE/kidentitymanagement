@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 11:57+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: \n"
@@ -201,31 +201,6 @@ msgstr "أتريد حقًّا حذف هذه الهويّة؟"
 msgid "Cancel"
 msgstr "ألغِ"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "أضف…"
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "عدّل…"
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "أعد التّسمية"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "أزل"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "اضبطها كمبدئيّة"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -341,6 +316,21 @@ msgstr "حجم الملف النصي"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "ا&ستخدم HTML (يعطّل إزالة التّنسيق)"
+
+#~ msgid "Add..."
+#~ msgstr "أضف…"
+
+#~ msgid "Modify..."
+#~ msgstr "عدّل…"
+
+#~ msgid "Rename"
+#~ msgstr "أعد التّسمية"
+
+#~ msgid "Remove"
+#~ msgstr "أزل"
+
+#~ msgid "Set as Default"
+#~ msgstr "اضبطها كمبدئيّة"
 
 #, fuzzy
 #~ msgctxt "show default identity"

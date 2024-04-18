@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-03 11:26+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -199,31 +199,6 @@ msgstr "Opravdu si přejete smazat tuto identitu?"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Přidat..."
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Změnit..."
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "Přejmenovat"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "Odstranit"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Nastavit jako výchozí"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -341,3 +316,18 @@ msgstr "Velikost textového souboru"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Po&užít HTML (zakázáním vypnete formátování)"
+
+#~ msgid "Add..."
+#~ msgstr "Přidat..."
+
+#~ msgid "Modify..."
+#~ msgstr "Změnit..."
+
+#~ msgid "Rename"
+#~ msgstr "Přejmenovat"
+
+#~ msgid "Remove"
+#~ msgstr "Odstranit"
+
+#~ msgid "Set as Default"
+#~ msgstr "Nastavit jako výchozí"

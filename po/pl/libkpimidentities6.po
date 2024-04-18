@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-13 19:29+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -199,31 +199,6 @@ msgstr "Czy na pewno usunąć tę tożsamość?"
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Dodaj..."
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Zmień..."
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "Przemianuj"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "Usuń"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Ustaw jako domyślne"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -342,3 +317,18 @@ msgstr "Rozmiar pliku tekstowego"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Użyj HTML (wyłączenie usuwa formatowanie)"
+
+#~ msgid "Add..."
+#~ msgstr "Dodaj..."
+
+#~ msgid "Modify..."
+#~ msgstr "Zmień..."
+
+#~ msgid "Rename"
+#~ msgstr "Przemianuj"
+
+#~ msgid "Remove"
+#~ msgstr "Usuń"
+
+#~ msgid "Set as Default"
+#~ msgstr "Ustaw jako domyślne"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-14 15:20+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -203,31 +203,6 @@ msgstr "Está seguro de que quere eliminar permanentemente esta identidade?"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Engadir…"
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Modificar…"
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "Renomear"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "Retirar"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Facer predeterminada"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -345,3 +320,18 @@ msgstr "Tamaño do ficheiro de texto"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Usar &HTML (se o desactiva retira o formatado)"
+
+#~ msgid "Add..."
+#~ msgstr "Engadir…"
+
+#~ msgid "Modify..."
+#~ msgstr "Modificar…"
+
+#~ msgid "Rename"
+#~ msgstr "Renomear"
+
+#~ msgid "Remove"
+#~ msgstr "Retirar"
+
+#~ msgid "Set as Default"
+#~ msgstr "Facer predeterminada"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 12:19+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -203,31 +203,6 @@ msgstr "Segur que voleu suprimir esta identitat?"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Afig..."
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Modifica..."
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "Canvia el nom"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "Elimina"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Establix com a predeterminada"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -347,3 +322,18 @@ msgstr "Mida del fitxer de text"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Utilit&za HTML (la inhabilitació elimina el format)"
+
+#~ msgid "Add..."
+#~ msgstr "Afig..."
+
+#~ msgid "Modify..."
+#~ msgstr "Modifica..."
+
+#~ msgid "Rename"
+#~ msgstr "Canvia el nom"
+
+#~ msgid "Remove"
+#~ msgstr "Elimina"
+
+#~ msgid "Set as Default"
+#~ msgstr "Establix com a predeterminada"

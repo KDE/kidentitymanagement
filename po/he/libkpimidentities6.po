@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 07:56+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -198,31 +198,6 @@ msgstr "למחוק את הזהות הזאת?"
 msgid "Cancel"
 msgstr "ביטול"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "הוספה…"
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "עריכה…"
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "שינוי שם"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "הסרה"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "הגדרה כברירת מחדל"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -339,3 +314,18 @@ msgstr "גודל קובץ טקסט"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "להש&תמש ב־HTML (השבתה תסיר את העיצוב)"
+
+#~ msgid "Add..."
+#~ msgstr "הוספה…"
+
+#~ msgid "Modify..."
+#~ msgstr "עריכה…"
+
+#~ msgid "Rename"
+#~ msgstr "שינוי שם"
+
+#~ msgid "Remove"
+#~ msgstr "הסרה"
+
+#~ msgid "Set as Default"
+#~ msgstr "הגדרה כברירת מחדל"

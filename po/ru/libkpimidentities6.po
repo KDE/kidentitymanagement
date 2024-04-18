@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-01-27 18:55+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -227,33 +227,6 @@ msgstr "Очистить корзину?"
 msgid "Cancel"
 msgstr "О&тменить"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Добавить..."
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Изменить..."
-
-#: widgets/identitywidget.cpp:49
-#, fuzzy, kde-format
-#| msgid "&Rename"
-msgid "Rename"
-msgstr "&Переименовать"
-
-#: widgets/identitywidget.cpp:51
-#, fuzzy, kde-format
-#| msgid "R&emove"
-msgid "Remove"
-msgstr "&Удалить"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Сделать основным"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -367,6 +340,25 @@ msgstr "Размер текстового файла"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Использовать HTML (отключение удаляет форматирование)"
+
+#~ msgid "Add..."
+#~ msgstr "Добавить..."
+
+#~ msgid "Modify..."
+#~ msgstr "Изменить..."
+
+#, fuzzy
+#~| msgid "&Rename"
+#~ msgid "Rename"
+#~ msgstr "&Переименовать"
+
+#, fuzzy
+#~| msgid "R&emove"
+#~ msgid "Remove"
+#~ msgstr "&Удалить"
+
+#~ msgid "Set as Default"
+#~ msgstr "Сделать основным"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"

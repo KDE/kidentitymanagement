@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-10 19:49\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -198,31 +198,6 @@ msgstr "您确定要删除这个身份吗？"
 msgid "Cancel"
 msgstr "取消"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "添加..."
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "修改..."
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "重命名"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "移除"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "设为默认"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -334,3 +309,18 @@ msgstr "文本文件大小"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "使用 HTML (禁用此项会去除格式) (&H)"
+
+#~ msgid "Add..."
+#~ msgstr "添加..."
+
+#~ msgid "Modify..."
+#~ msgstr "修改..."
+
+#~ msgid "Rename"
+#~ msgstr "重命名"
+
+#~ msgid "Remove"
+#~ msgstr "移除"
+
+#~ msgid "Set as Default"
+#~ msgstr "设为默认"

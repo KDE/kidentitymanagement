@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-13 11:51+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -200,31 +200,6 @@ msgstr "Ĉu vi certas ke vi volas forigi tiun ĉi identecon?"
 msgid "Cancel"
 msgstr "Nuligi"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Aldoni..."
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Modifi..."
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "Alinomi"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "Forigi"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Meti kiel Defaŭlto"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -341,3 +316,18 @@ msgstr "Tekstdosiera Grandeco"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Uzi HTMLon (malebligo forigas formatadon)"
+
+#~ msgid "Add..."
+#~ msgstr "Aldoni..."
+
+#~ msgid "Modify..."
+#~ msgstr "Modifi..."
+
+#~ msgid "Rename"
+#~ msgstr "Alinomi"
+
+#~ msgid "Remove"
+#~ msgstr "Forigi"
+
+#~ msgid "Set as Default"
+#~ msgstr "Meti kiel Defaŭlto"

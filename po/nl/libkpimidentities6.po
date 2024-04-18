@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 15:44+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -202,31 +202,6 @@ msgstr "Wilt u deze identiteit verwijderen?"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Toevoegen..."
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Wijzigen..."
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "Hernoemen"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "Verwijderen"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Als standaard instellen"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -347,6 +322,21 @@ msgstr "Grootte tekstbestand"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "HTML gebr&uiken (deactiveren verwijdert opmaak)"
+
+#~ msgid "Add..."
+#~ msgstr "Toevoegen..."
+
+#~ msgid "Modify..."
+#~ msgstr "Wijzigen..."
+
+#~ msgid "Rename"
+#~ msgstr "Hernoemen"
+
+#~ msgid "Remove"
+#~ msgstr "Verwijderen"
+
+#~ msgid "Set as Default"
+#~ msgstr "Als standaard instellen"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"

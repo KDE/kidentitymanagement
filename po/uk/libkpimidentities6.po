@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 15:54+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
@@ -201,31 +201,6 @@ msgstr "Ви справді хочете вилучити цей профіль?
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Додати…"
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Змінити…"
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "Перейменувати"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "Вилучити"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Зробити типовим"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -347,6 +322,21 @@ msgstr "Розмір текстового файла"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Користуватися HTML (якщо вимкнути, зникне форматування)"
+
+#~ msgid "Add..."
+#~ msgstr "Додати…"
+
+#~ msgid "Modify..."
+#~ msgstr "Змінити…"
+
+#~ msgid "Rename"
+#~ msgstr "Перейменувати"
+
+#~ msgid "Remove"
+#~ msgstr "Вилучити"
+
+#~ msgid "Set as Default"
+#~ msgstr "Зробити типовим"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"

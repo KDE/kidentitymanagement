@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-17 00:38+0000\n"
+"POT-Creation-Date: 2024-04-18 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 07:18+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -203,31 +203,6 @@ msgstr "Ali ste prepričani, da želite zbrisati to identiteto?"
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: widgets/identitywidget.cpp:45
-#, kde-format
-msgid "Add..."
-msgstr "Dodaj..."
-
-#: widgets/identitywidget.cpp:48
-#, kde-format
-msgid "Modify..."
-msgstr "Spremeni..."
-
-#: widgets/identitywidget.cpp:49
-#, kde-format
-msgid "Rename"
-msgstr "Preimenuj"
-
-#: widgets/identitywidget.cpp:51
-#, kde-format
-msgid "Remove"
-msgstr "Odstrani"
-
-#: widgets/identitywidget.cpp:55
-#, kde-format
-msgid "Set as Default"
-msgstr "Nastavi kot privzeto"
-
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgid "&Enable signature"
@@ -344,3 +319,18 @@ msgstr "Velikost besedilne datoteke"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Uporabi HTML (onemogočitev odstrani oblikovanje sporočila)"
+
+#~ msgid "Add..."
+#~ msgstr "Dodaj..."
+
+#~ msgid "Modify..."
+#~ msgstr "Spremeni..."
+
+#~ msgid "Rename"
+#~ msgstr "Preimenuj"
+
+#~ msgid "Remove"
+#~ msgstr "Odstrani"
+
+#~ msgid "Set as Default"
+#~ msgstr "Nastavi kot privzeto"
