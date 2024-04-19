@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-18 00:38+0000\n"
+"POT-Creation-Date: 2024-04-19 00:38+0000\n"
 "PO-Revision-Date: 2024-04-14 15:20+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -52,18 +52,18 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " — "
 
-#: core/identitytreemodel.cpp:86
+#: core/identitytreemodel.cpp:88
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr " (predeterminado)"
 
-#: core/identitytreemodel.cpp:122
+#: core/identitytreemodel.cpp:124
 #, kde-format
 msgid "Identity Name"
 msgstr "Nome da identidade"
 
-#: core/identitytreemodel.cpp:125
+#: core/identitytreemodel.cpp:127
 #, kde-format
 msgid "Email Address"
 msgstr "Enderezo de correo electrónico"

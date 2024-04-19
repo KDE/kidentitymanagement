@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-18 00:38+0000\n"
+"POT-Creation-Date: 2024-04-19 00:38+0000\n"
 "PO-Revision-Date: 2024-02-27 19:40\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
 "Language-Team: Belarusian\n"
@@ -52,19 +52,19 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr " - "
 
-#: core/identitytreemodel.cpp:86
+#: core/identitytreemodel.cpp:88
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
 msgstr " (прадвызначана)"
 
-#: core/identitytreemodel.cpp:122
+#: core/identitytreemodel.cpp:124
 #, fuzzy, kde-format
 #| msgid "Identity"
 msgid "Identity Name"
 msgstr "Асабістыя даныя"
 
-#: core/identitytreemodel.cpp:125
+#: core/identitytreemodel.cpp:127
 #, fuzzy, kde-format
 #| msgid "Email address"
 msgid "Email Address"
