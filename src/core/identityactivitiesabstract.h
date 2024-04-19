@@ -17,7 +17,9 @@ public:
 
     virtual bool filterAcceptsRow(const QStringList &activities) const = 0;
 
-    [[nodiscard]] virtual bool hasActivitySupport() const;
+    [[nodiscard]] virtual bool hasActivitySupport() const = 0;
+
+    [[nodiscard]] virtual QString currentActivity() const = 0;
 
 Q_SIGNALS:
     void activitiesChanged();

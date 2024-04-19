@@ -11,9 +11,4 @@ IdentityActivitiesAbstract::IdentityActivitiesAbstract(QObject *parent)
 
 IdentityActivitiesAbstract::~IdentityActivitiesAbstract() = default;
 
-bool IdentityActivitiesAbstract::hasActivitySupport() const
-{
-    return false;
-}
-
 #include "moc_identityactivitiesabstract.cpp"
