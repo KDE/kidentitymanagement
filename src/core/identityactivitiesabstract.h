@@ -15,7 +15,7 @@ public:
     explicit IdentityActivitiesAbstract(QObject *parent = nullptr);
     ~IdentityActivitiesAbstract() override;
 
-    virtual bool filterAcceptsRow(const QStringList &activities) const = 0;
+    [[nodiscard]] virtual bool filterAcceptsRow(const QStringList &activities) const = 0;
 
     [[nodiscard]] virtual bool hasActivitySupport() const = 0;
 
