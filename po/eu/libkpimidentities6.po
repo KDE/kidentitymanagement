@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-19 00:38+0000\n"
-"PO-Revision-Date: 2024-02-21 23:30+0100\n"
+"PO-Revision-Date: 2024-04-19 21:57+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -57,16 +57,14 @@ msgid " (default)"
 msgstr "(Lehenetsia)"
 
 #: core/identitytreemodel.cpp:124
-#, fuzzy, kde-format
-#| msgid "Identity"
+#, kde-format
 msgid "Identity Name"
-msgstr "Nortasuna"
+msgstr "Nortasunaren izena"
 
 #: core/identitytreemodel.cpp:127
-#, fuzzy, kde-format
-#| msgid "Email address"
+#, kde-format
 msgid "Email Address"
-msgstr "Zure e-posta helbideak"
+msgstr "E-posta helbidea"
 
 #: core/signature.cpp:170
 #, kde-format
