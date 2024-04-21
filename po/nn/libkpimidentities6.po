@@ -319,14 +319,3 @@ msgstr "Storleik på tekstfil"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Bruk &HTML (formateringa vert fjerna dersom slått av)"
-
-#, fuzzy
-#~| msgid "Unnamed"
-#~ msgid "Rename"
-#~ msgstr "Namnlaus"
-
-#, fuzzy
-#~| msgctxt "use default address from control center"
-#~| msgid "Default"
-#~ msgid "Set as Default"
-#~ msgstr "Standard"

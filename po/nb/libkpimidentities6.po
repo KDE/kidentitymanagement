@@ -311,14 +311,3 @@ msgstr ""
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Br&uk HTML (formatering blir borte hvis dette er slått av)"
-
-#, fuzzy
-#~| msgid "Unnamed"
-#~ msgid "Rename"
-#~ msgstr "Uten navn"
-
-#, fuzzy
-#~| msgctxt "use default address from control center"
-#~| msgid "Default"
-#~ msgid "Set as Default"
-#~ msgstr "Standard"
