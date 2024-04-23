@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-19 00:38+0000\n"
-"PO-Revision-Date: 2024-02-29 03:16+0900\n"
+"PO-Revision-Date: 2024-04-22 18:03+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -59,14 +59,12 @@ msgid " (default)"
 msgstr "（預設）"
 
 #: core/identitytreemodel.cpp:124
-#, fuzzy, kde-format
-#| msgid "Identity"
+#, kde-format
 msgid "Identity Name"
-msgstr "身份"
+msgstr "姓名"
 
 #: core/identitytreemodel.cpp:127
-#, fuzzy, kde-format
-#| msgid "Email address"
+#, kde-format
 msgid "Email Address"
 msgstr "電子郵件地址"
 
