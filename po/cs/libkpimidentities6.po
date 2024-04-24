@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-19 00:38+0000\n"
-"PO-Revision-Date: 2024-04-03 11:26+0200\n"
+"PO-Revision-Date: 2024-04-17 09:33+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -63,7 +63,7 @@ msgstr "Název identity"
 #: core/identitytreemodel.cpp:127
 #, kde-format
 msgid "Email Address"
-msgstr ""
+msgstr "E-mailová adresa"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -316,18 +316,3 @@ msgstr "Velikost textového souboru"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Po&užít HTML (zakázáním vypnete formátování)"
-
-#~ msgid "Add..."
-#~ msgstr "Přidat..."
-
-#~ msgid "Modify..."
-#~ msgstr "Změnit..."
-
-#~ msgid "Rename"
-#~ msgstr "Přejmenovat"
-
-#~ msgid "Remove"
-#~ msgstr "Odstranit"
-
-#~ msgid "Set as Default"
-#~ msgstr "Nastavit jako výchozí"
