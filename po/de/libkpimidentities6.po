@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-19 00:38+0000\n"
-"PO-Revision-Date: 2024-03-20 21:13+0100\n"
+"PO-Revision-Date: 2024-04-23 18:03+0200\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -55,14 +55,12 @@ msgid " (default)"
 msgstr "(Standard)"
 
 #: core/identitytreemodel.cpp:124
-#, fuzzy, kde-format
-#| msgid "Identity"
+#, kde-format
 msgid "Identity Name"
-msgstr "Identität"
+msgstr "Name der Identität"
 
 #: core/identitytreemodel.cpp:127
-#, fuzzy, kde-format
-#| msgid "Email address"
+#, kde-format
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
