@@ -34,3 +34,5 @@ void IdentityTreeSortProxyModel::setIdentityActivitiesAbstract(IdentityActivitie
         invalidateFilter();
     }
 }
+
+#include "moc_identitytreesortproxymodel.cpp"

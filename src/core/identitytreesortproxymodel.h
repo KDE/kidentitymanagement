@@ -11,6 +11,7 @@ namespace KIdentityManagementCore
 class IdentityActivitiesAbstract;
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeSortProxyModel : public QSortFilterProxyModel
 {
+    Q_OBJECT
 public:
     explicit IdentityTreeSortProxyModel(QObject *parent);
     ~IdentityTreeSortProxyModel() override;
