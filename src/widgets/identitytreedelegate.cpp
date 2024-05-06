@@ -30,14 +30,14 @@ QWidget *IdentityTreeDelegate::createEditor(QWidget *parent, const QStyleOptionV
 
 void IdentityTreeDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    auto loggingIndex = index.model()->index(index.row(), KIdentityManagementCore::IdentityTreeModel::DisplayIdentityNameRole);
-    qobject_cast<QLineEdit *>(editor)->setText(loggingIndex.data().toString());
+    auto identityNameIndex = index.model()->index(index.row(), KIdentityManagementCore::IdentityTreeModel::DisplayIdentityNameRole);
+    qobject_cast<QLineEdit *>(editor)->setText(identityNameIndex.data().toString());
 }
 
 void IdentityTreeDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-    auto loggingIndex = index.model()->index(index.row(), KIdentityManagementCore::IdentityTreeModel::DisplayIdentityNameRole);
-    model->setData(loggingIndex, qobject_cast<QLineEdit *>(editor)->text());
+    auto identityNameIndex = index.model()->index(index.row(), KIdentityManagementCore::IdentityTreeModel::DisplayIdentityNameRole);
+    model->setData(identityNameIndex, qobject_cast<QLineEdit *>(editor)->text());
 }
 
 void IdentityTreeDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex & /*index*/) const
