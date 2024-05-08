@@ -214,7 +214,7 @@ msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr ""
-"Seleccioneu esta casella si voleu que KMail afija una signatura als correus "
+"Marqueu esta casella si voleu que KMail afija una signatura als correus "
 "escrits amb esta identitat."
 
 #: widgets/signatureconfigurator.cpp:118
@@ -322,18 +322,3 @@ msgstr "Mida del fitxer de text"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Utilit&za HTML (la inhabilitació elimina el format)"
-
-#~ msgid "Add..."
-#~ msgstr "Afig..."
-
-#~ msgid "Modify..."
-#~ msgstr "Modifica..."
-
-#~ msgid "Rename"
-#~ msgstr "Canvia el nom"
-
-#~ msgid "Remove"
-#~ msgstr "Elimina"
-
-#~ msgid "Set as Default"
-#~ msgstr "Establix com a predeterminada"
