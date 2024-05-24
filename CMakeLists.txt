@@ -43,6 +43,7 @@ set(KTEXTADDONS_MIN_VERSION "1.5.4")
 ########### Find packages ###########
 
 find_package(Qt6Network NO_MODULE REQUIRED)
+find_package(Qt6DBus ${QT_REQUIRED_VERSION} CONFIG REQUIRED)
 
 if (BUILD_QUICK_SUPPORT)
    find_package(Qt6Quick NO_MODULE REQUIRED)
