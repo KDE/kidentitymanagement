@@ -120,7 +120,7 @@ void SignatureConfiguratorPrivate::init()
     mSourceCombo->addItems(QStringList() << i18nc("continuation of \"obtain signature text from\"", "Input Field Below")
                                          << i18nc("continuation of \"obtain signature text from\"", "File")
                                          << i18nc("continuation of \"obtain signature text from\"", "Output of Command"));
-    auto label = new QLabel(i18n("Obtain signature &text from:"), q);
+    auto label = new QLabel(i18nc("@label:textbox", "Obtain signature &text from:"), q);
     label->setBuddy(mSourceCombo);
     label->setEnabled(false); // since !mEnableCheck->isChecked()
     hlay->addWidget(label);
@@ -223,7 +223,7 @@ void SignatureConfiguratorPrivate::init()
         i18n("Use this requester to specify a text file that contains your "
              "signature. It will be read every time you create a new mail or "
              "append a new signature."));
-    label = new QLabel(i18n("S&pecify file:"), page);
+    label = new QLabel(i18nc("@label:textbox", "S&pecify file:"), page);
     label->setBuddy(mFileRequester);
     hlay->addWidget(label);
     hlay->addWidget(mFileRequester, 1);
@@ -257,7 +257,7 @@ void SignatureConfiguratorPrivate::init()
              "standard output) as a signature. Usual commands for use with this "
              "mechanism are \"fortune\" or \"ksig -random\". "
              "(Be careful, script needs a shebang line)."));
-    label = new QLabel(i18n("S&pecify command:"), page);
+    label = new QLabel(i18nc("@label:textbox", "S&pecify command:"), page);
     label->setBuddy(mCommandEdit);
     hlay->addWidget(label);
     hlay->addWidget(mCommandEdit, 1);
