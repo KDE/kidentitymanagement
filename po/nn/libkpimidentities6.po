@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:38+0000\n"
+"POT-Creation-Date: 2024-05-28 00:38+0000\n"
 "PO-Revision-Date: 2022-06-19 14:06+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -238,7 +238,9 @@ msgid "Output of Command"
 msgstr "Utdata frå ein kommando"
 
 #: widgets/signatureconfigurator.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Obtain signature &text from:"
+msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Hent signaturteksten &frå:"
 
@@ -268,7 +270,9 @@ msgstr ""
 "bli lesen kvar gong du skriv ein ny e-post eller legg til ein ny signatur."
 
 #: widgets/signatureconfigurator.cpp:226
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify file:"
+msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "&Oppgje fil:"
 
@@ -298,7 +302,9 @@ msgstr ""
 "ein «#!»-linje.)"
 
 #: widgets/signatureconfigurator.cpp:260
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify command:"
+msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&Oppgje kommando:"
 

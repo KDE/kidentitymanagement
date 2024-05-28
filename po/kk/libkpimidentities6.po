@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:38+0000\n"
+"POT-Creation-Date: 2024-05-28 00:38+0000\n"
 "PO-Revision-Date: 2011-02-22 01:35+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -237,7 +237,9 @@ msgid "Output of Command"
 msgstr "Командасының шығысынан"
 
 #: widgets/signatureconfigurator.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Obtain signature &text from:"
+msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Қ&олтаңба жазуынның көзі:"
 
@@ -266,7 +268,9 @@ msgstr ""
 "әрбір жаңа хат бастағанда, немесе жаңа қолтаңбаны қосқанда, оқылады."
 
 #: widgets/signatureconfigurator.cpp:226
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify file:"
+msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "Файлды к&елтіріңіз:"
 
@@ -302,7 +306,9 @@ msgstr ""
 "-random\"."
 
 #: widgets/signatureconfigurator.cpp:260
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify command:"
+msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "К&омандасы:"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:38+0000\n"
+"POT-Creation-Date: 2024-05-28 00:38+0000\n"
 "PO-Revision-Date: 2024-04-09 07:18+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -241,7 +241,9 @@ msgid "Output of Command"
 msgstr "Izhod ukaza"
 
 #: widgets/signatureconfigurator.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Obtain signature &text from:"
+msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Pridobi besedilo podpisa iz:"
 
@@ -270,7 +272,9 @@ msgstr ""
 "bo vsakič, ko ustvarite novo sporočilo, ali pa pripnete nov podpis."
 
 #: widgets/signatureconfigurator.cpp:226
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify file:"
+msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "Navedite datoteko:"
 
@@ -300,7 +304,9 @@ msgstr ""
 "potrebuje vrstico shebang)."
 
 #: widgets/signatureconfigurator.cpp:260
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify command:"
+msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "Podajte ukaz:"
 

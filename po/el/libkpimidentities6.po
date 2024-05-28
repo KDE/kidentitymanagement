@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:38+0000\n"
+"POT-Creation-Date: 2024-05-28 00:38+0000\n"
 "PO-Revision-Date: 2021-09-03 09:47+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -243,7 +243,9 @@ msgid "Output of Command"
 msgstr "Έξοδος εντολής"
 
 #: widgets/signatureconfigurator.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Obtain signature &text from:"
+msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Λήψη &κειμένου υπογραφής από:"
 
@@ -274,7 +276,9 @@ msgstr ""
 "υπογραφής."
 
 #: widgets/signatureconfigurator.cpp:226
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify file:"
+msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "Ο&ρισμός αρχείου:"
 
@@ -305,7 +309,9 @@ msgstr ""
 "που να αρχίζει με shebang - την ακολουθία χαρακτήρων #!)"
 
 #: widgets/signatureconfigurator.cpp:260
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify command:"
+msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "Ο&ρισμός εντολής:"
 

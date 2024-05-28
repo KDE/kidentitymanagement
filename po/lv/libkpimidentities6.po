@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:38+0000\n"
+"POT-Creation-Date: 2024-05-28 00:38+0000\n"
 "PO-Revision-Date: 2008-11-26 19:08+0200\n"
 "Last-Translator: Viesturs Zarins <viesturs.zarins@mii.lu.lv>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -245,7 +245,9 @@ msgid "Output of Command"
 msgstr "Komanas izvada"
 
 #: widgets/signatureconfigurator.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Obtain signature &text from:"
+msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Iegūt paraksta &tekstu no:"
 
@@ -274,7 +276,9 @@ msgstr ""
 "nolasīts katreiz, kad izveido jaunu vēstuli, vai pievieno jaunu parakstu."
 
 #: widgets/signatureconfigurator.cpp:226
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify file:"
+msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "No&rādiet failu:"
 
@@ -309,7 +313,9 @@ msgstr ""
 "varat izmantot, piemēram, \"fortune\" vai \"ksig -random\"."
 
 #: widgets/signatureconfigurator.cpp:260
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify command:"
+msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "Norā&diet komandu:"
 

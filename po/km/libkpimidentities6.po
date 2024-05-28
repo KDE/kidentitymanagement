@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-19 00:38+0000\n"
+"POT-Creation-Date: 2024-05-28 00:38+0000\n"
 "PO-Revision-Date: 2010-12-13 09:21+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -239,7 +239,9 @@ msgid "Output of Command"
 msgstr "លទ្ធផល​របស់​ពាក្យបញ្ជា"
 
 #: widgets/signatureconfigurator.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Obtain signature &text from:"
+msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "ទទួល​យក​អត្ថបទ​ហត្ថលេខា​ពី ៖"
 
@@ -268,7 +270,9 @@ msgstr ""
 "ដែល​អ្នក​បង្កើត​សំបុត្រ​ថ្មី ឬ​បន្ថែម​ហត្ថលេខា​ថ្មីខាង​ចុង ។"
 
 #: widgets/signatureconfigurator.cpp:226
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify file:"
+msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "បញ្ជាក់​ឯកសារ ​៖"
 
@@ -303,7 +307,9 @@ msgstr ""
 "\"fortune\" ឬ \"ksig -random\" ។"
 
 #: widgets/signatureconfigurator.cpp:260
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "S&pecify command:"
+msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "បញ្ជាក់​ពាក្យ​បញ្ជា​ ៖"
 
