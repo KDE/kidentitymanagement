@@ -236,7 +236,7 @@ msgstr "命令输出"
 #: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgid "Obtain signature &text from:"
-msgstr "签名文本获取来源(&T)："
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:164
 #, kde-format
@@ -264,7 +264,7 @@ msgstr ""
 #: widgets/signatureconfigurator.cpp:226
 #, kde-format
 msgid "S&pecify file:"
-msgstr "指定文件(&P)："
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:233
 #, kde-format
@@ -292,7 +292,7 @@ msgstr ""
 #: widgets/signatureconfigurator.cpp:260
 #, kde-format
 msgid "S&pecify command:"
-msgstr "指定命令(&P)："
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
