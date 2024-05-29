@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-28 00:38+0000\n"
-"PO-Revision-Date: 2024-04-09 15:44+0200\n"
+"PO-Revision-Date: 2024-05-28 09:55+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.02.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: core/identitymanager.cpp:161
@@ -242,11 +242,10 @@ msgid "Output of Command"
 msgstr "uitvoer van commando"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
-msgstr "Onder&tekening halen uit:"
+msgstr "Ondertekening&tekst ophalen uit:"
 
 #: widgets/signatureconfigurator.cpp:164
 #, kde-format
@@ -275,11 +274,10 @@ msgstr ""
 "wanneer u een nieuwe handtekening wilt invoegen."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
-msgstr "Bestand &specificeren:"
+msgstr "Bestand s&pecificeren:"
 
 #: widgets/signatureconfigurator.cpp:233
 #, kde-format
@@ -307,8 +305,7 @@ msgstr ""
 "voorzichtig, script heeft een shebang regel nodig)."
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "Commando s&pecificeren:"

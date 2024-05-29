@@ -234,11 +234,10 @@ msgid "Output of Command"
 msgstr "命令输出"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
-msgstr "签名文本获取来源(&T)："
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:164
 #, kde-format
@@ -264,11 +263,10 @@ msgstr ""
 "在此指定一个包含您的签名的文本文件。每次您新建信件或追加新签名时都会用到它。"
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
-msgstr "指定文件(&P)："
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:233
 #, kde-format
@@ -294,11 +292,10 @@ msgstr ""
 "此机制工作的命令通常是“fortune”或“ksig -random”。"
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
-msgstr "指定命令(&P)："
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
