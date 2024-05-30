@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdepimlibs-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-28 00:38+0000\n"
-"PO-Revision-Date: 2024-04-09 14:00+0300\n"
+"PO-Revision-Date: 2024-05-29 12:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 24.07.70\n"
 "(http: //www.transifex.com/projects/p/kdepimlibs-k-tr/language/tr/)\n"
 
 #: core/identitymanager.cpp:161
@@ -243,8 +243,7 @@ msgid "Output of Command"
 msgstr "Komut Çıktısı"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "İ&mza metnini buradan al:"
@@ -274,8 +273,7 @@ msgstr ""
 "yeni ileti oluşturduğunuzda ya da yeni bir imza eklediğinizde yeniden okunur."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "D&osya belirt:"
@@ -308,8 +306,7 @@ msgstr ""
 "satırı gerekir)."
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "Kom&ut belirt:"

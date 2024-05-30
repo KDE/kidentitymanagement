@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-28 00:38+0000\n"
-"PO-Revision-Date: 2024-04-22 18:03+0900\n"
+"PO-Revision-Date: 2024-05-30 03:12+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -238,8 +238,7 @@ msgid "Output of Command"
 msgstr "指令輸出"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "取得簽名文字的來源(&T)："
@@ -267,8 +266,7 @@ msgid ""
 msgstr "這裡可以指定您的簽名檔。每次寫新信件時會將簽名檔的內容附加上去。"
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "簽名檔(&P)："
@@ -297,8 +295,7 @@ msgstr ""
 "指令包括「fortune」或「ksig --random」。（注意，指令碼需要 shebang 行）"
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "執行指令(&P)："

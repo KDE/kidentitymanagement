@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-28 00:38+0000\n"
-"PO-Revision-Date: 2024-04-14 15:20+0200\n"
+"PO-Revision-Date: 2024-05-29 08:56+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -242,8 +242,7 @@ msgid "Output of Command"
 msgstr "A saída da orde"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Obter o &texto da sinatura desde:"
@@ -273,8 +272,7 @@ msgstr ""
 "Lerase cada vez que cree un correo ou engada unha sinatura nova."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "&Indicar un ficheiro:"
@@ -305,8 +303,7 @@ msgstr ""
 "unha liña de intérprete)"
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "Indicar unha &orde:"

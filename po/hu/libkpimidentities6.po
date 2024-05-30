@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: KDE 4.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-28 00:38+0000\n"
-"PO-Revision-Date: 2024-05-18 14:25+0200\n"
+"PO-Revision-Date: 2024-05-29 09:41+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -240,8 +240,7 @@ msgid "Output of Command"
 msgstr "Parancskimenet"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Az aláírás szö&vegének forrása:"
@@ -271,8 +270,7 @@ msgstr ""
 "hozzáfűzésekor be lesz olvasva."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "Fájl ki&választása:"
@@ -303,8 +301,7 @@ msgstr ""
 "óvatos, a parancsfájloknak kell egy shebang sor)."
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&Parancs:"
