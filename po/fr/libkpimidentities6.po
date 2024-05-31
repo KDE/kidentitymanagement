@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-28 00:38+0000\n"
-"PO-Revision-Date: 2024-05-06 16:18+0200\n"
+"PO-Revision-Date: 2024-05-29 08:53+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -248,11 +248,10 @@ msgid "Output of Command"
 msgstr "Sortie d'une commande"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
-msgstr "Obtenir le texte de signature depuis :"
+msgstr "Obtenir le &texte de signature à partir de :"
 
 #: widgets/signatureconfigurator.cpp:164
 #, kde-format
@@ -280,11 +279,10 @@ msgstr ""
 "ajouterez une nouvelle signature."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
-msgstr "S&pécifier le fichier :"
+msgstr "S&pécifier un fichier :"
 
 #: widgets/signatureconfigurator.cpp:233
 #, kde-format
@@ -313,11 +311,10 @@ msgstr ""
 "le script doit comporter une ligne avec un shebang (« #!»)"
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
-msgstr "S&pécifiez la commande :"
+msgstr "S&pécifiez une commande :"
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
