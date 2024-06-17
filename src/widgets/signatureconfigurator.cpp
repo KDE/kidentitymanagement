@@ -230,7 +230,7 @@ void SignatureConfiguratorPrivate::init()
     mFileRequester->button()->setAutoDefault(false);
     q->connect(mFileRequester, &KUrlRequester::textEdited, q, &SignatureConfigurator::slotUrlChanged);
     q->connect(mFileRequester, &KUrlRequester::urlSelected, q, &SignatureConfigurator::slotUrlChanged);
-    mEditButton = new QPushButton(i18n("Edit &File"), page);
+    mEditButton = new QPushButton(i18nc("@action:button", "Edit &File"), page);
     mEditButton->setWhatsThis(i18n("Opens the specified file in a text editor."));
     q->connect(mEditButton, &QPushButton::clicked, q, &SignatureConfigurator::slotEdit);
     mEditButton->setAutoDefault(false);
