@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-28 00:38+0000\n"
+"POT-Creation-Date: 2024-06-18 00:40+0000\n"
 "PO-Revision-Date: 2021-08-21 10:42+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -277,7 +277,9 @@ msgid "S&pecify file:"
 msgstr "फ़ाइल निर्धारित करें (&p):"
 
 #: widgets/signatureconfigurator.cpp:233
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Edit &File"
+msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "फ़ाइल का सम्पादन करें (&F)"
 

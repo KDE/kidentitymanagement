@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-28 00:38+0000\n"
+"POT-Creation-Date: 2024-06-18 00:40+0000\n"
 "PO-Revision-Date: 2024-01-27 18:55+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -301,7 +301,9 @@ msgid "S&pecify file:"
 msgstr "&Файл:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Edit &File"
+msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "&Редактировать"
 

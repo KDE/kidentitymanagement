@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-28 00:38+0000\n"
+"POT-Creation-Date: 2024-06-18 00:40+0000\n"
 "PO-Revision-Date: 2024-02-20 23:52+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -273,7 +273,9 @@ msgid "S&pecify file:"
 msgstr "파일 지정(&P):"
 
 #: widgets/signatureconfigurator.cpp:233
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Edit &File"
+msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "파일 편집(&F)"
 

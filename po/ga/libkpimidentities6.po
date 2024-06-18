@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs/libkpimidentities.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-28 00:38+0000\n"
+"POT-Creation-Date: 2024-06-18 00:40+0000\n"
 "PO-Revision-Date: 2007-07-05 23:00-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -278,7 +278,9 @@ msgid "S&pecify file:"
 msgstr "&Sonraigh comhad:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Edit &File"
+msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Cuir &Comhad in Eagar"
 
