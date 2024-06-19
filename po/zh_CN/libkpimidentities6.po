@@ -269,11 +269,10 @@ msgid "S&pecify file:"
 msgstr ""
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
-msgstr "编辑文件(&F)"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:234
 #, kde-format

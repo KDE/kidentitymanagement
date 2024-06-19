@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-18 00:40+0000\n"
-"PO-Revision-Date: 2024-05-28 09:25+0300\n"
+"PO-Revision-Date: 2024-06-18 08:35+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -278,8 +278,7 @@ msgid "S&pecify file:"
 msgstr "В&кажіть файл:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Змінити &файл"

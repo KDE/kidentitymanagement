@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdepimlibs-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-18 00:40+0000\n"
-"PO-Revision-Date: 2024-05-29 12:44+0300\n"
+"PO-Revision-Date: 2024-06-18 12:54+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -279,8 +279,7 @@ msgid "S&pecify file:"
 msgstr "D&osya belirt:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Dosyayı &Düzenle"
