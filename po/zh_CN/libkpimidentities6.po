@@ -269,7 +269,7 @@ msgstr ""
 #: widgets/signatureconfigurator.cpp:233
 #, kde-format
 msgid "Edit &File"
-msgstr "编辑文件(&F)"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:234
 #, kde-format
