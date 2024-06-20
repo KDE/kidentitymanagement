@@ -32,7 +32,7 @@ target_sources(KPim6IdentityManagementWidgets PRIVATE
   identitytreedelegate.cpp
 )
 
-if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
+if(COMPILE_WITH_UNITY_CMAKE_SUPPORT)
     set_target_properties(KPim6IdentityManagementWidgets PROPERTIES UNITY_BUILD ON)
 endif()
 
@@ -108,7 +108,7 @@ install(FILES ${KIdentityManagementWidgets_CamelCase_HEADERS}
     COMPONENT Devel
 )
 
-if (BUILD_QCH)
+if(BUILD_QCH)
     ecm_add_qch(
         KPim6IdentityManagementWidgets_QCH
         NAME KIdentityManagementWidgets
@@ -128,16 +128,16 @@ if (BUILD_QCH)
         TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
         QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
         COMPONENT Devel
-    )
+)
 endif()
 
-if (BUILD_QCH)
+if(BUILD_QCH)
     ecm_install_qch_export(
         TARGETS KPim6IdentityManagementWidgets_QCH
         FILE KPim6IdentityManagementWidgetsQchTargets.cmake
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
-    )
+)
     set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementWidgetsQchTargets.cmake\")")
 endif()
 

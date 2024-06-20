@@ -45,7 +45,7 @@ set(KTEXTADDONS_MIN_VERSION "1.5.4")
 find_package(Qt6Network NO_MODULE REQUIRED)
 find_package(Qt6DBus ${QT_REQUIRED_VERSION} CONFIG REQUIRED)
 
-if (BUILD_QUICK_SUPPORT)
+if(BUILD_QUICK_SUPPORT)
    find_package(Qt6Quick NO_MODULE REQUIRED)
 endif()
 
@@ -63,19 +63,19 @@ if(BUILD_TESTING)
     find_package(Qt6Test ${QT_REQUIRED_VERSION} CONFIG REQUIRED)
 endif()
 
-if (BUILD_QUICK_SUPPORT)
+if(BUILD_QUICK_SUPPORT)
    find_package(KF6KirigamiAddons 1.0 REQUIRED)
    set_package_properties(KF6KirigamiAddons PROPERTIES
        TYPE REQUIRED
        PURPOSE "Addons for the Kirigami application UI framework"
-   )
+  )
 endif()
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities6\")
 
 option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" OFF)
 
 set(COMPILE_WITH_UNITY_CMAKE_SUPPORT OFF)
-if (USE_UNITY_CMAKE_SUPPORT)
+if(USE_UNITY_CMAKE_SUPPORT)
     set(COMPILE_WITH_UNITY_CMAKE_SUPPORT ON)
 endif()
 

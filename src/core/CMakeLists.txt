@@ -13,7 +13,7 @@ add_library(KPim6IdentityManagementCore)
 add_library(KPim6::IdentityManagementCore ALIAS KPim6IdentityManagementCore)
 
 
-qt_add_dbus_adaptor(kidentity_dbs_adaptor_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagementCore::IdentityManager )
+qt_add_dbus_adaptor(kidentity_dbs_adaptor_SRCS org.kde.pim.IdentityManager.xml identitymanager.h KIdentityManagementCore::IdentityManager)
 
 target_sources(KPim6IdentityManagementCore PRIVATE
     ${kidentity_dbs_adaptor_SRCS}
@@ -43,7 +43,7 @@ ecm_qt_declare_logging_category(KPim6IdentityManagementCore HEADER kidentitymana
     OLD_CATEGORY_NAMES log_kidentitymanagement
     DESCRIPTION "kidentitymanagement (pim lib)" EXPORT KIDENTITYMANAGEMENT)
 
-if (COMPILE_WITH_UNITY_CMAKE_SUPPORT)
+if(COMPILE_WITH_UNITY_CMAKE_SUPPORT)
     set_target_properties(KPim6IdentityManagementCore PROPERTIES UNITY_BUILD ON)
 endif()
 
@@ -130,7 +130,7 @@ install(FILES org.kde.pim.IdentityManager.xml DESTINATION ${KDE_INSTALL_DBUSINTE
 
 ecm_qt_install_logging_categories(EXPORT KIDENTITYMANAGEMENT FILE kidentitymanagement.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
-if (BUILD_QCH)
+if(BUILD_QCH)
     ecm_add_qch(
         KPim6IdentityManagementCore_QCH
         NAME KIdentityManagementCore
@@ -148,16 +148,16 @@ if (BUILD_QCH)
         TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
         QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
         COMPONENT Devel
-    )
+)
 endif()
 
-if (BUILD_QCH)
+if(BUILD_QCH)
     ecm_install_qch_export(
         TARGETS KPim6IdentityManagementCore_QCH
         FILE KPim6IdentityManagementCoreQchTargets.cmake
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
-    )
+)
 set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementCoreQchTargets.cmake\")")
 endif()
 configure_package_config_file(

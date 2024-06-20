@@ -136,7 +136,7 @@ if(BUILD_QCH)
             ${KDE_INSTALL_QTQCHDIR}
         COMPONENT
             Devel
-    )
+)
 endif()
 
 
@@ -177,13 +177,13 @@ install(FILES
    COMPONENT Devel
 )
 
-if (BUILD_QCH)
+if(BUILD_QCH)
     ecm_install_qch_export(
         TARGETS KPim6IdentityManagementQuick_QCH
         FILE KPim6IdentityManagementQuickQchTargets.cmake
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
-    )
+)
     set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementQuickQchTargets.cmake\")")
 endif()
 
