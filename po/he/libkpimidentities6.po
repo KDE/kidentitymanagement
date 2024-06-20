@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-18 00:40+0000\n"
-"PO-Revision-Date: 2024-05-28 09:20+0300\n"
+"PO-Revision-Date: 2024-06-18 08:08+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -272,11 +272,10 @@ msgid "S&pecify file:"
 msgstr "&ציון קובץ:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
-msgstr "&עריכת קובץ:"
+msgstr "&עריכת קובץ"
 
 #: widgets/signatureconfigurator.cpp:234
 #, kde-format

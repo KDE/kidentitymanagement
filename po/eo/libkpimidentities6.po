@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-18 00:40+0000\n"
-"PO-Revision-Date: 2024-05-29 22:04+0200\n"
+"PO-Revision-Date: 2024-06-19 22:33+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -271,14 +271,13 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
-msgstr "&Donu dosieron:"
+msgstr "S&pecifu dosieron:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
-msgstr "&Redakti dosieron"
+msgstr "Redakti &Dosieron"
 
 #: widgets/signatureconfigurator.cpp:234
 #, kde-format

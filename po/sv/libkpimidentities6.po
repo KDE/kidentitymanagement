@@ -2,20 +2,20 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhäll <stefan.asserhall@gmail.com>, 2007, 2008, 2018, 2019, 2021, 2023.
+# SPDX-FileCopyrightText: 2007, 2008, 2018, 2019, 2021, 2023, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-18 00:40+0000\n"
-"PO-Revision-Date: 2023-08-26 07:37+0200\n"
+"PO-Revision-Date: 2024-06-19 02:28+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: core/identitymanager.cpp:161
@@ -57,12 +57,12 @@ msgstr " (förval)"
 #: core/identitytreemodel.cpp:124
 #, kde-format
 msgid "Identity Name"
-msgstr ""
+msgstr "Identitetsnamn"
 
 #: core/identitytreemodel.cpp:127
 #, kde-format
 msgid "Email Address"
-msgstr ""
+msgstr "E-postadress"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -73,133 +73,131 @@ msgstr ""
 #: quick/qml/BasicIdentityEditorCard.qml:26
 #, kde-format
 msgid "Identity"
-msgstr ""
+msgstr "Identitet"
 
 #: quick/qml/BasicIdentityEditorCard.qml:33
-#, fuzzy, kde-format
-#| msgctxt "NAME OF TRANSLATORS"
-#| msgid "Your names"
+#, kde-format
 msgid "Your name"
-msgstr "Stefan Asserhäll"
+msgstr "Ditt namn"
 
 #: quick/qml/BasicIdentityEditorCard.qml:40
 #, kde-format
 msgid "Email address"
-msgstr ""
+msgstr "E-postadress"
 
 #: quick/qml/BasicIdentityEditorCard.qml:48
 #, kde-format
 msgid "E-mail aliases"
-msgstr ""
+msgstr "E-postalias"
 
 #: quick/qml/BasicIdentityEditorCard.qml:82
 #, kde-format
 msgid "Remove email alias"
-msgstr ""
+msgstr "Ta bort e-postalias"
 
 #: quick/qml/BasicIdentityEditorCard.qml:102
 #, kde-format
 msgid "user@example.org"
-msgstr ""
+msgstr "användare@exempel.org"
 
 #: quick/qml/BasicIdentityEditorCard.qml:111
 #, kde-format
 msgid "Add email alias"
-msgstr ""
+msgstr "Lägg till e-postalias"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
-msgstr ""
+msgstr "OpenPGP-nyckel"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
-msgstr ""
+msgstr "OpenPGP-signeringsnyckel"
 
 #: quick/qml/CryptographyEditorCard.qml:75
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
-msgstr ""
+msgstr "Använd samma OpenPGP-nyckel för kryptering och signering"
 
 #: quick/qml/CryptographyEditorCard.qml:104
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
-msgstr ""
+msgstr "OpenPGP-krypteringsnyckel"
 
 #: quick/qml/CryptographyEditorCard.qml:126
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
-msgstr ""
+msgstr "S/MIME-signeringsnyckel"
 
 #: quick/qml/CryptographyEditorCard.qml:151
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
-msgstr ""
+msgstr "Använd samma S/MIME-nyckel för kryptering och signering"
 
 #: quick/qml/CryptographyEditorCard.qml:180
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
-msgstr ""
+msgstr "S/MIME-krypteringsnyckel"
 
 #: quick/qml/IdentityConfigurationForm.qml:33
 #, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
-msgstr ""
+msgstr "Redigera identitet"
 
 #: quick/qml/IdentityEditorPage.qml:41
 #, kde-format
 msgid "Add Identity"
-msgstr ""
+msgstr "Lägg till identitet"
 
 #: quick/qml/IdentityEditorPage.qml:43
 #, kde-format
 msgid "Edit Identity"
-msgstr ""
+msgstr "Redigera identitet"
 
 #: quick/qml/IdentityEditorPage.qml:71
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
-msgstr ""
+msgstr "Kryptografi"
 
 #: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Ta bort"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Spara"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "Lägg till"
 
 #: quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete %1"
-msgstr ""
+msgstr "Ta bort %1"
 
 #: quick/qml/IdentityEditorPage.qml:121
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
-msgstr ""
+msgstr "Är du säker på att du vill ta bort identiteten?"
 
 #: quick/qml/IdentityEditorPage.qml:134
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
@@ -239,8 +237,7 @@ msgid "Output of Command"
 msgstr "Utdata från kommando"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Hämta brevfots&text från:"
@@ -256,10 +253,9 @@ msgid "&Use HTML"
 msgstr "An&vänd HTML"
 
 #: widgets/signatureconfigurator.cpp:221
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgid "Text File (*.txt)"
-msgstr "Textfilens storlek"
+msgstr "Textfil (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:223
 #, kde-format
@@ -271,15 +267,13 @@ msgstr ""
 "läses varje gång du skapar ett nytt brev eller lägger till en ny brevfot."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "An&ge fil:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Redigera &fil"
@@ -306,8 +300,7 @@ msgstr ""
 "behöver en rad med #!)."
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "An&ge kommando:"
@@ -318,8 +311,7 @@ msgid "This text file size exceeds 1kb."
 msgstr "Textfilens storlek överskrider 1 Kibyte."
 
 #: widgets/signatureconfigurator.cpp:420
-#, fuzzy, kde-format
-#| msgid "Text File Size"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Textfilens storlek"
