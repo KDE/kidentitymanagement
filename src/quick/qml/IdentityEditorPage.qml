@@ -128,6 +128,7 @@ FormCard.FormCardPage {
                             onTriggered: {
                                 IdentityUtils.removeIdentity(root.identityName);
                                 dialog.close();
+                                root.closeDialog();
                             }
                         },
                         Kirigami.Action {
