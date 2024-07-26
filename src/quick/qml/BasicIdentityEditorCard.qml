@@ -28,6 +28,12 @@ ColumnLayout {
 
     FormCard.FormCard {
         FormCard.FormTextFieldDelegate {
+            id: identityDelegate
+            label: i18nc("@label:textbox", "Identity Name")
+            text: root.identity.identityName
+            onTextChanged: root.identity.identityName = text
+        }
+        FormCard.FormTextFieldDelegate {
             id: nameDelegate
             Layout.fillWidth: true
             label: i18n("Your name")
