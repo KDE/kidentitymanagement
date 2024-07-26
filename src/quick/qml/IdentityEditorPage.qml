@@ -126,7 +126,7 @@ FormCard.FormCardPage {
                             text: i18n("Delete")
                             icon.name: "delete"
                             onTriggered: {
-                                IdentityUtils.removeIdentity(root.identityName);
+                                IdentityUtils.removeIdentity(root.identity.identityName);
                                 dialog.close();
                             }
                         },
