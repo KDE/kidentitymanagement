@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-18 00:40+0000\n"
+"POT-Creation-Date: 2024-07-27 02:34+0000\n"
 "PO-Revision-Date: 2009-02-28 22:24+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -77,34 +77,40 @@ msgstr "<qt>दसखत स्क्रिप्ट<p><b>%1</b> चलाय �
 msgid "Identity"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:33
+#: quick/qml/BasicIdentityEditorCard.qml:32
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Identity Name"
+msgstr ""
+
+#: quick/qml/BasicIdentityEditorCard.qml:39
 #, fuzzy, kde-format
 #| msgctxt "NAME OF TRANSLATORS"
 #| msgid "Your names"
 msgid "Your name"
 msgstr "रविसंकर सिरीवास्तव, जी. करूनाकर"
 
-#: quick/qml/BasicIdentityEditorCard.qml:40
+#: quick/qml/BasicIdentityEditorCard.qml:46
 #, kde-format
 msgid "Email address"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:48
+#: quick/qml/BasicIdentityEditorCard.qml:54
 #, kde-format
 msgid "E-mail aliases"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:82
+#: quick/qml/BasicIdentityEditorCard.qml:88
 #, kde-format
 msgid "Remove email alias"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:102
+#: quick/qml/BasicIdentityEditorCard.qml:108
 #, kde-format
 msgid "user@example.org"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:111
+#: quick/qml/BasicIdentityEditorCard.qml:117
 #, kde-format
 msgid "Add email alias"
 msgstr ""
@@ -198,7 +204,7 @@ msgstr ""
 msgid "Are you sure you want to delete this identity?"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:134
+#: quick/qml/IdentityEditorPage.qml:135
 #, kde-format
 msgid "Cancel"
 msgstr ""
