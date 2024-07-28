@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdepimlibs-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:41+0000\n"
-"PO-Revision-Date: 2024-06-18 12:54+0300\n"
+"PO-Revision-Date: 2024-07-27 14:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -40,7 +40,7 @@ msgstr "Adsız"
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
-msgstr "%1 #%2"
+msgstr "%1 №%2"
 
 #: core/identitymanager.cpp:567
 #, kde-format
@@ -80,11 +80,10 @@ msgid "Identity"
 msgstr "Kimlik"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity Name"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
-msgstr "Kimlik Adı"
+msgstr "Kimlik adı"
 
 #: quick/qml/BasicIdentityEditorCard.qml:39
 #, kde-format
