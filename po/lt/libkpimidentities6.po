@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-27 00:41+0000\n"
-"PO-Revision-Date: 2024-04-22 15:14+0300\n"
+"PO-Revision-Date: 2024-07-28 22:54+0300\n"
 "Last-Translator: Andrius Štikonas <andrius@stikonas.eu>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -76,8 +76,7 @@ msgid "Identity"
 msgstr "Tapatybė"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity Name"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "Tapatybės pavadinimas"
@@ -246,8 +245,7 @@ msgid "Output of Command"
 msgstr "Komandos išvesties"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Gauti parašo &tekstą iš:"
@@ -278,15 +276,13 @@ msgstr ""
 "pridėsite naują parašą."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "Nu&rodyti failą:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Taisyti &failą"
@@ -313,8 +309,7 @@ msgstr ""
 "„shebang“ (#!) eilutės)."
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&Nurodyti komandą:"
