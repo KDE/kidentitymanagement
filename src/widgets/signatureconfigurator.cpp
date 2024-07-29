@@ -104,7 +104,7 @@ void SignatureConfiguratorPrivate::init()
     vlay->setObjectName("main layout"_L1);
 
     // "enable signature" checkbox:
-    mEnableCheck = new QCheckBox(i18n("&Enable signature"), q);
+    mEnableCheck = new QCheckBox(i18nc("@option:check", "&Enable signature"), q);
     mEnableCheck->setWhatsThis(
         i18n("Check this box if you want KMail to append a signature to mails "
              "written with this identity."));
@@ -202,7 +202,7 @@ void SignatureConfiguratorPrivate::init()
 
     hlay = new QHBoxLayout(); // inherits spacing
     page_vlay->addLayout(hlay);
-    mHtmlCheck = new QCheckBox(i18n("&Use HTML"), page);
+    mHtmlCheck = new QCheckBox(i18nc("@option:check", "&Use HTML"), page);
     q->connect(mHtmlCheck, &QCheckBox::clicked, q, &SignatureConfigurator::slotSetHtml);
     hlay->addWidget(mHtmlCheck);
     inlinedHtml = true;
