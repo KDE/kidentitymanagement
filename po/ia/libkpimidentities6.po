@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
-"PO-Revision-Date: 2024-06-18 14:53+0200\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
+"PO-Revision-Date: 2024-07-29 12:29+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -75,8 +75,7 @@ msgid "Identity"
 msgstr "Identitate"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity Name"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "Nomine de identitate"
@@ -206,7 +205,9 @@ msgid "Cancel"
 msgstr "Cancella"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Habilita signatura"
 
@@ -254,8 +255,10 @@ msgstr "Obtene &testo de signatura ex:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Usa iste campo pro insertar un signatura static arbitrari."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Usa HTML"
 
@@ -323,6 +326,11 @@ msgstr "Iste grandor de file de texto excede 1kb."
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Grandor de file de texto"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Usa HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

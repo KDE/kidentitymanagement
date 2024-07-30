@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-07-27 10:14+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -209,7 +209,9 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "Ondertekening activ&eren"
 
@@ -259,8 +261,10 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr ""
 "Gebruik dit veld om een willekeurige statische handtekening in te voeren."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "HTML gebr&uiken"
 
@@ -327,6 +331,11 @@ msgstr "De grootte van dit tekstbestand in meer dan 1kb."
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Grootte tekstbestand"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "HTML gebr&uiken"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

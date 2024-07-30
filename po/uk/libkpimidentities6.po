@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-07-27 08:54+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -208,7 +208,9 @@ msgid "Cancel"
 msgstr "Скасувати"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Увімкнути підпис"
 
@@ -257,8 +259,10 @@ msgstr "Отримувати &текст підпису з:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Скористайтеся цим полем, щоб ввести довільний сталий підпис."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Використовувати HTML"
 
@@ -327,6 +331,11 @@ msgstr "Розмір цього текстового файла перевищу
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Розмір текстового файла"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Використовувати HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

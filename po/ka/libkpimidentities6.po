@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-07-27 05:34+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -207,7 +207,9 @@ msgid "Cancel"
 msgstr "გაუქმება"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&ხელმოწერის ჩართვა"
 
@@ -252,8 +254,10 @@ msgstr "ხელმოწერის მიღების &წყარო:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "ამ ველში შეიყვანეთ თქვენი ჩვეულებრივი სტატიკური ხელმოწერა."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&HTML-ის გამოყენება"
 
@@ -320,6 +324,11 @@ msgstr "ტექსტური ფაილის ზომა 1 კბ-ს �
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "ტექსტური ფაილის ზომა"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&HTML-ის გამოყენება"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

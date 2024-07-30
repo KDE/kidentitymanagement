@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-06-18 16:06+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -207,7 +207,9 @@ msgid "Cancel"
 msgstr "Zrušit"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Povolit podpis"
 
@@ -255,8 +257,10 @@ msgstr "Získa&t text podpisu z:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Toto pole použijte pro zadání libovolného statického podpisu."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "Po&užít HTML"
 
@@ -322,6 +326,11 @@ msgstr ""
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Velikost textového souboru"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "Po&užít HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

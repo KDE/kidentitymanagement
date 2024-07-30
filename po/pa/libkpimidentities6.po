@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-01-03 14:31-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -207,7 +207,9 @@ msgid "Cancel"
 msgstr ""
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "ਦਸਤਖਤ ਯੋਗ(&E)"
 
@@ -252,8 +254,10 @@ msgstr ""
 msgid "Use this field to enter an arbitrary static signature."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "HTML ਵਰਤੋਂ(&U)"
 
@@ -315,6 +319,11 @@ msgstr "ਇਸ ਲਿਖਤ ਫਾਇਲ ਦਾ ਆਕਾਰ 1kb ਤੋਂ ਵ�
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "ਲਿਖਤ ਫਾਇਲ ਦਾ ਆਕਾਰ"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "HTML ਵਰਤੋਂ(&U)"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2008-03-18 11:48+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -209,6 +209,7 @@ msgstr ""
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr ""
 
@@ -253,8 +254,9 @@ msgstr ""
 msgid "Use this field to enter an arbitrary static signature."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
+#: widgets/signatureconfigurator.cpp:205
 #, kde-format
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr ""
 
@@ -312,6 +314,11 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
+msgstr ""
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
 msgstr ""
 
 #: widgets/signatureconfigurator.cpp:450

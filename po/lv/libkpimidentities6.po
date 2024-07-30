@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2008-11-26 19:08+0200\n"
 "Last-Translator: Viesturs Zarins <viesturs.zarins@mii.lu.lv>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -212,7 +212,9 @@ msgid "Cancel"
 msgstr ""
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "Li&etot parakstu"
 
@@ -262,8 +264,10 @@ msgstr "Iegūt paraksta &tekstu no:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Šajā laukā varat ievadīt jebkādu statisku parakstu."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Lietot HTML"
 
@@ -337,6 +341,11 @@ msgstr ""
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr ""
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Lietot HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

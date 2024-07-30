@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -214,7 +214,9 @@ msgstr ""
 
 # >> @option:check
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Uključi potpis"
 
@@ -266,8 +268,10 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Unesite proizvoljan statični potpis."
 
 # >> @option:check
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Koristi HTML"
 
@@ -341,6 +345,12 @@ msgstr ""
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr ""
+
+# >> @option:check
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Koristi HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2008-11-30 19:21+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -207,7 +207,9 @@ msgid "Cancel"
 msgstr ""
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Slå på signatur"
 
@@ -255,8 +257,10 @@ msgstr "Hent signatur&tekst fra:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Bruk dette feltet til å oppgi en selvvalgt statisk signatur."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "Br&uk HTML"
 
@@ -320,6 +324,11 @@ msgstr ""
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr ""
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "Br&uk HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-07-27 11:02+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -209,7 +209,9 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Activar firma"
 
@@ -258,8 +260,10 @@ msgstr "Obtener &texto de la firma de:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Use este campo para introducir una firma estática arbitraria."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Usar HTML"
 
@@ -326,6 +330,11 @@ msgstr "El tamaño de este archivo de texto excede de 1 kb."
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Tamaño del archivo de texto"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Usar HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

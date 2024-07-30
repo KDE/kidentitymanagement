@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-06-02 05:50\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
 "Language-Team: Belarusian\n"
@@ -210,7 +210,9 @@ msgid "Cancel"
 msgstr "Скасаваць"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Уключыць подпіс"
 
@@ -257,8 +259,10 @@ msgstr "Атрымліваць подпіс і &тэкст ад:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Скарыстайцеся гэтым полем для ўводу адвольнага статычнага подпісу."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Выкарыстоўваць HTML"
 
@@ -326,6 +330,11 @@ msgstr "Памер гэтага тэкставага файла перавыша
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Памер тэкставага файла"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Выкарыстоўваць HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

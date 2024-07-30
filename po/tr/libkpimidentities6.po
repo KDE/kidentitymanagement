@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-07-27 14:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -210,7 +210,9 @@ msgid "Cancel"
 msgstr "İptal"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "İmzayı &etkinleştir"
 
@@ -259,8 +261,10 @@ msgstr "İ&mza metnini buradan al:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Bu alanı sabit bir imza tanımlamak için kullanın."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&HTML Kullan"
 
@@ -328,6 +332,11 @@ msgstr "Bu metin dosyası 1 KB’yi aşıyor."
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Metin Dosyası Boyutu"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&HTML Kullan"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

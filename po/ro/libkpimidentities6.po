@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-06-09 13:26+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -207,7 +207,9 @@ msgid "Cancel"
 msgstr "Renunță"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "Activ&ează semnătura"
 
@@ -256,8 +258,10 @@ msgstr "Obține &textul semnăturii de la:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Folosiți acest câmp pentru a introduce o semnătură statică arbitrară."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Folosește HTML"
 
@@ -325,6 +329,11 @@ msgstr "Dimensiunea acestui fișier textual depășește 1 ko."
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Dimensiune fișier textual"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "&Folosește HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

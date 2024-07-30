@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-02-20 23:52+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -207,7 +207,9 @@ msgid "Cancel"
 msgstr "취소"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "서명 사용(&E)"
 
@@ -253,8 +255,10 @@ msgstr "다음에서 서명 텍스트 가져오기(&T):"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "임의의 정적 서명을 여기에 입력하십시오."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "HTML 사용(&U)"
 
@@ -323,6 +327,11 @@ msgstr "텍스트 파일 크기가 1kB를 초과합니다."
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "텍스트 파일 크기"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "HTML 사용(&U)"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format

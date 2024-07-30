@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-27 00:41+0000\n"
+"POT-Creation-Date: 2024-07-30 00:41+0000\n"
 "PO-Revision-Date: 2024-07-27 15:08+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -205,7 +205,9 @@ msgid "Cancel"
 msgstr "ביטול"
 
 #: widgets/signatureconfigurator.cpp:107
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Enable signature"
+msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "ה&פעלת חתימה"
 
@@ -252,8 +254,10 @@ msgstr "משיכת &טקסט חתימה מתוך:"
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "להשתמש בשדה הזה כדי למלא חתימה סטטית שרירותית."
 
-#: widgets/signatureconfigurator.cpp:205 widgets/signatureconfigurator.cpp:440
-#, kde-format
+#: widgets/signatureconfigurator.cpp:205
+#, fuzzy, kde-format
+#| msgid "&Use HTML"
+msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "לה&שתמש ב־HTML"
 
@@ -319,6 +323,11 @@ msgstr "גודל קובץ הטקסט הזה עולה על קילו בית"
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "גודל קובץ טקסט"
+
+#: widgets/signatureconfigurator.cpp:440
+#, kde-format
+msgid "&Use HTML"
+msgstr "לה&שתמש ב־HTML"
 
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format
