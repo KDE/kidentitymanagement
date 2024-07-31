@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2024-07-27 06:21+0200\n"
+"PO-Revision-Date: 2024-07-30 06:59+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -206,8 +206,7 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "Aktiv&era brevfot"
@@ -256,8 +255,7 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Använd det här fältet för att skriva in en godtycklig statisk brevfot."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "An&vänd HTML"

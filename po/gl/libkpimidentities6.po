@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2024-07-27 15:53+0200\n"
+"PO-Revision-Date: 2024-07-30 17:26+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -210,11 +210,10 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
-msgstr "&Activar a sinatura"
+msgstr "&Activar a sinatura."
 
 #: widgets/signatureconfigurator.cpp:109
 #, kde-format
@@ -261,11 +260,10 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Use este campo para inserir unha sinatura estática arbitraria."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
-msgstr "Usar &HTML"
+msgstr "Usar &HTML."
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2024-07-27 14:20+0200\n"
+"PO-Revision-Date: 2024-07-30 21:06+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -207,11 +207,10 @@ msgid "Cancel"
 msgstr "Nuligi"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
-msgstr "&Enŝalti subskribon"
+msgstr "&Ebligi subskribon"
 
 #: widgets/signatureconfigurator.cpp:109
 #, kde-format
@@ -257,11 +256,10 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Uzi la enigejon por enigi arbitran neŝanĝeman subskribon."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
-msgstr "&Uzi HTMLon"
+msgstr "&Uzi HTML"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format

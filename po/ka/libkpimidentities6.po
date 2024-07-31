@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2024-07-27 05:34+0200\n"
+"PO-Revision-Date: 2024-07-30 06:37+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -207,8 +207,7 @@ msgid "Cancel"
 msgstr "გაუქმება"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&ხელმოწერის ჩართვა"
@@ -255,8 +254,7 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "ამ ველში შეიყვანეთ თქვენი ჩვეულებრივი სტატიკური ხელმოწერა."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&HTML-ის გამოყენება"
