@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2024-07-29 12:29+0200\n"
+"PO-Revision-Date: 2024-07-31 10:19+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -205,8 +205,7 @@ msgid "Cancel"
 msgstr "Cancella"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Habilita signatura"
@@ -256,8 +255,7 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Usa iste campo pro insertar un signatura static arbitrari."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Usa HTML"
