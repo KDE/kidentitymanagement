@@ -205,8 +205,7 @@ msgid "Cancel"
 msgstr "取消"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "启用签名(&E)"
@@ -253,8 +252,7 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "使用此字段输入任意的静态签名。"
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "使用 HTML(&U)"

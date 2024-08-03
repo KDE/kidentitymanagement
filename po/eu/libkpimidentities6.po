@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2024-07-07 11:07+0200\n"
+"PO-Revision-Date: 2024-08-02 22:25+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -78,8 +78,7 @@ msgid "Identity"
 msgstr "Nortasuna"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity Name"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "Nortasunaren izena"
@@ -209,8 +208,7 @@ msgid "Cancel"
 msgstr "Utzi"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Gaitu sinadura"
@@ -260,8 +258,7 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Erabili eremu hau sinadura estatiko arbitrario bat sartzeko."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Erabili HTML"
