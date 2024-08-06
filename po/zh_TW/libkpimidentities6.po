@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2024-06-20 02:38+0900\n"
+"PO-Revision-Date: 2024-08-06 05:24+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -79,8 +79,7 @@ msgid "Identity"
 msgstr "身份"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity Name"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "姓名"
@@ -210,11 +209,10 @@ msgid "Cancel"
 msgstr "取消"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
-msgstr "開啟簽名(&E)"
+msgstr "啟用簽名(&E)"
 
 #: widgets/signatureconfigurator.cpp:109
 #, kde-format
@@ -258,8 +256,7 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "使用此欄位來輸入任意的固定簽名文字。"
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "使用 HTML(&U)"
