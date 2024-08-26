@@ -208,7 +208,6 @@ msgstr ""
 
 #: widgets/signatureconfigurator.cpp:107
 #, fuzzy, kde-format
-#| msgid "&Enable signature"
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "Bruk &signatur"
@@ -247,7 +246,6 @@ msgstr "Utdata frå ein kommando"
 
 #: widgets/signatureconfigurator.cpp:123
 #, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Hent signaturteksten &frå:"
@@ -259,14 +257,12 @@ msgstr "Bruk dette feltet til å skriva inn ein statisk signatur."
 
 #: widgets/signatureconfigurator.cpp:205
 #, fuzzy, kde-format
-#| msgid "&Use HTML"
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "Bruk &HTML"
 
 #: widgets/signatureconfigurator.cpp:221
 #, fuzzy, kde-format
-#| msgid "Text File Size"
 msgid "Text File (*.txt)"
 msgstr "Storleik på tekstfil"
 
@@ -281,14 +277,12 @@ msgstr ""
 
 #: widgets/signatureconfigurator.cpp:226
 #, fuzzy, kde-format
-#| msgid "S&pecify file:"
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "&Oppgje fil:"
 
 #: widgets/signatureconfigurator.cpp:233
 #, fuzzy, kde-format
-#| msgid "Edit &File"
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Rediger &fila"
@@ -315,7 +309,6 @@ msgstr ""
 
 #: widgets/signatureconfigurator.cpp:260
 #, fuzzy, kde-format
-#| msgid "S&pecify command:"
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&Oppgje kommando:"
@@ -328,7 +321,6 @@ msgstr "Tekstfila er større enn 1 kb."
 
 #: widgets/signatureconfigurator.cpp:420
 #, fuzzy, kde-format
-#| msgid "Text File Size"
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Storleik på tekstfil"
