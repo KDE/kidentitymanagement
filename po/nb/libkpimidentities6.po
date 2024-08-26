@@ -245,7 +245,6 @@ msgstr "Utdata fra kommando"
 
 #: widgets/signatureconfigurator.cpp:123
 #, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Hent signatur&tekst fra:"
@@ -276,14 +275,12 @@ msgstr ""
 
 #: widgets/signatureconfigurator.cpp:226
 #, fuzzy, kde-format
-#| msgid "S&pecify file:"
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "O&ppgi fil:"
 
 #: widgets/signatureconfigurator.cpp:233
 #, fuzzy, kde-format
-#| msgid "Edit &File"
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Rediger &fil"
@@ -305,7 +302,6 @@ msgstr ""
 
 #: widgets/signatureconfigurator.cpp:260
 #, fuzzy, kde-format
-#| msgid "S&pecify command:"
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "O&ppgi kommando:"
