@@ -4,19 +4,20 @@
 #
 # Viesturs Zarins <viesturs.zarins@mii.lu.lv>, 2007, 2008.
 # Maris Nartiss <maris.kde@gmail.com>, 2008.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2008-11-26 19:08+0200\n"
-"Last-Translator: Viesturs Zarins <viesturs.zarins@mii.lu.lv>\n"
-"Language-Team: Latvian <locale@laka.lv>\n"
+"PO-Revision-Date: 2024-08-29 14:59+0300\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -48,25 +49,23 @@ msgstr "Nenosaukts"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " — "
 
 #: core/identitytreemodel.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "use default address from control center"
-#| msgid "Default"
+#, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr "Noklusētā"
+msgstr " (noklusētā)"
 
 #: core/identitytreemodel.cpp:124
 #, kde-format
 msgid "Identity Name"
-msgstr ""
+msgstr "Identitātes nosaukums"
 
 #: core/identitytreemodel.cpp:127
 #, kde-format
 msgid "Email Address"
-msgstr ""
+msgstr "E-pasta adrese"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -77,146 +76,144 @@ msgstr ""
 #: quick/qml/BasicIdentityEditorCard.qml:26
 #, kde-format
 msgid "Identity"
-msgstr ""
+msgstr "Identitāte"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
-msgstr ""
+msgstr "Identitātes nosaukums"
 
 #: quick/qml/BasicIdentityEditorCard.qml:39
-#, fuzzy, kde-format
-#| msgctxt "NAME OF TRANSLATORS"
-#| msgid "Your names"
+#, kde-format
 msgid "Your name"
-msgstr "Viesturs Zariņš"
+msgstr "Jūsu vārds"
 
 #: quick/qml/BasicIdentityEditorCard.qml:46
 #, kde-format
 msgid "Email address"
-msgstr ""
+msgstr "E-pasta adrese"
 
 #: quick/qml/BasicIdentityEditorCard.qml:54
 #, kde-format
 msgid "E-mail aliases"
-msgstr ""
+msgstr "E-pasta aizstājvārds"
 
 #: quick/qml/BasicIdentityEditorCard.qml:88
 #, kde-format
 msgid "Remove email alias"
-msgstr ""
+msgstr "Noņemt e-pasta aizstājvārdu"
 
 #: quick/qml/BasicIdentityEditorCard.qml:108
 #, kde-format
 msgid "user@example.org"
-msgstr ""
+msgstr "vards@paraugs.org"
 
 #: quick/qml/BasicIdentityEditorCard.qml:117
 #, kde-format
 msgid "Add email alias"
-msgstr ""
+msgstr "Pievienot e-pasta aizstājvārdu"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
-msgstr ""
+msgstr "„OpenPGP“ atslēga"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
-msgstr ""
+msgstr "„OpenPGP“ parakstīšanas atslēga"
 
 #: quick/qml/CryptographyEditorCard.qml:75
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
 msgstr ""
+"Šifrēšanai un parakstīšanai izmantot vienu un to pašu „OpenPGP“ atslēgu"
 
 #: quick/qml/CryptographyEditorCard.qml:104
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
-msgstr ""
+msgstr "„OpenPGP“ šifrēšanas atslēga"
 
 #: quick/qml/CryptographyEditorCard.qml:126
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
-msgstr ""
+msgstr "S/MIME parakstīšanas atslēga"
 
 #: quick/qml/CryptographyEditorCard.qml:151
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
-msgstr ""
+msgstr "Šifrēšanai un parakstīšanai izmantot vienu to pašu S/MIME atslēgu"
 
 #: quick/qml/CryptographyEditorCard.qml:180
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
-msgstr ""
+msgstr "S/MIME šifrēšanas atslēga"
 
 #: quick/qml/IdentityConfigurationForm.qml:33
 #, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
-msgstr ""
+msgstr "Rediģēt identitāti"
 
 #: quick/qml/IdentityEditorPage.qml:41
 #, kde-format
 msgid "Add Identity"
-msgstr ""
+msgstr "Pievienot identitāti"
 
 #: quick/qml/IdentityEditorPage.qml:43
 #, kde-format
 msgid "Edit Identity"
-msgstr ""
+msgstr "Rediģēt identitāti"
 
 #: quick/qml/IdentityEditorPage.qml:71
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
-msgstr ""
+msgstr "Kriptogrāfija"
 
 #: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "Pievienot"
 
 #: quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete %1"
-msgstr ""
+msgstr "Dzēst „%1“"
 
 #: quick/qml/IdentityEditorPage.qml:121
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
-msgstr ""
+msgstr "Vai tiešām vēlaties dzēst šo identitāti?"
 
 #: quick/qml/IdentityEditorPage.qml:135
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
-msgstr "Li&etot parakstu"
+msgstr "&Ieslēgt parakstu"
 
 #: widgets/signatureconfigurator.cpp:109
 #, kde-format
@@ -224,15 +221,14 @@ msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr ""
-"Ieslēdziet šo, ja vēlaties ka KMail pievieno parakstus vēstulēm, kas sūtītas "
-"no šīs identitātes."
+"Ieslēdziet šo, ja vēlaties, lai „KMail“ pievieno parakstus vēstulēm, kas "
+"sūtītas no šīs identitātes."
 
 #: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr ""
-"Nospiediet uz zemāk esošajiem rīkiem, lai iegūtu palīdzību par ievades "
-"metodēm."
+"Spiediet uz zemāk esošajiem rīkiem, lai iegūtu palīdzību par ievades metodēm."
 
 #: widgets/signatureconfigurator.cpp:120
 #, kde-format
@@ -244,17 +240,16 @@ msgstr "Zemāk esošā lauka"
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
-msgstr "Faila"
+msgstr "Datnes"
 
 #: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
-msgstr "Komanas izvada"
+msgstr "Komandas izvada"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Iegūt paraksta &tekstu no:"
@@ -265,8 +260,7 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Šajā laukā varat ievadīt jebkādu statisku parakstu."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Lietot HTML"
@@ -274,7 +268,7 @@ msgstr "&Lietot HTML"
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid "Text File (*.txt)"
-msgstr ""
+msgstr "Teksta datne (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:223
 #, kde-format
@@ -282,36 +276,29 @@ msgid ""
 "Use this requester to specify a text file that contains your signature. It "
 "will be read every time you create a new mail or append a new signature."
 msgstr ""
-"Izmantojiet šo pārlūku, lai norādītu parastu saturošo teksta failu. Tas tiks "
-"nolasīts katreiz, kad izveido jaunu vēstuli, vai pievieno jaunu parakstu."
+"Izmantojiet šo pārlūku, lai norādītu parastu saturošo teksta datni. To "
+"nolasīs katrreiz, kad veidosiet jaunu vēstuli vai pievienosiet jaunu "
+"parakstu."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
-msgstr "No&rādiet failu:"
+msgstr "No&rādiet datni:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
-msgstr "Rediģēt &failu"
+msgstr "Rediģēt &datni"
 
 #: widgets/signatureconfigurator.cpp:234
 #, kde-format
 msgid "Opens the specified file in a text editor."
-msgstr "Atver norādīto failu teksta redaktorā."
+msgstr "Atver norādīto datni teksta redaktorā."
 
 #: widgets/signatureconfigurator.cpp:254
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can add an arbitrary command here, either with or without path "
-#| "depending on whether or not the command is in your Path. For every new "
-#| "mail, KMail will execute the command and use what it outputs (to standard "
-#| "output) as a signature. Usual commands for use with this mechanism are "
-#| "\"fortune\" or \"ksig -random\"."
+#, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
 "on whether or not the command is in your Path. For every new mail, KMail "
@@ -319,14 +306,14 @@ msgid ""
 "signature. Usual commands for use with this mechanism are \"fortune\" or "
 "\"ksig -random\". (Be careful, script needs a shebang line)."
 msgstr ""
-"Šeit var norādīt patvaļīgu komandu,.ar vai bez ceļa, atkarībā no tā vai "
-"komanda ir sistēmas ceļā. Veidojot katru jaunu vēstuli, KMail izpildīs šo "
-"komandu un izmantos tās standarta izvadā izvadīto tekstu par parakstu. Jūs "
-"varat izmantot, piemēram, \"fortune\" vai \"ksig -random\"."
+"Varat norādīt patvaļīgu komandu ar vai bez ceļa, atkarībā no tā, vai komanda "
+"ir sistēmas ceļā. Rakstot katru jaunu vēstuli, „KMail“ izpildīs šo komandu "
+"un izmantos tās standarta izvadā izvadīto tekstu par parakstu. Varat "
+"izmantot, piemēram, „fortune“ vai „ksig -random“. (Ievērojiet, ka skriptam "
+"ir nepieciešama „#!“ rindiņa)."
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "Norā&diet komandu:"
@@ -334,13 +321,13 @@ msgstr "Norā&diet komandu:"
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgid "This text file size exceeds 1kb."
-msgstr ""
+msgstr "Teksta datnes izmērs pārsniedz 1 kb."
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
-msgstr ""
+msgstr "Teksta datnes izmērs"
 
 #: widgets/signatureconfigurator.cpp:440
 #, kde-format
@@ -350,7 +337,7 @@ msgstr "&Lietot HTML"
 #: widgets/signatureconfigurator.cpp:450
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
-msgstr "&Lietot HTML (atslēgšana aizvāc formatējumu)"
+msgstr "&Lietot HTML (izslēgšana aizvāc formatējumu)"
 
 #, fuzzy
 #~| msgid "Unnamed"
