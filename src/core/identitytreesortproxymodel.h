@@ -19,10 +19,14 @@ public:
     [[nodiscard]] IdentityActivitiesAbstract *identityActivitiesAbstract() const;
     void setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
 
+    [[nodiscard]] bool enablePlasmaActivities() const;
+    void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
+
 protected:
     [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
 private:
     IdentityActivitiesAbstract *mIdentityActivitiesAbstract = nullptr;
+    bool mEnablePlasmaActivities = false;
 };
 }

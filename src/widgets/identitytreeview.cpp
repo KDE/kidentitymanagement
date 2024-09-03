@@ -44,6 +44,16 @@ KIdentityManagementCore::IdentityActivitiesAbstract *IdentityTreeView::identityA
     return mIdentityProxyModel->identityActivitiesAbstract();
 }
 
+bool IdentityTreeView::enablePlasmaActivities() const
+{
+    return mIdentityProxyModel->enablePlasmaActivities();
+}
+
+void IdentityTreeView::setEnablePlasmaActivities(bool newEnablePlasmaActivities)
+{
+    mIdentityProxyModel->setEnablePlasmaActivities(newEnablePlasmaActivities);
+}
+
 void IdentityTreeView::setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
 {
     mIdentityProxyModel->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);

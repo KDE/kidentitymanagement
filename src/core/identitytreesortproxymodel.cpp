@@ -14,11 +14,24 @@ IdentityTreeSortProxyModel::~IdentityTreeSortProxyModel() = default;
 
 bool IdentityTreeSortProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
-    if (mIdentityActivitiesAbstract) {
+    if (mIdentityActivitiesAbstract && mEnablePlasmaActivities) {
         const auto activities = sourceModel()->index(source_row, 0).data(IdentityTreeModel::ActivitiesRole).toStringList();
         return mIdentityActivitiesAbstract->filterAcceptsRow(activities);
     }
     return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+}
+
+bool IdentityTreeSortProxyModel::enablePlasmaActivities() const
+{
+    return mEnablePlasmaActivities;
+}
+
+void IdentityTreeSortProxyModel::setEnablePlasmaActivities(bool newEnablePlasmaActivities)
+{
+    if (mEnablePlasmaActivities != newEnablePlasmaActivities) {
+        mEnablePlasmaActivities = newEnablePlasmaActivities;
+        invalidateFilter();
+    }
 }
 
 IdentityActivitiesAbstract *IdentityTreeSortProxyModel::identityActivitiesAbstract() const
