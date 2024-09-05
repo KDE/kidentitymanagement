@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-30 00:41+0000\n"
-"PO-Revision-Date: 2024-07-28 22:54+0300\n"
+"PO-Revision-Date: 2024-09-05 00:34+0300\n"
 "Last-Translator: Andrius Štikonas <andrius@stikonas.eu>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -206,8 +206,7 @@ msgid "Cancel"
 msgstr "Atsisakyti"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "Į&jungti parašą"
@@ -258,11 +257,10 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Šiame lauke galite įrašyti pasirinktą statinį parašą."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
-msgstr "&Naudoti HTML"
+msgstr "Na&udoti HTML"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
