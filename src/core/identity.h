@@ -437,7 +437,7 @@ public:
     void setActivities(const QStringList &a);
 
     [[nodiscard]] bool enabledActivities() const;
-    void setEnabledActivities(bool &a);
+    void setEnabledActivities(bool a);
 
 protected:
     /** during migration when it failed it can be a string => not a qlonglong akonadi::id => fix it*/

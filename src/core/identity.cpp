@@ -583,7 +583,7 @@ bool Identity::enabledActivities() const
     return property(QLatin1StringView(s_enabledActivities)).toBool();
 }
 
-void Identity::setEnabledActivities(bool &a)
+void Identity::setEnabledActivities(bool a)
 {
     setProperty(QLatin1StringView(s_enabledActivities), a);
 }
