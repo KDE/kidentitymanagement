@@ -64,6 +64,7 @@ static const char s_defaultDomainName[] = "Default Domain";
 static const char s_autocryptEnabled[] = "Autocrypt";
 static const char s_autocryptPrefer[] = "Autocrypt Prefer";
 static const char s_activities[] = "Activities";
+static const char s_enabledActivities[] = "Enabled Activities";
 
 KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagementCore::Identity &ident);
 KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagementCore::Identity &ident);
@@ -434,6 +435,9 @@ public:
 
     [[nodiscard]] const QStringList activities() const;
     void setActivities(const QStringList &a);
+
+    [[nodiscard]] bool enabledActivities() const;
+    void setEnabledActivities(bool &a);
 
 protected:
     /** during migration when it failed it can be a string => not a qlonglong akonadi::id => fix it*/

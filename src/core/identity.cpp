@@ -181,7 +181,7 @@ QDataStream &KIdentityManagementCore::operator<<(QDataStream &stream, const KIde
                   << i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] << i.mPropertiesMap[QLatin1StringView(s_encryptionOverride)]
                   << i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] << i.mPropertiesMap[QLatin1StringView(s_pgpautoencrypt)]
                   << i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] << i.mPropertiesMap[QLatin1StringView(s_warnnotsign)]
-                  << i.mPropertiesMap[QLatin1StringView(s_activities)];
+                  << i.mPropertiesMap[QLatin1StringView(s_activities)] << i.mPropertiesMap[QLatin1StringView(s_enabledActivities)];
 }
 
 QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityManagementCore::Identity &i)
@@ -201,7 +201,7 @@ QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityM
         >> i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] >> i.mPropertiesMap[QLatin1StringView(s_encryptionOverride)]
         >> i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] >> i.mPropertiesMap[QLatin1StringView(s_pgpautoencrypt)]
         >> i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] >> i.mPropertiesMap[QLatin1StringView(s_warnnotsign)]
-        >> i.mPropertiesMap[QLatin1StringView(s_activities)];
+        >> i.mPropertiesMap[QLatin1StringView(s_activities)] >> i.mPropertiesMap[QLatin1StringView(s_enabledActivities)];
 
     i.setProperty(QLatin1StringView(s_uoid), uoid);
     return stream;
@@ -576,6 +576,16 @@ const QStringList Identity::activities() const
 void Identity::setActivities(const QStringList &a)
 {
     setProperty(QLatin1StringView(s_activities), a);
+}
+
+bool Identity::enabledActivities() const
+{
+    return property(QLatin1StringView(s_enabledActivities)).toBool();
+}
+
+void Identity::setEnabledActivities(bool &a)
+{
+    setProperty(QLatin1StringView(s_enabledActivities), a);
 }
 
 void Identity::setVCardFile(const QString &str)

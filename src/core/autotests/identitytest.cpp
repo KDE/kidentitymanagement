@@ -69,6 +69,7 @@ bool IdentityTester::compareIdentities(const Identity &actual, const Identity &e
         QCOMPARE(actual.isFaceEnabled(), expected.isFaceEnabled());
         QCOMPARE(actual.face(), expected.face());
         QCOMPARE(actual.activities(), expected.activities());
+        QCOMPARE(actual.enabledActivities(), expected.enabledActivities());
         ok = true;
     }();
 
