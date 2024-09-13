@@ -108,6 +108,7 @@ ecm_generate_headers(KIdentityManagementCore_CamelCase_HEADERS
     Utils
     IdentityTreeModel
     IdentityActivitiesAbstract
+    IdentityTreeSortProxyModel
     PREFIX KIdentityManagementCore
     REQUIRED_HEADERS KIdentityManagementCore_HEADERS
 )

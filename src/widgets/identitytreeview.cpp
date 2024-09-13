@@ -54,6 +54,11 @@ void IdentityTreeView::setEnablePlasmaActivities(bool newEnablePlasmaActivities)
     mIdentityProxyModel->setEnablePlasmaActivities(newEnablePlasmaActivities);
 }
 
+KIdentityManagementCore::IdentityTreeSortProxyModel *IdentityTreeView::identityProxyModel() const
+{
+    return mIdentityProxyModel;
+}
+
 void IdentityTreeView::setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
 {
     mIdentityProxyModel->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);

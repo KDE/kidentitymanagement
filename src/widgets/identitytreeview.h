@@ -25,6 +25,8 @@ public:
     [[nodiscard]] bool enablePlasmaActivities() const;
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
 
+    [[nodiscard]] KIdentityManagementCore::IdentityTreeSortProxyModel *identityProxyModel() const;
+
 private:
     KIdentityManagementCore::IdentityTreeSortProxyModel *const mIdentityProxyModel;
 };
