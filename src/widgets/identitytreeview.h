@@ -9,6 +9,7 @@ namespace KIdentityManagementCore
 {
 class IdentityTreeSortProxyModel;
 class IdentityActivitiesAbstract;
+class Identity;
 }
 namespace KIdentityManagementWidgets
 {
@@ -26,6 +27,8 @@ public:
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
 
     [[nodiscard]] KIdentityManagementCore::IdentityTreeSortProxyModel *identityProxyModel() const;
+
+    KIdentityManagementCore::Identity &modifyIdentityForUoid(uint uoid);
 
 private:
     KIdentityManagementCore::IdentityTreeSortProxyModel *const mIdentityProxyModel;

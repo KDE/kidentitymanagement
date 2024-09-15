@@ -64,4 +64,9 @@ void IdentityTreeView::setIdentityActivitiesAbstract(KIdentityManagementCore::Id
     mIdentityProxyModel->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
 }
 
+KIdentityManagementCore::Identity &IdentityTreeView::modifyIdentityForUoid(uint uoid)
+{
+    return static_cast<KIdentityManagementCore::IdentityTreeModel *>(model())->identityManager()->modifyIdentityForUoid(uoid);
+}
+
 #include "moc_identitytreeview.cpp"
