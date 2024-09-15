@@ -16,7 +16,7 @@ void IdentityTreeViewTest::shouldHaveDefaultValues()
     QVERIFY(w.alternatingRowColors());
     QVERIFY(!w.rootIsDecorated());
     QVERIFY(w.isSortingEnabled());
-    QCOMPARE(w.selectionMode(), QAbstractItemView::SingleSelection);
+    QCOMPARE(w.selectionMode(), QAbstractItemView::MultiSelection);
     QCOMPARE(w.selectionBehavior(), QAbstractItemView::SelectRows);
     QCOMPARE(w.contextMenuPolicy(), Qt::CustomContextMenu);
     QVERIFY(!w.identityActivitiesAbstract());
