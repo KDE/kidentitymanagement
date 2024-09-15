@@ -23,10 +23,10 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     header()->setSectionsMovable(false);
     header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-    auto model = new KIdentityManagementCore::IdentityTreeModel(KIdentityManagementCore::IdentityManager::self(), this);
-    model->setShowDefault(true);
+    mIdentityModel = new KIdentityManagementCore::IdentityTreeModel(KIdentityManagementCore::IdentityManager::self(), this);
+    mIdentityModel->setShowDefault(true);
 
-    mIdentityProxyModel->setSourceModel(model);
+    mIdentityProxyModel->setSourceModel(mIdentityModel);
     setModel(mIdentityProxyModel);
 
     setColumnHidden(KIdentityManagementCore::IdentityTreeModel::DefaultRole, true);
@@ -66,7 +66,7 @@ void IdentityTreeView::setIdentityActivitiesAbstract(KIdentityManagementCore::Id
 
 KIdentityManagementCore::Identity &IdentityTreeView::modifyIdentityForUoid(uint uoid)
 {
-    return static_cast<KIdentityManagementCore::IdentityTreeModel *>(model())->identityManager()->modifyIdentityForUoid(uoid);
+    return mIdentityModel->identityManager()->modifyIdentityForUoid(uoid);
 }
 
 #include "moc_identitytreeview.cpp"

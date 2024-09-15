@@ -10,6 +10,7 @@ namespace KIdentityManagementCore
 class IdentityTreeSortProxyModel;
 class IdentityActivitiesAbstract;
 class Identity;
+class IdentityTreeModel;
 }
 namespace KIdentityManagementWidgets
 {
@@ -32,5 +33,6 @@ public:
 
 private:
     KIdentityManagementCore::IdentityTreeSortProxyModel *const mIdentityProxyModel;
+    KIdentityManagementCore::IdentityTreeModel *mIdentityModel = nullptr;
 };
 }
