@@ -69,4 +69,9 @@ KIdentityManagementCore::Identity &IdentityTreeView::modifyIdentityForUoid(uint 
     return mIdentityModel->identityManager()->modifyIdentityForUoid(uoid);
 }
 
+KIdentityManagementCore::IdentityTreeModel *IdentityTreeView::identityTreeModel() const
+{
+    return mIdentityModel;
+}
+
 #include "moc_identitytreeview.cpp"

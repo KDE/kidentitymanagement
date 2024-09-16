@@ -31,6 +31,8 @@ public:
 
     KIdentityManagementCore::Identity &modifyIdentityForUoid(uint uoid);
 
+    KIdentityManagementCore::IdentityTreeModel *identityTreeModel() const;
+
 private:
     KIdentityManagementCore::IdentityTreeSortProxyModel *const mIdentityProxyModel;
     KIdentityManagementCore::IdentityTreeModel *mIdentityModel = nullptr;
