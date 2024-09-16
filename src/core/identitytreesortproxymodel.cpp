@@ -15,8 +15,11 @@ IdentityTreeSortProxyModel::~IdentityTreeSortProxyModel() = default;
 bool IdentityTreeSortProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     if (mIdentityActivitiesAbstract && mEnablePlasmaActivities) {
-        const auto activities = sourceModel()->index(source_row, 0).data(IdentityTreeModel::ActivitiesRole).toStringList();
-        return mIdentityActivitiesAbstract->filterAcceptsRow(activities);
+        const bool enableActivities = sourceModel()->index(source_row, 0).data(IdentityTreeModel::EnabledActivitiesRole).toBool();
+        if (enableActivities) {
+            const auto activities = sourceModel()->index(source_row, 0).data(IdentityTreeModel::ActivitiesRole).toStringList();
+            return mIdentityActivitiesAbstract->filterAcceptsRow(activities);
+        }
     }
     return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
 }

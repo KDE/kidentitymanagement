@@ -78,6 +78,8 @@ QVariant IdentityTreeModel::data(const QModelIndex &index, int role) const
         return identity.isDefault();
     case ActivitiesRole:
         return identity.activities();
+    case EnabledActivitiesRole:
+        return identity.enabledActivities();
     }
 
     return {};
@@ -131,6 +133,7 @@ QVariant IdentityTreeModel::headerData(int section, Qt::Orientation orientation,
         case DefaultRole:
         case IdentityNameRole:
         case ActivitiesRole:
+        case EnabledActivitiesRole:
             return {};
         }
     }
