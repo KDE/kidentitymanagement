@@ -48,6 +48,8 @@ public:
     [[nodiscard]] Qt::ItemFlags flags(const QModelIndex &index) const override;
     [[nodiscard]] bool setData(const QModelIndex &modelIndex, const QVariant &value, int role = Qt::DisplayRole) override;
 
+    void removeIdentities(const QStringList &identitiesName);
+
 private:
     KIDENTITYMANAGEMENTCORE_NO_EXPORT void reloadUoidList();
     KIDENTITYMANAGEMENTCORE_NO_EXPORT QString generateIdentityName(const KIdentityManagementCore::Identity &identity) const;

@@ -17,6 +17,8 @@ IdentityTreeModel::IdentityTreeModel(IdentityManager *manager, QObject *parent)
 {
     connect(mIdentityManager, &IdentityManager::needToReloadIdentitySettings, this, &IdentityTreeModel::reloadUoidList);
     connect(mIdentityManager, &IdentityManager::identitiesWereChanged, this, &IdentityTreeModel::reloadUoidList);
+    connect(mIdentityManager, &IdentityManager::deleted, this, &IdentityTreeModel::reloadUoidList);
+    connect(mIdentityManager, &IdentityManager::added, this, &IdentityTreeModel::reloadUoidList);
     reloadUoidList();
 }
 
@@ -175,6 +177,13 @@ bool IdentityTreeModel::setData(const QModelIndex &modelIndex, const QVariant &v
         break;
     }
     return false;
+}
+
+void IdentityTreeModel::removeIdentities(const QStringList &identitiesName)
+{
+    for (const QString &name : identitiesName) {
+        mIdentityManager->removeIdentity(name);
+    }
 }
 
 #include "moc_identitytreemodel.cpp"
