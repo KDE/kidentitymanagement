@@ -14,7 +14,7 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     , mIdentityProxyModel(new KIdentityManagementCore::IdentityTreeSortProxyModel(this))
 {
     setAlternatingRowColors(true);
-    setSelectionMode(MultiSelection);
+    setSelectionMode(ExtendedSelection);
     setContextMenuPolicy(Qt::CustomContextMenu);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setRootIsDecorated(false);
