@@ -165,6 +165,12 @@ bool IdentityTreeModel::setData(const QModelIndex &modelIndex, const QVariant &v
         // TODO save ???
         return true;
     }
+    case DefaultRole: {
+        const QModelIndex newIndex = index(modelIndex.row(), UoidRole);
+        mIdentityManager->setAsDefault(newIndex.data().toInt());
+        Q_EMIT dataChanged(modelIndex, modelIndex);
+        return true;
+    }
     default:
         break;
     }
