@@ -160,11 +160,11 @@ bool IdentityTreeModel::setData(const QModelIndex &modelIndex, const QVariant &v
     const int idx = modelIndex.row();
     auto &identity = mIdentityManager->modifyIdentityForUoid(mIdentitiesUoid[idx]);
     switch (static_cast<IdentityRoles>(modelIndex.column())) {
-    case DisplayIdentityNameRole: {
-        const QModelIndex newIndex = index(modelIndex.row(), DisplayIdentityNameRole);
+    case IdentityNameRole: {
+        const QModelIndex newIndex = index(modelIndex.row(), IdentityNameRole);
         Q_EMIT dataChanged(newIndex, newIndex);
         identity.setIdentityName(value.toString());
-        // TODO save ???
+        mIdentityManager->saveIdentity(identity);
         return true;
     }
     case DefaultRole: {
