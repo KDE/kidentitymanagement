@@ -46,7 +46,7 @@ public:
     [[nodiscard]] KIdentityManagementCore::IdentityManager *identityManager() const;
 
     [[nodiscard]] Qt::ItemFlags flags(const QModelIndex &index) const override;
-    [[nodiscard]] bool setData(const QModelIndex &modelIndex, const QVariant &value, int role) override;
+    [[nodiscard]] bool setData(const QModelIndex &modelIndex, const QVariant &value, int role = Qt::DisplayRole) override;
 
 private:
     KIDENTITYMANAGEMENTCORE_NO_EXPORT void reloadUoidList();
