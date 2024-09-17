@@ -20,6 +20,7 @@ IdentityTreeView::IdentityTreeView(QWidget *parent)
     setRootIsDecorated(false);
     setSortingEnabled(true);
     setAllColumnsShowFocus(true);
+    setEditTriggers(QAbstractItemView::EditKeyPressed);
     header()->setSectionsMovable(false);
     header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
