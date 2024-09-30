@@ -18,7 +18,10 @@ bool IdentityTreeSortProxyModel::filterAcceptsRow(int source_row, const QModelIn
         const bool enableActivities = sourceModel()->index(source_row, IdentityTreeModel::EnabledActivitiesRole).data().toBool();
         if (enableActivities) {
             const auto activities = sourceModel()->index(source_row, IdentityTreeModel::ActivitiesRole).data().toStringList();
-            return mIdentityActivitiesAbstract->filterAcceptsRow(activities);
+            const bool result = mIdentityActivitiesAbstract->filterAcceptsRow(activities);
+            // qDebug() << " result " << result << " identity name : " << sourceModel()->index(source_row,
+            // IdentityTreeModel::IdentityNameRole).data().toString();
+            return result;
         }
     }
     return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
