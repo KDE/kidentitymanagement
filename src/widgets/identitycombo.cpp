@@ -75,6 +75,16 @@ void IdentityCombo::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *ne
     d->mIdentityProxyModel->setIdentityActivitiesAbstract(newIdentityActivitiesAbstract);
 }
 
+bool IdentityCombo::enablePlasmaActivities() const
+{
+    return d->mIdentityProxyModel->enablePlasmaActivities();
+}
+
+void IdentityCombo::setEnablePlasmaActivities(bool newEnablePlasmaActivities)
+{
+    d->mIdentityProxyModel->setEnablePlasmaActivities(newEnablePlasmaActivities);
+}
+
 QString IdentityCombo::currentIdentityName() const
 {
     return d->mIdentityProxyModel->mapToSource(d->mIdentityProxyModel->index(currentIndex(), KIdentityManagementCore::IdentityTreeModel::IdentityNameRole))

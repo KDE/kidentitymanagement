@@ -59,6 +59,11 @@ public:
     /// @since 6.1
     void setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
 
+    /// @since 6.3
+    [[nodiscard]] bool enablePlasmaActivities() const;
+    /// @since 6.3
+    void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
+
 Q_SIGNALS:
 
     /// \em Really emitted whenever the current identity changes. Either
