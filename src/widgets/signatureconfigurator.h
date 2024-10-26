@@ -41,7 +41,10 @@ public:
     /**
      * Enum for the different viewmodes.
      */
-    enum ViewMode { ShowCode, ShowHtml };
+    enum ViewMode {
+        ShowCode,
+        ShowHtml
+    };
 
     /**
      * Indicated if the user wants a signature

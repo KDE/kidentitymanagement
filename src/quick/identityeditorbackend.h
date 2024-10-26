@@ -19,7 +19,10 @@ class IdentityEditorBackend : public QObject
     Q_PROPERTY(uint identityUoid READ identityUoid WRITE setIdentityUoid NOTIFY identityChanged)
 
 public:
-    enum Mode { CreateMode, EditMode };
+    enum Mode {
+        CreateMode,
+        EditMode
+    };
     Q_ENUM(Mode);
 
     explicit IdentityEditorBackend() = default;

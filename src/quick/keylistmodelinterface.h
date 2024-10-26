@@ -22,7 +22,10 @@ class KeyUseTypes
     Q_GADGET
 
 public:
-    enum class KeyUse { KeySigningUse, KeyEncryptionUse };
+    enum class KeyUse {
+        KeySigningUse,
+        KeyEncryptionUse
+    };
     Q_ENUM(KeyUse)
 };
 
@@ -34,7 +37,10 @@ class KIDENTITYMANAGEMENTQUICK_EXPORT KeyListModelInterface
 {
 public:
     virtual ~KeyListModelInterface() {};
-    enum Roles { KeyIdentifierRole = Qt::UserRole + 1, KeyByteArrayRole };
+    enum Roles {
+        KeyIdentifierRole = Qt::UserRole + 1,
+        KeyByteArrayRole
+    };
 
     static QHash<int, QByteArray> roleNames()
     {
