@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-17 00:40+0000\n"
-"PO-Revision-Date: 2024-05-05 14:20+0530\n"
+"PO-Revision-Date: 2024-10-27 12:05+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,31 +15,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
-msgstr ""
+msgstr "இயல்பிருப்பு"
 
 #: core/identitymanager.cpp:186
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
-msgstr ""
+msgstr "பெயரிடப்படாதது"
 
 #: core/identitymanager.cpp:356
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
-msgstr ""
+msgstr "%1 #%2"
 
 #: core/identitymanager.cpp:567
 #, kde-format
 msgid "Unnamed"
-msgstr ""
+msgstr "பெயரிடப்படாதது"
 
 #: core/identitymodel.cpp:44
 #, kde-format
@@ -51,12 +51,12 @@ msgstr ""
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr ""
+msgstr "(இயல்பிருப்பு)"
 
 #: core/identitytreemodel.cpp:128
 #, kde-format
 msgid "Identity Name"
-msgstr ""
+msgstr "அடையாளத்திற்கான பெயர்"
 
 #: core/identitytreemodel.cpp:131
 #, kde-format
@@ -66,7 +66,7 @@ msgstr "மின்னஞ்சல் முகவரி"
 #: core/signature.cpp:170
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
-msgstr ""
+msgstr "<qt><p><b>%1</b> கையொப்ப சிறுநிரலை இயக்க முடியவில்லை:</p><p>%2</p></qt>"
 
 #: quick/qml/BasicIdentityEditorCard.qml:26
 #, kde-format
