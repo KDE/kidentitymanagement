@@ -7,19 +7,20 @@
 # Andrey Cherepanov <skull@kde.ru>, 2009.
 # Alexander Potashev <aspotashev@gmail.com>, 2015.
 # SPDX-FileCopyrightText: 2020, 2022, 2024 Alexander Yavorsky <kekcuha@gmail.com>
+# SPDX-FileCopyrightText: 2024 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-17 00:40+0000\n"
-"PO-Revision-Date: 2024-01-27 18:55+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2024-11-18 15:28+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -78,113 +79,98 @@ msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>Невозможно запустить скрипт подписи<p><b>%1</b>:</p><p>%2</p></qt>"
 
 #: quick/qml/BasicIdentityEditorCard.qml:26
-#, fuzzy, kde-format
-#| msgid "Identity:"
+#, kde-format
 msgid "Identity"
-msgstr "Профиль:"
+msgstr "Профиль"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity Name"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "Имя профиля"
 
 #: quick/qml/BasicIdentityEditorCard.qml:39
-#, fuzzy, kde-format
-#| msgctxt "NAME OF TRANSLATORS"
-#| msgid "Your names"
+#, kde-format
 msgid "Your name"
-msgstr "Андрей Черепанов"
+msgstr "Ваше имя"
 
 #: quick/qml/BasicIdentityEditorCard.qml:46
-#, fuzzy, kde-format
-#| msgid "&Email address:"
+#, kde-format
 msgid "Email address"
-msgstr "&Электронный адрес:"
+msgstr "Адрес электронной почты"
 
 #: quick/qml/BasicIdentityEditorCard.qml:54
-#, fuzzy, kde-format
-#| msgid "E-mail address:"
+#, kde-format
 msgid "E-mail aliases"
-msgstr "Адрес электронной почты:"
+msgstr "Псевдонимы адреса электронной почты"
 
 #: quick/qml/BasicIdentityEditorCard.qml:88
-#, fuzzy, kde-format
-#| msgid "Remove From Favorites"
+#, kde-format
 msgid "Remove email alias"
-msgstr "Удалить из избранных"
+msgstr "Удалить псевдоним адреса электронной почты"
 
 #: quick/qml/BasicIdentityEditorCard.qml:108
 #, kde-format
 msgid "user@example.org"
-msgstr ""
+msgstr "user@example.org"
 
 #: quick/qml/BasicIdentityEditorCard.qml:117
-#, fuzzy, kde-format
-#| msgid "Add Permissions"
+#, kde-format
 msgid "Add email alias"
-msgstr "Добавить права доступа"
+msgstr "Добавить псевдоним адреса электронной почты"
 
 #: quick/qml/CryptographyEditorCard.qml:48
-#, fuzzy, kde-format
-#| msgid "OpenPGP key 0x%1"
+#, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
-msgstr "Ключ OpenPGP 0x%1"
+msgstr "Ключ OpenPGP"
 
 #: quick/qml/CryptographyEditorCard.qml:48
-#, fuzzy, kde-format
-#| msgid "OpenPGP signing key:"
+#, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
-msgstr "Ключ подписи OpenPGP:"
+msgstr "Ключ подписи OpenPGP"
 
 #: quick/qml/CryptographyEditorCard.qml:75
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
-msgstr ""
+msgstr "Использовать один и тот же ключ OpenPGP для шифрования и подписи"
 
 #: quick/qml/CryptographyEditorCard.qml:104
-#, fuzzy, kde-format
-#| msgid "OpenPGP encryption key:"
+#, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
-msgstr "Ключ шифрования OpenPGP:"
+msgstr "Ключ шифрования OpenPGP"
 
 #: quick/qml/CryptographyEditorCard.qml:126
-#, fuzzy, kde-format
-#| msgid "S/MIME signing certificate:"
+#, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
-msgstr "Сертификат подписи S/MIME:"
+msgstr "Ключ подписи S/MIME"
 
 #: quick/qml/CryptographyEditorCard.qml:151
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
-msgstr ""
+msgstr "Использовать один и тот же ключ S/MIME для шифрования и подписи"
 
 #: quick/qml/CryptographyEditorCard.qml:180
-#, fuzzy, kde-format
-#| msgid "S/MIME encryption certificate:"
+#, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
-msgstr "Сертификат шифрования S/MIME:"
+msgstr "Ключ шифрования S/MIME"
 
 #: quick/qml/IdentityConfigurationForm.qml:33
-#, fuzzy, kde-format
-#| msgid "Edit Identity"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
-msgstr "Изменить профиль"
+msgstr "Редактирование профиля"
 
 #: quick/qml/IdentityEditorPage.qml:41
-#, fuzzy, kde-format
-#| msgid "Edit Identity"
+#, kde-format
 msgid "Add Identity"
-msgstr "Изменить профиль"
+msgstr "Добавить профиль"
 
 #: quick/qml/IdentityEditorPage.qml:43
 #, kde-format
@@ -192,51 +178,43 @@ msgid "Edit Identity"
 msgstr "Изменить профиль"
 
 #: quick/qml/IdentityEditorPage.qml:71
-#, fuzzy, kde-format
-#| msgid "Cryptograph&y"
+#, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
-msgstr "&Шифрование"
+msgstr "Шифрование"
 
 #: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
-#, fuzzy, kde-format
-#| msgid "Deleted"
+#, kde-format
 msgid "Delete"
-msgstr "Удалённое"
+msgstr "Удалить"
 
 #: quick/qml/IdentityEditorPage.qml:105
-#, fuzzy, kde-format
-#| msgid "Save List"
+#, kde-format
 msgid "Save"
-msgstr "Сохранить список"
+msgstr "Сохранить"
 
 #: quick/qml/IdentityEditorPage.qml:105
-#, fuzzy, kde-format
-#| msgid "&Add"
+#, kde-format
 msgid "Add"
-msgstr "&Добавить"
+msgstr "Добавить"
 
 #: quick/qml/IdentityEditorPage.qml:120
-#, fuzzy, kde-format
-#| msgid "Deleted"
+#, kde-format
 msgid "Delete %1"
-msgstr "Удалённое"
+msgstr "Удалить %1"
 
 #: quick/qml/IdentityEditorPage.qml:121
-#, fuzzy, kde-format
-#| msgid "Are you sure you want to empty the trash folder?"
+#, kde-format
 msgid "Are you sure you want to delete this identity?"
-msgstr "Очистить корзину?"
+msgstr "Удалить этот профиль?"
 
 #: quick/qml/IdentityEditorPage.qml:135
-#, fuzzy, kde-format
-#| msgid "C&ancel"
+#, kde-format
 msgid "Cancel"
-msgstr "О&тменить"
+msgstr "Отмена"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Добавлять подпись"
@@ -272,8 +250,7 @@ msgid "Output of Command"
 msgstr "Из вывода программы"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "&Добавлять подпись:"
@@ -284,8 +261,7 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Укажите подпись, которая будет добавляться в письмо."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Использовать HTML"
@@ -305,15 +281,13 @@ msgstr ""
 "каждое создаваемое письмо."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "&Файл:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "&Редактировать"
@@ -338,8 +312,7 @@ msgstr ""
 "присутствовать строка «#!»."
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&Программа:"
@@ -372,12 +345,10 @@ msgstr "&Использовать HTML (отключение удаляет фо
 #~ msgstr "Изменить..."
 
 #, fuzzy
-#~| msgid "&Rename"
 #~ msgid "Rename"
 #~ msgstr "&Переименовать"
 
 #, fuzzy
-#~| msgid "R&emove"
 #~ msgid "Remove"
 #~ msgstr "&Удалить"
 
