@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Mikko Piippo <piippo@cc.helsinki.fi>, 2007.
-# Tommi Nieminen <translator@legisign.org>, 2010, 2018, 2019, 2021, 2023, 2024.
+# SPDX-FileCopyrightText: 2010, 2018, 2019, 2021, 2023, 2024 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2012, 2013.
 #
 # KDE Finnish translation sprint participants:
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-17 00:40+0000\n"
-"PO-Revision-Date: 2024-03-11 15:25+0200\n"
+"PO-Revision-Date: 2024-10-20 14:20+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -19,8 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2012-12-01 22:25:20+0000\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -61,12 +60,12 @@ msgstr " (oletus)"
 #: core/identitytreemodel.cpp:128
 #, kde-format
 msgid "Identity Name"
-msgstr ""
+msgstr "Henkilöyden nimi"
 
 #: core/identitytreemodel.cpp:131
 #, kde-format
 msgid "Email Address"
-msgstr ""
+msgstr "Sähköpostiosoite"
 
 #: core/signature.cpp:170
 #, kde-format
@@ -81,11 +80,10 @@ msgid "Identity"
 msgstr "Henkilöys"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
-msgstr "Henkilöys"
+msgstr "Henkilöyden nimi"
 
 #: quick/qml/BasicIdentityEditorCard.qml:39
 #, kde-format
@@ -212,11 +210,10 @@ msgid "Cancel"
 msgstr "Peru"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
-msgstr "&Allekirjoita"
+msgstr "Käytä &allekirjoitusta"
 
 #: widgets/signatureconfigurator.cpp:109
 #, kde-format
@@ -251,8 +248,7 @@ msgid "Output of Command"
 msgstr "komennon tulosteesta"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "&Nouda allekirjoituksen teksti:"
@@ -263,11 +259,10 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Kirjoita tähän kenttään pysyvästi käytettävä allekirjoitus."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
-msgstr "&Käytä HTML:ää"
+msgstr "Käytä &HTML:ää"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -285,15 +280,13 @@ msgstr ""
 "allekirjoituksen."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "&Määritä tiedosto:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "M&uokkaa tiedostoa"
@@ -319,11 +312,10 @@ msgstr ""
 "(Huomaa, että skripti vaatii #!-rivin.)"
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
-msgstr "&Määritä komento:"
+msgstr "Määritä &komento:"
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
