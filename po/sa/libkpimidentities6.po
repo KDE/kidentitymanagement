@@ -23,7 +23,7 @@ msgstr ""
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
-msgstr ""
+msgstr "मूलभूतम्‌"
 
 #: core/identitymanager.cpp:186
 #, kde-format
@@ -36,7 +36,7 @@ msgstr "अनामिका"
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
-msgstr ""
+msgstr "%1 #%2"
 
 #: core/identitymanager.cpp:567
 #, kde-format
@@ -47,13 +47,13 @@ msgstr "अनामिका"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " - ९. "
 
 #: core/identitytreemodel.cpp:92
 #, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr ""
+msgstr " (मूलभूतम्‌)"
 
 #: core/identitytreemodel.cpp:128
 #, kde-format
@@ -115,43 +115,43 @@ msgstr "ईमेल उपनाम योजयन्तु"
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
-msgstr ""
+msgstr "OpenPGP कुञ्जी"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
-msgstr ""
+msgstr "OpenPGP हस्ताक्षरकुंजी"
 
 #: quick/qml/CryptographyEditorCard.qml:75
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
-msgstr ""
+msgstr "एन्क्रिप्शनस्य हस्ताक्षरस्य च कृते समानं OpenPGP कीलस्य उपयोगं कुर्वन्तु"
 
 #: quick/qml/CryptographyEditorCard.qml:104
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
-msgstr ""
+msgstr "OpenPGP एन्क्रिप्शन कुञ्जी"
 
 #: quick/qml/CryptographyEditorCard.qml:126
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
-msgstr ""
+msgstr "S/MIME हस्ताक्षरकुंजी"
 
 #: quick/qml/CryptographyEditorCard.qml:151
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
-msgstr ""
+msgstr "एन्क्रिप्शनं हस्ताक्षरं च कर्तुं समानं S/MIME कीलं उपयुज्यताम्"
 
 #: quick/qml/CryptographyEditorCard.qml:180
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
-msgstr ""
+msgstr "S/MIME एन्क्रिप्शन कुञ्जी"
 
 #: quick/qml/IdentityConfigurationForm.qml:33
 #, kde-format
@@ -173,7 +173,7 @@ msgstr "परिचयं सम्पादयतु"
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
-msgstr ""
+msgstr "क्रिप्टोग्राफी"
 
 #: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
 #, kde-format
@@ -209,7 +209,7 @@ msgstr "निरसयतु"
 #, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
-msgstr ""
+msgstr "&हस्ताक्षरं सक्षमं कुर्वन्तु"
 
 #: widgets/signatureconfigurator.cpp:109
 #, kde-format
@@ -229,25 +229,25 @@ msgstr "निवेशविधिषु सहायतां प्राप�
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
-msgstr ""
+msgstr "Input Field Below इति"
 
 #: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
-msgstr ""
+msgstr "संचिका"
 
 #: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
-msgstr ""
+msgstr "आदेशस्य निर्गमः"
 
 #: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
-msgstr ""
+msgstr "हस्ताक्षरं &पाठं प्राप्नुत:"
 
 #: widgets/signatureconfigurator.cpp:164
 #, kde-format
@@ -278,13 +278,13 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
-msgstr ""
+msgstr "S&specify सञ्चिका:"
 
 #: widgets/signatureconfigurator.cpp:233
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
-msgstr ""
+msgstr "सम्पादयतु &सञ्चिका"
 
 #: widgets/signatureconfigurator.cpp:234
 #, kde-format
@@ -310,7 +310,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
-msgstr ""
+msgstr "S&pecify आदेशः:"
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
@@ -321,7 +321,7 @@ msgstr "अस्य पाठसञ्चिकायाः आकारः १
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
-msgstr ""
+msgstr "पाठसञ्चिकायाः आकारः"
 
 #: widgets/signatureconfigurator.cpp:440
 #, kde-format
