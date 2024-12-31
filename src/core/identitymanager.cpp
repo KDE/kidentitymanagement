@@ -402,13 +402,16 @@ void IdentityManager::commit()
         }
     }
 
-    // what's left are deleted identities:
+    d->mIdentities = d->shadowIdentities;
+
+    // we cannot throw the signal earlier as it would lead to a call to
+    // modifyIdentityForUoid, in turn creating a new entry for the one we are
+    // trying to destroy...
     for (QList<uint>::ConstIterator it = seenUOIDs.constBegin(); it != seenUOIDs.constEnd(); ++it) {
         qCDebug(KIDENTITYMANAGEMENT_LOG) << "emitting deleted() for identity" << (*it);
         Q_EMIT deleted(*it);
     }
 
-    d->mIdentities = d->shadowIdentities;
     d->writeConfig();
 
     // now that mIdentities has all the new info, we can Q_EMIT the added/changed
