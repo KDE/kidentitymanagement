@@ -5,9 +5,6 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#undef QT_USE_FAST_CONCATENATION
-#undef QT_USE_FAST_OPERATOR_PLUS
-
 #include "signaturetest.h"
 using namespace Qt::Literals::StringLiterals;
 
