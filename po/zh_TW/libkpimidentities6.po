@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-17 00:40+0000\n"
+"POT-Creation-Date: 2025-01-12 02:42+0000\n"
 "PO-Revision-Date: 2024-08-06 05:24+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -41,7 +41,7 @@ msgctxt ""
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:567
+#: core/identitymanager.cpp:570
 #, kde-format
 msgid "Unnamed"
 msgstr "未命名"
