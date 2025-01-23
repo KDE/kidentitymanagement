@@ -11,8 +11,8 @@ portingAid: false
 deprecated: false
 release: false
 libraries:
- - cmake: "KPim6::IdentityManagementCore"
- - cmake: "KPim6::IdentityManagementWidgets"
+    - cmake: "KPim6::IdentityManagementCore"
+    - cmake: "KPim6::IdentityManagementWidgets"
 cmakename: KPim6IdentityManagementCore
 group: kdepim
 public_lib: true
