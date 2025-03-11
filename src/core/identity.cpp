@@ -35,6 +35,7 @@ Identity::Identity(const QString &id, const QString &fullName, const QString &em
     // setDictionary( Sonnet::defaultLanguageName() );
     setProperty(QLatin1StringView(s_disabledFcc), false);
     setProperty(QLatin1StringView(s_defaultDomainName), QHostInfo::localHostName());
+    setProperty(QLatin1StringView(s_disabledSpam), false);
 }
 
 const Identity &Identity::null()
@@ -63,6 +64,11 @@ bool Identity::isNull() const
         }
         // Take into account that disableFcc == false for a null identity
         if (key == QLatin1StringView(s_disabledFcc) && i.value().toBool() == false) {
+            ++i;
+            continue;
+        }
+        // Take into account that disableFcc == false for a null identity
+        if (key == QLatin1StringView(s_disabledSpam) && i.value().toBool() == false) {
             ++i;
             continue;
         }
@@ -181,7 +187,8 @@ QDataStream &KIdentityManagementCore::operator<<(QDataStream &stream, const KIde
                   << i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] << i.mPropertiesMap[QLatin1StringView(s_encryptionOverride)]
                   << i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] << i.mPropertiesMap[QLatin1StringView(s_pgpautoencrypt)]
                   << i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] << i.mPropertiesMap[QLatin1StringView(s_warnnotsign)]
-                  << i.mPropertiesMap[QLatin1StringView(s_activities)] << i.mPropertiesMap[QLatin1StringView(s_enabledActivities)];
+                  << i.mPropertiesMap[QLatin1StringView(s_activities)] << i.mPropertiesMap[QLatin1StringView(s_enabledActivities)]
+                  << i.mPropertiesMap[QLatin1StringView(s_spam)] << i.mPropertiesMap[QLatin1StringView(s_disabledSpam)];
 }
 
 QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityManagementCore::Identity &i)
@@ -201,7 +208,8 @@ QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityM
         >> i.mPropertiesMap[QLatin1StringView(s_autocryptPrefer)] >> i.mPropertiesMap[QLatin1StringView(s_encryptionOverride)]
         >> i.mPropertiesMap[QLatin1StringView(s_pgpautosign)] >> i.mPropertiesMap[QLatin1StringView(s_pgpautoencrypt)]
         >> i.mPropertiesMap[QLatin1StringView(s_warnnotencrypt)] >> i.mPropertiesMap[QLatin1StringView(s_warnnotsign)]
-        >> i.mPropertiesMap[QLatin1StringView(s_activities)] >> i.mPropertiesMap[QLatin1StringView(s_enabledActivities)];
+        >> i.mPropertiesMap[QLatin1StringView(s_activities)] >> i.mPropertiesMap[QLatin1StringView(s_enabledActivities)]
+        >> i.mPropertiesMap[QLatin1StringView(s_spam)] >> i.mPropertiesMap[QLatin1StringView(s_disabledSpam)];
 
     i.setProperty(QLatin1StringView(s_uoid), uoid);
     return stream;
@@ -463,6 +471,12 @@ QString Identity::fcc() const
     return verifyAkonadiId(str);
 }
 
+QString Identity::spam() const
+{
+    const QString str = property(QLatin1StringView(s_spam)).toString();
+    return verifyAkonadiId(str);
+}
+
 QString Identity::transport() const
 {
     return property(QLatin1StringView(s_transport)).toString();
@@ -623,6 +637,11 @@ void Identity::setFcc(const QString &str)
     setProperty(QLatin1StringView(s_fcc), str);
 }
 
+void Identity::setSpam(const QString &str)
+{
+    setProperty(QLatin1StringView(s_spam), str);
+}
+
 void Identity::setDrafts(const QString &str)
 {
     setProperty(QLatin1StringView(s_drafts), str);
@@ -726,6 +745,21 @@ bool Identity::disabledFcc() const
 void Identity::setDisabledFcc(bool disable)
 {
     setProperty(QLatin1StringView(s_disabledFcc), disable);
+}
+
+bool Identity::disabledSpam() const
+{
+    const QVariant var = property(QLatin1StringView(s_disabledSpam));
+    if (var.isNull()) {
+        return false;
+    } else {
+        return var.toBool();
+    }
+}
+
+void Identity::setDisabledSpam(bool disable)
+{
+    setProperty(QLatin1StringView(s_disabledSpam), disable);
 }
 
 bool Identity::pgpAutoSign() const

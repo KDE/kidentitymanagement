@@ -177,6 +177,9 @@ void IdentityTester::test_Identity()
     identity.setFace(QStringLiteral(";-)"));
     QCOMPARE(identity.face(), QStringLiteral(";-)"));
 
+    identity.setSpam(QStringLiteral("123")); // must be an Akonadi::Collection::Id
+    QCOMPARE(identity.spam(), QStringLiteral("123"));
+
     const QStringList activities = {QStringLiteral("foo1"), QStringLiteral("bla2")};
     identity.setActivities(activities);
     QCOMPARE(identity.activities(), activities);

@@ -65,6 +65,8 @@ static const char s_autocryptEnabled[] = "Autocrypt";
 static const char s_autocryptPrefer[] = "Autocrypt Prefer";
 static const char s_activities[] = "Activities";
 static const char s_enabledActivities[] = "Enabled Activities";
+static const char s_spam[] = "Spam";
+static const char s_disabledSpam[] = "Disable Spam";
 
 KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagementCore::Identity &ident);
 KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagementCore::Identity &ident);
@@ -115,6 +117,8 @@ class KIDENTITYMANAGEMENTCORE_EXPORT Identity
     Q_PROPERTY(bool isFaceEnabled READ isFaceEnabled WRITE setFaceEnabled)
     Q_PROPERTY(uint uoid READ uoid CONSTANT)
     Q_PROPERTY(bool isNull READ isNull)
+    Q_PROPERTY(QString spam READ spam WRITE setSpam)
+    Q_PROPERTY(bool disabledSpam READ disabledSpam WRITE setDisabledSpam)
 
     // only the identity manager should be able to construct and
     // destruct us, but then we get into problems with using
@@ -438,6 +442,18 @@ public:
 
     [[nodiscard]] bool enabledActivities() const;
     void setEnabledActivities(bool a);
+
+    /** The folder where spam messages from this identity will be
+    stored by default. */
+    [[nodiscard]] QString spam() const;
+    void setSpam(const QString &);
+
+    /**
+     * @return true if Spam is disabled for this identity.
+     * @since 6.5
+     */
+    [[nodiscard]] bool disabledSpam() const;
+    void setDisabledSpam(bool);
 
 protected:
     /** during migration when it failed it can be a string => not a qlonglong akonadi::id => fix it*/
