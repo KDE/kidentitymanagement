@@ -40,7 +40,7 @@ public:
     QAbstractItemModel *openPgpKeyListModel() const;
     QAbstractItemModel *smimeKeyListModel() const;
 
-    KIdentityManagementCore::Identity identity() const;
+    [[nodiscard]] KIdentityManagementCore::Identity identity() const;
     void setIdentity(const KIdentityManagementCore::Identity &identity);
 
     Q_INVOKABLE QModelIndex indexForIdentity(QAbstractItemModel *model, const KIdentityManagementCore::Identity &identity, const KeyUseTypes::KeyUse keyUse);
