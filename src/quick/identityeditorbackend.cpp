@@ -3,8 +3,7 @@
 
 #include "identityeditorbackend.h"
 
-namespace KIdentityManagementQuick
-{
+using namespace KIdentityManagementQuick;
 IdentityEditorBackend::Mode IdentityEditorBackend::mode() const
 {
     return mMode;
@@ -74,7 +73,6 @@ void IdentityEditorBackend::removeEmailAlias(const QString &alias)
     auto aliases = mIdentity.emailAliases();
     aliases.removeAll(alias);
     mIdentity.setEmailAliases(aliases);
-}
 }
 
 #include "moc_identityeditorbackend.cpp"

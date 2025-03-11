@@ -5,8 +5,7 @@
 
 #include <QTimer>
 
-namespace KIdentityManagementQuick
-{
+using namespace KIdentityManagementQuick;
 bool IdentityUtils::removeIdentity(const QString &identityName)
 {
     if (!mIdentityManager) {
@@ -17,8 +16,6 @@ bool IdentityUtils::removeIdentity(const QString &identityName)
     // Need to run async or will crash the UI if this is called from QML
     QTimer::singleShot(0, mIdentityManager, &KIdentityManagementCore::IdentityManager::commit);
     return result;
-}
-
 }
 
 #include "moc_identityutils.cpp"

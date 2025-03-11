@@ -6,8 +6,7 @@
 #include "cryptographybackendinterface.h"
 #include "identity.h"
 
-namespace KIdentityManagementQuick
-{
+using namespace KIdentityManagementQuick;
 
 CryptographyEditorBackend::CryptographyEditorBackend(QObject *parent, const CryptographyBackendInterfacePtr &cryptoBackend)
     : QObject{parent}
@@ -71,7 +70,6 @@ CryptographyEditorBackend::indexForIdentity(QAbstractItemModel *model, const KId
 QString CryptographyEditorBackend::stringFromKeyByteArray(const QByteArray &key)
 {
     return QString::fromUtf8(key);
-}
 }
 
 #include "moc_cryptographyeditorbackend.cpp"
