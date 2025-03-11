@@ -7,7 +7,6 @@
 */
 
 #include "signatureconfigurator.h"
-using namespace Qt::Literals::StringLiterals;
 
 #include "identity.h"
 #include "signaturerichtexteditor_p.h"
@@ -43,6 +42,7 @@ using namespace Qt::Literals::StringLiterals;
 
 #include <TextCustomEditor/RichTextEditorWidget>
 
+using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementWidgets;
 
 namespace KIdentityManagementWidgets

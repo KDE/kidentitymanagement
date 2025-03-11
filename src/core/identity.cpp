@@ -6,7 +6,6 @@
 */
 
 #include "identity.h"
-using namespace Qt::Literals::StringLiterals;
 
 #include "kidentitymanagementcore_debug.h"
 #include <KConfigGroup>
@@ -16,6 +15,7 @@ using namespace Qt::Literals::StringLiterals;
 #include <QHostInfo>
 #include <QMimeData>
 
+using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementCore;
 
 static Identity *identityNull = nullptr;
