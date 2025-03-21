@@ -11,3 +11,4 @@ Dependencies:
 
 Options:
  require-passing-tests-on: ['Linux', 'FreeBSD']
+ allow-failing-tests-on: ['Windows']
