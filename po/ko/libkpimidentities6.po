@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-12 00:42+0000\n"
+"POT-Creation-Date: 2025-03-25 00:42+0000\n"
 "PO-Revision-Date: 2024-08-19 23:19+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -53,12 +53,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (기본값)"
 
-#: core/identitytreemodel.cpp:128
+#: core/identitytreemodel.cpp:129
 #, kde-format
 msgid "Identity Name"
 msgstr "프로필 이름"
 
-#: core/identitytreemodel.cpp:131
+#: core/identitytreemodel.cpp:132
 #, kde-format
 msgid "Email Address"
 msgstr "이메일 주소"

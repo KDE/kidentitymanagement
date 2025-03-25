@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-12 00:42+0000\n"
+"POT-Creation-Date: 2025-03-25 00:42+0000\n"
 "PO-Revision-Date: 2013-09-08 07:05+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -55,12 +55,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "كۆڭۈلدىكى"
 
-#: core/identitytreemodel.cpp:128
+#: core/identitytreemodel.cpp:129
 #, kde-format
 msgid "Identity Name"
 msgstr ""
 
-#: core/identitytreemodel.cpp:131
+#: core/identitytreemodel.cpp:132
 #, kde-format
 msgid "Email Address"
 msgstr ""

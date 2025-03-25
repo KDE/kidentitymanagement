@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-12 00:42+0000\n"
+"POT-Creation-Date: 2025-03-25 00:42+0000\n"
 "PO-Revision-Date: 2024-11-18 15:28+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -63,12 +63,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (по умолчанию)"
 
-#: core/identitytreemodel.cpp:128
+#: core/identitytreemodel.cpp:129
 #, kde-format
 msgid "Identity Name"
 msgstr "Имя профиля"
 
-#: core/identitytreemodel.cpp:131
+#: core/identitytreemodel.cpp:132
 #, kde-format
 msgid "Email Address"
 msgstr "Электронный адрес"

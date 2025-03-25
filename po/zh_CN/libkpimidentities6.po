@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-12 00:42+0000\n"
+"POT-Creation-Date: 2025-03-25 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -54,12 +54,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (默认)"
 
-#: core/identitytreemodel.cpp:128
+#: core/identitytreemodel.cpp:129
 #, kde-format
 msgid "Identity Name"
 msgstr "身份名称"
 
-#: core/identitytreemodel.cpp:131
+#: core/identitytreemodel.cpp:132
 #, kde-format
 msgid "Email Address"
 msgstr "电子邮件地址"
