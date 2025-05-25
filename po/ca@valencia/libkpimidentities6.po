@@ -228,7 +228,8 @@ msgstr ""
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr ""
-"Cliqueu als ginys de davall per a obtindre ajuda quant als mètodes d'entrada."
+"Cliqueu damunt dels ginys de davall per a obtindre ajuda quant als mètodes "
+"d'entrada."
 
 #: widgets/signatureconfigurator.cpp:120
 #, kde-format
