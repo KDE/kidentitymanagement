@@ -1,6 +1,6 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <!--
-    SPDX-FileCopyrightText: none 
+    SPDX-FileCopyrightText: none
     SPDX-License-Identifier: LGPL-2.0-or-later
 -->
 <node>

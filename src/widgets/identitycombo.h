@@ -24,7 +24,7 @@ class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityCombo : public QComboBox
 {
     Q_OBJECT
 public:
-    /// IdentityCombo contructor
+    /// IdentityCombo constructor
     explicit IdentityCombo(KIdentityManagementCore::IdentityManager *manager, QWidget *parent = nullptr);
 
     ~IdentityCombo() override;

@@ -9,7 +9,7 @@ macro(add_identitywidget_test _source)
         NAME_PREFIX "kpimidentitywidgets-"
 	LINK_LIBRARIES KPim6::IdentityManagementWidgets
         KPim6::PimTextEdit Qt::Test KF6::ConfigCore KF6::XmlGui KF6::CoreAddons
-)
+    )
 endmacro()
 
 add_identitywidget_test(identitytreeviewtest.cpp)

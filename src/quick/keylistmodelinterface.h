@@ -36,7 +36,7 @@ public:
 class KIDENTITYMANAGEMENTQUICK_EXPORT KeyListModelInterface
 {
 public:
-    virtual ~KeyListModelInterface() {};
+    virtual ~KeyListModelInterface() { };
     enum Roles {
         KeyIdentifierRole = Qt::UserRole + 1,
         KeyByteArrayRole

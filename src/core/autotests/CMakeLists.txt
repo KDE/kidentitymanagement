@@ -9,13 +9,15 @@ macro(add_identitycore_test _source)
         NAME_PREFIX "kpimidentitycore-"
 	LINK_LIBRARIES KPim6::IdentityManagementCore
         KPim6::PimTextEdit Qt::Test KF6::ConfigCore KF6::XmlGui KF6::CoreAddons
-)
+    )
 endmacro()
 
 add_identitycore_test(identitytest.cpp)
 add_identitycore_test(signaturetest.cpp)
 add_identitycore_test(identitymodeltest.cpp)
 
-target_compile_definitions(signaturetest PRIVATE
-    SIGNATURETEST_DATA_FILE="${CMAKE_CURRENT_SOURCE_DIR}/signaturetest.cpp"
+target_compile_definitions(
+    signaturetest
+    PRIVATE
+        SIGNATURETEST_DATA_FILE="${CMAKE_CURRENT_SOURCE_DIR}/signaturetest.cpp"
 )

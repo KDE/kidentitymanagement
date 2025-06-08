@@ -11,4 +11,3 @@ target_link_libraries(identitycombo_gui KPim6::IdentityManagementWidgets)
 add_executable(identitytreeview_gui identitytreeview_gui.cpp)
 
 target_link_libraries(identitytreeview_gui KPim6::IdentityManagementWidgets)
-

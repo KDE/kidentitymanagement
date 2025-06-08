@@ -294,7 +294,7 @@ void IdentityTester::test_migration()
         cg.deleteEntry(s_warnnotsign);
         config.sync();
     }
-    { // The migration is not triggerd
+    { // The migration is not triggered
         KConfig config(QStringLiteral("test"));
         KConfigGroup cg(&config, QStringLiteral("test"));
         Identity i2;
