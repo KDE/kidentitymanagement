@@ -216,7 +216,8 @@ void IdentityManagerPrivate::createDefaultIdentity()
 
 QStringList IdentityManagerPrivate::groupList(KConfig *config) const
 {
-    return config->groupList().filter(QRegularExpression(QStringLiteral("^Identity #\\d+$")));
+    static const QRegularExpression regExpr(QStringLiteral("^Identity #\\d+$"));
+    return config->groupList().filter(regExpr);
 }
 
 int IdentityManagerPrivate::newUoid()
