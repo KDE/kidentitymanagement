@@ -77,9 +77,8 @@ IdentityManagerPrivate::IdentityManagerPrivate(KIdentityManagementCore::Identity
 void IdentityManagerPrivate::writeConfig() const
 {
     const QStringList identities = groupList(mConfig);
-    QStringList::const_iterator groupEnd = identities.constEnd();
-    for (QStringList::const_iterator group = identities.constBegin(); group != groupEnd; ++group) {
-        mConfig->deleteGroup(*group);
+    for (const auto &group : identities) {
+        mConfig->deleteGroup(group);
     }
     int i = 0;
     IdentityManager::ConstIterator end = mIdentities.constEnd();
