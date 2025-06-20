@@ -113,9 +113,8 @@ void IdentityManagerPrivate::readConfig(KConfig *config)
     KConfigGroup general(config, QStringLiteral("General"));
     uint defaultIdentity = general.readEntry(configKeyDefaultIdentity, 0);
     bool haveDefault = false;
-    QStringList::const_iterator groupEnd = identities.constEnd();
-    for (QStringList::const_iterator group = identities.constBegin(); group != groupEnd; ++group) {
-        KConfigGroup configGroup(config, *group);
+    for (const QString &group : identities) {
+        KConfigGroup configGroup(config, group);
         Identity identity;
         identity.readConfig(configGroup);
         // Don't load invalid identity
