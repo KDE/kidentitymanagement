@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:42+0000\n"
+"POT-Creation-Date: 2025-06-20 00:43+0000\n"
 "PO-Revision-Date: 2024-08-15 11:36+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -21,13 +21,13 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: core/identitymanager.cpp:161
+#: core/identitymanager.cpp:160
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "المبدئيّ"
 
-#: core/identitymanager.cpp:186
+#: core/identitymanager.cpp:185
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"

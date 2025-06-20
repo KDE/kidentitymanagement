@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:42+0000\n"
+"POT-Creation-Date: 2025-06-20 00:43+0000\n"
 "PO-Revision-Date: 2024-08-19 23:19+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: core/identitymanager.cpp:161
+#: core/identitymanager.cpp:160
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "기본"
 
-#: core/identitymanager.cpp:186
+#: core/identitymanager.cpp:185
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"

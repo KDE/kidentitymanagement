@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:42+0000\n"
+"POT-Creation-Date: 2025-06-20 00:43+0000\n"
 "PO-Revision-Date: 2009-09-27 03:24+0000\n"
 "Last-Translator: Vilson Gjeci <vilsongjeci@gmail.com>\n"
 "Language-Team: Albanian <sq@li.org>\n"
@@ -19,13 +19,13 @@ msgstr ""
 "X-Generator: Launchpad (build 12883)\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: core/identitymanager.cpp:161
+#: core/identitymanager.cpp:160
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "I Parazgjedhur"
 
-#: core/identitymanager.cpp:186
+#: core/identitymanager.cpp:185
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"

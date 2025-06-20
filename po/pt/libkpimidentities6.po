@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-25 00:42+0000\n"
+"POT-Creation-Date: 2025-06-20 00:43+0000\n"
 "PO-Revision-Date: 2021-08-24 01:44+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -13,13 +13,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-POFile-SpellExtra: random KMail fortune ksig stdout kb mails\n"
 
-#: core/identitymanager.cpp:161
+#: core/identitymanager.cpp:160
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "Predefinição"
 
-#: core/identitymanager.cpp:186
+#: core/identitymanager.cpp:185
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
