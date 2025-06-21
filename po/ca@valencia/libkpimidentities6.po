@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-20 00:43+0000\n"
+"POT-Creation-Date: 2025-06-21 00:43+0000\n"
 "PO-Revision-Date: 2024-07-30 10:12+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -21,26 +21,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
-#: core/identitymanager.cpp:160
+#: core/identitymanager.cpp:159
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "Valor predeterminat"
 
-#: core/identitymanager.cpp:185
+#: core/identitymanager.cpp:184
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "Sense nom"
 
-#: core/identitymanager.cpp:356
+#: core/identitymanager.cpp:355
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 núm. %2"
 
-#: core/identitymanager.cpp:570
+#: core/identitymanager.cpp:569
 #, kde-format
 msgid "Unnamed"
 msgstr "Sense nom"

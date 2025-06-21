@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs/libkpimidentities.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-20 00:43+0000\n"
+"POT-Creation-Date: 2025-06-21 00:43+0000\n"
 "PO-Revision-Date: 2007-07-05 23:00-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
 "3 : 4\n"
 
-#: core/identitymanager.cpp:160
+#: core/identitymanager.cpp:159
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "Réamhshocrú"
 
-#: core/identitymanager.cpp:185
+#: core/identitymanager.cpp:184
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "Gan ainm"
 
-#: core/identitymanager.cpp:356
+#: core/identitymanager.cpp:355
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:570
+#: core/identitymanager.cpp:569
 #, kde-format
 msgid "Unnamed"
 msgstr "Gan ainm"
