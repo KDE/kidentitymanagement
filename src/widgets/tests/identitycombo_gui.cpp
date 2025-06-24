@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: LGPL-2.0-or-later
 
 #include <KIdentityManagementCore/IdentityManager>
+using namespace Qt::Literals::StringLiterals;
+
 #include <KIdentityManagementWidgets/IdentityCombo>
 #include <QApplication>
 #include <QLabel>
@@ -40,10 +42,10 @@ IdentityComboboxWidget::IdentityComboboxWidget(QWidget *parent)
         auto hbox = new QHBoxLayout;
         auto identityNameLineEdit = new QLineEdit(this);
 
-        hbox->addWidget(new QLabel(QStringLiteral("set identity name:"), this));
+        hbox->addWidget(new QLabel(u"set identity name:"_s, this));
         hbox->addWidget(identityNameLineEdit);
 
-        auto identityNameButton = new QPushButton(QStringLiteral("Apply"), this);
+        auto identityNameButton = new QPushButton(u"Apply"_s, this);
         hbox->addWidget(identityNameButton);
 
         connect(identityNameButton, &QPushButton::clicked, this, [identityNameLineEdit, combobox]() {
@@ -57,10 +59,10 @@ IdentityComboboxWidget::IdentityComboboxWidget(QWidget *parent)
         auto hbox = new QHBoxLayout;
         auto identityNameLineEdit = new QLineEdit(this);
 
-        hbox->addWidget(new QLabel(QStringLiteral("set identity identifier:"), this));
+        hbox->addWidget(new QLabel(u"set identity identifier:"_s, this));
         hbox->addWidget(identityNameLineEdit);
 
-        auto identityNameButton = new QPushButton(QStringLiteral("Apply"), this);
+        auto identityNameButton = new QPushButton(u"Apply"_s, this);
         hbox->addWidget(identityNameButton);
 
         connect(identityNameButton, &QPushButton::clicked, this, [identityNameLineEdit, combobox]() {

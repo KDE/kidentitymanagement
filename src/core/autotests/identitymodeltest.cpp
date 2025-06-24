@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LGPL-2.0-or-later
 
 #include "identitymodeltest.h"
+using namespace Qt::Literals::StringLiterals;
 
 #include <QStandardPaths>
 #include <QTest>
@@ -13,8 +14,8 @@ using namespace KIdentityManagementCore;
 
 namespace
 {
-const auto i1Name = QStringLiteral("Test1");
-const auto i1Email = QStringLiteral("firstname.lastname@example.com");
+const auto i1Name = u"Test1"_s;
+const auto i1Email = u"firstname.lastname@example.com"_s;
 
 void cleanupIdentities(std::unique_ptr<IdentityManager> &manager)
 {
@@ -41,12 +42,12 @@ void IdentityModelTester::initTestCase()
     {
         auto &i1 = manager->newFromScratch(i1Name);
         i1.setPrimaryEmailAddress(i1Email);
-        i1.setEmailAliases(QStringList{QStringLiteral("firstname@example.com"), QStringLiteral("lastname@example.com")});
+        i1.setEmailAliases(QStringList{u"firstname@example.com"_s, u"lastname@example.com"_s});
     }
 
     {
-        auto &i2 = manager->newFromScratch(QStringLiteral("Test2"));
-        i2.setPrimaryEmailAddress(QStringLiteral("test@test.de"));
+        auto &i2 = manager->newFromScratch(u"Test2"_s);
+        i2.setPrimaryEmailAddress(u"test@test.de"_s);
     }
 
     // Remove the first identity, which we couldn't remove above

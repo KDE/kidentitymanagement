@@ -7,6 +7,7 @@
 */
 
 #include "signaturerichtexteditor_p.h"
+using namespace Qt::Literals::StringLiterals;
 
 #include <KPIMTextEdit/RichTextComposer>
 #include <KPIMTextEdit/RichTextComposerControler>
@@ -49,9 +50,9 @@ static void insertSignatureHelper(const QString &signature,
         QString lineSep;
         if (addNewlines) {
             if (isHtml) {
-                lineSep = QStringLiteral("<br>");
+                lineSep = u"<br>"_s;
             } else {
-                lineSep = QLatin1Char('\n');
+                lineSep = u'\n';
             }
         }
 

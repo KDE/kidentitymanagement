@@ -4,6 +4,8 @@
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 
 #include "identitytreemodel.h"
+using namespace Qt::Literals::StringLiterals;
+
 #include "kidentitymanagementcore_debug.h"
 #include <KLocalizedString>
 #include <QFont>
@@ -89,7 +91,7 @@ QString IdentityTreeModel::generateIdentityName(const Identity &identity) const
 {
     QString str = identity.identityName();
     if (mShowDefault && identity.isDefault()) {
-        str += QLatin1Char(' ') + i18nc("Default identity", " (default)");
+        str += u' ' + i18nc("Default identity", " (default)");
     }
     return str;
 }

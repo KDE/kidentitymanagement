@@ -8,6 +8,8 @@
 static const char configKeyDefaultIdentity[] = "Default Identity";
 
 #include "identitymanager.h"
+using namespace Qt::Literals::StringLiterals;
+
 #include "identity.h" // for IdentityList::{export,import}Data
 
 #include <KEmailAddress> // for static helper functions
@@ -34,9 +36,9 @@ namespace KIdentityManagementCore
 static QString newDBusObjectName()
 {
     static int s_count = 0;
-    QString name(QStringLiteral("/KIDENTITYMANAGER_IdentityManager"));
+    QString name(u"/KIDENTITYMANAGER_IdentityManager"_s);
     if (s_count++) {
-        name += QLatin1Char('_');
+        name += u'_';
         name += QString::number(s_count);
     }
     return name;
@@ -83,11 +85,11 @@ void IdentityManagerPrivate::writeConfig() const
     int i = 0;
     IdentityManager::ConstIterator end = mIdentities.constEnd();
     for (IdentityManager::ConstIterator it = mIdentities.constBegin(); it != end; ++it, ++i) {
-        KConfigGroup cg(mConfig, QStringLiteral("Identity #%1").arg(i));
+        KConfigGroup cg(mConfig, u"Identity #%1"_s.arg(i));
         (*it).writeConfig(cg);
         if ((*it).isDefault()) {
             // remember which one is default:
-            KConfigGroup general(mConfig, QStringLiteral("General"));
+            KConfigGroup general(mConfig, u"General"_s);
             general.writeEntry(configKeyDefaultIdentity, (*it).uoid());
 
             // Also write the default identity to emailsettings
@@ -110,7 +112,7 @@ void IdentityManagerPrivate::readConfig(KConfig *config)
         return; // nothing to be done...
     }
 
-    KConfigGroup general(config, QStringLiteral("General"));
+    KConfigGroup general(config, u"General"_s);
     uint defaultIdentity = general.readEntry(configKeyDefaultIdentity, 0);
     bool haveDefault = false;
     for (const QString &group : identities) {
@@ -167,10 +169,10 @@ void IdentityManagerPrivate::createDefaultIdentity()
             if (emailAddress.isEmpty()) {
                 emailAddress = user.loginName();
                 if (!emailAddress.isEmpty()) {
-                    KConfigGroup general(mConfig, QStringLiteral("General"));
+                    KConfigGroup general(mConfig, u"General"_s);
                     QString defaultdomain = general.readEntry("Default domain");
                     if (!defaultdomain.isEmpty()) {
-                        emailAddress += QLatin1Char('@') + defaultdomain;
+                        emailAddress += u'@' + defaultdomain;
                     } else {
                         emailAddress.clear();
                     }
@@ -186,14 +188,14 @@ void IdentityManagerPrivate::createDefaultIdentity()
         if (!emailAddress.isEmpty()) {
             // If we have an email address, create a default identity name from it
             QString idName = emailAddress;
-            int pos = idName.indexOf(QLatin1Char('@'));
+            int pos = idName.indexOf(u'@');
             if (pos != -1) {
                 name = idName.mid(pos + 1, -1);
             }
 
             // Make the name a bit more human friendly
-            name.replace(QLatin1Char('.'), QLatin1Char(' '));
-            pos = name.indexOf(QLatin1Char(' '));
+            name.replace(u'.', u' ');
+            pos = name.indexOf(u' ');
             if (pos != 0) {
                 name[pos + 1] = name[pos + 1].toUpper();
             }
@@ -214,7 +216,7 @@ void IdentityManagerPrivate::createDefaultIdentity()
 
 QStringList IdentityManagerPrivate::groupList(KConfig *config) const
 {
-    static const QRegularExpression regExpr(QStringLiteral("^Identity #\\d+$"));
+    static const QRegularExpression regExpr(u"^Identity #\\d+$"_s);
     return config->groupList().filter(regExpr);
 }
 
@@ -250,7 +252,7 @@ int IdentityManagerPrivate::newUoid()
 void IdentityManagerPrivate::slotIdentitiesChanged(const QString &id)
 {
     qCDebug(KIDENTITYMANAGEMENT_LOG) << " KIdentityManagementCore::IdentityManager::slotIdentitiesChanged :" << id;
-    const QString ourIdentifier = QStringLiteral("%1/%2").arg(QDBusConnection::sessionBus().baseService(), q->property("uniqueDBusPath").toString());
+    const QString ourIdentifier = u"%1/%2"_s.arg(QDBusConnection::sessionBus().baseService(), q->property("uniqueDBusPath").toString());
     if (id != ourIdentifier) {
         mConfig->reparseConfiguration();
         Q_ASSERT(!q->hasPendingChanges());
@@ -277,12 +279,12 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *nam
     QDBusConnection dbus = QDBusConnection::sessionBus();
     const QString dbusPath = newDBusObjectName();
     setProperty("uniqueDBusPath", dbusPath);
-    const QString dbusInterface = QStringLiteral("org.kde.pim.IdentityManager");
+    const QString dbusInterface = u"org.kde.pim.IdentityManager"_s;
     dbus.registerObject(dbusPath, this);
-    dbus.connect(QString(), QString(), dbusInterface, QStringLiteral("identitiesChanged"), this, SLOT(slotIdentitiesChanged(QString)));
+    dbus.connect(QString(), QString(), dbusInterface, u"identitiesChanged"_s, this, SLOT(slotIdentitiesChanged(QString)));
 
     d->mReadOnly = readonly;
-    d->mConfig = new KConfig(QStringLiteral("emailidentities"));
+    d->mConfig = new KConfig(u"emailidentities"_s);
     if (!d->mConfig->isConfigWritable(true)) {
         qCWarning(KIDENTITYMANAGEMENT_LOG) << "impossible to write on this file";
     }
@@ -294,26 +296,26 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *nam
         commit();
     }
 
-    KSharedConfig::Ptr kmailConf(KSharedConfig::openConfig(QStringLiteral("kmail2rc")));
+    KSharedConfig::Ptr kmailConf(KSharedConfig::openConfig(u"kmail2rc"_s));
     if (!d->mReadOnly) {
         bool needCommit = false;
-        if (kmailConf->hasGroup(QStringLiteral("Composer"))) {
-            KConfigGroup composerGroup = kmailConf->group(QStringLiteral("Composer"));
-            if (composerGroup.hasKey(QStringLiteral("pgp-auto-sign"))) {
-                const bool pgpAutoSign = composerGroup.readEntry(QStringLiteral("pgp-auto-sign"), false);
+        if (kmailConf->hasGroup(u"Composer"_s)) {
+            KConfigGroup composerGroup = kmailConf->group(u"Composer"_s);
+            if (composerGroup.hasKey(u"pgp-auto-sign"_s)) {
+                const bool pgpAutoSign = composerGroup.readEntry(u"pgp-auto-sign"_s, false);
                 const QList<Identity>::iterator end = d->mIdentities.end();
                 for (QList<Identity>::iterator it = d->mIdentities.begin(); it != end; ++it) {
                     it->setPgpAutoSign(pgpAutoSign);
                 }
-                composerGroup.deleteEntry(QStringLiteral("pgp-auto-sign"));
+                composerGroup.deleteEntry(u"pgp-auto-sign"_s);
                 composerGroup.sync();
                 needCommit = true;
             }
         }
-        if (kmailConf->hasGroup(QStringLiteral("General"))) {
-            KConfigGroup generalGroup = kmailConf->group(QStringLiteral("General"));
-            if (generalGroup.hasKey(QStringLiteral("Default domain"))) {
-                QString defaultDomain = generalGroup.readEntry(QStringLiteral("Default domain"));
+        if (kmailConf->hasGroup(u"General"_s)) {
+            KConfigGroup generalGroup = kmailConf->group(u"General"_s);
+            if (generalGroup.hasKey(u"Default domain"_s)) {
+                QString defaultDomain = generalGroup.readEntry(u"Default domain"_s);
                 if (defaultDomain.isEmpty()) {
                     defaultDomain = QHostInfo::localHostName();
                 }
@@ -321,7 +323,7 @@ IdentityManager::IdentityManager(bool readonly, QObject *parent, const char *nam
                 for (QList<Identity>::iterator it = d->mIdentities.begin(); it != end; ++it) {
                     it->setDefaultDomainName(defaultDomain);
                 }
-                generalGroup.deleteEntry(QStringLiteral("Default domain"));
+                generalGroup.deleteEntry(u"Default domain"_s);
                 generalGroup.sync();
                 needCommit = true;
             }
@@ -425,7 +427,7 @@ void IdentityManager::commit()
     Q_EMIT identitiesWereChanged(); // normal signal
 
     // DBus signal for other IdentityManager instances
-    const QString ourIdentifier = QStringLiteral("%1/%2").arg(QDBusConnection::sessionBus().baseService(), property("uniqueDBusPath").toString());
+    const QString ourIdentifier = u"%1/%2"_s.arg(QDBusConnection::sessionBus().baseService(), property("uniqueDBusPath").toString());
     Q_EMIT identitiesChanged(ourIdentifier);
 }
 

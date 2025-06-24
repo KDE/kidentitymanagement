@@ -4,6 +4,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "identitytest.h"
+using namespace Qt::Literals::StringLiterals;
+
 #include "identity.h"
 #include "identitymanager.h"
 #include <QTest>
@@ -83,12 +85,12 @@ void IdentityTester::test_Identity()
     QCOMPARE(identity.uoid(), 42u);
     identity.setIsDefault(true);
     QCOMPARE(identity.isDefault(), true);
-    identity.setIdentityName(QStringLiteral("01234"));
-    QCOMPARE(identity.identityName(), QStringLiteral("01234"));
-    identity.setFullName(QStringLiteral("Daniel Vrátil"));
-    QCOMPARE(identity.fullName(), QStringLiteral("Daniel Vrátil"));
-    identity.setOrganization(QStringLiteral("KDE"));
-    QCOMPARE(identity.organization(), QStringLiteral("KDE"));
+    identity.setIdentityName(u"01234"_s);
+    QCOMPARE(identity.identityName(), u"01234"_s);
+    identity.setFullName(u"Daniel Vrátil"_s);
+    QCOMPARE(identity.fullName(), u"Daniel Vrátil"_s);
+    identity.setOrganization(u"KDE"_s);
+    QCOMPARE(identity.organization(), u"KDE"_s);
     identity.setPGPEncryptionKey("0x0123456789ABCDEF");
     QCOMPARE(identity.pgpEncryptionKey(), QByteArray("0x0123456789ABCDEF"));
     identity.setPGPSigningKey("0xFEDCBA9876543210");
@@ -97,17 +99,17 @@ void IdentityTester::test_Identity()
     QCOMPARE(identity.smimeEncryptionKey(), QByteArray("0xABCDEF0123456789"));
     identity.setSMIMESigningKey("0xFEDCBA9876543210");
     QCOMPARE(identity.smimeSigningKey(), QByteArray("0xFEDCBA9876543210"));
-    identity.setPreferredCryptoMessageFormat(QStringLiteral("PGP"));
-    QCOMPARE(identity.preferredCryptoMessageFormat(), QStringLiteral("PGP"));
-    identity.setPrimaryEmailAddress(QStringLiteral("dvratil@kde.org"));
-    const QStringList aliases = {QStringLiteral("dvratil1@kde.org"), QStringLiteral("example@example.org")};
+    identity.setPreferredCryptoMessageFormat(u"PGP"_s);
+    QCOMPARE(identity.preferredCryptoMessageFormat(), u"PGP"_s);
+    identity.setPrimaryEmailAddress(u"dvratil@kde.org"_s);
+    const QStringList aliases = {u"dvratil1@kde.org"_s, u"example@example.org"_s};
     identity.setEmailAliases(aliases);
     QCOMPARE(identity.emailAliases(), aliases);
-    QVERIFY(identity.matchesEmailAddress(QStringLiteral("dvratil@kde.org")));
+    QVERIFY(identity.matchesEmailAddress(u"dvratil@kde.org"_s));
     QVERIFY(identity.matchesEmailAddress(aliases[0]));
     QVERIFY(identity.matchesEmailAddress(aliases[1]));
 
-    QCOMPARE(identity.primaryEmailAddress(), QStringLiteral("dvratil@kde.org"));
+    QCOMPARE(identity.primaryEmailAddress(), u"dvratil@kde.org"_s);
     const auto vcardFile = QStringLiteral(
         "BEGIN:VCARD\n"
         "VERSION:2.1\n"
@@ -115,16 +117,16 @@ void IdentityTester::test_Identity()
         "END:VCARD");
     identity.setVCardFile(vcardFile);
     QCOMPARE(identity.vCardFile(), vcardFile);
-    identity.setReplyToAddr(QStringLiteral("dvratil+reply@kde.org"));
-    QCOMPARE(identity.replyToAddr(), QStringLiteral("dvratil+reply@kde.org"));
-    identity.setBcc(QStringLiteral("dvratil+bcc@kde.org"));
-    QCOMPARE(identity.bcc(), QStringLiteral("dvratil+bcc@kde.org"));
-    identity.setCc(QStringLiteral("dvratil+cc@kde.org"));
-    QCOMPARE(identity.cc(), QStringLiteral("dvratil+cc@kde.org"));
+    identity.setReplyToAddr(u"dvratil+reply@kde.org"_s);
+    QCOMPARE(identity.replyToAddr(), u"dvratil+reply@kde.org"_s);
+    identity.setBcc(u"dvratil+bcc@kde.org"_s);
+    QCOMPARE(identity.bcc(), u"dvratil+bcc@kde.org"_s);
+    identity.setCc(u"dvratil+cc@kde.org"_s);
+    QCOMPARE(identity.cc(), u"dvratil+cc@kde.org"_s);
     identity.setAttachVcard(true);
     QCOMPARE(identity.attachVcard(), true);
-    identity.setAutocorrectionLanguage(QStringLiteral("cs_CZ"));
-    QCOMPARE(identity.autocorrectionLanguage(), QStringLiteral("cs_CZ"));
+    identity.setAutocorrectionLanguage(u"cs_CZ"_s);
+    QCOMPARE(identity.autocorrectionLanguage(), u"cs_CZ"_s);
     identity.setDisabledFcc(true);
     QVERIFY(identity.disabledFcc());
     identity.setPgpAutoSign(true);
@@ -151,36 +153,36 @@ void IdentityTester::test_Identity()
     identity.setWarnNotSign(true);
     QVERIFY(identity.warnNotSign());
 
-    identity.setDefaultDomainName(QStringLiteral("kde.org"));
-    QCOMPARE(identity.defaultDomainName(), QStringLiteral("kde.org"));
+    identity.setDefaultDomainName(u"kde.org"_s);
+    QCOMPARE(identity.defaultDomainName(), u"kde.org"_s);
     Signature sig;
     sig.setEnabledSignature(true);
-    sig.setText(QStringLiteral("Regards,\nDaniel"));
+    sig.setText(u"Regards,\nDaniel"_s);
     identity.setSignature(sig);
     QCOMPARE(identity.signature(), sig);
-    identity.setTransport(QStringLiteral("smtp"));
-    QCOMPARE(identity.transport(), QStringLiteral("smtp"));
-    identity.setFcc(QStringLiteral("123")); // must be an Akonadi::Collection::Id
-    QCOMPARE(identity.fcc(), QStringLiteral("123"));
-    identity.setDrafts(QStringLiteral("124"));
-    QCOMPARE(identity.drafts(), QStringLiteral("124"));
-    identity.setTemplates(QStringLiteral("125"));
-    QCOMPARE(identity.templates(), QStringLiteral("125"));
-    identity.setDictionary(QStringLiteral("Čeština"));
-    QCOMPARE(identity.dictionary(), QStringLiteral("Čeština"));
+    identity.setTransport(u"smtp"_s);
+    QCOMPARE(identity.transport(), u"smtp"_s);
+    identity.setFcc(u"123"_s); // must be an Akonadi::Collection::Id
+    QCOMPARE(identity.fcc(), u"123"_s);
+    identity.setDrafts(u"124"_s);
+    QCOMPARE(identity.drafts(), u"124"_s);
+    identity.setTemplates(u"125"_s);
+    QCOMPARE(identity.templates(), u"125"_s);
+    identity.setDictionary(u"Čeština"_s);
+    QCOMPARE(identity.dictionary(), u"Čeština"_s);
     identity.setXFaceEnabled(true);
     QVERIFY(identity.isXFaceEnabled());
-    identity.setXFace(QStringLiteral(":-P"));
-    QCOMPARE(identity.xface(), QStringLiteral(":-P"));
+    identity.setXFace(u":-P"_s);
+    QCOMPARE(identity.xface(), u":-P"_s);
     identity.setFaceEnabled(true);
     QVERIFY(identity.isFaceEnabled());
-    identity.setFace(QStringLiteral(";-)"));
-    QCOMPARE(identity.face(), QStringLiteral(";-)"));
+    identity.setFace(u";-)"_s);
+    QCOMPARE(identity.face(), u";-)"_s);
 
-    identity.setSpam(QStringLiteral("123")); // must be an Akonadi::Collection::Id
-    QCOMPARE(identity.spam(), QStringLiteral("123"));
+    identity.setSpam(u"123"_s); // must be an Akonadi::Collection::Id
+    QCOMPARE(identity.spam(), u"123"_s);
 
-    const QStringList activities = {QStringLiteral("foo1"), QStringLiteral("bla2")};
+    const QStringList activities = {u"foo1"_s, u"bla2"_s};
     identity.setActivities(activities);
     QCOMPARE(identity.activities(), activities);
 
@@ -191,10 +193,10 @@ void IdentityTester::test_Identity()
         // Test that the operator==() actually works
         QVERIFY(compareIdentities(copy, identity));
 
-        identity.setXFace(QStringLiteral(":-("));
+        identity.setXFace(u":-("_s);
         QVERIFY(copy != identity);
 
-        identity.setFace(QStringLiteral(">:("));
+        identity.setFace(u">:("_s);
         QVERIFY(copy != identity);
     }
 
@@ -216,7 +218,7 @@ void IdentityTester::test_Identity()
 void IdentityTester::test_NullIdentity()
 {
     IdentityManager manager;
-    QVERIFY(manager.identityForAddress(QStringLiteral("thisaddressforsuredoesnotexist@kde.org")).isNull());
+    QVERIFY(manager.identityForAddress(u"thisaddressforsuredoesnotexist@kde.org"_s).isNull());
 }
 
 void IdentityTester::test_Aliases()
@@ -229,23 +231,23 @@ void IdentityTester::test_Aliases()
         manager.commit();
     }
 
-    Identity &i1 = manager.newFromScratch(QStringLiteral("Test1"));
-    i1.setPrimaryEmailAddress(QStringLiteral("firstname.lastname@example.com"));
-    i1.setEmailAliases(QStringList() << QStringLiteral("firstname@example.com") << QStringLiteral("lastname@example.com"));
-    QVERIFY(i1.matchesEmailAddress(QStringLiteral("\"Lastname, Firstname\" <firstname@example.com>")));
-    QVERIFY(i1.matchesEmailAddress(QStringLiteral("\"Lastname, Firstname\" <firstname.lastname@example.com>")));
+    Identity &i1 = manager.newFromScratch(u"Test1"_s);
+    i1.setPrimaryEmailAddress(u"firstname.lastname@example.com"_s);
+    i1.setEmailAliases(QStringList() << u"firstname@example.com"_s << u"lastname@example.com"_s);
+    QVERIFY(i1.matchesEmailAddress(u"\"Lastname, Firstname\" <firstname@example.com>"_s));
+    QVERIFY(i1.matchesEmailAddress(u"\"Lastname, Firstname\" <firstname.lastname@example.com>"_s));
     QCOMPARE(i1.emailAliases().size(), 2);
 
-    KConfig testConfig(QStringLiteral("test"));
-    KConfigGroup testGroup(&testConfig, QStringLiteral("testGroup"));
+    KConfig testConfig(u"test"_s);
+    KConfigGroup testGroup(&testConfig, u"testGroup"_s);
     i1.writeConfig(testGroup);
     i1.readConfig(testGroup);
     QCOMPARE(i1.emailAliases().size(), 2);
 
     manager.commit();
 
-    Identity &i2 = manager.newFromScratch(QStringLiteral("Test2"));
-    i2.setPrimaryEmailAddress(QStringLiteral("test@test.de"));
+    Identity &i2 = manager.newFromScratch(u"Test2"_s);
+    i2.setPrimaryEmailAddress(u"test@test.de"_s);
     QVERIFY(i2.emailAliases().isEmpty());
     manager.commit();
 
@@ -254,13 +256,13 @@ void IdentityTester::test_Aliases()
     manager.commit();
 
     QCOMPARE(manager.allEmails().size(), 4);
-    QCOMPARE(manager.identityForAddress(QStringLiteral("firstname@example.com")).identityName().toLatin1().data(), "Test1");
+    QCOMPARE(manager.identityForAddress(u"firstname@example.com"_s).identityName().toLatin1().data(), "Test1");
 }
 
 void IdentityTester::test_toMimeData()
 {
-    Identity identity(QStringLiteral("Test1"));
-    identity.setFullName(QStringLiteral("name"));
+    Identity identity(u"Test1"_s);
+    identity.setFullName(u"name"_s);
     QMimeData mimeData;
     identity.populateMimeData(&mimeData);
 
@@ -274,20 +276,20 @@ void IdentityTester::test_toMimeData()
 
 void IdentityTester::test_migration()
 {
-    Identity identity(QStringLiteral("Test1"));
-    identity.setFullName(QStringLiteral("name"));
+    Identity identity(u"Test1"_s);
+    identity.setFullName(u"name"_s);
     QVERIFY(!identity.encryptionOverride());
     {
-        KConfig config(QStringLiteral("test"));
+        KConfig config(u"test"_s);
         QVERIFY(config.isConfigWritable(true));
-        KConfigGroup cg(&config, QStringLiteral("test"));
+        KConfigGroup cg(&config, u"test"_s);
         identity.writeConfig(cg);
         config.sync();
     }
     { // Generate a config that triggers the migration code
-        KConfig config(QStringLiteral("test_old"));
+        KConfig config(u"test_old"_s);
         QVERIFY(config.isConfigWritable(true));
-        KConfigGroup cg(&config, QStringLiteral("test"));
+        KConfigGroup cg(&config, u"test"_s);
         identity.writeConfig(cg);
         cg.deleteEntry(s_encryptionOverride);
         cg.deleteEntry(s_warnnotencrypt);
@@ -295,16 +297,16 @@ void IdentityTester::test_migration()
         config.sync();
     }
     { // The migration is not triggered
-        KConfig config(QStringLiteral("test"));
-        KConfigGroup cg(&config, QStringLiteral("test"));
+        KConfig config(u"test"_s);
+        KConfigGroup cg(&config, u"test"_s);
         Identity i2;
         i2.readConfig(cg);
         QVERIFY(compareIdentities(i2, identity));
     }
     { // The migration is triggered
         // for old config files (< v5.21.41)
-        KConfig config(QStringLiteral("test_old"));
-        KConfigGroup cg(&config, QStringLiteral("test"));
+        KConfig config(u"test_old"_s);
+        KConfigGroup cg(&config, u"test"_s);
         Identity i2;
         i2.readConfig(cg);
         QVERIFY(i2.encryptionOverride());

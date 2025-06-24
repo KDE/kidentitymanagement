@@ -9,6 +9,7 @@
 #pragma once
 
 #include "kidentitymanagementcore_export.h"
+
 #include "signature.h"
 
 #include <QHash>

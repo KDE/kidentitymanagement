@@ -133,7 +133,7 @@ bool Identity::mailingAllowed() const
 
 QString Identity::mimeDataType()
 {
-    return QStringLiteral("application/x-kmail-identity-drag");
+    return u"application/x-kmail-identity-drag"_s;
 }
 
 bool Identity::canDecode(const QMimeData *md)
@@ -301,7 +301,7 @@ QString Identity::fullEmailAddr() const
         return mail;
     }
 
-    const QString specials(QStringLiteral("()<>@,.;:[]"));
+    const QString specials(u"()<>@,.;:[]"_s);
 
     QString result;
 
@@ -311,19 +311,19 @@ QString Identity::fullEmailAddr() const
     for (int i = 0; i < nameLength; i++) {
         if (specials.contains(name[i])) {
             needsQuotes = true;
-        } else if (name[i] == QLatin1Char('\\') || name[i] == QLatin1Char('"')) {
+        } else if (name[i] == u'\\' || name[i] == u'"') {
             needsQuotes = true;
-            result += QLatin1Char('\\');
+            result += u'\\';
         }
         result += name[i];
     }
 
     if (needsQuotes) {
-        result.insert(0, QLatin1Char('"'));
-        result += QLatin1Char('"');
+        result.insert(0, u'"');
+        result += u'"';
     }
 
-    result += " <"_L1 + mail + QLatin1Char('>');
+    result += " <"_L1 + mail + u'>';
 
     return result;
 }
@@ -680,9 +680,9 @@ void Identity::setPreferredCryptoMessageFormat(const QString &str)
 void Identity::setXFace(const QString &str)
 {
     QString strNew = str;
-    strNew.remove(QLatin1Char(' '));
-    strNew.remove(QLatin1Char('\n'));
-    strNew.remove(QLatin1Char('\r'));
+    strNew.remove(u' ');
+    strNew.remove(u'\n');
+    strNew.remove(u'\r');
     setProperty(QLatin1StringView(s_xface), strNew);
 }
 
@@ -694,9 +694,9 @@ void Identity::setXFaceEnabled(bool on)
 void Identity::setFace(const QString &str)
 {
     QString strNew = str;
-    strNew.remove(QLatin1Char(' '));
-    strNew.remove(QLatin1Char('\n'));
-    strNew.remove(QLatin1Char('\r'));
+    strNew.remove(u' ');
+    strNew.remove(u'\n');
+    strNew.remove(u'\r');
     setProperty(QLatin1StringView(s_face), strNew);
 }
 

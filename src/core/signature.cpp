@@ -114,7 +114,7 @@ void SignaturePrivate::saveImages() const
 {
     if (inlinedHtml && !saveLocation.isEmpty()) {
         for (const Signature::EmbeddedImagePtr &image : std::as_const(embeddedImages)) {
-            const QString location = saveLocation + QLatin1Char('/') + image->name;
+            const QString location = saveLocation + u'/' + image->name;
             if (!image->image.save(location, "PNG")) {
                 qCWarning(KIDENTITYMANAGEMENT_LOG) << "Failed to save image" << location;
             }
@@ -271,7 +271,7 @@ QString Signature::withSeparator(bool *ok, QString *errorMessage) const
     }
 
     const bool htmlSig = (isInlinedHtml() && d->type == Inlined);
-    QString newline = htmlSig ? QStringLiteral("<br>") : QStringLiteral("\n");
+    QString newline = htmlSig ? u"<br>"_s : u"\n"_s;
     if (htmlSig && signature.startsWith("<p"_L1)) {
         newline.clear();
     }
@@ -342,10 +342,10 @@ void Signature::readConfig(const KConfigGroup &config)
         for (const QString &fileName : lst) {
             if (fileName.endsWith(".png"_L1, Qt::CaseInsensitive)) {
                 QImage image;
-                if (image.load(dir.path() + QLatin1Char('/') + fileName)) {
+                if (image.load(dir.path() + u'/' + fileName)) {
                     addImage(image, fileName);
                 } else {
-                    qCWarning(KIDENTITYMANAGEMENT_LOG) << "Unable to load image" << dir.path() + QLatin1Char('/') + fileName;
+                    qCWarning(KIDENTITYMANAGEMENT_LOG) << "Unable to load image" << dir.path() + u'/' + fileName;
                 }
             }
         }

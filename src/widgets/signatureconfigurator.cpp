@@ -91,9 +91,9 @@ QString SignatureConfiguratorPrivate::asCleanedHTML() const
     const QString html = textDocument.toHtml();
 
     // Now remove each line from the text, the result is clean html.
-    const QStringList lst = html.split(QLatin1Char('\n'));
+    const QStringList lst = html.split(u'\n');
     for (const QString &line : lst) {
-        text.remove(line + QLatin1Char('\n'));
+        text.remove(line + u'\n');
     }
     return text;
 }
@@ -167,37 +167,37 @@ void SignatureConfiguratorPrivate::init()
     auto actionCollection = new KActionCollection(q);
     mTextEdit->createActions(actionCollection);
 #ifndef QT_NO_TOOLBAR
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_bold")));
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_italic")));
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_underline")));
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_strikeout")));
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_foreground_color")));
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_text_background_color")));
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_font_family")));
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_font_size")));
-    mEditToolBar->addAction(actionCollection->action(QStringLiteral("format_reset")));
+    mEditToolBar->addAction(actionCollection->action(u"format_text_bold"_s));
+    mEditToolBar->addAction(actionCollection->action(u"format_text_italic"_s));
+    mEditToolBar->addAction(actionCollection->action(u"format_text_underline"_s));
+    mEditToolBar->addAction(actionCollection->action(u"format_text_strikeout"_s));
+    mEditToolBar->addAction(actionCollection->action(u"format_text_foreground_color"_s));
+    mEditToolBar->addAction(actionCollection->action(u"format_text_background_color"_s));
+    mEditToolBar->addAction(actionCollection->action(u"format_font_family"_s));
+    mEditToolBar->addAction(actionCollection->action(u"format_font_size"_s));
+    mEditToolBar->addAction(actionCollection->action(u"format_reset"_s));
 
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_list_style")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_list_indent_more")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_list_indent_less")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_list_indent_less")));
+    mFormatToolBar->addAction(actionCollection->action(u"format_list_style"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"format_list_indent_more"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"format_list_indent_less"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"format_list_indent_less"_s));
     mFormatToolBar->addSeparator();
 
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_align_left")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_align_center")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_align_right")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_align_justify")));
+    mFormatToolBar->addAction(actionCollection->action(u"format_align_left"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"format_align_center"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"format_align_right"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"format_align_justify"_s));
     mFormatToolBar->addSeparator();
 
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("insert_horizontal_rule")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("manage_link")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("format_painter")));
+    mFormatToolBar->addAction(actionCollection->action(u"insert_horizontal_rule"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"manage_link"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"format_painter"_s));
 
     mFormatToolBar->addSeparator();
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("add_image")));
+    mFormatToolBar->addAction(actionCollection->action(u"add_image"_s));
     mFormatToolBar->addSeparator();
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("insert_html")));
-    mFormatToolBar->addAction(actionCollection->action(QStringLiteral("insert_table")));
+    mFormatToolBar->addAction(actionCollection->action(u"insert_html"_s));
+    mFormatToolBar->addAction(actionCollection->action(u"insert_table"_s));
 #endif
 
     hlay = new QHBoxLayout(); // inherits spacing
@@ -330,7 +330,7 @@ QString SignatureConfigurator::filePath() const
     // Force the filename to be relative to ~ instead of $PWD depending
     // on the rest of the code (KRun::run in Edit and KFileItem on save)
     if (!file.isEmpty() && QFileInfo(file).isRelative()) {
-        file = QDir::home().absolutePath() + QLatin1Char('/') + file;
+        file = QDir::home().absolutePath() + u'/' + file;
     }
     return file;
 }
@@ -428,7 +428,7 @@ void SignatureConfigurator::slotEdit()
     // slotEnableEditButton should prevent this assert from being hit:
     assert(!url.isEmpty());
 
-    auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(url), QStringLiteral("text/plain"));
+    auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(url), u"text/plain"_s);
     job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
     job->start();
 }
@@ -466,8 +466,7 @@ void SignatureConfigurator::setImageLocation(const QString &path)
 
 void SignatureConfigurator::setImageLocation(const KIdentityManagementCore::Identity &identity)
 {
-    const QString dir =
-        QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/emailidentities/%1/").arg(QString::number(identity.uoid()));
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + u"/emailidentities/%1/"_s.arg(QString::number(identity.uoid()));
     QDir().mkpath(dir);
     setImageLocation(dir);
 }

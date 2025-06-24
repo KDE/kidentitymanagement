@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LGPL-2.0-or-later
 
 #include "kidentitymanagementquickplugin.h"
+using namespace Qt::Literals::StringLiterals;
 
 #include <QQmlEngine>
 
@@ -33,7 +34,7 @@ void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
     qRegisterMetaType<KIdentityManagementCore::Identity>("Identity");
     qRegisterMetaType<KeyUseTypes::KeyUse>("KeyUseTypes::KeyUse");
 
-    qmlRegisterUncreatableType<KeyUseTypes>(uri, 1, 0, "KeyUseTypes", QStringLiteral("Cannot instantiate KeyUseTypes wrapper!"));
+    qmlRegisterUncreatableType<KeyUseTypes>(uri, 1, 0, "KeyUseTypes", u"Cannot instantiate KeyUseTypes wrapper!"_s);
 }
 
 #include "moc_kidentitymanagementquickplugin.cpp"
