@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-21 00:43+0000\n"
+"POT-Creation-Date: 2025-06-25 00:43+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -20,20 +20,20 @@ msgstr ""
 "X-Environment: kde\n"
 
 # >> @item Default address
-#: core/identitymanager.cpp:159
+#: core/identitymanager.cpp:161
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "подразумијевана"
 
 # >> @item +
-#: core/identitymanager.cpp:184
+#: core/identitymanager.cpp:186
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "неименован"
 
-#: core/identitymanager.cpp:355
+#: core/identitymanager.cpp:357
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
@@ -41,7 +41,7 @@ msgid "%1 #%2"
 msgstr "%1 #%2"
 
 # >> @item Unnamed identity
-#: core/identitymanager.cpp:569
+#: core/identitymanager.cpp:571
 #, kde-format
 msgid "Unnamed"
 msgstr "неименован"
@@ -53,7 +53,7 @@ msgid " - "
 msgstr ""
 
 # >> @item Default address
-#: core/identitytreemodel.cpp:92
+#: core/identitytreemodel.cpp:94
 #, fuzzy, kde-format
 #| msgctxt "use default address from control center"
 #| msgid "Default"
@@ -61,12 +61,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "подразумијевана"
 
-#: core/identitytreemodel.cpp:129
+#: core/identitytreemodel.cpp:131
 #, kde-format
 msgid "Identity Name"
 msgstr ""
 
-#: core/identitytreemodel.cpp:132
+#: core/identitytreemodel.cpp:134
 #, kde-format
 msgid "Email Address"
 msgstr ""

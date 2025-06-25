@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-21 00:43+0000\n"
+"POT-Creation-Date: 2025-06-25 00:43+0000\n"
 "PO-Revision-Date: 2013-09-08 07:05+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: core/identitymanager.cpp:159
+#: core/identitymanager.cpp:161
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "كۆڭۈلدىكى"
 
-#: core/identitymanager.cpp:184
+#: core/identitymanager.cpp:186
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "ئاتسىز"
 
-#: core/identitymanager.cpp:355
+#: core/identitymanager.cpp:357
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:569
+#: core/identitymanager.cpp:571
 #, kde-format
 msgid "Unnamed"
 msgstr "ئاتسىز"
@@ -47,7 +47,7 @@ msgctxt "Separator between identity name and email address"
 msgid " - "
 msgstr ""
 
-#: core/identitytreemodel.cpp:92
+#: core/identitytreemodel.cpp:94
 #, fuzzy, kde-format
 #| msgctxt "use default address from control center"
 #| msgid "Default"
@@ -55,12 +55,12 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "كۆڭۈلدىكى"
 
-#: core/identitytreemodel.cpp:129
+#: core/identitytreemodel.cpp:131
 #, kde-format
 msgid "Identity Name"
 msgstr ""
 
-#: core/identitytreemodel.cpp:132
+#: core/identitytreemodel.cpp:134
 #, kde-format
 msgid "Email Address"
 msgstr ""
