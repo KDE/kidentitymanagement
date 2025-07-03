@@ -20,7 +20,11 @@ include(GenerateExportHeader)
 include(ECMGenerateHeaders)
 
 include(ECMSetupVersion)
-file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES src/*.cpp src/*.h)
+file(
+    GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES
+    src/*.cpp
+    src/*.h
+)
 set(PRE_COMMIT_INSTALLED FALSE)
 if(${CMAKE_SOURCE_DIR} STREQUAL ${PROJECT_SOURCE_DIR})
     if(EXISTS "${PROJECT_SOURCE_DIR}/.git/hooks/pre-commit")
@@ -43,11 +47,7 @@ include(ECMFeatureSummary)
 include(ECMAddQch)
 include(ECMQmlModule)
 include(ECMCheckOutboundLicense)
-option(
-    BUILD_QCH
-    "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)"
-    OFF
-)
+option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(
     QCH
     ${BUILD_QCH}
@@ -88,17 +88,15 @@ if(BUILD_QUICK_SUPPORT)
     set_package_properties(
         KF6KirigamiAddons
         PROPERTIES
-            TYPE REQUIRED
-            PURPOSE "Addons for the Kirigami application UI framework"
+            TYPE
+                REQUIRED
+            PURPOSE
+                "Addons for the Kirigami application UI framework"
     )
 endif()
 add_definitions(-DTRANSLATION_DOMAIN=\"libkpimidentities6\")
 
-option(
-    USE_UNITY_CMAKE_SUPPORT
-    "Use UNITY cmake support (speedup compile time)"
-    OFF
-)
+option(USE_UNITY_CMAKE_SUPPORT "Use UNITY cmake support (speedup compile time)" OFF)
 
 set(COMPILE_WITH_UNITY_CMAKE_SUPPORT OFF)
 if(USE_UNITY_CMAKE_SUPPORT)
@@ -116,5 +114,9 @@ if(DEFINED kde_configure_git_pre_commit_hook)
 endif()
 ki18n_install(po)
 ecm_feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
-file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cpp src/*.h)
+file(
+    GLOB_RECURSE ALL_SOURCE_FILES
+    src/*.cpp
+    src/*.h
+)
 ecm_check_outbound_license(LICENSES GPL-2.0-only  FILES ${ALL_SOURCE_FILES})

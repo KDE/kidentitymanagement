@@ -21,13 +21,20 @@ target_sources(
         identityeditorbackend.cpp
 )
 set_property(
-    TARGET identitymanagentprivate
-    PROPERTY POSITION_INDEPENDENT_CODE ON
+    TARGET
+        identitymanagentprivate
+    PROPERTY
+        POSITION_INDEPENDENT_CODE
+            ON
 )
 target_link_libraries(
     identitymanagentprivate
-    PUBLIC Qt::Core Qt::Quick KPim6::IdentityManagementCore
-    PRIVATE KF6::I18n
+    PUBLIC
+        Qt::Core
+        Qt::Quick
+        KPim6::IdentityManagementCore
+    PRIVATE
+        KF6::I18n
 )
 
 ## KPimIdentityManagementQuick target
@@ -43,22 +50,18 @@ target_sources(
         cryptographyeditorbackend.cpp
 )
 
-target_link_libraries(
-    KPim6IdentityManagementQuick
-    PRIVATE identitymanagentprivate
-)
+target_link_libraries(KPim6IdentityManagementQuick PRIVATE identitymanagentprivate)
 
 if(COMPILE_WITH_UNITY_CMAKE_SUPPORT)
     set_target_properties(
         KPim6IdentityManagementQuick
-        PROPERTIES UNITY_BUILD ON
+        PROPERTIES
+            UNITY_BUILD
+                ON
     )
 endif()
 
-generate_export_header(
-    KPim6IdentityManagementQuick
-    BASE_NAME kidentitymanagementquick
-)
+generate_export_header(KPim6IdentityManagementQuick BASE_NAME kidentitymanagementquick)
 
 target_include_directories(
     KPim6IdentityManagementQuick
@@ -74,14 +77,15 @@ target_include_directories(
 set_target_properties(
     KPim6IdentityManagementQuick
     PROPERTIES
-        VERSION ${KIDENTITYMANAGEMENTQUICK_VERSION}
-        SOVERSION ${KIDENTITYMANAGEMENTQUICK_SOVERSION}
-        EXPORT_NAME IdentityManagementQuick
+        VERSION
+            ${KIDENTITYMANAGEMENTQUICK_VERSION}
+        SOVERSION
+            ${KIDENTITYMANAGEMENTQUICK_SOVERSION}
+        EXPORT_NAME
+            IdentityManagementQuick
 )
 
-set(CMAKECONFIG_INSTALL_DIR
-    "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim6IdentityManagementQuick"
-)
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KPim6IdentityManagementQuick")
 
 install(
     FILES
@@ -99,7 +103,8 @@ install(
 )
 
 install(
-    TARGETS KPim6IdentityManagementQuick
+    TARGETS
+        KPim6IdentityManagementQuick
     EXPORT KPim6IdentityManagementQuickTargets
     ${KDE_INSTALL_TARGETS_DEFAULT_ARGS}
 )
@@ -121,14 +126,13 @@ install(
     FILES
         ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_export.h
         ${KIdentityManagementQuick_HEADERS}
-    DESTINATION
-        ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/kidentitymanagementquick
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/kidentitymanagementquick
     COMPONENT Devel
 )
 install(
-    FILES ${KIdentityManagementQuick_CamelCase_HEADERS}
-    DESTINATION
-        ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/KIdentityManagementQuick/
+    FILES
+        ${KIdentityManagementQuick_CamelCase_HEADERS}
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick/KIdentityManagementQuick/
     COMPONENT Devel
 )
 
@@ -168,7 +172,9 @@ ecm_add_qml_module(kidentitymanagement_quick_plugin URI "org.kde.kidentitymanage
 
 target_sources(
     kidentitymanagement_quick_plugin
-    PRIVATE kidentitymanagementquickplugin.cpp kidentitymanagementquickplugin.h
+    PRIVATE
+        kidentitymanagementquickplugin.cpp
+        kidentitymanagementquickplugin.h
 )
 
 target_link_libraries(
@@ -194,7 +200,8 @@ ecm_finalize_qml_module(kidentitymanagement_quick_plugin
 )
 
 install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h
+    FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h
     DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick
     COMPONENT Devel
 )
