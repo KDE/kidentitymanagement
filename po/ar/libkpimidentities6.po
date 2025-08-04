@@ -1,7 +1,7 @@
 # translation of libkpimidentities.po to
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2021, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016, 2018.
 # Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2024.
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-25 00:43+0000\n"
-"PO-Revision-Date: 2024-08-15 11:36+0400\n"
+"PO-Revision-Date: 2025-08-03 11:10+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -302,7 +302,7 @@ msgid ""
 "signature. Usual commands for use with this mechanism are \"fortune\" or "
 "\"ksig -random\". (Be careful, script needs a shebang line)."
 msgstr ""
-"يمكنك إضافة أمر اعتباطيّ هنا، إمّا مع أو بدون المسار وذلك حسب كون الأمر في "
+"يمكنك إضافة أمر اعتباطيّ هنا، إمّا مع أو دون المسار وذلك حسب كون الأمر في "
 "المسار من عدمه. سينفّذ «بريدك» لكلّ بريد جديد الأمر وسيستخدم ما يُخرجه (إلى "
 "الخرج القياسيّ) كتوقيع. الأوامر غالبة الاستخدام مع هذه الآليّة هي ”fortune“ أو "
 "”ksig -random“. (كن حذراً السكربت يحتاج إلى شابنج #! )"
