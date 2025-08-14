@@ -52,7 +52,7 @@ static QString newDBusObjectName()
 class IdentityManagerPrivate
 {
 public:
-    IdentityManagerPrivate(KIdentityManagementCore::IdentityManager *);
+    explicit IdentityManagerPrivate(KIdentityManagementCore::IdentityManager *);
     ~IdentityManagerPrivate();
     void writeConfig() const;
     void readConfig(KConfig *config);
