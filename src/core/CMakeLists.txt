@@ -58,7 +58,7 @@ target_include_directories(
 target_include_directories(
     KPim6IdentityManagementCore
     PUBLIC
-        "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src/;${KIdentityManagement_BINARY_DIR}/src/>"
+        "$<BUILD_INTERFACE:${KIdentityManagement_SOURCE_DIR}/src/>"
 )
 
 target_link_libraries(
