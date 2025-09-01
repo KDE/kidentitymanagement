@@ -34,7 +34,7 @@ void SignatureTester::testEqualSignatures()
     sig1.setText(u"Hello World"_s);
     sig1.setEnabledSignature(true);
     Signature sig2(sig1);
-    QVERIFY(sig1 == sig2);
+    QCOMPARE(sig1, sig2);
     QCOMPARE(sig2.text(), u"Hello World"_s);
     QCOMPARE(sig2.type(), Signature::Inlined);
     QCOMPARE(sig2.rawText(), u"Hello World"_s);
@@ -43,7 +43,7 @@ void SignatureTester::testEqualSignatures()
     QVERIFY(sig2.isEnabledSignature());
 
     Signature sig3 = sig1;
-    QVERIFY(sig1 == sig3);
+    QCOMPARE(sig1, sig3);
     QCOMPARE(sig3.text(), u"Hello World"_s);
     QCOMPARE(sig3.type(), Signature::Inlined);
     QCOMPARE(sig3.rawText(), u"Hello World"_s);
@@ -119,7 +119,7 @@ void SignatureTester::testTextEditInsertion()
 
     edit.setPlainText(u"Bla Bla"_s);
     SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::Start, Signature::AddSeparator | Signature::AddNewLines, &edit);
-    QVERIFY(edit.textMode() == KPIMTextEdit::RichTextComposer::Plain);
+    QCOMPARE(edit.textMode(), KPIMTextEdit::RichTextComposer::Plain);
     QCOMPARE(edit.toPlainText(), u"\n\n-- \nHello World\nBla Bla"_s);
 
     // Test inserting signature at end. make sure cursor position is preserved
@@ -163,7 +163,7 @@ void SignatureTester::testTextEditInsertion()
     edit.clear();
     edit.setPlainText(u"Bla Bla"_s);
     SignatureRichTextEditor::insertIntoTextEdit(sig, Signature::End, Signature::AddSeparator | Signature::AddNewLines, &edit);
-    QVERIFY(edit.textMode() == KPIMTextEdit::RichTextComposer::Rich);
+    QCOMPARE(edit.textMode(), KPIMTextEdit::RichTextComposer::Rich);
     QCOMPARE(edit.toPlainText(), u"Bla Bla\n-- \nHello\nWorld"_s);
 }
 
