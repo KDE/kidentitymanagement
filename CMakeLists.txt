@@ -59,7 +59,7 @@ option(BUILD_QUICK_SUPPORT "Build quick support. Needed for merkuro project" ON)
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
 set(PIMTEXTEDIT_LIB_VERSION "6.5.40")
-set(KTEXTADDONS_MIN_VERSION "1.7.0")
+set(KTEXTADDONS_MIN_VERSION "1.7.1")
 
 ########### Find packages ###########
 
