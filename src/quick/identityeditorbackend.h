@@ -23,7 +23,7 @@ public:
         CreateMode,
         EditMode
     };
-    Q_ENUM(Mode);
+    Q_ENUM(Mode)
 
     explicit IdentityEditorBackend() = default;
 
