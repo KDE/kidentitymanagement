@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kidentitymanagement package.
-# Sergiu Bivol <sergiu@cip.md>, 2024.
+# SPDX-FileCopyrightText: 2024, 2025 Sergiu Bivol <sergiu@cip.md>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-25 00:43+0000\n"
-"PO-Revision-Date: 2024-06-09 13:26+0100\n"
+"PO-Revision-Date: 2025-09-27 13:36+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -76,11 +76,10 @@ msgid "Identity"
 msgstr "Identitate"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity Name"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
-msgstr "Nume identitate"
+msgstr "Denumire identitate"
 
 #: quick/qml/BasicIdentityEditorCard.qml:39
 #, kde-format
@@ -207,8 +206,7 @@ msgid "Cancel"
 msgstr "Renunță"
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "Activ&ează semnătura"
@@ -259,11 +257,10 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Folosiți acest câmp pentru a introduce o semnătură statică arbitrară."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
-msgstr "&Folosește HTML"
+msgstr "Folosește &HTML"
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -287,8 +284,7 @@ msgid "S&pecify file:"
 msgstr "S&pecifică fișierul:"
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Modifică &fișierul"
