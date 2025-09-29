@@ -95,7 +95,7 @@ public:
     /** Constructor for disabled signature */
     Signature();
     /** Constructor for inline text */
-    explicit Signature(const QString &text);
+    Signature(const QString &text);
     /** Constructor for text from a file or from output of a command */
     Signature(const QString &path, bool isExecutable);
     /** Copy constructor */
