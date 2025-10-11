@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: 2024 Johannes Obermayr <johannesobermayr@gmx.de>
-# Stephan Johach <hunsum@gmx.de>, 2007.
-# Thomas Reitelbach <tr@erdfunkstelle.de>, 2008, 2010.
-# Frederik Schwarzer <schwarzer@kde.org>, 2008.
-# Burkhard Lück <lueck@hube-lueck.de>, 2008, 2014, 2018, 2019, 2021.
+# SPDX-FileCopyrightText: 2007 Stephan Johach <hunsum@gmx.de>
+# SPDX-FileCopyrightText: 2008, 2010 Thomas Reitelbach <tr@erdfunkstelle.de>
+# SPDX-FileCopyrightText: 2008 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2008, 2014, 2018, 2019, 2021 Burkhard Lück <lueck@hube-lueck.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities6\n"
