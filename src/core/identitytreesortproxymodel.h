@@ -26,6 +26,7 @@ protected:
     [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
 private:
+    KIDENTITYMANAGEMENTCORE_NO_EXPORT void slotInvalidateFilter();
     IdentityActivitiesAbstract *mIdentityActivitiesAbstract = nullptr;
     bool mEnablePlasmaActivities = false;
 };

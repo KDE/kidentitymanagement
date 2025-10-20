@@ -35,8 +35,15 @@ bool IdentityTreeSortProxyModel::enablePlasmaActivities() const
 void IdentityTreeSortProxyModel::setEnablePlasmaActivities(bool newEnablePlasmaActivities)
 {
     if (mEnablePlasmaActivities != newEnablePlasmaActivities) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        beginFilterChange();
+#endif
         mEnablePlasmaActivities = newEnablePlasmaActivities;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        endFilterChange(QSortFilterProxyModel::Direction::Rows);
+#else
         invalidateFilter();
+#endif
     }
 }
 
@@ -48,10 +55,27 @@ IdentityActivitiesAbstract *IdentityTreeSortProxyModel::identityActivitiesAbstra
 void IdentityTreeSortProxyModel::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
 {
     if (mIdentityActivitiesAbstract != newIdentityActivitiesAbstract) {
+        connect(mIdentityActivitiesAbstract, &IdentityActivitiesAbstract::activitiesChanged, this, &IdentityTreeSortProxyModel::slotInvalidateFilter);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        beginFilterChange();
+#endif
         mIdentityActivitiesAbstract = newIdentityActivitiesAbstract;
-        connect(mIdentityActivitiesAbstract, &IdentityActivitiesAbstract::activitiesChanged, this, &IdentityTreeSortProxyModel::invalidateFilter);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        endFilterChange(QSortFilterProxyModel::Direction::Rows);
+#else
         invalidateFilter();
+#endif
     }
+}
+
+void IdentityTreeSortProxyModel::slotInvalidateFilter()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    beginFilterChange();
+    endFilterChange(QSortFilterProxyModel::Direction::Rows);
+#else
+    invalidateFilter();
+#endif
 }
 
 #include "moc_identitytreesortproxymodel.cpp"
