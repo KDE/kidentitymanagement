@@ -58,7 +58,7 @@ add_feature_info(
 option(BUILD_QUICK_SUPPORT "Build quick support. Needed for merkuro project" ON)
 
 set(KIDENTITYMANAGEMENT_LIB_VERSION ${PIM_VERSION})
-set(PIMTEXTEDIT_LIB_VERSION "6.5.40")
+set(PIMTEXTEDIT_LIB_VERSION "6.6.40")
 set(KTEXTADDONS_MIN_VERSION "1.8.44")
 
 ########### Find packages ###########
