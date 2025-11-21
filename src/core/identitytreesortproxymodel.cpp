@@ -55,7 +55,6 @@ IdentityActivitiesAbstract *IdentityTreeSortProxyModel::identityActivitiesAbstra
 void IdentityTreeSortProxyModel::setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract)
 {
     if (mIdentityActivitiesAbstract != newIdentityActivitiesAbstract) {
-        connect(mIdentityActivitiesAbstract, &IdentityActivitiesAbstract::activitiesChanged, this, &IdentityTreeSortProxyModel::slotInvalidateFilter);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
         beginFilterChange();
 #endif
@@ -65,6 +64,7 @@ void IdentityTreeSortProxyModel::setIdentityActivitiesAbstract(IdentityActivitie
 #else
         invalidateFilter();
 #endif
+        connect(mIdentityActivitiesAbstract, &IdentityActivitiesAbstract::activitiesChanged, this, &IdentityTreeSortProxyModel::slotInvalidateFilter);
     }
 }
 
