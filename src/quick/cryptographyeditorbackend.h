@@ -43,7 +43,9 @@ public:
     [[nodiscard]] KIdentityManagementCore::Identity identity() const;
     void setIdentity(const KIdentityManagementCore::Identity &identity);
 
-    Q_INVOKABLE QModelIndex indexForIdentity(QAbstractItemModel *model, const KIdentityManagementCore::Identity &identity, const KeyUseTypes::KeyUse keyUse);
+    Q_INVOKABLE QModelIndex indexForIdentity(QAbstractItemModel *model,
+                                             const KIdentityManagementCore::Identity &identity,
+                                             const KIdentityManagementQuick::KeyUseTypes::KeyUse keyUse);
 
     Q_INVOKABLE static QString stringFromKeyByteArray(const QByteArray &key);
 
