@@ -339,18 +339,3 @@ msgstr "&Usa HTML"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Usa HTML (la inhabilitació elimina el format)"
-
-#~ msgid "Add..."
-#~ msgstr "Afegeix..."
-
-#~ msgid "Modify..."
-#~ msgstr "Modifica..."
-
-#~ msgid "Rename"
-#~ msgstr "Reanomena"
-
-#~ msgid "Remove"
-#~ msgstr "Elimina"
-
-#~ msgid "Set as Default"
-#~ msgstr "Estableix com a predeterminada"
