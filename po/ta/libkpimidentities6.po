@@ -1,21 +1,21 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kidentitymanagement package.
 #
-# SPDX-FileCopyrightText: 2024 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:52+0000\n"
-"PO-Revision-Date: 2024-10-27 12:05+0530\n"
+"PO-Revision-Date: 2025-11-30 15:15+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
-"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
+"Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -45,7 +45,7 @@ msgstr "பெயரிடப்படாதது"
 #, kde-format
 msgctxt "Separator between identity name and email address"
 msgid " - "
-msgstr ""
+msgstr " - "
 
 #: core/identitytreemodel.cpp:94
 #, kde-format
@@ -74,16 +74,15 @@ msgid "Identity"
 msgstr "அடையாளம்"
 
 #: quick/qml/BasicIdentityEditorCard.qml:32
-#, fuzzy, kde-format
-#| msgid "Identity"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
-msgstr "அடையாளம்"
+msgstr "அடையாளத்திற்கான பெயர்"
 
 #: quick/qml/BasicIdentityEditorCard.qml:39
 #, kde-format
 msgid "Your name"
-msgstr ""
+msgstr "உங்கள் பெயர்"
 
 #: quick/qml/BasicIdentityEditorCard.qml:46
 #, kde-format
@@ -93,122 +92,122 @@ msgstr "மின்னஞ்சல் முகவரி"
 #: quick/qml/BasicIdentityEditorCard.qml:54
 #, kde-format
 msgid "E-mail aliases"
-msgstr ""
+msgstr "மாற்று மின்னஞ்சல் முகவரிகள்"
 
 #: quick/qml/BasicIdentityEditorCard.qml:88
 #, kde-format
 msgid "Remove email alias"
-msgstr ""
+msgstr "மாற்று மின்னஞ்சலை நீக்கு"
 
 #: quick/qml/BasicIdentityEditorCard.qml:108
 #, kde-format
 msgid "user@example.org"
-msgstr ""
+msgstr "user@example.org"
 
 #: quick/qml/BasicIdentityEditorCard.qml:117
 #, kde-format
 msgid "Add email alias"
-msgstr ""
+msgstr "மாற்று மின்னஞ்சலை சேர்"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
-msgstr ""
+msgstr "OpenPGP key"
 
 #: quick/qml/CryptographyEditorCard.qml:48
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
-msgstr ""
+msgstr "OpenPGP கையொப்ப சாவி"
 
 #: quick/qml/CryptographyEditorCard.qml:75
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
-msgstr ""
+msgstr "கையொப்பமிடுவதற்கும் மறையாக்குவதற்கும் ஒரே சாவியை பயன்படுத்து"
 
 #: quick/qml/CryptographyEditorCard.qml:104
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
-msgstr ""
+msgstr "OpenPGP மறையாக்க சாவி"
 
 #: quick/qml/CryptographyEditorCard.qml:126
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
-msgstr ""
+msgstr "S/MIME கையொப்ப சாவி"
 
 #: quick/qml/CryptographyEditorCard.qml:151
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
-msgstr ""
+msgstr "கையொப்பமிடுவதற்கும் மறையாக்குவதற்கும் ஒரே சாவியை பயன்படுத்து"
 
 #: quick/qml/CryptographyEditorCard.qml:180
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
-msgstr ""
+msgstr "S/MIME மறையாக்க சாவி"
 
 #: quick/qml/IdentityConfigurationForm.qml:33
 #, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
-msgstr ""
+msgstr "அடையாளத்தை திருத்து"
 
 #: quick/qml/IdentityEditorPage.qml:41
 #, kde-format
 msgid "Add Identity"
-msgstr ""
+msgstr "அடையாளத்தைச் சேர்"
 
 #: quick/qml/IdentityEditorPage.qml:43
 #, kde-format
 msgid "Edit Identity"
-msgstr ""
+msgstr "அடையாளத்தை திருத்து"
 
 #: quick/qml/IdentityEditorPage.qml:71
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
-msgstr ""
+msgstr "மறைக்குறியாக்கம்"
 
 #: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "நீக்கு"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "சேமி"
 
 #: quick/qml/IdentityEditorPage.qml:105
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "சேர்"
 
 #: quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete %1"
-msgstr ""
+msgstr "%1 தனை நீக்கு"
 
 #: quick/qml/IdentityEditorPage.qml:121
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
-msgstr ""
+msgstr "இந்த அடையாளத்தை உறுதியாக நீக்க வேண்டுமா?"
 
 #: quick/qml/IdentityEditorPage.qml:135
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "ரத்து செய்"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
-msgstr ""
+msgstr "கையொப்பத்தை இயக்கு"
 
 #: widgets/signatureconfigurator.cpp:109
 #, kde-format
@@ -226,25 +225,25 @@ msgstr ""
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
-msgstr ""
+msgstr "கீழுள்ள உரைப்பெட்டி"
 
 #: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
-msgstr ""
+msgstr "கோப்பு"
 
 #: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
-msgstr ""
+msgstr "கட்டளையின் வெளியீடு"
 
 #: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
-msgstr ""
+msgstr "கையொப்பத்தை இதிலிருந்து பெறு:"
 
 #: widgets/signatureconfigurator.cpp:164
 #, kde-format
@@ -260,7 +259,7 @@ msgstr ""
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid "Text File (*.txt)"
-msgstr ""
+msgstr "உரைக்கோப்பு (*.txt)"
 
 #: widgets/signatureconfigurator.cpp:223
 #, kde-format
@@ -279,12 +278,12 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
-msgstr ""
+msgstr "கோப்பைது திருத்து"
 
 #: widgets/signatureconfigurator.cpp:234
 #, kde-format
 msgid "Opens the specified file in a text editor."
-msgstr ""
+msgstr "குறிப்பிட்ட கோப்பை உரைத்திருத்தியில் திறக்கும்."
 
 #: widgets/signatureconfigurator.cpp:254
 #, kde-format
@@ -300,12 +299,12 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
-msgstr ""
+msgstr "கட்டளையை குறிப்பிடவும்:"
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgid "This text file size exceeds 1kb."
-msgstr ""
+msgstr "உரைக்கோப்பின் அளவு 1 கிலோபைட்டைவிட பெரிதாக உள்ளது."
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
