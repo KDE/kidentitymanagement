@@ -178,7 +178,8 @@ void IdentityCombo::slotIdentityManagerChanged()
 
 void IdentityCombo::slotEmitChanged(int idx)
 {
-    Q_EMIT identityChanged(d->mIdentityModel->identityUoid(idx));
+    const int newIndex = d->mIdentityProxyModel->mapToSource(d->mIdentityProxyModel->index(idx, KIdentityManagementCore::IdentityTreeModel::UoidRole)).row();
+    Q_EMIT identityChanged(d->mIdentityModel->identityUoid(newIndex));
 }
 
 void IdentityCombo::slotUpdateTooltip(uint uoid)
