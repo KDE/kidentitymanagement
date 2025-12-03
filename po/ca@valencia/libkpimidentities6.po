@@ -71,8 +71,8 @@ msgstr "Adreça de correu electrònic"
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
-"<qt>L'script de signatura ha fallat en executar-se<p><b>%1</b>:</p><p>%2</"
-"p></qt>"
+"<qt>L'script de signatura ha fallat mentre s'executava<p><b>%1</b>:</p><p>"
+"%2</p></qt>"
 
 #: quick/qml/BasicIdentityEditorCard.qml:26
 #, kde-format
