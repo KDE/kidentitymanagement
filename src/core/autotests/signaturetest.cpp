@@ -75,7 +75,7 @@ void SignatureTester::testSignatures()
     const QString dataFilePath = QStringLiteral(SIGNATURETEST_DATA_FILE);
     // Read this very file in, we use it for the tests
     QFile thisFile(dataFilePath);
-    thisFile.open(QIODevice::ReadOnly);
+    QVERIFY(thisFile.open(QIODevice::ReadOnly));
     QString fileContent = QString::fromUtf8(thisFile.readAll());
 
     if (!QStandardPaths::findExecutable(u"cat"_s).isEmpty()) {
