@@ -67,17 +67,12 @@ FormCard.FormCardPage {
     }
 
     FormCard.FormHeader {
-        visible: root.cryptographyEditorBackend.validBackend
         title: i18ndc("libkpimidentities6", "@title:group", "Cryptography")
     }
 
-    Loader {
-        Layout.fillWidth: true
-        active: root.cryptographyEditorBackend.validBackend
-        sourceComponent: CryptographyEditorCard {
-            identity: root.identity
-            cryptographyEditorBackend: root.cryptographyEditorBackend
-        }
+    CryptographyEditorCard {
+        identity: root.identity
+        cryptographyEditorBackend: root.cryptographyEditorBackend
     }
 
     footer: ColumnLayout {
