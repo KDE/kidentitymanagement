@@ -30,9 +30,16 @@ FormCard.FormCard {
         smimeEncryptionDelegate.updateIndex();
     }
 
-    required property var identity
-    onIdentityChanged: _updateComboIndices()
+    required property IdentityEditorBackend backend
     required property var cryptographyEditorBackend
+
+    Connections {
+        target: backend
+
+        function onIdentityChanged(): void {
+            _updateComboIndices()
+        }
+    }
 
     Component.onCompleted: _updateComboIndices()
 
@@ -50,10 +57,10 @@ FormCard.FormCard {
         textRole: "display"
         valueRole: "keyByteArray"
         onActivated: {
-            root.identity.pgpSigningKey = currentValue;
+            root.backend.identity.pgpSigningKey = currentValue;
 
             if (combinedMode) {
-                root.identity.pgpEncryptionKey = currentValue;
+                root.backend.identity.pgpEncryptionKey = currentValue;
                 pgpEncryptionDelegate.updateIndex();
             }
         }
@@ -67,8 +74,8 @@ FormCard.FormCard {
         id: combinedPgpModeCheckBox
 
         function updateChecked() {
-            const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpEncryptionKey);
-            const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpSigningKey);
+            const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.backend.identity.pgpEncryptionKey);
+            const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.backend.identity.pgpSigningKey);
             checked = pgpEncryptionKey === pgpSigningKey;
         }
 
@@ -78,12 +85,12 @@ FormCard.FormCard {
                 return;
             }
 
-            const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpEncryptionKey);
-            const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.pgpSigningKey);
+            const pgpEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.backend.identity.pgpEncryptionKey);
+            const pgpSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.backend.identity.pgpSigningKey);
 
             // Use the signing key as this is represented by the top combo box
             if (pgpEncryptionKey !== pgpSigningKey) {
-                root.identity.pgpEncryptionKey = root.identity.pgpSigningKey;
+                root.backend.identity.pgpEncryptionKey = root.backend.identity.pgpSigningKey;
             }
         }
     }
@@ -105,7 +112,7 @@ FormCard.FormCard {
         model: cryptographyEditorBackend.openPgpKeyListModel
         textRole: "display"
         valueRole: "keyByteArray"
-        onActivated: root.identity.pgpEncryptionKey = currentValue
+        onActivated: root.backend.identity.pgpEncryptionKey = currentValue
         visible: !combinedPgpModeCheckBox.checked
     }
 
@@ -128,10 +135,10 @@ FormCard.FormCard {
         textRole: "display"
         valueRole: "keyByteArray"
         onActivated: {
-            root.identity.smimeSigningKey = currentValue;
+            root.backend.identity.smimeSigningKey = currentValue;
 
             if (combinedMode) {
-                root.identity.smimeEncryptionKey = currentValue;
+                root.backend.identity.smimeEncryptionKey = currentValue;
                 smimeEncryptionDelegate.updateIndex();
             }
         }
@@ -143,8 +150,8 @@ FormCard.FormCard {
         id: combinedSmimeModeCheckBox
 
         function updateChecked() {
-            const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeEncryptionKey);
-            const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeSigningKey);
+            const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.backend.identity.smimeEncryptionKey);
+            const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.backend.identity.smimeSigningKey);
             checked = smimeEncryptionKey === smimeSigningKey;
         }
 
@@ -154,12 +161,12 @@ FormCard.FormCard {
                 return;
             }
 
-            const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeEncryptionKey);
-            const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.identity.smimeSigningKey);
+            const smimeEncryptionKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.backend.identity.smimeEncryptionKey);
+            const smimeSigningKey = root.cryptographyEditorBackend.stringFromKeyByteArray(root.backend.identity.smimeSigningKey);
 
             // Use the signing key as this is represented by the top combo box
             if (smimeEncryptionKey !== smimeSigningKey) {
-                root.identity.smimeEncryptionKey = root.identity.smimeSigningKey;
+                root.backend.identity.smimeEncryptionKey = root.backend.identity.smimeSigningKey;
             }
         }
     }
@@ -181,7 +188,7 @@ FormCard.FormCard {
         model: cryptographyEditorBackend.smimeKeyListModel
         textRole: "display"
         valueRole: "keyByteArray"
-        onActivated: root.identity.smimeEncryptionKey = currentValue
+        onActivated: root.backend.identity.smimeEncryptionKey = currentValue
         visible: !combinedSmimeModeCheckBox.checked
     }
 }

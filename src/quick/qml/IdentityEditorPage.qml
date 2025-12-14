@@ -24,15 +24,14 @@ FormCard.FormCardPage {
         id: backend
         mode: IdentityEditorBackend.CreateMode
     }
-    readonly property var identity: backend.identity
-    onIdentityChanged: cryptographyEditorBackend.identity = identity
+    readonly property alias identity: backend.identity
 
     readonly property QQC2.Action submitAction: QQC2.Action {
         id: submitAction
-        enabled: !root.identity.isNull
+        enabled: !backend.identity.isNull
         shortcut: "Return"
         onTriggered: {
-            root.backend.saveIdentity(root.identity);
+            root.backend.saveIdentity(backend.identity);
             root.closeDialog();
         }
     }
@@ -63,7 +62,7 @@ FormCard.FormCardPage {
     }
 
     BasicIdentityEditorCard {
-        identity: root.identity
+        backend: backend
     }
 
     FormCard.FormHeader {
@@ -71,7 +70,7 @@ FormCard.FormCardPage {
     }
 
     CryptographyEditorCard {
-        identity: root.identity
+        backend: backend
         cryptographyEditorBackend: root.cryptographyEditorBackend
     }
 
@@ -112,7 +111,7 @@ FormCard.FormCardPage {
                 id: dialogLoader
                 sourceComponent: Kirigami.PromptDialog {
                     id: dialog
-                    title: i18n("Delete %1", root.identityName)
+                    title: i18n("Delete %1", root.backend.identity.identityName)
                     subtitle: i18n("Are you sure you want to delete this identity?")
                     standardButtons: Kirigami.Dialog.NoButton
 
@@ -121,7 +120,7 @@ FormCard.FormCardPage {
                             text: i18n("Delete")
                             icon.name: "delete"
                             onTriggered: {
-                                IdentityUtils.removeIdentity(root.identity.identityName);
+                                IdentityUtils.removeIdentity(root.backend.identity.identityName);
                                 dialog.close();
                                 root.closeDialog();
                             }

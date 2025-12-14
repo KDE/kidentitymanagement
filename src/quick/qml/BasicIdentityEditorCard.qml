@@ -13,8 +13,7 @@ import org.kde.kidentitymanagement 1.0
 ColumnLayout {
     id: root
 
-    required property var identity
-    property alias toAddEmailText: toAddEmail.text
+    required property IdentityEditorBackend backend
 
     function isNotEmptyStr(str) {
         return str.trim().length > 0;
@@ -30,22 +29,22 @@ ColumnLayout {
         FormCard.FormTextFieldDelegate {
             id: identityDelegate
             label: i18nc("@label:textbox", "Identity Name")
-            text: root.identity.identityName
-            onTextChanged: root.identity.identityName = text
+            text: root.backend.identity.identityName
+            onTextChanged: root.backend.identity.identityName = text
         }
         FormCard.FormTextFieldDelegate {
             id: nameDelegate
             Layout.fillWidth: true
             label: i18n("Your name")
-            text: root.identity.fullName
-            onTextChanged: root.identity.fullName = text
+            text: root.backend.identity.fullName
+            onTextChanged: root.backend.identity.fullName = text
         }
 
         FormCard.FormTextFieldDelegate {
             id: emailDelegate
             label: i18n("Email address")
-            text: root.identity.primaryEmailAddress
-            onTextChanged: root.identity.primaryEmailAddress = text
+            text: root.backend.identity.primaryEmailAddress
+            onTextChanged: root.backend.identity.primaryEmailAddress = text
             inputMethodHints: Qt.ImhEmailCharactersOnly
         }
     }
@@ -58,14 +57,14 @@ ColumnLayout {
         Repeater {
             id: emailAliasesRepeater
 
-            property var emailAliases: root.identity.emailAliases
+            property list<string> emailAliases: root.backend.identity.emailAliases
 
             model: emailAliases
 
             delegate: FormCard.AbstractFormDelegate {
                 id: emailRow
 
-                Layout.fillWidth: true
+                background: null
 
                 contentItem: RowLayout {
                     QQC2.TextField {
@@ -76,7 +75,7 @@ ColumnLayout {
                         onEditingFinished: {
                             let emailAliases = emailAliasesRepeater.emailAliases;
                             emailAliases[model.index] = text;
-                            identity.emailAliases = emailAliases;
+                            root.backend.identity.emailAliases = emailAliases;
                             emailAliasesRepeater.emailAliases = emailAliases;
                         }
                     }
@@ -90,7 +89,7 @@ ColumnLayout {
                         onClicked: {
                             let emailAliases = emailAliasesRepeater.emailAliases;
                             emailAliases = Array.from(emailAliases).filter(email => email !== modelData);
-                            identity.emailAliases = emailAliases;
+                            root.backend.identity.emailAliases = emailAliases;
                             emailAliasesRepeater.emailAliases = emailAliases;
                         }
                     }
@@ -99,7 +98,7 @@ ColumnLayout {
         }
 
         FormCard.AbstractFormDelegate {
-            Layout.fillWidth: true
+            background: null
 
             contentItem: RowLayout {
                 QQC2.TextField {
@@ -119,7 +118,7 @@ ColumnLayout {
                     onClicked: {
                         let emailAliases = emailAliasesRepeater.emailAliases;
                         emailAliases.push(toAddEmail.text);
-                        identity.emailAliases = emailAliasesRepeater.emailAliases;
+                        root.backend.identity.emailAliases = emailAliases;
                         emailAliasesRepeater.emailAliases = emailAliases;
                         toAddEmail.clear();
                     }
