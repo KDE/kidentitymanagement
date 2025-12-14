@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:52+0000\n"
+"POT-Creation-Date: 2025-12-14 00:42+0000\n"
 "PO-Revision-Date: 2024-09-05 00:34+0300\n"
 "Last-Translator: Andrius Štikonas <andrius@stikonas.eu>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -169,38 +169,38 @@ msgstr "Pridėti tapatybę"
 msgid "Edit Identity"
 msgstr "Taisyti tapatybę"
 
-#: quick/qml/IdentityEditorPage.qml:71
+#: quick/qml/IdentityEditorPage.qml:70
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
 msgstr "Kriptografija"
 
-#: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
+#: quick/qml/IdentityEditorPage.qml:92 quick/qml/IdentityEditorPage.qml:121
 #, kde-format
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: quick/qml/IdentityEditorPage.qml:105
+#: quick/qml/IdentityEditorPage.qml:100
 #, kde-format
 msgid "Save"
 msgstr "Įrašyti"
 
-#: quick/qml/IdentityEditorPage.qml:105
+#: quick/qml/IdentityEditorPage.qml:100
 #, kde-format
 msgid "Add"
 msgstr "Pridėti"
 
-#: quick/qml/IdentityEditorPage.qml:120
+#: quick/qml/IdentityEditorPage.qml:115
 #, kde-format
 msgid "Delete %1"
 msgstr "Ištrinti %1"
 
-#: quick/qml/IdentityEditorPage.qml:121
+#: quick/qml/IdentityEditorPage.qml:116
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr "Ar tikrai norite ištrinti šią tapatybę?"
 
-#: quick/qml/IdentityEditorPage.qml:135
+#: quick/qml/IdentityEditorPage.qml:130
 #, kde-format
 msgid "Cancel"
 msgstr "Atsisakyti"

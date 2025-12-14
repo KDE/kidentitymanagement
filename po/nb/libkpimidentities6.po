@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:52+0000\n"
+"POT-Creation-Date: 2025-12-14 00:42+0000\n"
 "PO-Revision-Date: 2008-11-30 19:21+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -170,38 +170,38 @@ msgstr ""
 msgid "Edit Identity"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:71
+#: quick/qml/IdentityEditorPage.qml:70
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
+#: quick/qml/IdentityEditorPage.qml:92 quick/qml/IdentityEditorPage.qml:121
 #, kde-format
 msgid "Delete"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:105
+#: quick/qml/IdentityEditorPage.qml:100
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:105
+#: quick/qml/IdentityEditorPage.qml:100
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:120
+#: quick/qml/IdentityEditorPage.qml:115
 #, kde-format
 msgid "Delete %1"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:121
+#: quick/qml/IdentityEditorPage.qml:116
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:135
+#: quick/qml/IdentityEditorPage.qml:130
 #, kde-format
 msgid "Cancel"
 msgstr ""

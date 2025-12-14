@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:52+0000\n"
+"POT-Creation-Date: 2025-12-14 00:42+0000\n"
 "PO-Revision-Date: 2024-10-10 21:39+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -170,38 +170,38 @@ msgstr "Azonosító hozzáadása"
 msgid "Edit Identity"
 msgstr "Azonosító szerkesztése"
 
-#: quick/qml/IdentityEditorPage.qml:71
+#: quick/qml/IdentityEditorPage.qml:70
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
 msgstr "Titkosítás"
 
-#: quick/qml/IdentityEditorPage.qml:97 quick/qml/IdentityEditorPage.qml:126
+#: quick/qml/IdentityEditorPage.qml:92 quick/qml/IdentityEditorPage.qml:121
 #, kde-format
 msgid "Delete"
 msgstr "Törlés"
 
-#: quick/qml/IdentityEditorPage.qml:105
+#: quick/qml/IdentityEditorPage.qml:100
 #, kde-format
 msgid "Save"
 msgstr "Mentés"
 
-#: quick/qml/IdentityEditorPage.qml:105
+#: quick/qml/IdentityEditorPage.qml:100
 #, kde-format
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: quick/qml/IdentityEditorPage.qml:120
+#: quick/qml/IdentityEditorPage.qml:115
 #, kde-format
 msgid "Delete %1"
 msgstr "%1 törlése"
 
-#: quick/qml/IdentityEditorPage.qml:121
+#: quick/qml/IdentityEditorPage.qml:116
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr "Biztosan törölni szeretné ezt az azonosítót?"
 
-#: quick/qml/IdentityEditorPage.qml:135
+#: quick/qml/IdentityEditorPage.qml:130
 #, kde-format
 msgid "Cancel"
 msgstr "Mégse"
