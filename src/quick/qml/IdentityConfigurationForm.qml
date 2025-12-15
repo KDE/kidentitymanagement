@@ -21,7 +21,6 @@ FormCard.FormCard {
         model: root._identityModel
 
         delegate: FormCard.FormButtonDelegate {
-            leadingPadding: Kirigami.Units.largeSpacing
             text: model.display
             onClicked: {
                 pageStack.pushDialogLayer(Qt.resolvedUrl("IdentityEditorPage.qml"), {
@@ -32,6 +31,18 @@ FormCard.FormCard {
                     cryptographyEditorBackend: root.cryptographyEditorBackend
                 }, {title: i18nc("@title", "Edit Identity")});
             }
+        }
+    }
+
+    FormCard.FormButtonDelegate {
+        text: i18nc("@title", "Add Identity")
+        onClicked: {
+            pageStack.pushDialogLayer(Qt.resolvedUrl("IdentityEditorPage.qml"), {
+                mode: IdentityEditorBackend.CreateMode,
+                allowDelete: identityRepeater.count > 1,
+                identityName: i18nc("@title", "Add Identity"),
+                cryptographyEditorBackend: root.cryptographyEditorBackend
+            }, {title: i18nc("@title", "Add Identity")});
         }
     }
 }

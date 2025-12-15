@@ -28,10 +28,14 @@ FormCard.FormCardPage {
 
     readonly property QQC2.Action submitAction: QQC2.Action {
         id: submitAction
-        enabled: !backend.identity.isNull
+        enabled: basicIdentityEditorCard.isValid
         shortcut: "Return"
         onTriggered: {
-            root.backend.saveIdentity(backend.identity);
+            if (mode === IdentityEditorBackend.CreateMode) {
+                root.backend.newIdentity(backend.identity);
+            } else {
+                root.backend.saveIdentity(backend.identity);
+            }
             root.closeDialog();
         }
     }
@@ -62,6 +66,7 @@ FormCard.FormCardPage {
     }
 
     BasicIdentityEditorCard {
+        id: basicIdentityEditorCard
         backend: backend
     }
 
@@ -98,10 +103,10 @@ FormCard.FormCardPage {
                 icon.name: root.mode === IdentityEditorBackend.EditMode ? "document-save" : "list-add"
                 text: root.mode === IdentityEditorBackend.EditMode ? i18n("Save") : i18n("Add")
                 QQC2.DialogButtonBox.buttonRole: QQC2.DialogButtonBox.AcceptRole
+                action: submitAction
             }
 
             onRejected: root.closeDialog()
-            onAccepted: submitAction.trigger();
             onDiscarded: {
                 dialogLoader.active = true;
                 dialogLoader.item.open();

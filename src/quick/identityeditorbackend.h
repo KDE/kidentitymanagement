@@ -36,6 +36,7 @@ public:
     [[nodiscard]] uint identityUoid() const;
     void setIdentityUoid(uint identityUoid);
 
+    Q_INVOKABLE void newIdentity(const KIdentityManagementCore::Identity &newIdentity);
     Q_INVOKABLE void saveIdentity(const KIdentityManagementCore::Identity &modifiedIdentity);
 
     Q_INVOKABLE void addEmailAlias(const QString &alias);

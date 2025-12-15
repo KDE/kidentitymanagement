@@ -14,6 +14,9 @@ ColumnLayout {
     id: root
 
     required property IdentityEditorBackend backend
+    readonly property bool isValid: identityDelegate.isValid
+        && nameDelegate.isValid
+        && emailDelegate.isValid
 
     function isNotEmptyStr(str) {
         return str.trim().length > 0;
@@ -28,23 +31,31 @@ ColumnLayout {
     FormCard.FormCard {
         FormCard.FormTextFieldDelegate {
             id: identityDelegate
+
+            readonly property bool isValid: text.trim().length > 0
+
             label: i18nc("@label:textbox", "Identity Name")
             text: root.backend.identity.identityName
-            onTextChanged: root.backend.identity.identityName = text
+            onTextChanged: root.backend.identity.identityName = text.trim()
         }
         FormCard.FormTextFieldDelegate {
             id: nameDelegate
-            Layout.fillWidth: true
+
+            readonly property bool isValid: text.trim().length > 0
+
             label: i18n("Your name")
             text: root.backend.identity.fullName
-            onTextChanged: root.backend.identity.fullName = text
+            onTextChanged: root.backend.identity.fullName = text.trim()
         }
 
         FormCard.FormTextFieldDelegate {
             id: emailDelegate
+
+            readonly property bool isValid: text.trim().length > 0
+
             label: i18n("Email address")
             text: root.backend.identity.primaryEmailAddress
-            onTextChanged: root.backend.identity.primaryEmailAddress = text
+            onTextChanged: root.backend.identity.primaryEmailAddress = text.trim()
             inputMethodHints: Qt.ImhEmailCharactersOnly
         }
     }
