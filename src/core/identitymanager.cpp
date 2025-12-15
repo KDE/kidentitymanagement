@@ -620,6 +620,11 @@ bool IdentityManager::removeIdentity(const QString &name)
     }
 
     for (Iterator it = modifyBegin(); it != modifyEnd(); ++it) {
+        qWarning() << "Search item to remove. it: '"
+            << (*it).identityName()
+            << "', name: '"
+            << name
+            << "'";
         if ((*it).identityName() == name) {
             bool removedWasDefault = (*it).isDefault();
             d->shadowIdentities.erase(it);

@@ -4,10 +4,12 @@
 #include "identityutils.h"
 
 #include <QTimer>
+#include <QLoggingCategory>
 
 using namespace KIdentityManagementQuick;
 bool IdentityUtils::removeIdentity(const QString &identityName)
 {
+    qWarning() << "removeIdentity: " << identityName;
     if (!mIdentityManager) {
         return false;
     }

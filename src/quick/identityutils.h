@@ -5,6 +5,7 @@
 
 #include <QObject>
 
+#include "identity.h"
 #include "identitymanager.h"
 
 namespace KIdentityManagementQuick
