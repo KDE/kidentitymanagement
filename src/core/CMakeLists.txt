@@ -157,38 +157,6 @@ install(
 
 ecm_qt_install_logging_categories(EXPORT KIDENTITYMANAGEMENT FILE kidentitymanagement.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
-if(BUILD_QCH)
-    ecm_add_qch(
-        KPim6IdentityManagementCore_QCH
-        NAME KIdentityManagementCore
-        BASE_NAME KPim6IdentityManagementCore
-        VERSION ${PIM_VERSION}
-        ORG_DOMAIN org.kde
-        SOURCES # using only public headers, to cover only public API
-        ${KIdentityManagementCore_HEADERS}
-        LINK_QCHS
-        Qt6Gui_QCH
-        INCLUDE_DIRS
-        ${CMAKE_CURRENT_BINARY_DIR}
-        BLANK_MACROS
-        KIDENTITYMANAGEMENTCORE_EXPORT
-        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        COMPONENT Devel
-    )
-endif()
-
-if(BUILD_QCH)
-    ecm_install_qch_export(
-        TARGETS KPim6IdentityManagementCore_QCH
-        FILE KPim6IdentityManagementCoreQchTargets.cmake
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        COMPONENT Devel
-    )
-    set(PACKAGE_INCLUDE_QCHTARGETS
-        "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementCoreQchTargets.cmake\")"
-    )
-endif()
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementCoreConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementCoreConfig.cmake"

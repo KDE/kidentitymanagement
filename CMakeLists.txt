@@ -15,7 +15,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
-
+include(ECMGenerateQDoc)
 include(GenerateExportHeader)
 include(ECMGenerateHeaders)
 
@@ -68,15 +68,8 @@ endif()
 include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
 include(ECMFeatureSummary)
-include(ECMAddQch)
 include(ECMQmlModule)
 include(ECMCheckOutboundLicense)
-option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
-add_feature_info(
-    QCH
-    ${BUILD_QCH}
-    "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)"
-)
 
 option(BUILD_QUICK_SUPPORT "Build quick support. Needed for merkuro project" ON)
 

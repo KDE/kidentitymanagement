@@ -136,36 +136,6 @@ install(
     COMPONENT Devel
 )
 
-if(BUILD_QCH)
-    ecm_add_qch(KPim6IdentityManagementQuick_QCH
-        NAME
-            KIdentityManagementQuick
-        BASE_NAME
-            KPim6IdentityManagementQuick
-        VERSION
-            ${PIM_VERSION}
-        ORG_DOMAIN
-            org.kde
-        SOURCES # using only public headers, to cover only public API
-            ${KIdentityManagementQuick_HEADERS}
-
-        # MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
-        # IMAGE_DIRS "${CMAKE_SOURCE_DIR}/docs/pics"
-        LINK_QCHS
-            Qt6Quick_QCH
-        INCLUDE_DIRS
-            ${CMAKE_CURRENT_BINARY_DIR}
-        BLANK_MACROS
-            KIDENTITYMANAGEMENTQUICK_EXPORT
-        TAGFILE_INSTALL_DESTINATION
-            ${KDE_INSTALL_QTQCHDIR}
-        QCH_INSTALL_DESTINATION
-            ${KDE_INSTALL_QTQCHDIR}
-        COMPONENT
-            Devel
-    )
-endif()
-
 # ########## QML Plugin s###############
 
 ecm_add_qml_module(kidentitymanagement_quick_plugin URI "org.kde.kidentitymanagement" VERSION 1.0)
@@ -205,19 +175,6 @@ install(
     DESTINATION ${KDE_INSTALL_INCLUDEDIR}/KPim6/KIdentityManagementQuick
     COMPONENT Devel
 )
-
-if(BUILD_QCH)
-    ecm_install_qch_export(
-        TARGETS KPim6IdentityManagementQuick_QCH
-        FILE KPim6IdentityManagementQuickQchTargets.cmake
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        COMPONENT Devel
-    )
-    set(PACKAGE_INCLUDE_QCHTARGETS
-        "include(\"\${CMAKE_CURRENT_LIST_DIR}/KPim6IdentityManagementQuickQchTargets.cmake\")"
-    )
-endif()
-
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/KPimIdentityManagementQuickConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementQuickConfig.cmake"
