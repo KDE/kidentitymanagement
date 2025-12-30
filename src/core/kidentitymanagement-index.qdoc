@@ -1,0 +1,22 @@
+/*!
+    \page kidentitymanagement-index.html
+    \title IdentityManagementCore
+
+    Identity Management Core support library
+
+    \section1 Using the Module
+
+    \include {module-use.qdocinc} {using the c++ api}
+
+    \section2 Building with CMake
+
+    \include {module-use.qdocinc} {building with cmake} {KPim6} {IdentityManagementCore} {KPim6::IdentityManagementCore}
+
+    \section1 API Reference
+
+    \list
+        \li \l{Identity Management Core C++ Classes}
+        \li \l{Identity Management Widgets C++ Classes}
+        \li \l{Identity Management Quick C++ Classes}
+    \endlist
+*/

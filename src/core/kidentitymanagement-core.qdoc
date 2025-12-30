@@ -1,0 +1,9 @@
+/*!
+    \module IdentityManagementCore
+    \title Identity Management Core C++ Classes
+    \ingroup modules
+    \cmakepackage KPim6
+    \cmakecomponent IdentityManagementCore
+
+    \brief Identity Management Core support library.
+*/

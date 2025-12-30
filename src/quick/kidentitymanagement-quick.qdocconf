@@ -1,0 +1,33 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = IdentityManagementQuick
+description = Identity Management Quick support library.
+
+
+documentationinheaders = true
+
+headerdirs += .
+sourcedirs += .
+
+outputformats = HTML
+
+depends += \
+    qtcore
+
+navigation.landingpage = "IdentityManagement"
+
+qhp.projects            = IdentityManagementQuick
+
+qhp.IdentityManagementQuick.file                = identitymanagementquick.qhp
+qhp.IdentityManagementQuick.namespace           = org.kde.identitymanagementquick.$QT_VERSION_TAG
+qhp.IdentityManagementQuick.virtualFolder       = identitymanagementquick
+qhp.IdentityManagementQuick.indexTitle          = IdentityManagementQuick
+qhp.IdentityManagementQuick.indexRoot           =
+
+qhp.IdentityManagementQuick.subprojects         = classes
+qhp.IdentityManagementQuick.subprojects.classes.title = C++ Classes
+qhp.IdentityManagementQuick.subprojects.classes.indexTitle = Identity Management Quick C++ Classes
+qhp.IdentityManagementQuick.subprojects.classes.selectors = class fake:headerfile
+qhp.IdentityManagementQuick.subprojects.classes.sortPages = true
+
+tagfile = identitymanagementquick.tags

@@ -1,0 +1,33 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = IdentityManagementWidgets
+description = Identity Management Widgets support library.
+
+
+documentationinheaders = true
+
+headerdirs += .
+sourcedirs += .
+
+outputformats = HTML
+
+depends += \
+    qtcore
+
+navigation.landingpage = "IdentityManagement"
+
+qhp.projects            = IdentityManagementWidgets
+
+qhp.IdentityManagementWidgets.file                = identitymanagementwidgets.qhp
+qhp.IdentityManagementWidgets.namespace           = org.kde.identitymanagementwidgets.$QT_VERSION_TAG
+qhp.IdentityManagementWidgets.virtualFolder       = identitymanagementwidgets
+qhp.IdentityManagementWidgets.indexTitle          = IdentityManagementWidgets
+qhp.IdentityManagementWidgets.indexRoot           =
+
+qhp.IdentityManagementWidgets.subprojects         = classes
+qhp.IdentityManagementWidgets.subprojects.classes.title = C++ Classes
+qhp.IdentityManagementWidgets.subprojects.classes.indexTitle = Identity Management Widgets C++ Classes
+qhp.IdentityManagementWidgets.subprojects.classes.selectors = class fake:headerfile
+qhp.IdentityManagementWidgets.subprojects.classes.sortPages = true
+
+tagfile = identitymanagementwidgets.tags

@@ -1,0 +1,33 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = IdentityManagementCore
+description = Identity Management Core support library.
+
+
+documentationinheaders = true
+
+headerdirs += .
+sourcedirs += .
+
+outputformats = HTML
+
+depends += \
+    qtcore
+
+navigation.landingpage = "IdentityManagement"
+
+qhp.projects            = IdentityManagementCore
+
+qhp.IdentityManagementCore.file                = identitymanagementcore.qhp
+qhp.IdentityManagementCore.namespace           = org.kde.identitymanagementcore.$QT_VERSION_TAG
+qhp.IdentityManagementCore.virtualFolder       = identitymanagementcore
+qhp.IdentityManagementCore.indexTitle          = IdentityManagementCore
+qhp.IdentityManagementCore.indexRoot           =
+
+qhp.IdentityManagementCore.subprojects         = classes
+qhp.IdentityManagementCore.subprojects.classes.title = C++ Classes
+qhp.IdentityManagementCore.subprojects.classes.indexTitle = Identity Management C++ Classes
+qhp.IdentityManagementCore.subprojects.classes.selectors = class fake:headerfile
+qhp.IdentityManagementCore.subprojects.classes.sortPages = true
+
+tagfile = identitymanagementcore.tags
