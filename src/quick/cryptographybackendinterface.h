@@ -15,8 +15,12 @@ class Identity;
 }
 namespace KIdentityManagementQuick
 {
-/**
- * @brief Defines the interface used by the Cryptography Editor Backend.
+/*!
+ * \class KIdentityManagementQuick::CryptographyBackendInterface
+ * \inmodule KIdentityManagementQuick
+ * \inheaderfile KIdentityManagementQuick/CryptographyBackendInterface
+ *
+ * \brief Defines the interface used by the Cryptography Editor Backend.
  *
  * This class is held by the CryptographyBackend, which exposes what is
  * needed to the Cryptography Editor QtQuick UI.
@@ -33,19 +37,19 @@ public:
     {
     }
 
-    /**
+    /*!
      * A list model providing a list of OpenPGP keys.
      */
     virtual QAbstractItemModel *openPgpKeyListModel() const = 0;
 
-    /**
+    /*!
      * A list model providing a list of S/MIME keys.
      */
     virtual QAbstractItemModel *smimeKeyListModel() const = 0;
 
 protected:
-    /**
-     * @brief The identity that affects what data to show.
+    /*!
+     * \brief The identity that affects what data to show.
      */
     virtual KIdentityManagementCore::Identity identity() const = 0;
     virtual void setIdentity(const KIdentityManagementCore::Identity &identity) = 0;

@@ -51,17 +51,17 @@ public:
     void setShowDefault(bool showDefault);
 
     /// Returns the IdentityManager used in this combo box.
-    /// @since 4.5
+    /// \since 4.5
     [[nodiscard]] KIdentityManagementCore::IdentityManager *identityManager() const;
 
-    /// @since 6.1
+    /// \since 6.1
     [[nodiscard]] KIdentityManagementCore::IdentityActivitiesAbstract *identityActivitiesAbstract() const;
-    /// @since 6.1
+    /// \since 6.1
     void setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
 
-    /// @since 6.3
+    /// \since 6.3
     [[nodiscard]] bool enablePlasmaActivities() const;
-    /// @since 6.3
+    /// \since 6.3
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
 
 Q_SIGNALS:
@@ -85,8 +85,6 @@ protected Q_SLOTS:
     void slotUpdateTooltip(uint uoid);
 
 private:
-    //@cond PRIVATE
     std::unique_ptr<IdentityComboPrivate> const d;
-    //@endcond
 };
 }

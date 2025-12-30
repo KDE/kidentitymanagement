@@ -18,18 +18,22 @@ namespace KIdentityManagementCore
 {
 class IdentityManagerPrivate;
 class Identity;
-/**
- * @short Manages the list of identities.
- * @author Marc Mutz <mutz@kde.org>
+/*!
+ * \class KIdentityManagementCore::IdentityManager
+ * \inmodule KIdentityManagementCore
+ * \inheaderfile KIdentityManagementCore/IdentityManager
+ *
+ * \brief Manages the list of identities.
+ * \author Marc Mutz <mutz@kde.org>
  **/
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityManager : public QObject
 {
     Q_OBJECT
 public:
-    /**
+    /*!
      * Create an identity manager, which loads the emailidentities file
      * to create identities.
-     * @param readonly if true, no changes can be made to the identity manager
+     * \a readonly if true, no changes can be made to the identity manager
      * This means in particular that if there is no identity configured,
      * the default identity created here will not be saved.
      * It is assumed that a minimum of one identity is always present.
@@ -37,12 +41,12 @@ public:
     explicit IdentityManager(bool readonly = false, QObject *parent = nullptr, const char *name = nullptr);
     ~IdentityManager() override;
 
-    /**
+    /*!
      * Creates or reuses the identity manager instance for this process.
      * It loads the emailidentities file to create identities.
      * This sets readonly to false, so you should create a separate instance
      * if you need it to be readonly.
-     * @since 5.2.91
+     * \since 5.2.91
      */
     static IdentityManager *self();
 
@@ -50,124 +54,125 @@ public:
     using Iterator = QList<Identity>::Iterator;
     using ConstIterator = QList<Identity>::ConstIterator;
 
-    /**
+    /*!
      * Typedef for STL style iterator
      */
     using iterator = Iterator;
 
-    /**
+    /*!
      * Typedef for STL style iterator
      */
     using const_iterator = ConstIterator;
 
-    /** @return a unique name for a new identity based on @p name
-     *  @param name the name of the base identity
+    /*! Returns a unique name for a new identity based on \a name
+     *  \a name the name of the base identity
      */
     [[nodiscard]] QString makeUnique(const QString &name) const;
 
-    /** @return whether the @p name is unique
-     *  @param name the name to be examined
+    /*! Returns whether the \a name is unique
+     *  \a name the name to be examined
      */
     [[nodiscard]] bool isUnique(const QString &name) const;
 
-    /** Commit changes to disk and emit changed() if necessary. */
+    /*! Commit changes to disk and emit changed() if necessary. */
     void commit();
 
-    /** Re-read the config from disk and forget changes. */
+    /*! Re-read the config from disk and forget changes. */
     void rollback();
 
-    /** Store a new identity or modify an existing identity based on an
+    /*! Store a new identity or modify an existing identity based on an
      *  independent identity object
-     *  @param ident the identity to be saved
+     *  \a ident the identity to be saved
      */
     void saveIdentity(const Identity &ident);
 
-    /** Check whether there are any unsaved changes. */
+    /*! Check whether there are any unsaved changes. */
     [[nodiscard]] bool hasPendingChanges() const;
 
-    /** @return the list of identities */
+    /*! Returns the list of identities */
     [[nodiscard]] QStringList identities() const;
 
-    /** Convenience method.
+    /*! Convenience method.
 
-        @return the list of (shadow) identities, ie. the ones currently
+        Returns the list of (shadow) identities, ie. the ones currently
         under configuration.
     */
     [[nodiscard]] QStringList shadowIdentities() const;
 
-    /** Sort the identities by name (the default is always first). This
-        operates on the @em shadow list, so you need to @ref commit for
+    /*! Sort the identities by name (the default is always first). This
+        operates on the @em shadow list, so you need to \ commit for
         the changes to take effect.
     **/
     void sort();
 
-    /** @return an identity whose address matches any in @p addresses
-                or @ref Identity::null if no such identity exists.
-        @param addresses the string of addresses to scan for matches
+    /*! Returns an identity whose address matches any in \a addresses
+                or \ Identity::null if no such identity exists.
+        \a addresses the string of addresses to scan for matches
     **/
     const Identity &identityForAddress(const QString &addresses) const;
 
-    /** @return true if @p addressList contains any of our addresses,
+    /*! Returns true if \a addressList contains any of our addresses,
                 false otherwise.
-        @param addressList the addressList to examine
-        @see #identityForAddress
+        \a addressList the addressList to examine
+        \sa #identityForAddress
     **/
     [[nodiscard]] bool thatIsMe(const QString &addressList) const;
 
-    /** @return the identity with Unique Object Identifier (UOID) @p
-                uoid or @ref Identity::null if not found.
-        @param uoid the Unique Object Identifier to find identity with
+    /*! Returns the identity with Unique Object Identifier (UOID) @p
+                uoid or \ Identity::null if not found.
+        \a uoid the Unique Object Identifier to find identity with
      **/
     const Identity &identityForUoid(uint uoid) const;
 
-    /** Convenience method.
+    /*! Convenience method.
 
-        @return the identity with Unique Object Identifier (UOID) @p
+        Returns the identity with Unique Object Identifier (UOID) @p
                 uoid or the default identity if not found.
-        @param uoid the Unique Object Identifier to find identity with
+        \a uoid the Unique Object Identifier to find identity with
     **/
     const Identity &identityForUoidOrDefault(uint uoid) const;
 
-    /** @return the default identity */
+    /*! Returns the default identity */
     const Identity &defaultIdentity() const;
 
-    /** Sets the identity with Unique Object Identifier (UOID) @p uoid
-        to be new the default identity. As usual, use @ref commit to
+    /*! Sets the identity with Unique Object Identifier (UOID) \a uoid
+        to be new the default identity. As usual, use \ commit to
         make this permanent.
 
-        @param uoid the default identity to set
-        @return false if an identity with UOID @p uoid was not found
+        \a uoid the default identity to set
+        Returns false if an identity with UOID \a uoid was not found
     **/
     bool setAsDefault(uint uoid);
 
-    /** @return the identity named @p identityName. This method returns a
+    /*! Returns the identity named \a identityName. This method returns a
         reference to the identity that can be modified. To let others
-        see this change, use @ref commit.
-        @param identityName the identity name to return modifiable reference
+        see this change, use \ commit.
+        \a identityName the identity name to return modifiable reference
     **/
     Identity &modifyIdentityForName(const QString &identityName);
 
-    /** @return the identity with Unique Object Identifier (UOID) @p uoid.
+    /*! Returns the identity with Unique Object Identifier (UOID) \a uoid.
         This method returns a reference to the identity that can
-        be modified. To let others see this change, use @ref commit.
+        be modified. To let others see this change, use \ commit.
     **/
     Identity &modifyIdentityForUoid(uint uoid);
 
-    /** Removes the identity with name @p identityName
+    /*! Removes the identity with name \a identityName
         Will return false if the identity is not found,
         or when one tries to remove the last identity.
-        @param identityName the identity to remove
+        \a identityName the identity to remove
      **/
     [[nodiscard]] bool removeIdentity(const QString &identityName);
 
-    /**
-     * Removes the identity with name @p identityName
-     * Will return @c false if the identity is not found, @c true otherwise.
+    /*!
+     * Removes the identity with name \a identityName
+     * Will return \\ false if the identity is not found, \\ true otherwise.
      *
-     * @note In opposite to removeIdentity, this method allows to remove the
+     * \
+ote In opposite to removeIdentity, this method allows to remove the
      *       last remaining identity.
      *
-     * @since 4.6
+     * \since 4.6
      */
     [[nodiscard]] bool removeIdentityForced(const QString &identityName);
 
@@ -182,29 +187,29 @@ public:
     Identity &newFromControlCenter(const QString &name);
     Identity &newFromExisting(const Identity &other, const QString &name = QString());
 
-    /** Returns the list of all email addresses (only name@host) from all
+    /*! Returns the list of all email addresses (only name@host) from all
         identities */
     [[nodiscard]] QStringList allEmails() const;
 
 Q_SIGNALS:
-    /** Emitted whenever a commit changes any configure option */
+    /*! Emitted whenever a commit changes any configure option */
     void changed();
     void identitiesWereChanged();
-    /** Emitted whenever the identity with Unique Object Identifier
-        (UOID) @p uoid changed. Useful for more fine-grained change
-        notifications than what is possible with the standard @ref
+    /*! Emitted whenever the identity with Unique Object Identifier
+        (UOID) \a uoid changed. Useful for more fine-grained change
+        notifications than what is possible with the standard \
         changed() signal. */
     void changed(uint uoid);
-    /** Emitted whenever the identity @p ident changed. Useful for more
+    /*! Emitted whenever the identity \a ident changed. Useful for more
         fine-grained change notifications than what is possible with the
-        standard @ref changed() signal. */
+        standard \ changed() signal. */
     void changed(const KIdentityManagementCore::Identity &ident);
     void identityChanged(const KIdentityManagementCore::Identity &ident);
-    /** Emitted on @ref commit() for each deleted identity. At the time
+    /*! Emitted on \ commit() for each deleted identity. At the time
         this signal is emitted, the identity does still exist and can be
-        retrieved by @ref identityForUoid() if needed */
+        retrieved by \ identityForUoid() if needed */
     void deleted(uint uoid);
-    /** Emitted on @ref commit() for each new identity */
+    /*! Emitted on \ commit() for each new identity */
     void added(const KIdentityManagementCore::Identity &ident);
 
     void needToReloadIdentitySettings();
@@ -212,7 +217,7 @@ Q_SIGNALS:
     void identitiesChanged(const QString &id);
 
 protected:
-    /**
+    /*!
      * This is called when no identity has been defined, so we need to
      * create a default one. The parameters are filled with some default
      * values from KUser, but reimplementations of this method can give
@@ -224,10 +229,8 @@ protected Q_SLOTS:
     void slotRollback();
 
 private:
-    //@cond PRIVATE
     friend class IdentityManagerPrivate;
     std::unique_ptr<IdentityManagerPrivate> const d;
-    //@endcond
     Q_PRIVATE_SLOT(d, void slotIdentitiesChanged(const QString &id))
 };
 } // namespace

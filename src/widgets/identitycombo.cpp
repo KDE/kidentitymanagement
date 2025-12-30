@@ -12,7 +12,7 @@
   @brief
   A combo box that always shows the up-to-date identity list.
 
-  @author Marc Mutz \<mutz@kde.org\>
+  \author Marc Mutz \<mutz@kde.org\>
  */
 
 #include "identitycombo.h"

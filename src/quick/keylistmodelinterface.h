@@ -29,8 +29,8 @@ public:
     Q_ENUM(KeyUse)
 };
 
-/**
- * @brief This interface defines the roles and rolenames that are expected
+/*!
+ * \brief This interface defines the roles and rolenames that are expected
  * in the QtQuick Cryptography editor.
  */
 class KIDENTITYMANAGEMENTQUICK_EXPORT KeyListModelInterface

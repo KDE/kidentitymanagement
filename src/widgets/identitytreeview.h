@@ -14,23 +14,46 @@ class IdentityTreeModel;
 }
 namespace KIdentityManagementWidgets
 {
+/*!
+ * \class KIdentityManagementWidgets::IdentityTreeView
+ * \inmodule KIdentityManagementWidgets
+ * \inheaderfile KIdentityManagementWidgets/IdentityTreeView
+ */
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeView : public QTreeView
 {
     Q_OBJECT
 public:
+    /*!
+     */
     explicit IdentityTreeView(QWidget *parent = nullptr);
+    /*!
+     */
     ~IdentityTreeView() override;
 
+    /*!
+     */
     void setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
+    /*!
+     */
     [[nodiscard]] KIdentityManagementCore::IdentityActivitiesAbstract *identityActivitiesAbstract() const;
 
+    /*!
+     */
     [[nodiscard]] bool enablePlasmaActivities() const;
+    /*!
+     */
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
 
+    /*!
+     */
     [[nodiscard]] KIdentityManagementCore::IdentityTreeSortProxyModel *identityProxyModel() const;
 
+    /*!
+     */
     KIdentityManagementCore::Identity &modifyIdentityForUoid(uint uoid);
 
+    /*!
+     */
     [[nodiscard]] KIdentityManagementCore::IdentityTreeModel *identityTreeModel() const;
 
 private:

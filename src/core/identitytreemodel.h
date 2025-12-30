@@ -14,6 +14,11 @@
 namespace KIdentityManagementCore
 {
 class IdentityManager;
+/*!
+ * \class KIdentityManagementCore::IdentityTreeModel
+ * \inmodule KIdentityManagementCore
+ * \inheaderfile KIdentityManagementCore/IdentityTreeModel
+ */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -31,24 +36,50 @@ public:
         LastColumn = EnabledActivitiesRole,
     };
 
+    /*!
+     */
     explicit IdentityTreeModel(IdentityManager *manager, QObject *parent = nullptr);
+    /*!
+     */
     ~IdentityTreeModel() override;
 
+    /*!
+     */
     [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    /*!
+     */
     [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    /*!
+     */
     [[nodiscard]] int columnCount(const QModelIndex &parent) const override;
+    /*!
+     */
     [[nodiscard]] QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
+    /*!
+     */
     void setShowDefault(bool show);
 
+    /*!
+     */
     [[nodiscard]] uint identityUoid(int index) const;
+    /*!
+     */
     [[nodiscard]] int uoidIndex(int uoid) const;
 
+    /*!
+     */
     [[nodiscard]] KIdentityManagementCore::IdentityManager *identityManager() const;
 
+    /*!
+     */
     [[nodiscard]] Qt::ItemFlags flags(const QModelIndex &index) const override;
+    /*!
+     */
     [[nodiscard]] bool setData(const QModelIndex &modelIndex, const QVariant &value, int role = Qt::DisplayRole) override;
 
+    /*!
+     */
     void removeIdentities(const QStringList &identitiesName);
 
 private:

@@ -14,7 +14,12 @@ namespace KIdentityManagementCore
 {
 
 class IdentityManager;
-
+/*!
+ * \class KIdentityManagementCore::IdentityModel
+ * \inmodule KIdentityManagementCore
+ * \inheaderfile KIdentityManagementCore/IdentityModel
+ *
+ */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -27,17 +32,26 @@ public:
         DisplayNameRole,
         DefaultRole,
     };
-
+    /*!
+     */
     explicit IdentityModel(QObject *parent = nullptr);
+    /*!
+     */
     ~IdentityModel() override;
 
+    /*!
+     */
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    /*!
+     */
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    /*!
+     */
     QHash<int, QByteArray> roleNames() const override;
 
-    /**
-     * @return the email address of the identity with the given uoid.
-     * @param uiod for the identity in question
+    /*!
+     * Returns the email address of the identity with the given uoid.
+     * \a uiod for the identity in question
      */
     Q_INVOKABLE QString email(uint uoid);
 

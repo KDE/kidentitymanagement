@@ -8,20 +8,37 @@
 
 namespace KIdentityManagementCore
 {
+/*!
+ * \class KIdentityManagementCore::IdentityActivitiesAbstract
+ * \inmodule KIdentityManagementCore
+ * \inheaderfile KIdentityManagementCore/IdentityActivitiesAbstract
+ */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityActivitiesAbstract : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     */
     explicit IdentityActivitiesAbstract(QObject *parent = nullptr);
+    /*!
+     */
     ~IdentityActivitiesAbstract() override;
 
+    /*!
+     */
     [[nodiscard]] virtual bool filterAcceptsRow(const QStringList &activities) const = 0;
 
+    /*!
+     */
     [[nodiscard]] virtual bool hasActivitySupport() const = 0;
 
+    /*!
+     */
     [[nodiscard]] virtual QString currentActivity() const = 0;
 
 Q_SIGNALS:
+    /*!
+     */
     void activitiesChanged();
 };
 }

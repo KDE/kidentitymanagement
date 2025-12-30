@@ -25,8 +25,12 @@ class SignaturePrivate;
 KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator<<(QDataStream &stream, const KIdentityManagementCore::Signature &sig);
 KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIdentityManagementCore::Signature &sig);
 
-/**
- * @short Abstraction of a signature (aka "footer").
+/*!
+ * \class KIdentityManagementCore::Signature
+ * \inmodule KIdentityManagementCore
+ * \inheaderfile KIdentityManagementCore/Signature
+ *
+ * \brief Abstraction of a signature (aka "footer").
  *
  * The signature can either be plain text, HTML text, text returned from a command or text stored
  * in a file.
@@ -44,7 +48,7 @@ KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIde
  * To actually add the images to a text edit, call insertIntoTextEdit().
  *
  * Example of creating a HTML signature and then inserting it into a text edit:
- * @code
+ * \code
  * Signature htmlSig;
  * htmlSig.setText( "<img src=\"hello.png\"> World" );
  * htmlSig.setInlinedHtml( true );
@@ -55,7 +59,7 @@ KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIde
  * KTextEdit edit;
  * htmlSig.insertIntoTextEdit( KIdentityManagementCore::Signature::End,
  *                             KIdentityManagementCore::Signature::AddSeparator, &edit );
- * @endcode
+ * \endcode
  */
 class KIDENTITYMANAGEMENTCORE_EXPORT Signature
 {
@@ -65,7 +69,7 @@ class KIDENTITYMANAGEMENTCORE_EXPORT Signature
     friend KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, Signature &sig);
 
 public:
-    /** Type of signature (ie. way to obtain the signature text) */
+    /*! Type of signature (ie. way to obtain the signature text) */
     enum Type {
         Disabled = 0,
         Inlined = 1,
@@ -73,7 +77,7 @@ public:
         FromCommand = 3,
     };
 
-    /**
+    /*!
      * Describes the placement of the signature text when it is to be inserted into a
      * text edit
      */
@@ -89,70 +93,70 @@ public:
     };
     using EmbeddedImagePtr = QSharedPointer<EmbeddedImage>;
 
-    /** Used for comparison */
+    /*! Used for comparison */
     bool operator==(const Signature &other) const;
 
-    /** Constructor for disabled signature */
+    /*! Constructor for disabled signature */
     Signature();
-    /** Constructor for inline text */
+    /*! Constructor for inline text */
     Signature(const QString &text);
-    /** Constructor for text from a file or from output of a command */
+    /*! Constructor for text from a file or from output of a command */
     Signature(const QString &path, bool isExecutable);
-    /** Copy constructor */
+    /*! Copy constructor */
     Signature(const Signature &that);
-    /** Assignment operator */
+    /*! Assignment operator */
     Signature &operator=(const Signature &that);
-    /** Destructor */
+    /*! Destructor */
     ~Signature();
 
-    /** @return the raw signature text as entered resp. read from file.
-        @param ok set to @c true if reading succeeded
-        @param errorMessage If available, contains a human readable explanation for @p ok being @c false.
+    /*! Returns the raw signature text as entered resp. read from file.
+        \a ok set to \\ true if reading succeeded
+        \a errorMessage If available, contains a human readable explanation for \a ok being \\ false.
      */
     [[nodiscard]] QString rawText(bool *ok = nullptr, QString *errorMessage = nullptr) const;
 
-    /** @return the signature text with a "-- \n" separator added, if
+    /*! Returns the signature text with a "-- \n" separator added, if
         necessary. A newline will not be appended or prepended.
-        @param ok set to @c true if reading succeeded
-        @param errorMessage If available, contains a human readable explanation for @p ok being @c false.
+        \a ok set to \\ true if reading succeeded
+        \a errorMessage If available, contains a human readable explanation for \a ok being \\ false.
      */
     [[nodiscard]] QString withSeparator(bool *ok = nullptr, QString *errorMessage = nullptr) const;
 
-    /** Set the signature text and mark this signature as being of
+    /*! Set the signature text and mark this signature as being of
         "inline text" type. */
     void setText(const QString &text);
     [[nodiscard]] QString text() const;
 
-    /**
+    /*!
      * Returns the text of the signature. If the signature is HTML, the HTML
      * tags will be stripped.
-     * @since 4.4
+     * \since 4.4
      */
     [[nodiscard]] QString toPlainText() const;
 
-    /** Set the signature URL and mark this signature as being of
+    /*! Set the signature URL and mark this signature as being of
         "from file" resp. "from output of command" type. */
     void setPath(const QString &path, bool isExecutable = false);
     [[nodiscard]] QString path() const;
 
-    /// @return the type of signature (ie. way to obtain the signature text)
+    /// Returns the type of signature (ie. way to obtain the signature text)
     [[nodiscard]] Type type() const;
     void setType(Type type);
 
-    /**
+    /*!
      * Sets the inlined signature to text or html
-     * @param isHtml sets the inlined signature to html
-     * @since 4.1
+     * \a isHtml sets the inlined signature to html
+     * \since 4.1
      */
     void setInlinedHtml(bool isHtml);
 
-    /**
-     * @return boolean whether the inlined signature is html
-     * @since 4.1
+    /*!
+     * Returns boolean whether the inlined signature is html
+     * \since 4.1
      */
     [[nodiscard]] bool isInlinedHtml() const;
 
-    /**
+    /*!
      * Sets the location where the copies of the signature images will be stored.
      * The images will be stored there when calling writeConfig(). The image location
      * is stored in the config, so the next readConfig() call knows where to look for
@@ -160,17 +164,17 @@ public:
      * It is recommended to use KStandardDirs::locateLocal( "data", "emailidentities/%1" )
      * for the location, where %1 is the unique identifier of the identity.
      *
-     * @warning readConfig will delete all other PNG files in this directory, as they could
+     * \warning readConfig will delete all other PNG files in this directory, as they could
      *          be stale inline image files
      *
      * Like with addImage(), the SignatureConfigurator will handle this for you.
-     * @param path the path to set as image location
-     * @since 4.4
+     * \a path the path to set as image location
+     * \since 4.4
      */
     void setImageLocation(const QString &path);
     [[nodiscard]] QString imageLocation() const;
 
-    /**
+    /*!
      * Adds the given image to the signature.
      * This is needed if you use setText() to set some HTML source that references images. Those
      * referenced images needed to be added by calling this function. The @imageName has to match
@@ -179,14 +183,14 @@ public:
      * If you use SignatureConfigurator, you don't need to call this function, as the configurator
      * will handle this for you.
      * setImageLocation() needs to be called once before.
-     * @since 4.4
+     * \since 4.4
      */
     void addImage(const QImage &image, const QString &imageName);
 
-    /**
-     * @brief setEnabledSignature
-     * @param enabled enables signature if set as @c true
-     * @since 4.9
+    /*!
+     * \brief setEnabledSignature
+     * \a enabled enables signature if set as \\ true
+     * \since 4.9
      */
     void setEnabledSignature(bool enabled);
     [[nodiscard]] bool isEnabledSignature() const;
@@ -211,9 +215,7 @@ protected:
     void readConfig(const KConfigGroup &config);
 
 private:
-    //@cond PRIVATE
     std::unique_ptr<SignaturePrivate> const d;
-    //@endcond
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Signature::AddedText)

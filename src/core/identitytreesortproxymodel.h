@@ -9,20 +9,39 @@
 namespace KIdentityManagementCore
 {
 class IdentityActivitiesAbstract;
+/*!
+ * \class KIdentityManagementCore::IdentityTreeSortProxyModel
+ * \inmodule KIdentityManagementCore
+ * \inheaderfile KIdentityManagementCore/IdentityTreeSortProxyModel
+ */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeSortProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
+    /*!
+     */
     explicit IdentityTreeSortProxyModel(QObject *parent);
+    /*!
+     */
     ~IdentityTreeSortProxyModel() override;
 
+    /*!
+     */
     [[nodiscard]] IdentityActivitiesAbstract *identityActivitiesAbstract() const;
+    /*!
+     */
     void setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
 
+    /*!
+     */
     [[nodiscard]] bool enablePlasmaActivities() const;
+    /*!
+     */
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
 
 protected:
+    /*!
+     */
     [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
 private:

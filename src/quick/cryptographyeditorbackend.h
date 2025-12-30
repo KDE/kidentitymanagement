@@ -14,8 +14,12 @@
 
 namespace KIdentityManagementQuick
 {
-/**
- * @brief The CryptographyEditorBackend class.
+/*!
+ * \class KIdentityManagementQuick::CryptographyEditorBackend
+ * \inmodule KIdentityManagementQuick
+ * \inheaderfile KIdentityManagementQuick/CryptographyEditorBackend
+ *
+ * \brief The CryptographyEditorBackend class.
  *
  * Used by the QML interface to access cryptography-related data.
  * Note that since the CryptographyBackendInterface is an abstract class,
@@ -32,27 +36,53 @@ class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyEditorBackend : public QObject
     Q_PROPERTY(QAbstractItemModel *smimeKeyListModel READ smimeKeyListModel NOTIFY smimeKeyListModelChanged)
 
 public:
+    /*!
+     */
     explicit CryptographyEditorBackend(QObject *parent = nullptr, const CryptographyBackendInterfacePtr &backend = {});
 
+    /*!
+     */
     CryptographyBackendInterfacePtr cryptographyBackend() const;
+    /*!
+     */
     void setCryptographyBackend(const CryptographyBackendInterfacePtr &cryptographyBackend);
 
+    /*!
+     */
     QAbstractItemModel *openPgpKeyListModel() const;
+    /*!
+     */
     QAbstractItemModel *smimeKeyListModel() const;
 
+    /*!
+     */
     [[nodiscard]] KIdentityManagementCore::Identity identity() const;
+    /*!
+     */
     void setIdentity(const KIdentityManagementCore::Identity &identity);
 
+    /*!
+     */
     Q_INVOKABLE QModelIndex indexForIdentity(QAbstractItemModel *model,
                                              const KIdentityManagementCore::Identity &identity,
                                              const KIdentityManagementQuick::KeyUseTypes::KeyUse keyUse);
 
+    /*!
+     */
     Q_INVOKABLE static QString stringFromKeyByteArray(const QByteArray &key);
 
 Q_SIGNALS:
+    /*!
+     */
     void cryptographyBackendChanged();
+    /*!
+     */
     void openPgpKeyListModelChanged();
+    /*!
+     */
     void smimeKeyListModelChanged();
+    /*!
+     */
     void identityChanged();
 
 private:
