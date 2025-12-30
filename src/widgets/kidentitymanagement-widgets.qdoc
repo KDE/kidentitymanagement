@@ -1,5 +1,5 @@
 /*!
-    \module IdentityManagementWidgets
+    \module KIdentityManagementWidgets
     \title Identity Management Widgets C++ Classes
     \ingroup modules
     \cmakepackage KPim6

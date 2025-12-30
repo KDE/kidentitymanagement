@@ -20,9 +20,9 @@ namespace KIdentityManagementWidgets
 {
 class SignatureConfiguratorPrivate;
 /*!
- * \class KIdentityManagementCore::SignatureConfigurator
+ * \class KIdentityManagementWidgets::SignatureConfigurator
  * \inmodule KIdentityManagementWidgets
- * \inheaderfile KIdentityManagementCore/SignatureConfigurator
+ * \inheaderfile KIdentityManagementWidgets/SignatureConfigurator
  *
  * This widget gives an interface so users can edit their signature.
  * You can set a signature via setSignature(), let the user edit the

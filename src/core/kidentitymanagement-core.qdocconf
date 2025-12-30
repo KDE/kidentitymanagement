@@ -26,7 +26,7 @@ qhp.IdentityManagementCore.indexRoot           =
 
 qhp.IdentityManagementCore.subprojects         = classes
 qhp.IdentityManagementCore.subprojects.classes.title = C++ Classes
-qhp.IdentityManagementCore.subprojects.classes.indexTitle = Identity Management C++ Classes
+qhp.IdentityManagementCore.subprojects.classes.indexTitle = Identity Management Core C++ Classes
 qhp.IdentityManagementCore.subprojects.classes.selectors = class fake:headerfile
 qhp.IdentityManagementCore.subprojects.classes.sortPages = true
 

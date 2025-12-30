@@ -1,9 +1,9 @@
 /*!
-    \module LdapCore
-    \title Ldap Core C++ Classes
+    \module KIdentityManagementQuick
+    \title Identity Management Quick C++ Classes
     \ingroup modules
     \cmakepackage KPim6
-    \cmakecomponent LdapCore
+    \cmakecomponent IdentityManagementQuick
 
-    \brief LDAP Core support library.
+    \brief Identity Management Quick support library.
 */

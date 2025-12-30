@@ -1,5 +1,5 @@
 /*!
-    \module IdentityManagementCore
+    \module KIdentityManagementCore
     \title Identity Management Core C++ Classes
     \ingroup modules
     \cmakepackage KPim6
