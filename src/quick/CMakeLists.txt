@@ -180,3 +180,4 @@ configure_package_config_file(
     "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementQuickConfig.cmake"
     INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
+ecm_generate_qdoc(KPim6IdentityManagementQuick kidentitymanagement-quick.qdocconf)
