@@ -1,6 +1,6 @@
 /*
   SPDX-FileCopyrightText: 2002 Marc Mutz <mutz@kde.org>
-  SPDX-FileCopyrightText: 2024-2025 Laurent Montel <montel@kde.org>
+  SPDX-FileCopyrightText: 2024-2026 Laurent Montel <montel@kde.org>
 
   SPDX-License-Identifier: LGPL-2.0-or-later
 */
