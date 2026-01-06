@@ -18,50 +18,99 @@ class IdentityActivitiesAbstract;
 namespace KIdentityManagementWidgets
 {
 class IdentityComboPrivate;
-/// \brief A combo box that always shows the up-to-date identity list.
-/// \author Marc Mutz \<mutz@kde.org\>
+/*!
+ * \class KIdentityManagementWidgets::IdentityCombo
+ * \inmodule KIdentityManagementWidgets
+ * \inheaderfile KIdentityManagementWidgets/IdentityCombo
+ *
+ * \brief A combo box that always shows the up-to-date identity list.
+ * \author Marc Mutz \<mutz@kde.org\>
+ */
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityCombo : public QComboBox
 {
     Q_OBJECT
 public:
-    /// IdentityCombo constructor
+    /*!
+     * \brief IdentityCombo constructor
+     * \param manager
+     * \param parent
+     */
     explicit IdentityCombo(KIdentityManagementCore::IdentityManager *manager, QWidget *parent = nullptr);
 
     ~IdentityCombo() override;
 
-    /// Return the current identity name.
+    /*!
+     * \brief currentIdentityName
+     * \return the current identity name.
+     */
     [[nodiscard]] QString currentIdentityName() const;
 
-    /// Return the current identity id
+    /*!
+     * \brief currentIdentity
+     * \return the current identity id.
+     */
     [[nodiscard]] KIdentityManagementCore::Identity::Id currentIdentity() const;
 
-    /// Return whether the current identity is the default identity.
+    /*!
+     * \brief isDefaultIdentity
+     * \return whether the current identity is the default identity.
+     */
     [[nodiscard]] bool isDefaultIdentity() const;
 
-    /// Set the current identity
+    /*!
+     * \brief Set the current identity
+     * \param identity
+     */
     void setCurrentIdentity(const KIdentityManagementCore::Identity &identity);
 
-    /// Set the current identity by name.
+    /*!
+     * \brief Set the current identity by name.
+     * \param identityName
+     */
     void setCurrentIdentity(const QString &identityName);
 
-    /// Set the current identity by Id
+    /*!
+     * \brief Set the current identity by Id
+     * \param uoid
+     */
     void setCurrentIdentity(KIdentityManagementCore::Identity::Id uoid);
 
-    /// Show (default) on the default identity. By default this behavior is disabled.
+    /*!
+     * \brief Show (default) on the default identity. By default this behavior is disabled.
+     * \param showDefault
+     */
     void setShowDefault(bool showDefault);
 
-    /// Returns the IdentityManager used in this combo box.
-    /// \since 4.5
+    /*!
+     * \brief identityManager
+     * \return the IdentityManager used in this combo box
+     * \since 4.5
+     */
     [[nodiscard]] KIdentityManagementCore::IdentityManager *identityManager() const;
 
-    /// \since 6.1
+    /*!
+     * \brief identityActivitiesAbstract
+     * \return
+     * \since 6.1
+     */
     [[nodiscard]] KIdentityManagementCore::IdentityActivitiesAbstract *identityActivitiesAbstract() const;
-    /// \since 6.1
+    /*!
+     * \brief setIdentityActivitiesAbstract
+     * \since 6.1
+     */
     void setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
 
-    /// \since 6.3
+    /*!
+     * \brief enablePlasmaActivities
+     * \return
+     * \since 6.3
+     */
     [[nodiscard]] bool enablePlasmaActivities() const;
-    /// \since 6.3
+    /*!
+     * \brief setEnablePlasmaActivities
+     * \param newEnablePlasmaActivities
+     * \since 6.3
+     */
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
 
 Q_SIGNALS:
@@ -73,7 +122,14 @@ Q_SIGNALS:
     /// You might also want to listen to IdentityManager::changed,
     /// IdentityManager::deleted and IdentityManager::added.
     void identityChanged(KIdentityManagementCore::Identity::Id uoid);
+    /*!
+     * \brief identityDeleted
+     * \param uoid
+     */
     void identityDeleted(KIdentityManagementCore::Identity::Id uoid);
+    /*!
+     * \brief invalidIdentity
+     */
     void invalidIdentity();
 
 public Q_SLOTS:
@@ -81,7 +137,11 @@ public Q_SLOTS:
     void slotIdentityManagerChanged();
 
 protected Q_SLOTS:
+    /*!
+     */
     void slotEmitChanged(int);
+    /*!
+     */
     void slotUpdateTooltip(uint uoid);
 
 private:

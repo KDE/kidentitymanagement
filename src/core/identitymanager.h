@@ -25,7 +25,7 @@ class Identity;
  *
  * \brief Manages the list of identities.
  * \author Marc Mutz <mutz@kde.org>
- **/
+ */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityManager : public QObject
 {
     Q_OBJECT
