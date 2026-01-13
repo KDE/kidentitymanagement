@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:42+0000\n"
+"POT-Creation-Date: 2026-01-13 08:42+0000\n"
 "PO-Revision-Date: 2024-07-30 06:59+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -70,84 +70,84 @@ msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
 "<qt>Misslyckades med att köra brevfotsskript<p><b>%1</b>:</p><p>%2</p></qt>"
 
-#: quick/qml/BasicIdentityEditorCard.qml:26
+#: quick/qml/BasicIdentityEditorCard.qml:25
 #, kde-format
 msgid "Identity"
 msgstr "Identitet"
 
-#: quick/qml/BasicIdentityEditorCard.qml:32
+#: quick/qml/BasicIdentityEditorCard.qml:31
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "Identitetsnamn"
 
-#: quick/qml/BasicIdentityEditorCard.qml:39
+#: quick/qml/BasicIdentityEditorCard.qml:38
 #, kde-format
 msgid "Your name"
 msgstr "Ditt namn"
 
-#: quick/qml/BasicIdentityEditorCard.qml:46
+#: quick/qml/BasicIdentityEditorCard.qml:45
 #, kde-format
 msgid "Email address"
 msgstr "E-postadress"
 
-#: quick/qml/BasicIdentityEditorCard.qml:54
+#: quick/qml/BasicIdentityEditorCard.qml:53
 #, kde-format
 msgid "E-mail aliases"
 msgstr "E-postalias"
 
-#: quick/qml/BasicIdentityEditorCard.qml:88
+#: quick/qml/BasicIdentityEditorCard.qml:87
 #, kde-format
 msgid "Remove email alias"
 msgstr "Ta bort e-postalias"
 
-#: quick/qml/BasicIdentityEditorCard.qml:108
+#: quick/qml/BasicIdentityEditorCard.qml:107
 #, kde-format
 msgid "user@example.org"
 msgstr "användare@exempel.org"
 
-#: quick/qml/BasicIdentityEditorCard.qml:117
+#: quick/qml/BasicIdentityEditorCard.qml:116
 #, kde-format
 msgid "Add email alias"
 msgstr "Lägg till e-postalias"
 
-#: quick/qml/CryptographyEditorCard.qml:48
+#: quick/qml/CryptographyEditorCard.qml:55
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
 msgstr "OpenPGP-nyckel"
 
-#: quick/qml/CryptographyEditorCard.qml:48
+#: quick/qml/CryptographyEditorCard.qml:55
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
 msgstr "OpenPGP-signeringsnyckel"
 
-#: quick/qml/CryptographyEditorCard.qml:75
+#: quick/qml/CryptographyEditorCard.qml:82
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
 msgstr "Använd samma OpenPGP-nyckel för kryptering och signering"
 
-#: quick/qml/CryptographyEditorCard.qml:104
+#: quick/qml/CryptographyEditorCard.qml:111
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
 msgstr "OpenPGP-krypteringsnyckel"
 
-#: quick/qml/CryptographyEditorCard.qml:126
+#: quick/qml/CryptographyEditorCard.qml:133
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
 msgstr "S/MIME-signeringsnyckel"
 
-#: quick/qml/CryptographyEditorCard.qml:151
+#: quick/qml/CryptographyEditorCard.qml:158
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
 msgstr "Använd samma S/MIME-nyckel för kryptering och signering"
 
-#: quick/qml/CryptographyEditorCard.qml:180
+#: quick/qml/CryptographyEditorCard.qml:187
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
@@ -159,48 +159,48 @@ msgctxt "@title"
 msgid "Edit Identity"
 msgstr "Redigera identitet"
 
-#: quick/qml/IdentityEditorPage.qml:41
+#: quick/qml/IdentityEditorPage.qml:40
 #, kde-format
 msgid "Add Identity"
 msgstr "Lägg till identitet"
 
-#: quick/qml/IdentityEditorPage.qml:43
+#: quick/qml/IdentityEditorPage.qml:42
 #, kde-format
 msgid "Edit Identity"
 msgstr "Redigera identitet"
 
-#: quick/qml/IdentityEditorPage.qml:70
+#: quick/qml/IdentityEditorPage.qml:69
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
 msgstr "Kryptografi"
 
-#: quick/qml/IdentityEditorPage.qml:92 quick/qml/IdentityEditorPage.qml:121
+#: quick/qml/IdentityEditorPage.qml:91 quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete"
 msgstr "Ta bort"
 
-#: quick/qml/IdentityEditorPage.qml:100
+#: quick/qml/IdentityEditorPage.qml:99
 #, kde-format
 msgid "Save"
 msgstr "Spara"
 
-#: quick/qml/IdentityEditorPage.qml:100
+#: quick/qml/IdentityEditorPage.qml:99
 #, kde-format
 msgid "Add"
 msgstr "Lägg till"
 
-#: quick/qml/IdentityEditorPage.qml:115
+#: quick/qml/IdentityEditorPage.qml:114
 #, kde-format
 msgid "Delete %1"
 msgstr "Ta bort %1"
 
-#: quick/qml/IdentityEditorPage.qml:116
+#: quick/qml/IdentityEditorPage.qml:115
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr "Är du säker på att du vill ta bort identiteten?"
 
-#: quick/qml/IdentityEditorPage.qml:130
+#: quick/qml/IdentityEditorPage.qml:129
 #, kde-format
 msgid "Cancel"
 msgstr "Avbryt"

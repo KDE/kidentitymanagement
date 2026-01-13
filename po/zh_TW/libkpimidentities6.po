@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:42+0000\n"
+"POT-Creation-Date: 2026-01-13 08:42+0000\n"
 "PO-Revision-Date: 2024-08-06 05:24+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -73,84 +73,84 @@ msgstr "電子郵件地址"
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>執行簽名檔文稿<p><b>%1</b> 失敗：</p><p>%2</p></qt>"
 
-#: quick/qml/BasicIdentityEditorCard.qml:26
+#: quick/qml/BasicIdentityEditorCard.qml:25
 #, kde-format
 msgid "Identity"
 msgstr "身份"
 
-#: quick/qml/BasicIdentityEditorCard.qml:32
+#: quick/qml/BasicIdentityEditorCard.qml:31
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "姓名"
 
-#: quick/qml/BasicIdentityEditorCard.qml:39
+#: quick/qml/BasicIdentityEditorCard.qml:38
 #, kde-format
 msgid "Your name"
 msgstr "您的姓名"
 
-#: quick/qml/BasicIdentityEditorCard.qml:46
+#: quick/qml/BasicIdentityEditorCard.qml:45
 #, kde-format
 msgid "Email address"
 msgstr "電子郵件地址"
 
-#: quick/qml/BasicIdentityEditorCard.qml:54
+#: quick/qml/BasicIdentityEditorCard.qml:53
 #, kde-format
 msgid "E-mail aliases"
 msgstr "電子郵件別名"
 
-#: quick/qml/BasicIdentityEditorCard.qml:88
+#: quick/qml/BasicIdentityEditorCard.qml:87
 #, kde-format
 msgid "Remove email alias"
 msgstr "移除電子郵件別名"
 
-#: quick/qml/BasicIdentityEditorCard.qml:108
+#: quick/qml/BasicIdentityEditorCard.qml:107
 #, kde-format
 msgid "user@example.org"
 msgstr "user@example.org"
 
-#: quick/qml/BasicIdentityEditorCard.qml:117
+#: quick/qml/BasicIdentityEditorCard.qml:116
 #, kde-format
 msgid "Add email alias"
 msgstr "新增電子郵件別名"
 
-#: quick/qml/CryptographyEditorCard.qml:48
+#: quick/qml/CryptographyEditorCard.qml:55
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
 msgstr "OpenPGP 金鑰"
 
-#: quick/qml/CryptographyEditorCard.qml:48
+#: quick/qml/CryptographyEditorCard.qml:55
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
 msgstr "OpenPGP 簽署金鑰"
 
-#: quick/qml/CryptographyEditorCard.qml:75
+#: quick/qml/CryptographyEditorCard.qml:82
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
 msgstr "用同一個 OpenPGP 金鑰進行加密和簽署"
 
-#: quick/qml/CryptographyEditorCard.qml:104
+#: quick/qml/CryptographyEditorCard.qml:111
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
 msgstr "OpenPGP 加密金鑰"
 
-#: quick/qml/CryptographyEditorCard.qml:126
+#: quick/qml/CryptographyEditorCard.qml:133
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
 msgstr "S/MIME 簽署金鑰"
 
-#: quick/qml/CryptographyEditorCard.qml:151
+#: quick/qml/CryptographyEditorCard.qml:158
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
 msgstr "用同一個 S/MIME 金鑰進行加密和簽署"
 
-#: quick/qml/CryptographyEditorCard.qml:180
+#: quick/qml/CryptographyEditorCard.qml:187
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
@@ -162,48 +162,48 @@ msgctxt "@title"
 msgid "Edit Identity"
 msgstr "編輯身份"
 
-#: quick/qml/IdentityEditorPage.qml:41
+#: quick/qml/IdentityEditorPage.qml:40
 #, kde-format
 msgid "Add Identity"
 msgstr "新增身分"
 
-#: quick/qml/IdentityEditorPage.qml:43
+#: quick/qml/IdentityEditorPage.qml:42
 #, kde-format
 msgid "Edit Identity"
 msgstr "編輯身份"
 
-#: quick/qml/IdentityEditorPage.qml:70
+#: quick/qml/IdentityEditorPage.qml:69
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
 msgstr "加密"
 
-#: quick/qml/IdentityEditorPage.qml:92 quick/qml/IdentityEditorPage.qml:121
+#: quick/qml/IdentityEditorPage.qml:91 quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete"
 msgstr "刪除"
 
-#: quick/qml/IdentityEditorPage.qml:100
+#: quick/qml/IdentityEditorPage.qml:99
 #, kde-format
 msgid "Save"
 msgstr "儲存"
 
-#: quick/qml/IdentityEditorPage.qml:100
+#: quick/qml/IdentityEditorPage.qml:99
 #, kde-format
 msgid "Add"
 msgstr "新增"
 
-#: quick/qml/IdentityEditorPage.qml:115
+#: quick/qml/IdentityEditorPage.qml:114
 #, kde-format
 msgid "Delete %1"
 msgstr "刪除 %1"
 
-#: quick/qml/IdentityEditorPage.qml:116
+#: quick/qml/IdentityEditorPage.qml:115
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr "您確定要刪除這個身份嗎？"
 
-#: quick/qml/IdentityEditorPage.qml:130
+#: quick/qml/IdentityEditorPage.qml:129
 #, kde-format
 msgid "Cancel"
 msgstr "取消"

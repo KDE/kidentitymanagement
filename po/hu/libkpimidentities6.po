@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-14 00:42+0000\n"
+"POT-Creation-Date: 2026-01-13 08:42+0000\n"
 "PO-Revision-Date: 2024-10-10 21:39+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -71,84 +71,84 @@ msgstr ""
 "<qt>Nem sikerült végrehajtani az aláíró szkriptet:<p><b>%1</b>:</p><p>%2</"
 "p></qt>"
 
-#: quick/qml/BasicIdentityEditorCard.qml:26
+#: quick/qml/BasicIdentityEditorCard.qml:25
 #, kde-format
 msgid "Identity"
 msgstr "Azonosító"
 
-#: quick/qml/BasicIdentityEditorCard.qml:32
+#: quick/qml/BasicIdentityEditorCard.qml:31
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "Azonosítónév"
 
-#: quick/qml/BasicIdentityEditorCard.qml:39
+#: quick/qml/BasicIdentityEditorCard.qml:38
 #, kde-format
 msgid "Your name"
 msgstr "Az Ön neve"
 
-#: quick/qml/BasicIdentityEditorCard.qml:46
+#: quick/qml/BasicIdentityEditorCard.qml:45
 #, kde-format
 msgid "Email address"
 msgstr "E-mail cím"
 
-#: quick/qml/BasicIdentityEditorCard.qml:54
+#: quick/qml/BasicIdentityEditorCard.qml:53
 #, kde-format
 msgid "E-mail aliases"
 msgstr "E-mail álnevek"
 
-#: quick/qml/BasicIdentityEditorCard.qml:88
+#: quick/qml/BasicIdentityEditorCard.qml:87
 #, kde-format
 msgid "Remove email alias"
 msgstr "E-mail álnév eltávolítása"
 
-#: quick/qml/BasicIdentityEditorCard.qml:108
+#: quick/qml/BasicIdentityEditorCard.qml:107
 #, kde-format
 msgid "user@example.org"
 msgstr "felhasznalo@pelda.hu"
 
-#: quick/qml/BasicIdentityEditorCard.qml:117
+#: quick/qml/BasicIdentityEditorCard.qml:116
 #, kde-format
 msgid "Add email alias"
 msgstr "E-mail álnév hozzáadása"
 
-#: quick/qml/CryptographyEditorCard.qml:48
+#: quick/qml/CryptographyEditorCard.qml:55
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
 msgstr "OpenPGP kulcs"
 
-#: quick/qml/CryptographyEditorCard.qml:48
+#: quick/qml/CryptographyEditorCard.qml:55
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
 msgstr "OpenPGP aláírókulcs"
 
-#: quick/qml/CryptographyEditorCard.qml:75
+#: quick/qml/CryptographyEditorCard.qml:82
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
 msgstr "Ugyanazon OpenPGP kulcs használata titkosításhoz és aláíráshoz"
 
-#: quick/qml/CryptographyEditorCard.qml:104
+#: quick/qml/CryptographyEditorCard.qml:111
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
 msgstr "OpenPGP titkosítókulcs"
 
-#: quick/qml/CryptographyEditorCard.qml:126
+#: quick/qml/CryptographyEditorCard.qml:133
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
 msgstr "S/MIME aláírókulcs"
 
-#: quick/qml/CryptographyEditorCard.qml:151
+#: quick/qml/CryptographyEditorCard.qml:158
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
 msgstr "Ugyanazon S/MIME kulcs használata titkosításhoz és aláíráshoz"
 
-#: quick/qml/CryptographyEditorCard.qml:180
+#: quick/qml/CryptographyEditorCard.qml:187
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
@@ -160,48 +160,48 @@ msgctxt "@title"
 msgid "Edit Identity"
 msgstr "Azonosító szerkesztése"
 
-#: quick/qml/IdentityEditorPage.qml:41
+#: quick/qml/IdentityEditorPage.qml:40
 #, kde-format
 msgid "Add Identity"
 msgstr "Azonosító hozzáadása"
 
-#: quick/qml/IdentityEditorPage.qml:43
+#: quick/qml/IdentityEditorPage.qml:42
 #, kde-format
 msgid "Edit Identity"
 msgstr "Azonosító szerkesztése"
 
-#: quick/qml/IdentityEditorPage.qml:70
+#: quick/qml/IdentityEditorPage.qml:69
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
 msgstr "Titkosítás"
 
-#: quick/qml/IdentityEditorPage.qml:92 quick/qml/IdentityEditorPage.qml:121
+#: quick/qml/IdentityEditorPage.qml:91 quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Delete"
 msgstr "Törlés"
 
-#: quick/qml/IdentityEditorPage.qml:100
+#: quick/qml/IdentityEditorPage.qml:99
 #, kde-format
 msgid "Save"
 msgstr "Mentés"
 
-#: quick/qml/IdentityEditorPage.qml:100
+#: quick/qml/IdentityEditorPage.qml:99
 #, kde-format
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: quick/qml/IdentityEditorPage.qml:115
+#: quick/qml/IdentityEditorPage.qml:114
 #, kde-format
 msgid "Delete %1"
 msgstr "%1 törlése"
 
-#: quick/qml/IdentityEditorPage.qml:116
+#: quick/qml/IdentityEditorPage.qml:115
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr "Biztosan törölni szeretné ezt az azonosítót?"
 
-#: quick/qml/IdentityEditorPage.qml:130
+#: quick/qml/IdentityEditorPage.qml:129
 #, kde-format
 msgid "Cancel"
 msgstr "Mégse"
