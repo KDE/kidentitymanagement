@@ -15,3 +15,4 @@ Options:
  tests-run-in-parallel: True
  cppcheck-arguments: '--enable=warning,performance,portability,style --suppress-xml=cppcheck-suppressions.xml'
  run-qmllint: true
+ cmake-options: '-DWARNINGS_AS_ERRORS=ON'

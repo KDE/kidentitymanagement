@@ -162,7 +162,7 @@ public:
         or when one tries to remove the last identity.
         \a identityName the identity to remove
      **/
-    [[nodiscard]] bool removeIdentity(const QString &identityName);
+    bool removeIdentity(const QString &identityName);
 
     /*!
      * Removes the identity with name \a identityName

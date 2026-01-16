@@ -33,9 +33,12 @@ IdentityComboboxWidget::IdentityComboboxWidget(QWidget *parent)
     mainLayout->addWidget(label);
 
     auto labelIdentity = new QLabel(this);
-    connect(combobox, &KIdentityManagementWidgets::IdentityCombo::identityChanged, this, [combobox, labelIdentity](KIdentityManagementCore::Identity::Id id) {
-        labelIdentity->setText(combobox->currentIdentityName());
-    });
+    connect(combobox,
+            &KIdentityManagementWidgets::IdentityCombo::identityChanged,
+            this,
+            [combobox, labelIdentity]([[maybe_unused]] KIdentityManagementCore::Identity::Id id) {
+                labelIdentity->setText(combobox->currentIdentityName());
+            });
     mainLayout->addWidget(labelIdentity);
 
     {
