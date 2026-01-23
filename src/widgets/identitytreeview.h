@@ -18,6 +18,8 @@ namespace KIdentityManagementWidgets
  * \class KIdentityManagementWidgets::IdentityTreeView
  * \inmodule KIdentityManagementWidgets
  * \inheaderfile KIdentityManagementWidgets/IdentityTreeView
+ *
+ * \brief The IdentityTreeView class
  */
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeView : public QTreeView
 {

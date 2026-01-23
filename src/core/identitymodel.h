@@ -19,6 +19,8 @@ class IdentityManager;
  * \inmodule KIdentityManagementCore
  * \inheaderfile KIdentityManagementCore/IdentityModel
  *
+ * \brief The IdentityModel class
+ * \author Laurent Montel <montel@kde.org>
  */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityModel : public QAbstractListModel
 {

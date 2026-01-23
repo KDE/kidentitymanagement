@@ -13,6 +13,9 @@ class IdentityActivitiesAbstract;
  * \class KIdentityManagementCore::IdentityTreeSortProxyModel
  * \inmodule KIdentityManagementCore
  * \inheaderfile KIdentityManagementCore/IdentityTreeSortProxyModel
+ *
+ * \brief The IdentityTreeSortProxyModel class
+ * \author Laurent Montel <montel@kde.org>
  */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeSortProxyModel : public QSortFilterProxyModel
 {

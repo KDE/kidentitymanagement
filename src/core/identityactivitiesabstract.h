@@ -12,6 +12,9 @@ namespace KIdentityManagementCore
  * \class KIdentityManagementCore::IdentityActivitiesAbstract
  * \inmodule KIdentityManagementCore
  * \inheaderfile KIdentityManagementCore/IdentityActivitiesAbstract
+ *
+ * \brief The IdentityActivitiesAbstract class
+ * \author Laurent Montel <montel@kde.org>
  */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityActivitiesAbstract : public QObject
 {
