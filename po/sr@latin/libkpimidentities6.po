@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:42+0000\n"
+"POT-Creation-Date: 2026-01-28 00:45+0000\n"
 "PO-Revision-Date: 2017-09-28 18:00+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -77,43 +77,43 @@ msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
 "<qt>Neuspelo izvršavanje skripte potpisa<br/><p><b>%1</b>:</p><p>%2</p></qt>"
 
-#: quick/qml/BasicIdentityEditorCard.qml:25
+#: quick/qml/BasicIdentityEditorCard.qml:28
 #, kde-format
 msgid "Identity"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:31
+#: quick/qml/BasicIdentityEditorCard.qml:37
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:38
+#: quick/qml/BasicIdentityEditorCard.qml:46
 #, kde-format
 msgid "Your name"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:45
+#: quick/qml/BasicIdentityEditorCard.qml:56
 #, kde-format
 msgid "Email address"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:53
+#: quick/qml/BasicIdentityEditorCard.qml:64
 #, kde-format
 msgid "E-mail aliases"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:87
+#: quick/qml/BasicIdentityEditorCard.qml:98
 #, kde-format
 msgid "Remove email alias"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:107
+#: quick/qml/BasicIdentityEditorCard.qml:118
 #, kde-format
 msgid "user@example.org"
 msgstr ""
 
-#: quick/qml/BasicIdentityEditorCard.qml:116
+#: quick/qml/BasicIdentityEditorCard.qml:127
 #, kde-format
 msgid "Add email alias"
 msgstr ""
@@ -160,54 +160,62 @@ msgctxt "@label"
 msgid "S/MIME encryption key"
 msgstr ""
 
-#: quick/qml/IdentityConfigurationForm.qml:33
+#: quick/qml/IdentityConfigurationForm.qml:32
 #, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:40
+#: quick/qml/IdentityConfigurationForm.qml:38
+#: quick/qml/IdentityConfigurationForm.qml:43
+#: quick/qml/IdentityConfigurationForm.qml:45
+#, kde-format
+msgctxt "@title"
+msgid "Add Identity"
+msgstr ""
+
+#: quick/qml/IdentityEditorPage.qml:44
 #, kde-format
 msgid "Add Identity"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:42
+#: quick/qml/IdentityEditorPage.qml:46
 #, kde-format
 msgid "Edit Identity"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:69
+#: quick/qml/IdentityEditorPage.qml:74
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:91 quick/qml/IdentityEditorPage.qml:120
+#: quick/qml/IdentityEditorPage.qml:96 quick/qml/IdentityEditorPage.qml:125
 #, kde-format
 msgid "Delete"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:99
+#: quick/qml/IdentityEditorPage.qml:104
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:99
+#: quick/qml/IdentityEditorPage.qml:104
 #, kde-format
 msgid "Add"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:114
+#: quick/qml/IdentityEditorPage.qml:119
 #, kde-format
 msgid "Delete %1"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:115
+#: quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr ""
 
-#: quick/qml/IdentityEditorPage.qml:129
+#: quick/qml/IdentityEditorPage.qml:134
 #, kde-format
 msgid "Cancel"
 msgstr ""

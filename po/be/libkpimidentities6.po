@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:42+0000\n"
+"POT-Creation-Date: 2026-01-28 00:45+0000\n"
 "PO-Revision-Date: 2024-10-04 07:52\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
 "Language-Team: Belarusian\n"
@@ -73,43 +73,43 @@ msgstr "Адрас электроннай пошты"
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>Не ўдалося выканаць скрыпт подпісу<p><b>%1</b>:</p><p>%2</p></qt>"
 
-#: quick/qml/BasicIdentityEditorCard.qml:25
+#: quick/qml/BasicIdentityEditorCard.qml:28
 #, kde-format
 msgid "Identity"
 msgstr "Асабістыя даныя"
 
-#: quick/qml/BasicIdentityEditorCard.qml:31
+#: quick/qml/BasicIdentityEditorCard.qml:37
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "Назва асабістых даных"
 
-#: quick/qml/BasicIdentityEditorCard.qml:38
+#: quick/qml/BasicIdentityEditorCard.qml:46
 #, kde-format
 msgid "Your name"
 msgstr "Ваша імя"
 
-#: quick/qml/BasicIdentityEditorCard.qml:45
+#: quick/qml/BasicIdentityEditorCard.qml:56
 #, kde-format
 msgid "Email address"
 msgstr "Адрас электроннай пошты"
 
-#: quick/qml/BasicIdentityEditorCard.qml:53
+#: quick/qml/BasicIdentityEditorCard.qml:64
 #, kde-format
 msgid "E-mail aliases"
 msgstr "Псеўданімы электроннай пошты"
 
-#: quick/qml/BasicIdentityEditorCard.qml:87
+#: quick/qml/BasicIdentityEditorCard.qml:98
 #, kde-format
 msgid "Remove email alias"
 msgstr "Выдаліць псеўданімы электроннай пошты"
 
-#: quick/qml/BasicIdentityEditorCard.qml:107
+#: quick/qml/BasicIdentityEditorCard.qml:118
 #, kde-format
 msgid "user@example.org"
 msgstr "user@example.org"
 
-#: quick/qml/BasicIdentityEditorCard.qml:116
+#: quick/qml/BasicIdentityEditorCard.qml:127
 #, kde-format
 msgid "Add email alias"
 msgstr "Дадаць псеўданімы электроннай пошты"
@@ -156,54 +156,63 @@ msgctxt "@label"
 msgid "S/MIME encryption key"
 msgstr "Ключ шыфравання S/MIME"
 
-#: quick/qml/IdentityConfigurationForm.qml:33
+#: quick/qml/IdentityConfigurationForm.qml:32
 #, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
 msgstr "Рэдагаваць асабістыя даныя"
 
-#: quick/qml/IdentityEditorPage.qml:40
+#: quick/qml/IdentityConfigurationForm.qml:38
+#: quick/qml/IdentityConfigurationForm.qml:43
+#: quick/qml/IdentityConfigurationForm.qml:45
+#, fuzzy, kde-format
+#| msgid "Add Identity"
+msgctxt "@title"
+msgid "Add Identity"
+msgstr "Дадаць асабістыя даныя"
+
+#: quick/qml/IdentityEditorPage.qml:44
 #, kde-format
 msgid "Add Identity"
 msgstr "Дадаць асабістыя даныя"
 
-#: quick/qml/IdentityEditorPage.qml:42
+#: quick/qml/IdentityEditorPage.qml:46
 #, kde-format
 msgid "Edit Identity"
 msgstr "Рэдагаваць асабістыя даныя"
 
-#: quick/qml/IdentityEditorPage.qml:69
+#: quick/qml/IdentityEditorPage.qml:74
 #, kde-format
 msgctxt "@title:group"
 msgid "Cryptography"
 msgstr "Крыптаграфія"
 
-#: quick/qml/IdentityEditorPage.qml:91 quick/qml/IdentityEditorPage.qml:120
+#: quick/qml/IdentityEditorPage.qml:96 quick/qml/IdentityEditorPage.qml:125
 #, kde-format
 msgid "Delete"
 msgstr "Выдаліць"
 
-#: quick/qml/IdentityEditorPage.qml:99
+#: quick/qml/IdentityEditorPage.qml:104
 #, kde-format
 msgid "Save"
 msgstr "Захаваць"
 
-#: quick/qml/IdentityEditorPage.qml:99
+#: quick/qml/IdentityEditorPage.qml:104
 #, kde-format
 msgid "Add"
 msgstr "Дадаць"
 
-#: quick/qml/IdentityEditorPage.qml:114
+#: quick/qml/IdentityEditorPage.qml:119
 #, kde-format
 msgid "Delete %1"
 msgstr "Выдаліць %1"
 
-#: quick/qml/IdentityEditorPage.qml:115
+#: quick/qml/IdentityEditorPage.qml:120
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr "Сапраўды хочаце выдаліць гэтыя асабістыя даныя?"
 
-#: quick/qml/IdentityEditorPage.qml:129
+#: quick/qml/IdentityEditorPage.qml:134
 #, kde-format
 msgid "Cancel"
 msgstr "Скасаваць"
