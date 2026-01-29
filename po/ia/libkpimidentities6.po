@@ -2,19 +2,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # SPDX-FileCopyrightText: 2011, 2012, 2020, 2021, 2023, 2024 g.sora <g.sora@tiscali.it>
+# giovanni <g.sora@tiscali.it>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-28 00:45+0000\n"
-"PO-Revision-Date: 2024-07-31 10:19+0200\n"
+"PO-Revision-Date: 2026-01-28 15:04+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: core/identitymanager.cpp:161
@@ -161,8 +162,7 @@ msgstr "Modifica Identitate"
 #: quick/qml/IdentityConfigurationForm.qml:38
 #: quick/qml/IdentityConfigurationForm.qml:43
 #: quick/qml/IdentityConfigurationForm.qml:45
-#, fuzzy, kde-format
-#| msgid "Add Identity"
+#, kde-format
 msgctxt "@title"
 msgid "Add Identity"
 msgstr "Adde Identitate"
