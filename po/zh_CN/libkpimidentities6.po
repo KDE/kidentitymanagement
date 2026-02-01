@@ -161,11 +161,10 @@ msgstr "编辑身份"
 #: quick/qml/IdentityConfigurationForm.qml:38
 #: quick/qml/IdentityConfigurationForm.qml:43
 #: quick/qml/IdentityConfigurationForm.qml:45
-#, fuzzy, kde-format
-#| msgid "Add Identity"
+#, kde-format
 msgctxt "@title"
 msgid "Add Identity"
-msgstr "添加身份"
+msgstr ""
 
 #: quick/qml/IdentityEditorPage.qml:44
 #, kde-format
