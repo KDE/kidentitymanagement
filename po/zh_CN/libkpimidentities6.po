@@ -164,7 +164,7 @@ msgstr "编辑身份"
 #, kde-format
 msgctxt "@title"
 msgid "Add Identity"
-msgstr ""
+msgstr "添加身份"
 
 #: quick/qml/IdentityEditorPage.qml:44
 #, kde-format

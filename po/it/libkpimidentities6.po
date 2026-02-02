@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2007.
 # Luca Bellonda <lbellonda@gmail.com>, 2008.
-# Luigi Toscano <luigi.toscano@tiscali.it>, 2018, 2019, 2021, 2023, 2024.
+# SPDX-FileCopyrightText: 2018, 2019, 2021, 2023, 2024, 2026 Luigi Toscano <luigi.toscano@tiscali.it>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-28 00:45+0000\n"
-"PO-Revision-Date: 2024-07-31 22:29+0200\n"
+"PO-Revision-Date: 2026-01-29 16:28+0100\n"
 "Last-Translator: Luigi Toscano <luigi.toscano@tiscali.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -165,8 +165,7 @@ msgstr "Modifica identità"
 #: quick/qml/IdentityConfigurationForm.qml:38
 #: quick/qml/IdentityConfigurationForm.qml:43
 #: quick/qml/IdentityConfigurationForm.qml:45
-#, fuzzy, kde-format
-#| msgid "Add Identity"
+#, kde-format
 msgctxt "@title"
 msgid "Add Identity"
 msgstr "Aggiungi identità"
