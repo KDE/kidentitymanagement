@@ -115,32 +115,45 @@ public:
 
 Q_SIGNALS:
 
-    /// \em Really emitted whenever the current identity changes. Either
-    /// by user intervention or on setCurrentIdentity() or if the
-    /// current identity disappears.
-    ///
-    /// You might also want to listen to IdentityManager::changed,
-    /// IdentityManager::deleted and IdentityManager::added.
+    /*! \brief Emitted whenever the current identity changes
+     *
+     * This signal is emitted whenever the current identity changes, either
+     * by user intervention, on setCurrentIdentity() call, or if the
+     * current identity disappears.
+     *
+     * You might also want to listen to IdentityManager::changed,
+     * IdentityManager::deleted and IdentityManager::added.
+     *
+     * \param uoid the unique object identifier of the new current identity
+     */
     void identityChanged(KIdentityManagementCore::Identity::Id uoid);
     /*!
      * \brief identityDeleted
-     * \param uoid
+     * \param uoid the unique object identifier of the deleted identity
      */
     void identityDeleted(KIdentityManagementCore::Identity::Id uoid);
     /*!
      * \brief invalidIdentity
+     * Emitted when the current identity becomes invalid
      */
     void invalidIdentity();
 
 public Q_SLOTS:
-    /// Connected to IdentityManager::changed(). Reloads the list of identities.
+    /*!
+     * \brief Connected to IdentityManager::changed()
+     * Reloads the list of identities.
+     */
     void slotIdentityManagerChanged();
 
 protected Q_SLOTS:
     /*!
+     * \brief Internal slot to emit the identity changed signal
+     * \param index the index of the combo box that changed
      */
     void slotEmitChanged(int);
     /*!
+     * \brief Internal slot to update the tooltip
+     * \param uoid the unique object identifier of the identity
      */
     void slotUpdateTooltip(uint uoid);
 

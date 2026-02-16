@@ -181,45 +181,37 @@ public:
 
     /*! Full name of the user */
     [[nodiscard]] QString fullName() const;
-    /*!
-     */
+    /*! Sets the full name of the user */
     void setFullName(const QString &);
 
     /*! The user's organization (optional) */
     [[nodiscard]] QString organization() const;
-    /*!
-     */
+    /*! Sets the user's organization */
     void setOrganization(const QString &);
 
     /*! The user's OpenPGP encryption key */
     [[nodiscard]] QByteArray pgpEncryptionKey() const;
-    /*!
-     */
+    /*! Sets the user's OpenPGP encryption key */
     void setPGPEncryptionKey(const QByteArray &key);
 
     /*! The user's OpenPGP signing key */
     [[nodiscard]] QByteArray pgpSigningKey() const;
-    /*!
-     */
+    /*! Sets the user's OpenPGP signing key */
     void setPGPSigningKey(const QByteArray &key);
 
     /*! The user's S/MIME encryption key */
     [[nodiscard]] QByteArray smimeEncryptionKey() const;
-    /*!
-     */
+    /*! Sets the user's S/MIME encryption key */
     void setSMIMEEncryptionKey(const QByteArray &key);
 
     /*! The user's S/MIME signing key */
     [[nodiscard]] QByteArray smimeSigningKey() const;
-    /*!
-     */
+    /*! Sets the user's S/MIME signing key */
     void setSMIMESigningKey(const QByteArray &key);
 
-    /*!
-     */
+    /*! Returns the preferred crypto message format for this identity */
     [[nodiscard]] QString preferredCryptoMessageFormat() const;
-    /*!
-     */
+    /*! Sets the preferred crypto message format for this identity */
     void setPreferredCryptoMessageFormat(const QString &);
 
     /*!
@@ -230,7 +222,9 @@ public:
      * \since 4.6
      */
     [[nodiscard]] QString primaryEmailAddress() const;
-    /*!
+    /*! Sets the primary email address for this identity
+     *
+     * \since 4.6
      */
     void setPrimaryEmailAddress(const QString &email);
 
@@ -240,7 +234,9 @@ public:
      * \since 4.6
      */
     [[nodiscard]] const QStringList emailAliases() const;
-    /*!
+    /*! Sets the email address aliases for this identity
+     *
+     * \since 4.6
      */
     void setEmailAliases(const QStringList &aliases);
 
@@ -255,6 +251,7 @@ public:
 
     /*! vCard to attach to outgoing emails */
     [[nodiscard]] QString vCardFile() const;
+    /*! Sets the vCard file to attach to outgoing emails */
     void setVCardFile(const QString &);
 
     /*!
@@ -265,14 +262,12 @@ public:
 
     /*! Returns The email address for the ReplyTo: field */
     [[nodiscard]] QString replyToAddr() const;
-    /*!
-     */
+    /*! Sets the email address for the ReplyTo: field */
     void setReplyToAddr(const QString &);
 
     /*! Returns The email addresses for the BCC: field */
     [[nodiscard]] QString bcc() const;
-    /*!
-     */
+    /*! Sets the email addresses for the BCC: field */
     void setBcc(const QString &);
 
     /*!
@@ -280,7 +275,8 @@ public:
      * \since 4.9
      */
     [[nodiscard]] QString cc() const;
-    /*!
+    /*! Sets the email addresses for the CC: field
+     * \since 4.9
      */
     void setCc(const QString &);
 
@@ -289,7 +285,8 @@ public:
      * \since 4.10
      */
     [[nodiscard]] bool attachVcard() const;
-    /*!
+    /*! Sets whether the vCard of this identity should be attached to outgoing mail
+     * \since 4.10
      */
     void setAttachVcard(bool attach);
 
@@ -298,7 +295,8 @@ public:
      * \since 4.10
      */
     [[nodiscard]] QString autocorrectionLanguage() const;
-    /*!
+    /*! Sets the default language for spell checking of this identity
+     * \since 4.10
      */
     void setAutocorrectionLanguage(const QString &language);
 
@@ -307,7 +305,8 @@ public:
      * \since 4.11
      */
     [[nodiscard]] bool disabledFcc() const;
-    /*!
+    /*! Sets whether Fcc is disabled for this identity
+     * \since 4.11
      */
     void setDisabledFcc(bool);
 
@@ -316,7 +315,8 @@ public:
      * \since 4.12
      */
     [[nodiscard]] bool pgpAutoSign() const;
-    /*!
+    /*! Sets whether messages sent by this identity should be signed by default
+     * \since 4.12
      */
     void setPgpAutoSign(bool);
 
@@ -325,7 +325,8 @@ public:
      * \since 5.4
      */
     [[nodiscard]] bool pgpAutoEncrypt() const;
-    /*!
+    /*! Sets whether messages sent by this identity should be encrypted by default
+     * \since 5.4
      */
     void setPgpAutoEncrypt(bool);
 
@@ -334,7 +335,8 @@ public:
      * \since 5.17
      */
     [[nodiscard]] bool autocryptEnabled() const;
-    /*!
+    /*! Sets whether Autocrypt is enabled for this identity
+     * \since 5.17
      */
     void setAutocryptEnabled(const bool);
 
@@ -343,7 +345,8 @@ public:
      * \since 5.22
      */
     [[nodiscard]] bool autocryptPrefer() const;
-    /*!
+    /*! Sets whether Autocrypt is preferred for this identity
+     * \since 5.22
      */
     void setAutocryptPrefer(const bool);
 
@@ -353,7 +356,9 @@ public:
      * \since 5.22
      */
     [[nodiscard]] bool encryptionOverride() const;
-    /*!
+    /*! Sets whether the warnNotSign and warnNotEncrypt identity configuration should
+     * overwrite the global app-wide configuration
+     * \since 5.22
      */
     void setEncryptionOverride(const bool);
 
@@ -362,7 +367,8 @@ public:
      * \since 5.22
      */
     [[nodiscard]] bool warnNotSign() const;
-    /*!
+    /*! Sets whether to warn if parts of the message this identity is about to send are not signed
+     * \since 5.22
      */
     void setWarnNotSign(const bool);
 
@@ -371,7 +377,8 @@ public:
      * \since 5.22
      */
     [[nodiscard]] bool warnNotEncrypt() const;
-    /*!
+    /*! Sets whether to warn if parts of the message this identity is about to send are not encrypted
+     * \since 5.22
      */
     void setWarnNotEncrypt(const bool);
 
@@ -380,7 +387,8 @@ public:
      * \since 4.14
      */
     [[nodiscard]] QString defaultDomainName() const;
-    /*!
+    /*! Sets the default domain name for this identity
+     * \since 4.14
      */
     void setDefaultDomainName(const QString &domainName);
 
@@ -390,8 +398,7 @@ public:
      * \warning This method is not const.
      */
     [[nodiscard]] Signature &signature();
-    /*!
-     */
+    /*! Sets the signature for this identity */
     void setSignature(const Signature &sig);
 
     /*!
@@ -412,31 +419,27 @@ public:
     /*! The transport that is set for this identity. Used to link a
     transport with an identity. */
     [[nodiscard]] QString transport() const;
-    /*!
-     */
+    /*! Sets the transport for this identity */
     void setTransport(const QString &);
 
     /*! The folder where sent messages from this identity will be
     stored by default. */
     [[nodiscard]] QString fcc() const;
-    /*!
-     */
+    /*! Sets the folder where sent messages from this identity will be stored by default */
     void setFcc(const QString &);
 
     /*! The folder where draft messages from this identity will be
     stored by default.
     */
     [[nodiscard]] QString drafts() const;
-    /*!
-     */
+    /*! Sets the folder where draft messages from this identity will be stored by default */
     void setDrafts(const QString &);
 
     /*! The folder where template messages from this identity will be
     stored by default.
     */
     [[nodiscard]] QString templates() const;
-    /*!
-     */
+    /*! Sets the folder where template messages from this identity will be stored by default */
     void setTemplates(const QString &);
 
     /*!
@@ -446,103 +449,100 @@ public:
      * _not_ the language code or dictionary name!
      */
     [[nodiscard]] QString dictionary() const;
-    /*!
+    /*! Sets the dictionary to be used for spell checking
+     *
+     * Should be the localized language name (e.g. "British English"), not the language code or dictionary name.
      */
     void setDictionary(const QString &);
 
     /*! a X-Face header for this identity */
     [[nodiscard]] QString xface() const;
-    /*!
-     */
+    /*! Sets the X-Face header for this identity */
     void setXFace(const QString &);
-    /*!
-     */
+    /*! Returns whether the X-Face header is enabled for this identity */
     [[nodiscard]] bool isXFaceEnabled() const;
-    /*!
-     */
+    /*! Sets whether the X-Face header is enabled for this identity */
     void setXFaceEnabled(bool);
 
     /*! a Face header for this identity */
     [[nodiscard]] QString face() const;
-    /*!
-     */
+    /*! Sets the Face header for this identity */
     void setFace(const QString &);
-    /*!
-     */
+    /*! Returns whether the Face header is enabled for this identity */
     [[nodiscard]] bool isFaceEnabled() const;
-    /*!
-     */
+    /*! Sets whether the Face header is enabled for this identity */
     void setFaceEnabled(bool);
 
     /*! Get random properties
-     *  \a key the key of the property to get
+     *  \param key the key of the property to get
+     *  \return the property value
      */
     [[nodiscard]] QVariant property(const QString &key) const;
-    /*! Set random properties, when \a value is empty (for QStrings) or null,
-    the property is deleted. */
+    /*! Set random properties
+     *  \param key the key of the property to set
+     *  \param value the value to set; when empty (for QStrings) or null, the property is deleted.
+     */
     void setProperty(const QString &key, const QVariant &value);
 
+    /*! Returns the null identity singleton */
     static const Identity &null();
     /*! Returns true when the identity contains no values, all null values or
     only empty values */
     [[nodiscard]] bool isNull() const;
 
-    /*!
-     */
+    /*! Returns the MIME data type string for identity data */
     [[nodiscard]] static QString mimeDataType();
-    /*!
-     */
+    /*! Returns true if the given MIME data can be decoded as an Identity */
     [[nodiscard]] static bool canDecode(const QMimeData *);
-    /*!
-     */
+    /*! Populates the given MIME data with this identity's data */
     void populateMimeData(QMimeData *) const;
-    /*!
-     */
+    /*! Creates an Identity from the given MIME data */
     static Identity fromMimeData(const QMimeData *);
 
-    /*! Read configuration from config. Group must be preset (or use
-        KConfigGroup). Called from IdentityManager. */
+    /*! Read configuration from config
+     *  \param group the config group to read from (must be preset)
+     *  Called from IdentityManager.
+     */
     void readConfig(const KConfigGroup &);
 
-    /*! Write configuration to config. Group must be preset (or use
-        KConfigGroup). Called from IdentityManager. */
+    /*! Write configuration to config
+     *  \param group the config group to write to (must be preset)
+     *  Called from IdentityManager.
+     */
     void writeConfig(KConfigGroup &) const;
 
-    /*! Set whether this identity is the default identity. Since this
-        affects all other identities, too (most notably, the old default
-        identity), only the IdentityManager can change this.
-        You should use
-        <pre>
-        kmkernel->identityManager()->setAsDefault( name_of_default )
-        </pre>
-        instead.  */
+    /*! Set whether this identity is the default identity
+     *  \param flag true to set as default, false otherwise
+     *
+     *  Since this affects all other identities, too (most notably, the old default
+     *  identity), only the IdentityManager can change this.
+     *  You should use:
+     *  \code
+     *  kmkernel->identityManager()->setAsDefault( name_of_default )
+     *  \endcode
+     *  instead.
+     */
     void setIsDefault(bool flag);
 
-    /*!
-     * Set the uiod
-     * \a aUoid the uoid to set
+    /*! Set the uoid (Unique Object Identifier)
+     *  \param aUoid the uoid to set
      */
     void setUoid(uint aUoid);
 
-    /*!
-     */
+    /*! Returns the list of activities for this identity */
     [[nodiscard]] const QStringList activities() const;
-    /*!
-     */
+    /*! Sets the list of activities for this identity */
     void setActivities(const QStringList &a);
 
-    /*!
-     */
+    /*! Returns whether activities are enabled for this identity */
     [[nodiscard]] bool enabledActivities() const;
-    /*!
-     */
+    /*! Sets whether activities are enabled for this identity */
     void setEnabledActivities(bool a);
 
     /*! The folder where spam messages from this identity will be
     stored by default. */
     [[nodiscard]] QString spam() const;
-    /*!
-     */
+    /*! Sets the folder where spam messages from this identity will be stored by default */
     void setSpam(const QString &);
 
     /*!
@@ -553,7 +553,7 @@ public:
     void setDisabledSpam(bool);
 
 protected:
-    /*! during migration when it failed it can be a string => not a qlonglong akonadi::id => fix it*/
+    /*! During migration, when it failed it can be a string instead of a qlonglong akonadi::id, this fixes it */
     [[nodiscard]] QString verifyAkonadiId(const QString &str) const;
     /*! Returns true if the signature is read from the output of a command */
     [[nodiscard]] bool signatureIsCommand() const;
@@ -566,17 +566,15 @@ protected:
 
     /*! name of the signature file (with path) */
     [[nodiscard]] QString signatureFile() const;
-    /*!
-     */
+    /*! Sets the name of the signature file (with path) */
     void setSignatureFile(const QString &);
 
-    /*! inline signature */
+    /*! Returns the inline signature text */
     [[nodiscard]] QString signatureInlineText() const;
-    /*!
-     */
+    /*! Sets the inline signature text */
     void setSignatureInlineText(const QString &);
 
-    /*! Inline or signature from a file */
+    /*! Returns whether to use signature from file instead of inline signature */
     [[nodiscard]] bool useSignatureFile() const;
 
     Signature mSignature;
