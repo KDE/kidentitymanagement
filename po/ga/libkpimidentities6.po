@@ -48,11 +48,10 @@ msgid " - "
 msgstr ""
 
 #: core/identitytreemodel.cpp:94
-#, fuzzy, kde-format
-#| msgid "%1 (Default)"
+#, kde-format
 msgctxt "Default identity"
 msgid " (default)"
-msgstr "%1 (Réamhshocrú)"
+msgstr ""
 
 #: core/identitytreemodel.cpp:131
 #, kde-format
@@ -81,11 +80,9 @@ msgid "Identity Name"
 msgstr ""
 
 #: quick/qml/BasicIdentityEditorCard.qml:46
-#, fuzzy, kde-format
-#| msgctxt "NAME OF TRANSLATORS"
-#| msgid "Your names"
+#, kde-format
 msgid "Your name"
-msgstr "Kevin Scannell"
+msgstr ""
 
 #: quick/qml/BasicIdentityEditorCard.qml:56
 #, kde-format
@@ -215,11 +212,10 @@ msgid "Cancel"
 msgstr ""
 
 #: widgets/signatureconfigurator.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
-msgstr "&Cumasaigh síniú"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:109
 #, kde-format
@@ -255,11 +251,10 @@ msgid "Output of Command"
 msgstr "Ó Aschur Ordaithe"
 
 #: widgets/signatureconfigurator.cpp:123
-#, fuzzy, kde-format
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
-msgstr "Faigh &téacs an tsínithe:"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:164
 #, kde-format
@@ -267,11 +262,10 @@ msgid "Use this field to enter an arbitrary static signature."
 msgstr "Is féidir leat síniú treallach statach a chur isteach sa réimse seo."
 
 #: widgets/signatureconfigurator.cpp:205
-#, fuzzy, kde-format
-#| msgid "&Use HTML"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
-msgstr "Ú&sáid HTML"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:221
 #, kde-format
@@ -289,18 +283,16 @@ msgstr ""
 "a iarcheanglóidh tú síniú nua."
 
 #: widgets/signatureconfigurator.cpp:226
-#, fuzzy, kde-format
-#| msgid "S&pecify file:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
-msgstr "&Sonraigh comhad:"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:233
-#, fuzzy, kde-format
-#| msgid "Edit &File"
+#, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
-msgstr "Cuir &Comhad in Eagar"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:234
 #, kde-format
@@ -308,13 +300,7 @@ msgid "Opens the specified file in a text editor."
 msgstr "Oscail an comhad roghnaithe in eagarthóir téacs."
 
 #: widgets/signatureconfigurator.cpp:254
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can add an arbitrary command here, either with or without path "
-#| "depending on whether or not the command is in your Path. For every new "
-#| "mail, KMail will execute the command and use what it outputs (to standard "
-#| "output) as a signature. Usual commands for use with this mechanism are "
-#| "\"fortune\" or \"ksig -random\"."
+#, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
 "on whether or not the command is in your Path. For every new mail, KMail "
@@ -322,18 +308,12 @@ msgid ""
 "signature. Usual commands for use with this mechanism are \"fortune\" or "
 "\"ksig -random\". (Be careful, script needs a shebang line)."
 msgstr ""
-"Is féidir leat ordú ar bith a chur anseo, lena chonair iomlán nó gan chonair "
-"má tá sé i do PATH.  Le gach teachtaireacht ríomhphoist nua, rithfidh KMail "
-"an t-ordú seo agus úsáidfidh sé an t-aschur mar shíniú.  De ghnáth, "
-"úsáidtear orduithe cosúil le \"fortune\" nó \"ksig -random\" leis an ngné "
-"seo."
 
 #: widgets/signatureconfigurator.cpp:260
-#, fuzzy, kde-format
-#| msgid "S&pecify command:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
-msgstr "&Sonraigh ordú:"
+msgstr ""
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
@@ -355,28 +335,3 @@ msgstr "Ú&sáid HTML"
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "Ú&sáid HTML (cealófar an formáidiú má dhíchumasaíonn tú é seo)"
-
-#, fuzzy
-#~| msgid "Unnamed"
-#~ msgid "Rename"
-#~ msgstr "Gan ainm"
-
-#, fuzzy
-#~| msgctxt "use default address from control center"
-#~| msgid "Default"
-#~ msgid "Set as Default"
-#~ msgstr "Réamhshocrú"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "kscanne@gmail.com"
-
-#~ msgctxt "show default identity"
-#~ msgid "Default"
-#~ msgstr "Réamhshocrú"
-
-#~ msgid "Show HTML"
-#~ msgstr "Taispeáin HTML"
-
-#~ msgid "Show HTML Code"
-#~ msgstr "Taispeáin Cód HTML"
