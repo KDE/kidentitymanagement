@@ -14,9 +14,9 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kidentitymanagement/libkpimidentities6."
+"X-Crowdin-File: /kf6-stable/messages/kidentitymanagement/libkpimidentities6."
 "pot\n"
-"X-Crowdin-File-ID: 49000\n"
+"X-Crowdin-File-ID: 51740\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
