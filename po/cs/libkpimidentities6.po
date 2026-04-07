@@ -3,21 +3,22 @@
 # SPDX-FileCopyrightText: 2010, 2011, 2019, 2023, 2024, 2026 Vít Pelčák <vit@pelcak.org>
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2013.
 # SPDX-FileCopyrightText: 2021, 2024 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2026 Libor Filípek <filipek.libor@protonmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-28 00:45+0000\n"
-"PO-Revision-Date: 2026-02-27 21:18+0100\n"
-"Last-Translator:  Vít Pelčák <vit@pelcak.org>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2026-04-06 21:20+0200\n"
+"Last-Translator: Libor Filípek <filipek.libor@protonmail.com>\n"
+"Language-Team: \n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -127,7 +128,7 @@ msgstr "Podepisovací klíč OpenPGP"
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
-msgstr ""
+msgstr "Použít stejný klíč OpenPGP pro šifrování i podepisování"
 
 #: quick/qml/CryptographyEditorCard.qml:111
 #, kde-format
@@ -145,7 +146,7 @@ msgstr "Podepisovací klíč S/MIME"
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
-msgstr ""
+msgstr "Použít stejný klíč S/MIME pro šifrování i podepisování"
 
 #: quick/qml/CryptographyEditorCard.qml:187
 #, kde-format
@@ -324,7 +325,7 @@ msgstr "Zadat &příkaz:"
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
 msgid "This text file size exceeds 1kb."
-msgstr ""
+msgstr "Velikost tohoto textového souboru přesahuje 1 kB."
 
 #: widgets/signatureconfigurator.cpp:420
 #, kde-format
