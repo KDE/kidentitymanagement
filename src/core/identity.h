@@ -14,7 +14,7 @@
 
 #include <QHash>
 #include <QList>
-#include <QString>
+
 #include <QStringList>
 #include <QVariant>
 
