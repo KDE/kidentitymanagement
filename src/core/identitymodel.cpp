@@ -34,7 +34,7 @@ IdentityModel::~IdentityModel() = default;
 
 QVariant IdentityModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
+    if (!index.isValid() || index.row() >= m_identitiesUoid.count()) {
         return {};
     }
     const auto &identity = m_identityManager->modifyIdentityForUoid(m_identitiesUoid[index.row()]);
