@@ -22,11 +22,10 @@ QWidget *IdentityTreeDelegate::createEditor(QWidget *parent, const QStyleOptionV
     auto *lineEdit = new QLineEdit(parent);
     KLineEditEventHandler::catchReturnKey(lineEdit);
     auto *that = const_cast<IdentityTreeDelegate *>(this);
-    connect(lineEdit, &QLineEdit::editingFinished, this, [this, that]() {
-        Q_EMIT that->commitData(mLineEdit);
-        Q_EMIT that->closeEditor(mLineEdit);
+    connect(lineEdit, &QLineEdit::editingFinished, this, [this, that, lineEdit]() {
+        Q_EMIT that->commitData(lineEdit);
+        Q_EMIT that->closeEditor(lineEdit);
     });
-    const_cast<IdentityTreeDelegate *>(this)->mLineEdit = lineEdit;
     return lineEdit;
 }
 

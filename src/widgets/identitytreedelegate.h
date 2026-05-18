@@ -7,7 +7,6 @@
 #pragma once
 
 #include <QStyledItemDelegate>
-class QLineEdit;
 namespace KIdentityManagementWidgets
 {
 class IdentityTreeDelegate : public QStyledItemDelegate
@@ -21,8 +20,5 @@ public:
     void setEditorData(QWidget *editor, const QModelIndex &index) const override;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
     void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &) const override;
-
-private:
-    QLineEdit *mLineEdit = nullptr;
 };
 }
