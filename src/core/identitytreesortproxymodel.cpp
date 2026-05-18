@@ -64,7 +64,9 @@ void IdentityTreeSortProxyModel::setIdentityActivitiesAbstract(IdentityActivitie
 #else
         invalidateFilter();
 #endif
-        connect(mIdentityActivitiesAbstract, &IdentityActivitiesAbstract::activitiesChanged, this, &IdentityTreeSortProxyModel::slotInvalidateFilter);
+        if (mIdentityActivitiesAbstract) {
+            connect(mIdentityActivitiesAbstract, &IdentityActivitiesAbstract::activitiesChanged, this, &IdentityTreeSortProxyModel::slotInvalidateFilter);
+        }
     }
 }
 
