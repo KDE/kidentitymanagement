@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Tamas Szanto <tszanto@interware.hu>, 2007.
-# SPDX-FileCopyrightText: 2022, 2024 Kristof Kiszel <ulysses@fsf.hu>
+# SPDX-FileCopyrightText: 2022, 2024, 2026 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-28 00:45+0000\n"
-"PO-Revision-Date: 2024-10-10 21:39+0200\n"
+"PO-Revision-Date: 2026-06-09 21:43+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: core/identitymanager.cpp:161
 #, kde-format
@@ -163,8 +163,7 @@ msgstr "Azonosító szerkesztése"
 #: quick/qml/IdentityConfigurationForm.qml:38
 #: quick/qml/IdentityConfigurationForm.qml:43
 #: quick/qml/IdentityConfigurationForm.qml:45
-#, fuzzy, kde-format
-#| msgid "Add Identity"
+#, kde-format
 msgctxt "@title"
 msgid "Add Identity"
 msgstr "Azonosító hozzáadása"
