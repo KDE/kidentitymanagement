@@ -19,7 +19,7 @@ QWidget *IdentityTreeDelegate::createEditor(QWidget *parent, const QStyleOptionV
 {
     Q_UNUSED(index);
     Q_UNUSED(option);
-    auto *lineEdit = new QLineEdit(parent);
+    auto lineEdit = new QLineEdit(parent);
     KLineEditEventHandler::catchReturnKey(lineEdit);
     auto *that = const_cast<IdentityTreeDelegate *>(this);
     connect(lineEdit, &QLineEdit::editingFinished, this, [that, lineEdit]() {
