@@ -167,3 +167,23 @@ if(BUILD_TESTING)
     add_subdirectory(autotests)
 endif()
 ecm_generate_qdoc(KPim6IdentityManagementCore kidentitymanagement-core.qdocconf)
+
+ecm_add_installed_library_check(KPim6IdentityManagementCore
+    PACKAGE_NAME "KPim6IdentityManagementCore"
+    PACKAGE_VERSION ${KIDENTITYMANAGEMENTCORE_VERSION}
+    PACKAGE_TARGET_NAMESPACE "KPim6::"
+)
+
+ecm_installed_library_check_include_strings(KPim6IdentityManagementCore
+    HEADERS
+    ${KIdentityManagementCore_HEADERS}
+    PREFIX kidentitymanagementcore
+)
+
+ecm_installed_library_check_include_strings(KPim6IdentityManagementCore
+    HEADERS
+    ${KIdentityManagementCore_CamelCase_HEADERS}
+
+
+    PREFIX KIdentityManagementCore
+)
