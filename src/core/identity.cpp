@@ -8,6 +8,7 @@
 #include "identity.h"
 
 #include "kidentitymanagementcore_debug.h"
+#include "signature.h"
 #include <KConfigGroup>
 #include <KEmailAddress>
 

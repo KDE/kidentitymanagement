@@ -48,6 +48,8 @@ target_sources(
         cryptographybackendinterface.h
         cryptographyeditorbackend.h
         cryptographyeditorbackend.cpp
+        signatureeditorbackend.h
+        signatureeditorbackend.cpp
 )
 
 target_link_libraries(KPim6IdentityManagementQuick PRIVATE identitymanagentprivate)
@@ -115,6 +117,7 @@ ecm_generate_headers(KIdentityManagementQuick_CamelCase_HEADERS
         CryptographyBackendInterface
         CryptographyEditorBackend
         KeyListModelInterface
+        SignatureEditorBackend
     PREFIX
         KIdentityManagementQuick
     REQUIRED_HEADERS
@@ -162,6 +165,7 @@ ecm_target_qml_sources(kidentitymanagement_quick_plugin SOURCES
     qml/CryptographyEditorCard.qml
     qml/IdentityConfigurationForm.qml
     qml/IdentityEditorPage.qml
+    qml/SignatureEditorCard.qml
 )
 
 ecm_finalize_qml_module(kidentitymanagement_quick_plugin

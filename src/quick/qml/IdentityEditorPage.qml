@@ -19,6 +19,8 @@ FormCard.FormCardPage {
     required property string identityName
     required property var cryptographyEditorBackend
     onCryptographyEditorBackendChanged: cryptographyEditorBackend.identity = identity
+    required property SignatureEditorBackend signatureEditorBackend
+    onSignatureEditorBackendChanged: signatureEditorBackend.backend = backend
 
     readonly property IdentityEditorBackend backend: IdentityEditorBackend {
         id: backend
@@ -77,6 +79,15 @@ FormCard.FormCardPage {
     CryptographyEditorCard {
         backend: backend
         cryptographyEditorBackend: root.cryptographyEditorBackend
+    }
+
+    FormCard.FormHeader {
+        title: i18ndc("libkpimidentities6", "@title:group", "Signature")
+    }
+
+    SignatureEditorCard {
+        backend: backend
+        signatureEditorBackend: root.signatureEditorBackend
     }
 
     footer: ColumnLayout {
