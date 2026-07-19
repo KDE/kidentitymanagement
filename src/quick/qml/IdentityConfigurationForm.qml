@@ -14,6 +14,7 @@ FormCard.FormCard {
 
     readonly property IdentityModel _identityModel: IdentityModel {}
     property var cryptographyEditorBackend: CryptographyEditorBackend {}
+    property var signatureEditorBackend: SignatureEditorBackend {}
 
     Repeater {
         id: identityRepeater
@@ -28,7 +29,8 @@ FormCard.FormCard {
                     identityUoid: model.uoid,
                     allowDelete: identityRepeater.count > 1,
                     identityName: model.display,
-                    cryptographyEditorBackend: root.cryptographyEditorBackend
+                    cryptographyEditorBackend: root.cryptographyEditorBackend,
+                    signatureEditorBackend: root.signatureEditorBackend
                 }, {title: i18nc("@title", "Edit Identity")});
             }
         }
@@ -41,7 +43,8 @@ FormCard.FormCard {
                 mode: IdentityEditorBackend.CreateMode,
                 allowDelete: identityRepeater.count > 1,
                 identityName: i18nc("@title", "Add Identity"),
-                cryptographyEditorBackend: root.cryptographyEditorBackend
+                cryptographyEditorBackend: root.cryptographyEditorBackend,
+                signatureEditorBackend: root.signatureEditorBackend
             }, {title: i18nc("@title", "Add Identity")});
         }
     }

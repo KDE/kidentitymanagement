@@ -12,6 +12,7 @@ using namespace Qt::Literals::StringLiterals;
 #include "identityutils.h"
 #include "keylistmodelinterface.h"
 #include <KIdentityManagementQuick/CryptographyEditorBackend>
+#include <KIdentityManagementQuick/SignatureEditorBackend>
 
 using namespace KIdentityManagementQuick;
 
@@ -27,6 +28,7 @@ void KIdentityManagementQuickPlugin::registerTypes(const char *uri)
     });
 
     qmlRegisterType<CryptographyEditorBackend>(uri, 1, 0, "CryptographyEditorBackend");
+    qmlRegisterType<SignatureEditorBackend>(uri, 1, 0, "SignatureEditorBackend");
     qmlRegisterType<IdentityEditorBackend>(uri, 1, 0, "IdentityEditorBackend");
     qmlRegisterType<KIdentityManagementCore::IdentityModel>(uri, 1, 0, "IdentityModel");
 
