@@ -317,7 +317,7 @@ msgstr ""
 "Hier können Sie einen beliebigen Befehl eingebe, mit oder ohne Pfadangabe "
 "(je nachdem, ob sich der Befehl über die PATH-Variable auffinden lässt). Für "
 "jede neue E-Mail wird dieser Befehl ausgeführt und seine Ausgabe als "
-"Signatur verwendet. Typische Befehle sind z. B. „fortune“ oder „ksig -"
+"Signatur verwendet. Typische Befehle sind z. B. „fortune“ oder „ksig -"
 "random“. Skripte müssen mit einer Shebang-Zeile (#!/bin/bash) beginnen."
 
 #: widgets/signatureconfigurator.cpp:260
