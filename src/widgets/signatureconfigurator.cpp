@@ -153,13 +153,13 @@ void SignatureConfiguratorPrivate::init()
 
     mFormatToolBar = new KToolBar(q);
     mFormatToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-    page_vlay->addWidget(mFormatToolBar, 1);
+    page_vlay->addWidget(mFormatToolBar, 0);
 #endif
 
     mTextEdit = new KPIMTextEdit::RichTextComposer(q);
 
     auto richTextEditorwidget = new TextCustomEditor::RichTextEditorWidget(mTextEdit, q);
-    page_vlay->addWidget(richTextEditorwidget, 2);
+    page_vlay->addWidget(richTextEditorwidget, 1);
     mTextEdit->setWhatsThis(i18n("Use this field to enter an arbitrary static signature."));
 
     // Fill the toolbars.
