@@ -179,7 +179,6 @@ void SignatureConfiguratorPrivate::init()
     mFormatToolBar->addAction(actionCollection->action(u"format_list_style"_s));
     mFormatToolBar->addAction(actionCollection->action(u"format_list_indent_more"_s));
     mFormatToolBar->addAction(actionCollection->action(u"format_list_indent_less"_s));
-    mFormatToolBar->addAction(actionCollection->action(u"format_list_indent_less"_s));
     mFormatToolBar->addSeparator();
 
     mFormatToolBar->addAction(actionCollection->action(u"format_align_left"_s));
