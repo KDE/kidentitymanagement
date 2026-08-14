@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-28 00:45+0000\n"
+"POT-Creation-Date: 2026-08-14 00:46+0000\n"
 "PO-Revision-Date: 2026-07-05 16:27+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -257,23 +257,23 @@ msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Hämta brevfots&text från:"
 
-#: widgets/signatureconfigurator.cpp:164
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Använd det här fältet för att skriva in en godtycklig statisk brevfot."
 
-#: widgets/signatureconfigurator.cpp:205
+#: widgets/signatureconfigurator.cpp:203
 #, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "An&vänd HTML"
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr "Textfil (*.txt)"
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -282,24 +282,24 @@ msgstr ""
 "Använd den här begäran för att ange en textfil som innehåller brevfoten. Den "
 "läses varje gång du skapar ett nytt brev eller lägger till en ny brevfot."
 
-#: widgets/signatureconfigurator.cpp:226
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "An&ge fil:"
 
-#: widgets/signatureconfigurator.cpp:233
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Redigera &fil"
 
-#: widgets/signatureconfigurator.cpp:234
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "Öppnar angiven fil i en texteditor."
 
-#: widgets/signatureconfigurator.cpp:254
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -315,29 +315,29 @@ msgstr ""
 "mekanismen är \"fortune\" eller \"ksig-random\" (var försiktig, skriptet "
 "behöver en rad med #!)."
 
-#: widgets/signatureconfigurator.cpp:260
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "An&ge kommando:"
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "Textfilens storlek överskrider 1 Kibyte."
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Textfilens storlek"
 
-#: widgets/signatureconfigurator.cpp:440
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "An&vänd HTML"
 
-#: widgets/signatureconfigurator.cpp:450
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "An&vänd HTML (inaktivera tar bort formatering)"

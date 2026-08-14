@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-28 00:45+0000\n"
+"POT-Creation-Date: 2026-08-14 00:46+0000\n"
 "PO-Revision-Date: 2019-11-18 01:33+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -261,25 +261,25 @@ msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Allkirja &tekst hangitakse"
 
-#: widgets/signatureconfigurator.cpp:164
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Sellele väljale saab sisestada just sellise allkirja, nagu ise tahad."
 
-#: widgets/signatureconfigurator.cpp:205
+#: widgets/signatureconfigurator.cpp:203
 #, fuzzy, kde-format
 #| msgid "&Use HTML"
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "HTML-i kas&utamine"
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:219
 #, fuzzy, kde-format
 #| msgid "Text File Size"
 msgid "Text File (*.txt)"
 msgstr "Tekstifaili suurus"
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -288,26 +288,26 @@ msgstr ""
 "Selle abil saab määrata sinu allkirja sisaldava tekstifaili. Seda faili "
 "loetakse iga kord, kui lood uue kirja või lisad uue allkirja."
 
-#: widgets/signatureconfigurator.cpp:226
+#: widgets/signatureconfigurator.cpp:224
 #, fuzzy, kde-format
 #| msgid "S&pecify file:"
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "&Fail:"
 
-#: widgets/signatureconfigurator.cpp:233
+#: widgets/signatureconfigurator.cpp:231
 #, fuzzy, kde-format
 #| msgid "Edit &File"
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Muuda &faili"
 
-#: widgets/signatureconfigurator.cpp:234
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "Avab määratud faili tekstiredaktoris."
 
-#: widgets/signatureconfigurator.cpp:254
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -322,31 +322,31 @@ msgstr ""
 "standardväljundisse. Väga tavaline on siin määrata näiteks käsk \"fortune\" "
 "või \"ksig -random\"."
 
-#: widgets/signatureconfigurator.cpp:260
+#: widgets/signatureconfigurator.cpp:258
 #, fuzzy, kde-format
 #| msgid "S&pecify command:"
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&Käsk:"
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "Tekstifaili suurus ületab 1kb."
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, fuzzy, kde-format
 #| msgid "Text File Size"
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Tekstifaili suurus"
 
-#: widgets/signatureconfigurator.cpp:440
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "HTML-i kas&utamine"
 
-#: widgets/signatureconfigurator.cpp:450
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "HTML-i kas&utamine (keelamine eemaldab vorminduse)"

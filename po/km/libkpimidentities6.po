@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-28 00:45+0000\n"
+"POT-Creation-Date: 2026-08-14 00:46+0000\n"
 "PO-Revision-Date: 2010-12-13 09:21+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -261,24 +261,24 @@ msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "ទទួល​យក​អត្ថបទ​ហត្ថលេខា​ពី ៖"
 
-#: widgets/signatureconfigurator.cpp:164
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "ប្រើ​វាល​នេះ​ដើម្បី​បញ្ចូល​​ហត្ថលេខា​ថេរ​​​​ដោយ​បំពាន​​ ។"
 
-#: widgets/signatureconfigurator.cpp:205
+#: widgets/signatureconfigurator.cpp:203
 #, fuzzy, kde-format
 #| msgid "&Use HTML"
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "ប្រើ HTML"
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -287,26 +287,26 @@ msgstr ""
 "ប្រើ​អ្នក​ស្នើ​នេះ ដើម្បី​បញ្ជាក់​ឯកសារ​អត្ថបទ​ដែល​មាន​ហត្ថលេខា​របស់​អ្នក ។ វា​នឹង​ត្រូវបាន​អាន​នៅ​រាល់ពេល​"
 "ដែល​អ្នក​បង្កើត​សំបុត្រ​ថ្មី ឬ​បន្ថែម​ហត្ថលេខា​ថ្មីខាង​ចុង ។"
 
-#: widgets/signatureconfigurator.cpp:226
+#: widgets/signatureconfigurator.cpp:224
 #, fuzzy, kde-format
 #| msgid "S&pecify file:"
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "បញ្ជាក់​ឯកសារ ​៖"
 
-#: widgets/signatureconfigurator.cpp:233
+#: widgets/signatureconfigurator.cpp:231
 #, fuzzy, kde-format
 #| msgid "Edit &File"
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "កែសម្រួល​ឯកសារ"
 
-#: widgets/signatureconfigurator.cpp:234
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "បើក​ឯកសារ​ដែលបាន​បញ្ជាក់​នៅ​ក្នុង​កម្មវិធីនិពន្ធ​អត្ថបទ ។"
 
-#: widgets/signatureconfigurator.cpp:254
+#: widgets/signatureconfigurator.cpp:252
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can add an arbitrary command here, either with or without path "
@@ -326,30 +326,30 @@ msgstr ""
 "(ត្រូវ​ជា​លទ្ធផល​ស្តង់ដារ) ជា​ហត្ថលេខា ។ ពាក្យបញ្ជា​ទូទៅ​សម្រាប់​ការ​ប្រើប្រាស់​ជាមួយ​យន្តការ​នេះ​គឺ "
 "\"fortune\" ឬ \"ksig -random\" ។"
 
-#: widgets/signatureconfigurator.cpp:260
+#: widgets/signatureconfigurator.cpp:258
 #, fuzzy, kde-format
 #| msgid "S&pecify command:"
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "បញ្ជាក់​ពាក្យ​បញ្ជា​ ៖"
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:440
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "ប្រើ HTML"
 
-#: widgets/signatureconfigurator.cpp:450
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "ប្រើ HTML (បិទ​ការ​យក​ទ្រង់ទ្រាយ​ចេញ)"

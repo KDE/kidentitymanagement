@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-28 00:45+0000\n"
+"POT-Creation-Date: 2026-08-14 00:46+0000\n"
 "PO-Revision-Date: 2026-01-28 15:51+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -262,24 +262,24 @@ msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Ondertekening&tekst ophalen uit:"
 
-#: widgets/signatureconfigurator.cpp:164
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr ""
 "Gebruik dit veld om een willekeurige statische handtekening in te voeren."
 
-#: widgets/signatureconfigurator.cpp:205
+#: widgets/signatureconfigurator.cpp:203
 #, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "HTML gebr&uiken"
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr "Tekstbestand (*.txt)"
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -289,24 +289,24 @@ msgstr ""
 "Het zal iedere keer gelezen worden wanneer u een nieuw bericht aanmaakt of "
 "wanneer u een nieuwe handtekening wilt invoegen."
 
-#: widgets/signatureconfigurator.cpp:226
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "Bestand s&pecificeren:"
 
-#: widgets/signatureconfigurator.cpp:233
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "&Bestand bewerken"
 
-#: widgets/signatureconfigurator.cpp:234
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "Opent het opgegeven bestand in een tekstprogramma."
 
-#: widgets/signatureconfigurator.cpp:254
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -321,29 +321,29 @@ msgstr ""
 "Normaal worden commando's gebruikt als \"fortune\" of \"ksig-random\". (Wees "
 "voorzichtig, script heeft een shebang regel nodig)."
 
-#: widgets/signatureconfigurator.cpp:260
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "Commando s&pecificeren:"
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "De grootte van dit tekstbestand in meer dan 1kb."
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Grootte tekstbestand"
 
-#: widgets/signatureconfigurator.cpp:440
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "HTML gebr&uiken"
 
-#: widgets/signatureconfigurator.cpp:450
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "HTML gebr&uiken (deactiveren verwijdert opmaak)"

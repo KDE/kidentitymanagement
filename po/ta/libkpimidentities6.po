@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-28 00:45+0000\n"
+"POT-Creation-Date: 2026-08-14 00:46+0000\n"
 "PO-Revision-Date: 2026-02-01 18:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -253,47 +253,47 @@ msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "கையொப்பத்தை இதிலிருந்து பெறு:"
 
-#: widgets/signatureconfigurator.cpp:164
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:205
+#: widgets/signatureconfigurator.cpp:203
 #, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr "உரைக்கோப்பு (*.txt)"
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
 "will be read every time you create a new mail or append a new signature."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:226
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:233
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "கோப்பைது திருத்து"
 
-#: widgets/signatureconfigurator.cpp:234
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "குறிப்பிட்ட கோப்பை உரைத்திருத்தியில் திறக்கும்."
 
-#: widgets/signatureconfigurator.cpp:254
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -303,29 +303,29 @@ msgid ""
 "\"ksig -random\". (Be careful, script needs a shebang line)."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:260
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "கட்டளையை குறிப்பிடவும்:"
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "உரைக்கோப்பின் அளவு 1 கிலோபைட்டைவிட பெரிதாக உள்ளது."
 
-#: widgets/signatureconfigurator.cpp:420
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "உரைக்கோப்பின் அளவு"
 
-#: widgets/signatureconfigurator.cpp:440
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:450
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr ""
