@@ -464,7 +464,7 @@ void Signature::addImage(const QImage &imageData, const QString &imageName)
     Signature::EmbeddedImagePtr image(new Signature::EmbeddedImage());
     image->image = imageData;
     image->name = imageName;
-    d->embeddedImages.append(image);
+    d->embeddedImages.append(std::move(image));
 }
 
 void Signature::setImageLocation(const QString &path)

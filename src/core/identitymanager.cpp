@@ -126,7 +126,7 @@ void IdentityManagerPrivate::readConfig(KConfig *config)
                 identity.setIsDefault(true);
             }
         }
-        mIdentities << identity;
+        mIdentities << std::move(identity);
     }
     if (!haveDefault) {
         if (mIdentities.isEmpty()) {
