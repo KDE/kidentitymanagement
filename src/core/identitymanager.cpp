@@ -196,7 +196,7 @@ void IdentityManagerPrivate::createDefaultIdentity()
             // Make the name a bit more human friendly
             name.replace(u'.', u' ');
             pos = name.indexOf(u' ');
-            if (pos != 0) {
+            if (pos != -1) {
                 name[pos + 1] = name[pos + 1].toUpper();
             }
             name[0] = name[0].toUpper();
