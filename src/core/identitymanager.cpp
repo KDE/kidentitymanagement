@@ -438,7 +438,7 @@ void IdentityManager::rollback()
 
 void IdentityManager::saveIdentity(const Identity &ident)
 {
-    const auto existing = std::find_if(modifyBegin(), modifyEnd(), [ident](const auto &existingIdentity) {
+    const auto existing = std::find_if(modifyBegin(), modifyEnd(), [&ident](const auto &existingIdentity) {
         return existingIdentity.uoid() == ident.uoid();
     });
 
