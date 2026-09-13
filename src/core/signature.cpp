@@ -192,8 +192,11 @@ QDataStream &operator<<(QDataStream &stream, const KIdentityManagementCore::Sign
     return stream << img->image << img->name;
 }
 
-QDataStream &operator>>(QDataStream &stream, const KIdentityManagementCore::Signature::EmbeddedImagePtr &img)
+QDataStream &operator>>(QDataStream &stream, KIdentityManagementCore::Signature::EmbeddedImagePtr &img)
 {
+    if (!img) {
+        img = Signature::EmbeddedImagePtr::create();
+    }
     return stream >> img->image >> img->name;
 }
 
