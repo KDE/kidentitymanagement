@@ -49,6 +49,11 @@ QVariant IdentityTreeModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
+    const int row = index.row();
+    if (row < 0 || row >= mIdentitiesUoid.count()) {
+        return {};
+    }
+
     const auto &identity = mIdentityManager->modifyIdentityForUoid(mIdentitiesUoid[index.row()]);
     if (role == Qt::ToolTipRole) {
         return identity.primaryEmailAddress();
