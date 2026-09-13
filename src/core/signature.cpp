@@ -85,8 +85,8 @@ void SignaturePrivate::cleanupImages()
 {
     // Remove any images from the internal structure that are no longer there
     if (inlinedHtml) {
-        auto it = std::remove_if(embeddedImages.begin(), embeddedImages.end(), [this](const Signature::EmbeddedImagePtr &imageInList) {
-            const QStringList lstImage = findImageNames(text);
+        const QStringList lstImage = findImageNames(text);
+        auto it = std::remove_if(embeddedImages.begin(), embeddedImages.end(), [lstImage](const Signature::EmbeddedImagePtr &imageInList) {
             for (const QString &imageInHtml : lstImage) {
                 if (imageInHtml == imageInList->name) {
                     return false;
