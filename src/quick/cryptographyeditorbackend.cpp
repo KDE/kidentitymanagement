@@ -49,6 +49,9 @@ QAbstractItemModel *CryptographyEditorBackend::smimeKeyListModel() const
 
 KIdentityManagementCore::Identity CryptographyEditorBackend::identity() const
 {
+    if (!mCryptoBackend) {
+        return KIdentityManagementCore::Identity{};
+    }
     return mCryptoBackend->identity();
 }
 
