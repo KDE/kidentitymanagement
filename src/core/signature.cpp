@@ -87,12 +87,7 @@ void SignaturePrivate::cleanupImages()
     if (inlinedHtml) {
         const QStringList lstImage = findImageNames(text);
         auto it = std::remove_if(embeddedImages.begin(), embeddedImages.end(), [lstImage](const Signature::EmbeddedImagePtr &imageInList) {
-            for (const QString &imageInHtml : lstImage) {
-                if (imageInHtml == imageInList->name) {
-                    return false;
-                }
-            }
-            return true;
+            return !lstImage.contains(imageInList->name);
         });
         embeddedImages.erase(it, embeddedImages.end());
     }
