@@ -108,8 +108,9 @@ KIdentityManagementCore::IdentityManager *IdentityTreeModel::identityManager() c
 
 int IdentityTreeModel::rowCount(const QModelIndex &parent) const
 {
-    if (parent.isValid()) // flat model
+    if (parent.isValid()) { // flat model
         return 0;
+    }
     return mIdentitiesUoid.count();
 }
 
@@ -150,8 +151,9 @@ QVariant IdentityTreeModel::headerData(int section, Qt::Orientation orientation,
 
 Qt::ItemFlags IdentityTreeModel::flags(const QModelIndex &index) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return Qt::NoItemFlags;
+    }
 
     if (static_cast<IdentityRoles>(index.column()) == DisplayIdentityNameRole) {
         return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
