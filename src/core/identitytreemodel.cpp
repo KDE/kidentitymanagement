@@ -121,6 +121,9 @@ void IdentityTreeModel::setShowDefault(bool show)
 
 uint IdentityTreeModel::identityUoid(int index) const
 {
+    if (index < 0 || index >= mIdentitiesUoid.count()) {
+        return 0;
+    }
     return mIdentitiesUoid.at(index);
 }
 
