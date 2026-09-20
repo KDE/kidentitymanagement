@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-14 00:44+0000\n"
+"POT-Creation-Date: 2026-09-20 12:54+0000\n"
 "PO-Revision-Date: 2021-08-24 01:44+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -49,17 +49,17 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (predefinição)"
 
-#: core/identitytreemodel.cpp:136
+#: core/identitytreemodel.cpp:140
 #, kde-format
 msgid "Identity Name"
 msgstr ""
 
-#: core/identitytreemodel.cpp:139
+#: core/identitytreemodel.cpp:143
 #, kde-format
 msgid "Email Address"
 msgstr ""
 
-#: core/signature.cpp:170
+#: core/signature.cpp:165
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""

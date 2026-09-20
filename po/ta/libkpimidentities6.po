@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-14 00:44+0000\n"
+"POT-Creation-Date: 2026-09-20 12:54+0000\n"
 "PO-Revision-Date: 2026-02-01 18:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -53,17 +53,17 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "(இயல்பிருப்பு)"
 
-#: core/identitytreemodel.cpp:136
+#: core/identitytreemodel.cpp:140
 #, kde-format
 msgid "Identity Name"
 msgstr "அடையாளத்திற்கான பெயர்"
 
-#: core/identitytreemodel.cpp:139
+#: core/identitytreemodel.cpp:143
 #, kde-format
 msgid "Email Address"
 msgstr "மின்னஞ்சல் முகவரி"
 
-#: core/signature.cpp:170
+#: core/signature.cpp:165
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt><p><b>%1</b> கையொப்ப சிறுநிரலை இயக்க முடியவில்லை:</p><p>%2</p></qt>"

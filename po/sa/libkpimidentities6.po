@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-14 00:44+0000\n"
+"POT-Creation-Date: 2026-09-20 12:54+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -55,17 +55,17 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr " (मूलभूतम्‌)"
 
-#: core/identitytreemodel.cpp:136
+#: core/identitytreemodel.cpp:140
 #, kde-format
 msgid "Identity Name"
 msgstr "तादात्म्य नाम"
 
-#: core/identitytreemodel.cpp:139
+#: core/identitytreemodel.cpp:143
 #, kde-format
 msgid "Email Address"
 msgstr "ईमेल पता"
 
-#: core/signature.cpp:170
+#: core/signature.cpp:165
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>हस्ताक्षरलिपिं निष्पादयितुं असफलम्<p> <b>%1</b> : १.</p><p> %2</p></qt>"

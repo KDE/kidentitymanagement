@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-14 00:44+0000\n"
+"POT-Creation-Date: 2026-09-20 12:54+0000\n"
 "PO-Revision-Date: 2011-02-22 01:35+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -55,17 +55,17 @@ msgctxt "Default identity"
 msgid " (default)"
 msgstr "Әдетті"
 
-#: core/identitytreemodel.cpp:136
+#: core/identitytreemodel.cpp:140
 #, kde-format
 msgid "Identity Name"
 msgstr ""
 
-#: core/identitytreemodel.cpp:139
+#: core/identitytreemodel.cpp:143
 #, kde-format
 msgid "Email Address"
 msgstr ""
 
-#: core/signature.cpp:170
+#: core/signature.cpp:165
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>Мынау скрипт жаңылды:<p><b>%1</b>:</p><p>%2</p></qt>"
