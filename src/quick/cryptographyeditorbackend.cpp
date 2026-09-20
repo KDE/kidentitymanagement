@@ -57,8 +57,10 @@ KIdentityManagementCore::Identity CryptographyEditorBackend::identity() const
 
 void CryptographyEditorBackend::setIdentity(const KIdentityManagementCore::Identity &identity)
 {
-    mCryptoBackend->setIdentity(identity);
-    Q_EMIT identityChanged();
+    if (mCryptoBackend) {
+        mCryptoBackend->setIdentity(identity);
+        Q_EMIT identityChanged();
+    }
 }
 
 QModelIndex
@@ -66,7 +68,10 @@ CryptographyEditorBackend::indexForIdentity(QAbstractItemModel *model, const KId
 {
     Q_ASSERT(model);
     const auto klmInterface = dynamic_cast<const KeyListModelInterface *>(model);
-    Q_ASSERT(klmInterface);
+    if (!klmInterface) {
+        qWarning() << "model is not a KeyListModelInterface";
+        return {};
+    }
     return klmInterface->indexForIdentity(identity, keyUse);
 }
 
