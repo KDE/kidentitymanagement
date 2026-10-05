@@ -31,7 +31,7 @@ msgstr ""
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
-msgstr "Сделать основным"
+msgstr "По умолчанию"
 
 #: core/identitymanager.cpp:186
 #, kde-format
@@ -255,13 +255,13 @@ msgstr "Из файла"
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
-msgstr "Из вывода программы"
+msgstr "Из вывода команды"
 
 #: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
-msgstr "&Добавлять подпись:"
+msgstr "&Брать текст подписи:"
 
 #: widgets/signatureconfigurator.cpp:163
 #, kde-format
@@ -323,12 +323,12 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
-msgstr "&Программа:"
+msgstr "&Команда:"
 
 #: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
-msgstr "Размер этого текстового файла превышает 1 кб."
+msgstr "Размер этого текстового файла превышает 1 КБ."
 
 #: widgets/signatureconfigurator.cpp:418
 #, kde-format
