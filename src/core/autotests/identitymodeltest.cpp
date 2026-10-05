@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: LGPL-2.0-or-later
 
 #include "identitymodeltest.h"
-using namespace Qt::Literals::StringLiterals;
 
 #include <QStandardPaths>
 #include <QTest>
@@ -10,6 +9,7 @@ using namespace Qt::Literals::StringLiterals;
 #include <KIdentityManagementCore/Identity>
 #include <KIdentityManagementCore/IdentityModel>
 
+using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementCore;
 
 namespace

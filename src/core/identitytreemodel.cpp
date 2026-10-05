@@ -4,7 +4,6 @@
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 
 #include "identitytreemodel.h"
-using namespace Qt::Literals::StringLiterals;
 
 #include "kidentitymanagementcore_debug.h"
 #include <KLocalizedString>
@@ -12,6 +11,7 @@ using namespace Qt::Literals::StringLiterals;
 
 #include "identity.h"
 
+using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementCore;
 IdentityTreeModel::IdentityTreeModel(IdentityManager *manager, QObject *parent)
     : QAbstractListModel(parent)

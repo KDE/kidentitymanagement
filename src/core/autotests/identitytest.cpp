@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "identitytest.h"
-using namespace Qt::Literals::StringLiterals;
 
 #include "identity.h"
 #include "identitymanager.h"
@@ -17,6 +16,7 @@ using namespace Qt::Literals::StringLiterals;
 #include <QMimeData>
 #include <QStandardPaths>
 
+using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementCore;
 
 QTEST_GUILESS_MAIN(IdentityTester)

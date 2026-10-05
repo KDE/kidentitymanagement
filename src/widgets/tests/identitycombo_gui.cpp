@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: LGPL-2.0-or-later
 
 #include <KIdentityManagementCore/IdentityManager>
-using namespace Qt::Literals::StringLiterals;
 
 #include <KIdentityManagementWidgets/IdentityCombo>
 #include <QApplication>
@@ -11,6 +10,8 @@ using namespace Qt::Literals::StringLiterals;
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
+
+using namespace Qt::Literals::StringLiterals;
 
 class IdentityComboboxWidget : public QWidget
 {

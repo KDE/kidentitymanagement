@@ -7,12 +7,12 @@
 */
 
 #include "signaturerichtexteditor_p.h"
-using namespace Qt::Literals::StringLiterals;
 
 #include <KPIMTextEdit/RichTextComposer>
 #include <KPIMTextEdit/RichTextComposerControler>
 #include <KPIMTextEdit/RichTextComposerImages>
 
+using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementWidgets;
 
 static bool isCursorAtEndOfLine(const QTextCursor &cursor)

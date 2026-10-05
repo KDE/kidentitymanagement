@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: LGPL-2.0-or-later
 
 #include "kidentitymanagementquickplugin.h"
-using namespace Qt::Literals::StringLiterals;
 
 #include <QQmlEngine>
 
@@ -13,6 +12,7 @@ using namespace Qt::Literals::StringLiterals;
 #include "keylistmodelinterface.h"
 #include <KIdentityManagementQuick/CryptographyEditorBackend>
 
+using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementQuick;
 
 void KIdentityManagementQuickPlugin::registerTypes(const char *uri)

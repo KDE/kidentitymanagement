@@ -6,7 +6,6 @@
 */
 
 #include "signaturetest.h"
-using namespace Qt::Literals::StringLiterals;
 
 #include <QTest>
 
@@ -23,6 +22,7 @@ using namespace Qt::Literals::StringLiterals;
 #include <KPIMTextEdit/RichTextComposer>
 #include <KPIMTextEdit/RichTextComposerControler>
 #include <KPIMTextEdit/RichTextComposerImages>
+using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementCore;
 using namespace KPIMTextEdit;
 
