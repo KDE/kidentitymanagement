@@ -21,10 +21,6 @@
 #include "identitytreemodel.h"
 #include "identitytreesortproxymodel.h"
 
-#include <KLocalizedString>
-
-#include <cassert>
-
 using namespace KIdentityManagementWidgets;
 using namespace KIdentityManagementCore;
 /**

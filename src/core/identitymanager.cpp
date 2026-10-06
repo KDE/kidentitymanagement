@@ -27,7 +27,6 @@ using namespace Qt::Literals::StringLiterals;
 #include <QRandomGenerator>
 
 #include <QRegularExpression>
-#include <cassert>
 
 #include "identitymanageradaptor.h"
 
