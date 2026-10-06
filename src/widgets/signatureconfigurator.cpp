@@ -25,7 +25,6 @@
 #include <KPIMTextEdit/RichTextComposer>
 #include <KPIMTextEdit/RichTextComposerControler>
 #include <KPIMTextEdit/RichTextComposerImages>
-#include <TextCustomEditor/RichTextEditor>
 
 #include <QCheckBox>
 #include <QComboBox>
