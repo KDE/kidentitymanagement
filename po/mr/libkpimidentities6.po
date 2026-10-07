@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-20 12:54+0000\n"
+"POT-Creation-Date: 2026-10-07 00:49+0000\n"
 "PO-Revision-Date: 2013-03-28 14:37+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: core/identitymanager.cpp:161
+#: core/identitymanager.cpp:160
 #, kde-format
 msgctxt "use default address from control center"
 msgid "Default"
 msgstr "मूलभूत"
 
-#: core/identitymanager.cpp:186
+#: core/identitymanager.cpp:185
 #, kde-format
 msgctxt "Default name for new email accounts/identities."
 msgid "Unnamed"
 msgstr "निनावी"
 
-#: core/identitymanager.cpp:357
+#: core/identitymanager.cpp:356
 #, kde-format
 msgctxt ""
 "%1: name; %2: number appended to it to make it unique among a list of names"
 msgid "%1 #%2"
 msgstr "%1 #%2"
 
-#: core/identitymanager.cpp:571
+#: core/identitymanager.cpp:570
 #, kde-format
 msgid "Unnamed"
 msgstr "निनावी"
@@ -213,93 +213,93 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:107
+#: widgets/signatureconfigurator.cpp:106
 #, fuzzy, kde-format
 #| msgid "&Enable signature"
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "हस्ताक्षर कार्यान्वित करा (&E)"
 
-#: widgets/signatureconfigurator.cpp:109
+#: widgets/signatureconfigurator.cpp:108
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:118
+#: widgets/signatureconfigurator.cpp:117
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:119
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:121
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "फाईल"
 
-#: widgets/signatureconfigurator.cpp:122
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "आदेशाचे आऊटपुट"
 
-#: widgets/signatureconfigurator.cpp:123
+#: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:163
+#: widgets/signatureconfigurator.cpp:162
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:203
+#: widgets/signatureconfigurator.cpp:202
 #, fuzzy, kde-format
 #| msgid "&Use HTML"
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "HTML वापरा (&U)"
 
-#: widgets/signatureconfigurator.cpp:219
+#: widgets/signatureconfigurator.cpp:218
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:221
+#: widgets/signatureconfigurator.cpp:220
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
 "will be read every time you create a new mail or append a new signature."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:224
+#: widgets/signatureconfigurator.cpp:223
 #, fuzzy, kde-format
 #| msgid "S&pecify file:"
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "फाईल निर्देशीत करा (&P):"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:230
 #, fuzzy, kde-format
 #| msgid "Edit &File"
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "फाईल संपादित करा (&F)"
 
-#: widgets/signatureconfigurator.cpp:232
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:252
+#: widgets/signatureconfigurator.cpp:251
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -309,30 +309,30 @@ msgid ""
 "\"ksig -random\". (Be careful, script needs a shebang line)."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:258
+#: widgets/signatureconfigurator.cpp:257
 #, fuzzy, kde-format
 #| msgid "S&pecify command:"
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "आदेश निर्देशीत करा (&P):"
 
-#: widgets/signatureconfigurator.cpp:418
+#: widgets/signatureconfigurator.cpp:417
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:418
+#: widgets/signatureconfigurator.cpp:417
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr ""
 
-#: widgets/signatureconfigurator.cpp:438
+#: widgets/signatureconfigurator.cpp:437
 #, kde-format
 msgid "&Use HTML"
 msgstr "HTML वापरा (&U)"
 
-#: widgets/signatureconfigurator.cpp:448
+#: widgets/signatureconfigurator.cpp:447
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr ""
