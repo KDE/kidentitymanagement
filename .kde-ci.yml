@@ -6,7 +6,7 @@ Dependencies:
    'require':
     'pim/kpimtextedit': '@same'
     'frameworks/extra-cmake-modules': 'Frameworks/6.24'
-    'libraries/ktextaddons': '@latest-kf6'
+    'libraries/ktextaddons': '1.9'
     'libraries/kirigami-addons': 'stable/1.11'
 
 Options:
