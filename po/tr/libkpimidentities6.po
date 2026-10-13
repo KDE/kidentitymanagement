@@ -6,21 +6,21 @@
 # obsoleteman <tulliana@gmail.com>, 2008.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022-2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdepimlibs-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-07 00:49+0000\n"
-"PO-Revision-Date: 2026-01-29 16:20+0300\n"
-"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
+"PO-Revision-Date: 2026-10-12 10:41+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 26.08.0\n"
 "(http: //www.transifex.com/projects/p/kdepimlibs-k-tr/language/tr/)\n"
 
 #: core/identitymanager.cpp:160
@@ -229,7 +229,7 @@ msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr ""
-"Eğer K Posta uygulamasının bu kimlikle göndereceğiniz iletilere bir imza "
+"Eğer KMail uygulamasının bu kimlikle göndereceğiniz iletilere bir imza "
 "eklemesini istiyorsanız bu kutuyu işaretleyin."
 
 #: widgets/signatureconfigurator.cpp:117
@@ -316,7 +316,7 @@ msgid ""
 msgstr ""
 "Buradan herhangi bir komut ekleyebilirsiniz; komutun PATH değeriniz "
 "içerisindeki dizinlerde olup olmadığına göre komutun tam yolunu veya "
-"yalnızca adını yazabilirsiniz. Her yeni gönderilen ileti için K Posta bu "
+"yalnızca adını yazabilirsiniz. Her yeni gönderilen ileti için KMail bu "
 "komutu çalıştıracak ve komutun çıktısını e-posta imzanız olarak "
 "kullanacaktır. Bu yöntemi kullananlar genellikle “fortune” veya “ksig -"
 "random” uygulamalarını tercih ederler (Dikkatli olun, betiğe bir diyez "
