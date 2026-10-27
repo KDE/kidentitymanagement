@@ -33,7 +33,7 @@ class KIDENTITYMANAGEMENTWIDGETS_EXPORT SignatureConfigurator : public QWidget
     Q_OBJECT
 public:
     /*!
-     * Constructor
+     * Constructs a signature configurator with the given \a parent.
      */
     explicit SignatureConfigurator(QWidget *parent = nullptr);
 
@@ -44,6 +44,9 @@ public:
 
     /*!
      * Enum for the different viewmodes.
+     *
+     * \value ShowCode Show the signature source code
+     * \value ShowHtml Show the rendered HTML signature
      */
     enum ViewMode {
         ShowCode,
@@ -51,12 +54,12 @@ public:
     };
 
     /*!
-     * Indicated if the user wants a signature
+     * Returns \c true if the user wants a signature.
      */
     [[nodiscard]] bool isSignatureEnabled() const;
 
     /*!
-     * Use this to activate the signature.
+     * Use this to activate the signature: \a enable is \c true to enable it.
      */
     void setSignatureEnabled(bool enable);
 

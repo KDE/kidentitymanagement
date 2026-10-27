@@ -7,3 +7,10 @@
 
     \brief Identity Management Core support library.
 */
+
+/*!
+    \namespace KIdentityManagementCore
+    \inmodule KIdentityManagementCore
+
+    \brief Core classes of the identity management library.
+*/

@@ -30,6 +30,10 @@ public:
 };
 
 /*!
+ * \class KIdentityManagementQuick::KeyListModelInterface
+ * \inmodule KIdentityManagementQuick
+ * \inheaderfile KIdentityManagementQuick/KeyListModelInterface
+ *
  * \brief This interface defines the roles and rolenames that are expected
  * in the QtQuick Cryptography editor.
  */

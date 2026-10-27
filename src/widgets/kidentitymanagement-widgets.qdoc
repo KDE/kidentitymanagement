@@ -7,3 +7,10 @@
 
     \brief Identity Management Widgets support library.
 */
+
+/*!
+    \namespace KIdentityManagementWidgets
+    \inmodule KIdentityManagementWidgets
+
+    \brief Widget classes of the identity management library.
+*/

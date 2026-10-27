@@ -13,7 +13,8 @@ namespace KIdentityManagementCore
  * \inmodule KIdentityManagementCore
  * \inheaderfile KIdentityManagementCore/IdentityActivitiesAbstract
  *
- * \brief The IdentityActivitiesAbstract class
+ * \brief The IdentityActivitiesAbstract class.
+ *
  * \author Laurent Montel <montel@kde.org>
  */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityActivitiesAbstract : public QObject
@@ -22,7 +23,7 @@ class KIDENTITYMANAGEMENTCORE_EXPORT IdentityActivitiesAbstract : public QObject
 public:
     /*!
      * Constructor
-     * \param parent the parent object
+     * \a parent the parent object
      */
     explicit IdentityActivitiesAbstract(QObject *parent = nullptr);
     /*!
@@ -32,7 +33,7 @@ public:
 
     /*!
      * Determines whether a row should be accepted based on the given activities
-     * \param activities the list of activities to filter against
+     * \a activities the list of activities to filter against
      * \return true if the row should be accepted, false otherwise
      */
     [[nodiscard]] virtual bool filterAcceptsRow(const QStringList &activities) const = 0;

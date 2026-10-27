@@ -7,3 +7,10 @@
 
     \brief Identity Management Quick support library.
 */
+
+/*!
+    \namespace KIdentityManagementQuick
+    \inmodule KIdentityManagementQuick
+
+    \brief QtQuick classes of the identity management library.
+*/

@@ -77,54 +77,226 @@ KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, KIde
  * \inmodule KIdentityManagementCore
  * \inheaderfile KIdentityManagementCore/Identity
  *
- * \brief User identity information
+ * \brief User identity information.
  */
 class KIDENTITYMANAGEMENTCORE_EXPORT Identity
 {
     Q_GADGET
 
+    /*!
+     * \property KIdentityManagementCore::Identity::mailingAllowed
+     * \brief whether there are enough values set to allow mailing.
+     */
     Q_PROPERTY(bool mailingAllowed READ mailingAllowed)
+    /*!
+     * \property KIdentityManagementCore::Identity::identityName
+     * \brief the identity/nickname for this collection.
+     */
     Q_PROPERTY(QString identityName READ identityName WRITE setIdentityName)
+    /*!
+     * \property KIdentityManagementCore::Identity::fullName
+     * \brief the full name of the user.
+     */
     Q_PROPERTY(QString fullName READ fullName WRITE setFullName)
+    /*!
+     * \property KIdentityManagementCore::Identity::organization
+     * \brief the user's organization (optional).
+     */
     Q_PROPERTY(QString organization READ organization WRITE setOrganization)
+    /*!
+     * \property KIdentityManagementCore::Identity::pgpEncryptionKey
+     * \brief the user's OpenPGP encryption key.
+     */
     Q_PROPERTY(QByteArray pgpEncryptionKey READ pgpEncryptionKey WRITE setPGPEncryptionKey)
+    /*!
+     * \property KIdentityManagementCore::Identity::pgpSigningKey
+     * \brief the user's OpenPGP signing key.
+     */
     Q_PROPERTY(QByteArray pgpSigningKey READ pgpSigningKey WRITE setPGPSigningKey)
+    /*!
+     * \property KIdentityManagementCore::Identity::smimeEncryptionKey
+     * \brief the user's S/MIME encryption key.
+     */
     Q_PROPERTY(QByteArray smimeEncryptionKey READ smimeEncryptionKey WRITE setSMIMEEncryptionKey)
+    /*!
+     * \property KIdentityManagementCore::Identity::smimeSigningKey
+     * \brief the user's S/MIME signing key.
+     */
     Q_PROPERTY(QByteArray smimeSigningKey READ smimeSigningKey WRITE setSMIMESigningKey)
+    /*!
+     * \property KIdentityManagementCore::Identity::preferredCryptoMessageFormat
+     * \brief the preferred crypto message format for this identity.
+     */
     Q_PROPERTY(QString preferredCryptoMessageFormat READ preferredCryptoMessageFormat WRITE setPreferredCryptoMessageFormat)
+    /*!
+     * \property KIdentityManagementCore::Identity::primaryEmailAddress
+     * \brief the primary email address (without the user name - only name\@host).
+     */
     Q_PROPERTY(QString primaryEmailAddress READ primaryEmailAddress WRITE setPrimaryEmailAddress)
+    /*!
+     * \property KIdentityManagementCore::Identity::emailAliases
+     * \brief the email address aliases.
+     */
     Q_PROPERTY(QStringList emailAliases READ emailAliases WRITE setEmailAliases)
+    /*!
+     * \property KIdentityManagementCore::Identity::vCardFile
+     * \brief the vCard to attach to outgoing emails.
+     */
     Q_PROPERTY(QString vCardFile READ vCardFile WRITE setVCardFile)
+    /*!
+     * \property KIdentityManagementCore::Identity::fullEmailAddr
+     * \brief the email address in the format "username <name@host>".
+     */
     Q_PROPERTY(QString fullEmailAddr READ fullEmailAddr)
+    /*!
+     * \property KIdentityManagementCore::Identity::replyToAddr
+     * \brief the email address for the ReplyTo: field.
+     */
     Q_PROPERTY(QString replyToAddr READ replyToAddr WRITE setReplyToAddr)
+    /*!
+     * \property KIdentityManagementCore::Identity::bcc
+     * \brief the email addresses for the BCC: field.
+     */
     Q_PROPERTY(QString bcc READ bcc WRITE setBcc)
+    /*!
+     * \property KIdentityManagementCore::Identity::cc
+     * \brief the email addresses for the CC: field.
+     */
     Q_PROPERTY(QString cc READ cc WRITE setCc)
+    /*!
+     * \property KIdentityManagementCore::Identity::attachVcard
+     * \brief whether the vCard of this identity should be attached to outgoing mail.
+     */
     Q_PROPERTY(bool attachVcard READ attachVcard WRITE setAttachVcard)
+    /*!
+     * \property KIdentityManagementCore::Identity::autocorrectionLanguage
+     * \brief the default language for spell checking of this identity.
+     */
     Q_PROPERTY(QString autocorrectionLanguage READ autocorrectionLanguage WRITE setAutocorrectionLanguage)
+    /*!
+     * \property KIdentityManagementCore::Identity::disabledFcc
+     * \brief whether Fcc is disabled for this identity.
+     */
     Q_PROPERTY(bool disabledFcc READ disabledFcc WRITE setDisabledFcc)
+    /*!
+     * \property KIdentityManagementCore::Identity::pgpAutoSign
+     * \brief whether messages sent by this identity are signed by default.
+     */
     Q_PROPERTY(bool pgpAutoSign READ pgpAutoSign WRITE setPgpAutoSign)
+    /*!
+     * \property KIdentityManagementCore::Identity::pgpAutoEncrypt
+     * \brief whether messages sent by this identity are encrypted by default.
+     */
     Q_PROPERTY(bool pgpAutoEncrypt READ pgpAutoEncrypt WRITE setPgpAutoEncrypt)
+    /*!
+     * \property KIdentityManagementCore::Identity::autocryptEnabled
+     * \brief whether Autocrypt is enabled for this identity.
+     */
     Q_PROPERTY(bool autocryptEnabled READ autocryptEnabled WRITE setAutocryptEnabled)
+    /*!
+     * \property KIdentityManagementCore::Identity::autocryptPrefer
+     * \brief whether Autocrypt is preferred for this identity.
+     */
     Q_PROPERTY(bool autocryptPrefer READ autocryptPrefer WRITE setAutocryptPrefer)
+    /*!
+     * \property KIdentityManagementCore::Identity::encryptionOverride
+     * \brief whether the warnNotSign and warnNotEncrypt settings override the global configuration.
+     */
     Q_PROPERTY(bool encryptionOverride READ encryptionOverride WRITE setEncryptionOverride)
+    /*!
+     * \property KIdentityManagementCore::Identity::warnNotSign
+     * \brief whether to warn if parts of the message are not signed.
+     */
     Q_PROPERTY(bool warnNotSign READ warnNotSign WRITE setWarnNotSign)
+    /*!
+     * \property KIdentityManagementCore::Identity::warnNotEncrypt
+     * \brief whether to warn if parts of the message are not encrypted.
+     */
     Q_PROPERTY(bool warnNotEncrypt READ warnNotEncrypt WRITE setWarnNotEncrypt)
+    /*!
+     * \property KIdentityManagementCore::Identity::defaultDomainName
+     * \brief the default domain name.
+     */
     Q_PROPERTY(QString defaultDomainName READ defaultDomainName WRITE setDefaultDomainName)
+    /*!
+     * \property KIdentityManagementCore::Identity::signature
+     * \brief the signature of this identity.
+     */
     Q_PROPERTY(Signature signature READ signature WRITE setSignature)
+    /*!
+     * \property KIdentityManagementCore::Identity::signatureText
+     * \brief the text of the signature of this identity.
+     */
     Q_PROPERTY(QString signatureText READ signatureText)
+    /*!
+     * \property KIdentityManagementCore::Identity::signatureIsInlinedHtml
+     * \brief whether the inlined signature is HTML formatted.
+     */
     Q_PROPERTY(bool signatureIsInlinedHtml READ signatureIsInlinedHtml)
+    /*!
+     * \property KIdentityManagementCore::Identity::transport
+     * \brief the transport that is set for this identity.
+     */
     Q_PROPERTY(QString transport READ transport WRITE setTransport)
+    /*!
+     * \property KIdentityManagementCore::Identity::fcc
+     * \brief the folder where sent messages from this identity will be stored by default.
+     */
     Q_PROPERTY(QString fcc READ fcc WRITE setFcc)
+    /*!
+     * \property KIdentityManagementCore::Identity::drafts
+     * \brief the folder where draft messages from this identity will be stored by default.
+     */
     Q_PROPERTY(QString drafts READ drafts WRITE setDrafts)
+    /*!
+     * \property KIdentityManagementCore::Identity::templates
+     * \brief the folder where template messages from this identity will be stored by default.
+     */
     Q_PROPERTY(QString templates READ templates WRITE setTemplates)
+    /*!
+     * \property KIdentityManagementCore::Identity::dictionary
+     * \brief the dictionary which should be used for spell checking.
+     */
     Q_PROPERTY(QString dictionary READ dictionary WRITE setDictionary)
+    /*!
+     * \property KIdentityManagementCore::Identity::xface
+     * \brief the X-Face header for this identity.
+     */
     Q_PROPERTY(QString xface READ xface WRITE setXFace)
+    /*!
+     * \property KIdentityManagementCore::Identity::isXFaceEnabled
+     * \brief whether the X-Face header is enabled for this identity.
+     */
     Q_PROPERTY(bool isXFaceEnabled READ isXFaceEnabled WRITE setXFaceEnabled)
+    /*!
+     * \property KIdentityManagementCore::Identity::face
+     * \brief the Face header for this identity.
+     */
     Q_PROPERTY(QString face READ face WRITE setFace)
+    /*!
+     * \property KIdentityManagementCore::Identity::isFaceEnabled
+     * \brief whether the Face header is enabled for this identity.
+     */
     Q_PROPERTY(bool isFaceEnabled READ isFaceEnabled WRITE setFaceEnabled)
+    /*!
+     * \property KIdentityManagementCore::Identity::uoid
+     * \brief the Unique Object Identifier for this identity.
+     */
     Q_PROPERTY(uint uoid READ uoid CONSTANT)
+    /*!
+     * \property KIdentityManagementCore::Identity::isNull
+     * \brief whether the identity contains no values, all null values or only empty values.
+     */
     Q_PROPERTY(bool isNull READ isNull)
+    /*!
+     * \property KIdentityManagementCore::Identity::spam
+     * \brief the folder where spam messages from this identity will be stored by default.
+     */
     Q_PROPERTY(QString spam READ spam WRITE setSpam)
+    /*!
+     * \property KIdentityManagementCore::Identity::disabledSpam
+     * \brief whether Spam is disabled for this identity.
+     */
     Q_PROPERTY(bool disabledSpam READ disabledSpam WRITE setDisabledSpam)
 
     // only the identity manager should be able to construct and
@@ -139,38 +311,42 @@ public:
     using List = QList<Identity>;
     using Id = uint;
 
-    /*! Constructor */
+    /*!
+     * Constructs an identity named \a id with the full name \a realName,
+     * the email address \a emailAddr, the organization \a organization
+     * and the Reply-To address \a replyToAddress.
+     */
     explicit Identity(const QString &id = QString(),
                       const QString &realName = QString(),
                       const QString &emailAddr = QString(),
                       const QString &organization = QString(),
                       const QString &replyToAddress = QString());
 
-    /*! used for comparison */
+    /*! Returns \c true if this identity is equal to \a other. */
     bool operator==(const Identity &other) const;
 
-    /*! used for comparison */
+    /*! Returns \c true if this identity is not equal to \a other. */
     bool operator!=(const Identity &other) const;
 
-    /*! used for sorting */
+    /*! Returns \c true if this identity is less than \a other. Used for sorting. */
     bool operator<(const Identity &other) const;
 
-    /*! used for sorting */
+    /*! Returns \c true if this identity is greater than \a other. Used for sorting. */
     bool operator>(const Identity &other) const;
 
-    /*! used for sorting */
+    /*! Returns \c true if this identity is less than or equal to \a other. Used for sorting. */
     bool operator<=(const Identity &other) const;
 
-    /*! used for sorting */
+    /*! Returns \c true if this identity is greater than or equal to \a other. Used for sorting. */
     bool operator>=(const Identity &other) const;
 
-    /*! Tests if there are enough values set to allow mailing */
+    /*! Returns \c true if there are enough values set to allow mailing. */
     [[nodiscard]] bool mailingAllowed() const;
 
     /*! Identity/nickname for this collection */
     [[nodiscard]] QString identityName() const;
 
-    /*! Identity/nickname for this collection */
+    /*! Sets the identity/nickname for this collection to \a name. */
     void setIdentityName(const QString &name);
 
     /*! Returns whether this identity is the default identity */
@@ -191,22 +367,22 @@ public:
 
     /*! The user's OpenPGP encryption key */
     [[nodiscard]] QByteArray pgpEncryptionKey() const;
-    /*! Sets the user's OpenPGP encryption key */
+    /*! Sets the user's OpenPGP encryption \a key. */
     void setPGPEncryptionKey(const QByteArray &key);
 
     /*! The user's OpenPGP signing key */
     [[nodiscard]] QByteArray pgpSigningKey() const;
-    /*! Sets the user's OpenPGP signing key */
+    /*! Sets the user's OpenPGP signing \a key. */
     void setPGPSigningKey(const QByteArray &key);
 
     /*! The user's S/MIME encryption key */
     [[nodiscard]] QByteArray smimeEncryptionKey() const;
-    /*! Sets the user's S/MIME encryption key */
+    /*! Sets the user's S/MIME encryption \a key. */
     void setSMIMEEncryptionKey(const QByteArray &key);
 
     /*! The user's S/MIME signing key */
     [[nodiscard]] QByteArray smimeSigningKey() const;
-    /*! Sets the user's S/MIME signing key */
+    /*! Sets the user's S/MIME signing \a key. */
     void setSMIMESigningKey(const QByteArray &key);
 
     /*! Returns the preferred crypto message format for this identity */
@@ -222,7 +398,7 @@ public:
      * \since 4.6
      */
     [[nodiscard]] QString primaryEmailAddress() const;
-    /*! Sets the primary email address for this identity
+    /*! Sets the primary email address for this identity to \a email.
      *
      * \since 4.6
      */
@@ -234,7 +410,7 @@ public:
      * \since 4.6
      */
     [[nodiscard]] const QStringList emailAliases() const;
-    /*! Sets the email address aliases for this identity
+    /*! Sets the email address aliases for this identity to \a aliases.
      *
      * \since 4.6
      */
@@ -285,7 +461,7 @@ public:
      * \since 4.10
      */
     [[nodiscard]] bool attachVcard() const;
-    /*! Sets whether the vCard of this identity should be attached to outgoing mail
+    /*! Sets whether the vCard of this identity should be attached to outgoing mail to \a attach.
      * \since 4.10
      */
     void setAttachVcard(bool attach);
@@ -295,7 +471,7 @@ public:
      * \since 4.10
      */
     [[nodiscard]] QString autocorrectionLanguage() const;
-    /*! Sets the default language for spell checking of this identity
+    /*! Sets the default language for spell checking of this identity to \a language.
      * \since 4.10
      */
     void setAutocorrectionLanguage(const QString &language);
@@ -387,7 +563,7 @@ public:
      * \since 4.14
      */
     [[nodiscard]] QString defaultDomainName() const;
-    /*! Sets the default domain name for this identity
+    /*! Sets the default domain name for this identity to \a domainName.
      * \since 4.14
      */
     void setDefaultDomainName(const QString &domainName);
@@ -398,7 +574,7 @@ public:
      * \warning This method is not const.
      */
     [[nodiscard]] Signature &signature();
-    /*! Sets the signature for this identity */
+    /*! Sets the signature for this identity to \a sig. */
     void setSignature(const Signature &sig);
 
     /*!
@@ -474,13 +650,13 @@ public:
     void setFaceEnabled(bool);
 
     /*! Get random properties
-     *  \param key the key of the property to get
+     *  \a key the key of the property to get
      *  \return the property value
      */
     [[nodiscard]] QVariant property(const QString &key) const;
     /*! Set random properties
-     *  \param key the key of the property to set
-     *  \param value the value to set; when empty (for QStrings) or null, the property is deleted.
+     *  \a key the key of the property to set
+     *  \a value the value to set; when empty (for QStrings) or null, the property is deleted.
      */
     void setProperty(const QString &key, const QVariant &value);
 
@@ -500,19 +676,19 @@ public:
     static Identity fromMimeData(const QMimeData *);
 
     /*! Read configuration from config
-     *  \param group the config group to read from (must be preset)
+     *  \a group the config group to read from (must be preset)
      *  Called from IdentityManager.
      */
-    void readConfig(const KConfigGroup &);
+    void readConfig(const KConfigGroup &group);
 
     /*! Write configuration to config
-     *  \param group the config group to write to (must be preset)
+     *  \a group the config group to write to (must be preset)
      *  Called from IdentityManager.
      */
-    void writeConfig(KConfigGroup &) const;
+    void writeConfig(KConfigGroup &group) const;
 
     /*! Set whether this identity is the default identity
-     *  \param flag true to set as default, false otherwise
+     *  \a flag true to set as default, false otherwise
      *
      *  Since this affects all other identities, too (most notably, the old default
      *  identity), only the IdentityManager can change this.
@@ -525,18 +701,18 @@ public:
     void setIsDefault(bool flag);
 
     /*! Set the uoid (Unique Object Identifier)
-     *  \param aUoid the uoid to set
+     *  \a aUoid the uoid to set
      */
     void setUoid(uint aUoid);
 
     /*! Returns the list of activities for this identity */
     [[nodiscard]] const QStringList activities() const;
-    /*! Sets the list of activities for this identity */
+    /*! Sets the list of activities for this identity to \a a. */
     void setActivities(const QStringList &a);
 
     /*! Returns whether activities are enabled for this identity */
     [[nodiscard]] bool enabledActivities() const;
-    /*! Sets whether activities are enabled for this identity */
+    /*! Sets whether activities are enabled for this identity to \a a. */
     void setEnabledActivities(bool a);
 
     /*! The folder where spam messages from this identity will be
@@ -553,7 +729,9 @@ public:
     void setDisabledSpam(bool);
 
 protected:
-    /*! During migration, when it failed it can be a string instead of a qlonglong akonadi::id, this fixes it */
+    /*! During migration, when it failed it can be a string instead of a qlonglong akonadi::id, this fixes it.
+     *  Returns \a str converted to a valid Akonadi id.
+     */
     [[nodiscard]] QString verifyAkonadiId(const QString &str) const;
     /*! Returns true if the signature is read from the output of a command */
     [[nodiscard]] bool signatureIsCommand() const;

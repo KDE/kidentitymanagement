@@ -24,6 +24,7 @@ class Identity;
  * \inheaderfile KIdentityManagementCore/IdentityManager
  *
  * \brief Manages the list of identities.
+ *
  * \author Marc Mutz <mutz@kde.org>
  */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityManager : public QObject
@@ -32,12 +33,12 @@ class KIDENTITYMANAGEMENTCORE_EXPORT IdentityManager : public QObject
 public:
     /*!
      * Constructor
-     * \param readonly if true, no changes can be made to the identity manager
+     * \a readonly if true, no changes can be made to the identity manager
      *                 This means in particular that if there is no identity configured,
      *                 the default identity created here will not be saved.
      *                 It is assumed that a minimum of one identity is always present.
-     * \param parent the parent object
-     * \param name the object name
+     * \a parent the parent object
+     * \a name the object name
      */
     explicit IdentityManager(bool readonly = false, QObject *parent = nullptr, const char *name = nullptr);
     ~IdentityManager() override;
@@ -56,23 +57,25 @@ public:
     using ConstIterator = QList<Identity>::ConstIterator;
 
     /*!
+     * \typedef KIdentityManagementCore::IdentityManager::iterator
      * Typedef for STL style iterator
      */
     using iterator = Iterator;
 
     /*!
+     * \typedef KIdentityManagementCore::IdentityManager::const_iterator
      * Typedef for STL style iterator
      */
     using const_iterator = ConstIterator;
 
     /*! Returns a unique name for a new identity based on \a name
-     *  \param name the name of the base identity
+     *  \a name the name of the base identity
      *  \return a unique identity name
      */
     [[nodiscard]] QString makeUnique(const QString &name) const;
 
     /*! Returns whether the \a name is unique
-     *  \param name the name to be examined
+     *  \a name the name to be examined
      *  \return true if the name is unique, false otherwise
      */
     [[nodiscard]] bool isUnique(const QString &name) const;
@@ -84,7 +87,7 @@ public:
     void rollback();
 
     /*! Store a new identity or modify an existing identity based on an independent identity object
-     *  \param ident the identity to be saved
+     *  \a ident the identity to be saved
      */
     void saveIdentity(const Identity &ident);
 
@@ -111,27 +114,27 @@ public:
     void sort();
 
     /*! Returns an identity whose address matches any in \a addresses or Identity::null if no such identity exists.
-        \param addresses the string of addresses to scan for matches
+        \a addresses the string of addresses to scan for matches
         \return the identity matching the addresses or Identity::null
     */
     const Identity &identityForAddress(const QString &addresses) const;
 
     /*! Returns true if \a addressList contains any of our addresses, false otherwise.
-        \param addressList the addressList to examine
+        \a addressList the addressList to examine
         \return true if one of our addresses is found in the list
         \sa identityForAddress()
     */
     [[nodiscard]] bool thatIsMe(const QString &addressList) const;
 
     /*! Returns the identity with Unique Object Identifier (UOID) \a uoid or Identity::null if not found.
-        \param uoid the Unique Object Identifier to find identity with
+        \a uoid the Unique Object Identifier to find identity with
         \return the identity with the given UOID or Identity::null
      */
     const Identity &identityForUoid(uint uoid) const;
 
     /*! Convenience method. Returns the identity with Unique Object Identifier (UOID) \a uoid
         or the default identity if not found.
-        \param uoid the Unique Object Identifier to find identity with
+        \a uoid the Unique Object Identifier to find identity with
         \return the identity with the given UOID or the default identity
     */
     const Identity &identityForUoidOrDefault(uint uoid) const;
@@ -144,28 +147,28 @@ public:
     /*! Sets the identity with Unique Object Identifier (UOID) \a uoid to be the new default identity.
         As usual, use commit() to make this permanent.
 
-        \param uoid the default identity to set
+        \a uoid the default identity to set
         \return false if an identity with UOID \a uoid was not found, true otherwise
     */
     bool setAsDefault(uint uoid);
 
     /*! Returns the identity named \a identityName. This method returns a reference to the identity
         that can be modified. To let others see this change, use commit().
-        \param identityName the identity name to return modifiable reference for
+        \a identityName the identity name to return modifiable reference for
         \return a modifiable reference to the identity
     */
     Identity &modifyIdentityForName(const QString &identityName);
 
     /*! Returns the identity with Unique Object Identifier (UOID) \a uoid. This method returns a
         reference to the identity that can be modified. To let others see this change, use commit().
-        \param uoid the Unique Object Identifier to find identity with
+        \a uoid the Unique Object Identifier to find identity with
         \return a modifiable reference to the identity
     */
     Identity &modifyIdentityForUoid(uint uoid);
 
     /*! Removes the identity with name \a identityName
         Will return false if the identity is not found, or when one tries to remove the last identity.
-        \param identityName the identity to remove
+        \a identityName the identity to remove
         \return true if the identity was removed, false otherwise
      */
     bool removeIdentity(const QString &identityName);
@@ -176,7 +179,7 @@ public:
      * Note: In opposite to removeIdentity(), this method allows to remove the
      *       last remaining identity.
      *
-     * \param identityName the identity to remove
+     * \a identityName the identity to remove
      * \return true if the identity was removed, false if not found
      * \since 4.6
      */
@@ -195,18 +198,18 @@ public:
     Iterator modifyEnd();
 
     /*! Creates a new identity with the given name from scratch
-     *  \param name the name for the new identity
+     *  \a name the name for the new identity
      *  \return a reference to the newly created identity
      */
     Identity &newFromScratch(const QString &name);
     /*! Creates a new identity with the given name, copying values from the Control Center defaults
-     *  \param name the name for the new identity
+     *  \a name the name for the new identity
      *  \return a reference to the newly created identity
      */
     Identity &newFromControlCenter(const QString &name);
     /*! Creates a new identity with the given name, copying all values from an existing identity
-     *  \param other the identity to copy values from
-     *  \param name the name for the new identity (if empty, uses other's name)
+     *  \a other the identity to copy values from
+     *  \a name the name for the new identity (if empty, uses other's name)
      *  \return a reference to the newly created identity
      */
     Identity &newFromExisting(const Identity &other, const QString &name = QString());
@@ -223,26 +226,26 @@ Q_SIGNALS:
     void identitiesWereChanged();
     /*! Emitted whenever the identity with Unique Object Identifier (UOID) \a uoid changed.
         Useful for more fine-grained change notifications than what is possible with the changed() signal.
-        \param uoid the unique object identifier of the changed identity
+        \a uoid the unique object identifier of the changed identity
     */
     void changed(uint uoid);
     /*! Emitted whenever the identity \a ident changed.
         Useful for more fine-grained change notifications than what is possible with the changed() signal.
-        \param ident the identity that changed
+        \a ident the identity that changed
     */
     void changed(const KIdentityManagementCore::Identity &ident);
     /*! Emitted whenever an identity changes
-     *  \param ident the identity that changed
+     *  \a ident the identity that changed
      */
     void identityChanged(const KIdentityManagementCore::Identity &ident);
     /*! Emitted on commit() for each deleted identity.
         At the time this signal is emitted, the identity does still exist and can be
         retrieved by identityForUoid() if needed.
-        \param uoid the unique object identifier of the deleted identity
+        \a uoid the unique object identifier of the deleted identity
     */
     void deleted(uint uoid);
     /*! Emitted on commit() for each new identity
-     *  \param ident the newly added identity
+     *  \a ident the newly added identity
      */
     void added(const KIdentityManagementCore::Identity &ident);
 
@@ -250,7 +253,7 @@ Q_SIGNALS:
     void needToReloadIdentitySettings();
 
     /*! Emitted when identities change
-     *  \param id the identity identifier
+     *  \a id the identity identifier
      */
     void identitiesChanged(const QString &id);
 
@@ -259,10 +262,10 @@ protected:
      * This is called when no identity has been defined, so we need to create a default one.
      * The parameters are filled with some default values from KUser, but reimplementations
      * of this method can give them another value.
-     * \param fullName out parameter for the full name
-     * \param emailAddress out parameter for the email address
+     * \a fullName out parameter for the full name
+     * \a emailAddress out parameter for the email address
      */
-    virtual void createDefaultIdentity(QString & /*fullName*/, QString & /*emailAddress*/);
+    virtual void createDefaultIdentity(QString &fullName, QString &emailAddress);
 
 protected Q_SLOTS:
     void slotRollback();

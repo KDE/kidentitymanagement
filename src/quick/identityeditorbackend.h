@@ -10,6 +10,10 @@
 
 namespace KIdentityManagementQuick
 {
+/*!
+ * \class KIdentityManagementQuick::IdentityEditorBackend
+ * \internal
+ */
 class IdentityEditorBackend : public QObject
 {
     Q_OBJECT

@@ -69,7 +69,14 @@ class KIDENTITYMANAGEMENTCORE_EXPORT Signature
     friend KIDENTITYMANAGEMENTCORE_EXPORT QDataStream &operator>>(QDataStream &stream, Signature &sig);
 
 public:
-    /*! Type of signature (ie. way to obtain the signature text) */
+    /*!
+     * Type of signature (ie. way to obtain the signature text)
+     *
+     * \value Disabled No signature
+     * \value Inlined The signature text is stored in the configuration
+     * \value FromFile The signature text is read from a file
+     * \value FromCommand The signature text is the output of a command
+     */
     enum Type {
         Disabled = 0,
         Inlined = 1,
@@ -80,11 +87,15 @@ public:
     /*!
      * Describes the placement of the signature text when it is to be inserted into a
      * text edit
+     *
+     * \value Start The signature is placed at the start of the textedit
+     * \value End The signature is placed at the end of the textedit
+     * \value AtCursor The signature is placed at the current cursor position
      */
     enum Placement {
-        Start, ///< The signature is placed at the start of the textedit
-        End, ///< The signature is placed at the end of the textedit
-        AtCursor ///< The signature is placed at the current cursor position
+        Start,
+        End,
+        AtCursor
     };
 
     struct EmbeddedImage {
@@ -93,36 +104,36 @@ public:
     };
     using EmbeddedImagePtr = QSharedPointer<EmbeddedImage>;
 
-    /*! Used for comparison */
+    /*! Returns \c true if this signature is equal to \a other. */
     bool operator==(const Signature &other) const;
 
     /*! Constructor for disabled signature */
     Signature();
     /*! Constructor for inline text */
     Signature(const QString &text);
-    /*! Constructor for text from a file or from output of a command */
+    /*! Constructor for text from the file \a path or, if \a isExecutable is \c true, from the output of the command \a path */
     Signature(const QString &path, bool isExecutable);
     /*! Copy constructor */
     Signature(const Signature &that);
-    /*! Assignment operator */
+    /*! Assigns \a that to this signature. */
     Signature &operator=(const Signature &that);
     /*! Destructor */
     ~Signature();
 
     /*! Returns the raw signature text as entered resp. read from file.
-        \a ok set to \\ true if reading succeeded
-        \a errorMessage If available, contains a human readable explanation for \a ok being \\ false.
+        \a ok set to \c true if reading succeeded
+        \a errorMessage If available, contains a human readable explanation for \a ok being \c false.
      */
     [[nodiscard]] QString rawText(bool *ok = nullptr, QString *errorMessage = nullptr) const;
 
     /*! Returns the signature text with a "-- \n" separator added, if
         necessary. A newline will not be appended or prepended.
-        \a ok set to \\ true if reading succeeded
-        \a errorMessage If available, contains a human readable explanation for \a ok being \\ false.
+        \a ok set to \c true if reading succeeded
+        \a errorMessage If available, contains a human readable explanation for \a ok being \c false.
      */
     [[nodiscard]] QString withSeparator(bool *ok = nullptr, QString *errorMessage = nullptr) const;
 
-    /*! Set the signature text and mark this signature as being of
+    /*! Set the signature text to \a text and mark this signature as being of
         "inline text" type. */
     void setText(const QString &text);
     [[nodiscard]] QString text() const;
@@ -134,8 +145,8 @@ public:
      */
     [[nodiscard]] QString toPlainText() const;
 
-    /*! Set the signature URL and mark this signature as being of
-        "from file" resp. "from output of command" type. */
+    /*! Set the signature URL to \a path and mark this signature as being of
+        "from file" resp. "from output of command" type, depending on \a isExecutable. */
     void setPath(const QString &path, bool isExecutable = false);
     [[nodiscard]] QString path() const;
 
@@ -175,9 +186,9 @@ public:
     [[nodiscard]] QString imageLocation() const;
 
     /*!
-     * Adds the given image to the signature.
+     * Adds the given \a image to the signature.
      * This is needed if you use setText() to set some HTML source that references images. Those
-     * referenced images needed to be added by calling this function. The @imageName has to match
+     * referenced images needed to be added by calling this function. The \a imageName has to match
      * the src attribute of the img tag.
      *
      * If you use SignatureConfigurator, you don't need to call this function, as the configurator
@@ -189,7 +200,7 @@ public:
 
     /*!
      * \brief setEnabledSignature
-     * \a enabled enables signature if set as \\ true
+     * \a enabled enables signature if set as \c true
      * \since 4.9
      */
     void setEnabledSignature(bool enabled);

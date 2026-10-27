@@ -19,7 +19,7 @@ namespace KIdentityManagementWidgets
  * \inmodule KIdentityManagementWidgets
  * \inheaderfile KIdentityManagementWidgets/IdentityTreeView
  *
- * \brief The IdentityTreeView class
+ * \brief The IdentityTreeView class.
  */
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeView : public QTreeView
 {
@@ -27,7 +27,7 @@ class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityTreeView : public QTreeView
 public:
     /*!
      * Constructor
-     * \param parent the parent widget
+     * \a parent the parent widget
      */
     explicit IdentityTreeView(QWidget *parent = nullptr);
     /*!
@@ -37,7 +37,7 @@ public:
 
     /*!
      * Sets the IdentityActivitiesAbstract instance for filtering
-     * \param newIdentityActivitiesAbstract the activities handler to use for filtering
+     * \a newIdentityActivitiesAbstract the activities handler to use for filtering
      */
     void setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
     /*!
@@ -53,7 +53,7 @@ public:
     [[nodiscard]] bool enablePlasmaActivities() const;
     /*!
      * Sets whether Plasma activities support should be enabled
-     * \param newEnablePlasmaActivities true to enable Plasma activities filtering
+     * \a newEnablePlasmaActivities true to enable Plasma activities filtering
      */
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
 
@@ -65,7 +65,7 @@ public:
 
     /*!
      * Returns a modifiable reference to the identity with the given UOID
-     * \param uoid the unique object identifier of the identity
+     * \a uoid the unique object identifier of the identity
      * \return a modifiable reference to the identity
      */
     KIdentityManagementCore::Identity &modifyIdentityForUoid(uint uoid);

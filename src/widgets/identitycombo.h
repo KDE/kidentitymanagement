@@ -24,6 +24,7 @@ class IdentityComboPrivate;
  * \inheaderfile KIdentityManagementWidgets/IdentityCombo
  *
  * \brief A combo box that always shows the up-to-date identity list.
+ *
  * \author Marc Mutz \<mutz@kde.org\>
  */
 class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityCombo : public QComboBox
@@ -32,8 +33,8 @@ class KIDENTITYMANAGEMENTWIDGETS_EXPORT IdentityCombo : public QComboBox
 public:
     /*!
      * \brief IdentityCombo constructor
-     * \param manager
-     * \param parent
+     * \a manager
+     * \a parent
      */
     explicit IdentityCombo(KIdentityManagementCore::IdentityManager *manager, QWidget *parent = nullptr);
 
@@ -59,25 +60,25 @@ public:
 
     /*!
      * \brief Set the current identity
-     * \param identity
+     * \a identity
      */
     void setCurrentIdentity(const KIdentityManagementCore::Identity &identity);
 
     /*!
      * \brief Set the current identity by name.
-     * \param identityName
+     * \a identityName
      */
     void setCurrentIdentity(const QString &identityName);
 
     /*!
      * \brief Set the current identity by Id
-     * \param uoid
+     * \a uoid
      */
     void setCurrentIdentity(KIdentityManagementCore::Identity::Id uoid);
 
     /*!
      * \brief Show (default) on the default identity. By default this behavior is disabled.
-     * \param showDefault
+     * \a showDefault
      */
     void setShowDefault(bool showDefault);
 
@@ -95,7 +96,7 @@ public:
      */
     [[nodiscard]] KIdentityManagementCore::IdentityActivitiesAbstract *identityActivitiesAbstract() const;
     /*!
-     * \brief setIdentityActivitiesAbstract
+     * \brief Sets \a newIdentityActivitiesAbstract as the activities handler used for filtering.
      * \since 6.1
      */
     void setIdentityActivitiesAbstract(KIdentityManagementCore::IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
@@ -108,7 +109,7 @@ public:
     [[nodiscard]] bool enablePlasmaActivities() const;
     /*!
      * \brief setEnablePlasmaActivities
-     * \param newEnablePlasmaActivities
+     * \a newEnablePlasmaActivities
      * \since 6.3
      */
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
@@ -124,12 +125,12 @@ Q_SIGNALS:
      * You might also want to listen to IdentityManager::changed,
      * IdentityManager::deleted and IdentityManager::added.
      *
-     * \param uoid the unique object identifier of the new current identity
+     * \a uoid the unique object identifier of the new current identity
      */
     void identityChanged(KIdentityManagementCore::Identity::Id uoid);
     /*!
      * \brief identityDeleted
-     * \param uoid the unique object identifier of the deleted identity
+     * \a uoid the unique object identifier of the deleted identity
      */
     void identityDeleted(KIdentityManagementCore::Identity::Id uoid);
     /*!
@@ -148,12 +149,12 @@ public Q_SLOTS:
 protected Q_SLOTS:
     /*!
      * \brief Internal slot to emit the identity changed signal
-     * \param index the index of the combo box that changed
+     * \a index the index of the combo box that changed
      */
-    void slotEmitChanged(int);
+    void slotEmitChanged(int index);
     /*!
      * \brief Internal slot to update the tooltip
-     * \param uoid the unique object identifier of the identity
+     * \a uoid the unique object identifier of the identity
      */
     void slotUpdateTooltip(uint uoid);
 

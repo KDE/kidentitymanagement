@@ -16,7 +16,7 @@ namespace KIdentityManagementCore
 /*! Very fast version of IdentityManager::thatIsMe, that uses an internal cache (allEmails)
  *  \note Make sure that only an email address is used as parameter and NO name <email>
  *  \note Emails are tested with email.toLower(), so no need to lower them before.
- *  \param email the email address to check
+ *  \a email the email address to check
  *  \return true if this email address matches one of our identities, false otherwise
  */
 [[nodiscard]] KIDENTITYMANAGEMENTCORE_EXPORT bool thatIsMe(const QString &email);

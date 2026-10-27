@@ -14,7 +14,8 @@ class IdentityActivitiesAbstract;
  * \inmodule KIdentityManagementCore
  * \inheaderfile KIdentityManagementCore/IdentityTreeSortProxyModel
  *
- * \brief The IdentityTreeSortProxyModel class
+ * \brief The IdentityTreeSortProxyModel class.
+ *
  * \author Laurent Montel <montel@kde.org>
  */
 class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeSortProxyModel : public QSortFilterProxyModel
@@ -23,7 +24,7 @@ class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeSortProxyModel : public QSortFi
 public:
     /*!
      * Constructor
-     * \param parent the parent object
+     * \a parent the parent object
      */
     explicit IdentityTreeSortProxyModel(QObject *parent);
     /*!
@@ -38,7 +39,7 @@ public:
     [[nodiscard]] IdentityActivitiesAbstract *identityActivitiesAbstract() const;
     /*!
      * Sets the IdentityActivitiesAbstract instance for filtering
-     * \param newIdentityActivitiesAbstract the activities handler to use for filtering
+     * \a newIdentityActivitiesAbstract the activities handler to use for filtering
      */
     void setIdentityActivitiesAbstract(IdentityActivitiesAbstract *newIdentityActivitiesAbstract);
 
@@ -49,15 +50,15 @@ public:
     [[nodiscard]] bool enablePlasmaActivities() const;
     /*!
      * Sets whether Plasma activities support should be enabled
-     * \param newEnablePlasmaActivities true to enable Plasma activities filtering
+     * \a newEnablePlasmaActivities true to enable Plasma activities filtering
      */
     void setEnablePlasmaActivities(bool newEnablePlasmaActivities);
 
 protected:
     /*!
      * Determines whether a row should be accepted for filtering
-     * \param source_row the row in the source model
-     * \param source_parent the parent index in the source model
+     * \a source_row the row in the source model
+     * \a source_parent the parent index in the source model
      * \return true if the row should be accepted, false otherwise
      */
     [[nodiscard]] bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
