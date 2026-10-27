@@ -12,16 +12,18 @@ sourcedirs += .
 outputformats = HTML
 
 depends += \
-    qtcore
+    qtcore \
+    qtqml \
+    identitymanagementcore
 
-navigation.landingpage = "IdentityManagement"
+navigation.landingpage = "IdentityManagementCore"
 
 qhp.projects            = IdentityManagementQuick
 
 qhp.IdentityManagementQuick.file                = identitymanagementquick.qhp
 qhp.IdentityManagementQuick.namespace           = org.kde.identitymanagementquick.$QT_VERSION_TAG
 qhp.IdentityManagementQuick.virtualFolder       = identitymanagementquick
-qhp.IdentityManagementQuick.indexTitle          = IdentityManagementQuick
+qhp.IdentityManagementQuick.indexTitle          = Identity Management Quick C++ Classes
 qhp.IdentityManagementQuick.indexRoot           =
 
 qhp.IdentityManagementQuick.subprojects         = classes

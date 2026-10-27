@@ -12,9 +12,12 @@ sourcedirs += .
 outputformats = HTML
 
 depends += \
-    qtcore
+    qtcore \
+    qtgui \
+    identitymanagementwidgets \
+    identitymanagementquick
 
-navigation.landingpage = "IdentityManagement"
+navigation.landingpage = "IdentityManagementCore"
 
 qhp.projects            = IdentityManagementCore
 
