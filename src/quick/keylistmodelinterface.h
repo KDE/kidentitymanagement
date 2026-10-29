@@ -40,17 +40,34 @@ public:
 class KIDENTITYMANAGEMENTQUICK_EXPORT KeyListModelInterface
 {
 public:
+    /*!
+     * Destroys the key list model interface.
+     */
     virtual ~KeyListModelInterface() { };
+    /*!
+     * \enum KIdentityManagementQuick::KeyListModelInterface::Roles
+     *
+     * Data roles expected from the key list model.
+     *
+     * \value KeyIdentifierRole The identifier of the key
+     * \value KeyByteArrayRole The key as a byte array
+     */
     enum Roles {
         KeyIdentifierRole = Qt::UserRole + 1,
         KeyByteArrayRole
     };
 
+    /*!
+     * Returns the role names used by the QtQuick Cryptography editor.
+     */
     static QHash<int, QByteArray> roleNames()
     {
         return {{KeyIdentifierRole, "keyIdentifier"}, {KeyByteArrayRole, "keyByteArray"}};
     }
 
+    /*!
+     * Returns the index of the key used by \a identity for the given \a keyUse.
+     */
     virtual QModelIndex indexForIdentity(const KIdentityManagementCore::Identity &identity, const KeyUseTypes::KeyUse keyUse) const = 0;
 };
 }

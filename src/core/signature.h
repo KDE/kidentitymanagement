@@ -136,6 +136,7 @@ public:
     /*! Set the signature text to \a text and mark this signature as being of
         "inline text" type. */
     void setText(const QString &text);
+    /*! Returns the inlined signature text. */
     [[nodiscard]] QString text() const;
 
     /*!
@@ -148,10 +149,12 @@ public:
     /*! Set the signature URL to \a path and mark this signature as being of
         "from file" resp. "from output of command" type, depending on \a isExecutable. */
     void setPath(const QString &path, bool isExecutable = false);
+    /*! Returns the path of the signature file or command. */
     [[nodiscard]] QString path() const;
 
-    /// Returns the type of signature (ie. way to obtain the signature text)
+    /*! Returns the type of signature (ie. way to obtain the signature text) */
     [[nodiscard]] Type type() const;
+    /*! Sets the type of signature to \a type. */
     void setType(Type type);
 
     /*!
@@ -183,6 +186,11 @@ public:
      * \since 4.4
      */
     void setImageLocation(const QString &path);
+    /*!
+     * Returns the location where the copies of the signature images are stored.
+     * \sa setImageLocation()
+     * \since 4.4
+     */
     [[nodiscard]] QString imageLocation() const;
 
     /*!
@@ -204,25 +212,37 @@ public:
      * \since 4.9
      */
     void setEnabledSignature(bool enabled);
+    /*!
+     * Returns \c true if the signature is enabled.
+     * \since 4.9
+     */
     [[nodiscard]] bool isEnabledSignature() const;
 
+    /*!
+     * Describes which additional parts should be added to the signature.
+     *
+     * \value AddNothing Don't add any text to the signature
+     * \value AddSeparator The separator '-- \\n' will be added in front of the signature
+     * \value AddNewLines Add a newline character in front or after the signature, depending on the placement
+     */
     enum AddedTextFlag {
-        AddNothing = 0, ///< Don't add any text to the signature
-        AddSeparator = 1 << 0, ///< The separator '-- \n' will be added in front
-        ///  of the signature
-        AddNewLines = 1 << 1 ///< Add a newline character in front or after the signature,
-                             ///  depending on the placement
+        AddNothing = 0,
+        AddSeparator = 1 << 0,
+        AddNewLines = 1 << 1,
     };
 
-    /// Describes which additional parts should be added to the signature
     using AddedText = QFlags<AddedTextFlag>;
 
+    /*! Returns the list of images embedded in the signature. */
     [[nodiscard]] QList<Signature::EmbeddedImagePtr> embeddedImages() const;
+    /*! Sets the list of images embedded in the signature to \a embedded. */
     void setEmbeddedImages(const QList<EmbeddedImagePtr> &embedded);
 
 protected:
     // TODO: KDE5: BIC: Move all to private class
+    /*! Writes the signature to the configuration group \a config. */
     void writeConfig(KConfigGroup &config) const;
+    /*! Reads the signature from the configuration group \a config. */
     void readConfig(const KConfigGroup &config);
 
 private:

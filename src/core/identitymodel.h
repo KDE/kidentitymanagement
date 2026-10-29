@@ -28,6 +28,17 @@ class KIDENTITYMANAGEMENTCORE_EXPORT IdentityModel : public QAbstractListModel
     Q_OBJECT
 
 public:
+    /*!
+     * \enum KIdentityManagementCore::IdentityModel::Roles
+     *
+     * Custom data roles provided by the model.
+     *
+     * \value EmailRole The primary email address of the identity
+     * \value UoidRole The unique object identifier of the identity
+     * \value IdentityNameRole The name of the identity
+     * \value DisplayNameRole The name used to display the identity
+     * \value DefaultRole Whether the identity is the default one
+     */
     enum Roles {
         EmailRole = Qt::UserRole,
         UoidRole,

@@ -38,6 +38,9 @@ public:
      */
     explicit IdentityCombo(KIdentityManagementCore::IdentityManager *manager, QWidget *parent = nullptr);
 
+    /*!
+     * Destroys the identity combo box.
+     */
     ~IdentityCombo() override;
 
     /*!

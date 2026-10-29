@@ -726,7 +726,11 @@ public:
      * \since 6.5
      */
     [[nodiscard]] bool disabledSpam() const;
-    void setDisabledSpam(bool);
+    /*!
+     * Sets whether Spam is disabled for this identity to \a disable.
+     * \since 6.5
+     */
+    void setDisabledSpam(bool disable);
 
 protected:
     /*! During migration, when it failed it can be a string instead of a qlonglong akonadi::id, this fixes it.

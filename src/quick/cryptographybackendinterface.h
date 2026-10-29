@@ -33,6 +33,9 @@ class KIDENTITYMANAGEMENTQUICK_EXPORT CryptographyBackendInterface
     friend class CryptographyEditorBackend;
 
 public:
+    /*!
+     * Destroys the cryptography backend interface.
+     */
     virtual ~CryptographyBackendInterface()
     {
     }
@@ -52,6 +55,9 @@ protected:
      * \brief The identity that affects what data to show.
      */
     virtual KIdentityManagementCore::Identity identity() const = 0;
+    /*!
+     * Sets the \a identity that affects what data to show.
+     */
     virtual void setIdentity(const KIdentityManagementCore::Identity &identity) = 0;
 };
 

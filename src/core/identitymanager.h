@@ -41,6 +41,9 @@ public:
      * \a name the object name
      */
     explicit IdentityManager(bool readonly = false, QObject *parent = nullptr, const char *name = nullptr);
+    /*!
+     * Destroys the identity manager.
+     */
     ~IdentityManager() override;
 
     /*!
@@ -268,6 +271,10 @@ protected:
     virtual void createDefaultIdentity(QString &fullName, QString &emailAddress);
 
 protected Q_SLOTS:
+    /*!
+     * Discards all changes made to the identities since the last commit.
+     * \sa rollback()
+     */
     void slotRollback();
 
 private:

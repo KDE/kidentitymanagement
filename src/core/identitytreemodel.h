@@ -28,6 +28,21 @@ class KIDENTITYMANAGEMENTCORE_EXPORT IdentityTreeModel : public QAbstractListMod
     Q_OBJECT
 
 public:
+    /*!
+     * \enum KIdentityManagementCore::IdentityTreeModel::IdentityRoles
+     *
+     * Columns (and data roles) provided by the model.
+     *
+     * \value IdentityNameRole The name of the identity
+     * \value DisplayIdentityNameRole The name used to display the identity
+     * \value FullEmailRole The full email address (name and address)
+     * \value EmailRole The primary email address of the identity
+     * \value UoidRole The unique object identifier of the identity
+     * \value DefaultRole Whether the identity is the default one
+     * \value ActivitiesRole The activities the identity is associated with
+     * \value EnabledActivitiesRole Whether activities are enabled for the identity
+     * \value LastColumn The last column of the model
+     */
     enum IdentityRoles {
         IdentityNameRole,
         DisplayIdentityNameRole,
