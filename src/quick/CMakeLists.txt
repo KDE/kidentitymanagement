@@ -6,7 +6,7 @@
 ecm_setup_version(PROJECT VARIABLE_PREFIX KIDENTITYMANAGEMENTQUICK
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kidentitymanagementquick_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KPim6IdentityManagementQuickConfigVersion.cmake"
-                        SOVERSION 6
+                        SOVERSION ${PROJECT_SOVERSION}
 )
 
 add_library(identitymanagentprivate STATIC)
