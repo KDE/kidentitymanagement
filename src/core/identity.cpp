@@ -423,6 +423,11 @@ QString Identity::cc() const
     return property(QLatin1StringView(s_cc)).toString();
 }
 
+const Signature &Identity::signature() const
+{
+    return mSignature;
+}
+
 Signature &Identity::signature()
 {
     return mSignature;

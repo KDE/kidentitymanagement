@@ -162,6 +162,7 @@ ecm_target_qml_sources(kidentitymanagement_quick_plugin SOURCES
     qml/CryptographyEditorCard.qml
     qml/IdentityConfigurationForm.qml
     qml/IdentityEditorPage.qml
+    qml/SignatureEditorCard.qml
 )
 
 ecm_finalize_qml_module(kidentitymanagement_quick_plugin
@@ -181,3 +182,7 @@ configure_package_config_file(
     INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
 )
 ecm_generate_qdoc(KPim6IdentityManagementQuick identitymanagementquick.qdocconf)
+
+if(BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

@@ -21,6 +21,8 @@ class IdentityEditorBackend : public QObject
     Q_PROPERTY(Mode mode READ mode WRITE setMode NOTIFY modeChanged)
     Q_PROPERTY(KIdentityManagementCore::Identity identity READ identity WRITE setIdentity NOTIFY identityChanged NOTIFY modeChanged)
     Q_PROPERTY(uint identityUoid READ identityUoid WRITE setIdentityUoid NOTIFY identityChanged)
+    Q_PROPERTY(bool signatureEnabled READ signatureEnabled WRITE setSignatureEnabled NOTIFY identityChanged)
+    Q_PROPERTY(QString signatureText READ signatureText WRITE setSignatureText NOTIFY identityChanged)
 
 public:
     enum Mode {
@@ -30,6 +32,11 @@ public:
     Q_ENUM(Mode)
 
     explicit IdentityEditorBackend() = default;
+
+    [[nodiscard]] bool signatureEnabled() const;
+    void setSignatureEnabled(bool enabled);
+    [[nodiscard]] QString signatureText() const;
+    void setSignatureText(const QString &text);
 
     [[nodiscard]] Mode mode() const;
     void setMode(Mode mode);

@@ -79,6 +79,14 @@ FormCard.FormCardPage {
         cryptographyEditorBackend: root.cryptographyEditorBackend
     }
 
+    FormCard.FormHeader {
+        title: i18ndc("libkpimidentities6", "@title:group", "Signature")
+    }
+
+    SignatureEditorCard {
+        backend: root.backend
+    }
+
     footer: ColumnLayout {
         spacing: 0
 

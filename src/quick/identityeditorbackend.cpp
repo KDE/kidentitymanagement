@@ -81,4 +81,39 @@ void IdentityEditorBackend::removeEmailAlias(const QString &alias)
     mIdentity.setEmailAliases(aliases);
 }
 
+bool IdentityEditorBackend::signatureEnabled() const
+{
+    return mIdentity.signature().isEnabledSignature();
+}
+
+void IdentityEditorBackend::setSignatureEnabled(bool enabled)
+{
+    if (signatureEnabled() == enabled) {
+        return;
+    }
+    auto &signature = mIdentity.signature();
+    if (enabled && signature.type() == KIdentityManagementCore::Signature::Disabled) {
+        signature.setType(KIdentityManagementCore::Signature::Inlined);
+    }
+    signature.setEnabledSignature(enabled);
+    Q_EMIT identityChanged();
+}
+
+QString IdentityEditorBackend::signatureText() const
+{
+    const auto &signature = mIdentity.signature();
+    return signature.type() == KIdentityManagementCore::Signature::Inlined ? signature.toPlainText() : QString();
+}
+
+void IdentityEditorBackend::setSignatureText(const QString &text)
+{
+    if (signatureText() == text) {
+        return;
+    }
+    auto &signature = mIdentity.signature();
+    signature.setText(text);
+    signature.setInlinedHtml(false);
+    Q_EMIT identityChanged();
+}
+
 #include "moc_identityeditorbackend.cpp"

@@ -574,6 +574,8 @@ public:
      * \warning This method is not const.
      */
     [[nodiscard]] Signature &signature();
+    /*! Returns the signature of this identity. */
+    [[nodiscard]] const Signature &signature() const;
     /*! Sets the signature for this identity to \a sig. */
     void setSignature(const Signature &sig);
 
