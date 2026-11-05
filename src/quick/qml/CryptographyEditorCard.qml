@@ -12,6 +12,8 @@ import org.kde.kidentitymanagement 1.0
 FormCard.FormCard {
     id: root
 
+    autoSeparators: true
+
     // Since Identity is not a QObject and its properties do not emit signals,
     // we use these convenience functions to update the values of each interactive
     // component of this card when editing happens
@@ -66,10 +68,6 @@ FormCard.FormCard {
         }
     }
 
-    FormCard.FormDelegateSeparator {
-        above: combinedPgpModeCheckBox; below: pgpSigningOrCombinedDelegate
-    }
-
     FormCard.FormCheckDelegate {
         id: combinedPgpModeCheckBox
 
@@ -95,12 +93,6 @@ FormCard.FormCard {
         }
     }
 
-    FormCard.FormDelegateSeparator {
-        below: combinedPgpModeCheckBox
-        above: pgpEncryptionDelegate
-        visible: pgpEncryptionDelegate.visible
-    }
-
     FormCard.FormComboBoxDelegate {
         id: pgpEncryptionDelegate
 
@@ -114,11 +106,6 @@ FormCard.FormCard {
         valueRole: "keyByteArray"
         onActivated: root.backend.identity.pgpEncryptionKey = currentValue
         visible: !combinedPgpModeCheckBox.checked
-    }
-
-    FormCard.FormDelegateSeparator {
-        above: smimeSigningOrCombinedDelegate
-        below: pgpEncryptionDelegate.visible ? pgpEncryptionDelegate : combinedPgpModeCheckBox
     }
 
     FormCard.FormComboBoxDelegate {
@@ -144,8 +131,6 @@ FormCard.FormCard {
         }
     }
 
-    FormCard.FormDelegateSeparator { above: combinedSmimeModeCheckBox; below: smimeSigningOrCombinedDelegate }
-
     FormCard.FormCheckDelegate {
         id: combinedSmimeModeCheckBox
 
@@ -169,12 +154,6 @@ FormCard.FormCard {
                 root.backend.identity.smimeEncryptionKey = root.backend.identity.smimeSigningKey;
             }
         }
-    }
-
-    FormCard.FormDelegateSeparator {
-        above: smimeEncryptionDelegate
-        below: combinedSmimeModeCheckBox
-        visible: !combinedSmimeModeCheckBox.checked
     }
 
     FormCard.FormComboBoxDelegate {

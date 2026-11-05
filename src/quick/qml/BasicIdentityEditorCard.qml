@@ -29,6 +29,8 @@ ColumnLayout {
     }
 
     FormCard.FormCard {
+        autoSeparators: true
+
         FormCard.FormTextFieldDelegate {
             id: identityDelegate
 
@@ -65,6 +67,8 @@ ColumnLayout {
     }
 
     FormCard.FormCard {
+        autoSeparators: true
+
         Repeater {
             id: emailAliasesRepeater
 
