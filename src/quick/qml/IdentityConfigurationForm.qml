@@ -5,15 +5,17 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
 
-import org.kde.kirigami 2.20 as Kirigami
-import org.kde.kirigamiaddons.formcard 1.0 as FormCard
-import org.kde.kidentitymanagement 1.0
+import org.kde.kirigami as Kirigami
+import org.kde.kirigamiaddons.formcard as FormCard
+import org.kde.kidentitymanagement
 
 FormCard.FormCard {
     id: root
 
     readonly property IdentityModel _identityModel: IdentityModel {}
     property var cryptographyEditorBackend: CryptographyEditorBackend {}
+
+    autoSeparators: true
 
     Repeater {
         id: identityRepeater
@@ -36,6 +38,7 @@ FormCard.FormCard {
 
     FormCard.FormButtonDelegate {
         text: i18nc("@title", "Add Identity")
+        icon.name: "list-add-symbolic"
         onClicked: {
             pageStack.pushDialogLayer(Qt.resolvedUrl("IdentityEditorPage.qml"), {
                 mode: IdentityEditorBackend.CreateMode,
