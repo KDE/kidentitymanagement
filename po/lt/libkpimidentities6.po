@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:49+0000\n"
+"POT-Creation-Date: 2026-11-06 00:52+0000\n"
 "PO-Revision-Date: 2026-01-30 14:25+0200\n"
 "Last-Translator: Andrius Štikonas <andrius@stikonas.eu>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -75,93 +75,93 @@ msgstr ""
 msgid "Identity"
 msgstr "Tapatybė"
 
-#: quick/qml/BasicIdentityEditorCard.qml:37
+#: quick/qml/BasicIdentityEditorCard.qml:39
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Identity Name"
 msgstr "Tapatybės pavadinimas"
 
-#: quick/qml/BasicIdentityEditorCard.qml:46
+#: quick/qml/BasicIdentityEditorCard.qml:48
 #, kde-format
 msgid "Your name"
 msgstr "Jūsų vardas"
 
-#: quick/qml/BasicIdentityEditorCard.qml:56
+#: quick/qml/BasicIdentityEditorCard.qml:58
 #, kde-format
 msgid "Email address"
 msgstr "El. pašto adresas"
 
-#: quick/qml/BasicIdentityEditorCard.qml:64
+#: quick/qml/BasicIdentityEditorCard.qml:66
 #, kde-format
 msgid "E-mail aliases"
 msgstr "El. pašto pseudonimai"
 
-#: quick/qml/BasicIdentityEditorCard.qml:98
+#: quick/qml/BasicIdentityEditorCard.qml:102
 #, kde-format
 msgid "Remove email alias"
 msgstr "Šalinti el. pašto pseudonimą"
 
-#: quick/qml/BasicIdentityEditorCard.qml:118
+#: quick/qml/BasicIdentityEditorCard.qml:122
 #, kde-format
 msgid "user@example.org"
 msgstr "naudotojas@example.org"
 
-#: quick/qml/BasicIdentityEditorCard.qml:127
+#: quick/qml/BasicIdentityEditorCard.qml:131
 #, kde-format
 msgid "Add email alias"
 msgstr "Pridėti el. pašto pseudonimą"
 
-#: quick/qml/CryptographyEditorCard.qml:55
+#: quick/qml/CryptographyEditorCard.qml:57
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP key"
 msgstr "OpenPGP raktas"
 
-#: quick/qml/CryptographyEditorCard.qml:55
+#: quick/qml/CryptographyEditorCard.qml:57
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP signing key"
 msgstr "OpenPGP pasirašymo raktas"
 
-#: quick/qml/CryptographyEditorCard.qml:82
+#: quick/qml/CryptographyEditorCard.qml:80
 #, kde-format
 msgctxt "@label"
 msgid "Use same OpenPGP key for encryption and signing"
 msgstr "Naudoti tą patį OpenPGP raktą ir šifravimui, ir pasirašymui"
 
-#: quick/qml/CryptographyEditorCard.qml:111
+#: quick/qml/CryptographyEditorCard.qml:103
 #, kde-format
 msgctxt "@label"
 msgid "OpenPGP encryption key"
 msgstr "OpenPGP šifravimo raktas"
 
-#: quick/qml/CryptographyEditorCard.qml:133
+#: quick/qml/CryptographyEditorCard.qml:120
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME signing key"
 msgstr "S/MIME pasirašymo raktas"
 
-#: quick/qml/CryptographyEditorCard.qml:158
+#: quick/qml/CryptographyEditorCard.qml:143
 #, kde-format
 msgctxt "@label"
 msgid "Use same S/MIME key for encryption and signing"
 msgstr "Naudoti tą patį S/MIME raktą ir šifravimui, ir pasirašymui"
 
-#: quick/qml/CryptographyEditorCard.qml:187
+#: quick/qml/CryptographyEditorCard.qml:166
 #, kde-format
 msgctxt "@label"
 msgid "S/MIME encryption key"
 msgstr "S/MIME šifravimo raktas"
 
-#: quick/qml/IdentityConfigurationForm.qml:32
+#: quick/qml/IdentityConfigurationForm.qml:53
 #, kde-format
 msgctxt "@title"
 msgid "Edit Identity"
 msgstr "Taisyti tapatybę"
 
-#: quick/qml/IdentityConfigurationForm.qml:38
-#: quick/qml/IdentityConfigurationForm.qml:43
-#: quick/qml/IdentityConfigurationForm.qml:45
+#: quick/qml/IdentityConfigurationForm.qml:59
+#: quick/qml/IdentityConfigurationForm.qml:65
+#: quick/qml/IdentityConfigurationForm.qml:67
 #, kde-format
 msgctxt "@title"
 msgid "Add Identity"
@@ -183,35 +183,59 @@ msgctxt "@title:group"
 msgid "Cryptography"
 msgstr "Kriptografija"
 
-#: quick/qml/IdentityEditorPage.qml:96 quick/qml/IdentityEditorPage.qml:125
+#: quick/qml/IdentityEditorPage.qml:83
+#, fuzzy, kde-format
+#| msgctxt "@option:check"
+#| msgid "&Enable signature"
+msgctxt "@title:group"
+msgid "Signature"
+msgstr "Į&jungti parašą"
+
+#: quick/qml/IdentityEditorPage.qml:104 quick/qml/IdentityEditorPage.qml:133
 #, kde-format
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: quick/qml/IdentityEditorPage.qml:104
+#: quick/qml/IdentityEditorPage.qml:112
 #, kde-format
 msgid "Save"
 msgstr "Įrašyti"
 
-#: quick/qml/IdentityEditorPage.qml:104
+#: quick/qml/IdentityEditorPage.qml:112
 #, kde-format
 msgid "Add"
 msgstr "Pridėti"
 
-#: quick/qml/IdentityEditorPage.qml:119
+#: quick/qml/IdentityEditorPage.qml:127
 #, kde-format
 msgid "Delete %1"
 msgstr "Ištrinti %1"
 
-#: quick/qml/IdentityEditorPage.qml:120
+#: quick/qml/IdentityEditorPage.qml:128
 #, kde-format
 msgid "Are you sure you want to delete this identity?"
 msgstr "Ar tikrai norite ištrinti šią tapatybę?"
 
-#: quick/qml/IdentityEditorPage.qml:134
+#: quick/qml/IdentityEditorPage.qml:142
 #, kde-format
 msgid "Cancel"
 msgstr "Atsisakyti"
+
+#: quick/qml/SignatureEditorCard.qml:19
+#, fuzzy, kde-format
+#| msgctxt "@option:check"
+#| msgid "&Enable signature"
+msgctxt "@option:check"
+msgid "Enable signature"
+msgstr "Į&jungti parašą"
+
+#: quick/qml/SignatureEditorCard.qml:26
+#, fuzzy, kde-format
+#| msgctxt "@label:textbox"
+#| msgid "Obtain signature &text from:"
+msgctxt "@label:textbox"
+msgid "Signature text"
+msgstr "Gauti parašo &tekstą iš:"
 
 #: widgets/signatureconfigurator.cpp:106
 #, kde-format
