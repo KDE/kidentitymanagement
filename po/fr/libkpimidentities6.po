@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Sébastien Renard <Sebastien.Renard@digitalfox.org>, 2007, 2008.
-# SPDX-FileCopyrightText: 2013, 2021, 2023, 2024, 2026 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2013, 2021, 2023-2024, 2026 Xavier Besnard <xavier.besnard@kde.org>
 # Ludovic Grossard <grossard@kde.org>, 2014.
 # Vincent Pinon <vpinon@kde.org>, 2018.
 # Simon Depiets <sdepiets@gmail.com>, 2019.
@@ -13,9 +13,9 @@ msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-06 00:52+0000\n"
-"PO-Revision-Date: 2026-01-29 09:09+0100\n"
+"PO-Revision-Date: 2026-11-07 10:07+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: \n"
+"Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 26.08.1\n"
 "X-Text-Markup: kde4\n"
 
 #: core/identitymanager.cpp:160
@@ -193,12 +193,10 @@ msgid "Cryptography"
 msgstr "Cryptographie"
 
 #: quick/qml/IdentityEditorPage.qml:83
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@title:group"
 msgid "Signature"
-msgstr "Activ&er la signature"
+msgstr "Signature"
 
 #: quick/qml/IdentityEditorPage.qml:104 quick/qml/IdentityEditorPage.qml:133
 #, kde-format
@@ -231,20 +229,16 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: quick/qml/SignatureEditorCard.qml:19
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable signature"
-msgstr "Activ&er la signature"
+msgstr "Activer la signature"
 
 #: quick/qml/SignatureEditorCard.qml:26
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Signature text"
-msgstr "Obtenir le &texte de signature à partir de :"
+msgstr "Texte de signature"
 
 #: widgets/signatureconfigurator.cpp:106
 #, kde-format
