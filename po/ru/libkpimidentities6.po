@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: kmail\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-06 00:52+0000\n"
-"PO-Revision-Date: 2026-01-29 20:46+0200\n"
-"Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
+"PO-Revision-Date: 2026-11-06 07:49+0200\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -192,8 +192,7 @@ msgid "Cryptography"
 msgstr "Шифрование"
 
 #: quick/qml/IdentityEditorPage.qml:83
-#, fuzzy, kde-format
-#| msgid "Signature"
+#, kde-format
 msgctxt "@title:group"
 msgid "Signature"
 msgstr "Подпись"
@@ -229,19 +228,16 @@ msgid "Cancel"
 msgstr "Отмена"
 
 #: quick/qml/SignatureEditorCard.qml:19
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable signature"
-msgstr "&Добавлять подпись"
+msgstr "Добавлять подпись"
 
 #: quick/qml/SignatureEditorCard.qml:26
-#, fuzzy, kde-format
-#| msgid "Signature"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Signature text"
-msgstr "Подпись"
+msgstr "Текст подписи"
 
 #: widgets/signatureconfigurator.cpp:106
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-06 00:52+0000\n"
-"PO-Revision-Date: 2026-01-28 08:15+0200\n"
+"PO-Revision-Date: 2026-11-06 11:45+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: core/identitymanager.cpp:160
 #, kde-format
@@ -183,12 +183,10 @@ msgid "Cryptography"
 msgstr "קריפטוגרפיה"
 
 #: quick/qml/IdentityEditorPage.qml:83
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@title:group"
 msgid "Signature"
-msgstr "ה&פעלת חתימה"
+msgstr "חתימה"
 
 #: quick/qml/IdentityEditorPage.qml:104 quick/qml/IdentityEditorPage.qml:133
 #, kde-format
@@ -221,20 +219,16 @@ msgid "Cancel"
 msgstr "ביטול"
 
 #: quick/qml/SignatureEditorCard.qml:19
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable signature"
-msgstr "ה&פעלת חתימה"
+msgstr "הפעלת חתימה"
 
 #: quick/qml/SignatureEditorCard.qml:26
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Signature text"
-msgstr "משיכת &טקסט חתימה מתוך:"
+msgstr "טקסט חתימה"
 
 #: widgets/signatureconfigurator.cpp:106
 #, kde-format

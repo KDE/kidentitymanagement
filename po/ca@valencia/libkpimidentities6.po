@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kidentitymanagement\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-06 00:52+0000\n"
-"PO-Revision-Date: 2026-01-28 09:14+0100\n"
+"PO-Revision-Date: 2026-11-06 10:27+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -188,12 +188,10 @@ msgid "Cryptography"
 msgstr "Criptografia"
 
 #: quick/qml/IdentityEditorPage.qml:83
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@title:group"
 msgid "Signature"
-msgstr "&Habilita la signatura"
+msgstr "Signatura"
 
 #: quick/qml/IdentityEditorPage.qml:104 quick/qml/IdentityEditorPage.qml:133
 #, kde-format
@@ -226,20 +224,16 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: quick/qml/SignatureEditorCard.qml:19
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable signature"
-msgstr "&Habilita la signatura"
+msgstr "Habilita la signatura"
 
 #: quick/qml/SignatureEditorCard.qml:26
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Signature text"
-msgstr "Obtín el &text de la signatura des de:"
+msgstr "Text de la signatura"
 
 #: widgets/signatureconfigurator.cpp:106
 #, kde-format

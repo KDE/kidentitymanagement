@@ -2,23 +2,23 @@
 # Copyright (C) 2007-2026 This file is copyright:
 # This file is distributed under the same license as the kidentitymanagement package.
 #
-# SPDX-FileCopyrightText: 2007, 2008 Santiago Fernández Sancho <santi@kde-es.org>
+# SPDX-FileCopyrightText: 2007-2008 Santiago Fernández Sancho <santi@kde-es.org>
 # SPDX-FileCopyrightText: 2008 Dario Andres Rodriguez <andresbajotierra@gmail.com>
-# SPDX-FileCopyrightText: 2011, 2013, 2015, 2016, 2018, 2019 Javier Vinal <fjvinal@gmail.com>
-# SPDX-FileCopyrightText: 2021, 2023, 2024, 2026 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2011, 2013, 2015-2016, 2018-2019 Javier Vinal <fjvinal@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2023-2024, 2026 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities6\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-06 00:52+0000\n"
-"PO-Revision-Date: 2026-01-28 21:15+0100\n"
+"PO-Revision-Date: 2026-11-06 18:29+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 26.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: core/identitymanager.cpp:160
@@ -187,12 +187,10 @@ msgid "Cryptography"
 msgstr "Criptografía"
 
 #: quick/qml/IdentityEditorPage.qml:83
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@title:group"
 msgid "Signature"
-msgstr "&Activar firma"
+msgstr "Firma"
 
 #: quick/qml/IdentityEditorPage.qml:104 quick/qml/IdentityEditorPage.qml:133
 #, kde-format
@@ -225,20 +223,16 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: quick/qml/SignatureEditorCard.qml:19
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable signature"
-msgstr "&Activar firma"
+msgstr "Activar firma"
 
 #: quick/qml/SignatureEditorCard.qml:26
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Signature text"
-msgstr "Obtener &texto de la firma de:"
+msgstr "Texto de la firma"
 
 #: widgets/signatureconfigurator.cpp:106
 #, kde-format
