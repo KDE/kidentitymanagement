@@ -99,7 +99,7 @@ include(ECMCheckOutboundLicense)
 
 option(BUILD_QUICK_SUPPORT "Build quick support. Needed for merkuro project" ON)
 
-set(PIMTEXTEDIT_LIB_VERSION "6.8.40")
+set(PIMTEXTEDIT_LIB_VERSION "6.9.40")
 set(KTEXTADDONS_MIN_VERSION "2.2.0")
 
 ########### Find packages ###########
