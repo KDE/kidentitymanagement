@@ -254,7 +254,7 @@ bool Identity::operator==(const Identity &other) const
     // regular mPropertiesMap == other.mPropertiesMap comparison will fail.
     // This algo considers both maps equal even if one map does not contain the
     // key and the other one contains the key but with an invalid value
-    for (const auto &pair : {qMakePair(mPropertiesMap, other.mPropertiesMap), qMakePair(other.mPropertiesMap, mPropertiesMap)}) {
+    for (const auto &pair : {std::make_pair(mPropertiesMap, other.mPropertiesMap), std::make_pair(other.mPropertiesMap, mPropertiesMap)}) {
         const auto lhs = pair.first;
         const auto rhs = pair.second;
         for (auto lhsIt = lhs.constBegin(), lhsEnd = lhs.constEnd(); lhsIt != lhsEnd; ++lhsIt) {
