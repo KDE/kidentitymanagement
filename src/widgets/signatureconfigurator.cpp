@@ -31,13 +31,14 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QLabel>
+#include <QPushButton>
 #include <QStackedWidget>
+#include <QTextDocument>
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
 #include <QStandardPaths>
-#include <cassert>
 
 #include <TextCustomEditor/RichTextEditorWidget>
 
@@ -423,7 +424,7 @@ void SignatureConfigurator::slotEdit()
 {
     const QString url = filePath();
     // slotEnableEditButton should prevent this assert from being hit:
-    assert(!url.isEmpty());
+    Q_ASSERT(!url.isEmpty());
 
     auto job = new KIO::OpenUrlJob(QUrl::fromLocalFile(url), u"text/plain"_s);
     job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));

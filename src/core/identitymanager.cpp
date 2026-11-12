@@ -20,7 +20,7 @@ using namespace Qt::Literals::StringLiterals;
 #include <KEMailSettings> // for IdentityEntry::fromControlCenter()
 #include <KLocalizedString>
 #include <KSharedConfig>
-#include <kuser.h>
+#include <KUser>
 
 #include <QDBusConnection>
 #include <QHostInfo>

@@ -14,6 +14,11 @@
 #include <QWidget>
 #include <memory>
 
+namespace KIdentityManagementCore
+{
+class Identity;
+}
+
 using KIdentityManagementCore::Signature;
 
 namespace KIdentityManagementWidgets

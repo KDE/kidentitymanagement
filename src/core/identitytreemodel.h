@@ -13,7 +13,6 @@
 
 namespace KIdentityManagementCore
 {
-class IdentityManager;
 /*!
  * \class KIdentityManagementCore::IdentityTreeModel
  * \inmodule KIdentityManagementCore

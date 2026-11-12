@@ -11,7 +11,7 @@
 #include <KConfigGroup>
 #include <KEmailAddress>
 
-#include <QByteArray>
+#include <QDataStream>
 #include <QHostInfo>
 #include <QMimeData>
 

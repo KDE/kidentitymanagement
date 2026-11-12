@@ -6,6 +6,8 @@
 #include "cryptographybackendinterface.h"
 #include "identity.h"
 
+#include <QDebug>
+
 using namespace KIdentityManagementQuick;
 
 CryptographyEditorBackend::CryptographyEditorBackend(QObject *parent, const CryptographyBackendInterfacePtr &cryptoBackend)

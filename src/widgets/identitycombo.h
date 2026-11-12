@@ -9,10 +9,11 @@
 
 #include <QComboBox>
 
+#include <memory>
+
 namespace KIdentityManagementCore
 {
 class IdentityManager;
-class Identity;
 class IdentityActivitiesAbstract;
 }
 namespace KIdentityManagementWidgets

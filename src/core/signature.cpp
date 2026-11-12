@@ -13,11 +13,12 @@
 #include <KLocalizedString>
 #include <KProcess>
 
+#include <QDataStream>
 #include <QDir>
+#include <QFile>
 #include <QTextBlock>
+#include <QTextCursor>
 #include <QTextDocument>
-
-#include <cassert>
 
 using namespace KIdentityManagementCore;
 using namespace Qt::Literals::StringLiterals;
@@ -119,7 +120,7 @@ void SignaturePrivate::saveImages() const
 
 QString SignaturePrivate::textFromFile(bool *ok) const
 {
-    assert(type == Signature::FromFile);
+    Q_ASSERT(type == Signature::FromFile);
 
     QFile f(path);
     if (!f.open(QIODevice::ReadOnly)) {
@@ -139,7 +140,7 @@ QString SignaturePrivate::textFromFile(bool *ok) const
 
 QString SignaturePrivate::textFromCommand(bool *ok, QString *errorMessage) const
 {
-    assert(type == Signature::FromCommand);
+    Q_ASSERT(type == Signature::FromCommand);
 
     // handle pathological cases:
     if (path.isEmpty()) {

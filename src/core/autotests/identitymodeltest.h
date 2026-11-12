@@ -5,6 +5,8 @@
 
 #include <QObject>
 
+#include <memory>
+
 #include <KIdentityManagementCore/IdentityManager>
 
 class IdentityModelTester : public QObject
