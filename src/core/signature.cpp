@@ -425,6 +425,10 @@ bool Signature::operator==(const Signature &other) const
         return false;
     }
 
+    if (d->type == Inlined && d->inlinedHtml != other.isInlinedHtml()) {
+        return false;
+    }
+
     if (d->type == Inlined && d->inlinedHtml) {
         if (d->saveLocation != other.imageLocation()) {
             return false;
