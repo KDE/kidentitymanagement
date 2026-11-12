@@ -13,11 +13,4 @@ macro(add_identitycore_test _source)
 endmacro()
 
 add_identitycore_test(identitytest.cpp)
-add_identitycore_test(signaturetest.cpp)
 add_identitycore_test(identitymodeltest.cpp)
-
-target_compile_definitions(
-    signaturetest
-    PRIVATE
-        SIGNATURETEST_DATA_FILE="${CMAKE_CURRENT_SOURCE_DIR}/signaturetest.cpp"
-)

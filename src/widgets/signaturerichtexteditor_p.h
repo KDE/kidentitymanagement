@@ -8,7 +8,7 @@
 */
 
 #pragma once
-
+#include "kidentitymanagementwidgets_export.h"
 #include <KIdentityManagementCore/Signature>
 
 namespace KPIMTextEdit
@@ -40,11 +40,11 @@ namespace SignatureRichTextEditor
  *
  * @since 4.9
  */
-void insertIntoTextEdit(const KIdentityManagementCore::Signature &sig,
-                        KIdentityManagementCore::Signature::Placement placement,
-                        KIdentityManagementCore::Signature::AddedText addedText,
-                        KPIMTextEdit::RichTextComposer *textEdit,
-                        bool forceDisplay = false);
+KIDENTITYMANAGEMENTWIDGETS_EXPORT void insertIntoTextEdit(const KIdentityManagementCore::Signature &sig,
+                                                          KIdentityManagementCore::Signature::Placement placement,
+                                                          KIdentityManagementCore::Signature::AddedText addedText,
+                                                          KPIMTextEdit::RichTextComposer *textEdit,
+                                                          bool forceDisplay = false);
 }
 
 }

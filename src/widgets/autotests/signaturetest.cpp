@@ -9,8 +9,8 @@
 
 #include <QTest>
 
-#include "../src/widgets/signaturerichtexteditor.cpp"
 #include "signature.h"
+#include "signaturerichtexteditor_p.h"
 
 #include <KActionCollection>
 #include <KConfig>
@@ -24,6 +24,7 @@
 #include <KPIMTextEdit/RichTextComposerImages>
 using namespace Qt::Literals::StringLiterals;
 using namespace KIdentityManagementCore;
+using namespace KIdentityManagementWidgets;
 using namespace KPIMTextEdit;
 
 QTEST_MAIN(SignatureTester)
