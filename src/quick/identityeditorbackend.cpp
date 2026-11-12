@@ -51,7 +51,7 @@ void IdentityEditorBackend::setIdentityUoid(uint identityUoid)
 
 void IdentityEditorBackend::newIdentity(const KIdentityManagementCore::Identity &newIdentity)
 {
-    auto identity = mIdentityManager->newFromExisting(newIdentity, newIdentity.identityName());
+    const auto &identity = mIdentityManager->newFromExisting(newIdentity, newIdentity.identityName());
     mIdentityManager->saveIdentity(identity);
 }
 
