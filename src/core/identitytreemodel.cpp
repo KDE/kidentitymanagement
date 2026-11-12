@@ -96,7 +96,7 @@ QString IdentityTreeModel::generateIdentityName(const Identity &identity) const
 {
     QString str = identity.identityName();
     if (mShowDefault && identity.isDefault()) {
-        str += u' ' + i18nc("Default identity", " (default)");
+        str += i18nc("Default identity", " (default)");
     }
     return str;
 }
