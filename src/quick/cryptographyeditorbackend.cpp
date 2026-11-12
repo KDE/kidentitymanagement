@@ -60,8 +60,10 @@ KIdentityManagementCore::Identity CryptographyEditorBackend::identity() const
 void CryptographyEditorBackend::setIdentity(const KIdentityManagementCore::Identity &identity)
 {
     if (mCryptoBackend) {
-        mCryptoBackend->setIdentity(identity);
-        Q_EMIT identityChanged();
+        if (mCryptoBackend->identity() != identity) {
+            mCryptoBackend->setIdentity(identity);
+            Q_EMIT identityChanged();
+        }
     }
 }
 
