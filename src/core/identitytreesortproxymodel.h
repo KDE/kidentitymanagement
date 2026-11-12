@@ -26,7 +26,7 @@ public:
      * Constructor
      * \a parent the parent object
      */
-    explicit IdentityTreeSortProxyModel(QObject *parent);
+    explicit IdentityTreeSortProxyModel(QObject *parent = nullptr);
     /*!
      * Destructor
      */
