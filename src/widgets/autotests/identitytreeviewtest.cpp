@@ -3,16 +3,18 @@
 #include "identitytreeviewtest.h"
 #include "identitytreemodel.h"
 #include "identitytreeview.h"
+#include <QStandardPaths>
 #include <QTest>
 QTEST_MAIN(IdentityTreeViewTest)
 IdentityTreeViewTest::IdentityTreeViewTest(QObject *parent)
     : QObject{parent}
 {
+    QStandardPaths::setTestModeEnabled(true);
 }
 
 void IdentityTreeViewTest::shouldHaveDefaultValues()
 {
-    KIdentityManagementWidgets::IdentityTreeView w;
+    const KIdentityManagementWidgets::IdentityTreeView w;
     QVERIFY(w.alternatingRowColors());
     QVERIFY(!w.rootIsDecorated());
     QVERIFY(w.isSortingEnabled());
