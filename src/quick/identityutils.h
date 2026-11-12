@@ -14,7 +14,7 @@ class IdentityUtils : public QObject
     Q_OBJECT
 
 public:
-    explicit IdentityUtils() = default;
+    IdentityUtils() = default;
 
     Q_INVOKABLE bool removeIdentity(const QString &identityName);
 

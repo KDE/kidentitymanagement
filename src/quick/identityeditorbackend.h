@@ -31,7 +31,7 @@ public:
     };
     Q_ENUM(Mode)
 
-    explicit IdentityEditorBackend() = default;
+    IdentityEditorBackend() = default;
 
     [[nodiscard]] bool signatureEnabled() const;
     void setSignatureEnabled(bool enabled);
