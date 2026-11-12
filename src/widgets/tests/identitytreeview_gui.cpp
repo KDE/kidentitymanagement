@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    auto w = new IdentityTreeWidget;
-    w->show();
+    IdentityTreeWidget w;
+    w.show();
     return app.exec();
 }
