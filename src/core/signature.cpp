@@ -391,7 +391,8 @@ void Signature::setEmbeddedImages(const QList<Signature::EmbeddedImagePtr> &embe
 
 QDataStream &KIdentityManagementCore::operator<<(QDataStream &stream, const KIdentityManagementCore::Signature &sig)
 {
-    return stream << static_cast<quint8>(sig.type()) << sig.path() << sig.text() << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature();
+    return stream << static_cast<quint8>(sig.type()) << sig.path() << sig.text() << sig.imageLocation() << sig.embeddedImages() << sig.isEnabledSignature()
+                  << sig.isInlinedHtml();
 }
 
 QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityManagementCore::Signature &sig)
@@ -402,13 +403,15 @@ QDataStream &KIdentityManagementCore::operator>>(QDataStream &stream, KIdentityM
     QString saveLocation;
     QList<Signature::EmbeddedImagePtr> lst;
     bool enabled;
-    stream >> s >> path >> text >> saveLocation >> lst >> enabled;
+    bool inlinedHtml;
+    stream >> s >> path >> text >> saveLocation >> lst >> enabled >> inlinedHtml;
     sig.setText(text);
     sig.setPath(path);
     sig.setImageLocation(saveLocation);
     sig.setEmbeddedImages(lst);
     sig.setEnabledSignature(enabled);
     sig.setType(static_cast<Signature::Type>(s));
+    sig.setInlinedHtml(inlinedHtml);
     return stream;
 }
 
