@@ -70,7 +70,7 @@ IdentityComboboxWidget::IdentityComboboxWidget(QWidget *parent)
         hbox->addWidget(identityNameButton);
 
         connect(identityNameButton, &QPushButton::clicked, this, [identityNameLineEdit, combobox]() {
-            combobox->setCurrentIdentity(identityNameLineEdit->text().toInt());
+            combobox->setCurrentIdentity(identityNameLineEdit->text().toUInt());
         });
 
         mainLayout->addLayout(hbox);
