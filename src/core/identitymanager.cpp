@@ -262,7 +262,7 @@ void IdentityManagerPrivate::slotIdentitiesChanged(const QString &id)
     }
 }
 
-Q_GLOBAL_STATIC(IdentityManager, s_self)
+Q_APPLICATION_STATIC(IdentityManager, s_self)
 
 IdentityManager *IdentityManager::self()
 {
