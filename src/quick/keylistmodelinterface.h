@@ -43,7 +43,9 @@ public:
     /*!
      * Destroys the key list model interface.
      */
-    virtual ~KeyListModelInterface() { };
+    virtual ~KeyListModelInterface()
+    {
+    }
     /*!
      * \enum KIdentityManagementQuick::KeyListModelInterface::Roles
      *
