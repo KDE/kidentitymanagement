@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-06 00:52+0000\n"
+"POT-Creation-Date: 2026-11-12 21:03+0000\n"
 "PO-Revision-Date: 2022-02-08 19:44+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: core/signature.cpp:165
+#: core/signature.cpp:166
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>Fejl under kørsel af signaturscript<p><b>%1</b>:</p><p>%2</p></qt>"
@@ -237,14 +237,14 @@ msgctxt "@label:textbox"
 msgid "Signature text"
 msgstr "Hent signatur&tekst fra:"
 
-#: widgets/signatureconfigurator.cpp:106
+#: widgets/signatureconfigurator.cpp:107
 #, fuzzy, kde-format
 #| msgid "&Enable signature"
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&Aktivér signatur"
 
-#: widgets/signatureconfigurator.cpp:108
+#: widgets/signatureconfigurator.cpp:109
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
@@ -253,55 +253,55 @@ msgstr ""
 "Aktivér denne indstilling, hvis du vil have KMail til at føje en signatur "
 "til e-mail, der er skrevet med denne identitet."
 
-#: widgets/signatureconfigurator.cpp:117
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr "Klik på kontrollerne nedenfor for at få hjælp med inputmetoderne."
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "Inputfeltet nedenfor"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "Fil"
 
-#: widgets/signatureconfigurator.cpp:121
+#: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "Kommandooutput"
 
-#: widgets/signatureconfigurator.cpp:122
+#: widgets/signatureconfigurator.cpp:123
 #, fuzzy, kde-format
 #| msgid "Obtain signature &text from:"
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Hent signatur&tekst fra:"
 
-#: widgets/signatureconfigurator.cpp:162
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Brug dette felt til at angive en fastlagt statisk signatur."
 
-#: widgets/signatureconfigurator.cpp:202
+#: widgets/signatureconfigurator.cpp:203
 #, fuzzy, kde-format
 #| msgid "&Use HTML"
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "&Brug HTML"
 
-#: widgets/signatureconfigurator.cpp:218
+#: widgets/signatureconfigurator.cpp:219
 #, fuzzy, kde-format
 #| msgid "Text File Size"
 msgid "Text File (*.txt)"
 msgstr "Tekstfilens størrelse"
 
-#: widgets/signatureconfigurator.cpp:220
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -310,26 +310,26 @@ msgstr ""
 "Angiv her en tekstfil, der indeholder din signatur. Den anvendes, hver gang "
 "du opretter en ny e-mail eller tilføjer en ny signatur."
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:224
 #, fuzzy, kde-format
 #| msgid "S&pecify file:"
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "&Angiv fil:"
 
-#: widgets/signatureconfigurator.cpp:230
+#: widgets/signatureconfigurator.cpp:231
 #, fuzzy, kde-format
 #| msgid "Edit &File"
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Redigér &fil"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "Åbner den angivne fil i en teksteditor."
 
-#: widgets/signatureconfigurator.cpp:251
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -344,31 +344,31 @@ msgstr ""
 "anvendtekommandoer med denne mekanisme er \"fortune\" eller \"ksig -random"
 "\" (vær forsigtig, scriptet kræver en shebang-linje)."
 
-#: widgets/signatureconfigurator.cpp:257
+#: widgets/signatureconfigurator.cpp:258
 #, fuzzy, kde-format
 #| msgid "S&pecify command:"
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&Angiv kommando:"
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "Denne tekstfils størrelse overstiger 1 kb."
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, fuzzy, kde-format
 #| msgid "Text File Size"
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Tekstfilens størrelse"
 
-#: widgets/signatureconfigurator.cpp:437
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Brug HTML"
 
-#: widgets/signatureconfigurator.cpp:447
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Brug HTML (deaktivering fjerner formatering)"

@@ -6,20 +6,20 @@
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2008.
 # Franklin Weng <franklin@mail.everfocus.com.tw>, 2008.
 # pan93412 <pan93412@gmail.com>, 2019.
-# SPDX-FileCopyrightText: 2023, 2024, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023-2024, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-06 00:52+0000\n"
-"PO-Revision-Date: 2026-01-28 20:15+0900\n"
+"POT-Creation-Date: 2026-11-12 21:03+0000\n"
+"PO-Revision-Date: 2026-11-12 18:47+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.03.70\n"
+"X-Generator: Lokalize 26.11.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: core/identitymanager.cpp:160
@@ -68,7 +68,7 @@ msgstr "姓名"
 msgid "Email Address"
 msgstr "電子郵件地址"
 
-#: core/signature.cpp:165
+#: core/signature.cpp:166
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>執行簽名檔文稿<p><b>%1</b> 失敗：</p><p>%2</p></qt>"
@@ -187,12 +187,10 @@ msgid "Cryptography"
 msgstr "加密"
 
 #: quick/qml/IdentityEditorPage.qml:83
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@title:group"
 msgid "Signature"
-msgstr "啟用簽名(&E)"
+msgstr "簽名"
 
 #: quick/qml/IdentityEditorPage.qml:104 quick/qml/IdentityEditorPage.qml:133
 #, kde-format
@@ -225,104 +223,100 @@ msgid "Cancel"
 msgstr "取消"
 
 #: quick/qml/SignatureEditorCard.qml:19
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable signature"
-msgstr "啟用簽名(&E)"
+msgstr "啟用簽名"
 
 #: quick/qml/SignatureEditorCard.qml:26
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Signature text"
-msgstr "取得簽名文字的來源(&T)："
+msgstr "簽名文字"
 
-#: widgets/signatureconfigurator.cpp:106
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "啟用簽名(&E)"
 
-#: widgets/signatureconfigurator.cpp:108
+#: widgets/signatureconfigurator.cpp:109
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
 "this identity."
 msgstr "勾選此選項的話，KMail 會在此身份發出的信件中附上簽名。"
 
-#: widgets/signatureconfigurator.cpp:117
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr "點擊下方的元件可以取得輸入方式的說明。"
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "下方的輸入欄位"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "檔案"
 
-#: widgets/signatureconfigurator.cpp:121
+#: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "指令輸出"
 
-#: widgets/signatureconfigurator.cpp:122
+#: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "取得簽名文字的來源(&T)："
 
-#: widgets/signatureconfigurator.cpp:162
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "使用此欄位來輸入任意的固定簽名文字。"
 
-#: widgets/signatureconfigurator.cpp:202
+#: widgets/signatureconfigurator.cpp:203
 #, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "使用 HTML(&U)"
 
-#: widgets/signatureconfigurator.cpp:218
+#: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr "文字檔案 (*.txt)"
 
-#: widgets/signatureconfigurator.cpp:220
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
 "will be read every time you create a new mail or append a new signature."
 msgstr "這裡可以指定您的簽名檔。每次寫新信件時會將簽名檔的內容附加上去。"
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "簽名檔(&P)："
 
-#: widgets/signatureconfigurator.cpp:230
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "編輯檔案(&F)"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "在文字編輯器中開啟簽名檔。"
 
-#: widgets/signatureconfigurator.cpp:251
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -335,29 +329,29 @@ msgstr ""
 "找。每次寫新信件時，KMail 會執行該指令，並將它的標準輸出結果做為簽名。常用的"
 "指令包括「fortune」或「ksig --random」。（注意，指令碼需要 shebang 行）"
 
-#: widgets/signatureconfigurator.cpp:257
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "執行指令(&P)："
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "此文字檔案大小大於 1KB。"
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "文字檔案大小"
 
-#: widgets/signatureconfigurator.cpp:437
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "使用 HTML(&U)"
 
-#: widgets/signatureconfigurator.cpp:447
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "使用 HTML（關閉的話會移除格式）(&U)"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-06 00:52+0000\n"
+"POT-Creation-Date: 2026-11-12 21:03+0000\n"
 "PO-Revision-Date: 2026-11-06 14:42+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -67,7 +67,7 @@ msgstr "اسم الهويّة"
 msgid "Email Address"
 msgstr "عنوان بريد إلكتروني"
 
-#: core/signature.cpp:165
+#: core/signature.cpp:166
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr "<qt>فشل تنفيذ سكربت التّوقيع <p><b>%1</b>:</p><p>%2</p></qt>"
@@ -233,13 +233,13 @@ msgctxt "@label:textbox"
 msgid "Signature text"
 msgstr " نصّ التوقيع"
 
-#: widgets/signatureconfigurator.cpp:106
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "&مكّن التّوقيع"
 
-#: widgets/signatureconfigurator.cpp:108
+#: widgets/signatureconfigurator.cpp:109
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
@@ -248,52 +248,52 @@ msgstr ""
 "أشّر على هذا المربّع إن أردت أن يُلحق «بريدك» توقيعًا بالرّسائل المكتوبة بهذه "
 "الهويّة."
 
-#: widgets/signatureconfigurator.cpp:117
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr "انقر على الودجات أدناه لترى مساعدة لطرق الدّخل."
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "حقل الدّخل أدناه"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "ملفّ"
 
-#: widgets/signatureconfigurator.cpp:121
+#: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "خرج النّصّ"
 
-#: widgets/signatureconfigurator.cpp:122
+#: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "خُذ ن&صّ التّوقيع من:"
 
-#: widgets/signatureconfigurator.cpp:162
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "استخدم هذا الحقل لإدخال توقيع ثابت اعتباطيّ."
 
-#: widgets/signatureconfigurator.cpp:202
+#: widgets/signatureconfigurator.cpp:203
 #, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "ا&ستخدم HTML"
 
-#: widgets/signatureconfigurator.cpp:218
+#: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr "ملف نصي (‎*.txt)"
 
-#: widgets/signatureconfigurator.cpp:220
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -302,24 +302,24 @@ msgstr ""
 "استخدم أداة الطّلب ههذ لتحديد ملفّ نصّيّ يحتوي التّوقيع. سيُقرأ الملفّ في كلّ مرّة "
 "تُنشئ فيها بريدًا جديدًا أو تُلحق توقيعًا جديدًا."
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "&حدّد الملفّ:"
 
-#: widgets/signatureconfigurator.cpp:230
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "حرّر المل&فّ"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "يفتح الملفّ المحدّد في محرّر نصّيّ."
 
-#: widgets/signatureconfigurator.cpp:251
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -333,29 +333,29 @@ msgstr ""
 "الخرج القياسيّ) كتوقيع. الأوامر غالبة الاستخدام مع هذه الآليّة هي ”fortune“ أو "
 "”ksig -random“. (كن حذرًا السكربت يحتاج إلى شابنج #! )"
 
-#: widgets/signatureconfigurator.cpp:257
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&حدّد الأمر:"
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "حجم الملف النصي تجاوز 1 كيلوبت"
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "حجم الملف النصي"
 
-#: widgets/signatureconfigurator.cpp:437
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "ا&ستخدم HTML"
 
-#: widgets/signatureconfigurator.cpp:447
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "ا&ستخدم HTML (يعطّل إزالة التّنسيق)"

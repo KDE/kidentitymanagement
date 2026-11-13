@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libkpimidentities\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-06 00:52+0000\n"
+"POT-Creation-Date: 2026-11-12 21:03+0000\n"
 "PO-Revision-Date: 2026-11-09 16:42+0200\n"
 "Last-Translator: Andrius Štikonas <andrius@stikonas.eu>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -64,7 +64,7 @@ msgstr "Tapatybės pavadinimas"
 msgid "Email Address"
 msgstr "El. pašto adresas"
 
-#: core/signature.cpp:165
+#: core/signature.cpp:166
 #, kde-format
 msgid "<qt>Failed to execute signature script<p><b>%1</b>:</p><p>%2</p></qt>"
 msgstr ""
@@ -231,13 +231,13 @@ msgctxt "@label:textbox"
 msgid "Signature text"
 msgstr "Parašo tekstas"
 
-#: widgets/signatureconfigurator.cpp:106
+#: widgets/signatureconfigurator.cpp:107
 #, kde-format
 msgctxt "@option:check"
 msgid "&Enable signature"
 msgstr "Į&jungti parašą"
 
-#: widgets/signatureconfigurator.cpp:108
+#: widgets/signatureconfigurator.cpp:109
 #, kde-format
 msgid ""
 "Check this box if you want KMail to append a signature to mails written with "
@@ -246,54 +246,54 @@ msgstr ""
 "Pažymėkite parinktį, jei norite, kad KMail pridėtų parašą prie laiškų, "
 "siunčiamų naudojant šią tapatybę."
 
-#: widgets/signatureconfigurator.cpp:117
+#: widgets/signatureconfigurator.cpp:118
 #, kde-format
 msgid "Click on the widgets below to obtain help on the input methods."
 msgstr ""
 "Spustelėkite žemiau esančius valdiklius norėdami gauti pagalbą dėl įvesties "
 "metodų."
 
-#: widgets/signatureconfigurator.cpp:119
+#: widgets/signatureconfigurator.cpp:120
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Input Field Below"
 msgstr "Žemiau esančio įvedimo lauko"
 
-#: widgets/signatureconfigurator.cpp:120
+#: widgets/signatureconfigurator.cpp:121
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "File"
 msgstr "Failo"
 
-#: widgets/signatureconfigurator.cpp:121
+#: widgets/signatureconfigurator.cpp:122
 #, kde-format
 msgctxt "continuation of \"obtain signature text from\""
 msgid "Output of Command"
 msgstr "Komandos išvesties"
 
-#: widgets/signatureconfigurator.cpp:122
+#: widgets/signatureconfigurator.cpp:123
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Obtain signature &text from:"
 msgstr "Gauti parašo &tekstą iš:"
 
-#: widgets/signatureconfigurator.cpp:162
+#: widgets/signatureconfigurator.cpp:163
 #, kde-format
 msgid "Use this field to enter an arbitrary static signature."
 msgstr "Šiame lauke galite įrašyti pasirinktą statinį parašą."
 
-#: widgets/signatureconfigurator.cpp:202
+#: widgets/signatureconfigurator.cpp:203
 #, kde-format
 msgctxt "@option:check"
 msgid "&Use HTML"
 msgstr "Na&udoti HTML"
 
-#: widgets/signatureconfigurator.cpp:218
+#: widgets/signatureconfigurator.cpp:219
 #, kde-format
 msgid "Text File (*.txt)"
 msgstr "Tekstinis failas (*.txt)"
 
-#: widgets/signatureconfigurator.cpp:220
+#: widgets/signatureconfigurator.cpp:221
 #, kde-format
 msgid ""
 "Use this requester to specify a text file that contains your signature. It "
@@ -303,24 +303,24 @@ msgstr ""
 "parašas. Jis bus perskaitomas kas kartą, kai kursite naują laišką ar "
 "pridėsite naują parašą."
 
-#: widgets/signatureconfigurator.cpp:223
+#: widgets/signatureconfigurator.cpp:224
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify file:"
 msgstr "Nu&rodyti failą:"
 
-#: widgets/signatureconfigurator.cpp:230
+#: widgets/signatureconfigurator.cpp:231
 #, kde-format
 msgctxt "@action:button"
 msgid "Edit &File"
 msgstr "Taisyti &failą"
 
-#: widgets/signatureconfigurator.cpp:231
+#: widgets/signatureconfigurator.cpp:232
 #, kde-format
 msgid "Opens the specified file in a text editor."
 msgstr "Atveria nurodytą failą tekstų redaktoriuje."
 
-#: widgets/signatureconfigurator.cpp:251
+#: widgets/signatureconfigurator.cpp:252
 #, kde-format
 msgid ""
 "You can add an arbitrary command here, either with or without path depending "
@@ -336,29 +336,29 @@ msgstr ""
 "„fortune“ arba „ksig -random“. (Būkite atsargūs, scenarijuje reikės "
 "„shebang“ (#!) eilutės)."
 
-#: widgets/signatureconfigurator.cpp:257
+#: widgets/signatureconfigurator.cpp:258
 #, kde-format
 msgctxt "@label:textbox"
 msgid "S&pecify command:"
 msgstr "&Nurodyti komandą:"
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgid "This text file size exceeds 1kb."
 msgstr "Šis tekstinis failas viršija 1kb."
 
-#: widgets/signatureconfigurator.cpp:417
+#: widgets/signatureconfigurator.cpp:418
 #, kde-format
 msgctxt "@title:window"
 msgid "Text File Size"
 msgstr "Tekstinio failo dydis"
 
-#: widgets/signatureconfigurator.cpp:437
+#: widgets/signatureconfigurator.cpp:438
 #, kde-format
 msgid "&Use HTML"
 msgstr "&Naudoti HTML"
 
-#: widgets/signatureconfigurator.cpp:447
+#: widgets/signatureconfigurator.cpp:448
 #, kde-format
 msgid "&Use HTML (disabling removes formatting)"
 msgstr "&Naudoti HTML (išjungimas pašalina formatavimą)"
