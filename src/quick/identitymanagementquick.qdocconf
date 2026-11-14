@@ -1,6 +1,7 @@
 include($KDE_DOCS/global/qt-module-defaults.qdocconf)
 
 project = IdentityManagementQuick
+moduleheader = identitymanagementquick_qdocmoduleheader.h
 description = Identity Management Quick support library.
 
 

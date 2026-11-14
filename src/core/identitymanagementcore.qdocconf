@@ -1,6 +1,7 @@
 include($KDE_DOCS/global/qt-module-defaults.qdocconf)
 
 project = IdentityManagementCore
+moduleheader = identitymanagementcore_qdocmoduleheader.h
 description = Identity Management Core support library.
 
 

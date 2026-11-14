@@ -1,6 +1,7 @@
 include($KDE_DOCS/global/qt-module-defaults.qdocconf)
 
 project = IdentityManagementWidgets
+moduleheader = identitymanagementwidgets_qdocmoduleheader.h
 description = Identity Management Widgets support library.
 
 
