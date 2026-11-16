@@ -2,8 +2,8 @@
     \module KIdentityManagementWidgets
     \title Identity Management Widgets C++ Classes
     \ingroup modules
-    \cmakepackage KPim6
-    \cmakecomponent IdentityManagementWidgets
+    \cmakepackage KPim6IdentityManagementWidgets
+    \cmaketargetitem KPim6::IdentityManagementWidgets
 
     \brief Identity Management Widgets support library.
 */

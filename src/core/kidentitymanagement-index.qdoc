@@ -10,7 +10,7 @@
 
     \section2 Building with CMake
 
-    \include {module-use.qdocinc} {building with cmake} {KPim6} {IdentityManagementCore} {KPim6::IdentityManagementCore}
+    \include {module-use.qdocinc} {building with cmake nomodule} {KPim6IdentityManagementCore} {KPim6::IdentityManagementCore}
 
     \section1 API Reference
 

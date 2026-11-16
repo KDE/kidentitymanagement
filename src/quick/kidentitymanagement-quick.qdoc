@@ -2,8 +2,8 @@
     \module KIdentityManagementQuick
     \title Identity Management Quick C++ Classes
     \ingroup modules
-    \cmakepackage KPim6
-    \cmakecomponent IdentityManagementQuick
+    \cmakepackage KPim6IdentityManagementQuick
+    \cmaketargetitem KPim6::IdentityManagementQuick
 
     \brief Identity Management Quick support library.
 */

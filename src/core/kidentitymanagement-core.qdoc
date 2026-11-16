@@ -2,8 +2,8 @@
     \module KIdentityManagementCore
     \title Identity Management Core C++ Classes
     \ingroup modules
-    \cmakepackage KPim6
-    \cmakecomponent IdentityManagementCore
+    \cmakepackage KPim6IdentityManagementCore
+    \cmaketargetitem KPim6::IdentityManagementCore
 
     \brief Identity Management Core support library.
 */
