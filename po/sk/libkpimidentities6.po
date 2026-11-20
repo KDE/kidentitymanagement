@@ -182,12 +182,10 @@ msgid "Cryptography"
 msgstr "Kryptografia"
 
 #: quick/qml/IdentityEditorPage.qml:83
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@title:group"
 msgid "Signature"
-msgstr "Povoliť podpis(&E)"
+msgstr "Podpis"
 
 #: quick/qml/IdentityEditorPage.qml:104 quick/qml/IdentityEditorPage.qml:133
 #, kde-format
@@ -220,20 +218,16 @@ msgid "Cancel"
 msgstr "Zrušiť"
 
 #: quick/qml/SignatureEditorCard.qml:19
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "&Enable signature"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable signature"
-msgstr "Povoliť podpis(&E)"
+msgstr "Povoliť podpis"
 
 #: quick/qml/SignatureEditorCard.qml:26
-#, fuzzy, kde-format
-#| msgctxt "@label:textbox"
-#| msgid "Obtain signature &text from:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Signature text"
-msgstr "Získať podpisový &text z:"
+msgstr "Text podpisu"
 
 #: widgets/signatureconfigurator.cpp:107
 #, kde-format
