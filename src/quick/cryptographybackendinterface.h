@@ -5,6 +5,7 @@
 
 #include "kidentitymanagementquick_export.h"
 
+#include <QObject>
 #include <QSharedPointer>
 
 class QAbstractItemModel;

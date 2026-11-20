@@ -13,6 +13,7 @@
 
 #include <QDataStream>
 #include <QHostInfo>
+#include <QMap>
 #include <QMimeData>
 
 using namespace Qt::Literals::StringLiterals;
