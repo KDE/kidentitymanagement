@@ -98,8 +98,17 @@ public:
         AtCursor
     };
 
+    /*!
+     * \class KIdentityManagementCore::Signature::EmbeddedImage
+     * \inmodule KIdentityManagementCore
+     * \inheaderfile KIdentityManagementCore/Signature
+     */
     struct EmbeddedImage {
+        /*!
+         */
         QImage image;
+        /*!
+         */
         QString name;
     };
     using EmbeddedImagePtr = QSharedPointer<EmbeddedImage>;

@@ -17,11 +17,18 @@ class Identity;
 namespace KIdentityManagementQuick
 {
 
+/*!
+ * \class KIdentityManagementQuick::KeyUseTypes
+ * \inmodule KIdentityManagementQuick
+ * \inheaderfile KIdentityManagementQuick/KeyListModelInterface
+ */
 class KeyUseTypes
 {
     Q_GADGET
 
 public:
+    /*!
+     */
     enum class KeyUse {
         KeySigningUse,
         KeyEncryptionUse

@@ -761,8 +761,14 @@ protected:
     /*! Returns whether to use signature from file instead of inline signature */
     [[nodiscard]] bool useSignatureFile() const;
 
+    /*!
+     */
     Signature mSignature;
+    /*!
+     */
     bool mIsDefault = false;
+    /*!
+     */
     QHash<QString, QVariant> mPropertiesMap;
 };
 }
