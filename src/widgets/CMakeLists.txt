@@ -24,11 +24,7 @@ target_sources(
     KPim6IdentityManagementWidgets
     PRIVATE
         identitycombo.cpp
-        signatureconfigurator.cpp
-        signaturerichtexteditor.cpp
-        signaturerichtexteditor_p.h
         identitycombo.h
-        signatureconfigurator.h
         identitytreeview.h
         identitytreeview.cpp
         identitytreedelegate.h
@@ -64,15 +60,11 @@ target_link_libraries(
         Qt::Widgets
     PRIVATE
         KF6::CoreAddons
-        KPim6::PimTextEdit
         KF6::Codecs
         Qt::Network
         KF6::I18n
         KF6::WidgetsAddons
-        KF6::XmlGui
-        KF6::KIOWidgets
         KF6::ConfigCore
-        KF6::TextCustomEditor
 )
 
 ########### CMake Config Files ###########
@@ -111,7 +103,6 @@ install(
 ecm_generate_headers(KIdentityManagementWidgets_CamelCase_HEADERS
   HEADER_NAMES
   IdentityCombo
-  SignatureConfigurator
   IdentityTreeView
   PREFIX KIdentityManagementWidgets
   REQUIRED_HEADERS KIdentityManagementWidgets_HEADERS

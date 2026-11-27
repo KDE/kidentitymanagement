@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: BSD-3-Clause
 cmake_minimum_required(VERSION 3.29)
-set(PIM_VERSION "6.9.40")
+set(PIM_VERSION "6.9.41")
 
 project(KIdentityManagement VERSION ${PIM_VERSION})
 # use a different SOVERSION for each minor release because we don't guarantee any ABI stability;
@@ -99,9 +99,6 @@ include(ECMCheckOutboundLicense)
 
 option(BUILD_QUICK_SUPPORT "Build quick support. Needed for merkuro project" ON)
 
-set(PIMTEXTEDIT_LIB_VERSION "6.9.40")
-set(KTEXTADDONS_MIN_VERSION "2.3.0")
-
 ########### Find packages ###########
 
 find_package(Qt6Network NO_MODULE REQUIRED)
@@ -112,14 +109,10 @@ if(BUILD_QUICK_SUPPORT)
 endif()
 
 find_package(KF6CoreAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF6XmlGui ${KF_MIN_VERSION} CONFIG REQUIRED)
-find_package(KF6KIO ${KF_MIN_VERSION} CONFIG REQUIRED)
+find_package(KF6WidgetsAddons ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6Config ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6Codecs ${KF_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF6I18n ${KF_MIN_VERSION} CONFIG REQUIRED)
-
-find_package(KF6TextCustomEditor ${KTEXTADDONS_MIN_VERSION} CONFIG REQUIRED)
-find_package(KPim6TextEdit ${PIMTEXTEDIT_LIB_VERSION} CONFIG REQUIRED)
 
 if(BUILD_TESTING)
     find_package(Qt6Test ${QT_REQUIRED_VERSION} CONFIG REQUIRED)

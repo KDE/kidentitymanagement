@@ -190,7 +190,7 @@ public:
      * \warning readConfig will delete all other PNG files in this directory, as they could
      *          be stale inline image files
      *
-     * Like with addImage(), the SignatureConfigurator will handle this for you.
+     * Like with addImage(), the signature configuration UI can handle this for you.
      * \a path the path to set as image location
      * \since 4.4
      */
@@ -208,7 +208,7 @@ public:
      * referenced images needed to be added by calling this function. The \a imageName has to match
      * the src attribute of the img tag.
      *
-     * If you use SignatureConfigurator, you don't need to call this function, as the configurator
+     * If you use a signature configurator, you do not need to call this function, as the configurator
      * will handle this for you.
      * setImageLocation() needs to be called once before.
      * \since 4.4

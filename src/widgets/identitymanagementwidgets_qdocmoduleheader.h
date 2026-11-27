@@ -8,5 +8,3 @@
 #include "identitycombo.h"
 #include "identitytreedelegate.h"
 #include "identitytreeview.h"
-#include "signatureconfigurator.h"
-#include "signaturerichtexteditor_p.h"

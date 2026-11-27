@@ -15,9 +15,6 @@ class SignatureTester : public QObject
 
 private Q_SLOTS:
     void testSignatures();
-    void testTextEditInsertion();
-    void testBug167961();
     void testImages();
-    void testLinebreaks();
     void testEqualSignatures();
 };

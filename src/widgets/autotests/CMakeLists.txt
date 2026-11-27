@@ -8,14 +8,8 @@ macro(add_identitywidget_test _source)
         TEST_NAME ${_name}
         NAME_PREFIX "kpimidentitywidgets-"
 	LINK_LIBRARIES KPim6::IdentityManagementWidgets
-        KPim6::PimTextEdit Qt::Test KF6::ConfigCore KF6::XmlGui KF6::CoreAddons
+        Qt::Test KF6::ConfigCore KF6::CoreAddons
     )
 endmacro()
 
 add_identitywidget_test(identitytreeviewtest.cpp)
-add_identitywidget_test(signaturetest.cpp)
-target_compile_definitions(
-    signaturetest
-    PRIVATE
-        SIGNATURETEST_DATA_FILE="${CMAKE_CURRENT_SOURCE_DIR}/signaturetest.cpp"
-)
